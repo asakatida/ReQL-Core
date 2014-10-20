@@ -1,4 +1,8 @@
 # Compiled Object files
+__pycache__/
+*.out
+*.py[cod]
+*.src.rock
 *.slo
 *.lo
 *.o
