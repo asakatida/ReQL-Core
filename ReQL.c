@@ -78,13 +78,13 @@ _ReQL_Op_t *_reql_expr_bool(int val) {
   return term;
 }
 
-_ReQL_Conn_t *_reql_connect(char *host, int port){
+_ReQL_Conn_t *_reql_connect(char *host, int port) {
   _ReQL_Conn_t *conn;
   return conn;
 }
 
 _ReQL_Cur_t *_reql_run(
-    _ReQL_Op_t *query, _ReQL_Conn_t *conn, _ReQL_kwarg_t *kwargs){
+    _ReQL_Op_t *query, _ReQL_Conn_t *conn, _ReQL_kwarg_t *kwargs) {
   _ReQL_Cur_t *cur;
   return cur;
 }
