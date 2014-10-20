@@ -229,10 +229,10 @@ struct _ReQL_Cur_s {
 };
 typedef struct _ReQL_Cur_s _ReQL_Cur_t;
 
-_ReQL_arg_t *_reql_arg_new();
+_ReQL_arg_t *_reql_arg_new(_ReQL_Op_t *val);
 int _reql_arg_append(_ReQL_arg_t *args, _ReQL_Op_t *val);
 
-_ReQL_kwarg_t *_reql_kwarg_new();
+_ReQL_kwarg_t *_reql_kwarg_new(char *key, _ReQL_Op_t *val);
 int _reql_kwarg_add(_ReQL_kwarg_t *kwargs, char *key, _ReQL_Op_t *val);
 
 _ReQL_Op_t *_reql_expr_number(double val);

@@ -1,8 +1,9 @@
 #include "ReQL.h"
 
-_ReQL_arg_t *_reql_arg_new() {
+_ReQL_arg_t *_reql_arg_new(_ReQL_Op_t *val) {
   _ReQL_arg_t *arg;
-  arg->arg = _reql_expr_null();
+  arg->arg = val;
+  arg->next_arg = arg;
   return arg;
 }
 
@@ -15,10 +16,10 @@ int _reql_arg_append(_ReQL_arg_t *args, _ReQL_Op_t *val) {
   return 0;
 }
 
-_ReQL_kwarg_t *_reql_kwarg_new() {
+_ReQL_kwarg_t *_reql_kwarg_new(char *key, _ReQL_Op_t *val) {
   _ReQL_kwarg_t *kwarg;
-  kwarg->key = 0;
-  kwarg->val = _reql_expr_null();
+  kwarg->key = key;
+  kwarg->val = val;
   kwarg->next_kwarg = kwarg;
   return kwarg;
 }
