@@ -1,3 +1,59 @@
+struct _ReQL_arg_s {
+  struct _ReQL_Op_s *arg;
+  struct _ReQL_arg_s *next_arg;
+};
+typedef struct _ReQL_arg_s _ReQL_arg_t;
+
+struct _ReQL_kwarg_s {
+  char *key;
+  struct _ReQL_Op_s *val;
+  struct _ReQL_kwarg_s *next_kwarg;
+};
+typedef struct _ReQL_kwarg_s _ReQL_kwarg_t;
+
+struct _ReQL_Op_s {
+  int tt;
+  int dt;
+
+  int str_len;
+  char *str;
+
+  double num;
+
+  _ReQL_arg_t *args;
+  _ReQL_kwarg_t *kwargs;
+};
+typedef struct _ReQL_Op_s _ReQL_Op_t;
+
+struct _ReQL_Conn_s {
+};
+typedef struct _ReQL_Conn_s _ReQL_Conn_t;
+
+struct _ReQL_Cur_s {
+};
+typedef struct _ReQL_Cur_s _ReQL_Cur_t;
+
+_ReQL_arg_t *_reql_arg_new(_ReQL_Op_t *val);
+int _reql_arg_append(_ReQL_arg_t *args, _ReQL_Op_t *val);
+
+_ReQL_kwarg_t *_reql_kwarg_new(char *key, _ReQL_Op_t *val);
+int _reql_kwarg_add(_ReQL_kwarg_t *kwargs, char *key, _ReQL_Op_t *val);
+
+_ReQL_Op_t *_reql_expr_number(double val);
+_ReQL_Op_t *_reql_expr_string(char *val, int str_len);
+_ReQL_Op_t *_reql_expr_array(_ReQL_arg_t *val);
+_ReQL_Op_t *_reql_expr_object(_ReQL_kwarg_t *val);
+_ReQL_Op_t *_reql_expr_null();
+_ReQL_Op_t *_reql_expr_bool(int val);
+
+_ReQL_Conn_t *_reql_connect(char *host, int port);
+
+_ReQL_Cur_t *_reql_run(
+  _ReQL_Op_t *query, _ReQL_Conn_t *conn, _ReQL_kwarg_t *kwargs);
+
+int _reql_close_conn(_ReQL_Conn_t *conn);
+int _reql_close_cur(_ReQL_Cur_t *cur);
+
 /* start generated constants */
 const int _REQL_VERSION = 0x5f75e83e;
 const int _REQL_PROTOCOL = 0x7e6970c7;
@@ -193,62 +249,6 @@ enum {
   _REQL_ZIP = 72
 };
 /* end generated constants */
-
-struct _ReQL_arg_s {
-  struct _ReQL_Op_s *arg;
-  struct _ReQL_arg_s *next_arg;
-};
-typedef struct _ReQL_arg_s _ReQL_arg_t;
-
-struct _ReQL_kwarg_s {
-  char *key;
-  struct _ReQL_Op_s *val;
-  struct _ReQL_kwarg_s *next_kwarg;
-};
-typedef struct _ReQL_kwarg_s _ReQL_kwarg_t;
-
-struct _ReQL_Op_s {
-  int tt;
-  int dt;
-
-  int str_len;
-  char *str;
-
-  double num;
-
-  _ReQL_arg_t *args;
-  _ReQL_kwarg_t *kwargs;
-};
-typedef struct _ReQL_Op_s _ReQL_Op_t;
-
-struct _ReQL_Conn_s {
-};
-typedef struct _ReQL_Conn_s _ReQL_Conn_t;
-
-struct _ReQL_Cur_s {
-};
-typedef struct _ReQL_Cur_s _ReQL_Cur_t;
-
-_ReQL_arg_t *_reql_arg_new(_ReQL_Op_t *val);
-int _reql_arg_append(_ReQL_arg_t *args, _ReQL_Op_t *val);
-
-_ReQL_kwarg_t *_reql_kwarg_new(char *key, _ReQL_Op_t *val);
-int _reql_kwarg_add(_ReQL_kwarg_t *kwargs, char *key, _ReQL_Op_t *val);
-
-_ReQL_Op_t *_reql_expr_number(double val);
-_ReQL_Op_t *_reql_expr_string(char *val, int str_len);
-_ReQL_Op_t *_reql_expr_array(_ReQL_arg_t *val);
-_ReQL_Op_t *_reql_expr_object(_ReQL_kwarg_t *val);
-_ReQL_Op_t *_reql_expr_null();
-_ReQL_Op_t *_reql_expr_bool(int val);
-
-_ReQL_Conn_t *_reql_connect(char *host, int port);
-
-_ReQL_Cur_t *_reql_run(
-  _ReQL_Op_t *query, _ReQL_Conn_t *conn, _ReQL_kwarg_t *kwargs);
-
-int _reql_close_conn(_ReQL_Conn_t *conn);
-int _reql_close_cur(_ReQL_Cur_t *cur);
 
 /* start generated header */
 _ReQL_Op_t *_reql_add(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs);
