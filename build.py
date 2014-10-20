@@ -1,6 +1,57 @@
 import ql2_pb2
 
 
+term_func_c = '''
+_ReQL_Op_t *_reql_{}(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {{
+  _ReQL_Op_t *term = _reql_expr_null();
+  term->tt = _REQL_{};
+  term->dt = _REQL_R_JSON;
+  term->args = args;
+  term->kwargs = kwargs;
+  return term;
+}}'''
+
+
+term_func_cpp = '''
+void ReQL::{}() {{
+}}'''
+
+
+term_func_lua = '''
+static int _reql_lua_{}(lua_State *L) {{
+  return 1;
+}}'''
+
+
+term_func_node = '''
+Handle<Value> _reql_node_{}(const Arguments& args) {{
+}}'''
+
+
+term_func_python = '''
+static PyObject *_reql_py_{}(PyObject *self, PyObject *args, PyObject *kwargs) {{
+}}'''
+
+
+term_func_ruby = '''
+static VALUE _reql_rb_{}(int argn, VALUE *args, VALUE self) {{
+}}'''
+
+
+def make_terms(src, term_func):
+    return '\n'.join(
+        [
+            src[:src.find('/* start generated terms */')] +
+            '/* start generated terms */'
+        ] + [
+            term_func.format(t.lower(), t)
+            for t in dir(ql2_pb2.Term.TermType) if not t.startswith('_')
+        ] + [
+            src[src.find('/* end generated terms */'):]
+        ]
+    )
+
+
 def make_enum(enum):
     return ''.join((
         'enum {\n  ',
@@ -70,28 +121,20 @@ def main():
     with open('ReQL.h', 'w') as io:
         io.write(src)
 
-    with open('ReQL.c', 'r') as io:
-        src = io.read()
+    for file_name, term_func in (
+            ('ReQL.c', term_func_c),
+            ('ReQL-CPP.cpp', term_func_cpp),
+            ('ReQL-Lua.c', term_func_lua),
+            ('ReQL-Node.cpp', term_func_node),
+            ('ReQL-Python.c', term_func_python),
+            ('ReQL-Ruby.c', term_func_ruby)):
+        with open(file_name, 'r') as io:
+            src = io.read()
 
-    start_terms = src.find('/* start generated terms */')
-    end_terms = src.find('/* end generated terms */')
+        src = make_terms(src, term_func)
 
-    term_creators = [src[:start_terms] + '/* start generated terms */'] + [
-'''_ReQL_Op_t *_reql_{}(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {{
-  _ReQL_Op_t *term = _reql_expr_null();
-  term->tt = _REQL_{};
-  term->dt = _REQL_R_JSON;
-  term->args = args;
-  term->kwargs = kwargs;
-  return term;
-}}'''.format(t.lower(), t)
-        for t in dir(ql2_pb2.Term.TermType) if not t.startswith('_')
-    ] + [src[end_terms:]]
-
-    src = '\n'.join(term_creators)
-
-    with open('ReQL.c', 'w') as io:
-        io.write(src)
+        with open(file_name, 'w') as io:
+            io.write(src)
 
 
 if __name__ == '__main__':

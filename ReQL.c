@@ -98,6 +98,7 @@ int _reql_close_cur(_ReQL_Cur_t *cur){
 }
 
 /* start generated terms */
+
 _ReQL_Op_t *_reql_add(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_ADD;
@@ -106,6 +107,7 @@ _ReQL_Op_t *_reql_add(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_all(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_ALL;
@@ -114,6 +116,7 @@ _ReQL_Op_t *_reql_all(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_any(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_ANY;
@@ -122,6 +125,7 @@ _ReQL_Op_t *_reql_any(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_append(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_APPEND;
@@ -130,6 +134,7 @@ _ReQL_Op_t *_reql_append(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_april(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_APRIL;
@@ -138,6 +143,7 @@ _ReQL_Op_t *_reql_april(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_args(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_ARGS;
@@ -146,6 +152,7 @@ _ReQL_Op_t *_reql_args(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_asc(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_ASC;
@@ -154,6 +161,7 @@ _ReQL_Op_t *_reql_asc(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_august(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_AUGUST;
@@ -162,6 +170,7 @@ _ReQL_Op_t *_reql_august(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_avg(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_AVG;
@@ -170,6 +179,7 @@ _ReQL_Op_t *_reql_avg(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_between(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_BETWEEN;
@@ -178,6 +188,7 @@ _ReQL_Op_t *_reql_between(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_binary(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_BINARY;
@@ -186,6 +197,7 @@ _ReQL_Op_t *_reql_binary(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_bracket(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_BRACKET;
@@ -194,6 +206,7 @@ _ReQL_Op_t *_reql_bracket(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_branch(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_BRANCH;
@@ -202,6 +215,7 @@ _ReQL_Op_t *_reql_branch(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_changes(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_CHANGES;
@@ -210,6 +224,7 @@ _ReQL_Op_t *_reql_changes(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_change_at(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_CHANGE_AT;
@@ -218,6 +233,7 @@ _ReQL_Op_t *_reql_change_at(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_circle(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_CIRCLE;
@@ -226,6 +242,7 @@ _ReQL_Op_t *_reql_circle(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_coerce_to(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_COERCE_TO;
@@ -234,6 +251,7 @@ _ReQL_Op_t *_reql_coerce_to(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_concat_map(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_CONCAT_MAP;
@@ -242,6 +260,7 @@ _ReQL_Op_t *_reql_concat_map(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_contains(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_CONTAINS;
@@ -250,6 +269,7 @@ _ReQL_Op_t *_reql_contains(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_count(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_COUNT;
@@ -258,6 +278,7 @@ _ReQL_Op_t *_reql_count(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_date(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_DATE;
@@ -266,6 +287,7 @@ _ReQL_Op_t *_reql_date(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_datum(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_DATUM;
@@ -274,6 +296,7 @@ _ReQL_Op_t *_reql_datum(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_day(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_DAY;
@@ -282,6 +305,7 @@ _ReQL_Op_t *_reql_day(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_day_of_week(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_DAY_OF_WEEK;
@@ -290,6 +314,7 @@ _ReQL_Op_t *_reql_day_of_week(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_day_of_year(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_DAY_OF_YEAR;
@@ -298,6 +323,7 @@ _ReQL_Op_t *_reql_day_of_year(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_db(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_DB;
@@ -306,6 +332,7 @@ _ReQL_Op_t *_reql_db(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_db_create(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_DB_CREATE;
@@ -314,6 +341,7 @@ _ReQL_Op_t *_reql_db_create(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_db_drop(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_DB_DROP;
@@ -322,6 +350,7 @@ _ReQL_Op_t *_reql_db_drop(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_db_list(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_DB_LIST;
@@ -330,6 +359,7 @@ _ReQL_Op_t *_reql_db_list(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_december(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_DECEMBER;
@@ -338,6 +368,7 @@ _ReQL_Op_t *_reql_december(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_default(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_DEFAULT;
@@ -346,6 +377,7 @@ _ReQL_Op_t *_reql_default(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_delete(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_DELETE;
@@ -354,6 +386,7 @@ _ReQL_Op_t *_reql_delete(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_delete_at(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_DELETE_AT;
@@ -362,6 +395,7 @@ _ReQL_Op_t *_reql_delete_at(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_desc(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_DESC;
@@ -370,6 +404,7 @@ _ReQL_Op_t *_reql_desc(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_difference(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_DIFFERENCE;
@@ -378,6 +413,7 @@ _ReQL_Op_t *_reql_difference(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_distance(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_DISTANCE;
@@ -386,6 +422,7 @@ _ReQL_Op_t *_reql_distance(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_distinct(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_DISTINCT;
@@ -394,6 +431,7 @@ _ReQL_Op_t *_reql_distinct(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_div(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_DIV;
@@ -402,6 +440,7 @@ _ReQL_Op_t *_reql_div(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_downcase(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_DOWNCASE;
@@ -410,6 +449,7 @@ _ReQL_Op_t *_reql_downcase(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_during(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_DURING;
@@ -418,6 +458,7 @@ _ReQL_Op_t *_reql_during(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_epoch_time(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_EPOCH_TIME;
@@ -426,6 +467,7 @@ _ReQL_Op_t *_reql_epoch_time(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_eq(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_EQ;
@@ -434,6 +476,7 @@ _ReQL_Op_t *_reql_eq(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_eq_join(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_EQ_JOIN;
@@ -442,6 +485,7 @@ _ReQL_Op_t *_reql_eq_join(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_error(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_ERROR;
@@ -450,6 +494,7 @@ _ReQL_Op_t *_reql_error(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_february(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_FEBRUARY;
@@ -458,6 +503,7 @@ _ReQL_Op_t *_reql_february(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_fill(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_FILL;
@@ -466,6 +512,7 @@ _ReQL_Op_t *_reql_fill(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_filter(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_FILTER;
@@ -474,6 +521,7 @@ _ReQL_Op_t *_reql_filter(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_for_each(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_FOR_EACH;
@@ -482,6 +530,7 @@ _ReQL_Op_t *_reql_for_each(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_friday(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_FRIDAY;
@@ -490,6 +539,7 @@ _ReQL_Op_t *_reql_friday(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_func(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_FUNC;
@@ -498,6 +548,7 @@ _ReQL_Op_t *_reql_func(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_funcall(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_FUNCALL;
@@ -506,6 +557,7 @@ _ReQL_Op_t *_reql_funcall(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_ge(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_GE;
@@ -514,6 +566,7 @@ _ReQL_Op_t *_reql_ge(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_geojson(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_GEOJSON;
@@ -522,6 +575,7 @@ _ReQL_Op_t *_reql_geojson(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_get(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_GET;
@@ -530,6 +584,7 @@ _ReQL_Op_t *_reql_get(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_get_all(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_GET_ALL;
@@ -538,6 +593,7 @@ _ReQL_Op_t *_reql_get_all(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_get_field(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_GET_FIELD;
@@ -546,6 +602,7 @@ _ReQL_Op_t *_reql_get_field(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_get_intersecting(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_GET_INTERSECTING;
@@ -554,6 +611,7 @@ _ReQL_Op_t *_reql_get_intersecting(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_get_nearest(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_GET_NEAREST;
@@ -562,6 +620,7 @@ _ReQL_Op_t *_reql_get_nearest(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_group(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_GROUP;
@@ -570,6 +629,7 @@ _ReQL_Op_t *_reql_group(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_gt(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_GT;
@@ -578,6 +638,7 @@ _ReQL_Op_t *_reql_gt(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_has_fields(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_HAS_FIELDS;
@@ -586,6 +647,7 @@ _ReQL_Op_t *_reql_has_fields(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_hours(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_HOURS;
@@ -594,6 +656,7 @@ _ReQL_Op_t *_reql_hours(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_http(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_HTTP;
@@ -602,6 +665,7 @@ _ReQL_Op_t *_reql_http(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_implicit_var(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_IMPLICIT_VAR;
@@ -610,6 +674,7 @@ _ReQL_Op_t *_reql_implicit_var(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_includes(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_INCLUDES;
@@ -618,6 +683,7 @@ _ReQL_Op_t *_reql_includes(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_indexes_of(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_INDEXES_OF;
@@ -626,6 +692,7 @@ _ReQL_Op_t *_reql_indexes_of(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_index_create(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_INDEX_CREATE;
@@ -634,6 +701,7 @@ _ReQL_Op_t *_reql_index_create(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_index_drop(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_INDEX_DROP;
@@ -642,6 +710,7 @@ _ReQL_Op_t *_reql_index_drop(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_index_list(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_INDEX_LIST;
@@ -650,6 +719,7 @@ _ReQL_Op_t *_reql_index_list(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_index_rename(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_INDEX_RENAME;
@@ -658,6 +728,7 @@ _ReQL_Op_t *_reql_index_rename(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_index_status(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_INDEX_STATUS;
@@ -666,6 +737,7 @@ _ReQL_Op_t *_reql_index_status(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_index_wait(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_INDEX_WAIT;
@@ -674,6 +746,7 @@ _ReQL_Op_t *_reql_index_wait(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_info(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_INFO;
@@ -682,6 +755,7 @@ _ReQL_Op_t *_reql_info(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_inner_join(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_INNER_JOIN;
@@ -690,6 +764,7 @@ _ReQL_Op_t *_reql_inner_join(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_insert(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_INSERT;
@@ -698,6 +773,7 @@ _ReQL_Op_t *_reql_insert(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_insert_at(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_INSERT_AT;
@@ -706,6 +782,7 @@ _ReQL_Op_t *_reql_insert_at(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_intersects(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_INTERSECTS;
@@ -714,6 +791,7 @@ _ReQL_Op_t *_reql_intersects(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_in_timezone(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_IN_TIMEZONE;
@@ -722,6 +800,7 @@ _ReQL_Op_t *_reql_in_timezone(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_iso8601(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_ISO8601;
@@ -730,6 +809,7 @@ _ReQL_Op_t *_reql_iso8601(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_is_empty(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_IS_EMPTY;
@@ -738,6 +818,7 @@ _ReQL_Op_t *_reql_is_empty(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_january(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_JANUARY;
@@ -746,6 +827,7 @@ _ReQL_Op_t *_reql_january(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_javascript(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_JAVASCRIPT;
@@ -754,6 +836,7 @@ _ReQL_Op_t *_reql_javascript(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_json(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_JSON;
@@ -762,6 +845,7 @@ _ReQL_Op_t *_reql_json(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_july(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_JULY;
@@ -770,6 +854,7 @@ _ReQL_Op_t *_reql_july(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_june(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_JUNE;
@@ -778,6 +863,7 @@ _ReQL_Op_t *_reql_june(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_keys(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_KEYS;
@@ -786,6 +872,7 @@ _ReQL_Op_t *_reql_keys(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_le(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_LE;
@@ -794,6 +881,7 @@ _ReQL_Op_t *_reql_le(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_limit(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_LIMIT;
@@ -802,6 +890,7 @@ _ReQL_Op_t *_reql_limit(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_line(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_LINE;
@@ -810,6 +899,7 @@ _ReQL_Op_t *_reql_line(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_literal(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_LITERAL;
@@ -818,6 +908,7 @@ _ReQL_Op_t *_reql_literal(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_lt(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_LT;
@@ -826,6 +917,7 @@ _ReQL_Op_t *_reql_lt(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_make_array(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_MAKE_ARRAY;
@@ -834,6 +926,7 @@ _ReQL_Op_t *_reql_make_array(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_make_obj(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_MAKE_OBJ;
@@ -842,6 +935,7 @@ _ReQL_Op_t *_reql_make_obj(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_map(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_MAP;
@@ -850,6 +944,7 @@ _ReQL_Op_t *_reql_map(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_march(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_MARCH;
@@ -858,6 +953,7 @@ _ReQL_Op_t *_reql_march(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_match(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_MATCH;
@@ -866,6 +962,7 @@ _ReQL_Op_t *_reql_match(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_max(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_MAX;
@@ -874,6 +971,7 @@ _ReQL_Op_t *_reql_max(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_may(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_MAY;
@@ -882,6 +980,7 @@ _ReQL_Op_t *_reql_may(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_merge(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_MERGE;
@@ -890,6 +989,7 @@ _ReQL_Op_t *_reql_merge(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_min(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_MIN;
@@ -898,6 +998,7 @@ _ReQL_Op_t *_reql_min(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_minutes(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_MINUTES;
@@ -906,6 +1007,7 @@ _ReQL_Op_t *_reql_minutes(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_mod(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_MOD;
@@ -914,6 +1016,7 @@ _ReQL_Op_t *_reql_mod(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_monday(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_MONDAY;
@@ -922,6 +1025,7 @@ _ReQL_Op_t *_reql_monday(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_month(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_MONTH;
@@ -930,6 +1034,7 @@ _ReQL_Op_t *_reql_month(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_mul(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_MUL;
@@ -938,6 +1043,7 @@ _ReQL_Op_t *_reql_mul(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_ne(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_NE;
@@ -946,6 +1052,7 @@ _ReQL_Op_t *_reql_ne(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_not(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_NOT;
@@ -954,6 +1061,7 @@ _ReQL_Op_t *_reql_not(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_november(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_NOVEMBER;
@@ -962,6 +1070,7 @@ _ReQL_Op_t *_reql_november(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_now(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_NOW;
@@ -970,6 +1079,7 @@ _ReQL_Op_t *_reql_now(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_nth(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_NTH;
@@ -978,6 +1088,7 @@ _ReQL_Op_t *_reql_nth(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_object(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_OBJECT;
@@ -986,6 +1097,7 @@ _ReQL_Op_t *_reql_object(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_october(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_OCTOBER;
@@ -994,6 +1106,7 @@ _ReQL_Op_t *_reql_october(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_order_by(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_ORDER_BY;
@@ -1002,6 +1115,7 @@ _ReQL_Op_t *_reql_order_by(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_outer_join(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_OUTER_JOIN;
@@ -1010,6 +1124,7 @@ _ReQL_Op_t *_reql_outer_join(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_pluck(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_PLUCK;
@@ -1018,6 +1133,7 @@ _ReQL_Op_t *_reql_pluck(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_point(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_POINT;
@@ -1026,6 +1142,7 @@ _ReQL_Op_t *_reql_point(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_polygon(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_POLYGON;
@@ -1034,6 +1151,7 @@ _ReQL_Op_t *_reql_polygon(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_polygon_sub(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_POLYGON_SUB;
@@ -1042,6 +1160,7 @@ _ReQL_Op_t *_reql_polygon_sub(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_prepend(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_PREPEND;
@@ -1050,6 +1169,7 @@ _ReQL_Op_t *_reql_prepend(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_random(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_RANDOM;
@@ -1058,6 +1178,7 @@ _ReQL_Op_t *_reql_random(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_range(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_RANGE;
@@ -1066,6 +1187,7 @@ _ReQL_Op_t *_reql_range(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_reduce(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_REDUCE;
@@ -1074,6 +1196,7 @@ _ReQL_Op_t *_reql_reduce(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_replace(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_REPLACE;
@@ -1082,6 +1205,7 @@ _ReQL_Op_t *_reql_replace(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_sample(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_SAMPLE;
@@ -1090,6 +1214,7 @@ _ReQL_Op_t *_reql_sample(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_saturday(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_SATURDAY;
@@ -1098,6 +1223,7 @@ _ReQL_Op_t *_reql_saturday(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_seconds(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_SECONDS;
@@ -1106,6 +1232,7 @@ _ReQL_Op_t *_reql_seconds(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_september(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_SEPTEMBER;
@@ -1114,6 +1241,7 @@ _ReQL_Op_t *_reql_september(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_set_difference(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_SET_DIFFERENCE;
@@ -1122,6 +1250,7 @@ _ReQL_Op_t *_reql_set_difference(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_set_insert(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_SET_INSERT;
@@ -1130,6 +1259,7 @@ _ReQL_Op_t *_reql_set_insert(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_set_intersection(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_SET_INTERSECTION;
@@ -1138,6 +1268,7 @@ _ReQL_Op_t *_reql_set_intersection(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_set_union(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_SET_UNION;
@@ -1146,6 +1277,7 @@ _ReQL_Op_t *_reql_set_union(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_skip(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_SKIP;
@@ -1154,6 +1286,7 @@ _ReQL_Op_t *_reql_skip(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_slice(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_SLICE;
@@ -1162,6 +1295,7 @@ _ReQL_Op_t *_reql_slice(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_splice_at(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_SPLICE_AT;
@@ -1170,6 +1304,7 @@ _ReQL_Op_t *_reql_splice_at(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_split(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_SPLIT;
@@ -1178,6 +1313,7 @@ _ReQL_Op_t *_reql_split(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_sub(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_SUB;
@@ -1186,6 +1322,7 @@ _ReQL_Op_t *_reql_sub(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_sum(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_SUM;
@@ -1194,6 +1331,7 @@ _ReQL_Op_t *_reql_sum(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_sunday(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_SUNDAY;
@@ -1202,6 +1340,7 @@ _ReQL_Op_t *_reql_sunday(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_sync(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_SYNC;
@@ -1210,6 +1349,7 @@ _ReQL_Op_t *_reql_sync(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_table(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_TABLE;
@@ -1218,6 +1358,7 @@ _ReQL_Op_t *_reql_table(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_table_create(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_TABLE_CREATE;
@@ -1226,6 +1367,7 @@ _ReQL_Op_t *_reql_table_create(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_table_drop(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_TABLE_DROP;
@@ -1234,6 +1376,7 @@ _ReQL_Op_t *_reql_table_drop(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_table_list(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_TABLE_LIST;
@@ -1242,6 +1385,7 @@ _ReQL_Op_t *_reql_table_list(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_thursday(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_THURSDAY;
@@ -1250,6 +1394,7 @@ _ReQL_Op_t *_reql_thursday(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_time(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_TIME;
@@ -1258,6 +1403,7 @@ _ReQL_Op_t *_reql_time(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_timezone(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_TIMEZONE;
@@ -1266,6 +1412,7 @@ _ReQL_Op_t *_reql_timezone(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_time_of_day(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_TIME_OF_DAY;
@@ -1274,6 +1421,7 @@ _ReQL_Op_t *_reql_time_of_day(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_to_epoch_time(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_TO_EPOCH_TIME;
@@ -1282,6 +1430,7 @@ _ReQL_Op_t *_reql_to_epoch_time(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_to_geojson(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_TO_GEOJSON;
@@ -1290,6 +1439,7 @@ _ReQL_Op_t *_reql_to_geojson(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_to_iso8601(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_TO_ISO8601;
@@ -1298,6 +1448,7 @@ _ReQL_Op_t *_reql_to_iso8601(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_to_json_string(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_TO_JSON_STRING;
@@ -1306,6 +1457,7 @@ _ReQL_Op_t *_reql_to_json_string(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_tuesday(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_TUESDAY;
@@ -1314,6 +1466,7 @@ _ReQL_Op_t *_reql_tuesday(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_type_of(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_TYPE_OF;
@@ -1322,6 +1475,7 @@ _ReQL_Op_t *_reql_type_of(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_ungroup(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_UNGROUP;
@@ -1330,6 +1484,7 @@ _ReQL_Op_t *_reql_ungroup(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_union(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_UNION;
@@ -1338,6 +1493,7 @@ _ReQL_Op_t *_reql_union(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_upcase(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_UPCASE;
@@ -1346,6 +1502,7 @@ _ReQL_Op_t *_reql_upcase(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_update(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_UPDATE;
@@ -1354,6 +1511,7 @@ _ReQL_Op_t *_reql_update(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_uuid(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_UUID;
@@ -1362,6 +1520,7 @@ _ReQL_Op_t *_reql_uuid(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_var(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_VAR;
@@ -1370,6 +1529,7 @@ _ReQL_Op_t *_reql_var(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_wednesday(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_WEDNESDAY;
@@ -1378,6 +1538,7 @@ _ReQL_Op_t *_reql_wednesday(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_without(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_WITHOUT;
@@ -1386,6 +1547,7 @@ _ReQL_Op_t *_reql_without(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_with_fields(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_WITH_FIELDS;
@@ -1394,6 +1556,7 @@ _ReQL_Op_t *_reql_with_fields(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_year(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_YEAR;
@@ -1402,6 +1565,7 @@ _ReQL_Op_t *_reql_year(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   term->kwargs = kwargs;
   return term;
 }
+
 _ReQL_Op_t *_reql_zip(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_ZIP;
