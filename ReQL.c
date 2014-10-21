@@ -1,9 +1,8 @@
 #include "ReQL.h"
 #include <sys/socket.h>
 
-_ReQL_arg_t *_reql_arg_new(_ReQL_Op_t *val) {
+_ReQL_arg_t *_reql_arg_new() {
   _ReQL_arg_t *arg;
-  arg->arg = val;
   arg->next_arg = arg;
   return arg;
 }
@@ -13,14 +12,14 @@ int _reql_arg_append(_ReQL_arg_t *args, _ReQL_Op_t *val) {
     args = args->next_arg;
   }
   args->arg = val;
-  args->next_arg = args;
+  _ReQL_arg_t *next_arg;
+  args->next_arg = next_arg;
+  next_arg->next_arg = next_arg;
   return 0;
 }
 
-_ReQL_kwarg_t *_reql_kwarg_new(char *key, _ReQL_Op_t *val) {
+_ReQL_kwarg_t *_reql_kwarg_new() {
   _ReQL_kwarg_t *kwarg;
-  kwarg->key = key;
-  kwarg->val = val;
   kwarg->next_kwarg = kwarg;
   return kwarg;
 }
@@ -31,7 +30,9 @@ int _reql_kwarg_add(_ReQL_kwarg_t *kwargs, char *key, _ReQL_Op_t *val) {
   }
   kwargs->key = key;
   kwargs->val = val;
-  kwargs->next_kwarg = kwargs;
+  _ReQL_kwarg_t *next_kwarg;
+  kwargs->next_kwarg = next_kwarg;
+  next_kwarg->next_kwarg = next_kwarg;
   return 0;
 }
 
