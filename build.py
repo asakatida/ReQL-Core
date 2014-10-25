@@ -39,7 +39,7 @@ static VALUE _reql_rb_{}(int argn, VALUE *args, VALUE self) {{
 
 
 term_head_c = '_ReQL_Op_t *_reql_{}(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs);'
-term_head_cpp = '    void {}();'
+term_head_cpp = '  void {}();'
 term_head_lua = 'static int _reql_lua_{}(lua_State *L);'
 term_head_node = 'Handle<Value> _reql_node_{}(const Arguments& args);'
 term_head_python = 'static PyObject *_reql_py_{}(PyObject *self, PyObject *args, PyObject *kwargs);'

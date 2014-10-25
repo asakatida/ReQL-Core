@@ -2,10 +2,10 @@
 #define _REQL_HPP
 
 class ReQL_Client {
-    int tt;
+  int tt;
 
 public:
-    int connect();
+  int connect();
 };
 
 #endif
