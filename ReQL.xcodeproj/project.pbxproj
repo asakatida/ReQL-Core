@@ -1,0 +1,294 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		87F6989F19FC1377005C8302 /* ReQL-ast.c in Sources */ = {isa = PBXBuildFile; fileRef = 87F6988B19FC1377005C8302 /* ReQL-ast.c */; };
+		87F698A019FC1377005C8302 /* ReQL-ast.h in Headers */ = {isa = PBXBuildFile; fileRef = 87F6988C19FC1377005C8302 /* ReQL-ast.h */; };
+		87F698A119FC1377005C8302 /* ReQL-CPP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87F6988D19FC1377005C8302 /* ReQL-CPP.cpp */; };
+		87F698A219FC1377005C8302 /* ReQL-CPP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 87F6988E19FC1377005C8302 /* ReQL-CPP.hpp */; };
+		87F698A719FC1377005C8302 /* ReQL.c in Sources */ = {isa = PBXBuildFile; fileRef = 87F6989319FC1377005C8302 /* ReQL.c */; };
+		87F698A819FC1377005C8302 /* ReQL.h in Headers */ = {isa = PBXBuildFile; fileRef = 87F6989419FC1377005C8302 /* ReQL.h */; };
+		87F698A919FC1397005C8302 /* ReQL-ast-CPP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 87F6988219FC1377005C8302 /* ReQL-ast-CPP.hpp */; };
+		87F698AA19FC1399005C8302 /* ReQL-ast-CPP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87F6988119FC1377005C8302 /* ReQL-ast-CPP.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		87CBA96019FC133D00A0CD99 /* libReQL.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libReQL.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		87F6988119FC1377005C8302 /* ReQL-ast-CPP.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "ReQL-ast-CPP.cpp"; sourceTree = "<group>"; };
+		87F6988219FC1377005C8302 /* ReQL-ast-CPP.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "ReQL-ast-CPP.hpp"; sourceTree = "<group>"; };
+		87F6988319FC1377005C8302 /* ReQL-ast-Lua.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "ReQL-ast-Lua.c"; sourceTree = "<group>"; };
+		87F6988419FC1377005C8302 /* ReQL-ast-Lua.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ReQL-ast-Lua.h"; sourceTree = "<group>"; };
+		87F6988519FC1377005C8302 /* ReQL-ast-Node.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "ReQL-ast-Node.cpp"; sourceTree = "<group>"; };
+		87F6988619FC1377005C8302 /* ReQL-ast-Node.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "ReQL-ast-Node.hpp"; sourceTree = "<group>"; };
+		87F6988719FC1377005C8302 /* ReQL-ast-Python.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "ReQL-ast-Python.c"; sourceTree = "<group>"; };
+		87F6988819FC1377005C8302 /* ReQL-ast-Python.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ReQL-ast-Python.h"; sourceTree = "<group>"; };
+		87F6988919FC1377005C8302 /* ReQL-ast-Ruby.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "ReQL-ast-Ruby.c"; sourceTree = "<group>"; };
+		87F6988A19FC1377005C8302 /* ReQL-ast-Ruby.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ReQL-ast-Ruby.h"; sourceTree = "<group>"; };
+		87F6988B19FC1377005C8302 /* ReQL-ast.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "ReQL-ast.c"; sourceTree = "<group>"; };
+		87F6988C19FC1377005C8302 /* ReQL-ast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ReQL-ast.h"; sourceTree = "<group>"; };
+		87F6988D19FC1377005C8302 /* ReQL-CPP.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "ReQL-CPP.cpp"; sourceTree = "<group>"; };
+		87F6988E19FC1377005C8302 /* ReQL-CPP.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "ReQL-CPP.hpp"; sourceTree = "<group>"; };
+		87F6988F19FC1377005C8302 /* ReQL-Lua.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "ReQL-Lua.c"; sourceTree = "<group>"; };
+		87F6989019FC1377005C8302 /* ReQL-Node.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "ReQL-Node.cpp"; sourceTree = "<group>"; };
+		87F6989119FC1377005C8302 /* ReQL-Python.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "ReQL-Python.c"; sourceTree = "<group>"; };
+		87F6989219FC1377005C8302 /* ReQL-Ruby.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "ReQL-Ruby.c"; sourceTree = "<group>"; };
+		87F6989319FC1377005C8302 /* ReQL.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ReQL.c; sourceTree = "<group>"; };
+		87F6989419FC1377005C8302 /* ReQL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReQL.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		87CBA95D19FC133D00A0CD99 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		87CBA95719FC133D00A0CD99 = {
+			isa = PBXGroup;
+			children = (
+				87CBA96119FC133D00A0CD99 /* Products */,
+				87F6988119FC1377005C8302 /* ReQL-ast-CPP.cpp */,
+				87F6988219FC1377005C8302 /* ReQL-ast-CPP.hpp */,
+				87F6988319FC1377005C8302 /* ReQL-ast-Lua.c */,
+				87F6988419FC1377005C8302 /* ReQL-ast-Lua.h */,
+				87F6988519FC1377005C8302 /* ReQL-ast-Node.cpp */,
+				87F6988619FC1377005C8302 /* ReQL-ast-Node.hpp */,
+				87F6988719FC1377005C8302 /* ReQL-ast-Python.c */,
+				87F6988819FC1377005C8302 /* ReQL-ast-Python.h */,
+				87F6988919FC1377005C8302 /* ReQL-ast-Ruby.c */,
+				87F6988A19FC1377005C8302 /* ReQL-ast-Ruby.h */,
+				87F6988B19FC1377005C8302 /* ReQL-ast.c */,
+				87F6988C19FC1377005C8302 /* ReQL-ast.h */,
+				87F6988D19FC1377005C8302 /* ReQL-CPP.cpp */,
+				87F6988E19FC1377005C8302 /* ReQL-CPP.hpp */,
+				87F6988F19FC1377005C8302 /* ReQL-Lua.c */,
+				87F6989019FC1377005C8302 /* ReQL-Node.cpp */,
+				87F6989119FC1377005C8302 /* ReQL-Python.c */,
+				87F6989219FC1377005C8302 /* ReQL-Ruby.c */,
+				87F6989319FC1377005C8302 /* ReQL.c */,
+				87F6989419FC1377005C8302 /* ReQL.h */,
+			);
+			sourceTree = "<group>";
+		};
+		87CBA96119FC133D00A0CD99 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				87CBA96019FC133D00A0CD99 /* libReQL.dylib */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		87CBA95E19FC133D00A0CD99 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				87F698A819FC1377005C8302 /* ReQL.h in Headers */,
+				87F698A019FC1377005C8302 /* ReQL-ast.h in Headers */,
+				87F698A219FC1377005C8302 /* ReQL-CPP.hpp in Headers */,
+				87F698A919FC1397005C8302 /* ReQL-ast-CPP.hpp in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		87CBA95F19FC133D00A0CD99 /* ReQL */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 87CBA96B19FC133D00A0CD99 /* Build configuration list for PBXNativeTarget "ReQL" */;
+			buildPhases = (
+				87CBA95C19FC133D00A0CD99 /* Sources */,
+				87CBA95D19FC133D00A0CD99 /* Frameworks */,
+				87CBA95E19FC133D00A0CD99 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ReQL;
+			productName = ReQL;
+			productReference = 87CBA96019FC133D00A0CD99 /* libReQL.dylib */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		87CBA95819FC133D00A0CD99 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = grandquista;
+				TargetAttributes = {
+					87CBA95F19FC133D00A0CD99 = {
+						CreatedOnToolsVersion = 6.1;
+					};
+				};
+			};
+			buildConfigurationList = 87CBA95B19FC133D00A0CD99 /* Build configuration list for PBXProject "ReQL" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 87CBA95719FC133D00A0CD99;
+			productRefGroup = 87CBA96119FC133D00A0CD99 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				87CBA95F19FC133D00A0CD99 /* ReQL */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		87CBA95C19FC133D00A0CD99 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				87F698A719FC1377005C8302 /* ReQL.c in Sources */,
+				87F698A119FC1377005C8302 /* ReQL-CPP.cpp in Sources */,
+				87F698AA19FC1399005C8302 /* ReQL-ast-CPP.cpp in Sources */,
+				87F6989F19FC1377005C8302 /* ReQL-ast.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		87CBA96919FC133D00A0CD99 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		87CBA96A19FC133D00A0CD99 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		87CBA96C19FC133D00A0CD99 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				EXECUTABLE_PREFIX = lib;
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
+				GCC_ENABLE_CPP_RTTI = YES;
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		87CBA96D19FC133D00A0CD99 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				EXECUTABLE_PREFIX = lib;
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
+				GCC_ENABLE_CPP_RTTI = YES;
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		87CBA95B19FC133D00A0CD99 /* Build configuration list for PBXProject "ReQL" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				87CBA96919FC133D00A0CD99 /* Debug */,
+				87CBA96A19FC133D00A0CD99 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		87CBA96B19FC133D00A0CD99 /* Build configuration list for PBXNativeTarget "ReQL" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				87CBA96C19FC133D00A0CD99 /* Debug */,
+				87CBA96D19FC133D00A0CD99 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 87CBA95819FC133D00A0CD99 /* Project object */;
+}
