@@ -1,4 +1,5 @@
-#include <lua.h>
+#include "ReQL-ast-Lua.h"
+
 #include <lauxlib.h>
 #include <lualib.h>
 #include <stdio.h>

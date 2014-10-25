@@ -1,3 +1,5 @@
+#include <lua.h>
+
 #ifndef _REQL_AST_LUA
 #define _REQL_AST_LUA
 
