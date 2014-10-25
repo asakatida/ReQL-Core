@@ -38,6 +38,14 @@ static VALUE _reql_rb_{}(int argn, VALUE *args, VALUE self) {{
 }}'''
 
 
+term_head_c = '_ReQL_Op_t *_reql_{}(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs);'
+term_head_cpp = '    void {}();'
+term_head_lua = 'static int _reql_lua_{}(lua_State *L);'
+term_head_node = 'Handle<Value> _reql_node_{}(const Arguments& args);'
+term_head_python = 'static PyObject *_reql_py_{}(PyObject *self, PyObject *args, PyObject *kwargs);'
+term_head_ruby = 'static VALUE _reql_rb_{}(int argn, VALUE *args, VALUE self);'
+
+
 def make_terms(src, term_func):
     return '\n'.join(
         [
@@ -48,6 +56,20 @@ def make_terms(src, term_func):
             for t in dir(ql2_pb2.Term.TermType) if not t.startswith('_')
         ] + [
             src[src.find('/* end generated terms */'):]
+        ]
+    )
+
+
+def make_header(src, term_head):
+    return '\n'.join(
+        [
+            src[:src.find('/* start generated header */')] +
+            '/* start generated header */'
+        ] + [
+            term_head.format(t.lower(), t)
+            for t in dir(ql2_pb2.Term.TermType) if not t.startswith('_')
+        ] + [
+            src[src.find('/* end generated header */'):]
         ]
     )
 
@@ -136,6 +158,20 @@ def main():
         with open(file_name, 'w') as io:
             io.write(src)
 
+    for file_name, term_func in (
+            ('ReQL-ast.h', term_head_c),
+            ('ReQL-ast-CPP.hpp', term_head_cpp),
+            ('ReQL-ast-Lua.h', term_head_lua),
+            ('ReQL-ast-Node.hpp', term_head_node),
+            ('ReQL-ast-Python.h', term_head_python),
+            ('ReQL-ast-Ruby.h', term_head_ruby)):
+        with open(file_name, 'r') as io:
+            src = io.read()
+
+        src = make_header(src, term_func)
+
+        with open(file_name, 'w') as io:
+            io.write(src)
 
 if __name__ == '__main__':
     main()
