@@ -65,7 +65,7 @@ def make_enum(enum):
 
 
 def main():
-    with open('ReQL.h', 'r') as io:
+    with open('ReQL-ast.h', 'r') as io:
         src = io.read()
 
     start_constants = src.find('/* start generated constants */')
@@ -118,16 +118,16 @@ def main():
 
     src = '\n'.join(term_creators)
 
-    with open('ReQL.h', 'w') as io:
+    with open('ReQL-ast.h', 'w') as io:
         io.write(src)
 
     for file_name, term_func in (
-            ('ReQL.c', term_func_c),
-            ('ReQL-CPP.cpp', term_func_cpp),
-            ('ReQL-Lua.c', term_func_lua),
-            ('ReQL-Node.cpp', term_func_node),
-            ('ReQL-Python.c', term_func_python),
-            ('ReQL-Ruby.c', term_func_ruby)):
+            ('ReQL-ast.c', term_func_c),
+            ('ReQL-ast-CPP.cpp', term_func_cpp),
+            ('ReQL-ast-Lua.c', term_func_lua),
+            ('ReQL-ast-Node.cpp', term_func_node),
+            ('ReQL-ast-Python.c', term_func_python),
+            ('ReQL-ast-Ruby.c', term_func_ruby)):
         with open(file_name, 'r') as io:
             src = io.read()
 
