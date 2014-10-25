@@ -1,3 +1,5 @@
+#include "ReQL-ast-CPP.hpp"
+
 /* start generated terms */
 
 void ReQL::add() {
