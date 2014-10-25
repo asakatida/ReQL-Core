@@ -1,3 +1,6 @@
+#ifndef _REQL_H
+#define _REQL_H
+
 struct _ReQL_arg_s {
   struct _ReQL_Op_s *arg;
   struct _ReQL_arg_s *next_arg;
@@ -53,3 +56,5 @@ _ReQL_Cur_t *_reql_run(
 
 int _reql_close_conn(_ReQL_Conn_t *conn);
 int _reql_close_cur(_ReQL_Cur_t *cur);
+
+#endif
