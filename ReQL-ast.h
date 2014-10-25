@@ -59,8 +59,8 @@ enum {
   _REQL_DB_DROP = 58,
   _REQL_DB_LIST = 59,
   _REQL_DECEMBER = 125,
-  _REQL_DEFAULT = 92,
-  _REQL_DELETE = 54,
+  _REQL_DEFAULT_ = 92,
+  _REQL_DELETE_ = 54,
   _REQL_DELETE_AT = 83,
   _REQL_DESC = 74,
   _REQL_DIFFERENCE = 95,
@@ -135,7 +135,7 @@ enum {
   _REQL_MONTH = 129,
   _REQL_MUL = 26,
   _REQL_NE = 18,
-  _REQL_NOT = 23,
+  _REQL_NOT_ = 23,
   _REQL_NOVEMBER = 124,
   _REQL_NOW = 103,
   _REQL_NTH = 45,
@@ -183,7 +183,7 @@ enum {
   _REQL_TUESDAY = 108,
   _REQL_TYPE_OF = 52,
   _REQL_UNGROUP = 150,
-  _REQL_UNION = 44,
+  _REQL_UNION_ = 44,
   _REQL_UPCASE = 141,
   _REQL_UPDATE = 53,
   _REQL_UUID = 169,
@@ -227,8 +227,8 @@ _ReQL_Op_t *_reql_db_create(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs);
 _ReQL_Op_t *_reql_db_drop(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs);
 _ReQL_Op_t *_reql_db_list(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs);
 _ReQL_Op_t *_reql_december(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs);
-_ReQL_Op_t *_reql_default(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs);
-_ReQL_Op_t *_reql_delete(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs);
+_ReQL_Op_t *_reql_default_(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs);
+_ReQL_Op_t *_reql_delete_(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs);
 _ReQL_Op_t *_reql_delete_at(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs);
 _ReQL_Op_t *_reql_desc(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs);
 _ReQL_Op_t *_reql_difference(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs);
@@ -303,7 +303,7 @@ _ReQL_Op_t *_reql_monday(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs);
 _ReQL_Op_t *_reql_month(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs);
 _ReQL_Op_t *_reql_mul(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs);
 _ReQL_Op_t *_reql_ne(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs);
-_ReQL_Op_t *_reql_not(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs);
+_ReQL_Op_t *_reql_not_(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs);
 _ReQL_Op_t *_reql_november(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs);
 _ReQL_Op_t *_reql_now(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs);
 _ReQL_Op_t *_reql_nth(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs);
@@ -351,7 +351,7 @@ _ReQL_Op_t *_reql_to_json_string(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs);
 _ReQL_Op_t *_reql_tuesday(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs);
 _ReQL_Op_t *_reql_type_of(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs);
 _ReQL_Op_t *_reql_ungroup(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs);
-_ReQL_Op_t *_reql_union(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs);
+_ReQL_Op_t *_reql_union_(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs);
 _ReQL_Op_t *_reql_upcase(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs);
 _ReQL_Op_t *_reql_update(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs);
 _ReQL_Op_t *_reql_uuid(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs);

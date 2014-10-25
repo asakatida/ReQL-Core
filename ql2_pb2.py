@@ -74,7 +74,7 @@ class Term:
         LE = 20
         GT = 21
         GE = 22
-        NOT = 23
+        NOT_ = 23
         ADD = 24
         SUB = 25
         MUL = 26
@@ -109,7 +109,7 @@ class Term:
         DISTINCT = 42
         COUNT = 43
         IS_EMPTY = 86
-        UNION = 44
+        UNION_ = 44
         NTH = 45
         BRACKET = 170
         INNER_JOIN = 48
@@ -124,7 +124,7 @@ class Term:
         COERCE_TO = 51
         TYPE_OF = 52
         UPDATE = 53
-        DELETE = 54
+        DELETE_ = 54
         REPLACE = 55
         INSERT = 56
         DB_CREATE = 57
@@ -153,7 +153,7 @@ class Term:
         UPCASE = 141
         DOWNCASE = 142
         SAMPLE = 81
-        DEFAULT = 92
+        DEFAULT_ = 92
         JSON = 98
         TO_JSON_STRING = 172
         ISO8601 = 99

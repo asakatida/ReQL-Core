@@ -90,10 +90,10 @@ Handle<Value> _reql_node_db_list(const Arguments& args) {
 Handle<Value> _reql_node_december(const Arguments& args) {
 }
 
-Handle<Value> _reql_node_default(const Arguments& args) {
+Handle<Value> _reql_node_default_(const Arguments& args) {
 }
 
-Handle<Value> _reql_node_delete(const Arguments& args) {
+Handle<Value> _reql_node_delete_(const Arguments& args) {
 }
 
 Handle<Value> _reql_node_delete_at(const Arguments& args) {
@@ -318,7 +318,7 @@ Handle<Value> _reql_node_mul(const Arguments& args) {
 Handle<Value> _reql_node_ne(const Arguments& args) {
 }
 
-Handle<Value> _reql_node_not(const Arguments& args) {
+Handle<Value> _reql_node_not_(const Arguments& args) {
 }
 
 Handle<Value> _reql_node_november(const Arguments& args) {
@@ -462,7 +462,7 @@ Handle<Value> _reql_node_type_of(const Arguments& args) {
 Handle<Value> _reql_node_ungroup(const Arguments& args) {
 }
 
-Handle<Value> _reql_node_union(const Arguments& args) {
+Handle<Value> _reql_node_union_(const Arguments& args) {
 }
 
 Handle<Value> _reql_node_upcase(const Arguments& args) {

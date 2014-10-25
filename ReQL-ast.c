@@ -272,18 +272,18 @@ _ReQL_Op_t *_reql_december(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   return term;
 }
 
-_ReQL_Op_t *_reql_default(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
+_ReQL_Op_t *_reql_default_(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
-  term->tt = _REQL_DEFAULT;
+  term->tt = _REQL_DEFAULT_;
   term->dt = _REQL_R_JSON;
   term->args = args;
   term->kwargs = kwargs;
   return term;
 }
 
-_ReQL_Op_t *_reql_delete(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
+_ReQL_Op_t *_reql_delete_(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
-  term->tt = _REQL_DELETE;
+  term->tt = _REQL_DELETE_;
   term->dt = _REQL_R_JSON;
   term->args = args;
   term->kwargs = kwargs;
@@ -956,9 +956,9 @@ _ReQL_Op_t *_reql_ne(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   return term;
 }
 
-_ReQL_Op_t *_reql_not(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
+_ReQL_Op_t *_reql_not_(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
-  term->tt = _REQL_NOT;
+  term->tt = _REQL_NOT_;
   term->dt = _REQL_R_JSON;
   term->args = args;
   term->kwargs = kwargs;
@@ -1388,9 +1388,9 @@ _ReQL_Op_t *_reql_ungroup(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   return term;
 }
 
-_ReQL_Op_t *_reql_union(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
+_ReQL_Op_t *_reql_union_(_ReQL_arg_t *args, _ReQL_kwarg_t *kwargs) {
   _ReQL_Op_t *term = _reql_expr_null();
-  term->tt = _REQL_UNION;
+  term->tt = _REQL_UNION_;
   term->dt = _REQL_R_JSON;
   term->args = args;
   term->kwargs = kwargs;

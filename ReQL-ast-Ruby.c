@@ -92,10 +92,10 @@ static VALUE _reql_rb_db_list(int argn, VALUE *args, VALUE self) {
 static VALUE _reql_rb_december(int argn, VALUE *args, VALUE self) {
 }
 
-static VALUE _reql_rb_default(int argn, VALUE *args, VALUE self) {
+static VALUE _reql_rb_default_(int argn, VALUE *args, VALUE self) {
 }
 
-static VALUE _reql_rb_delete(int argn, VALUE *args, VALUE self) {
+static VALUE _reql_rb_delete_(int argn, VALUE *args, VALUE self) {
 }
 
 static VALUE _reql_rb_delete_at(int argn, VALUE *args, VALUE self) {
@@ -320,7 +320,7 @@ static VALUE _reql_rb_mul(int argn, VALUE *args, VALUE self) {
 static VALUE _reql_rb_ne(int argn, VALUE *args, VALUE self) {
 }
 
-static VALUE _reql_rb_not(int argn, VALUE *args, VALUE self) {
+static VALUE _reql_rb_not_(int argn, VALUE *args, VALUE self) {
 }
 
 static VALUE _reql_rb_november(int argn, VALUE *args, VALUE self) {
@@ -464,7 +464,7 @@ static VALUE _reql_rb_type_of(int argn, VALUE *args, VALUE self) {
 static VALUE _reql_rb_ungroup(int argn, VALUE *args, VALUE self) {
 }
 
-static VALUE _reql_rb_union(int argn, VALUE *args, VALUE self) {
+static VALUE _reql_rb_union_(int argn, VALUE *args, VALUE self) {
 }
 
 static VALUE _reql_rb_upcase(int argn, VALUE *args, VALUE self) {

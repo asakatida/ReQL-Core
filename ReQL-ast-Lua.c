@@ -284,11 +284,11 @@ static int _reql_lua_december(lua_State *L) {
   return 1;
 }
 
-static int _reql_lua_default(lua_State *L) {
+static int _reql_lua_default_(lua_State *L) {
   return 1;
 }
 
-static int _reql_lua_delete(lua_State *L) {
+static int _reql_lua_delete_(lua_State *L) {
   return 1;
 }
 
@@ -588,7 +588,7 @@ static int _reql_lua_ne(lua_State *L) {
   return 1;
 }
 
-static int _reql_lua_not(lua_State *L) {
+static int _reql_lua_not_(lua_State *L) {
   return 1;
 }
 
@@ -780,7 +780,7 @@ static int _reql_lua_ungroup(lua_State *L) {
   return 1;
 }
 
-static int _reql_lua_union(lua_State *L) {
+static int _reql_lua_union_(lua_State *L) {
   return 1;
 }
 

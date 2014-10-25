@@ -90,10 +90,10 @@ void ReQL::db_list() {
 void ReQL::december() {
 }
 
-void ReQL::default() {
+void ReQL::default_() {
 }
 
-void ReQL::delete() {
+void ReQL::delete_() {
 }
 
 void ReQL::delete_at() {
@@ -318,7 +318,7 @@ void ReQL::mul() {
 void ReQL::ne() {
 }
 
-void ReQL::not() {
+void ReQL::not_() {
 }
 
 void ReQL::november() {
@@ -462,7 +462,7 @@ void ReQL::type_of() {
 void ReQL::ungroup() {
 }
 
-void ReQL::union() {
+void ReQL::union_() {
 }
 
 void ReQL::upcase() {
