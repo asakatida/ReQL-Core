@@ -1,3 +1,5 @@
+#include <ruby.h>
+
 #ifndef _REQL_AST_RUBY
 #define _REQL_AST_RUBY
 

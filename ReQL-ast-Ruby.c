@@ -1,4 +1,4 @@
-#include <ruby.h>
+#include "ReQL-ast-Ruby.h"
 
 /* start generated terms */
 

@@ -1,4 +1,4 @@
-#include <python.h>
+#include "ReQL-ast-Python.h"
 
 /* start generated terms */
 

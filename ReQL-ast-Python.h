@@ -1,3 +1,5 @@
+#include <python.h>
+
 #ifndef _REQL_AST_PYTHON
 #define _REQL_AST_PYTHON
 

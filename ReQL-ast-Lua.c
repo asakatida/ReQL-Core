@@ -1,11 +1,11 @@
-#include "ReQL-ast-Lua.h"
-
 #include <lauxlib.h>
 #include <lualib.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
+
+#include "ReQL-ast-Lua.h"
 
 /* function(cls, val, nesting_depth) */
 static int _reql_lua_expr(lua_State *L) {

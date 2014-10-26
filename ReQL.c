@@ -1,8 +1,9 @@
-#include "ReQL.h"
+#include <sys/socket.h>
+#include <unistd.h>
 
 #include "ReQL-ast.h"
 
-#include <sys/socket.h>
+#include "ReQL.h"
 
 _ReQL_arg_t *_reql_arg_new() {
   _ReQL_arg_t *arg;

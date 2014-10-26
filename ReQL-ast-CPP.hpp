@@ -1,5 +1,3 @@
-#include "ReQL-CPP.hpp"
-
 #ifndef _REQL_AST_CPP
 #define _REQL_AST_CPP
 
