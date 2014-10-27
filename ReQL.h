@@ -29,6 +29,9 @@ struct _ReQL_Op_s {
 typedef struct _ReQL_Op_s _ReQL_Op_t;
 
 struct _ReQL_Conn_s {
+  int socket;
+  int error;
+  char *buf;
 };
 typedef struct _ReQL_Conn_s _ReQL_Conn_t;
 
@@ -49,12 +52,11 @@ _ReQL_Op_t *_reql_expr_object(_ReQL_kwarg_t *val);
 _ReQL_Op_t *_reql_expr_null();
 _ReQL_Op_t *_reql_expr_bool(int val);
 
-_ReQL_Conn_t *_reql_connect(char *host, int port);
-
-_ReQL_Cur_t *_reql_run(
-  _ReQL_Op_t *query, _ReQL_Conn_t *conn, _ReQL_kwarg_t *kwargs);
-
+int _reql_connect(_ReQL_Conn_t *conn, unsigned char host_len, char *host, unsigned char port);
 int _reql_close_conn(_ReQL_Conn_t *conn);
-int _reql_close_cur(_ReQL_Cur_t *cur);
+
+_ReQL_Cur_t *_reql_run(_ReQL_Op_t *query, _ReQL_Conn_t *conn, _ReQL_kwarg_t *kwargs);
+void _reql_next(_ReQL_Cur_t *cur);
+void _reql_close_cur(_ReQL_Cur_t *cur);
 
 #endif
