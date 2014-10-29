@@ -1,5 +1,5 @@
 package = 'libReQL'
-version = '0.1.0'
+version = '0.1.0-1'
 source = {
   url = 'git://github.com/grandquista/ReQL-Core',
   tag = 'v0.1.0'
@@ -13,6 +13,13 @@ dependencies = {'lua ~> 5'}
 build = {
   type = 'builtin',
   modules = {
-    libReQL = 'ReQL-Lua.c'
+    libReQL = {
+      sources = {
+        'ReQL-Lua.c'
+        'ReQL.c'
+        'ReQL-ast.c'
+        'ReQL-ast-Lua.c'
+      }
+    }
   }
 }
