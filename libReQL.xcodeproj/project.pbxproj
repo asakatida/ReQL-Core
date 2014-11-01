@@ -16,7 +16,6 @@
 		1ED0666A1A030AE8005225FD /* ReQL-ObjC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED066621A030AE8005225FD /* ReQL-ObjC.m */; };
 		1ED0666B1A030AE8005225FD /* ReQL.c in Sources */ = {isa = PBXBuildFile; fileRef = 1ED066631A030AE8005225FD /* ReQL.c */; };
 		1ED0666C1A030AE8005225FD /* ReQL.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ED066641A030AE8005225FD /* ReQL.h */; };
-		1ED0666F1A030B0C005225FD /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1ED0666E1A030B0C005225FD /* Info.plist */; };
 		1ED066741A046AC1005225FD /* ReQL-expr-ObjC.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ED066701A046AC1005225FD /* ReQL-expr-ObjC.h */; };
 		1ED066751A046AC1005225FD /* ReQL-expr-ObjC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED066711A046AC1005225FD /* ReQL-expr-ObjC.m */; };
 		1ED066761A046AC1005225FD /* ReQL-expr.c in Sources */ = {isa = PBXBuildFile; fileRef = 1ED066721A046AC1005225FD /* ReQL-expr.c */; };
@@ -201,7 +200,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1ED0666F1A030B0C005225FD /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -345,7 +343,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = libReQLTests/Info.plist;
+				INFOPLIST_FILE = test/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -359,7 +357,7 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = libReQLTests/Info.plist;
+				INFOPLIST_FILE = test/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
