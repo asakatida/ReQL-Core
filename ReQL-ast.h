@@ -8,8 +8,10 @@
 #define _REQL_AST_H
 
 /* start generated constants */
-const int _REQL_VERSION = 0x5f75e83e;
-const int _REQL_PROTOCOL = 0x7e6970c7;
+enum {
+  _REQL_VERSION = 0x5f75e83e,
+  _REQL_PROTOCOL = 0x7e6970c7
+};
 enum {
   _REQL_CONTINUE = 2,
   _REQL_NOREPLY_WAIT = 4,

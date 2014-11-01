@@ -140,16 +140,17 @@ def main():
             dir(ql2_pb2.VersionDummy.Version)))) > 3:
         print('new version found')
 
-    version = 'const int _REQL_VERSION = {};'.format(
-        hex(ql2_pb2.VersionDummy.Version.V0_3)
-    )
-
     if len(tuple(filter(
             lambda v: not v.startswith('_'),
             dir(ql2_pb2.VersionDummy.Protocol)))) > 2:
         print('new protocol found')
 
-    protocol = 'const int _REQL_PROTOCOL = {};'.format(
+    version = '''
+enum {{
+  _REQL_VERSION = {},
+  _REQL_PROTOCOL = {}
+}};'''.format(
+        hex(ql2_pb2.VersionDummy.Version.V0_3),
         hex(ql2_pb2.VersionDummy.Protocol.JSON)
     )
 
@@ -160,7 +161,7 @@ def main():
 
     constants = '\n'.join((
         '/* start generated constants */',
-        version, protocol, queries, responces, datums, terms,
+        version, queries, responces, datums, terms,
         ''
     ))
 
