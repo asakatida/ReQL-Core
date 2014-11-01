@@ -1,0 +1,401 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1E9D4B831A03011100201983 /* liblibReQL.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E9D4B771A03011100201983 /* liblibReQL.dylib */; };
+		1ED066651A030AE8005225FD /* ReQL-ast-ObjC.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ED0665D1A030AE8005225FD /* ReQL-ast-ObjC.h */; };
+		1ED066661A030AE8005225FD /* ReQL-ast-ObjC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED0665E1A030AE8005225FD /* ReQL-ast-ObjC.m */; };
+		1ED066671A030AE8005225FD /* ReQL-ast.c in Sources */ = {isa = PBXBuildFile; fileRef = 1ED0665F1A030AE8005225FD /* ReQL-ast.c */; };
+		1ED066681A030AE8005225FD /* ReQL-ast.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ED066601A030AE8005225FD /* ReQL-ast.h */; };
+		1ED066691A030AE8005225FD /* ReQL-ObjC.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ED066611A030AE8005225FD /* ReQL-ObjC.h */; };
+		1ED0666A1A030AE8005225FD /* ReQL-ObjC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED066621A030AE8005225FD /* ReQL-ObjC.m */; };
+		1ED0666B1A030AE8005225FD /* ReQL.c in Sources */ = {isa = PBXBuildFile; fileRef = 1ED066631A030AE8005225FD /* ReQL.c */; };
+		1ED0666C1A030AE8005225FD /* ReQL.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ED066641A030AE8005225FD /* ReQL.h */; };
+		1ED0666F1A030B0C005225FD /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1ED0666E1A030B0C005225FD /* Info.plist */; };
+		1ED066741A046AC1005225FD /* ReQL-expr-ObjC.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ED066701A046AC1005225FD /* ReQL-expr-ObjC.h */; };
+		1ED066751A046AC1005225FD /* ReQL-expr-ObjC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED066711A046AC1005225FD /* ReQL-expr-ObjC.m */; };
+		1ED066761A046AC1005225FD /* ReQL-expr.c in Sources */ = {isa = PBXBuildFile; fileRef = 1ED066721A046AC1005225FD /* ReQL-expr.c */; };
+		1ED066771A046AC1005225FD /* ReQL-expr.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ED066731A046AC1005225FD /* ReQL-expr.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1E9D4B841A03011100201983 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1E9D4B6F1A03011100201983 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1E9D4B761A03011100201983;
+			remoteInfo = libReQL;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1E9D4B771A03011100201983 /* liblibReQL.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = liblibReQL.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		1E9D4B821A03011100201983 /* libReQLTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = libReQLTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1ED0665D1A030AE8005225FD /* ReQL-ast-ObjC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ReQL-ast-ObjC.h"; sourceTree = "<group>"; };
+		1ED0665E1A030AE8005225FD /* ReQL-ast-ObjC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ReQL-ast-ObjC.m"; sourceTree = "<group>"; };
+		1ED0665F1A030AE8005225FD /* ReQL-ast.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "ReQL-ast.c"; sourceTree = "<group>"; };
+		1ED066601A030AE8005225FD /* ReQL-ast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ReQL-ast.h"; sourceTree = "<group>"; };
+		1ED066611A030AE8005225FD /* ReQL-ObjC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ReQL-ObjC.h"; sourceTree = "<group>"; };
+		1ED066621A030AE8005225FD /* ReQL-ObjC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ReQL-ObjC.m"; sourceTree = "<group>"; };
+		1ED066631A030AE8005225FD /* ReQL.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ReQL.c; sourceTree = "<group>"; };
+		1ED066641A030AE8005225FD /* ReQL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReQL.h; sourceTree = "<group>"; };
+		1ED0666E1A030B0C005225FD /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1ED066701A046AC1005225FD /* ReQL-expr-ObjC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ReQL-expr-ObjC.h"; sourceTree = "<group>"; };
+		1ED066711A046AC1005225FD /* ReQL-expr-ObjC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ReQL-expr-ObjC.m"; sourceTree = "<group>"; };
+		1ED066721A046AC1005225FD /* ReQL-expr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "ReQL-expr.c"; sourceTree = "<group>"; };
+		1ED066731A046AC1005225FD /* ReQL-expr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ReQL-expr.h"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1E9D4B741A03011100201983 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1E9D4B7F1A03011100201983 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1E9D4B831A03011100201983 /* liblibReQL.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1E9D4B6E1A03011100201983 = {
+			isa = PBXGroup;
+			children = (
+				1E9D4B781A03011100201983 /* Products */,
+				1ED0665D1A030AE8005225FD /* ReQL-ast-ObjC.h */,
+				1ED0665E1A030AE8005225FD /* ReQL-ast-ObjC.m */,
+				1ED0665F1A030AE8005225FD /* ReQL-ast.c */,
+				1ED066601A030AE8005225FD /* ReQL-ast.h */,
+				1ED066701A046AC1005225FD /* ReQL-expr-ObjC.h */,
+				1ED066711A046AC1005225FD /* ReQL-expr-ObjC.m */,
+				1ED066721A046AC1005225FD /* ReQL-expr.c */,
+				1ED066731A046AC1005225FD /* ReQL-expr.h */,
+				1ED066611A030AE8005225FD /* ReQL-ObjC.h */,
+				1ED066621A030AE8005225FD /* ReQL-ObjC.m */,
+				1ED066631A030AE8005225FD /* ReQL.c */,
+				1ED066641A030AE8005225FD /* ReQL.h */,
+				1ED0666D1A030B0C005225FD /* test */,
+			);
+			sourceTree = "<group>";
+		};
+		1E9D4B781A03011100201983 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1E9D4B771A03011100201983 /* liblibReQL.dylib */,
+				1E9D4B821A03011100201983 /* libReQLTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1ED0666D1A030B0C005225FD /* test */ = {
+			isa = PBXGroup;
+			children = (
+				1ED0666E1A030B0C005225FD /* Info.plist */,
+			);
+			path = test;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		1E9D4B751A03011100201983 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1ED0666C1A030AE8005225FD /* ReQL.h in Headers */,
+				1ED066771A046AC1005225FD /* ReQL-expr.h in Headers */,
+				1ED066691A030AE8005225FD /* ReQL-ObjC.h in Headers */,
+				1ED066741A046AC1005225FD /* ReQL-expr-ObjC.h in Headers */,
+				1ED066651A030AE8005225FD /* ReQL-ast-ObjC.h in Headers */,
+				1ED066681A030AE8005225FD /* ReQL-ast.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		1E9D4B761A03011100201983 /* libReQL */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1E9D4B8B1A03011100201983 /* Build configuration list for PBXNativeTarget "libReQL" */;
+			buildPhases = (
+				1E9D4B731A03011100201983 /* Sources */,
+				1E9D4B741A03011100201983 /* Frameworks */,
+				1E9D4B751A03011100201983 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = libReQL;
+			productName = libReQL;
+			productReference = 1E9D4B771A03011100201983 /* liblibReQL.dylib */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+		1E9D4B811A03011100201983 /* libReQLTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1E9D4B8E1A03011100201983 /* Build configuration list for PBXNativeTarget "libReQLTests" */;
+			buildPhases = (
+				1E9D4B7E1A03011100201983 /* Sources */,
+				1E9D4B7F1A03011100201983 /* Frameworks */,
+				1E9D4B801A03011100201983 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1E9D4B851A03011100201983 /* PBXTargetDependency */,
+			);
+			name = libReQLTests;
+			productName = libReQLTests;
+			productReference = 1E9D4B821A03011100201983 /* libReQLTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1E9D4B6F1A03011100201983 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = "Adam Grandquist";
+				TargetAttributes = {
+					1E9D4B761A03011100201983 = {
+						CreatedOnToolsVersion = 6.1;
+					};
+					1E9D4B811A03011100201983 = {
+						CreatedOnToolsVersion = 6.1;
+					};
+				};
+			};
+			buildConfigurationList = 1E9D4B721A03011100201983 /* Build configuration list for PBXProject "libReQL" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 1E9D4B6E1A03011100201983;
+			productRefGroup = 1E9D4B781A03011100201983 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1E9D4B761A03011100201983 /* libReQL */,
+				1E9D4B811A03011100201983 /* libReQLTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1E9D4B801A03011100201983 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1ED0666F1A030B0C005225FD /* Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1E9D4B731A03011100201983 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1ED0666B1A030AE8005225FD /* ReQL.c in Sources */,
+				1ED066661A030AE8005225FD /* ReQL-ast-ObjC.m in Sources */,
+				1ED066751A046AC1005225FD /* ReQL-expr-ObjC.m in Sources */,
+				1ED0666A1A030AE8005225FD /* ReQL-ObjC.m in Sources */,
+				1ED066761A046AC1005225FD /* ReQL-expr.c in Sources */,
+				1ED066671A030AE8005225FD /* ReQL-ast.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1E9D4B7E1A03011100201983 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1E9D4B851A03011100201983 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1E9D4B761A03011100201983 /* libReQL */;
+			targetProxy = 1E9D4B841A03011100201983 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		1E9D4B891A03011100201983 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		1E9D4B8A1A03011100201983 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		1E9D4B8C1A03011100201983 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		1E9D4B8D1A03011100201983 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		1E9D4B8F1A03011100201983 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = libReQLTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		1E9D4B901A03011100201983 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = libReQLTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1E9D4B721A03011100201983 /* Build configuration list for PBXProject "libReQL" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1E9D4B891A03011100201983 /* Debug */,
+				1E9D4B8A1A03011100201983 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1E9D4B8B1A03011100201983 /* Build configuration list for PBXNativeTarget "libReQL" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1E9D4B8C1A03011100201983 /* Debug */,
+				1E9D4B8D1A03011100201983 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1E9D4B8E1A03011100201983 /* Build configuration list for PBXNativeTarget "libReQLTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1E9D4B8F1A03011100201983 /* Debug */,
+				1E9D4B901A03011100201983 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1E9D4B6F1A03011100201983 /* Project object */;
+}
