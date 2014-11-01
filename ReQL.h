@@ -11,6 +11,8 @@ struct _ReQL_Conn_s {
   int socket;
   int error;
   char *buf;
+  unsigned int max_token;
+  struct _ReQL_Cur_s **cursor;
 };
 typedef struct _ReQL_Conn_s _ReQL_Conn_t;
 
