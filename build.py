@@ -76,6 +76,10 @@ term_head_ruby = '''
 static VALUE _reql_rb_{}(int argn, VALUE *args, VALUE self);'''
 
 
+def filter_names(obj):
+    return filter(lambda v: not v.startswith('_'), dir(obj))
+
+
 def write_terms(file_name, term_func):
     with open(file_name, 'r') as io:
         src = io.read()
@@ -86,7 +90,7 @@ def write_terms(file_name, term_func):
             '/* start generated terms */'
         ] + [
             term_func.format(t.lower(), t)
-            for t in dir(ql2_pb2.Term.TermType) if not t.startswith('_')
+            for t in filter_names(ql2_pb2.Term.TermType)
         ] + [
             src[src.find('/* end generated terms */'):]
         ]
@@ -106,7 +110,7 @@ def write_header(file_name, term_head):
             '/* start generated header */'
         ] + [
             term_head.format(t.lower(), t)
-            for t in dir(ql2_pb2.Term.TermType) if not t.startswith('_')
+            for t in filter_names(ql2_pb2.Term.TermType)
         ] + [
             src[src.find('/* end generated header */'):]
         ]
@@ -122,7 +126,7 @@ def make_enum(enum):
         ',\n  '.join([
             '_REQL_{} = {}'.format(
                 e, getattr(enum, e)
-            ) for e in dir(enum) if not e.startswith('_')
+            ) for e in filter_names(enum)
         ]),
         '\n};'
     ))
@@ -135,14 +139,10 @@ def main():
     start_constants = src.find('/* start generated constants */')
     end_constants = src.find('/* end generated constants */')
 
-    if len(tuple(filter(
-            lambda v: not v.startswith('_'),
-            dir(ql2_pb2.VersionDummy.Version)))) > 3:
+    if len(tuple(filter_names(ql2_pb2.VersionDummy.Version))) > 3:
         print('new version found')
 
-    if len(tuple(filter(
-            lambda v: not v.startswith('_'),
-            dir(ql2_pb2.VersionDummy.Protocol)))) > 2:
+    if len(tuple(filter_names(ql2_pb2.VersionDummy.Protocol))) > 2:
         print('new protocol found')
 
     version = '''
