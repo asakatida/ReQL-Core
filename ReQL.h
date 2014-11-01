@@ -17,6 +17,9 @@ struct _ReQL_Conn_s {
 typedef struct _ReQL_Conn_s _ReQL_Conn_t;
 
 struct _ReQL_Cur_s {
+  _ReQL_Conn_t *conn;
+  unsigned int idx;
+  _ReQL_Op_t *response;
 };
 typedef struct _ReQL_Cur_s _ReQL_Cur_t;
 
