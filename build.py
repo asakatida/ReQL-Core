@@ -17,7 +17,7 @@ _ReQL_Op_t *_reql_{}(_ReQL_Op_t *args, _ReQL_Op_t *kwargs) {{
 term_func_cpp = '''
 /**
  */
-void ReQL::{}() {{
+void ReQL_ast::{}() {{
 }}'''
 term_func_lua = '''
 /**
