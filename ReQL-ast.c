@@ -1,3 +1,7 @@
+/**
+ * @author Adam Grandquist
+ */
+
 #include "ReQL-ast.h"
 
 /* start generated terms */

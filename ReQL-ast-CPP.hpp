@@ -1,7 +1,13 @@
+/**
+ * @author Adam Grandquist
+ */
+
+#include "ReQL-expr-CPP.hpp"
+
 #ifndef _REQL_AST_CPP
 #define _REQL_AST_CPP
 
-class ReQL {
+class ReQL_ast : ReQL_expr {
   int tt;
 
 public:

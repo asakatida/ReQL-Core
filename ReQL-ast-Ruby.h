@@ -1,4 +1,8 @@
-#include <ruby.h>
+/**
+ * @author Adam Grandquist
+ */
+
+#include "ReQL-expr-Ruby.h"
 
 #ifndef _REQL_AST_RUBY
 #define _REQL_AST_RUBY

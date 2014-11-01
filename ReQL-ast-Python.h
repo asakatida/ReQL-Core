@@ -1,4 +1,8 @@
-#include <python.h>
+/**
+ * @author Adam Grandquist
+ */
+
+#include "ReQL-expr-Python.h"
 
 #ifndef _REQL_AST_PYTHON
 #define _REQL_AST_PYTHON

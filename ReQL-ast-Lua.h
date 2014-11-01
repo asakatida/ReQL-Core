@@ -1,4 +1,8 @@
-#include <lua.h>
+/**
+ * @author Adam Grandquist
+ */
+
+#include "ReQL-expr-Lua.h"
 
 #ifndef _REQL_AST_LUA
 #define _REQL_AST_LUA

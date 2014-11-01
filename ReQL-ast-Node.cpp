@@ -1,3 +1,11 @@
+/**
+ * @author Adam Grandquist
+ */
+
+#include "ReQL-ast.h"
+
+#include "ReQL-ast-Node.hpp"
+
 /* start generated terms */
 
 Handle<Value> _reql_node_add(const Arguments& args) {

@@ -1,3 +1,9 @@
+/**
+ * @author Adam Grandquist
+ */
+
+#include "ReQL-ast.h"
+
 #include "ReQL-ast-Python.h"
 
 /* start generated terms */

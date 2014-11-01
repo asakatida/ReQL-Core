@@ -1,3 +1,9 @@
+/**
+ * @author Adam Grandquist
+ */
+
+#include "ReQL-expr-Node.hpp"
+
 #ifndef _REQL_AST_NODE
 #define _REQL_AST_NODE
 

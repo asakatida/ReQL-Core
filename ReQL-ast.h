@@ -1,4 +1,8 @@
-#include "ReQL.h"
+/**
+ * @author Adam Grandquist
+ */
+
+#include "ReQL-expr.h"
 
 #ifndef _REQL_AST_H
 #define _REQL_AST_H
