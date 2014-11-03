@@ -177,7 +177,7 @@ enum {{
             ('ReQL-ast-CPP.cpp', term_func_cpp),
             ('ReQL-ast-Lua.c', term_func_lua),
             ('ReQL-ast-Node.cpp', term_func_node),
-            ('ReQL-ast-objC.m', term_func_objc),
+            ('ReQL-ast-ObjC.m', term_func_objc),
             ('ReQL-ast-Python.c', term_func_python),
             ('ReQL-ast-Ruby.c', term_func_ruby)
         )
@@ -189,7 +189,7 @@ enum {{
             ('ReQL-ast-CPP.hpp', term_head_cpp),
             ('ReQL-ast-Lua.h', term_head_lua),
             ('ReQL-ast-Node.hpp', term_head_node),
-            ('ReQL-ast-objC.h', term_head_objc),
+            ('ReQL-ast-ObjC.h', term_head_objc),
             ('ReQL-ast-Python.h', term_head_python),
             ('ReQL-ast-Ruby.h', term_head_ruby)
         )
