@@ -28,7 +28,7 @@ static int _reql_lua_{}(lua_State *L) {{
 term_func_node = '''
 /**
  */
-Handle<Value> _reql_node_{}(const Arguments& args) {{
+v8::Handle<v8::Value> _reql_node_{}(const v8::Arguments& args) {{
 }}'''
 term_func_objc = '''
 /**
@@ -61,7 +61,7 @@ static int _reql_lua_{}(lua_State *L);'''
 term_head_node = '''
 /**
  */
-Handle<Value> _reql_node_{}(const Arguments& args);'''
+v8::Handle<v8::Value> _reql_node_{}(const v8::Arguments& args);'''
 term_head_objc = '''
 /**
  */
