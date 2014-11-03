@@ -25,7 +25,7 @@ static int _reql_lua_expr(lua_State *L) {
   assert(lua_gettop(L) == 3);
 
   /* if is_instance(val, 'ReQLOp') then */
-  lua_getfield(L, 1, "is_instance");
+  lua_pushcfunction(L, _reql_is_instance);
   lua_pushvalue(L, 2);
   lua_pushliteral(L, "ReQLOp");
   lua_call(L, 2, 1);
@@ -119,5 +119,50 @@ static int _reql_lua_expr(lua_State *L) {
   lua_pushvalue(L, 2);
   lua_call(L, 1, 1);
   assert(lua_gettop(L) == 4);
+  return 1;
+}
+
+static int _reql_is_instance(lua_State *L) {
+  const int argn = lua_gettop(L);
+  const int type_table = lua_istable(L, 1);
+
+  int is = 0;
+
+  for (int i=2; i<=argn; ++i) {
+    if (lua_isstring(L, i)) {
+      if (!strcmp(luaL_typename(L, 1), lua_tostring(L, i))) {
+        is = 1;
+        break;
+      }
+    } else {
+      lua_getfield(L, i, "__name");
+      lua_replace(L, i);
+    }
+
+    if (type_table) {
+      lua_getfield(L, 1, "__class")
+      while (!lua_isnil(L, -1)) {
+        lua_getfield(L, -1, "__name");
+        is = lua_compare(L, -1, i, LUA_OPEQ))
+
+        lua_pop(L, 1);
+
+        if (is) {
+          break;
+        }
+
+        lua_getfield(L, -1, "__parent");
+        lua_replace(L, -2);
+      }
+
+      lua_pop(L, 1);
+
+      if (is) {
+        break;
+      }
+    }
+  }
+
+  lua_pushboolean(L, is);
   return 1;
 }
