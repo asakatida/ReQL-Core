@@ -146,10 +146,9 @@ def main():
         print('new protocol found')
 
     version = '''
-enum {{
-  _REQL_VERSION = {},
-  _REQL_PROTOCOL = {}
-}};'''.format(
+static const int _REQL_VERSION = {};
+static const int _REQL_PROTOCOL = {};
+'''.format(
         hex(ql2_pb2.VersionDummy.Version.V0_3),
         hex(ql2_pb2.VersionDummy.Protocol.JSON)
     )
