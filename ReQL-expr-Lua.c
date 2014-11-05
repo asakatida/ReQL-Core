@@ -168,26 +168,24 @@ static int _reql_is_instance(lua_State *L) {
 }
 
 static int _reql_get_opts(lua_State *L) {
-  static int argn = lua_gettop(L);
+  const int argn = lua_gettop(L);
 
-  lua_createtable(L, 0, 0);
-  lua_insert(L, 1);
-
-  const int is_table = lua_istable(L, argn);
-
-  if (is_table) {
+  if (lua_istable(L, argn)) {
     lua_pushcfunction(L, _reql_is_instance);
     lua_pushvalue(L, argn);
     lua_pushliteral(L, "ReQLOp");
     lua_call(L, 2, 1);
-    const int not_reql = !lua_toboolean(L, -1);
+    const int not_reql = !lua_toboolean(L, argn + 1);
     lua_pop(L, 1);
 
     if (not_reql) {
-      lua_replace(L, 1);
+      lua_insert(L, 1);
       return argn;
     }
   }
+
+  lua_createtable(L, 0, 0);
+  lua_insert(L, 1);
 
   return argn + 1;
 }
