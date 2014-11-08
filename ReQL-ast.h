@@ -9,8 +9,8 @@
 
 /* start generated constants */
 
-static const int _REQL_VERSION = 0x5f75e83e;
-static const int _REQL_PROTOCOL = 0x7e6970c7;
+static const unsigned int _REQL_VERSION = 0x5f75e83e;
+static const unsigned int _REQL_PROTOCOL = 0x7e6970c7;
 
 enum {
   _REQL_CONTINUE = 2,
