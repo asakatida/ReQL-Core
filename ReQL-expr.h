@@ -14,10 +14,25 @@ struct _ReQL_Op_s {
 
   double num;
 
-  struct _ReQL_Op_s *child;
-  struct _ReQL_Op_s *next;
+  struct _ReQL_Array_s *args;
+  struct _ReQL_Object_s *kwargs;
 };
 typedef struct _ReQL_Op_s _ReQL_Op_t;
+
+struct _ReQL_Array_s {
+  _ReQL_Op_t *elem;
+  struct _ReQL_Array_s *next;
+  struct _ReQL_Array_s *prev;
+};
+typedef struct _ReQL_Array_s _ReQL_Array_t;
+
+struct _ReQL_Object_s {
+  _ReQL_Op_t *key;
+  _ReQL_Op_t *val;
+  struct _ReQL_Object_s *next;
+  struct _ReQL_Object_s *prev;
+};
+typedef struct _ReQL_Object_s _ReQL_Object_t;
 
 _ReQL_Op_t *_reql_expr_bool(int val);
 _ReQL_Op_t *_reql_expr_null();

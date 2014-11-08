@@ -10,8 +10,8 @@ _ReQL_Op_t *_reql_{}(_ReQL_Op_t *args, _ReQL_Op_t *kwargs) {{
   _ReQL_Op_t *term = _reql_expr_null();
   term->tt = _REQL_{};
   term->dt = _REQL_R_JSON;
-  term->child = args;
-  term->next = kwargs;
+  term->args = args->args;
+  term->kwargs = kwargs->kwargs;
   return term;
 }}'''
 term_func_cpp = '''
