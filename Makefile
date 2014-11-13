@@ -1,7 +1,7 @@
 all: build
 
 build:
-	gcc -c \
+	gcc -fPIC -c \
             ReQL-expr.c \
             ReQL-ast.c \
             ReQL.c \
