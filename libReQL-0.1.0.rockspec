@@ -15,11 +15,11 @@ build = {
   modules = {
     libReQL = {
       sources = {
-        'ReQL-ast-Lua.c'
-        'ReQL-ast.c'
-        'ReQL-expr-Lua.c'
-        'ReQL-expr.c'
-        'ReQL-Lua.c'
+        'ReQL-ast-Lua.c',
+        'ReQL-ast.c',
+        'ReQL-expr-Lua.c',
+        'ReQL-expr.c',
+        'ReQL-Lua.c',
         'ReQL.c'
       }
     }
