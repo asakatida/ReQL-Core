@@ -1,5 +1,6 @@
 install:
-  - sudo apt-get install python3-dev luarocks npm rake
+  - sudo apt-get install python3-dev luarocks npm
+  - gem install rake
   - make
   - luarocks make
   - python3 setup.py build
