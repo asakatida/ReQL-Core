@@ -17,7 +17,8 @@ _ReQL_Op_t *_reql_{}(_ReQL_Op_t *args, _ReQL_Op_t *kwargs) {{
 term_func_cpp = '''
 /**
  */
-void ReQL_ast::{}() {{
+ReQL_ast *ReQL_ast::{}() {{
+  return NULL;
 }}'''
 term_func_lua = '''
 /**
@@ -29,6 +30,15 @@ term_func_node = '''
 /**
  */
 v8::Handle<v8::Value> _reql_node_{}(const v8::Arguments& args) {{
+  v8::HandleScope scope;
+
+  v8::Local<v8::Object> obj = v8::Object::New();
+
+  if (!args[0]->IsUndefined()) {{
+    obj == args[0];
+  }}
+
+  return scope.Close(obj);
 }}'''
 term_func_objc = '''
 /**
@@ -39,12 +49,22 @@ term_func_objc = '''
 term_func_python = '''
 /**
  */
-static PyObject *_reql_py_{}(PyObject *self, PyObject *args, PyObject *kwargs) {{
+static PyObject *_reql_py_{0}(PyObject *self, PyObject *args, PyObject *kwargs) {{
+  PyObject *val;
+
+  static char *kwlist[] = {{NULL}};
+
+  if (!PyArg_ParseTupleAndKeywords(args, kwargs, "o:r.{0}", kwlist, &val)) {{
+    return self;
+  }}
+
+  return val;
 }}'''
 term_func_ruby = '''
 /**
  */
 static VALUE _reql_rb_{}(int argn, VALUE *args, VALUE self) {{
+  return NULL;
 }}'''
 term_head_c = '''
 /**
@@ -53,7 +73,7 @@ _ReQL_Op_t *_reql_{}(_ReQL_Op_t *args, _ReQL_Op_t *kwargs);'''
 term_head_cpp = '''
 /**
  */
-  void {}();'''
+  ReQL_ast *{}();'''
 term_head_lua = '''
 /**
  */
@@ -78,6 +98,26 @@ static VALUE _reql_rb_{}(int argn, VALUE *args, VALUE self);'''
 
 def filter_names(obj):
     return filter(lambda v: not v.startswith('_'), dir(obj))
+
+
+def write_defines(file_name, term_define):
+    with open(file_name, 'r') as io:
+        src = io.read()
+
+    src = '\n'.join(
+        [
+            src[:src.find('/* start generated defines */')] +
+            '/* start generated terms */'
+        ] + [
+            term_define.format(t.lower(), t)
+            for t in filter_names(ql2_pb2.Term.TermType)
+        ] + [
+            src[src.find('/* end generated defines */'):]
+        ]
+    )
+
+    with open(file_name, 'w') as io:
+        io.write(src)
 
 
 def write_terms(file_name, term_func):

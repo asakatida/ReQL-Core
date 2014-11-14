@@ -15,659 +15,659 @@ public:
 
 /**
  */
-  void add();
+  ReQL_ast *add();
 
 /**
  */
-  void all();
+  ReQL_ast *all();
 
 /**
  */
-  void any();
+  ReQL_ast *any();
 
 /**
  */
-  void append();
+  ReQL_ast *append();
 
 /**
  */
-  void april();
+  ReQL_ast *april();
 
 /**
  */
-  void args();
+  ReQL_ast *args();
 
 /**
  */
-  void asc();
+  ReQL_ast *asc();
 
 /**
  */
-  void august();
+  ReQL_ast *august();
 
 /**
  */
-  void avg();
+  ReQL_ast *avg();
 
 /**
  */
-  void between();
+  ReQL_ast *between();
 
 /**
  */
-  void binary();
+  ReQL_ast *binary();
 
 /**
  */
-  void bracket();
+  ReQL_ast *bracket();
 
 /**
  */
-  void branch();
+  ReQL_ast *branch();
 
 /**
  */
-  void changes();
+  ReQL_ast *changes();
 
 /**
  */
-  void change_at();
+  ReQL_ast *change_at();
 
 /**
  */
-  void circle();
+  ReQL_ast *circle();
 
 /**
  */
-  void coerce_to();
+  ReQL_ast *coerce_to();
 
 /**
  */
-  void concat_map();
+  ReQL_ast *concat_map();
 
 /**
  */
-  void contains();
+  ReQL_ast *contains();
 
 /**
  */
-  void count();
+  ReQL_ast *count();
 
 /**
  */
-  void date();
+  ReQL_ast *date();
 
 /**
  */
-  void datum();
+  ReQL_ast *datum();
 
 /**
  */
-  void day();
+  ReQL_ast *day();
 
 /**
  */
-  void day_of_week();
+  ReQL_ast *day_of_week();
 
 /**
  */
-  void day_of_year();
+  ReQL_ast *day_of_year();
 
 /**
  */
-  void db();
+  ReQL_ast *db();
 
 /**
  */
-  void db_create();
+  ReQL_ast *db_create();
 
 /**
  */
-  void db_drop();
+  ReQL_ast *db_drop();
 
 /**
  */
-  void db_list();
+  ReQL_ast *db_list();
 
 /**
  */
-  void december();
+  ReQL_ast *december();
 
 /**
  */
-  void default_();
+  ReQL_ast *default_();
 
 /**
  */
-  void delete_();
+  ReQL_ast *delete_();
 
 /**
  */
-  void delete_at();
+  ReQL_ast *delete_at();
 
 /**
  */
-  void desc();
+  ReQL_ast *desc();
 
 /**
  */
-  void difference();
+  ReQL_ast *difference();
 
 /**
  */
-  void distance();
+  ReQL_ast *distance();
 
 /**
  */
-  void distinct();
+  ReQL_ast *distinct();
 
 /**
  */
-  void div();
+  ReQL_ast *div();
 
 /**
  */
-  void downcase();
+  ReQL_ast *downcase();
 
 /**
  */
-  void during();
+  ReQL_ast *during();
 
 /**
  */
-  void epoch_time();
+  ReQL_ast *epoch_time();
 
 /**
  */
-  void eq();
+  ReQL_ast *eq();
 
 /**
  */
-  void eq_join();
+  ReQL_ast *eq_join();
 
 /**
  */
-  void error();
+  ReQL_ast *error();
 
 /**
  */
-  void february();
+  ReQL_ast *february();
 
 /**
  */
-  void fill();
+  ReQL_ast *fill();
 
 /**
  */
-  void filter();
+  ReQL_ast *filter();
 
 /**
  */
-  void for_each();
+  ReQL_ast *for_each();
 
 /**
  */
-  void friday();
+  ReQL_ast *friday();
 
 /**
  */
-  void func();
+  ReQL_ast *func();
 
 /**
  */
-  void funcall();
+  ReQL_ast *funcall();
 
 /**
  */
-  void ge();
+  ReQL_ast *ge();
 
 /**
  */
-  void geojson();
+  ReQL_ast *geojson();
 
 /**
  */
-  void get();
+  ReQL_ast *get();
 
 /**
  */
-  void get_all();
+  ReQL_ast *get_all();
 
 /**
  */
-  void get_field();
+  ReQL_ast *get_field();
 
 /**
  */
-  void get_intersecting();
+  ReQL_ast *get_intersecting();
 
 /**
  */
-  void get_nearest();
+  ReQL_ast *get_nearest();
 
 /**
  */
-  void group();
+  ReQL_ast *group();
 
 /**
  */
-  void gt();
+  ReQL_ast *gt();
 
 /**
  */
-  void has_fields();
+  ReQL_ast *has_fields();
 
 /**
  */
-  void hours();
+  ReQL_ast *hours();
 
 /**
  */
-  void http();
+  ReQL_ast *http();
 
 /**
  */
-  void implicit_var();
+  ReQL_ast *implicit_var();
 
 /**
  */
-  void includes();
+  ReQL_ast *includes();
 
 /**
  */
-  void indexes_of();
+  ReQL_ast *indexes_of();
 
 /**
  */
-  void index_create();
+  ReQL_ast *index_create();
 
 /**
  */
-  void index_drop();
+  ReQL_ast *index_drop();
 
 /**
  */
-  void index_list();
+  ReQL_ast *index_list();
 
 /**
  */
-  void index_rename();
+  ReQL_ast *index_rename();
 
 /**
  */
-  void index_status();
+  ReQL_ast *index_status();
 
 /**
  */
-  void index_wait();
+  ReQL_ast *index_wait();
 
 /**
  */
-  void info();
+  ReQL_ast *info();
 
 /**
  */
-  void inner_join();
+  ReQL_ast *inner_join();
 
 /**
  */
-  void insert();
+  ReQL_ast *insert();
 
 /**
  */
-  void insert_at();
+  ReQL_ast *insert_at();
 
 /**
  */
-  void intersects();
+  ReQL_ast *intersects();
 
 /**
  */
-  void in_timezone();
+  ReQL_ast *in_timezone();
 
 /**
  */
-  void iso8601();
+  ReQL_ast *iso8601();
 
 /**
  */
-  void is_empty();
+  ReQL_ast *is_empty();
 
 /**
  */
-  void january();
+  ReQL_ast *january();
 
 /**
  */
-  void javascript();
+  ReQL_ast *javascript();
 
 /**
  */
-  void json();
+  ReQL_ast *json();
 
 /**
  */
-  void july();
+  ReQL_ast *july();
 
 /**
  */
-  void june();
+  ReQL_ast *june();
 
 /**
  */
-  void keys();
+  ReQL_ast *keys();
 
 /**
  */
-  void le();
+  ReQL_ast *le();
 
 /**
  */
-  void limit();
+  ReQL_ast *limit();
 
 /**
  */
-  void line();
+  ReQL_ast *line();
 
 /**
  */
-  void literal();
+  ReQL_ast *literal();
 
 /**
  */
-  void lt();
+  ReQL_ast *lt();
 
 /**
  */
-  void make_array();
+  ReQL_ast *make_array();
 
 /**
  */
-  void make_obj();
+  ReQL_ast *make_obj();
 
 /**
  */
-  void map();
+  ReQL_ast *map();
 
 /**
  */
-  void march();
+  ReQL_ast *march();
 
 /**
  */
-  void match();
+  ReQL_ast *match();
 
 /**
  */
-  void max();
+  ReQL_ast *max();
 
 /**
  */
-  void may();
+  ReQL_ast *may();
 
 /**
  */
-  void merge();
+  ReQL_ast *merge();
 
 /**
  */
-  void min();
+  ReQL_ast *min();
 
 /**
  */
-  void minutes();
+  ReQL_ast *minutes();
 
 /**
  */
-  void mod();
+  ReQL_ast *mod();
 
 /**
  */
-  void monday();
+  ReQL_ast *monday();
 
 /**
  */
-  void month();
+  ReQL_ast *month();
 
 /**
  */
-  void mul();
+  ReQL_ast *mul();
 
 /**
  */
-  void ne();
+  ReQL_ast *ne();
 
 /**
  */
-  void not_();
+  ReQL_ast *not_();
 
 /**
  */
-  void november();
+  ReQL_ast *november();
 
 /**
  */
-  void now();
+  ReQL_ast *now();
 
 /**
  */
-  void nth();
+  ReQL_ast *nth();
 
 /**
  */
-  void object();
+  ReQL_ast *object();
 
 /**
  */
-  void october();
+  ReQL_ast *october();
 
 /**
  */
-  void order_by();
+  ReQL_ast *order_by();
 
 /**
  */
-  void outer_join();
+  ReQL_ast *outer_join();
 
 /**
  */
-  void pluck();
+  ReQL_ast *pluck();
 
 /**
  */
-  void point();
+  ReQL_ast *point();
 
 /**
  */
-  void polygon();
+  ReQL_ast *polygon();
 
 /**
  */
-  void polygon_sub();
+  ReQL_ast *polygon_sub();
 
 /**
  */
-  void prepend();
+  ReQL_ast *prepend();
 
 /**
  */
-  void random();
+  ReQL_ast *random();
 
 /**
  */
-  void range();
+  ReQL_ast *range();
 
 /**
  */
-  void reduce();
+  ReQL_ast *reduce();
 
 /**
  */
-  void replace();
+  ReQL_ast *replace();
 
 /**
  */
-  void sample();
+  ReQL_ast *sample();
 
 /**
  */
-  void saturday();
+  ReQL_ast *saturday();
 
 /**
  */
-  void seconds();
+  ReQL_ast *seconds();
 
 /**
  */
-  void september();
+  ReQL_ast *september();
 
 /**
  */
-  void set_difference();
+  ReQL_ast *set_difference();
 
 /**
  */
-  void set_insert();
+  ReQL_ast *set_insert();
 
 /**
  */
-  void set_intersection();
+  ReQL_ast *set_intersection();
 
 /**
  */
-  void set_union();
+  ReQL_ast *set_union();
 
 /**
  */
-  void skip();
+  ReQL_ast *skip();
 
 /**
  */
-  void slice();
+  ReQL_ast *slice();
 
 /**
  */
-  void splice_at();
+  ReQL_ast *splice_at();
 
 /**
  */
-  void split();
+  ReQL_ast *split();
 
 /**
  */
-  void sub();
+  ReQL_ast *sub();
 
 /**
  */
-  void sum();
+  ReQL_ast *sum();
 
 /**
  */
-  void sunday();
+  ReQL_ast *sunday();
 
 /**
  */
-  void sync();
+  ReQL_ast *sync();
 
 /**
  */
-  void table();
+  ReQL_ast *table();
 
 /**
  */
-  void table_create();
+  ReQL_ast *table_create();
 
 /**
  */
-  void table_drop();
+  ReQL_ast *table_drop();
 
 /**
  */
-  void table_list();
+  ReQL_ast *table_list();
 
 /**
  */
-  void thursday();
+  ReQL_ast *thursday();
 
 /**
  */
-  void time();
+  ReQL_ast *time();
 
 /**
  */
-  void timezone();
+  ReQL_ast *timezone();
 
 /**
  */
-  void time_of_day();
+  ReQL_ast *time_of_day();
 
 /**
  */
-  void to_epoch_time();
+  ReQL_ast *to_epoch_time();
 
 /**
  */
-  void to_geojson();
+  ReQL_ast *to_geojson();
 
 /**
  */
-  void to_iso8601();
+  ReQL_ast *to_iso8601();
 
 /**
  */
-  void to_json_string();
+  ReQL_ast *to_json_string();
 
 /**
  */
-  void tuesday();
+  ReQL_ast *tuesday();
 
 /**
  */
-  void type_of();
+  ReQL_ast *type_of();
 
 /**
  */
-  void ungroup();
+  ReQL_ast *ungroup();
 
 /**
  */
-  void union_();
+  ReQL_ast *union_();
 
 /**
  */
-  void upcase();
+  ReQL_ast *upcase();
 
 /**
  */
-  void update();
+  ReQL_ast *update();
 
 /**
  */
-  void uuid();
+  ReQL_ast *uuid();
 
 /**
  */
-  void var();
+  ReQL_ast *var();
 
 /**
  */
-  void wednesday();
+  ReQL_ast *wednesday();
 
 /**
  */
-  void without();
+  ReQL_ast *without();
 
 /**
  */
-  void with_fields();
+  ReQL_ast *with_fields();
 
 /**
  */
-  void year();
+  ReQL_ast *year();
 
 /**
  */
-  void zip();
+  ReQL_ast *zip();
 /* end generated header */
 };
 
