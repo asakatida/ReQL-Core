@@ -86,3 +86,32 @@ _ReQL_Op_t *_reql_expr_bool(int val) {
   return term;
 }
 
+_ReQL_Op_t *_reql_build(_ReQL_Op_t *query) {
+  if (query->tt == _REQL_DATUM) {
+    return query;
+  }
+
+  _ReQL_Op_t *res = _reql_expr_array();
+  _reql_array_append(res, _reql_expr_number(query->tt));
+  if (query->args  && query->args->elem) {
+    _ReQL_Array_t *elem = query->args;
+    _ReQL_Op_t *args = _reql_expr_array();
+    while (elem->next != elem) {
+      _reql_array_append(args, _reql_build(elem->elem));
+      elem = elem->next;
+    }
+    _reql_array_append(args, _reql_build(elem->elem));
+    _reql_array_append(res, args);
+  }
+  if (query->kwargs && query->kwargs->key) {
+    _ReQL_Object_t *pair = query->kwargs;
+    _ReQL_Op_t *kwargs = _reql_expr_object();
+    while (pair->next != pair) {
+      _reql_object_add(kwargs, pair->key, _reql_build(pair->val));
+      pair = pair->next;
+    }
+    _reql_object_add(kwargs, pair->key, _reql_build(pair->val));
+    _reql_array_append(res, kwargs);
+  }
+  return res;
+}

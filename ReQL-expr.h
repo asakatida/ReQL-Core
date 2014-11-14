@@ -45,4 +45,6 @@ void _reql_array_append(_ReQL_Op_t *arr, _ReQL_Op_t *val);
 _ReQL_Op_t *_reql_expr_object();
 void _reql_object_add(_ReQL_Op_t *obj, _ReQL_Op_t *key, _ReQL_Op_t *val);
 
+_ReQL_Op_t *_reql_build(_ReQL_Op_t *query);
+
 #endif
