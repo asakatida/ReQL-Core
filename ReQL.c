@@ -8,32 +8,42 @@
 
 #include "ReQL.h"
 
-int _reql_connect(_ReQL_Conn_t *conn, unsigned char host_len, char *host, unsigned char port) {
-  conn->socket = conn->error = socket(PF_INET, SOCK_STREAM, PF_INET);
+#ifndef htole32
+#ifdef OSSwapHostToLittleConstInt32
+#define htole32 OSSwapHostToLittleConstInt32
+#endif
+#endif
+
+int _reql_connect(_ReQL_Conn_t *conn, char *buf) {
+  conn->error = socket(PF_INET, SOCK_STREAM, PF_INET);
   if (conn->error > 0) {
-    struct sockaddr address = {host_len, port, *host};
-    conn->error = connect(conn->socket, &address, 0);
+    conn->socket = conn->error;
+    conn->error = connect(conn->socket, conn->address, 0);
     if (!conn->error) {
-      unsigned int version = htole32(_REQL_VERSION);
-      char msg_buf[12];
-      msg_buf[0] = version & 0xff;
-      msg_buf[1] = (version << 8) & 0xff;
-      msg_buf[2] = (version << 16) & 0xff;
-      msg_buf[3] = (version << 24) & 0xff;
-      msg_buf[4] = 0;
-      msg_buf[5] = 0;
-      msg_buf[6] = 0;
-      msg_buf[7] = 0;
-      unsigned int protocol = htole32(_REQL_PROTOCOL);
-      msg_buf[8] = protocol & 0xff;
-      msg_buf[9] = (protocol << 8) & 0xff;
-      msg_buf[10] = (protocol << 16) & 0xff;
-      msg_buf[11] = (protocol << 24) & 0xff;
-      send(conn->socket, msg_buf, 12, 0);
-      conn->buf = malloc(sizeof(char) * 100);
-      recv(conn->socket, conn->buf, 0, MSG_WAITALL);
-      if (strcmp(conn->buf, "SUCCESS")) {
+      const unsigned int version = htole32(_REQL_VERSION);
+      char *msg_buf = malloc(sizeof(char) * (conn->auth_len + 12));
+      unsigned int i = 0;
+      for (unsigned int j=0; j<4; ++j) {
+        msg_buf[i++] = (version << (8 * j)) & 0xff;
+      }
+      const unsigned int auth_len = htole32(conn->auth_len);
+      for (unsigned int j=0; j<4; ++j) {
+        msg_buf[i++] = (auth_len << (8 * j)) & 0xff;
+      }
+      for (unsigned int j=0; j<conn->auth_len; ++j) {
+        msg_buf[i++] = conn->auth[j];
+      }
+      const unsigned int protocol = htole32(_REQL_PROTOCOL);
+      for (unsigned int j=0; j<4; ++j) {
+        msg_buf[i++] = (protocol << (8 * j)) & 0xff;
+      }
+      send(conn->socket, msg_buf, auth_len + 12, 0);
+      recv(conn->socket, buf, 0, MSG_WAITALL);
+      if (strcmp(buf, "SUCCESS")) {
         conn->error = -1;
+      } else {
+        conn->cursors->next = conn->cursors->prev = conn->cursors;
+        conn->cursors->cur = NULL;
       }
     }
   }
