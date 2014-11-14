@@ -10,7 +10,7 @@ struct _ReQL_Op_s {
   int dt;
 
   unsigned int str_len;
-  char *str;
+  const char *str;
 
   double num;
 
@@ -37,7 +37,7 @@ typedef struct _ReQL_Object_s _ReQL_Object_t;
 _ReQL_Op_t *_reql_expr_bool(int val);
 _ReQL_Op_t *_reql_expr_null();
 _ReQL_Op_t *_reql_expr_number(double val);
-_ReQL_Op_t *_reql_expr_string(char *val, unsigned int str_len);
+_ReQL_Op_t *_reql_expr_string(const char *val, unsigned int str_len);
 
 _ReQL_Op_t *_reql_expr_array();
 void _reql_array_append(_ReQL_Op_t *arr, _ReQL_Op_t *val);
