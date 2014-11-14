@@ -2,6 +2,8 @@
  * @author Adam Grandquist
  */
 
+#include <sys/socket.h>
+
 #include "ReQL-ast.h"
 
 #ifndef _REQL_H
