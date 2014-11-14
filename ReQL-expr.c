@@ -14,6 +14,7 @@ _ReQL_Op_t *_reql_expr_number(double val) {
   term->num = val;
   return term;
 }
+
 _ReQL_Op_t *_reql_expr_string(const char *val, unsigned int str_len) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->dt = _REQL_R_STR;
