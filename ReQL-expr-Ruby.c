@@ -3,4 +3,3 @@
  */
 
 #include "ReQL-expr-Ruby.h"
-

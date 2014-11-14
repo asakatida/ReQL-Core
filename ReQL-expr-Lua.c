@@ -7,7 +7,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <assert.h>
+
+#include "ReQL-ast-Lua.h"
 
 #include "ReQL-expr-Lua.h"
 

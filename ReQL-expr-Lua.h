@@ -4,6 +4,8 @@
 
 #include <lua.h>
 
+#include "ReQL.h"
+
 #ifndef _REQL_EXPR_LUA
 #define _REQL_EXPR_LUA
 
