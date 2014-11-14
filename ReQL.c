@@ -23,18 +23,19 @@ int _reql_connect(_ReQL_Conn_t *conn, char *buf) {
       const unsigned int version = htole32(_REQL_VERSION);
       char *msg_buf = malloc(sizeof(char) * (conn->auth_len + 12));
       unsigned int i = 0;
-      for (unsigned int j=0; j<4; ++j) {
+      unsigned int j = 0;
+      for (; j<4; ++j) {
         msg_buf[i++] = (version << (8 * j)) & 0xff;
       }
       const unsigned int auth_len = htole32(conn->auth_len);
-      for (unsigned int j=0; j<4; ++j) {
+      for (j=0; j<4; ++j) {
         msg_buf[i++] = (auth_len << (8 * j)) & 0xff;
       }
-      for (unsigned int j=0; j<conn->auth_len; ++j) {
+      for (j=0; j<conn->auth_len; ++j) {
         msg_buf[i++] = conn->auth[j];
       }
       const unsigned int protocol = htole32(_REQL_PROTOCOL);
-      for (unsigned int j=0; j<4; ++j) {
+      for (j=0; j<4; ++j) {
         msg_buf[i++] = (protocol << (8 * j)) & 0xff;
       }
       send(conn->socket, msg_buf, auth_len + 12, 0);
@@ -58,7 +59,8 @@ int _reql_json_decode(_ReQL_Op_t *val, unsigned int json_len, char *json) {
   val = malloc(sizeof(_ReQL_Op_t *));
   _ReQL_Op_t *track = val;
   int state = _REQL_R_OBJECT;
-  for (unsigned int i=0; i<json_len; ++i) {
+  unsigned int i;
+  for (i=0; i<json_len; ++i) {
     switch (state) {
       case _REQL_R_OBJECT: {
         switch (json[i]) {
