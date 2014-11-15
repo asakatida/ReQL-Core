@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E84356B1A171A0F008167E6 /* ReQL-ast-Lua.c in Sources */ = {isa = PBXBuildFile; fileRef = 1E8435661A171A0F008167E6 /* ReQL-ast-Lua.c */; };
+		1E84356C1A171A0F008167E6 /* ReQL-ast-Lua.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E8435671A171A0F008167E6 /* ReQL-ast-Lua.h */; };
+		1E84356D1A171A0F008167E6 /* ReQL-expr-Lua.c in Sources */ = {isa = PBXBuildFile; fileRef = 1E8435681A171A0F008167E6 /* ReQL-expr-Lua.c */; };
+		1E84356E1A171A0F008167E6 /* ReQL-expr-Lua.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E8435691A171A0F008167E6 /* ReQL-expr-Lua.h */; };
+		1E84356F1A171A0F008167E6 /* ReQL-Lua.c in Sources */ = {isa = PBXBuildFile; fileRef = 1E84356A1A171A0F008167E6 /* ReQL-Lua.c */; };
+		1E8435701A171A19008167E6 /* ReQL-ast.c in Sources */ = {isa = PBXBuildFile; fileRef = 1ED0665F1A030AE8005225FD /* ReQL-ast.c */; };
+		1E8435711A171A1D008167E6 /* ReQL-ast.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ED066601A030AE8005225FD /* ReQL-ast.h */; };
+		1E8435721A171A1F008167E6 /* ReQL-expr.c in Sources */ = {isa = PBXBuildFile; fileRef = 1ED066721A046AC1005225FD /* ReQL-expr.c */; };
+		1E8435731A171A24008167E6 /* ReQL-expr.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ED066731A046AC1005225FD /* ReQL-expr.h */; };
+		1E8435741A171A2D008167E6 /* ReQL.c in Sources */ = {isa = PBXBuildFile; fileRef = 1ED066631A030AE8005225FD /* ReQL.c */; };
+		1E8435751A171A3F008167E6 /* ReQL.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ED066641A030AE8005225FD /* ReQL.h */; };
 		1E9D4B831A03011100201983 /* liblibReQL.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E9D4B771A03011100201983 /* liblibReQL.dylib */; };
 		1ED066651A030AE8005225FD /* ReQL-ast-ObjC.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ED0665D1A030AE8005225FD /* ReQL-ast-ObjC.h */; };
 		1ED066661A030AE8005225FD /* ReQL-ast-ObjC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED0665E1A030AE8005225FD /* ReQL-ast-ObjC.m */; };
@@ -33,6 +44,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1E8435621A17193D008167E6 /* liblibReQL-Lua.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "liblibReQL-Lua.dylib"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1E8435661A171A0F008167E6 /* ReQL-ast-Lua.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "ReQL-ast-Lua.c"; sourceTree = "<group>"; };
+		1E8435671A171A0F008167E6 /* ReQL-ast-Lua.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ReQL-ast-Lua.h"; sourceTree = "<group>"; };
+		1E8435681A171A0F008167E6 /* ReQL-expr-Lua.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "ReQL-expr-Lua.c"; sourceTree = "<group>"; };
+		1E8435691A171A0F008167E6 /* ReQL-expr-Lua.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ReQL-expr-Lua.h"; sourceTree = "<group>"; };
+		1E84356A1A171A0F008167E6 /* ReQL-Lua.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "ReQL-Lua.c"; sourceTree = "<group>"; };
 		1E9D4B771A03011100201983 /* liblibReQL.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = liblibReQL.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E9D4B821A03011100201983 /* libReQLTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = libReQLTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1ED0665D1A030AE8005225FD /* ReQL-ast-ObjC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ReQL-ast-ObjC.h"; sourceTree = "<group>"; };
@@ -51,6 +68,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		1E84355F1A17193D008167E6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1E9D4B741A03011100201983 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -73,14 +97,19 @@
 			isa = PBXGroup;
 			children = (
 				1E9D4B781A03011100201983 /* Products */,
+				1E8435661A171A0F008167E6 /* ReQL-ast-Lua.c */,
+				1E8435671A171A0F008167E6 /* ReQL-ast-Lua.h */,
 				1ED0665D1A030AE8005225FD /* ReQL-ast-ObjC.h */,
 				1ED0665E1A030AE8005225FD /* ReQL-ast-ObjC.m */,
 				1ED0665F1A030AE8005225FD /* ReQL-ast.c */,
 				1ED066601A030AE8005225FD /* ReQL-ast.h */,
+				1E8435681A171A0F008167E6 /* ReQL-expr-Lua.c */,
+				1E8435691A171A0F008167E6 /* ReQL-expr-Lua.h */,
 				1ED066701A046AC1005225FD /* ReQL-expr-ObjC.h */,
 				1ED066711A046AC1005225FD /* ReQL-expr-ObjC.m */,
 				1ED066721A046AC1005225FD /* ReQL-expr.c */,
 				1ED066731A046AC1005225FD /* ReQL-expr.h */,
+				1E84356A1A171A0F008167E6 /* ReQL-Lua.c */,
 				1ED066611A030AE8005225FD /* ReQL-ObjC.h */,
 				1ED066621A030AE8005225FD /* ReQL-ObjC.m */,
 				1ED066631A030AE8005225FD /* ReQL.c */,
@@ -94,6 +123,7 @@
 			children = (
 				1E9D4B771A03011100201983 /* liblibReQL.dylib */,
 				1E9D4B821A03011100201983 /* libReQLTests.xctest */,
+				1E8435621A17193D008167E6 /* liblibReQL-Lua.dylib */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -109,6 +139,18 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		1E8435601A17193D008167E6 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1E8435751A171A3F008167E6 /* ReQL.h in Headers */,
+				1E84356E1A171A0F008167E6 /* ReQL-expr-Lua.h in Headers */,
+				1E8435731A171A24008167E6 /* ReQL-expr.h in Headers */,
+				1E84356C1A171A0F008167E6 /* ReQL-ast-Lua.h in Headers */,
+				1E8435711A171A1D008167E6 /* ReQL-ast.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1E9D4B751A03011100201983 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -125,6 +167,23 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		1E8435611A17193D008167E6 /* libReQL-Lua */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1E8435651A17193D008167E6 /* Build configuration list for PBXNativeTarget "libReQL-Lua" */;
+			buildPhases = (
+				1E84355E1A17193D008167E6 /* Sources */,
+				1E84355F1A17193D008167E6 /* Frameworks */,
+				1E8435601A17193D008167E6 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "libReQL-Lua";
+			productName = "libReQL-Lua";
+			productReference = 1E8435621A17193D008167E6 /* liblibReQL-Lua.dylib */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
 		1E9D4B761A03011100201983 /* libReQL */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1E9D4B8B1A03011100201983 /* Build configuration list for PBXNativeTarget "libReQL" */;
@@ -169,6 +228,9 @@
 				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = "Adam Grandquist";
 				TargetAttributes = {
+					1E8435611A17193D008167E6 = {
+						CreatedOnToolsVersion = 6.1;
+					};
 					1E9D4B761A03011100201983 = {
 						CreatedOnToolsVersion = 6.1;
 					};
@@ -191,6 +253,7 @@
 			targets = (
 				1E9D4B761A03011100201983 /* libReQL */,
 				1E9D4B811A03011100201983 /* libReQLTests */,
+				1E8435611A17193D008167E6 /* libReQL-Lua */,
 			);
 		};
 /* End PBXProject section */
@@ -206,6 +269,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		1E84355E1A17193D008167E6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1E8435721A171A1F008167E6 /* ReQL-expr.c in Sources */,
+				1E8435701A171A19008167E6 /* ReQL-ast.c in Sources */,
+				1E84356B1A171A0F008167E6 /* ReQL-ast-Lua.c in Sources */,
+				1E84356F1A171A0F008167E6 /* ReQL-Lua.c in Sources */,
+				1E84356D1A171A0F008167E6 /* ReQL-expr-Lua.c in Sources */,
+				1E8435741A171A2D008167E6 /* ReQL.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1E9D4B731A03011100201983 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -237,6 +313,40 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		1E8435631A17193D008167E6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				EXECUTABLE_PREFIX = lib;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/usr/local/include/lua5.2,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		1E8435641A17193D008167E6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/usr/local/include/lua5.2,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		1E9D4B891A03011100201983 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -366,6 +476,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		1E8435651A17193D008167E6 /* Build configuration list for PBXNativeTarget "libReQL-Lua" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1E8435631A17193D008167E6 /* Debug */,
+				1E8435641A17193D008167E6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		1E9D4B721A03011100201983 /* Build configuration list for PBXProject "libReQL" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
