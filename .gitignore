@@ -1,3 +1,7 @@
+# Rake
+pkg/
+tmp/
+
 # Xcode
 #
 build/

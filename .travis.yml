@@ -1,6 +1,6 @@
 before_install:
   - sudo apt-get install python3-dev luarocks npm
-  - gem install rake
+  - gem install rake-compiler
   - curl https://bootstrap.pypa.io/get-pip.py | sudo python3
 
 install:
