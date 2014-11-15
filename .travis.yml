@@ -7,5 +7,5 @@ install:
   - make
   - sudo luarocks make
   - sudo python3 setup.py install
-  - npm install
+  - sudo npm install
   - rake
