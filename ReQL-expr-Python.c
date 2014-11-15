@@ -4,6 +4,8 @@
 
 #include <stdlib.h>
 
+#include "ReQL-ast-Python.h"
+
 #include "ReQL-expr-Python.h"
 
 static PyObject *
