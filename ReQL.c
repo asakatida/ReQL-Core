@@ -91,16 +91,16 @@ int _reql_json_encode(_ReQL_Op_t *val, char **json) {
 }
 
 _ReQL_Cur_t *_reql_run(_ReQL_Op_t *query, _ReQL_Conn_t *conn, _ReQL_Op_t *kwargs) {
-  _ReQL_Cur_t *cur = malloc(sizeof(_ReQL_Cur_t*));
+  _ReQL_Cur_t *cur = malloc(sizeof(_ReQL_Cur_t));
   cur->conn = conn;
   cur->idx = 0;
   cur->response = _reql_expr_null();
-  _ReQL_Cur_Arr_t *cursors = conn->cursors;
+  _ReQL_Cur_t *cursors = conn->cursors;
   while (cursors->next != cursors) {
     cursors = cursors->next;
   }
   if (cursors->cur) {
-    _ReQL_Cur_Arr_t *next = malloc(sizeof(_ReQL_Cur_Arr_t*));
+    _ReQL_Cur_t *next = malloc(sizeof(_ReQL_Cur_t));
     next->prev = cursors;
     cursors->next = next->next = next;
     next->cur = cur;
@@ -117,16 +117,7 @@ void _reql_next(_ReQL_Cur_t *cur) {
 }
 
 void _reql_close_cur(_ReQL_Cur_t *cur) {
-  _ReQL_Cur_Arr_t *cursors = cur->conn->cursors;
-  while (cursors->next != cursors) {
-    if (cursors->cur == cur) {
-      _ReQL_Cur_Arr_t *cursor_match = cursors;
-      cursors->next->prev = cursors->prev;
-      cursors->prev->next = cursors->next;
-      free(cursor_match);
-      break;
-    }
-    cursors = cursors->next;
-  }
-  free(cur);
+  cur->prev->next = cur->next == cur ? cur->prev : cur->next;
+  cur->next->prev = cur->prev == cur ? cur->next : cur->prev;
+  free(cur); cur = NULL;
 }

@@ -15,15 +15,10 @@ struct _ReQL_Cur_s {
   struct _ReQL_Conn_s *conn;
   _ReQL_Op_t *response;
   _ReQL_Op_t *array;
+  struct _ReQL_Cur_s *next;
+  struct _ReQL_Cur_s *prev;
 };
 typedef struct _ReQL_Cur_s _ReQL_Cur_t;
-
-struct _ReQL_Cur_Arr_s {
-  _ReQL_Cur_t *cur;
-  struct _ReQL_Cur_Arr_s *next;
-  struct _ReQL_Cur_Arr_s *prev;
-};
-typedef struct _ReQL_Cur_Arr_s _ReQL_Cur_Arr_t;
 
 struct _ReQL_Conn_s {
   int socket;
@@ -32,7 +27,7 @@ struct _ReQL_Conn_s {
   unsigned int auth_len;
   struct sockaddr *address;
   char *auth;
-  _ReQL_Cur_Arr_t *cursors;
+  _ReQL_Cur_t *cursors;
 };
 typedef struct _ReQL_Conn_s _ReQL_Conn_t;
 

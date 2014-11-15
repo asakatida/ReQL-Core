@@ -32,12 +32,12 @@ _ReQL_Op_t *_reql_expr_array() {
 }
 
 void _reql_array_append(_ReQL_Op_t *arr, _ReQL_Op_t *val) {
-  _ReQL_Array_t *int_arr = arr->args;
+  _ReQL_Op_t *int_arr = arr->args;
   while (int_arr->next != int_arr) {
     int_arr = int_arr->next;
   }
   if (int_arr->elem) {
-    _ReQL_Array_t *next;
+    _ReQL_Op_t *next;
     next->prev = int_arr;
     int_arr->next = next->next = next;
     next->elem = val;
@@ -56,12 +56,12 @@ _ReQL_Op_t *_reql_expr_object() {
 }
 
 void _reql_object_add(_ReQL_Op_t *obj, _ReQL_Op_t *key, _ReQL_Op_t *val) {
-  _ReQL_Object_t *int_obj = obj->kwargs;
+  _ReQL_Op_t *int_obj = obj->kwargs;
   while (int_obj->next != int_obj) {
     int_obj = int_obj->next;
   }
   if (int_obj->key) {
-    _ReQL_Object_t *next;
+    _ReQL_Op_t *next;
     next->prev = int_obj;
     int_obj->next = next->next = next;
     next->key = key;
@@ -94,7 +94,7 @@ _ReQL_Op_t *_reql_build(_ReQL_Op_t *query) {
   _ReQL_Op_t *res = _reql_expr_array();
   _reql_array_append(res, _reql_expr_number(query->tt));
   if (query->args  && query->args->elem) {
-    _ReQL_Array_t *elem = query->args;
+    _ReQL_Op_t *elem = query->args;
     _ReQL_Op_t *args = _reql_expr_array();
     while (elem->next != elem) {
       _reql_array_append(args, _reql_build(elem->elem));
@@ -104,7 +104,7 @@ _ReQL_Op_t *_reql_build(_ReQL_Op_t *query) {
     _reql_array_append(res, args);
   }
   if (query->kwargs && query->kwargs->key) {
-    _ReQL_Object_t *pair = query->kwargs;
+    _ReQL_Op_t *pair = query->kwargs;
     _ReQL_Op_t *kwargs = _reql_expr_object();
     while (pair->next != pair) {
       _reql_object_add(kwargs, pair->key, _reql_build(pair->val));
