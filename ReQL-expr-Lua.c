@@ -110,7 +110,8 @@ static int _reql_lua_is_instance(lua_State *L) {
 
   int i;
   for (i=2; i<=argn; ++i) {
-    if (!strcmp(luaL_typename(L, 1), lua_tostring(L, i))) {
+    const char *instance_name = lua_tostring(L, i);
+    if (!strcmp(luaL_typename(L, 1), instance_name)) {
       is = 1;
       break;
     }
@@ -119,7 +120,7 @@ static int _reql_lua_is_instance(lua_State *L) {
       lua_getfield(L, 1, "__class");
       while (!lua_isnil(L, argn + 1)) {
         lua_getfield(L, argn + 1, "__name");
-        is = lua_compare(L, argn + 2, i, LUA_OPEQ);
+        is = !strcmp(lua_tostring(L, argn + 2), instance_name);
 
         lua_pop(L, 1);
 
