@@ -6,8 +6,6 @@
 
 #include "ReQL-ast-Ruby.h"
 
-/* start generated terms */
-
 /**
  */
 static VALUE _reql_rb_add(int argn, VALUE *args, VALUE self) {
@@ -991,4 +989,3 @@ static VALUE _reql_rb_year(int argn, VALUE *args, VALUE self) {
 static VALUE _reql_rb_zip(int argn, VALUE *args, VALUE self) {
   return NULL;
 }
-/* end generated terms */

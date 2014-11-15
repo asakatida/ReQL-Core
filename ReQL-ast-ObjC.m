@@ -8,8 +8,6 @@
 
 @implementation libReQL_ast
 
-/* start generated terms */
-
 /**
  */
 -(instancetype) add {
@@ -993,6 +991,5 @@
 -(instancetype) zip {
   return self;
 }
-/* end generated terms */
 
 @end

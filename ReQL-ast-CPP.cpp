@@ -8,8 +8,6 @@
 
 #include "ReQL-ast-CPP.hpp"
 
-/* start generated terms */
-
 /**
  */
 ReQL_ast *ReQL_ast::add() {
@@ -993,4 +991,3 @@ ReQL_ast *ReQL_ast::year() {
 ReQL_ast *ReQL_ast::zip() {
   return NULL;
 }
-/* end generated terms */

@@ -11,7 +11,6 @@ class ReQL_ast : ReQL_expr {
   int tt;
 
 public:
-/* start generated header */
 
 /**
  */
@@ -668,7 +667,6 @@ public:
 /**
  */
   ReQL_ast *zip();
-/* end generated header */
 };
 
 #endif

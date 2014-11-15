@@ -8,8 +8,6 @@
 
 #include "ReQL-ast-Node.hpp"
 
-/* start generated terms */
-
 /**
  */
 v8::Handle<v8::Value> _reql_node_add(const v8::Arguments& args) {
@@ -2305,4 +2303,3 @@ v8::Handle<v8::Value> _reql_node_zip(const v8::Arguments& args) {
 
   return scope.Close(obj);
 }
-/* end generated terms */

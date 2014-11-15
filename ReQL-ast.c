@@ -6,8 +6,6 @@
 
 #include "ReQL-ast.h"
 
-/* start generated terms */
-
 /**
  */
 _ReQL_Op_t *_reql_add(_ReQL_Op_t *args, _ReQL_Op_t *kwargs) {
@@ -1811,4 +1809,3 @@ _ReQL_Op_t *_reql_zip(_ReQL_Op_t *args, _ReQL_Op_t *kwargs) {
   term->kwargs = kwargs->kwargs;
   return term;
 }
-/* end generated terms */

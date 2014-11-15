@@ -7,8 +7,6 @@
 #ifndef _REQL_AST_RUBY
 #define _REQL_AST_RUBY
 
-/* start generated header */
-
 /**
  */
 static VALUE _reql_rb_add(int argn, VALUE *args, VALUE self);
@@ -664,6 +662,5 @@ static VALUE _reql_rb_year(int argn, VALUE *args, VALUE self);
 /**
  */
 static VALUE _reql_rb_zip(int argn, VALUE *args, VALUE self);
-/* end generated header */
 
 #endif

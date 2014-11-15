@@ -7,8 +7,6 @@
 #ifndef _REQL_AST_NODE
 #define _REQL_AST_NODE
 
-/* start generated header */
-
 /**
  */
 v8::Handle<v8::Value> _reql_node_add(const v8::Arguments& args);
@@ -664,6 +662,5 @@ v8::Handle<v8::Value> _reql_node_year(const v8::Arguments& args);
 /**
  */
 v8::Handle<v8::Value> _reql_node_zip(const v8::Arguments& args);
-/* end generated header */
 
 #endif

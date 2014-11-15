@@ -6,8 +6,6 @@
 
 @interface libReQL_ast : libReQL_expr
 
-/* start generated header */
-
 /**
  */
 -(instancetype)add;
@@ -663,6 +661,5 @@
 /**
  */
 -(instancetype)zip;
-/* end generated header */
 
 @end

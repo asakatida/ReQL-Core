@@ -7,8 +7,6 @@
 #ifndef _REQL_AST_PYTHON
 #define _REQL_AST_PYTHON
 
-/* start generated header */
-
 /**
  */
 static PyObject *_reql_py_add(PyObject *self, PyObject *args, PyObject *kwargs);
@@ -664,6 +662,5 @@ static PyObject *_reql_py_year(PyObject *self, PyObject *args, PyObject *kwargs)
 /**
  */
 static PyObject *_reql_py_zip(PyObject *self, PyObject *args, PyObject *kwargs);
-/* end generated header */
 
 #endif

@@ -13,8 +13,6 @@
 
 #include "ReQL-ast-Lua.h"
 
-/* start generated terms */
-
 /**
  */
 static int _reql_lua_add(lua_State *L) {
@@ -998,4 +996,3 @@ static int _reql_lua_year(lua_State *L) {
 static int _reql_lua_zip(lua_State *L) {
   return 1;
 }
-/* end generated terms */

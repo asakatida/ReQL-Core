@@ -7,8 +7,6 @@
 #ifndef _REQL_AST_H
 #define _REQL_AST_H
 
-/* start generated constants */
-
 static const unsigned int _REQL_VERSION = 0x5f75e83e;
 static const unsigned int _REQL_PROTOCOL = 0x7e6970c7;
 
@@ -203,9 +201,6 @@ enum {
   _REQL_YEAR = 128,
   _REQL_ZIP = 72
 };
-/* end generated constants */
-
-/* start generated header */
 
 /**
  */
@@ -862,6 +857,5 @@ _ReQL_Op_t *_reql_year(_ReQL_Op_t *args, _ReQL_Op_t *kwargs);
 /**
  */
 _ReQL_Op_t *_reql_zip(_ReQL_Op_t *args, _ReQL_Op_t *kwargs);
-/* end generated header */
 
 #endif

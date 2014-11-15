@@ -8,8 +8,6 @@
 
 #include "ReQL-ast-Python.h"
 
-/* start generated terms */
-
 /**
  */
 static PyObject *_reql_py_add(PyObject *self, PyObject *args, PyObject *kwargs) {
@@ -2305,4 +2303,3 @@ static PyObject *_reql_py_zip(PyObject *self, PyObject *args, PyObject *kwargs) 
 
   return val;
 }
-/* end generated terms */
