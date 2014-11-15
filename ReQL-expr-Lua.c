@@ -2,8 +2,6 @@
  * @author Adam Grandquist
  */
 
-#include <lauxlib.h>
-#include <lualib.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -69,26 +67,24 @@ static int _reql_lua_expr(lua_State *L) {
       }
 
       if (array) {
-        for (int i=1; i<=table_len; ++i) {
-          lua_pushnumber(L, i);
-          lua_getfield(L, 2);
+        int i;
+        for (i=1; i<=table_len; ++i) {
+          lua_rawgeti(L, 2, i);
           if (lua_isnil(L, 4)) {
             array = 0;
           }
-          lua_pop(L, 2);
+          lua_pop(L, 1);
         }
       }
 
       if (array) {
-        lua_rawlen(L, 2);
-        const int arr_len = lua_tointeger(L, 4);
-        lua_pop(L, 1);
         lua_pushcfunction(L, _reql_lua_make_array);
         lua_pushnil(L);
-        for (int i=1; i<=arr_len; ++i) {
+        int i;
+        for (i=1; i<=table_len; ++i) {
           lua_rawgeti(L, 2, i);
         }
-        lua_call(L, arr_len + 1, 1);
+        lua_call(L, table_len + 1, 1);
       } else {
         lua_pushcfunction(L, _reql_lua_make_obj);
         lua_pushvalue(L, 2);
@@ -112,7 +108,8 @@ static int _reql_lua_is_instance(lua_State *L) {
 
   int is = 0;
 
-  for (int i=2; i<=argn; ++i) {
+  int i;
+  for (i=2; i<=argn; ++i) {
     if (!strcmp(luaL_typename(L, 1), lua_tostring(L, i))) {
       is = 1;
       break;
@@ -172,18 +169,18 @@ static int _reql_lua_get_opts(lua_State *L) {
 static int _reql_lua_intsp(lua_State *L) {
   lua_settop(L, 1);
   lua_rawlen(L, 1);
-  const long table_len = lua_tonumber(L, 2);
+  const unsigned int table_len = lua_tounsigned(L, 2);
   lua_pop(L, 1);
 
-  lua_createtable(L, table_len, table_len);
-  for (long i=1; i<=table_len; ++i) {
+  lua_createtable(L, table_len * 2, table_len * 2);
+  unsigned int i, j=1;
+  for (i=1; i<=table_len; ++i) {
     if (i > 1) {
       lua_pushliteral(L, ", ");
-      lua_setfield(L, 2);
+      lua_rawseti(L, 2, j++);
     }
-    lua_pushnumber(L, i);
-    lua_getfield(L, 1);
-    lua_setfield(L, 2);
+    lua_rawgeti(L, 1, i);
+    lua_rawseti(L, 2, j++);
   }
   return 1;
 }
@@ -191,30 +188,37 @@ static int _reql_lua_intsp(lua_State *L) {
 static int _reql_lua_kved(lua_State *L) {
   lua_settop(L, 1);
   lua_rawlen(L, 1);
-  const long table_len = lua_tonumber(L, 2);
+  const unsigned int table_len = lua_tounsigned(L, 2);
   lua_pop(L, 1);
 
-  lua_createtable(L, table_len, table_len);
+  lua_createtable(L, table_len * 3, table_len * 3);
+
+  unsigned int i=1;
 
   lua_pushnil(L);
   while (lua_next(L, 1)) {
-    lua_pushvalue(L, 3);
-    lua_pushliteral(L, " = ");
     lua_pushvalue(L, 4);
-    lua_setfield(L, 2);
-    lua_setfield(L, 2);
-    lua_setfield(L, 2);
+    lua_pushliteral(L, " = ");
+    lua_pushvalue(L, 3);
+    lua_rawseti(L, 2, i++);
+    lua_rawseti(L, 2, i++);
+    lua_rawseti(L, 2, i++);
     lua_pop(L, 1);
   }
+
+  lua_createtable(L, 3, 3);
+
+  lua_pushliteral(L, "}");
 
   lua_pushcfunction(L, _reql_lua_intsp);
   lua_pushvalue(L, 2);
   lua_call(L, 1, 1);
 
   lua_pushliteral(L, "{");
-  lua_pushliteral(L, "}");
-  lua_setfield(L, 2);
-  lua_setfield(L, 2);
+
+  lua_rawseti(L, 3, 1);
+  lua_rawseti(L, 3, 2);
+  lua_rawseti(L, 3, 3);
 
   return 1;
 }
@@ -225,18 +229,18 @@ static int _reql_lua_intspallargs(lua_State *L) {
   lua_pushcfunction(L, _reql_lua_intsp);
   lua_createtable(L, 2, 2);
 
+  lua_pushcfunction(L, _reql_lua_kved);
+  lua_pushvalue(L, 2);
+  lua_call(L, 1, 1);
+
   lua_pushcfunction(L, _reql_lua_intsp);
   lua_pushvalue(L, 1);
   lua_call(L, 1, 1);
 
-  lua_pushcfunction(L, _reql_lua_kved);
-  lua_pushvalue(L, 1);
+  lua_rawseti(L, 3, 1);
+  lua_rawseti(L, 3, 2);
+
   lua_call(L, 1, 1);
-
-  lua_setfield(L, 3);
-  lua_setfield(L, 3);
-
-  lua_call(L, 2, 1);
 
   return 1;
 }
@@ -261,15 +265,15 @@ static int _reql_lua_compose_term(lua_State *L) {
   }
 
   lua_getfield(L, 2, "args");
-  lua_rawlen(L);
-  const long table_len = lua_tonumber(L, 4);
+  lua_rawlen(L, 3);
+  const unsigned int table_len = lua_tounsigned(L, 4);
   lua_pop(L, 1);
 
   lua_createtable(L, table_len, table_len);
 
-  for (int i=1; i<=table_len; ++i) {
-    lua_pushnumber(L, i);
-    lua_pushcfunction(L, _reql_lua_compose_term);
+  int i;
+
+  for (i=1; i<=table_len; ++i) {
   }
 
   lua_pushnil(L);
@@ -283,8 +287,6 @@ static int _reql_lua_compose_term(lua_State *L) {
 static int _reql_lua___call(lua_State *L) {
   lua_createtable(L, 0, 0);
   lua_createtable(L, 2, 2);
-  lua_setfield(L, 2);
-  lua_setfield(L, 2);
   return 1;
 }
 
@@ -292,23 +294,12 @@ static int _reql_lua_join_tree(lua_State *L) {
   lua_settop(L, 2);
 
   lua_rawlen(L, 2);
-  const long table_len = lua_tonumber(L, 3);
+  const double table_len = lua_tonumber(L, 3);
 
-  long str_len = table_len;
+  long i;
 
-  char *str = malloc(sizeof(char) * str_len);
-
-  for (long i=1; i<=table_len; ++i) {
-    lua_getfield(L, 2, i);
-    if (lua_istable(L, 3)) {
-      lua_rawlen(L, 3);
-    }
-    const char *term = lua_tostring(L, 3);
-    strcat(str, term);
-    lua_pop(L, 1);
+  for (i=1; i<=table_len; ++i) {
   }
-
-  lua_pushlstring(str, str_len);
 
   return 1;
 }
@@ -350,7 +341,12 @@ static _ReQL_Op_t *_reql_from_lua(lua_State *L, const int idx) {
       return _reql_expr_bool(lua_toboolean(L, idx));
     }
     case LUA_TFUNCTION: {
-      return _reql_lua_func(L);
+      lua_pushcfunction(L, _reql_lua_func);
+      lua_pushvalue(L, idx);
+      lua_call(L, 1, 1);
+      _ReQL_Op_t *res = _reql_from_lua(L, lua_gettop(L));
+      lua_pop(L, 1);
+      return res;
     }
     case LUA_TNIL: {
       return _reql_expr_null();
