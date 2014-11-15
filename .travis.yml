@@ -1,7 +1,9 @@
 before_install:
-  - sudo apt-get install python3-dev python3-pip luarocks npm
+  - sudo apt-get install python3-dev luarocks npm
   - gem install rake
-  - pip3 install setuptools
+  - curl http://python-distribute.org/distribute_setup.py | sudo python3
+  - curl https://raw.github.com/pypa/pip/master/contrib/get-pip.py | sudo python3
+  - pip3.4 install setuptools
 
 install:
   - make
