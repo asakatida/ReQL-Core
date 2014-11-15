@@ -46,7 +46,7 @@ static int _reql_lua_expr(lua_State *L) {
 
       lua_pushnil(L);
       while (lua_next(L, 2)) {
-        ++i;
+        ++table_len;
         switch (lua_type(L, 4)) {
           case LUA_TSTRING: {
             array = 0;
@@ -72,7 +72,7 @@ static int _reql_lua_expr(lua_State *L) {
         for (int i=1; i<=table_len; ++i) {
           lua_pushnumber(L, i);
           lua_getfield(L, 2);
-          if (lua_isnil(L)) {
+          if (lua_isnil(L, 4)) {
             array = 0;
           }
           lua_pop(L, 2);
@@ -172,7 +172,7 @@ static int _reql_lua_get_opts(lua_State *L) {
 static int _reql_lua_intsp(lua_State *L) {
   lua_settop(L, 1);
   lua_rawlen(L, 1);
-  const long table_len = lua_tonumber(L);
+  const long table_len = lua_tonumber(L, 2);
   lua_pop(L, 1);
 
   lua_createtable(L, table_len, table_len);
@@ -191,7 +191,7 @@ static int _reql_lua_intsp(lua_State *L) {
 static int _reql_lua_kved(lua_State *L) {
   lua_settop(L, 1);
   lua_rawlen(L, 1);
-  const long table_len = lua_tonumber(L);
+  const long table_len = lua_tonumber(L, 2);
   lua_pop(L, 1);
 
   lua_createtable(L, table_len, table_len);
@@ -255,14 +255,14 @@ static int _reql_lua_print_query(lua_State *L) {
 
 static int _reql_lua_compose_term(lua_State *L) {
   lua_settop(L, 2);
-  if (!lua_istable(L)) {
-    lua_tostring(L):
+  if (!lua_istable(L, 2)) {
+    lua_tostring(L, 2);
     return 1;
   }
 
   lua_getfield(L, 2, "args");
   lua_rawlen(L);
-  const long table_len = lua_tonumber(L);
+  const long table_len = lua_tonumber(L, 4);
   lua_pop(L, 1);
 
   lua_createtable(L, table_len, table_len);
@@ -292,7 +292,7 @@ static int _reql_lua_join_tree(lua_State *L) {
   lua_settop(L, 2);
 
   lua_rawlen(L, 2);
-  const long table_len = lua_tonumber(L);
+  const long table_len = lua_tonumber(L, 3);
 
   long str_len = table_len;
 
@@ -300,10 +300,10 @@ static int _reql_lua_join_tree(lua_State *L) {
 
   for (long i=1; i<=table_len; ++i) {
     lua_getfield(L, 2, i);
-    if (lua_istable(L)) {
+    if (lua_istable(L, 3)) {
       lua_rawlen(L, 3);
     }
-    const char *term = lua_tostring(L);
+    const char *term = lua_tostring(L, 3);
     strcat(str, term);
     lua_pop(L, 1);
   }
@@ -350,6 +350,7 @@ static _ReQL_Op_t *_reql_from_lua(lua_State *L, const int idx) {
       return _reql_expr_bool(lua_toboolean(L, idx));
     }
     case LUA_TFUNCTION: {
+      return _reql_lua_func(L);
     }
     case LUA_TNIL: {
       return _reql_expr_null();
