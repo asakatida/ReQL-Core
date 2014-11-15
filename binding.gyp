@@ -8,8 +8,8 @@
         "ReQL-expr.c"
         "ReQL-Node.cpp",
         "ReQL.c"
-      ]
-      "target_name": "libReQL",
+      ],
+      "target_name": "libReQL"
     }
   ]
 }
