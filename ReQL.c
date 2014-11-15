@@ -44,7 +44,7 @@ int _reql_connect(_ReQL_Conn_t *conn, char *buf) {
         conn->error = -1;
       } else {
         conn->cursors->next = conn->cursors->prev = conn->cursors;
-        conn->cursors->cur = NULL;
+        conn->cursors->response = NULL;
       }
     }
   }
@@ -57,7 +57,8 @@ int _reql_close_conn(_ReQL_Conn_t *conn) {
 
 int _reql_json_decode(_ReQL_Op_t *val, unsigned int json_len, char *json) {
   val = malloc(sizeof(_ReQL_Op_t));
-  _ReQL_Op_t *track = val;
+  _ReQL_Op_t *track = _reql_expr_array();
+  _reql_array_append(track, val);
   int state = _REQL_R_OBJECT;
   unsigned int i;
   for (i=0; i<json_len; ++i) {
@@ -91,22 +92,21 @@ int _reql_json_encode(_ReQL_Op_t *val, char **json) {
 }
 
 _ReQL_Cur_t *_reql_run(_ReQL_Op_t *query, _ReQL_Conn_t *conn, _ReQL_Op_t *kwargs) {
-  _ReQL_Cur_t *cur = malloc(sizeof(_ReQL_Cur_t));
-  cur->conn = conn;
-  cur->idx = 0;
-  cur->response = _reql_expr_null();
+  _ReQL_Cur_t *cur;
   _ReQL_Cur_t *cursors = conn->cursors;
   while (cursors->next != cursors) {
     cursors = cursors->next;
   }
-  if (cursors->cur) {
-    _ReQL_Cur_t *next = malloc(sizeof(_ReQL_Cur_t));
-    next->prev = cursors;
-    cursors->next = next->next = next;
-    next->cur = cur;
+  if (cursors->response) {
+    cur = malloc(sizeof(_ReQL_Cur_t));
+    cur->prev = cursors;
+    cursors->next = cur->next = cur;
   } else {
-    cursors->cur = cur;
+    cur = cursors;
   }
+  cur->conn = conn;
+  cur->idx = 0;
+  cur->response = _reql_expr_array();
   cur->token = conn->max_token++;
   _reql_build(query);
   return cur;

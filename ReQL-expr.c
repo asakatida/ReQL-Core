@@ -26,23 +26,22 @@ _ReQL_Op_t *_reql_expr_string(const char *val, unsigned int str_len) {
 _ReQL_Op_t *_reql_expr_array() {
   _ReQL_Op_t *term = _reql_expr_null();
   term->dt = _REQL_R_ARRAY;
-  term->args->next = term->args->prev = term->args;
-  term->args->elem = NULL;
+  term->next = term->prev = term;
+  term->val = NULL;
   return term;
 }
 
 void _reql_array_append(_ReQL_Op_t *arr, _ReQL_Op_t *val) {
-  _ReQL_Op_t *int_arr = arr->args;
-  while (int_arr->next != int_arr) {
-    int_arr = int_arr->next;
+  while (arr->next != arr) {
+    arr = arr->next;
   }
-  if (int_arr->elem) {
-    _ReQL_Op_t *next;
-    next->prev = int_arr;
-    int_arr->next = next->next = next;
-    next->elem = val;
+  if (arr->val) {
+    _ReQL_Op_t *next = malloc(sizeof(_ReQL_Op_t));
+    next->prev = arr;
+    arr->next = next->next = next;
+    next->val = val;
   } else {
-    int_arr->elem = val;
+    arr->val = val;
   }
 }
 
@@ -93,24 +92,24 @@ _ReQL_Op_t *_reql_build(_ReQL_Op_t *query) {
 
   _ReQL_Op_t *res = _reql_expr_array();
   _reql_array_append(res, _reql_expr_number(query->tt));
-  if (query->args  && query->args->elem) {
+  if (query->args  && query->args->val) {
     _ReQL_Op_t *elem = query->args;
     _ReQL_Op_t *args = _reql_expr_array();
-    while (elem->next != elem) {
-      _reql_array_append(args, _reql_build(elem->elem));
-      elem = elem->next;
-    }
-    _reql_array_append(args, _reql_build(elem->elem));
+    _reql_array_append(args, _reql_build(elem->val));
+    do {
+       elem = elem->next;
+      _reql_array_append(args, _reql_build(elem->val));
+    } while (elem->next != elem);
     _reql_array_append(res, args);
   }
   if (query->kwargs && query->kwargs->key) {
     _ReQL_Op_t *pair = query->kwargs;
     _ReQL_Op_t *kwargs = _reql_expr_object();
-    while (pair->next != pair) {
-      _reql_object_add(kwargs, pair->key, _reql_build(pair->val));
-      pair = pair->next;
-    }
     _reql_object_add(kwargs, pair->key, _reql_build(pair->val));
+    do {
+      pair = pair->next;
+      _reql_object_add(kwargs, pair->key, _reql_build(pair->val));
+    } while (pair->next != pair);
     _reql_array_append(res, kwargs);
   }
   return res;
