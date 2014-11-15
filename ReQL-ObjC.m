@@ -2,9 +2,9 @@
  * @author Adam Grandquist
  */
 
-#include "ReQL.h"
-
 #import "ReQL-ObjC.h"
+
+#include "ReQL.h"
 
 @implementation libReQL
 

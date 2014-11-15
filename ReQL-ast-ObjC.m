@@ -2,9 +2,9 @@
  * @author Adam Grandquist
  */
 
-#include "ReQL.h"
-
 #import "ReQL-ast-ObjC.h"
+
+#include "ReQL.h"
 
 @implementation libReQL_ast
 

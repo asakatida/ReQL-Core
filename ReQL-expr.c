@@ -2,11 +2,11 @@
  * @author Adam Grandquist
  */
 
+#include "ReQL-expr.h"
+
 #include <stdlib.h>
 
 #include "ReQL-ast.h"
-
-#include "ReQL-expr.h"
 
 _ReQL_Op_t *_reql_expr_number(double val) {
   _ReQL_Op_t *term = _reql_expr_null();

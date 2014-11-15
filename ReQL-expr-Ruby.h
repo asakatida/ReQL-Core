@@ -3,6 +3,7 @@
  */
 
 #include "ruby.h"
+
 #include "ReQL.h"
 
 #ifndef _REQL_EXPR_RUBY

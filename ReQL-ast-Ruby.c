@@ -2,9 +2,9 @@
  * @author Adam Grandquist
  */
 
-#include "ReQL.h"
-
 #include "ReQL-ast-Ruby.h"
+
+#include "ReQL.h"
 
 /**
  */

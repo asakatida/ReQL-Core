@@ -2,11 +2,11 @@
  * @author Adam Grandquist
  */
 
+#include "ReQL-ast-Node.hpp"
+
 #include <cstdlib>
 
 #include "ReQL.h"
-
-#include "ReQL-ast-Node.hpp"
 
 /**
  */

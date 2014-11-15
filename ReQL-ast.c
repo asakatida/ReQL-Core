@@ -2,9 +2,9 @@
  * @author Adam Grandquist
  */
 
-#include <stdlib.h>
-
 #include "ReQL-ast.h"
+
+#include <stdlib.h>
 
 /**
  */

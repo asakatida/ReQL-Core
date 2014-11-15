@@ -2,11 +2,11 @@
  * @author Adam Grandquist
  */
 
+#include "ReQL.h"
+
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-
-#include "ReQL.h"
 
 #ifndef htole32
 #define htole32

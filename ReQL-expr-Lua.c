@@ -2,13 +2,13 @@
  * @author Adam Grandquist
  */
 
+#include "ReQL-expr-Lua.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 #include "ReQL-ast-Lua.h"
-
-#include "ReQL-expr-Lua.h"
 
 static int _reql_lua_expr(lua_State *L) {
   lua_settop(L, 3);
