@@ -56,7 +56,7 @@ int _reql_close_conn(_ReQL_Conn_t *conn) {
 }
 
 int _reql_json_decode(_ReQL_Op_t *val, unsigned int json_len, char *json) {
-  val = malloc(sizeof(_ReQL_Op_t *));
+  val = malloc(sizeof(_ReQL_Op_t));
   _ReQL_Op_t *track = val;
   int state = _REQL_R_OBJECT;
   unsigned int i;
