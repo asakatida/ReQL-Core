@@ -9,9 +9,7 @@
 #include "ReQL.h"
 
 #ifndef htole32
-#ifdef OSSwapHostToLittleConstInt32
-#define htole32 OSSwapHostToLittleConstInt32
-#endif
+#define htole32
 #endif
 
 int _reql_connect(_ReQL_Conn_t *conn, char *buf) {
