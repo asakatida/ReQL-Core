@@ -36,7 +36,7 @@ void _reql_array_append(_ReQL_Op_t *arr, _ReQL_Op_t *val) {
     arr = arr->next;
   }
   if (arr->val) {
-    _ReQL_Op_t *next = malloc(sizeof(_ReQL_Op_t));
+    _ReQL_Op_t *next = _reql_expr_array();
     next->prev = arr;
     arr->next = next->next = next;
     next->val = val;
@@ -60,7 +60,7 @@ void _reql_object_add(_ReQL_Op_t *obj, _ReQL_Op_t *key, _ReQL_Op_t *val) {
     int_obj = int_obj->next;
   }
   if (int_obj->key) {
-    _ReQL_Op_t *next;
+    _ReQL_Op_t *next = _reql_expr_object();
     next->prev = int_obj;
     int_obj->next = next->next = next;
     next->key = key;
