@@ -179,7 +179,7 @@ static struct PyModuleDef libReQLModule = {
   PyModuleDef_HEAD_INIT,
   "libReQL",
   NULL,
-  -1,
+  0,
   libReQLMethods
 };
 
