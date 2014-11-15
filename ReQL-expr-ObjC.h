@@ -6,4 +6,6 @@
 
 @interface libReQL_expr : NSObject
 
+-(instancetype)expr:(NSString *)string;
+
 @end

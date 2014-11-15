@@ -53,7 +53,7 @@ int _reql_close_conn(_ReQL_Conn_t *conn) {
   return close(conn->socket);
 }
 
-int _reql_json_decode(_ReQL_Op_t *val, unsigned int json_len, char *json) {
+int _reql_json_decode(_ReQL_Op_t *val, unsigned long json_len, char *json) {
   val = malloc(sizeof(_ReQL_Op_t));
   _ReQL_Op_t *track = _reql_expr_array();
   _reql_array_append(track, val);
