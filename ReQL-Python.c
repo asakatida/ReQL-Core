@@ -6,8 +6,6 @@
 
 #include "ReQL-ast-Python.h"
 
-#include "ReQL.h"
-
 static PyMethodDef libReQLMethods[] = {
   {"expr", _reql_py_expr, METH_VARARGS, NULL},
   REQL_PY_AST_METHODS

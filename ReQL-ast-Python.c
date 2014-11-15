@@ -4,8 +4,6 @@
 
 #include <stdlib.h>
 
-#include "ReQL-ast.h"
-
 #include "ReQL-ast-Python.h"
 
 /**
