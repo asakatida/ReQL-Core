@@ -14,7 +14,7 @@
 static int _reql_lua_expr(lua_State *L);
 static int _reql_lua_get_opts(lua_State *L);
 static int _reql_lua_is_instance(lua_State *L);
-static _ReQL_Op_t *_reql_from_lua(lua_State *L, const int idx);
+static _ReQL_Op_t *_reql_from_lua(lua_State *L, const int idx, long nesting_depth);
 static void _reql_to_lua(lua_State *L, _ReQL_Op_t *query);
 
 static int _reql_lua_intsp(lua_State *L);

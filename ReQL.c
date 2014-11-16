@@ -8,6 +8,26 @@
 #include <string.h>
 #include <unistd.h>
 
+static const unsigned int _REQL_VERSION = 0x5f75e83e;
+static const unsigned int _REQL_PROTOCOL = 0x7e6970c7;
+
+enum {
+  _REQL_CONTINUE = 2,
+  _REQL_NOREPLY_WAIT = 4,
+  _REQL_START = 1,
+  _REQL_STOP = 3
+};
+enum {
+  _REQL_CLIENT_ERROR = 16,
+  _REQL_COMPILE_ERROR = 17,
+  _REQL_RUNTIME_ERROR = 18,
+  _REQL_SUCCESS_ATOM = 1,
+  _REQL_SUCCESS_FEED = 5,
+  _REQL_SUCCESS_PARTIAL = 3,
+  _REQL_SUCCESS_SEQUENCE = 2,
+  _REQL_WAIT_COMPLETE = 4
+};
+
 #ifndef htole32
 #define htole32
 #endif

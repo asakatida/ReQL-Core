@@ -4,8 +4,6 @@
 
 #include "ReQL-ast-Ruby.h"
 
-#include "ReQL.h"
-
 /**
  */
 static VALUE _reql_rb_add(int argn, VALUE *args, VALUE self) {

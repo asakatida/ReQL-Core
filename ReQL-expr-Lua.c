@@ -8,96 +8,12 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "ReQL-ast-Lua.h"
-
 static int _reql_lua_expr(lua_State *L) {
   lua_settop(L, 3);
 
-  const long nesting_depth = luaL_optlong(L, 3, 20) - 1;
+  const long nesting_depth = luaL_optlong(L, 3, 20);
 
-  if (nesting_depth <= 0) {
-    return luaL_error(L, "Nesting depth limit exceeded");
-  }
-
-  switch (lua_type(L, 2)) {
-    case LUA_TFUNCTION: {
-      lua_pushcfunction(L, _reql_lua_func);
-      lua_pushnil(L);
-      lua_pushvalue(L, 2);
-      lua_call(L, 2, 1);
-      break;
-    }
-    case LUA_TTABLE: {
-      lua_pushcfunction(L, _reql_lua_is_instance);
-      lua_pushvalue(L, 2);
-      lua_pushliteral(L, "ReQLOp");
-      lua_call(L, 2, 1);
-      const int is_reql = lua_toboolean(L, 4);
-      lua_pop(L, 1);
-      if (is_reql) {
-        lua_pushvalue(L, 2);
-        break;
-      }
-
-      char array = 1;
-      int table_len = 0;
-
-      lua_pushnil(L);
-      while (lua_next(L, 2)) {
-        ++table_len;
-        switch (lua_type(L, 4)) {
-          case LUA_TSTRING: {
-            array = 0;
-          }
-          case LUA_TNUMBER: {
-            lua_pushcfunction(L, _reql_lua_expr);
-            lua_pushvalue(L, 1);
-            lua_pushvalue(L, 5);
-            lua_pushnumber(L, nesting_depth);
-            lua_call(L, 3, 1);
-            lua_pushvalue(L, 8);
-            lua_insert(L, 5);
-            lua_settable(L, 2);
-            break;
-          }
-          default:
-            return luaL_error(L, "Invalid JSON key type");
-        }
-        lua_pop(L, 1);
-      }
-
-      if (array) {
-        int i;
-        for (i=1; i<=table_len; ++i) {
-          lua_rawgeti(L, 2, i);
-          if (lua_isnil(L, 4)) {
-            array = 0;
-          }
-          lua_pop(L, 1);
-        }
-      }
-
-      if (array) {
-        lua_pushcfunction(L, _reql_lua_make_array);
-        lua_pushnil(L);
-        int i;
-        for (i=1; i<=table_len; ++i) {
-          lua_rawgeti(L, 2, i);
-        }
-        lua_call(L, table_len + 1, 1);
-      } else {
-        lua_pushcfunction(L, _reql_lua_make_obj);
-        lua_pushvalue(L, 2);
-        lua_call(L, 1, 1);
-      }
-      break;
-    }
-    default: {
-      lua_pushcfunction(L, _reql_lua_datum);
-      lua_pushvalue(L, 2);
-      lua_call(L, 1, 1);
-    }
-  }
+  _reql_to_lua(L, _reql_from_lua(L, 2, nesting_depth));
 
   return 1;
 }
@@ -336,18 +252,18 @@ static void _reql_lua_class(lua_State *L, const char *name, const int parent, co
   }
 }
 
-static _ReQL_Op_t *_reql_from_lua(lua_State *L, const int idx) {
+static _ReQL_Op_t *_reql_from_lua(lua_State *L, const int idx, long nesting_depth) {
+  if (nesting_depth <= 0) {
+    luaL_error(L, "Nesting depth limit exceeded");
+    return NULL;
+  }
+
   switch (lua_type(L, idx)) {
     case LUA_TBOOLEAN: {
       return _reql_expr_bool(lua_toboolean(L, idx));
     }
     case LUA_TFUNCTION: {
-      lua_pushcfunction(L, _reql_lua_func);
-      lua_pushvalue(L, idx);
-      lua_call(L, 1, 1);
-      _ReQL_Op_t *res = _reql_from_lua(L, lua_gettop(L));
-      lua_pop(L, 1);
-      return res;
+      return NULL;
     }
     case LUA_TNIL: {
       return _reql_expr_null();
@@ -356,54 +272,73 @@ static _ReQL_Op_t *_reql_from_lua(lua_State *L, const int idx) {
       return _reql_expr_number(lua_tonumber(L, idx));
     }
     case LUA_TSTRING: {
-      return _reql_expr_string(lua_tostring(L, idx), 0);
+      size_t len;
+      return _reql_expr_string(lua_tolstring(L, idx, &len), len);
     }
     case LUA_TTABLE: {
+      const int water_mark = lua_gettop(L);
       lua_pushcfunction(L, _reql_lua_is_instance);
       lua_pushvalue(L, idx);
       lua_pushliteral(L, "ReQLOp");
       lua_call(L, 2, 1);
-      const char is_reql = lua_toboolean(L, -1);
+      const int is_reql = lua_toboolean(L, water_mark + 1);
       lua_pop(L, 1);
       if (is_reql) {
-        return NULL;
+        break;
       }
+
       char array = 1;
+      int table_len = 0;
+
       lua_pushnil(L);
       while (lua_next(L, idx)) {
-        switch (lua_type(L, -2)) {
-          case LUA_TSTRING:
+        ++table_len;
+        switch (lua_type(L, water_mark + 1)) {
+          case LUA_TSTRING: {
             array = 0;
-          case LUA_TNUMBER:
+          }
+          case LUA_TNUMBER: {
             break;
-          default:
+          }
+          default: {
             luaL_error(L, "Invalid JSON key type");
             return NULL;
+          }
         }
         lua_pop(L, 1);
       }
-      _ReQL_Op_t *obj;
-      lua_pushnil(L);
-      if (array) {
-        obj = _reql_expr_array();
-        while (lua_next(L, idx)) {
-          _reql_array_append(obj, _reql_from_lua(L, -1));
-          lua_pop(L, 1);
+
+      int i;
+      for (i=1; i<=table_len && array; ++i) {
+        lua_rawgeti(L, idx, i);
+        if (lua_isnil(L, water_mark + 1)) {
+          array = 0;
         }
-      } else {
-        obj = _reql_expr_object();
-        while (lua_next(L, idx)) {
-          _reql_object_add(obj, _reql_from_lua(L, -2), _reql_from_lua(L, -1));
-          lua_pop(L, 1);
-        }
+        lua_pop(L, 1);
       }
-      return obj;
-    }
-    default : {
-      luaL_error(L, "Unknown Lua type");
-      return NULL;
+
+      --nesting_depth;
+
+      if (array) {
+        _ReQL_Op_t *arr = _reql_expr_array();
+        int i;
+        for (i=1; i<=table_len; ++i) {
+          lua_rawgeti(L, 2, i);
+          _reql_array_append(arr, _reql_from_lua(L, water_mark + 2, nesting_depth));
+          lua_pop(L, 0);
+        }
+        return _reql_make_array(arr, NULL);
+      }
+      _ReQL_Op_t *obj = _reql_expr_object();
+      while (lua_next(L, idx)) {
+        _reql_object_add(obj, _reql_from_lua(L, water_mark + 1, nesting_depth), _reql_from_lua(L, water_mark + 2, nesting_depth));
+        lua_pop(L, 1);
+      }
+      return _reql_make_obj(NULL, obj);
     }
   }
+  luaL_error(L, "Unknown Lua type %i", lua_type(L, idx));
+  return NULL;
 }
 
 static void _reql_to_lua(lua_State *L, _ReQL_Op_t *query) {

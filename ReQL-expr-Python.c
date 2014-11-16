@@ -4,8 +4,6 @@
 
 #include "ReQL-expr-Python.h"
 
-#include "ReQL-ast-Python.h"
-
 static PyObject *
 _reql_py_expr(PyObject *self, PyObject *args) {
   PyObject *val;

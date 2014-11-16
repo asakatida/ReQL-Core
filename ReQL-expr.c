@@ -6,8 +6,6 @@
 
 #include <stdlib.h>
 
-#include "ReQL-ast.h"
-
 _ReQL_Op_t *_reql_expr_number(double val) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->dt = _REQL_R_NUM;
@@ -81,7 +79,7 @@ _ReQL_Op_t *_reql_expr_null() {
 _ReQL_Op_t *_reql_expr_bool(int val) {
   _ReQL_Op_t *term = _reql_expr_null();
   term->dt = _REQL_R_BOOL;
-  term->num = val;
+  term->str_len = (unsigned long)val;
   return term;
 }
 

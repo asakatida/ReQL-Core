@@ -7,4 +7,3 @@
 #include <cstdlib>
 
 #include "ReQL.h"
-#include "ReQL-ast-CPP.hpp"
