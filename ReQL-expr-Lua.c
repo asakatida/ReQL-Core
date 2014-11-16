@@ -342,5 +342,27 @@ static _ReQL_Op_t *_reql_from_lua(lua_State *L, const int idx, long nesting_dept
 }
 
 static void _reql_to_lua(lua_State *L, _ReQL_Op_t *query) {
-  lua_pushnil(L);
+  switch (query->dt) {
+    case _REQL_R_ARRAY: {
+      return lua_pushnil(L);
+    }
+    case _REQL_R_BOOL: {
+      return lua_pushboolean(L, (int)query->str_len);
+    }
+    case _REQL_R_JSON: {
+      return lua_pushnil(L);
+    }
+    case _REQL_R_NULL: {
+      return lua_pushnil(L);
+    }
+    case _REQL_R_NUM: {
+      return lua_pushnumber(L, query->num);
+    }
+    case _REQL_R_OBJECT: {
+      return lua_pushnil(L);
+    }
+    case _REQL_R_STR: {
+      lua_pushlstring(L, query->str, query->str_len);
+    }
+  }
 }
