@@ -38,7 +38,23 @@
 }
 
 +(instancetype)_reql_to_obj:(_ReQL_Op_t *)obj {
-  return [self init];
+  switch (obj->dt) {
+    case _REQL_R_ARRAY:
+      return @[];
+    case _REQL_R_BOOL:
+      return @YES;
+    case _REQL_R_JSON:
+      return nil;
+    case _REQL_R_NULL:
+      return nil;
+    case _REQL_R_NUM:
+      return 0;
+    case _REQL_R_OBJECT:
+      return @{};
+    case _REQL_R_STR:
+      return @"";
+  }
+  return nil;
 }
 
 -(instancetype)expr:(NSString *)string {
