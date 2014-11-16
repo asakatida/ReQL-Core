@@ -8,6 +8,10 @@
 
 @implementation libReQL_expr
 
++(_ReQL_Op_t *)_reql_from_bool:(NSNumber*)obj {
+  return _reql_expr_bool([obj boolValue]);
+}
+
 +(_ReQL_Op_t *)_reql_from_obj:(id)obj {
   if (!obj) {
     return _reql_expr_null();
@@ -27,6 +31,8 @@
     return _reql_expr_string(
                              [(NSString *)obj cStringUsingEncoding:NSUnicodeStringEncoding],
                              [(NSString *)obj lengthOfBytesUsingEncoding:NSUnicodeStringEncoding]);
+  } else if ([obj isKindOfClass:[NSNumber class]]) {
+    return _reql_expr_number([(NSNumber *)obj doubleValue]);
   }
   return NULL;
 }
