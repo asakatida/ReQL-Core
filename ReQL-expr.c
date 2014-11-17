@@ -6,81 +6,172 @@
 
 #include <stdlib.h>
 
-_ReQL_Op_t *_reql_expr_number(double val) {
-  _ReQL_Op_t *term = _reql_expr_null();
-  term->dt = _REQL_R_NUM;
-  term->num = val;
-  return term;
+_ReQL_Op_t *_reql_expr_number(double num) {
+  _ReQL_Op_t *obj = _reql_expr_null();
+  obj->dt = _REQL_R_NUM;
+  obj->num = num;
+  return obj;
 }
 
-_ReQL_Op_t *_reql_expr_string(const char *val, unsigned long str_len) {
-  _ReQL_Op_t *term = _reql_expr_null();
-  term->dt = _REQL_R_STR;
-  term->str = val;
-  term->str_len = str_len;
-  return term;
+int _reql_to_number(_ReQL_Op_t *obj, double *num) {
+  if (obj->dt == _REQL_R_NUM) {
+    *num = obj->num;
+    return 0;
+  }
+  return -1;
+}
+
+_ReQL_Op_t *_reql_expr_string(const char *str, unsigned long str_len) {
+  _ReQL_Op_t *obj = _reql_expr_null();
+  obj->dt = _REQL_R_STR;
+  obj->str = str;
+  obj->str_len = str_len;
+  return obj;
+}
+
+int _reql_to_string(_ReQL_Op_t *obj, const char **str, unsigned long *str_len) {
+  int err = -1;
+  if (obj->dt == _REQL_R_STR) {
+    if (obj->str) {
+      *str_len = obj->str_len;
+      *str = obj->str;
+      err = 0;
+    }
+  }
+  return err;
+}
+
+_ReQL_Op_t *_reql_iter(_ReQL_Op_t *obj) {
+  _ReQL_Op_t *res = obj;
+  while (res->prev != res) {
+    res = res->prev;
+    if (res == obj) {
+      return NULL;
+    }
+  }
+  return res;
+}
+
+int _reql_iter_next(_ReQL_Op_t **obj) {
+  if (*obj == (*obj)->next) {
+    return -1;
+  }
+  *obj = (*obj)->next;
+  return 0;
 }
 
 _ReQL_Op_t *_reql_expr_array() {
-  _ReQL_Op_t *term = _reql_expr_null();
-  term->dt = _REQL_R_ARRAY;
-  term->next = term->prev = term;
-  term->val = NULL;
-  return term;
+  _ReQL_Op_t *obj = _reql_expr_null();
+  obj->dt = _REQL_R_ARRAY;
+  obj->next = obj->prev = obj;
+  obj->val = NULL;
+  return obj;
 }
 
-void _reql_array_append(_ReQL_Op_t *arr, _ReQL_Op_t *val) {
-  while (arr->next != arr) {
-    arr = arr->next;
+_ReQL_Op_t *_reql_to_array(_ReQL_Op_t *obj) {
+  _ReQL_Op_t *err = NULL;
+  if (obj->dt == _REQL_R_ARRAY) {
+    err = _reql_iter(obj);
   }
-  if (arr->val) {
-    _ReQL_Op_t *next = _reql_expr_array();
-    next->prev = arr;
-    arr->next = next->next = next;
-    next->val = val;
-  } else {
-    arr->val = val;
+  return err;
+}
+
+void _reql_array_append(_ReQL_Op_t *obj, _ReQL_Op_t *val) {
+  while (obj->next != obj) {
+    obj = obj->next;
   }
+  if (obj->val) {
+    obj->next = _reql_expr_array();
+    obj->next->prev = obj;
+    obj = obj->next;
+    obj->next = obj;
+  }
+  obj->val = val;
+}
+
+int _reql_array_next(_ReQL_Op_t **obj, _ReQL_Op_t **val) {
+  int err = -1;
+
+  if (!_reql_iter_next(obj)) {
+    if ((*obj)->val) {
+      *val = (*obj)->val;
+      err = 0;
+    }
+  }
+
+  return err;
 }
 
 _ReQL_Op_t *_reql_expr_object() {
-  _ReQL_Op_t *term = _reql_expr_null();
-  term->dt = _REQL_R_OBJECT;
-  term->kwargs->next = term->kwargs->prev = term->kwargs;
-  term->kwargs->key = NULL;
-  term->kwargs->val = NULL;
-  return term;
+  _ReQL_Op_t *obj = _reql_expr_null();
+  obj->dt = _REQL_R_OBJECT;
+  obj->next = obj->prev = obj->kwargs;
+  obj->key = NULL;
+  obj->val = NULL;
+  return obj;
 }
 
+_ReQL_Op_t *_reql_to_object(_ReQL_Op_t *obj) {
+  _ReQL_Op_t *err = NULL;
+  if (obj->dt == _REQL_R_OBJECT) {
+    err = _reql_iter(obj);
+  }
+  return err;
+}
+
+
 void _reql_object_add(_ReQL_Op_t *obj, _ReQL_Op_t *key, _ReQL_Op_t *val) {
-  _ReQL_Op_t *int_obj = obj->kwargs;
-  while (int_obj->next != int_obj) {
-    int_obj = int_obj->next;
+  while (obj->next != obj) {
+    obj = obj->next;
   }
-  if (int_obj->key) {
-    _ReQL_Op_t *next = _reql_expr_object();
-    next->prev = int_obj;
-    int_obj->next = next->next = next;
-    next->key = key;
-    next->val = val;
-  } else {
-    int_obj->key = key;
-    int_obj->val = val;
+  if (obj->key) {
+    obj->next = _reql_expr_object();
+    obj->next->prev = obj;
+    obj = obj->next;
+    obj->next = obj;
   }
+  obj->key = key;
+  obj->val = val;
+}
+
+int _reql_object_next(_ReQL_Op_t **obj, _ReQL_Op_t **key, _ReQL_Op_t **val) {
+  int err = -1;
+
+  if (!_reql_iter_next(obj)) {
+    if ((*obj)->key) {
+      *key = (*obj)->key;
+      *val = (*obj)->val;
+      err = 0;
+    }
+  }
+
+  return err;
 }
 
 _ReQL_Op_t *_reql_expr_null() {
-  _ReQL_Op_t *term = malloc(sizeof(_ReQL_Op_t));
-  term->tt = _REQL_DATUM;
-  term->dt = _REQL_R_NULL;
-  return term;
+  _ReQL_Op_t *obj = malloc(sizeof(_ReQL_Op_t));
+  obj->tt = _REQL_DATUM;
+  obj->dt = _REQL_R_NULL;
+  return obj;
+}
+
+int _reql_is_null(_ReQL_Op_t *obj) {
+  return obj->dt == _REQL_R_NULL;
 }
 
 _ReQL_Op_t *_reql_expr_bool(int val) {
-  _ReQL_Op_t *term = _reql_expr_null();
-  term->dt = _REQL_R_BOOL;
-  term->str_len = (unsigned long)val;
-  return term;
+  _ReQL_Op_t *obj = _reql_expr_null();
+  obj->dt = _REQL_R_BOOL;
+  obj->str_len = (unsigned long)val;
+  return obj;
+}
+
+int _reql_to_bool(_ReQL_Op_t *obj, int *val) {
+  if (obj->dt == _REQL_R_BOOL) {
+    *val = (int)obj->str_len;
+    return 0;
+  }
+  return -1;
 }
 
 _ReQL_Op_t *_reql_build(_ReQL_Op_t *query) {

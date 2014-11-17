@@ -201,15 +201,23 @@ struct _ReQL_Op_s {
 typedef struct _ReQL_Op_s _ReQL_Op_t;
 
 _ReQL_Op_t *_reql_expr_bool(int val);
+int _reql_to_bool(_ReQL_Op_t *obj, int *val);
 _ReQL_Op_t *_reql_expr_null();
+int _reql_is_null(_ReQL_Op_t *obj);
 _ReQL_Op_t *_reql_expr_number(double val);
+int _reql_to_number(_ReQL_Op_t *obj, double *val);
 _ReQL_Op_t *_reql_expr_string(const char *val, unsigned long str_len);
+int _reql_to_string(_ReQL_Op_t *obj, const char **val, unsigned long *str_len);
 
 _ReQL_Op_t *_reql_expr_array();
+_ReQL_Op_t *_reql_to_array(_ReQL_Op_t *obj);
 void _reql_array_append(_ReQL_Op_t *arr, _ReQL_Op_t *val);
+int _reql_array_next(_ReQL_Op_t **arr, _ReQL_Op_t **val);
 
 _ReQL_Op_t *_reql_expr_object();
+_ReQL_Op_t *_reql_to_object(_ReQL_Op_t *obj);
 void _reql_object_add(_ReQL_Op_t *obj, _ReQL_Op_t *key, _ReQL_Op_t *val);
+int _reql_object_next(_ReQL_Op_t **obj, _ReQL_Op_t **key, _ReQL_Op_t **val);
 
 _ReQL_Op_t *_reql_build(_ReQL_Op_t *query);
 
