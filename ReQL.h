@@ -42,6 +42,7 @@ struct _ReQL_Conn_s {
 };
 typedef struct _ReQL_Conn_s _ReQL_Conn_t;
 
+_ReQL_Conn_t *_reql_new_connection(unsigned int auth_len, struct sockaddr *address, char *auth);
 int _reql_connect(_ReQL_Conn_t *conn, char *buf);
 int _reql_close_conn(_ReQL_Conn_t *conn);
 

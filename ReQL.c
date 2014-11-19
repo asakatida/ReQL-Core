@@ -22,6 +22,18 @@ enum {
 #define htole32
 #endif
 
+_ReQL_Conn_t *_reql_new_connection(unsigned int auth_len, struct sockaddr *address, char *auth) {
+  _ReQL_Conn_t *conn = malloc(sizeof(_ReQL_Conn_t));
+  conn->socket = -1;
+  conn->error = 0;
+  conn->max_token = 0;
+  conn->auth_len = auth_len;
+  conn->address = address;
+  conn->auth = auth;
+  conn->cursors = _reql_new_cursor();
+  return conn;
+}
+
 int _reql_connect(_ReQL_Conn_t *conn, char *buf) {
   conn->error = socket(PF_INET, SOCK_STREAM, PF_INET);
   if (conn->error > 0) {
