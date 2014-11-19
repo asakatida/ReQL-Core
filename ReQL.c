@@ -194,8 +194,27 @@ int _reql_json_decode_(_ReQL_Op_t *val, _ReQL_Op_t *stack, unsigned long json_le
       }
       case _REQL_R_NUM: {
         switch (json[i]) {
+          case '-':
+          case '.':
+          case '+':
+          case 'e':
+          case 'E':
+          case '0':
+          case '1':
+          case '2':
+          case '3':
+          case '4':
+          case '5':
+          case '6':
+          case '7':
+          case '8':
+          case '9': {
+            break;
+          }
           default: {
-            return -1;
+            _reql_array_append(stack, _reql_expr_number(0.0));
+            state = _reql_merge_stack(stack);
+            --i;
           }
         }
         break;
