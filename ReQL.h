@@ -47,7 +47,7 @@ int _reql_connect(_ReQL_Conn_t *conn, char *buf);
 int _reql_close_conn(_ReQL_Conn_t *conn);
 
 _ReQL_Cur_t *_reql_run(_ReQL_Op_t *query, _ReQL_Conn_t *conn, _ReQL_Op_t *kwargs);
-void _reql_next(_ReQL_Cur_t *cur);
+void _reql_cursor_next(_ReQL_Cur_t *cur);
 void _reql_close_cur(_ReQL_Cur_t *cur);
 
 #endif

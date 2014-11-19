@@ -132,7 +132,7 @@ _ReQL_Cur_t *_reql_run(_ReQL_Op_t *query, _ReQL_Conn_t *conn, _ReQL_Op_t *kwargs
   return cur;
 }
 
-void _reql_next(_ReQL_Cur_t *cur) {
+void _reql_cursor_next(_ReQL_Cur_t *cur) {
   cur->response = _reql_expr_null();
 }
 
