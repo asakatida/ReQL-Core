@@ -54,29 +54,26 @@ int _reql_connect(_ReQL_Conn_t *conn, char *buf) {
     if (!conn->error) {
       const unsigned int version = htole32(_REQL_VERSION);
       char *msg_buf = malloc(sizeof(char) * (conn->auth_len + 12));
-      unsigned int i = 0;
+      unsigned int i = -1;
       unsigned int j = 0;
       for (; j<4; ++j) {
-        msg_buf[i++] = (version << (8 * j)) & 0xff;
+        msg_buf[++i] = (version << (8 * j)) & 0xff;
       }
       const unsigned int auth_len = htole32(conn->auth_len);
       for (j=0; j<4; ++j) {
-        msg_buf[i++] = (auth_len << (8 * j)) & 0xff;
+        msg_buf[++i] = (auth_len << (8 * j)) & 0xff;
       }
       for (j=0; j<conn->auth_len; ++j) {
-        msg_buf[i++] = conn->auth[j];
+        msg_buf[++i] = conn->auth[j];
       }
       const unsigned int protocol = htole32(_REQL_PROTOCOL);
       for (j=0; j<4; ++j) {
-        msg_buf[i++] = (protocol << (8 * j)) & 0xff;
+        msg_buf[++i] = (protocol << (8 * j)) & 0xff;
       }
       send(conn->socket, msg_buf, auth_len + 12, 0);
       recv(conn->socket, buf, 0, MSG_WAITALL);
       if (strcmp(buf, "SUCCESS")) {
         conn->error = -1;
-      } else {
-        conn->cursors->next = conn->cursors->prev = conn->cursors;
-        conn->cursors->response = NULL;
       }
     }
   }
