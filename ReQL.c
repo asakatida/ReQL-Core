@@ -119,12 +119,10 @@ int _reql_json_decode_(_ReQL_Op_t *val, _ReQL_Op_t *stack, unsigned long json_le
       case _REQL_R_ARRAY: {
         switch (json[i]) {
           case ',': {
-            _reql_merge_stack(stack);
             state = _REQL_R_JSON;
             break;
           }
           case ']': {
-            state = _reql_merge_stack(stack);
             state = _reql_merge_stack(stack);
             break;
           }
@@ -174,18 +172,24 @@ int _reql_json_decode_(_ReQL_Op_t *val, _ReQL_Op_t *stack, unsigned long json_le
           }
           case 't': {
             if (strncmp(json + i * sizeof(char), "true", 4)) {
+              _reql_array_append(stack, _reql_expr_bool(1));
+              state = _reql_merge_stack(stack);
               i += 4;
               break;
             }
           }
           case 'f': {
             if (strncmp(json + i * sizeof(char), "false", 5)) {
+              _reql_array_append(stack, _reql_expr_bool(0));
+              state = _reql_merge_stack(stack);
               i += 5;
               break;
             }
           }
           case 'n': {
             if (strncmp(json + i * sizeof(char), "null", 4)) {
+              _reql_array_append(stack, _reql_expr_null());
+              state = _reql_merge_stack(stack);
               i += 4;
               break;
             }
