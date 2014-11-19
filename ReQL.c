@@ -136,6 +136,12 @@ int _reql_json_decode_(_ReQL_Op_t *val, _ReQL_Op_t *stack, unsigned long json_le
       }
       case _REQL_R_JSON: {
         switch (json[i]) {
+          case '\t':
+          case '\n':
+          case '\r':
+          case ' ': {
+            break;
+          }
           case '[': {
             state = _REQL_R_ARRAY;
             break;
