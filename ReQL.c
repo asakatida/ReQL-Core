@@ -118,46 +118,20 @@ int _reql_json_decode_(_ReQL_Op_t *val, _ReQL_Op_t *stack, unsigned long json_le
       case _REQL_R_ARRAY: {
         switch (json[i]) {
           case ',': {
-            _ReQL_Op_t *obj = _reql_array_pop(stack);
-            _ReQL_Op_t *arr = _reql_array_pop(stack);
-            _reql_array_append(arr, obj);
-            _reql_array_append(stack, arr);
+            _reql_merge_stack(stack);
             state = _REQL_R_JSON;
             break;
           }
           case ']': {
-            _ReQL_Op_t *arr = _reql_array_pop(stack);
-            if (arr) {
-              _ReQL_Op_t *obj = _reql_array_pop(stack);
-              if (obj) {
-                if (_reql_to_array(obj)) {
-                  _reql_array_append(obj, arr);
-                } else {
-                  _ReQL_Op_t *key = obj;
-                  obj = _reql_array_pop(stack);
-                  if (obj) {
-                    if (_reql_to_object(obj)) {
-                      _reql_object_add(obj, key, arr);
-                    } else {
-                      return -1;
-                    }
-                  } else {
-                    return -1;
-                  }
-                  state = _REQL_R_OBJECT;
-                }
-              } else {
-                state = _REQL_R_JSON;
-              }
-              _reql_array_append(stack, obj);
-              break;
-            }
-            return -1;
+            state = _reql_merge_stack(stack);
+            state = _reql_merge_stack(stack);
+            break;
           }
           default: {
             return -1;
           }
         }
+        break;
       }
       case _REQL_R_BOOL: {
         switch (json[i]) {
@@ -165,6 +139,7 @@ int _reql_json_decode_(_ReQL_Op_t *val, _ReQL_Op_t *stack, unsigned long json_le
             return -1;
           }
         }
+        break;
       }
       case _REQL_R_JSON: {
         switch (json[i]) {
