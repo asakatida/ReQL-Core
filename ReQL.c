@@ -84,36 +84,152 @@ int _reql_close_conn(_ReQL_Conn_t *conn) {
   return close(conn->socket);
 }
 
-int _reql_json_decode(_ReQL_Op_t *val, unsigned long json_len, char *json) {
-  val = malloc(sizeof(_ReQL_Op_t));
-  _ReQL_Op_t *track = _reql_expr_array();
-  _reql_array_append(track, val);
-  int state = _REQL_R_OBJECT;
-  unsigned int i;
-  for (i=0; i<json_len; ++i) {
-    switch (state) {
-      case _REQL_R_OBJECT: {
-        switch (json[i]) {
-          case '[': {
-            break;
-          }
-          case '{': {
-            break;
-          }
-          case '"':
-          case '\'': {
-            break;
-          }
-          case ',': {
-            break;
-          }
+int _reql_merge_stack(_ReQL_Op_t *stack) {
+  _ReQL_Op_t *val = _reql_array_pop(stack);
+  if (val) {
+    _ReQL_Op_t *arr = _reql_array_pop(stack);
+    if (arr) {
+      if (_reql_to_array(arr)) {
+        _reql_array_append(arr, val);
+        _reql_array_append(stack, arr);
+        return _REQL_R_ARRAY;
+      }
+      _ReQL_Op_t *key = arr;
+      _ReQL_Op_t *obj = _reql_array_pop(stack);
+      if (obj) {
+        if (_reql_to_object(obj)) {
+          _reql_object_add(obj, key, val);
+          _reql_array_append(stack, obj);
+          return _REQL_R_OBJECT;
         }
       }
     }
   }
-  val->str = json;
-  val->str_len = json_len;
+  return -1;
+}
+
+int _reql_json_decode_(_ReQL_Op_t *val, _ReQL_Op_t *stack, unsigned long json_len, char *json) {
+  _reql_array_append(stack, val);
+  _ReQL_Datum_t state = _REQL_R_JSON;
+  char quote = '\0';
+  unsigned long i, str_start;
+  for (i=0; i<json_len; ++i) {
+    switch (state) {
+      case _REQL_R_ARRAY: {
+        switch (json[i]) {
+          case ',': {
+            _ReQL_Op_t *obj = _reql_array_pop(stack);
+            _ReQL_Op_t *arr = _reql_array_pop(stack);
+            _reql_array_append(arr, obj);
+            _reql_array_append(stack, arr);
+            state = _REQL_R_JSON;
+            break;
+          }
+          case ']': {
+            _ReQL_Op_t *arr = _reql_array_pop(stack);
+            if (arr) {
+              _ReQL_Op_t *obj = _reql_array_pop(stack);
+              if (obj) {
+                if (_reql_to_array(obj)) {
+                  _reql_array_append(obj, arr);
+                } else {
+                  _ReQL_Op_t *key = obj;
+                  obj = _reql_array_pop(stack);
+                  if (obj) {
+                    if (_reql_to_object(obj)) {
+                      _reql_object_add(obj, key, arr);
+                    } else {
+                      return -1;
+                    }
+                  } else {
+                    return -1;
+                  }
+                  state = _REQL_R_OBJECT;
+                }
+              } else {
+                state = _REQL_R_JSON;
+              }
+              _reql_array_append(stack, obj);
+              break;
+            }
+            return -1;
+          }
+          default: {
+            return -1;
+          }
+        }
+      }
+      case _REQL_R_BOOL: {
+        switch (json[i]) {
+          default: {
+            return -1;
+          }
+        }
+      }
+      case _REQL_R_JSON: {
+        switch (json[i]) {
+          case '[': {
+            state = _REQL_R_ARRAY;
+            break;
+          }
+          case '{': {
+            state = _REQL_R_OBJECT;
+            break;
+          }
+          case '"':
+          case '\'': {
+            state = _REQL_R_STR;
+            quote = json[i];
+            break;
+          }
+          default: {
+            return -1;
+          }
+        }
+      }
+      case _REQL_R_NULL: {
+        return -1;
+      }
+      case _REQL_R_NUM: {
+        switch (json[i]) {
+          default: {
+            return -1;
+          }
+        }
+      }
+      case _REQL_R_OBJECT: {
+        switch (json[i]) {
+          default: {
+            return -1;
+          }
+        }
+      }
+      case _REQL_R_STR: {
+        if (quote != '\'' && quote != '"') {
+          return -1;
+        }
+        switch (json[i]) {
+          default: {
+            return -1;
+          }
+        }
+      }
+      default: {
+        return -1;
+      }
+    }
+  }
   return 0;
+}
+
+int _reql_json_decode(_ReQL_Op_t **val, unsigned long json_len, char *json) {
+  *val = malloc(sizeof(_ReQL_Op_t));
+  _ReQL_Op_t *stack = _reql_expr_array();
+  int res = _reql_json_decode_(*val, stack, json_len, json);
+  if (res) {
+    free(*val);
+  }
+  return res;
 }
 
 int _reql_json_encode(_ReQL_Op_t *val, char **json) {
