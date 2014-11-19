@@ -143,10 +143,12 @@ int _reql_json_decode_(_ReQL_Op_t *val, _ReQL_Op_t *stack, unsigned long json_le
             break;
           }
           case '[': {
+            _reql_array_append(stack, _reql_expr_array());
             state = _REQL_R_ARRAY;
             break;
           }
           case '{': {
+            _reql_array_append(stack, _reql_expr_object());
             state = _REQL_R_OBJECT;
             break;
           }
