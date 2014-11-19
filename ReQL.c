@@ -231,6 +231,15 @@ int _reql_json_decode_(_ReQL_Op_t *val, _ReQL_Op_t *stack, unsigned long json_le
       }
       case _REQL_R_OBJECT: {
         switch (json[i]) {
+          case ',':
+          case ':': {
+            state = _REQL_R_JSON;
+            break;
+          }
+          case '}': {
+            state = _reql_merge_stack(stack);
+            break;
+          }
           default: {
             return -1;
           }
