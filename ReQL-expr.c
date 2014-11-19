@@ -133,12 +133,43 @@ _ReQL_Op_t *_reql_to_object(_ReQL_Op_t *obj) {
   return err;
 }
 
+int _reql_op_eq(_ReQL_Op_t *l, _ReQL_Op_t *r) {
+  int res = 0;
+  if (l == r) {
+    res = 1;
+  } else {
+    if ((l && r)) {
+      if (l->tt == r->tt && l->dt == r->dt) {
+        switch (l->dt) {
+          case _REQL_R_ARRAY: {
+          }
+          case _REQL_R_BOOL: {
+          }
+          case _REQL_R_JSON: {
+          }
+          case _REQL_R_NULL: {
+          }
+          case _REQL_R_NUM: {
+          }
+          case _REQL_R_OBJECT: {
+          }
+          case _REQL_R_STR: {
+          }
+        }
+      }
+    }
+  }
+  return res;
+}
 
 void _reql_object_add(_ReQL_Op_t *obj, _ReQL_Op_t *key, _ReQL_Op_t *val) {
-  while (obj->next != obj) {
+  if (!(obj && key && val)) {
+    return;
+  }
+  while (obj->next != obj && !_reql_op_eq(obj->key, key)) {
     obj = obj->next;
   }
-  if (obj->key) {
+  if (obj->key && !_reql_op_eq(obj->key, key)) {
     obj->next = _reql_expr_object();
     obj->next->prev = obj;
     obj = obj->next;
