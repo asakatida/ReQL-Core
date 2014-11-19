@@ -94,13 +94,15 @@ int _reql_merge_stack(_ReQL_Op_t *stack) {
         _reql_array_append(stack, arr);
         return _REQL_R_ARRAY;
       }
-      _ReQL_Op_t *key = arr;
-      _ReQL_Op_t *obj = _reql_array_pop(stack);
-      if (obj) {
-        if (_reql_to_object(obj)) {
-          _reql_object_add(obj, key, val);
-          _reql_array_append(stack, obj);
-          return _REQL_R_OBJECT;
+      if (!_reql_to_object(arr)) {
+        _ReQL_Op_t *key = arr;
+        _ReQL_Op_t *obj = _reql_array_pop(stack);
+        if (obj) {
+          if (_reql_to_object(obj)) {
+            _reql_object_add(obj, key, val);
+            _reql_array_append(stack, obj);
+            return _REQL_R_OBJECT;
+          }
         }
       }
     }
