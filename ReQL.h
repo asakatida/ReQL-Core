@@ -9,6 +9,17 @@
 #ifndef _REQL_H
 #define _REQL_H
 
+typedef enum {
+  _REQL_CLIENT_ERROR = 16,
+  _REQL_COMPILE_ERROR = 17,
+  _REQL_RUNTIME_ERROR = 18,
+  _REQL_SUCCESS_ATOM = 1,
+  _REQL_SUCCESS_FEED = 5,
+  _REQL_SUCCESS_PARTIAL = 3,
+  _REQL_SUCCESS_SEQUENCE = 2,
+  _REQL_WAIT_COMPLETE = 4
+} _ReQL_Response_t;
+
 struct _ReQL_Cur_s {
   unsigned int token;
   unsigned int idx;
