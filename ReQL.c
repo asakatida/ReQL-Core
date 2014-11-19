@@ -121,23 +121,23 @@ int _reql_json_encode(_ReQL_Op_t *val, char **json) {
 }
 
 _ReQL_Cur_t *_reql_run(_ReQL_Op_t *query, _ReQL_Conn_t *conn, _ReQL_Op_t *kwargs) {
-  _ReQL_Cur_t *cur;
-  _ReQL_Cur_t *cursors = conn->cursors;
-  while (cursors->next != cursors) {
-    cursors = cursors->next;
+  _ReQL_Cur_t *cur = conn->cursors;
+
+  while (cur->next != cur) {
+    cur = cur->next;
   }
-  if (cursors->response) {
-    cur = malloc(sizeof(_ReQL_Cur_t));
-    cur->prev = cursors;
-    cursors->next = cur->next = cur;
-  } else {
-    cur = cursors;
+
+  if (cur->response) {
+    cur->next = _reql_new_cursor();
+    cur->next->prev = cur;
+    cur = cur->next;
   }
+
   cur->conn = conn;
-  cur->idx = 0;
-  cur->response = _reql_expr_array();
   cur->token = conn->max_token++;
+
   _reql_build(query);
+
   return cur;
 }
 
