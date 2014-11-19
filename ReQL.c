@@ -157,6 +157,39 @@ int _reql_json_decode_(_ReQL_Op_t *val, _ReQL_Op_t *stack, unsigned long json_le
             quote = json[i];
             break;
           }
+          case '-':
+          case '0':
+          case '1':
+          case '2':
+          case '3':
+          case '4':
+          case '5':
+          case '6':
+          case '7':
+          case '8':
+          case '9': {
+            state = _REQL_R_NUM;
+            str_start = i;
+            break;
+          }
+          case 't': {
+            if (strncmp(json + i * sizeof(char), "true", 4)) {
+              i += 4;
+              break;
+            }
+          }
+          case 'f': {
+            if (strncmp(json + i * sizeof(char), "false", 5)) {
+              i += 5;
+              break;
+            }
+          }
+          case 'n': {
+            if (strncmp(json + i * sizeof(char), "null", 4)) {
+              i += 4;
+              break;
+            }
+          }
           default: {
             return -1;
           }
