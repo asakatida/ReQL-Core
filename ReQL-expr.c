@@ -102,6 +102,20 @@ int _reql_array_next(_ReQL_Op_t **obj, _ReQL_Op_t **val) {
   return err;
 }
 
+_ReQL_Op_t *_reql_array_pop(_ReQL_Op_t *obj) {
+  _ReQL_Op_t *res = NULL;
+  while (!_reql_array_next(&obj, &res)) {
+  }
+
+  if (res) {
+    res->prev->next = res->prev;
+    res->next = NULL;
+    res->prev = NULL;
+  }
+
+  return res;
+}
+
 _ReQL_Op_t *_reql_expr_object() {
   _ReQL_Op_t *obj = _reql_expr_null();
   obj->dt = _REQL_R_OBJECT;
