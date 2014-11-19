@@ -112,6 +112,7 @@ int _reql_merge_stack(_ReQL_Op_t *stack) {
 int _reql_json_decode_(_ReQL_Op_t *val, _ReQL_Op_t *stack, unsigned long json_len, char *json) {
   _reql_array_append(stack, val);
   _ReQL_Datum_t state = _REQL_R_JSON;
+  char esc = 0;
   unsigned long i, str_start;
   for (i=0; i<json_len; ++i) {
     switch (state) {
@@ -216,8 +217,19 @@ int _reql_json_decode_(_ReQL_Op_t *val, _ReQL_Op_t *stack, unsigned long json_le
       }
       case _REQL_R_STR: {
         switch (json[i]) {
+          case '\\': {
+            esc = 1;
+            break;
+          }
+          case '"': {
+            if (!esc) {
+              _reql_array_append(stack, _reql_expr_string("", 0));
+              state = _reql_merge_stack(stack);
+              break;
+            }
+          }
           default: {
-            return -1;
+            esc = 0;
           }
         }
         break;
