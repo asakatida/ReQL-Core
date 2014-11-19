@@ -22,6 +22,18 @@ enum {
 #define htole32
 #endif
 
+_ReQL_Cur_t *_reql_new_cursor() {
+  _ReQL_Cur_t *cur = malloc(sizeof(_ReQL_Cur_t));
+  cur->token = 0;
+  cur->idx = 0;
+  cur->next = cur->prev = cur;
+  cur->conn = NULL;
+  cur->response = NULL;
+  cur->array = _reql_expr_array();
+  cur->iter = _reql_to_array(cur->array);
+  return cur;
+}
+
 _ReQL_Conn_t *_reql_new_connection(unsigned int auth_len, struct sockaddr *address, char *auth) {
   _ReQL_Conn_t *conn = malloc(sizeof(_ReQL_Conn_t));
   conn->socket = -1;

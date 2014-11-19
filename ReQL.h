@@ -26,6 +26,7 @@ struct _ReQL_Cur_s {
   struct _ReQL_Conn_s *conn;
   _ReQL_Op_t *response;
   _ReQL_Op_t *array;
+  _ReQL_Op_t *iter;
   struct _ReQL_Cur_s *next;
   struct _ReQL_Cur_s *prev;
 };
