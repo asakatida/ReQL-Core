@@ -132,14 +132,6 @@ int _reql_json_decode_(_ReQL_Op_t *val, _ReQL_Op_t *stack, unsigned long json_le
         }
         break;
       }
-      case _REQL_R_BOOL: {
-        switch (json[i]) {
-          default: {
-            return -1;
-          }
-        }
-        break;
-      }
       case _REQL_R_JSON: {
         switch (json[i]) {
           case '[': {
@@ -200,9 +192,6 @@ int _reql_json_decode_(_ReQL_Op_t *val, _ReQL_Op_t *stack, unsigned long json_le
         }
         break;
       }
-      case _REQL_R_NULL: {
-        return -1;
-      }
       case _REQL_R_NUM: {
         switch (json[i]) {
           default: {
@@ -238,6 +227,8 @@ int _reql_json_decode_(_ReQL_Op_t *val, _ReQL_Op_t *stack, unsigned long json_le
         }
         break;
       }
+      case _REQL_R_NULL:
+      case _REQL_R_BOOL:
       default: {
         return -1;
       }
