@@ -20,6 +20,7 @@ limitations under the License.
 
 #include "ReQL.h"
 
+#include <math.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
@@ -127,11 +128,119 @@ int _reql_merge_stack(_ReQL_Op_t *stack) {
   return -1;
 }
 
+_ReQL_Op_t *_reql_string_decode(unsigned long json_len, char *json) {
+  char *utf8_str = malloc(sizeof(char) * json_len);
+  char res;
+  unsigned long i, j = 0;
+  for (i=0; i<json_len; ++i) {
+    res = json[i];
+    if (res == '\\') {
+      ++i;
+      if (i >= json_len) {
+        return NULL;
+      }
+      switch (json[i]) {
+        case 'b': {
+          res = '\b';
+          break;
+        }
+        case 'f': {
+          res = '\f';
+          break;
+        }
+        case 'n': {
+          res = '\n';
+          break;
+        }
+        case 'r': {
+          res = '\r';
+          break;
+        }
+        case 't': {
+          res = '\t';
+          break;
+        }
+        case 'u': {
+          res = 'u';
+          if ((i + 4) < json_len) {
+            char hex, valid = 1;
+            int n;
+            for (n=1; n<=4; ++n) {
+              hex = json[i + n];
+              if (!((hex >= '0' && hex <= '9') ||
+                    (hex >= 'a' && hex <= 'f') ||
+                    (hex >= 'A' && hex <= 'F'))) {
+                valid = 0;
+              }
+            }
+            if (valid) {
+              res = 0;
+              for (n=3; n>=0; --n) {
+                hex = json[++i];
+                if (hex >= '0' && hex <= '9') {
+                  hex -= '0';
+                } else if (hex >= 'a' && hex <= 'f') {
+                  hex -= 'a' - 10;
+                } else {
+                  hex -= 'A' - 10;
+                }
+                res += hex * pow(16, n);
+              }
+            }
+          }
+          break;
+        }
+      }
+    }
+    utf8_str[j++] = res;
+  }
+  return _reql_expr_string(utf8_str, j);
+}
+
+int _reql_number_decode(unsigned long json_len, char *json, double *val) {
+  double num = 0;
+  unsigned long i;
+  char digit = '0';
+  for (i=1; i<=json_len; ++i) {
+    digit = json[json_len - i];
+    if (digit == '+') {
+    } else if (digit == '-') {
+      num *= -1;
+    } else if (digit < '0' || digit > '9') {
+      break;
+    }
+    num += (digit - '0') * pow(10, i - 1);
+  }
+  if (i<=json_len) {
+    long new_len = json_len - i - 1;
+    if (new_len <= 0) {
+      return -1;
+    }
+    if (digit == 'E' || digit == 'e') {
+      double exp = num;
+      if (_reql_number_decode(new_len, json, &num)) {
+        return -1;
+      }
+      num = pow(num, pow(10, exp));
+    } else if (digit == '.') {
+      double dec = num;
+      if (_reql_number_decode(new_len, json, &num)) {
+        return -1;
+      }
+      num += dec * pow(10, -i);
+    } else {
+      return -1;
+    }
+  }
+  *val = num;
+  return 0;
+}
+
 int _reql_json_decode_(_ReQL_Op_t *val, _ReQL_Op_t *stack, unsigned long json_len, char *json) {
   _reql_array_append(stack, val);
   _ReQL_Datum_t state = _REQL_R_JSON;
   char esc = 0;
-  unsigned long i, str_start;
+  unsigned long i, str_start = 0;
   for (i=0; i<json_len; ++i) {
     switch (state) {
       case _REQL_R_ARRAY: {
@@ -238,7 +347,11 @@ int _reql_json_decode_(_ReQL_Op_t *val, _ReQL_Op_t *stack, unsigned long json_le
             break;
           }
           default: {
-            _reql_array_append(stack, _reql_expr_number(0.0));
+            double num;
+            if (_reql_number_decode(i - str_start - 1, json + str_start * sizeof(char), &num)) {
+              return -1;
+            }
+            _reql_array_append(stack, _reql_expr_number(num));
             state = _reql_merge_stack(stack);
             --i;
           }
@@ -270,7 +383,11 @@ int _reql_json_decode_(_ReQL_Op_t *val, _ReQL_Op_t *stack, unsigned long json_le
           }
           case '"': {
             if (!esc) {
-              _reql_array_append(stack, _reql_expr_string("", 0));
+              _ReQL_Op_t *str = _reql_string_decode(i - str_start - 1, json + str_start * sizeof(char));
+              if (!str) {
+                return -1;
+              }
+              _reql_array_append(stack, str);
               state = _reql_merge_stack(stack);
               break;
             }
