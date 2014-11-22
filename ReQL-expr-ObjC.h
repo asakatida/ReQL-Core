@@ -20,7 +20,7 @@ limitations under the License.
 
 #import <Foundation/Foundation.h>
 
-@interface libReQL_expr : NSObject
+@interface libReQL_expr : NSObject<NSCopying>
 
 -(instancetype)expr:(NSString *)string;
 

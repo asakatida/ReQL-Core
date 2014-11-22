@@ -22,7 +22,14 @@ limitations under the License.
 
 #include "ReQL.h"
 
-@implementation libReQL_expr
+@implementation libReQL_expr {
+  NSNumber *tt;
+  NSNumber *dt;
+  NSArray *arr;
+  NSNumber *num;
+  NSDictionary *obj;
+  NSString *str;
+}
 
 +(_ReQL_Op_t *)_reql_from_bool:(NSNumber*)obj {
   return _reql_expr_bool([obj boolValue]);
@@ -54,27 +61,100 @@ limitations under the License.
 }
 
 +(instancetype)_reql_to_obj:(_ReQL_Op_t *)obj {
+  libReQL_expr *res = nil;
   switch (obj->dt) {
-    case _REQL_R_ARRAY:
-      return @[];
-    case _REQL_R_BOOL:
-      return @YES;
-    case _REQL_R_JSON:
-      return nil;
-    case _REQL_R_NULL:
-      return nil;
-    case _REQL_R_NUM:
-      return 0;
-    case _REQL_R_OBJECT:
-      return @{};
-    case _REQL_R_STR:
-      return @"";
+    case _REQL_R_ARRAY: {
+      _ReQL_Op_t *iter = _reql_to_array(obj);
+      if (!iter) {
+        break;
+      }
+
+      NSMutableArray *arr = [NSMutableArray array];
+
+      _ReQL_Op_t *elem;
+
+      while (_reql_array_next(&iter, &elem)) {
+        [arr addObject:[libReQL_expr _reql_to_obj:elem]];
+      }
+
+      res = [libReQL_expr init];
+
+      res->arr = [NSArray arrayWithArray:arr];
+      break;
+    }
+    case _REQL_R_BOOL: {
+      int value;
+      if (_reql_to_bool(obj, &value)) {
+        break;
+      }
+      res = [libReQL_expr init];
+
+      res->num = [NSNumber numberWithBool:value];
+      break;
+    }
+    case _REQL_R_JSON: {
+      break;
+    }
+    case _REQL_R_NULL: {
+      res = [libReQL_expr init];
+      break;
+    }
+    case _REQL_R_NUM: {
+      double value;
+      if (_reql_to_number(obj, &value)) {
+        break;
+      }
+      res = [libReQL_expr init];
+
+      res->num = [NSNumber numberWithDouble:value];
+      break;
+    }
+    case _REQL_R_OBJECT: {
+      _ReQL_Op_t *iter = _reql_to_object(obj);
+      if (!iter) {
+        break;
+      }
+
+      NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+
+      _ReQL_Op_t *key;
+      _ReQL_Op_t *val;
+
+      while (_reql_object_next(&iter, &key, &val)) {
+        [dict setObject:[libReQL_expr _reql_to_obj:val] forKey:[libReQL_expr _reql_to_obj:key]];
+      }
+
+      res = [libReQL_expr init];
+
+      res->obj = [NSDictionary dictionaryWithDictionary:dict];
+      break;
+    }
+    case _REQL_R_STR: {
+      unsigned long str_len;
+      const char *str;
+      if (_reql_to_string(obj, &str, &str_len)) {
+        break;
+      }
+      res = [libReQL_expr init];
+
+      res->str = [[NSString alloc] initWithBytes:str length:str_len encoding:NSUnicodeStringEncoding];
+      break;
+    }
   }
-  return nil;
+  if (res) {
+    res->tt = [NSNumber numberWithInt:obj->tt];
+    res->dt = [NSNumber numberWithInt:obj->dt];
+  }
+  return res;
+}
+
+-(instancetype)copyWithZone:(NSZone *)zone {
+  libReQL_expr *new_obj = [libReQL_expr allocWithZone:zone];
+  return new_obj;
 }
 
 -(instancetype)expr:(NSString *)string {
-  return self;
+  return [libReQL_expr _reql_to_obj:[libReQL_expr _reql_from_obj:string]];
 }
 
 @end
