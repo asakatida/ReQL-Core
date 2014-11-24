@@ -21,6 +21,7 @@ limitations under the License.
 #include "ReQL-expr.h"
 
 #include <stdlib.h>
+#include <string.h>
 
 _ReQL_Op_t *_reql_expr_number(double num) {
   _ReQL_Op_t *obj = _reql_expr_null();
@@ -45,7 +46,8 @@ _ReQL_Op_t *_reql_expr_string(const char *str, unsigned long str_len) {
   _ReQL_Op_t *obj = _reql_expr_null();
   if (obj) {
     obj->dt = _REQL_R_STR;
-    obj->str = str;
+    obj->str = malloc(sizeof(char) * str_len);
+    obj->str = memcpy((char *)obj->str, str, sizeof(char) * str_len);
     obj->str_len = str_len;
   }
   return obj;
@@ -188,18 +190,76 @@ int _reql_op_eq(_ReQL_Op_t *l, _ReQL_Op_t *r) {
       if (l->tt == r->tt && l->dt == r->dt) {
         switch (l->dt) {
           case _REQL_R_ARRAY: {
+            l = _reql_to_array(l);
+            r = _reql_to_array(r);
+            if (!(l && r)) {
+              break;
+            }
+            res = 1;
+            _ReQL_Op_t *lelem = NULL;
+            _ReQL_Op_t *relem = NULL;
+            while (!(_reql_array_next(&l, &lelem) || _reql_array_next(&r, &relem))) {
+              res &= _reql_op_eq(lelem, relem);
+            }
+            if (!(_reql_array_next(&l, &lelem) && _reql_array_next(&r, &relem))) {
+              res = 0;
+            }
+            break;
           }
           case _REQL_R_BOOL: {
+            int lval, rval;
+            if (_reql_to_bool(l, &lval) || _reql_to_bool(r, &rval)) {
+              break;
+            }
+            res = lval == rval;
+            break;
           }
           case _REQL_R_JSON: {
+            res = _reql_op_eq(l->args, r->args) && _reql_op_eq(l->kwargs, r->kwargs);
+            break;
           }
           case _REQL_R_NULL: {
+            res = 1;
+            break;
           }
           case _REQL_R_NUM: {
+            double lval, rval;
+            if (_reql_to_number(l, &lval) || _reql_to_number(r, &rval)) {
+              break;
+            }
+            res = lval == rval;
+            break;
           }
           case _REQL_R_OBJECT: {
+            l = _reql_to_object(l);
+            r = _reql_to_object(r);
+            if (!(l && r)) {
+              break;
+            }
+            res = 1;
+            _ReQL_Op_t *lkey = NULL;
+            _ReQL_Op_t *lval = NULL;
+            _ReQL_Op_t *rkey = NULL;
+            _ReQL_Op_t *rval = NULL;
+            while (!(_reql_object_next(&l, &lkey, &lval) || _reql_object_next(&r, &rkey, &rval))) {
+              res &= _reql_op_eq(lkey, rkey) && _reql_op_eq(lval, rval);
+            }
+            if (!(_reql_object_next(&l, &lkey, &lval) && _reql_object_next(&r, &rkey, &rval))) {
+              res = 0;
+            }
+            break;
           }
           case _REQL_R_STR: {
+            const char *rstr;
+            const char *lstr;
+            unsigned long lstr_len, rstr_len;
+            if (_reql_to_string(l, &lstr, &lstr_len) || _reql_to_string(r, &rstr, &rstr_len)) {
+              break;
+            }
+            if (lstr_len == rstr_len) {
+              res = !memcmp(rstr, lstr, lstr_len);
+            }
+            break;
           }
         }
       }
@@ -276,6 +336,94 @@ int _reql_to_bool(_ReQL_Op_t *obj, int *val) {
   return -1;
 }
 
+_ReQL_Op_t *_reql_expr_copy(_ReQL_Op_t *obj) {
+  _ReQL_Op_t *res = NULL;
+  switch (obj->dt) {
+    case _REQL_R_ARRAY: {
+      obj = _reql_to_array(obj);
+      if (!obj) {
+        break;
+      }
+      res = _reql_expr_array();
+      _ReQL_Op_t *elem;
+      while (!_reql_array_next(&obj, &elem)) {
+        _reql_array_append(res, _reql_expr_copy(elem));
+      }
+      break;
+    }
+    case _REQL_R_BOOL: {
+      int val;
+      if (_reql_to_bool(obj, &val)) {
+        break;
+      }
+      res = _reql_expr_bool(val);
+      break;
+    }
+    case _REQL_R_JSON: {
+      res = _reql_expr_null();
+      res->tt = obj->tt;
+      res->dt = obj->dt;
+      res->args = _reql_expr_copy(obj->args);
+      res->kwargs = _reql_expr_copy(obj->kwargs);
+      break;
+    }
+    case _REQL_R_NULL: {
+      obj = _reql_expr_null();
+      break;
+    }
+    case _REQL_R_NUM: {
+      double val;
+      if (_reql_to_number(obj, &val)) {
+        break;
+      }
+      res = _reql_expr_number(val);
+      break;
+    }
+    case _REQL_R_OBJECT: {
+      obj = _reql_to_object(obj);
+      if (!obj) {
+        break;
+      }
+      res = _reql_expr_object();
+      _ReQL_Op_t *key;
+      _ReQL_Op_t *val;
+      while (!_reql_object_next(&obj, &key, &val)) {
+        _reql_object_add(res, _reql_expr_copy(key), _reql_expr_copy(val));
+      }
+      break;
+    }
+    case _REQL_R_STR: {
+      const char *str;
+      unsigned long str_len;
+      if (_reql_to_string(obj, &str, &str_len)) {
+        break;
+      }
+      res = _reql_expr_string(str, str_len);
+      break;
+    }
+  }
+  return res;
+}
+
+void _reql_expr_free(_ReQL_Op_t *obj) {
+  if (!obj) {
+    return;
+  }
+
+  if (obj->str) {
+    free((char *)obj->str); obj->str = NULL;
+  }
+
+  _reql_expr_free(obj->key); obj->key = NULL;
+  _reql_expr_free(obj->val); obj->val = NULL;
+  _reql_expr_free(obj->args); obj->args = NULL;
+  _reql_expr_free(obj->kwargs); obj->kwargs = NULL;
+  _reql_expr_free(obj->next); obj->next = NULL;
+  _reql_expr_free(obj->prev); obj->prev = NULL;
+
+  free(obj);
+}
+
 _ReQL_Op_t *_reql_build(_ReQL_Op_t *query) {
   if (!query) {
     return NULL;
@@ -286,25 +434,44 @@ _ReQL_Op_t *_reql_build(_ReQL_Op_t *query) {
 
   _ReQL_Op_t *res = _reql_expr_array();
   _reql_array_append(res, _reql_expr_number(query->tt));
-  if (query->args  && query->args->val) {
-    _ReQL_Op_t *elem = query->args;
-    _ReQL_Op_t *args = _reql_expr_array();
-    _reql_array_append(args, _reql_build(elem->val));
-    do {
-       elem = elem->next;
-      _reql_array_append(args, _reql_build(elem->val));
-    } while (elem->next != elem);
-    _reql_array_append(res, args);
+
+  _ReQL_Op_t *args = _reql_to_array(query->args);
+  if (!args) {
+    _reql_expr_free(res);
+    return NULL;
   }
-  if (query->kwargs && query->kwargs->key) {
-    _ReQL_Op_t *pair = query->kwargs;
-    _ReQL_Op_t *kwargs = _reql_expr_object();
-    _reql_object_add(kwargs, pair->key, _reql_build(pair->val));
-    do {
-      pair = pair->next;
-      _reql_object_add(kwargs, pair->key, _reql_build(pair->val));
-    } while (pair->next != pair);
-    _reql_array_append(res, kwargs);
+
+  _ReQL_Op_t *elem;
+  _ReQL_Op_t *arr = _reql_expr_array();
+
+  char has_args = 0;
+
+  while (_reql_array_next(&args, &elem)) {
+    _reql_array_append(arr, _reql_build(elem));
+    has_args = 1;
   }
+
+  if (has_args) {
+    _reql_array_append(res, arr);
+  }
+
+  _ReQL_Op_t *kwargs = _reql_to_object(query->kwargs);
+  if (kwargs) {
+    _ReQL_Op_t *key;
+    _ReQL_Op_t *val;
+    _ReQL_Op_t *obj = _reql_expr_object();
+
+    char has_kwargs = 0;
+    
+    while (_reql_object_next(&kwargs, &key, &val)) {
+      _reql_object_add(obj, _reql_build(key), _reql_build(val));
+      has_kwargs = 1;
+    }
+
+    if (has_kwargs) {
+      _reql_array_append(res, obj);
+    }
+  }
+
   return res;
 }

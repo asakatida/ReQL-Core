@@ -236,6 +236,10 @@ _ReQL_Op_t *_reql_to_object(_ReQL_Op_t *obj);
 void _reql_object_add(_ReQL_Op_t *obj, _ReQL_Op_t *key, _ReQL_Op_t *val);
 int _reql_object_next(_ReQL_Op_t **obj, _ReQL_Op_t **key, _ReQL_Op_t **val);
 
+int _reql_op_eq(_ReQL_Op_t *l, _ReQL_Op_t *r);
+void _reql_expr_free(_ReQL_Op_t *obj);
+_ReQL_Op_t *_reql_expr_copy(_ReQL_Op_t *obj);
+
 _ReQL_Op_t *_reql_build(_ReQL_Op_t *query);
 
 #endif
