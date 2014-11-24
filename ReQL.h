@@ -18,8 +18,6 @@ limitations under the License.
  * @copyright Apache
  */
 
-#include <sys/socket.h>
-
 #include "ReQL-ast.h"
 
 #ifndef _REQL_H
@@ -53,15 +51,19 @@ struct _ReQL_Conn_s {
   int error;
   unsigned int max_token;
   unsigned int auth_len;
-  struct sockaddr *address;
+
+  unsigned short port;
+  unsigned char *addr;
+
   char *auth;
   _ReQL_Cur_t *cursors;
 };
 typedef struct _ReQL_Conn_s _ReQL_Conn_t;
 
-_ReQL_Conn_t *_reql_new_connection(unsigned int auth_len, struct sockaddr *address, char *auth);
+_ReQL_Conn_t *_reql_new_connection(unsigned int auth_len, unsigned short port, unsigned char *addr, char *auth);
 int _reql_connect(_ReQL_Conn_t *conn, char *buf);
 int _reql_close_conn(_ReQL_Conn_t *conn);
+void _reql_free_conn(_ReQL_Conn_t *conn);
 
 _ReQL_Cur_t *_reql_run(_ReQL_Op_t *query, _ReQL_Conn_t *conn, _ReQL_Op_t *kwargs);
 void _reql_cursor_next(_ReQL_Cur_t *cur);

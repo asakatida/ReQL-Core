@@ -21,6 +21,7 @@ limitations under the License.
 #include "ReQL.h"
 
 #include <math.h>
+#include <netinet/in.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
@@ -51,15 +52,16 @@ _ReQL_Cur_t *_reql_new_cursor() {
   return cur;
 }
 
-_ReQL_Conn_t *_reql_new_connection(unsigned int auth_len, struct sockaddr *address, char *auth) {
+_ReQL_Conn_t *_reql_new_connection(unsigned int auth_len, unsigned short port, unsigned char *addr, char *auth) {
   _ReQL_Conn_t *conn = malloc(sizeof(_ReQL_Conn_t));
   conn->socket = -1;
   conn->error = 0;
   conn->max_token = 0;
   conn->auth_len = auth_len;
-  conn->address = address;
   conn->auth = auth;
   conn->cursors = _reql_new_cursor();
+  conn->port = port;
+  conn->addr = addr;
   return conn;
 }
 
@@ -67,7 +69,15 @@ int _reql_connect(_ReQL_Conn_t *conn, char *buf) {
   conn->error = socket(PF_INET, SOCK_STREAM, PF_INET);
   if (conn->error > 0) {
     conn->socket = conn->error;
-    conn->error = connect(conn->socket, conn->address, 0);
+
+    struct sockaddr_in address;
+
+    bzero(&address, sizeof(address));
+    address.sin_family = AF_INET;
+    address.sin_port = htons(conn->port);
+    address.sin_addr.s_addr = htonl((((((conn->addr[0] << 8) | conn->addr[1]) << 8) | conn->addr[2]) << 8) | conn->addr[3]);
+
+    conn->error = connect(conn->socket, (struct sockaddr *)&address, 0);
     if (!conn->error) {
       const unsigned int version = htole32(_REQL_VERSION);
       char *msg_buf = malloc(sizeof(char) * (conn->auth_len + 12));
@@ -87,18 +97,39 @@ int _reql_connect(_ReQL_Conn_t *conn, char *buf) {
       for (j=0; j<4; ++j) {
         msg_buf[++i] = (protocol << (8 * j)) & 0xff;
       }
-      send(conn->socket, msg_buf, auth_len + 12, 0);
-      recv(conn->socket, buf, 0, MSG_WAITALL);
+      write(conn->socket, msg_buf, auth_len + 12);
+      recvfrom(conn->socket, buf, 8, MSG_WAITALL, NULL, NULL);
       if (strcmp(buf, "SUCCESS")) {
         conn->error = -1;
+        recvfrom(conn->socket, buf, 0, MSG_WAITALL, NULL, NULL);
+        close(conn->socket);
       }
     }
   }
   return conn->error;
 }
 
+void _reql_free_cur(_ReQL_Cur_t *cur) {
+  while (cur != cur->prev) {
+    cur = cur->prev;
+  }
+  while (cur != cur->next) {
+    cur = cur->next;
+    _reql_close_cur(cur->prev);
+  }
+  _reql_close_cur(cur);
+}
+
 int _reql_close_conn(_ReQL_Conn_t *conn) {
-  return close(conn->socket);
+  conn->max_token = 0;
+  _reql_free_cur(conn->cursors);
+  conn->cursors = _reql_new_cursor();
+  return conn->error = close(conn->socket);
+}
+
+void _reql_free_conn(_ReQL_Conn_t *conn) {
+  _reql_free_cur(conn->cursors);
+  free(conn); conn = NULL;
 }
 
 int _reql_merge_stack(_ReQL_Op_t *stack) {
@@ -452,3 +483,4 @@ void _reql_close_cur(_ReQL_Cur_t *cur) {
   cur->next->prev = cur->prev == cur ? cur->next : cur->prev;
   free(cur); cur = NULL;
 }
+
