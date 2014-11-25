@@ -148,13 +148,19 @@ int _reql_array_next(_ReQL_Op_t **obj, _ReQL_Op_t **val) {
 
 _ReQL_Op_t *_reql_array_pop(_ReQL_Op_t *obj) {
   _ReQL_Op_t *res = NULL;
-  while (!_reql_array_next(&obj, &res)) {
-  }
 
-  if (res) {
-    res->prev->next = res->prev;
-    res->next = NULL;
-    res->prev = NULL;
+  obj = _reql_to_array(obj);
+
+  if (obj) {
+    while (!_reql_array_next(&obj, &res)) ;
+
+    obj->val = NULL;
+    if (obj->prev != obj) {
+      obj->prev->next = obj->prev;
+      obj->next = NULL;
+      obj->prev = NULL;
+      _reql_expr_free(obj);
+    }
   }
 
   return res;
