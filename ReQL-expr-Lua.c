@@ -359,6 +359,26 @@ static _ReQL_Op_t *_reql_from_lua(lua_State *L, const int idx, long nesting_dept
 
 static void _reql_to_lua(lua_State *L, _ReQL_Op_t *query) {
   switch (query->dt) {
+    case _REQL_C_ARRAY: {
+      unsigned long size;
+
+      if (_reql_to_c_array(query, &size)) {
+        lua_pushnil(L);
+        break;
+      }
+
+      int trunc_size = (int)size;
+      int i;
+
+      lua_createtable(L, trunc_size, trunc_size);
+      int table_idx = lua_gettop(L);
+
+      for (i=0; i<trunc_size; ++i) {
+        _reql_to_lua(L, _reql_c_array_index(query, i));
+        lua_rawseti(L, table_idx, i);
+      }
+      break;
+    }
     case _REQL_R_ARRAY: {
       _ReQL_Op_t *iter = _reql_to_array(query);
       if (!iter) {

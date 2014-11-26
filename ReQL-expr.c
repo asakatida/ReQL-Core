@@ -95,6 +95,48 @@ int _reql_iter_next(_ReQL_Op_t **obj) {
   return 0;
 }
 
+_ReQL_Op_t *_reql_expr_c_array(unsigned long size) {
+  _ReQL_Op_t *obj = malloc(sizeof(_ReQL_Op_t) * size);
+  if (obj) {
+    unsigned long i;
+    for (i=0; i<size; ++i) {
+      obj[i].tt = _REQL_DATUM;
+      obj[i].dt = _REQL_C_ARRAY;
+      obj[i].str_len = size - i;
+      obj[i].args = obj[i].kwargs = obj[i].key = obj[i].val = NULL;
+      obj[i].next = obj[i].prev = obj;
+      obj[i].num = 0.0;
+      obj[i].str = NULL;
+    }
+  }
+  return obj;
+}
+
+int _reql_to_c_array(_ReQL_Op_t *obj, unsigned long *size) {
+  int err = -1;
+  if (obj) {
+    if (obj->dt == _REQL_C_ARRAY) {
+      *size = obj->str_len;
+      err = 0;
+    }
+  }
+  return err;
+}
+
+void _reql_c_array_insert(_ReQL_Op_t *obj, _ReQL_Op_t *val, unsigned long idx) {
+  if ((!(obj && val)) || obj->str_len <= idx) {
+    return;
+  }
+  obj[idx].val = val;
+}
+
+_ReQL_Op_t *_reql_c_array_index(_ReQL_Op_t *obj, unsigned long idx) {
+  if ((!obj) || obj->str_len <= idx) {
+    return NULL;
+  }
+  return obj[idx].val;
+}
+
 _ReQL_Op_t *_reql_expr_array() {
   _ReQL_Op_t *obj = _reql_expr_null();
   if (obj) {
@@ -195,6 +237,20 @@ int _reql_op_eq(_ReQL_Op_t *l, _ReQL_Op_t *r) {
     if ((l && r)) {
       if (l->tt == r->tt && l->dt == r->dt) {
         switch (l->dt) {
+          case _REQL_C_ARRAY: {
+            unsigned long larr_len, rarr_len;
+            if (_reql_to_c_array(l, &larr_len) || _reql_to_c_array(r, &rarr_len)) {
+              break;
+            }
+            if (larr_len == rarr_len) {
+              res = 1;
+              unsigned long i;
+              for (i=0; i<larr_len; ++i) {
+                res &= _reql_op_eq(_reql_c_array_index(l, i), _reql_c_array_index(r, i));
+              }
+            }
+            break;
+          }
           case _REQL_R_ARRAY: {
             l = _reql_to_array(l);
             r = _reql_to_array(r);
@@ -349,6 +405,18 @@ int _reql_to_bool(_ReQL_Op_t *obj, int *val) {
 _ReQL_Op_t *_reql_expr_copy(_ReQL_Op_t *obj) {
   _ReQL_Op_t *res = NULL;
   switch (obj->dt) {
+    case _REQL_C_ARRAY: {
+      unsigned long size;
+      if (_reql_to_c_array(obj, &size)) {
+        break;
+      }
+      res = _reql_expr_c_array(size);
+      unsigned long i;
+      for (i=0; i<size; ++i) {
+        _reql_c_array_insert(obj, _reql_expr_copy(_reql_c_array_index(obj, i)), i);
+      }
+      break;
+    }
     case _REQL_R_ARRAY: {
       obj = _reql_to_array(obj);
       if (!obj) {
@@ -422,6 +490,15 @@ void _reql_expr_free(_ReQL_Op_t *obj) {
 
   if (obj->str) {
     free((char *)obj->str); obj->str = NULL;
+  }
+
+  unsigned long size;
+
+  if (!_reql_to_c_array(obj, &size)) {
+    unsigned long i;
+    for (i=0; i<size; ++i) {
+      _reql_expr_free(_reql_c_array_index(obj, i));
+    }
   }
 
   _reql_expr_free(obj->key); obj->key = NULL;

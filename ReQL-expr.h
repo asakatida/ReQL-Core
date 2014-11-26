@@ -22,6 +22,7 @@ limitations under the License.
 #define _REQL_EXPR_H
 
 typedef enum {
+  _REQL_C_ARRAY,
   _REQL_R_ARRAY = 5,
   _REQL_R_BOOL = 2,
   _REQL_R_JSON = 7,
@@ -224,6 +225,11 @@ _ReQL_Op_t *_reql_expr_number(double val);
 int _reql_to_number(_ReQL_Op_t *obj, double *val);
 _ReQL_Op_t *_reql_expr_string(const char *val, unsigned long str_len);
 int _reql_to_string(_ReQL_Op_t *obj, const char **val, unsigned long *str_len);
+
+_ReQL_Op_t *_reql_expr_c_array(unsigned long size);
+int _reql_to_c_array(_ReQL_Op_t *obj, unsigned long *size);
+void _reql_c_array_insert(_ReQL_Op_t *obj, _ReQL_Op_t *val, unsigned long idx);
+_ReQL_Op_t *_reql_c_array_index(_ReQL_Op_t *obj, unsigned long idx);
 
 _ReQL_Op_t *_reql_expr_array();
 _ReQL_Op_t *_reql_to_array(_ReQL_Op_t *obj);

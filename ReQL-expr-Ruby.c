@@ -38,6 +38,19 @@ static _ReQL_Op_t *_reql_from_rb(VALUE obj, long nesting_depth) {
 static VALUE _reql_to_rb(_ReQL_Op_t *query) {
   VALUE res = NULL;
   switch (query->dt) {
+    case _REQL_C_ARRAY: {
+      unsigned long size;
+      if (_reql_to_c_array(query, &size)) {
+        break;
+      }
+
+      unsigned long i;
+
+      for (i=0; i<size; ++i) {
+        _reql_to_rb(_reql_c_array_index(query, i));
+      }
+      break;
+    }
     case _REQL_R_ARRAY: {
       _ReQL_Op_t *iter = _reql_to_array(query);
       if (!iter) {

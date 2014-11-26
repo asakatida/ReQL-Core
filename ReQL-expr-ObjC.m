@@ -63,6 +63,24 @@ limitations under the License.
 +(instancetype)_reql_to_obj:(_ReQL_Op_t *)obj {
   libReQL_expr *res = [libReQL_expr init];
   switch (obj->dt) {
+    case _REQL_C_ARRAY: {
+      unsigned long size;
+
+      if (_reql_to_c_array(obj, &size)) {
+        break;
+      }
+
+      NSMutableArray *arr = [NSMutableArray arrayWithCapacity:size];
+
+      unsigned long i;
+
+      for (i=0; i<size; ++i) {
+        [arr insertObject:[libReQL_expr _reql_to_obj:_reql_c_array_index(obj, i)] atIndex:i];
+      }
+
+      res->arr = [NSArray arrayWithArray:arr];
+      break;
+    }
     case _REQL_R_ARRAY: {
       _ReQL_Op_t *iter = _reql_to_array(obj);
       if (!iter) {
