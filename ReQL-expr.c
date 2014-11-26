@@ -47,7 +47,7 @@ _ReQL_Op_t *_reql_expr_string(const char *str, unsigned long str_len) {
   if (obj) {
     obj->dt = _REQL_R_STR;
     obj->str = malloc(sizeof(char) * str_len);
-    obj->str = memcpy((char *)obj->str, str, sizeof(char) * str_len);
+    obj->str = memcpy(obj->str, str, sizeof(char) * str_len);
     obj->str_len = str_len;
   }
   return obj;
@@ -312,6 +312,10 @@ _ReQL_Op_t *_reql_expr_null() {
   if (obj) {
     obj->tt = _REQL_DATUM;
     obj->dt = _REQL_R_NULL;
+    obj->args = obj->kwargs = obj->key = obj->val = NULL;
+    obj->next = obj->prev = obj;
+    obj->str_len = obj->num = 0.0;
+    obj->str = NULL;
   }
   return obj;
 }

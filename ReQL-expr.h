@@ -203,7 +203,7 @@ struct _ReQL_Op_s {
   _ReQL_Datum_t dt;
 
   unsigned long str_len;
-  const char *str;
+  char *str;
 
   double num;
 
