@@ -549,7 +549,7 @@ _ReQL_Op_t *_reql_build(_ReQL_Op_t *query) {
     _ReQL_Op_t *obj = _reql_expr_object();
 
     char has_kwargs = 0;
-    
+
     while (_reql_object_next(&kwargs, &key, &val)) {
       _reql_object_add(obj, _reql_build(key), _reql_build(val));
       has_kwargs = 1;

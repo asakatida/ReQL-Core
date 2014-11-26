@@ -483,4 +483,3 @@ void _reql_close_cur(_ReQL_Cur_t *cur) {
   cur->next->prev = cur->prev == cur ? cur->next : cur->prev;
   free(cur); cur = NULL;
 }
-
