@@ -61,7 +61,7 @@ limitations under the License.
 }
 
 +(instancetype)_reql_to_obj:(_ReQL_Op_t *)obj {
-  libReQL_expr *res = nil;
+  libReQL_expr *res = [libReQL_expr init];
   switch (obj->dt) {
     case _REQL_R_ARRAY: {
       _ReQL_Op_t *iter = _reql_to_array(obj);
@@ -77,8 +77,6 @@ limitations under the License.
         [arr addObject:[libReQL_expr _reql_to_obj:elem]];
       }
 
-      res = [libReQL_expr init];
-
       res->arr = [NSArray arrayWithArray:arr];
       break;
     }
@@ -87,7 +85,6 @@ limitations under the License.
       if (_reql_to_bool(obj, &value)) {
         break;
       }
-      res = [libReQL_expr init];
 
       res->num = [NSNumber numberWithBool:value];
       break;
@@ -96,7 +93,6 @@ limitations under the License.
       break;
     }
     case _REQL_R_NULL: {
-      res = [libReQL_expr init];
       break;
     }
     case _REQL_R_NUM: {
@@ -104,7 +100,6 @@ limitations under the License.
       if (_reql_to_number(obj, &value)) {
         break;
       }
-      res = [libReQL_expr init];
 
       res->num = [NSNumber numberWithDouble:value];
       break;
@@ -124,8 +119,6 @@ limitations under the License.
         [dict setObject:[libReQL_expr _reql_to_obj:val] forKey:[libReQL_expr _reql_to_obj:key]];
       }
 
-      res = [libReQL_expr init];
-
       res->obj = [NSDictionary dictionaryWithDictionary:dict];
       break;
     }
@@ -135,11 +128,12 @@ limitations under the License.
       if (_reql_to_string(obj, &str, &str_len)) {
         break;
       }
-      res = [libReQL_expr init];
 
       res->str = [[NSString alloc] initWithBytes:str length:str_len encoding:NSUnicodeStringEncoding];
       break;
     }
+    default:
+      res = nil;
   }
   if (res) {
     res->tt = [NSNumber numberWithInt:obj->tt];
