@@ -519,28 +519,32 @@ _ReQL_Op_t *_reql_build(_ReQL_Op_t *query) {
     return query;
   }
 
-  _ReQL_Op_t *res = _reql_expr_array();
-  _reql_array_append(res, _reql_expr_number(query->tt));
+  _ReQL_Op_t *res = _reql_expr_c_array(3);
+  _reql_c_array_insert(res, _reql_expr_number(query->tt), 0);
+  unsigned long size;
+  _ReQL_Op_t *args;
+  _ReQL_Op_t *arr;
 
-  _ReQL_Op_t *args = _reql_to_array(query->args);
-  if (!args) {
-    _reql_expr_free(res);
-    return NULL;
+  if (!_reql_to_c_array(query->args, &size)) {
+    _ReQL_Op_t *arr = _reql_expr_c_array(size);
+
+    unsigned long i;
+
+    for (i=0; i<size; ++i) {
+      _reql_c_array_insert(arr, _reql_build(_reql_c_array_index(query->args, i)), i);
+    }
+  } else if ((args = _reql_to_array(query->args))) {
+    _ReQL_Op_t *elem;
+    _ReQL_Op_t *arr = _reql_expr_array();
+
+    while (_reql_array_next(&args, &elem)) {
+      _reql_array_append(arr, _reql_build(elem));
+    }
+  } else {
+    _reql_expr_free(res); res = NULL;
   }
 
-  _ReQL_Op_t *elem;
-  _ReQL_Op_t *arr = _reql_expr_array();
-
-  char has_args = 0;
-
-  while (_reql_array_next(&args, &elem)) {
-    _reql_array_append(arr, _reql_build(elem));
-    has_args = 1;
-  }
-
-  if (has_args) {
-    _reql_array_append(res, arr);
-  }
+  _reql_c_array_insert(res, arr, 1);
 
   _ReQL_Op_t *kwargs = _reql_to_object(query->kwargs);
   if (kwargs) {
@@ -556,7 +560,9 @@ _ReQL_Op_t *_reql_build(_ReQL_Op_t *query) {
     }
 
     if (has_kwargs) {
-      _reql_array_append(res, obj);
+      _reql_c_array_insert(res, obj, 2);
+    } else {
+      _reql_expr_free(obj);
     }
   }
 
