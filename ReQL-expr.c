@@ -208,6 +208,18 @@ _ReQL_Op _reql_array_pop(_ReQL_Op obj) {
   return res;
 }
 
+_ReQL_Op _reql_array_last(_ReQL_Op obj) {
+  _ReQL_Op res = NULL;
+
+  obj = _reql_to_array(obj);
+
+  if (obj) {
+    while (!_reql_array_next(&obj, &res)) ;
+  }
+
+  return res;
+}
+
 _ReQL_Op _reql_expr_object() {
   _ReQL_Op obj = _reql_expr_null();
   if (obj) {

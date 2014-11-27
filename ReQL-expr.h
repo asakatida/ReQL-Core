@@ -237,6 +237,7 @@ _ReQL_Op _reql_to_array(_ReQL_Op obj);
 void _reql_array_append(_ReQL_Op arr, _ReQL_Op val);
 int _reql_array_next(_ReQL_Op *arr, _ReQL_Op *val);
 _ReQL_Op _reql_array_pop(_ReQL_Op obj);
+_ReQL_Op _reql_array_last(_ReQL_Op obj);
 
 _ReQL_Op _reql_expr_object();
 _ReQL_Op _reql_to_object(_ReQL_Op obj);
