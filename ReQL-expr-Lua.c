@@ -76,29 +76,6 @@ static int _reql_lua_is_instance(lua_State *L) {
   return 1;
 }
 
-static int _reql_lua_get_opts(lua_State *L) {
-  const int argn = lua_gettop(L);
-
-  if (lua_istable(L, argn)) {
-    lua_pushcfunction(L, _reql_lua_is_instance);
-    lua_pushvalue(L, argn);
-    lua_pushliteral(L, "ReQLOp");
-    lua_call(L, 2, 1);
-    const int not_reql = !lua_toboolean(L, argn + 1);
-    lua_pop(L, 1);
-
-    if (not_reql) {
-      lua_insert(L, 1);
-      return argn;
-    }
-  }
-
-  lua_pushnil(L);
-  lua_insert(L, 1);
-
-  return argn + 1;
-}
-
 static int _reql_lua_intsp(lua_State *L) {
   lua_settop(L, 1);
   lua_rawlen(L, 1);
@@ -268,7 +245,7 @@ static void _reql_lua_class(lua_State *L, const char *name, const int parent, co
   }
 }
 
-static _ReQL_Op_t *_reql_from_lua(lua_State *L, const int idx, long nesting_depth) {
+static _ReQL_Op _reql_from_lua(lua_State *L, const int idx, long nesting_depth) {
   if (nesting_depth <= 0) {
     luaL_error(L, "Nesting depth limit exceeded");
     return NULL;
@@ -336,7 +313,7 @@ static _ReQL_Op_t *_reql_from_lua(lua_State *L, const int idx, long nesting_dept
       --nesting_depth;
 
       if (array) {
-        _ReQL_Op_t *arr = _reql_expr_array();
+        _ReQL_Op arr = _reql_expr_array();
         int i;
         for (i=1; i<=table_len; ++i) {
           lua_rawgeti(L, 2, i);
@@ -345,7 +322,7 @@ static _ReQL_Op_t *_reql_from_lua(lua_State *L, const int idx, long nesting_dept
         }
         return _reql_make_array(arr, NULL);
       }
-      _ReQL_Op_t *obj = _reql_expr_object();
+      _ReQL_Op obj = _reql_expr_object();
       while (lua_next(L, idx)) {
         _reql_object_add(obj, _reql_from_lua(L, water_mark + 1, nesting_depth), _reql_from_lua(L, water_mark + 2, nesting_depth));
         lua_pop(L, 1);
@@ -357,7 +334,7 @@ static _ReQL_Op_t *_reql_from_lua(lua_State *L, const int idx, long nesting_dept
   return NULL;
 }
 
-static void _reql_to_lua(lua_State *L, _ReQL_Op_t *query) {
+static void _reql_to_lua(lua_State *L, _ReQL_Op query) {
   switch (query->dt) {
     case _REQL_C_ARRAY: {
       unsigned long size;
@@ -380,13 +357,13 @@ static void _reql_to_lua(lua_State *L, _ReQL_Op_t *query) {
       break;
     }
     case _REQL_R_ARRAY: {
-      _ReQL_Op_t *iter = _reql_to_array(query);
+      _ReQL_Op iter = _reql_to_array(query);
       if (!iter) {
         lua_pushnil(L);
         break;
       }
 
-      _ReQL_Op_t *elem;
+      _ReQL_Op elem;
       int i = 0;
 
       lua_newtable(L);
@@ -426,14 +403,14 @@ static void _reql_to_lua(lua_State *L, _ReQL_Op_t *query) {
       break;
     }
     case _REQL_R_OBJECT: {
-      _ReQL_Op_t *iter = _reql_to_object(query);
+      _ReQL_Op iter = _reql_to_object(query);
       if (!iter) {
         lua_pushnil(L);
         break;
       }
 
-      _ReQL_Op_t *key;
-      _ReQL_Op_t *val;
+      _ReQL_Op key;
+      _ReQL_Op val;
 
       lua_newtable(L);
       int table_idx = lua_gettop(L);

@@ -26,7 +26,7 @@ limitations under the License.
 #define _REQL_EXPR_PYTHON
 
 static PyObject *_reql_py_expr(PyObject *self, PyObject *args);
-static _ReQL_Op_t *_reql_from_py(PyObject *query);
-static PyObject *_reql_to_py(_ReQL_Op_t *query);
+static _ReQL_Op _reql_from_py(PyObject *query);
+static PyObject *_reql_to_py(_ReQL_Op query);
 
 #endif

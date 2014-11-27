@@ -31,21 +31,21 @@ limitations under the License.
   NSString *str;
 }
 
-+(_ReQL_Op_t *)_reql_from_bool:(NSNumber*)obj {
++(_ReQL_Op)_reql_from_bool:(NSNumber*)obj {
   return _reql_expr_bool([obj boolValue]);
 }
 
-+(_ReQL_Op_t *)_reql_from_obj:(id)obj {
++(_ReQL_Op)_reql_from_obj:(id)obj {
   if (!obj) {
     return _reql_expr_null();
   } else if ([obj isKindOfClass:[NSArray class]]) {
-    _ReQL_Op_t *arr = _reql_expr_array();
+    _ReQL_Op arr = _reql_expr_array();
     [(NSArray*)obj enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
       _reql_array_append(arr, [libReQL_expr _reql_from_obj:obj]);
     }];
     return arr;
   } else if ([obj isKindOfClass:[NSDictionary class]]) {
-    _ReQL_Op_t *r_obj = _reql_expr_object();
+    _ReQL_Op r_obj = _reql_expr_object();
     [(NSDictionary*)obj enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
       _reql_object_add(r_obj, [libReQL_expr _reql_from_obj:key], [libReQL_expr _reql_from_obj:obj]);
     }];
@@ -60,7 +60,7 @@ limitations under the License.
   return NULL;
 }
 
-+(instancetype)_reql_to_obj:(_ReQL_Op_t *)obj {
++(instancetype)_reql_to_obj:(_ReQL_Op)obj {
   libReQL_expr *res = [libReQL_expr init];
   switch (obj->dt) {
     case _REQL_C_ARRAY: {
@@ -82,14 +82,14 @@ limitations under the License.
       break;
     }
     case _REQL_R_ARRAY: {
-      _ReQL_Op_t *iter = _reql_to_array(obj);
+      _ReQL_Op iter = _reql_to_array(obj);
       if (!iter) {
         break;
       }
 
       NSMutableArray *arr = [NSMutableArray array];
 
-      _ReQL_Op_t *elem;
+      _ReQL_Op elem;
 
       while (_reql_array_next(&iter, &elem)) {
         [arr addObject:[libReQL_expr _reql_to_obj:elem]];
@@ -123,15 +123,15 @@ limitations under the License.
       break;
     }
     case _REQL_R_OBJECT: {
-      _ReQL_Op_t *iter = _reql_to_object(obj);
+      _ReQL_Op iter = _reql_to_object(obj);
       if (!iter) {
         break;
       }
 
       NSMutableDictionary *dict = [NSMutableDictionary dictionary];
 
-      _ReQL_Op_t *key;
-      _ReQL_Op_t *val;
+      _ReQL_Op key;
+      _ReQL_Op val;
 
       while (_reql_object_next(&iter, &key, &val)) {
         [dict setObject:[libReQL_expr _reql_to_obj:val] forKey:[libReQL_expr _reql_to_obj:key]];

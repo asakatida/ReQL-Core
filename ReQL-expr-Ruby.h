@@ -26,7 +26,7 @@ limitations under the License.
 #define _REQL_EXPR_RUBY
 
 static VALUE _reql_rb_expr(int argn, VALUE *args, VALUE self);
-static _ReQL_Op_t *_reql_from_rb(VALUE obj, long nesting_depth);
-static VALUE _reql_to_rb(_ReQL_Op_t *query);
+static _ReQL_Op _reql_from_rb(VALUE obj, long nesting_depth);
+static VALUE _reql_to_rb(_ReQL_Op query);
 
 #endif

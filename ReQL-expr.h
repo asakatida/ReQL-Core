@@ -216,36 +216,37 @@ struct _ReQL_Op_s {
   struct _ReQL_Op_s *prev;
 };
 typedef struct _ReQL_Op_s _ReQL_Op_t;
+typedef _ReQL_Op_t* _ReQL_Op;
 
-_ReQL_Op_t *_reql_expr_bool(int val);
-int _reql_to_bool(_ReQL_Op_t *obj, int *val);
-_ReQL_Op_t *_reql_expr_null();
-int _reql_is_null(_ReQL_Op_t *obj);
-_ReQL_Op_t *_reql_expr_number(double val);
-int _reql_to_number(_ReQL_Op_t *obj, double *val);
-_ReQL_Op_t *_reql_expr_string(const char *val, unsigned long str_len);
-int _reql_to_string(_ReQL_Op_t *obj, const char **val, unsigned long *str_len);
+_ReQL_Op _reql_expr_bool(int val);
+int _reql_to_bool(_ReQL_Op obj, int *val);
+_ReQL_Op _reql_expr_null();
+int _reql_is_null(_ReQL_Op obj);
+_ReQL_Op _reql_expr_number(double val);
+int _reql_to_number(_ReQL_Op obj, double *val);
+_ReQL_Op _reql_expr_string(const char *val, unsigned long str_len);
+int _reql_to_string(_ReQL_Op obj, const char **val, unsigned long *str_len);
 
-_ReQL_Op_t *_reql_expr_c_array(unsigned long size);
-int _reql_to_c_array(_ReQL_Op_t *obj, unsigned long *size);
-void _reql_c_array_insert(_ReQL_Op_t *obj, _ReQL_Op_t *val, unsigned long idx);
-_ReQL_Op_t *_reql_c_array_index(_ReQL_Op_t *obj, unsigned long idx);
+_ReQL_Op _reql_expr_c_array(unsigned long size);
+int _reql_to_c_array(_ReQL_Op obj, unsigned long *size);
+void _reql_c_array_insert(_ReQL_Op obj, _ReQL_Op val, unsigned long idx);
+_ReQL_Op _reql_c_array_index(_ReQL_Op obj, unsigned long idx);
 
-_ReQL_Op_t *_reql_expr_array();
-_ReQL_Op_t *_reql_to_array(_ReQL_Op_t *obj);
-void _reql_array_append(_ReQL_Op_t *arr, _ReQL_Op_t *val);
-int _reql_array_next(_ReQL_Op_t **arr, _ReQL_Op_t **val);
-_ReQL_Op_t *_reql_array_pop(_ReQL_Op_t *obj);
+_ReQL_Op _reql_expr_array();
+_ReQL_Op _reql_to_array(_ReQL_Op obj);
+void _reql_array_append(_ReQL_Op arr, _ReQL_Op val);
+int _reql_array_next(_ReQL_Op *arr, _ReQL_Op *val);
+_ReQL_Op _reql_array_pop(_ReQL_Op obj);
 
-_ReQL_Op_t *_reql_expr_object();
-_ReQL_Op_t *_reql_to_object(_ReQL_Op_t *obj);
-void _reql_object_add(_ReQL_Op_t *obj, _ReQL_Op_t *key, _ReQL_Op_t *val);
-int _reql_object_next(_ReQL_Op_t **obj, _ReQL_Op_t **key, _ReQL_Op_t **val);
+_ReQL_Op _reql_expr_object();
+_ReQL_Op _reql_to_object(_ReQL_Op obj);
+void _reql_object_add(_ReQL_Op obj, _ReQL_Op key, _ReQL_Op val);
+int _reql_object_next(_ReQL_Op *obj, _ReQL_Op *key, _ReQL_Op *val);
 
-int _reql_op_eq(_ReQL_Op_t *l, _ReQL_Op_t *r);
-void _reql_expr_free(_ReQL_Op_t *obj);
-_ReQL_Op_t *_reql_expr_copy(_ReQL_Op_t *obj);
+int _reql_op_eq(_ReQL_Op l, _ReQL_Op r);
+void _reql_expr_free(_ReQL_Op obj);
+_ReQL_Op _reql_expr_copy(_ReQL_Op obj);
 
-_ReQL_Op_t *_reql_build(_ReQL_Op_t *query);
+_ReQL_Op _reql_build(_ReQL_Op query);
 
 #endif

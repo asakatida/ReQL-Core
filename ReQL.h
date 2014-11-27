@@ -38,9 +38,9 @@ struct _ReQL_Cur_s {
   unsigned int token;
   unsigned int idx;
   struct _ReQL_Conn_s *conn;
-  _ReQL_Op_t *response;
-  _ReQL_Op_t *array;
-  _ReQL_Op_t *iter;
+  _ReQL_Op response;
+  _ReQL_Op array;
+  _ReQL_Op iter;
   struct _ReQL_Cur_s *next;
   struct _ReQL_Cur_s *prev;
 };
@@ -65,7 +65,7 @@ int _reql_connect(_ReQL_Conn_t *conn, char *buf);
 int _reql_close_conn(_ReQL_Conn_t *conn);
 void _reql_free_conn(_ReQL_Conn_t *conn);
 
-_ReQL_Cur_t *_reql_run(_ReQL_Op_t *query, _ReQL_Conn_t *conn, _ReQL_Op_t *kwargs);
+_ReQL_Cur_t *_reql_run(_ReQL_Op query, _ReQL_Conn_t *conn, _ReQL_Op kwargs);
 void _reql_cursor_next(_ReQL_Cur_t *cur);
 void _reql_close_cur(_ReQL_Cur_t *cur);
 

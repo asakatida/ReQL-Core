@@ -132,10 +132,10 @@ void _reql_free_conn(_ReQL_Conn_t *conn) {
   free(conn); conn = NULL;
 }
 
-int _reql_merge_stack(_ReQL_Op_t *stack) {
-  _ReQL_Op_t *val = _reql_array_pop(stack);
+int _reql_merge_stack(_ReQL_Op stack) {
+  _ReQL_Op val = _reql_array_pop(stack);
   if (val) {
-    _ReQL_Op_t *arr = _reql_array_pop(stack);
+    _ReQL_Op arr = _reql_array_pop(stack);
     if (arr) {
       if (_reql_to_array(arr)) {
         _reql_array_append(arr, val);
@@ -143,8 +143,8 @@ int _reql_merge_stack(_ReQL_Op_t *stack) {
         return _REQL_R_ARRAY;
       }
       if (!_reql_to_object(arr)) {
-        _ReQL_Op_t *key = arr;
-        _ReQL_Op_t *obj = _reql_array_pop(stack);
+        _ReQL_Op key = arr;
+        _ReQL_Op obj = _reql_array_pop(stack);
         if (obj) {
           if (_reql_to_object(obj)) {
             _reql_object_add(obj, key, val);
@@ -159,7 +159,7 @@ int _reql_merge_stack(_ReQL_Op_t *stack) {
   return -1;
 }
 
-_ReQL_Op_t *_reql_string_decode(unsigned long json_len, char *json) {
+_ReQL_Op _reql_string_decode(unsigned long json_len, char *json) {
   char *utf8_str = malloc(sizeof(char) * json_len);
   char res;
   unsigned long i, j = 0;
@@ -267,7 +267,7 @@ int _reql_number_decode(unsigned long json_len, char *json, double *val) {
   return 0;
 }
 
-int _reql_json_decode_(_ReQL_Op_t *val, _ReQL_Op_t *stack, unsigned long json_len, char *json) {
+int _reql_json_decode_(_ReQL_Op val, _ReQL_Op stack, unsigned long json_len, char *json) {
   _reql_array_append(stack, val);
   _ReQL_Datum_t state = _REQL_R_JSON;
   char esc = 0;
@@ -414,7 +414,7 @@ int _reql_json_decode_(_ReQL_Op_t *val, _ReQL_Op_t *stack, unsigned long json_le
           }
           case '"': {
             if (!esc) {
-              _ReQL_Op_t *str = _reql_string_decode(i - str_start - 1, json + str_start * sizeof(char));
+              _ReQL_Op str = _reql_string_decode(i - str_start - 1, json + str_start * sizeof(char));
               if (!str) {
                 return -1;
               }
@@ -439,9 +439,9 @@ int _reql_json_decode_(_ReQL_Op_t *val, _ReQL_Op_t *stack, unsigned long json_le
   return 0;
 }
 
-int _reql_json_decode(_ReQL_Op_t **val, unsigned long json_len, char *json) {
+int _reql_json_decode(_ReQL_Op *val, unsigned long json_len, char *json) {
   *val = malloc(sizeof(_ReQL_Op_t));
-  _ReQL_Op_t *stack = _reql_expr_array();
+  _ReQL_Op stack = _reql_expr_array();
   int res = _reql_json_decode_(*val, stack, json_len, json);
   if (res) {
     _reql_expr_free(*val);
@@ -449,11 +449,11 @@ int _reql_json_decode(_ReQL_Op_t **val, unsigned long json_len, char *json) {
   return res;
 }
 
-int _reql_json_encode(_ReQL_Op_t *val, char **json) {
+int _reql_json_encode(_ReQL_Op val, char **json) {
   return 0;
 }
 
-_ReQL_Cur_t *_reql_run(_ReQL_Op_t *query, _ReQL_Conn_t *conn, _ReQL_Op_t *kwargs) {
+_ReQL_Cur_t *_reql_run(_ReQL_Op query, _ReQL_Conn_t *conn, _ReQL_Op kwargs) {
   _ReQL_Cur_t *cur = conn->cursors;
 
   while (cur->next != cur) {

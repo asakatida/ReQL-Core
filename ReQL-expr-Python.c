@@ -113,12 +113,12 @@ _reql_py_expr(PyObject *self, PyObject *args) {
   return _reql_py_datum(self, PyTuple_Pack(1, val), PyDict_New());
 }
 
-static _ReQL_Op_t *
+static _ReQL_Op 
 _reql_from_py(PyObject *query) {
   return NULL;
 }
 
 static PyObject *
-_reql_to_py(_ReQL_Op_t *query) {
+_reql_to_py(_ReQL_Op query) {
   return NULL;
 }
