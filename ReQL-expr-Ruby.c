@@ -21,7 +21,6 @@ limitations under the License.
 #include "ReQL-expr-Ruby.h"
 
 static VALUE _reql_rb_expr(int argn, VALUE *args, VALUE self) {
-  rb_Integer(args[1]);
   const long nesting_depth = 20;
 
   return _reql_to_rb(_reql_from_rb(args[0], nesting_depth));

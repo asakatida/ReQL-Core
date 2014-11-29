@@ -18,6 +18,8 @@ limitations under the License.
  * @copyright Apache
  */
 
+#include <stdlib.h>
+
 #include "ruby.h"
 
 #include "ReQL.h"
