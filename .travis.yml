@@ -2,6 +2,7 @@ before_install:
   - sudo apt-get install python3-dev luarocks npm
   - gem install rake-compiler
   - curl https://bootstrap.pypa.io/get-pip.py | sudo python3
+  - sudo luarocks install busted
 
 install:
   - make
@@ -14,3 +15,7 @@ install:
   - sudo npm install
   - rake
   - rm -rf tmp
+
+script:
+  - rethinkdb --daemon
+  - busted
