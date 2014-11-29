@@ -5,7 +5,12 @@ before_install:
 
 install:
   - make
+  - rm *.o
   - sudo luarocks make
+  - rm *.o
   - sudo python3 setup.py install
+  - rm -rf build
   - sudo npm install
   - rake
+  - rm -rf tmp
+
