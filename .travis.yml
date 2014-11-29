@@ -8,6 +8,7 @@ install:
   - rm -f *.o
   - sudo luarocks make
   - rm -f *.o
+  - python3 setup.py build
   - sudo python3 setup.py install
   - rm -rf build
   - sudo npm install
