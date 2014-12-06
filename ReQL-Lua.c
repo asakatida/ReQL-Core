@@ -192,7 +192,7 @@ static const struct luaL_Reg libReQL[] = {
   {NULL, NULL}
 };
 
-static int luaopen_libreql(lua_State *L) {
+extern int luaopen_libReQL(lua_State *L) {
   luaL_newlib(L, libReQL);
   return 1;
 }
