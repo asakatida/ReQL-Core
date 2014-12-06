@@ -145,11 +145,11 @@ static PyObject *_reql_py_december(PyObject *self, PyObject *args, PyObject *kwa
 
 /**
  */
-static PyObject *_reql_py_default_(PyObject *self, PyObject *args, PyObject *kwargs);
+static PyObject *_reql_py_default(PyObject *self, PyObject *args, PyObject *kwargs);
 
 /**
  */
-static PyObject *_reql_py_delete_(PyObject *self, PyObject *args, PyObject *kwargs);
+static PyObject *_reql_py_delete(PyObject *self, PyObject *args, PyObject *kwargs);
 
 /**
  */
@@ -449,7 +449,7 @@ static PyObject *_reql_py_ne(PyObject *self, PyObject *args, PyObject *kwargs);
 
 /**
  */
-static PyObject *_reql_py_not_(PyObject *self, PyObject *args, PyObject *kwargs);
+static PyObject *_reql_py_not(PyObject *self, PyObject *args, PyObject *kwargs);
 
 /**
  */
@@ -641,7 +641,7 @@ static PyObject *_reql_py_ungroup(PyObject *self, PyObject *args, PyObject *kwar
 
 /**
  */
-static PyObject *_reql_py_union_(PyObject *self, PyObject *args, PyObject *kwargs);
+static PyObject *_reql_py_union(PyObject *self, PyObject *args, PyObject *kwargs);
 
 /**
  */

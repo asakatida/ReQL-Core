@@ -147,11 +147,11 @@ _ReQL_Op _reql_december(_ReQL_Op args, _ReQL_Op kwargs);
 
 /**
  */
-_ReQL_Op _reql_default_(_ReQL_Op args, _ReQL_Op kwargs);
+_ReQL_Op _reql_default(_ReQL_Op args, _ReQL_Op kwargs);
 
 /**
  */
-_ReQL_Op _reql_delete_(_ReQL_Op args, _ReQL_Op kwargs);
+_ReQL_Op _reql_delete(_ReQL_Op args, _ReQL_Op kwargs);
 
 /**
  */
@@ -451,7 +451,7 @@ _ReQL_Op _reql_ne(_ReQL_Op args, _ReQL_Op kwargs);
 
 /**
  */
-_ReQL_Op _reql_not_(_ReQL_Op args, _ReQL_Op kwargs);
+_ReQL_Op _reql_not(_ReQL_Op args, _ReQL_Op kwargs);
 
 /**
  */
@@ -643,7 +643,7 @@ _ReQL_Op _reql_ungroup(_ReQL_Op args, _ReQL_Op kwargs);
 
 /**
  */
-_ReQL_Op _reql_union_(_ReQL_Op args, _ReQL_Op kwargs);
+_ReQL_Op _reql_union(_ReQL_Op args, _ReQL_Op kwargs);
 
 /**
  */

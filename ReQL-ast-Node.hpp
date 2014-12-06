@@ -145,11 +145,11 @@ v8::Handle<v8::Value> _reql_node_december(const v8::Arguments& args);
 
 /**
  */
-v8::Handle<v8::Value> _reql_node_default_(const v8::Arguments& args);
+v8::Handle<v8::Value> _reql_node_default(const v8::Arguments& args);
 
 /**
  */
-v8::Handle<v8::Value> _reql_node_delete_(const v8::Arguments& args);
+v8::Handle<v8::Value> _reql_node_delete(const v8::Arguments& args);
 
 /**
  */
@@ -449,7 +449,7 @@ v8::Handle<v8::Value> _reql_node_ne(const v8::Arguments& args);
 
 /**
  */
-v8::Handle<v8::Value> _reql_node_not_(const v8::Arguments& args);
+v8::Handle<v8::Value> _reql_node_not(const v8::Arguments& args);
 
 /**
  */
@@ -641,7 +641,7 @@ v8::Handle<v8::Value> _reql_node_ungroup(const v8::Arguments& args);
 
 /**
  */
-v8::Handle<v8::Value> _reql_node_union_(const v8::Arguments& args);
+v8::Handle<v8::Value> _reql_node_union(const v8::Arguments& args);
 
 /**
  */
