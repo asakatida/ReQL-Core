@@ -24,7 +24,7 @@ limitations under the License.
 #include <stdlib.h>
 #include <string.h>
 
-static int _reql_lua_expr(lua_State *L) {
+int _reql_lua_expr(lua_State *L) {
   lua_settop(L, 3);
 
   const long nesting_depth = luaL_optlong(L, 3, 20);
@@ -34,7 +34,7 @@ static int _reql_lua_expr(lua_State *L) {
   return 1;
 }
 
-static int _reql_lua_is_instance(lua_State *L) {
+int _reql_lua_is_instance(lua_State *L) {
   const int argn = lua_gettop(L);
   const int type_table = lua_istable(L, 1);
 
@@ -76,7 +76,7 @@ static int _reql_lua_is_instance(lua_State *L) {
   return 1;
 }
 
-static int _reql_lua_intsp(lua_State *L) {
+int _reql_lua_intsp(lua_State *L) {
   lua_settop(L, 1);
   lua_rawlen(L, 1);
   const unsigned int table_len = lua_tounsigned(L, 2);
@@ -95,7 +95,7 @@ static int _reql_lua_intsp(lua_State *L) {
   return 1;
 }
 
-static int _reql_lua_kved(lua_State *L) {
+int _reql_lua_kved(lua_State *L) {
   lua_settop(L, 1);
   lua_rawlen(L, 1);
   const unsigned int table_len = lua_tounsigned(L, 2);
@@ -133,7 +133,7 @@ static int _reql_lua_kved(lua_State *L) {
   return 1;
 }
 
-static int _reql_lua_intspallargs(lua_State *L) {
+int _reql_lua_intspallargs(lua_State *L) {
   lua_settop(L, 2);
 
   lua_pushcfunction(L, _reql_lua_intsp);
@@ -155,19 +155,19 @@ static int _reql_lua_intspallargs(lua_State *L) {
   return 1;
 }
 
-static int _reql_lua_reqlqueryprinter__init(lua_State *L) {
+int _reql_lua_reqlqueryprinter__init(lua_State *L) {
   lua_settop(L, 3);
   lua_setfield(L, 1, "frames");
   lua_setfield(L, 1, "term");
   return 1;
 }
 
-static int _reql_lua_print_query(lua_State *L) {
+int _reql_lua_print_query(lua_State *L) {
   lua_settop(L, 1);
   return 1;
 }
 
-static int _reql_lua_compose_term(lua_State *L) {
+int _reql_lua_compose_term(lua_State *L) {
   lua_settop(L, 2);
   if (!lua_istable(L, 2)) {
     lua_tostring(L, 2);
@@ -194,13 +194,13 @@ static int _reql_lua_compose_term(lua_State *L) {
   return 1;
 }
 
-static int _reql_lua___call(lua_State *L) {
+int _reql_lua___call(lua_State *L) {
   lua_createtable(L, 0, 0);
   lua_createtable(L, 2, 2);
   return 1;
 }
 
-static int _reql_lua_join_tree(lua_State *L) {
+int _reql_lua_join_tree(lua_State *L) {
   lua_settop(L, 2);
 
   lua_rawlen(L, 2);
@@ -214,11 +214,11 @@ static int _reql_lua_join_tree(lua_State *L) {
   return 1;
 }
 
-static int _reql_lua_ast(lua_State *L) {
+int _reql_lua_ast(lua_State *L) {
   return 1;
 }
 
-static int _reql_lua___index(lua_State *L) {
+int _reql_lua___index(lua_State *L) {
   lua_getfield(L, 1, "__base");
   lua_pushvalue(L, 2);
   lua_rawget(L, 2);
@@ -230,7 +230,7 @@ static int _reql_lua___index(lua_State *L) {
   return 1;
 }
 
-static void _reql_lua_class(lua_State *L, const char *name, const int parent, const int base) {
+void _reql_lua_class(lua_State *L, const char *name, const int parent, const int base) {
   lua_createtable(L, 4, 0);
   lua_pushliteral(L, "__name");
   lua_pushlstring(L, name, 1);
@@ -245,7 +245,7 @@ static void _reql_lua_class(lua_State *L, const char *name, const int parent, co
   }
 }
 
-static _ReQL_Op _reql_from_lua(lua_State *L, const int idx, long nesting_depth) {
+_ReQL_Op _reql_from_lua(lua_State *L, const int idx, long nesting_depth) {
   if (nesting_depth <= 0) {
     luaL_error(L, "Nesting depth limit exceeded");
     return NULL;
@@ -334,7 +334,7 @@ static _ReQL_Op _reql_from_lua(lua_State *L, const int idx, long nesting_depth) 
   return NULL;
 }
 
-static void _reql_to_lua(lua_State *L, _ReQL_Op query) {
+void _reql_to_lua(lua_State *L, _ReQL_Op query) {
   switch (query->dt) {
     case _REQL_C_ARRAY: {
       unsigned long size;
