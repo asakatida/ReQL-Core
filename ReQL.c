@@ -85,7 +85,7 @@ _ReQL_Conn_t *_reql_new_connection(unsigned int *auth_len, unsigned short *port,
 }
 
 int _reql_connect(_ReQL_Conn_t *conn, char *buf) {
-  conn->error = socket(PF_INET, SOCK_STREAM, PF_INET);
+  conn->error = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);
   if (conn->error > 0) {
     conn->socket = conn->error;
 
