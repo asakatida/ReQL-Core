@@ -52,16 +52,35 @@ _ReQL_Cur_t *_reql_new_cursor() {
   return cur;
 }
 
-_ReQL_Conn_t *_reql_new_connection(unsigned int auth_len, unsigned short port, unsigned char *addr, char *auth) {
+_ReQL_Conn_t *_reql_new_connection(unsigned int *auth_len, unsigned short *port, unsigned char *addr, char *auth) {
   _ReQL_Conn_t *conn = malloc(sizeof(_ReQL_Conn_t));
+
   conn->socket = -1;
   conn->error = 0;
   conn->max_token = 0;
-  conn->auth_len = auth_len;
-  conn->auth = auth;
   conn->cursors = _reql_new_cursor();
-  conn->port = port;
-  conn->addr = addr;
+
+  if (auth_len) {
+    conn->auth_len = *auth_len;
+  } else {
+    conn->auth_len = 0;
+  }
+  conn->auth = auth;
+  if (port) {
+    conn->port = *port;
+  } else {
+    conn->port = 28015;
+  }
+  if (addr) {
+    conn->addr = addr;
+  } else {
+    conn->addr = malloc(sizeof(char) * 4);
+    unsigned int j;
+    for (j=0; j<4; ++j) {
+      conn->addr[j] = (INADDR_LOOPBACK << (8 * j)) & 0xff;
+    }
+  }
+
   return conn;
 }
 
