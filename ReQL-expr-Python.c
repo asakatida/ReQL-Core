@@ -34,15 +34,15 @@ _reql_py_expr(PyObject *self, PyObject *args) {
   }
 
   if (PyCallable_Check(val)) {
-    return _reql_py_func(self, PyTuple_Pack(1, val), PyDict_New());
+    return _reql_to_py(_reql_func(_reql_from_py(val), NULL));
   }
 
   if (PyUnicode_Check(val)) {
-    return _reql_py_datum(self, PyTuple_Pack(1, val), PyDict_New());
+    return _reql_to_py(_reql_datum(_reql_from_py(val), NULL));
   }
 
   if (PyBytes_Check(val)) {
-    return _reql_py_binary(self, PyTuple_Pack(1, val), PyDict_New());
+    return _reql_to_py(_reql_binary(_reql_from_py(val), NULL));
   }
 
   --nesting_depth;
@@ -67,7 +67,7 @@ _reql_py_expr(PyObject *self, PyObject *args) {
     }
 
     PyObject *key;
-    while (key = PyIter_Next(iterator)) {
+    while ((key = PyIter_Next(iterator))) {
       _reql_py_expr(self, Py_BuildValue("Oi", key, nesting_depth));
       Py_DECREF(key);
     }
@@ -96,7 +96,7 @@ _reql_py_expr(PyObject *self, PyObject *args) {
     }
 
     PyObject *item;
-    while (item = PyIter_Next(iterator)) {
+    while ((item = PyIter_Next(iterator))) {
       _reql_py_expr(self, Py_BuildValue("Oi", item, nesting_depth));
       Py_DECREF(item);
     }
@@ -110,7 +110,7 @@ _reql_py_expr(PyObject *self, PyObject *args) {
     return reql_val;
   }
 
-  return _reql_py_datum(self, PyTuple_Pack(1, val), PyDict_New());
+  return _reql_to_py(_reql_datum(_reql_from_py(val), NULL));
 }
 
 static _ReQL_Op 
