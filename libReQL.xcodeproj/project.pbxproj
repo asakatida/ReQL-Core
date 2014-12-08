@@ -19,6 +19,17 @@
 		1E0915F91A1A73D3007952FE /* ReQL-CPP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 1E0915F31A1A73D3007952FE /* ReQL-CPP.hpp */; };
 		1E0915FA1A1A73D3007952FE /* ReQL-expr-CPP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1E0915F41A1A73D3007952FE /* ReQL-expr-CPP.cpp */; };
 		1E0915FB1A1A73D3007952FE /* ReQL-expr-CPP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 1E0915F51A1A73D3007952FE /* ReQL-expr-CPP.hpp */; };
+		1E3F9A0F1A35250F0065A82F /* ReQL-ast.c in Sources */ = {isa = PBXBuildFile; fileRef = 1ED0665F1A030AE8005225FD /* ReQL-ast.c */; };
+		1E3F9A101A35250F0065A82F /* ReQL-ast.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ED066601A030AE8005225FD /* ReQL-ast.h */; };
+		1E3F9A111A35250F0065A82F /* ReQL-expr.c in Sources */ = {isa = PBXBuildFile; fileRef = 1ED066721A046AC1005225FD /* ReQL-expr.c */; };
+		1E3F9A121A35250F0065A82F /* ReQL-expr.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ED066731A046AC1005225FD /* ReQL-expr.h */; };
+		1E3F9A131A35250F0065A82F /* ReQL.c in Sources */ = {isa = PBXBuildFile; fileRef = 1ED066631A030AE8005225FD /* ReQL.c */; };
+		1E3F9A141A35250F0065A82F /* ReQL.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ED066641A030AE8005225FD /* ReQL.h */; };
+		1E3F9A1A1A35253F0065A82F /* ReQL-ast-Python.c in Sources */ = {isa = PBXBuildFile; fileRef = 1E3F9A151A35253F0065A82F /* ReQL-ast-Python.c */; };
+		1E3F9A1B1A35253F0065A82F /* ReQL-ast-Python.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E3F9A161A35253F0065A82F /* ReQL-ast-Python.h */; };
+		1E3F9A1C1A35253F0065A82F /* ReQL-expr-Python.c in Sources */ = {isa = PBXBuildFile; fileRef = 1E3F9A171A35253F0065A82F /* ReQL-expr-Python.c */; };
+		1E3F9A1D1A35253F0065A82F /* ReQL-expr-Python.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E3F9A181A35253F0065A82F /* ReQL-expr-Python.h */; };
+		1E3F9A1E1A35253F0065A82F /* ReQL-Python.c in Sources */ = {isa = PBXBuildFile; fileRef = 1E3F9A191A35253F0065A82F /* ReQL-Python.c */; };
 		1E84356B1A171A0F008167E6 /* ReQL-ast-Lua.c in Sources */ = {isa = PBXBuildFile; fileRef = 1E8435661A171A0F008167E6 /* ReQL-ast-Lua.c */; };
 		1E84356C1A171A0F008167E6 /* ReQL-ast-Lua.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E8435671A171A0F008167E6 /* ReQL-ast-Lua.h */; };
 		1E84356D1A171A0F008167E6 /* ReQL-expr-Lua.c in Sources */ = {isa = PBXBuildFile; fileRef = 1E8435681A171A0F008167E6 /* ReQL-expr-Lua.c */; };
@@ -63,6 +74,12 @@
 		1E0915F31A1A73D3007952FE /* ReQL-CPP.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "ReQL-CPP.hpp"; sourceTree = "<group>"; };
 		1E0915F41A1A73D3007952FE /* ReQL-expr-CPP.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "ReQL-expr-CPP.cpp"; sourceTree = "<group>"; };
 		1E0915F51A1A73D3007952FE /* ReQL-expr-CPP.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "ReQL-expr-CPP.hpp"; sourceTree = "<group>"; };
+		1E3F9A0B1A3524F10065A82F /* liblibReQL-Python.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "liblibReQL-Python.dylib"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1E3F9A151A35253F0065A82F /* ReQL-ast-Python.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "ReQL-ast-Python.c"; sourceTree = SOURCE_ROOT; };
+		1E3F9A161A35253F0065A82F /* ReQL-ast-Python.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ReQL-ast-Python.h"; sourceTree = SOURCE_ROOT; };
+		1E3F9A171A35253F0065A82F /* ReQL-expr-Python.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "ReQL-expr-Python.c"; sourceTree = SOURCE_ROOT; };
+		1E3F9A181A35253F0065A82F /* ReQL-expr-Python.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ReQL-expr-Python.h"; sourceTree = SOURCE_ROOT; };
+		1E3F9A191A35253F0065A82F /* ReQL-Python.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "ReQL-Python.c"; sourceTree = SOURCE_ROOT; };
 		1E8435621A17193D008167E6 /* liblibReQL-Lua.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "liblibReQL-Lua.dylib"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E8435661A171A0F008167E6 /* ReQL-ast-Lua.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "ReQL-ast-Lua.c"; sourceTree = "<group>"; };
 		1E8435671A171A0F008167E6 /* ReQL-ast-Lua.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ReQL-ast-Lua.h"; sourceTree = "<group>"; };
@@ -88,6 +105,13 @@
 
 /* Begin PBXFrameworksBuildPhase section */
 		1E0915DC1A1A7385007952FE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1E3F9A081A3524F10065A82F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -129,6 +153,8 @@
 				1E8435671A171A0F008167E6 /* ReQL-ast-Lua.h */,
 				1ED0665D1A030AE8005225FD /* ReQL-ast-ObjC.h */,
 				1ED0665E1A030AE8005225FD /* ReQL-ast-ObjC.m */,
+				1E3F9A151A35253F0065A82F /* ReQL-ast-Python.c */,
+				1E3F9A161A35253F0065A82F /* ReQL-ast-Python.h */,
 				1ED0665F1A030AE8005225FD /* ReQL-ast.c */,
 				1ED066601A030AE8005225FD /* ReQL-ast.h */,
 				1E0915F21A1A73D3007952FE /* ReQL-CPP.cpp */,
@@ -139,11 +165,14 @@
 				1E8435691A171A0F008167E6 /* ReQL-expr-Lua.h */,
 				1ED066701A046AC1005225FD /* ReQL-expr-ObjC.h */,
 				1ED066711A046AC1005225FD /* ReQL-expr-ObjC.m */,
+				1E3F9A171A35253F0065A82F /* ReQL-expr-Python.c */,
+				1E3F9A181A35253F0065A82F /* ReQL-expr-Python.h */,
 				1ED066721A046AC1005225FD /* ReQL-expr.c */,
 				1ED066731A046AC1005225FD /* ReQL-expr.h */,
 				1E84356A1A171A0F008167E6 /* ReQL-Lua.c */,
 				1ED066611A030AE8005225FD /* ReQL-ObjC.h */,
 				1ED066621A030AE8005225FD /* ReQL-ObjC.m */,
+				1E3F9A191A35253F0065A82F /* ReQL-Python.c */,
 				1ED066631A030AE8005225FD /* ReQL.c */,
 				1ED066641A030AE8005225FD /* ReQL.h */,
 				1ED0666D1A030B0C005225FD /* test */,
@@ -157,6 +186,7 @@
 				1E9D4B821A03011100201983 /* libReQLTests.xctest */,
 				1E8435621A17193D008167E6 /* liblibReQL-Lua.dylib */,
 				1E0915DF1A1A7385007952FE /* liblibReQL-CPP.dylib */,
+				1E3F9A0B1A3524F10065A82F /* liblibReQL-Python.dylib */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -182,6 +212,18 @@
 				1E0915EB1A1A73A9007952FE /* ReQL-ast.h in Headers */,
 				1E0915F71A1A73D3007952FE /* ReQL-ast-CPP.hpp in Headers */,
 				1E0915FB1A1A73D3007952FE /* ReQL-expr-CPP.hpp in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1E3F9A091A3524F10065A82F /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1E3F9A141A35250F0065A82F /* ReQL.h in Headers */,
+				1E3F9A101A35250F0065A82F /* ReQL-ast.h in Headers */,
+				1E3F9A121A35250F0065A82F /* ReQL-expr.h in Headers */,
+				1E3F9A1B1A35253F0065A82F /* ReQL-ast-Python.h in Headers */,
+				1E3F9A1D1A35253F0065A82F /* ReQL-expr-Python.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -228,6 +270,23 @@
 			name = "libReQL-CPP";
 			productName = "libReQL-CPP";
 			productReference = 1E0915DF1A1A7385007952FE /* liblibReQL-CPP.dylib */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+		1E3F9A0A1A3524F10065A82F /* libReQL-Python */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1E3F9A0E1A3524F10065A82F /* Build configuration list for PBXNativeTarget "libReQL-Python" */;
+			buildPhases = (
+				1E3F9A071A3524F10065A82F /* Sources */,
+				1E3F9A081A3524F10065A82F /* Frameworks */,
+				1E3F9A091A3524F10065A82F /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "libReQL-Python";
+			productName = "libReQL-Python";
+			productReference = 1E3F9A0B1A3524F10065A82F /* liblibReQL-Python.dylib */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
 		1E8435611A17193D008167E6 /* libReQL-Lua */ = {
@@ -294,6 +353,9 @@
 					1E0915DE1A1A7385007952FE = {
 						CreatedOnToolsVersion = 6.1;
 					};
+					1E3F9A0A1A3524F10065A82F = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
 					1E8435611A17193D008167E6 = {
 						CreatedOnToolsVersion = 6.1;
 					};
@@ -321,6 +383,7 @@
 				1E9D4B811A03011100201983 /* libReQLTests */,
 				1E8435611A17193D008167E6 /* libReQL-Lua */,
 				1E0915DE1A1A7385007952FE /* libReQL-CPP */,
+				1E3F9A0A1A3524F10065A82F /* libReQL-Python */,
 			);
 		};
 /* End PBXProject section */
@@ -346,6 +409,19 @@
 				1E0915FA1A1A73D3007952FE /* ReQL-expr-CPP.cpp in Sources */,
 				1E0915EE1A1A73A9007952FE /* ReQL.c in Sources */,
 				1E0915F61A1A73D3007952FE /* ReQL-ast-CPP.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1E3F9A071A3524F10065A82F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1E3F9A111A35250F0065A82F /* ReQL-expr.c in Sources */,
+				1E3F9A1E1A35253F0065A82F /* ReQL-Python.c in Sources */,
+				1E3F9A0F1A35250F0065A82F /* ReQL-ast.c in Sources */,
+				1E3F9A1A1A35253F0065A82F /* ReQL-ast-Python.c in Sources */,
+				1E3F9A131A35250F0065A82F /* ReQL.c in Sources */,
+				1E3F9A1C1A35253F0065A82F /* ReQL-expr-Python.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -419,6 +495,40 @@
 				GCC_ENABLE_CPP_EXCEPTIONS = YES;
 				GCC_ENABLE_CPP_RTTI = YES;
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		1E3F9A0C1A3524F10065A82F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				EXECUTABLE_PREFIX = lib;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/usr/local/Cellar/python3/3.4.2_1/Frameworks/Python.framework/Versions/3.4/include/python3.4m,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		1E3F9A0D1A3524F10065A82F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/usr/local/Cellar/python3/3.4.2_1/Frameworks/Python.framework/Versions/3.4/include/python3.4m,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -591,6 +701,15 @@
 			buildConfigurations = (
 				1E0915E71A1A7385007952FE /* Debug */,
 				1E0915E81A1A7385007952FE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1E3F9A0E1A3524F10065A82F /* Build configuration list for PBXNativeTarget "libReQL-Python" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1E3F9A0C1A3524F10065A82F /* Debug */,
+				1E3F9A0D1A3524F10065A82F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};
