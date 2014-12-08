@@ -449,7 +449,7 @@ static PyObject *_reql_py_default(PyObject *self, PyObject *args, PyObject *kwar
 
   static char *kwlist[] = {NULL};
 
-  if (!PyArg_ParseTupleAndKeywords(args, kwargs, "o:r.default_", kwlist, &val)) {
+  if (!PyArg_ParseTupleAndKeywords(args, kwargs, "o:r.default", kwlist, &val)) {
     return self;
   }
 
@@ -463,7 +463,7 @@ static PyObject *_reql_py_delete(PyObject *self, PyObject *args, PyObject *kwarg
 
   static char *kwlist[] = {NULL};
 
-  if (!PyArg_ParseTupleAndKeywords(args, kwargs, "o:r.delete_", kwlist, &val)) {
+  if (!PyArg_ParseTupleAndKeywords(args, kwargs, "o:r.delete", kwlist, &val)) {
     return self;
   }
 
@@ -1513,7 +1513,7 @@ static PyObject *_reql_py_not(PyObject *self, PyObject *args, PyObject *kwargs) 
 
   static char *kwlist[] = {NULL};
 
-  if (!PyArg_ParseTupleAndKeywords(args, kwargs, "o:r.not_", kwlist, &val)) {
+  if (!PyArg_ParseTupleAndKeywords(args, kwargs, "o:r.not", kwlist, &val)) {
     return self;
   }
 
@@ -2185,7 +2185,7 @@ static PyObject *_reql_py_union(PyObject *self, PyObject *args, PyObject *kwargs
 
   static char *kwlist[] = {NULL};
 
-  if (!PyArg_ParseTupleAndKeywords(args, kwargs, "o:r.union_", kwlist, &val)) {
+  if (!PyArg_ParseTupleAndKeywords(args, kwargs, "o:r.union", kwlist, &val)) {
     return self;
   }
 

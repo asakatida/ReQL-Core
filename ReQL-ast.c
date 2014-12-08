@@ -356,7 +356,7 @@ _ReQL_Op _reql_december(_ReQL_Op args, _ReQL_Op kwargs) {
  */
 _ReQL_Op _reql_default(_ReQL_Op args, _ReQL_Op kwargs) {
   _ReQL_Op term = _reql_expr_null();
-  term->tt = _REQL_DEFAULT_;
+  term->tt = _REQL_DEFAULT;
   term->dt = _REQL_R_JSON;
   term->args = args->args;
   term->kwargs = kwargs->kwargs;
@@ -367,7 +367,7 @@ _ReQL_Op _reql_default(_ReQL_Op args, _ReQL_Op kwargs) {
  */
 _ReQL_Op _reql_delete(_ReQL_Op args, _ReQL_Op kwargs) {
   _ReQL_Op term = _reql_expr_null();
-  term->tt = _REQL_DELETE_;
+  term->tt = _REQL_DELETE;
   term->dt = _REQL_R_JSON;
   term->args = args->args;
   term->kwargs = kwargs->kwargs;
@@ -1192,7 +1192,7 @@ _ReQL_Op _reql_ne(_ReQL_Op args, _ReQL_Op kwargs) {
  */
 _ReQL_Op _reql_not(_ReQL_Op args, _ReQL_Op kwargs) {
   _ReQL_Op term = _reql_expr_null();
-  term->tt = _REQL_NOT_;
+  term->tt = _REQL_NOT;
   term->dt = _REQL_R_JSON;
   term->args = args->args;
   term->kwargs = kwargs->kwargs;
@@ -1720,7 +1720,7 @@ _ReQL_Op _reql_ungroup(_ReQL_Op args, _ReQL_Op kwargs) {
  */
 _ReQL_Op _reql_union(_ReQL_Op args, _ReQL_Op kwargs) {
   _ReQL_Op term = _reql_expr_null();
-  term->tt = _REQL_UNION_;
+  term->tt = _REQL_UNION;
   term->dt = _REQL_R_JSON;
   term->args = args->args;
   term->kwargs = kwargs->kwargs;
