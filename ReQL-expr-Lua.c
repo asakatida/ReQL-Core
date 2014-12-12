@@ -434,3 +434,26 @@ void _reql_to_lua(lua_State *L, _ReQL_Op query) {
     }
   }
 }
+int _reql_lua_connect(lua_State *L) {
+  lua_settop(L, 3);
+  switch (lua_type(L, 2)) {
+    case LUA_TFUNCTION:
+      lua_createtable(L, 0, 0);
+      lua_insert(L, 2);
+      break;
+    case LUA_TSTRING:
+      lua_createtable(L, 1, 1);
+      lua_pushliteral(L, "host");
+      lua_rawset(L, 2);
+      lua_insert(L, 2);
+      break;
+    default:
+      break;
+  }
+  _ReQL_Conn_t *conn = _reql_new_connection(NULL, NULL, NULL, NULL);
+  char *msg = malloc(sizeof(char) * 100);
+  if (_reql_connect(conn, msg)) {
+    return 0;
+  }
+  return 1;
+}

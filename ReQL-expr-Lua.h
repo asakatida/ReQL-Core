@@ -45,4 +45,6 @@ int _reql_lua___call(lua_State *L);
 int _reql_lua___index(lua_State *L);
 void _reql_lua_class(lua_State *L, const char *name, const int parent, const int base);
 
+int _reql_lua_connect(lua_State *L);
+
 #endif
