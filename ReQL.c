@@ -475,7 +475,7 @@ int _reql_json_decode(_ReQL_Op *val, unsigned long json_len, char *json) {
   *val = _reql_json_decode_(stack, json_len, json);
   _reql_expr_free(stack);
 
-  if (val) {
+  if (*val) {
     return 0;
   }
 
