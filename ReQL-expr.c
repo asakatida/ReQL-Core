@@ -43,11 +43,21 @@ int _reql_to_number(_ReQL_Op obj, double *num) {
 }
 
 _ReQL_Op _reql_expr_string(const char *str, unsigned long str_len) {
+  char *copy = malloc(sizeof(char) * str_len);
+  copy = memcpy(copy, str, sizeof(char) * str_len);
+
+  if (copy) {
+    return _reql_expr_string_nc(copy, str_len);
+  }
+
+  return NULL;
+}
+
+_ReQL_Op _reql_expr_string_nc(char *str, unsigned long str_len) {
   _ReQL_Op obj = _reql_expr_null();
   if (obj) {
     obj->dt = _REQL_R_STR;
-    obj->str = malloc(sizeof(char) * str_len);
-    obj->str = memcpy(obj->str, str, sizeof(char) * str_len);
+    obj->str = str;
     obj->str_len = str_len;
   }
   return obj;
