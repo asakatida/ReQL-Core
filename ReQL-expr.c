@@ -400,7 +400,7 @@ _ReQL_Op _reql_expr_null() {
 
 int _reql_is_null(_ReQL_Op obj) {
   if (!obj) {
-    return -1;
+    return 0;
   }
   return obj->dt == _REQL_R_NULL;
 }
