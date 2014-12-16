@@ -482,6 +482,42 @@ int _reql_json_decode(_ReQL_Op *val, unsigned long json_len, char *json) {
   return -1;
 }
 
+struct _ReQL_C_String_s {
+  unsigned long len;
+  unsigned long alloc_len;
+  char *str;
+};
+typedef struct _ReQL_C_String_s _ReQL_C_String_t;
+
+_ReQL_C_String_t *_reql_c_string() {
+  _ReQL_C_String_t *str = malloc(sizeof(_ReQL_C_String_t));
+  if (str) {
+    str->len = 0;
+    str->alloc_len = 100;
+    str->str = malloc(sizeof(char) * str->alloc_len);
+    if (!str->str) {
+      str->str = NULL;
+      free(str); str = NULL;
+    }
+  }
+  return str;
+}
+
+int _reql_c_string_append(_ReQL_C_String_t *orig, char *ext, unsigned long ext_len) {
+  if ((orig->len + ext_len) > orig->alloc_len) {
+    orig->alloc_len *= 1.1;
+    orig->alloc_len += ext_len;
+    orig->str = realloc(orig->str, orig->alloc_len);
+    if (!orig->str) {
+      return -1;
+    }
+  }
+
+  orig->str = memcpy(orig->str, ext, sizeof(char) * ext_len);
+
+  return 0;
+}
+
 int _reql_json_encode(_ReQL_Op val, char **json) {
   return 0;
 }
