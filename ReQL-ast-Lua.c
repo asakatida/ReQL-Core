@@ -146,7 +146,7 @@ int _reql_lua_change_at(lua_State *L) {
 /**
  */
 int _reql_lua_circle(lua_State *L) {
-  return _reql_lua_ast_class(L, _reql_circle, NULL);
+  return _reql_lua_get_opts(L, _reql_circle);
 }
 
 /**
@@ -248,7 +248,7 @@ int _reql_lua_default(lua_State *L) {
 /**
  */
 int _reql_lua_delete(lua_State *L) {
-  return _reql_lua_ast_class(L, _reql_delete, NULL);
+  return _reql_lua_get_opts(L, _reql_delete);
 }
 
 /**
@@ -278,7 +278,7 @@ int _reql_lua_distance(lua_State *L) {
 /**
  */
 int _reql_lua_distinct(lua_State *L) {
-  return _reql_lua_ast_class(L, _reql_distinct, NULL);
+  return _reql_lua_get_opts(L, _reql_distinct);
 }
 
 /**
@@ -314,7 +314,7 @@ int _reql_lua_eq(lua_State *L) {
 /**
  */
 int _reql_lua_eq_join(lua_State *L) {
-  return _reql_lua_ast_class(L, _reql_eq_join, NULL);
+  return _reql_lua_get_opts(L, _reql_eq_join);
 }
 
 /**
@@ -338,7 +338,7 @@ int _reql_lua_fill(lua_State *L) {
 /**
  */
 int _reql_lua_filter(lua_State *L) {
-  return _reql_lua_ast_class(L, _reql_filter, NULL);
+  return _reql_lua_get_opts(L, _reql_filter);
 }
 
 /**
@@ -386,7 +386,7 @@ int _reql_lua_get(lua_State *L) {
 /**
  */
 int _reql_lua_get_all(lua_State *L) {
-  return _reql_lua_ast_class(L, _reql_get_all, NULL);
+  return _reql_lua_get_opts(L, _reql_get_all);
 }
 
 /**
@@ -398,19 +398,19 @@ int _reql_lua_get_field(lua_State *L) {
 /**
  */
 int _reql_lua_get_intersecting(lua_State *L) {
-  return _reql_lua_ast_class(L, _reql_get_intersecting, NULL);
+  return _reql_lua_get_opts(L, _reql_get_intersecting);
 }
 
 /**
  */
 int _reql_lua_get_nearest(lua_State *L) {
-  return _reql_lua_ast_class(L, _reql_get_nearest, NULL);
+  return _reql_lua_get_opts(L, _reql_get_nearest);
 }
 
 /**
  */
 int _reql_lua_group(lua_State *L) {
-  return _reql_lua_ast_class(L, _reql_group, NULL);
+  return _reql_lua_get_opts(L, _reql_group);
 }
 
 /**
@@ -434,7 +434,7 @@ int _reql_lua_hours(lua_State *L) {
 /**
  */
 int _reql_lua_http(lua_State *L) {
-  return _reql_lua_ast_class(L, _reql_http, NULL);
+  return _reql_lua_get_opts(L, _reql_http);
 }
 
 /**
@@ -458,7 +458,7 @@ int _reql_lua_indexes_of(lua_State *L) {
 /**
  */
 int _reql_lua_index_create(lua_State *L) {
-  return _reql_lua_ast_class(L, _reql_index_create, NULL);
+  return _reql_lua_get_opts(L, _reql_index_create);
 }
 
 /**
@@ -476,7 +476,7 @@ int _reql_lua_index_list(lua_State *L) {
 /**
  */
 int _reql_lua_index_rename(lua_State *L) {
-  return _reql_lua_ast_class(L, _reql_index_rename, NULL);
+  return _reql_lua_get_opts(L, _reql_index_rename);
 }
 
 /**
@@ -530,7 +530,7 @@ int _reql_lua_in_timezone(lua_State *L) {
 /**
  */
 int _reql_lua_iso8601(lua_State *L) {
-  return _reql_lua_ast_class(L, _reql_iso8601, NULL);
+  return _reql_lua_get_opts(L, _reql_iso8601);
 }
 
 /**
@@ -548,7 +548,7 @@ int _reql_lua_january(lua_State *L) {
 /**
  */
 int _reql_lua_javascript(lua_State *L) {
-  return _reql_lua_ast_class(L, _reql_javascript, NULL);
+  return _reql_lua_get_opts(L, _reql_javascript);
 }
 
 /**
@@ -734,7 +734,7 @@ int _reql_lua_october(lua_State *L) {
 /**
  */
 int _reql_lua_order_by(lua_State *L) {
-  return _reql_lua_ast_class(L, _reql_order_by, NULL);
+  return _reql_lua_get_opts(L, _reql_order_by);
 }
 
 /**
@@ -776,7 +776,7 @@ int _reql_lua_prepend(lua_State *L) {
 /**
  */
 int _reql_lua_random(lua_State *L) {
-  return _reql_lua_ast_class(L, _reql_random, NULL);
+  return _reql_lua_get_opts(L, _reql_random);
 }
 
 /**
@@ -806,7 +806,7 @@ int _reql_lua_reduce(lua_State *L) {
 /**
  */
 int _reql_lua_replace(lua_State *L) {
-  return _reql_lua_ast_class(L, _reql_replace, NULL);
+  return _reql_lua_get_opts(L, _reql_replace);
 }
 
 /**
@@ -866,7 +866,7 @@ int _reql_lua_skip(lua_State *L) {
 /**
  */
 int _reql_lua_slice(lua_State *L) {
-  return _reql_lua_ast_class(L, _reql_slice, NULL);
+  return _reql_lua_get_opts(L, _reql_slice);
 }
 
 /**
@@ -908,7 +908,7 @@ int _reql_lua_sync(lua_State *L) {
 /**
  */
 int _reql_lua_table(lua_State *L) {
-  return _reql_lua_ast_class(L, _reql_table, NULL);
+  return _reql_lua_get_opts(L, _reql_table);
 }
 
 /**
@@ -920,7 +920,7 @@ int _reql_lua_table_config(lua_State *L) {
 /**
  */
 int _reql_lua_table_create(lua_State *L) {
-  return _reql_lua_ast_class(L, _reql_table_create, NULL);
+  return _reql_lua_get_opts(L, _reql_table_create);
 }
 
 /**
@@ -1028,7 +1028,7 @@ int _reql_lua_upcase(lua_State *L) {
 /**
  */
 int _reql_lua_update(lua_State *L) {
-  return _reql_lua_ast_class(L, _reql_update, NULL);
+  return _reql_lua_get_opts(L, _reql_update);
 }
 
 /**
