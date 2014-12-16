@@ -129,6 +129,10 @@ static PyObject *_reql_py_db(PyObject *self, PyObject *args, PyObject *kwargs);
 
 /**
  */
+static PyObject *_reql_py_db_config(PyObject *self, PyObject *args, PyObject *kwargs);
+
+/**
+ */
 static PyObject *_reql_py_db_create(PyObject *self, PyObject *args, PyObject *kwargs);
 
 /**
@@ -509,6 +513,14 @@ static PyObject *_reql_py_range(PyObject *self, PyObject *args, PyObject *kwargs
 
 /**
  */
+static PyObject *_reql_py_rebalance(PyObject *self, PyObject *args, PyObject *kwargs);
+
+/**
+ */
+static PyObject *_reql_py_reconfigure(PyObject *self, PyObject *args, PyObject *kwargs);
+
+/**
+ */
 static PyObject *_reql_py_reduce(PyObject *self, PyObject *args, PyObject *kwargs);
 
 /**
@@ -585,6 +597,10 @@ static PyObject *_reql_py_table(PyObject *self, PyObject *args, PyObject *kwargs
 
 /**
  */
+static PyObject *_reql_py_table_config(PyObject *self, PyObject *args, PyObject *kwargs);
+
+/**
+ */
 static PyObject *_reql_py_table_create(PyObject *self, PyObject *args, PyObject *kwargs);
 
 /**
@@ -594,6 +610,14 @@ static PyObject *_reql_py_table_drop(PyObject *self, PyObject *args, PyObject *k
 /**
  */
 static PyObject *_reql_py_table_list(PyObject *self, PyObject *args, PyObject *kwargs);
+
+/**
+ */
+static PyObject *_reql_py_table_status(PyObject *self, PyObject *args, PyObject *kwargs);
+
+/**
+ */
+static PyObject *_reql_py_table_wait(PyObject *self, PyObject *args, PyObject *kwargs);
 
 /**
  */

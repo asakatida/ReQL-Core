@@ -178,6 +178,12 @@ static VALUE _reql_rb_db(int argn, VALUE *args, VALUE self) {
 
 /**
  */
+static VALUE _reql_rb_db_config(int argn, VALUE *args, VALUE self) {
+  return NULL;
+}
+
+/**
+ */
 static VALUE _reql_rb_db_create(int argn, VALUE *args, VALUE self) {
   return NULL;
 }
@@ -748,6 +754,18 @@ static VALUE _reql_rb_range(int argn, VALUE *args, VALUE self) {
 
 /**
  */
+static VALUE _reql_rb_rebalance(int argn, VALUE *args, VALUE self) {
+  return NULL;
+}
+
+/**
+ */
+static VALUE _reql_rb_reconfigure(int argn, VALUE *args, VALUE self) {
+  return NULL;
+}
+
+/**
+ */
 static VALUE _reql_rb_reduce(int argn, VALUE *args, VALUE self) {
   return NULL;
 }
@@ -862,6 +880,12 @@ static VALUE _reql_rb_table(int argn, VALUE *args, VALUE self) {
 
 /**
  */
+static VALUE _reql_rb_table_config(int argn, VALUE *args, VALUE self) {
+  return NULL;
+}
+
+/**
+ */
 static VALUE _reql_rb_table_create(int argn, VALUE *args, VALUE self) {
   return NULL;
 }
@@ -875,6 +899,18 @@ static VALUE _reql_rb_table_drop(int argn, VALUE *args, VALUE self) {
 /**
  */
 static VALUE _reql_rb_table_list(int argn, VALUE *args, VALUE self) {
+  return NULL;
+}
+
+/**
+ */
+static VALUE _reql_rb_table_status(int argn, VALUE *args, VALUE self) {
+  return NULL;
+}
+
+/**
+ */
+static VALUE _reql_rb_table_wait(int argn, VALUE *args, VALUE self) {
   return NULL;
 }
 

@@ -129,6 +129,10 @@ v8::Handle<v8::Value> _reql_node_db(const v8::Arguments& args);
 
 /**
  */
+v8::Handle<v8::Value> _reql_node_db_config(const v8::Arguments& args);
+
+/**
+ */
 v8::Handle<v8::Value> _reql_node_db_create(const v8::Arguments& args);
 
 /**
@@ -509,6 +513,14 @@ v8::Handle<v8::Value> _reql_node_range(const v8::Arguments& args);
 
 /**
  */
+v8::Handle<v8::Value> _reql_node_rebalance(const v8::Arguments& args);
+
+/**
+ */
+v8::Handle<v8::Value> _reql_node_reconfigure(const v8::Arguments& args);
+
+/**
+ */
 v8::Handle<v8::Value> _reql_node_reduce(const v8::Arguments& args);
 
 /**
@@ -585,6 +597,10 @@ v8::Handle<v8::Value> _reql_node_table(const v8::Arguments& args);
 
 /**
  */
+v8::Handle<v8::Value> _reql_node_table_config(const v8::Arguments& args);
+
+/**
+ */
 v8::Handle<v8::Value> _reql_node_table_create(const v8::Arguments& args);
 
 /**
@@ -594,6 +610,14 @@ v8::Handle<v8::Value> _reql_node_table_drop(const v8::Arguments& args);
 /**
  */
 v8::Handle<v8::Value> _reql_node_table_list(const v8::Arguments& args);
+
+/**
+ */
+v8::Handle<v8::Value> _reql_node_table_status(const v8::Arguments& args);
+
+/**
+ */
+v8::Handle<v8::Value> _reql_node_table_wait(const v8::Arguments& args);
 
 /**
  */

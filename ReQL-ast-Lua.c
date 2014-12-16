@@ -211,6 +211,12 @@ int _reql_lua_db(lua_State *L) {
 
 /**
  */
+int _reql_lua_db_config(lua_State *L) {
+  return _reql_lua_ast_class(L, _reql_db_config, NULL);
+}
+
+/**
+ */
 int _reql_lua_db_create(lua_State *L) {
   return _reql_lua_ast_class(L, _reql_db_create, NULL);
 }
@@ -781,6 +787,18 @@ int _reql_lua_range(lua_State *L) {
 
 /**
  */
+int _reql_lua_rebalance(lua_State *L) {
+  return _reql_lua_ast_class(L, _reql_rebalance, NULL);
+}
+
+/**
+ */
+int _reql_lua_reconfigure(lua_State *L) {
+  return _reql_lua_ast_class(L, _reql_reconfigure, NULL);
+}
+
+/**
+ */
 int _reql_lua_reduce(lua_State *L) {
   return _reql_lua_ast_class(L, _reql_reduce, NULL);
 }
@@ -895,6 +913,12 @@ int _reql_lua_table(lua_State *L) {
 
 /**
  */
+int _reql_lua_table_config(lua_State *L) {
+  return _reql_lua_ast_class(L, _reql_table_config, NULL);
+}
+
+/**
+ */
 int _reql_lua_table_create(lua_State *L) {
   return _reql_lua_ast_class(L, _reql_table_create, NULL);
 }
@@ -909,6 +933,18 @@ int _reql_lua_table_drop(lua_State *L) {
  */
 int _reql_lua_table_list(lua_State *L) {
   return _reql_lua_ast_class(L, _reql_table_list, NULL);
+}
+
+/**
+ */
+int _reql_lua_table_status(lua_State *L) {
+  return _reql_lua_ast_class(L, _reql_table_status, NULL);
+}
+
+/**
+ */
+int _reql_lua_table_wait(lua_State *L) {
+  return _reql_lua_ast_class(L, _reql_table_wait, NULL);
 }
 
 /**

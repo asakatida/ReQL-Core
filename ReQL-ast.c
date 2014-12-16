@@ -310,6 +310,17 @@ _ReQL_Op _reql_db(_ReQL_Op args, _ReQL_Op kwargs) {
 
 /**
  */
+_ReQL_Op _reql_db_config(_ReQL_Op args, _ReQL_Op kwargs) {
+  _ReQL_Op term = _reql_expr_null();
+  term->tt = _REQL_DB_CONFIG;
+  term->dt = _REQL_R_JSON;
+  term->args = args->args;
+  term->kwargs = kwargs->kwargs;
+  return term;
+}
+
+/**
+ */
 _ReQL_Op _reql_db_create(_ReQL_Op args, _ReQL_Op kwargs) {
   _ReQL_Op term = _reql_expr_null();
   term->tt = _REQL_DB_CREATE;
@@ -1355,6 +1366,28 @@ _ReQL_Op _reql_range(_ReQL_Op args, _ReQL_Op kwargs) {
 
 /**
  */
+_ReQL_Op _reql_rebalance(_ReQL_Op args, _ReQL_Op kwargs) {
+  _ReQL_Op term = _reql_expr_null();
+  term->tt = _REQL_REBALANCE;
+  term->dt = _REQL_R_JSON;
+  term->args = args->args;
+  term->kwargs = kwargs->kwargs;
+  return term;
+}
+
+/**
+ */
+_ReQL_Op _reql_reconfigure(_ReQL_Op args, _ReQL_Op kwargs) {
+  _ReQL_Op term = _reql_expr_null();
+  term->tt = _REQL_RECONFIGURE;
+  term->dt = _REQL_R_JSON;
+  term->args = args->args;
+  term->kwargs = kwargs->kwargs;
+  return term;
+}
+
+/**
+ */
 _ReQL_Op _reql_reduce(_ReQL_Op args, _ReQL_Op kwargs) {
   _ReQL_Op term = _reql_expr_null();
   term->tt = _REQL_REDUCE;
@@ -1564,6 +1597,17 @@ _ReQL_Op _reql_table(_ReQL_Op args, _ReQL_Op kwargs) {
 
 /**
  */
+_ReQL_Op _reql_table_config(_ReQL_Op args, _ReQL_Op kwargs) {
+  _ReQL_Op term = _reql_expr_null();
+  term->tt = _REQL_TABLE_CONFIG;
+  term->dt = _REQL_R_JSON;
+  term->args = args->args;
+  term->kwargs = kwargs->kwargs;
+  return term;
+}
+
+/**
+ */
 _ReQL_Op _reql_table_create(_ReQL_Op args, _ReQL_Op kwargs) {
   _ReQL_Op term = _reql_expr_null();
   term->tt = _REQL_TABLE_CREATE;
@@ -1589,6 +1633,28 @@ _ReQL_Op _reql_table_drop(_ReQL_Op args, _ReQL_Op kwargs) {
 _ReQL_Op _reql_table_list(_ReQL_Op args, _ReQL_Op kwargs) {
   _ReQL_Op term = _reql_expr_null();
   term->tt = _REQL_TABLE_LIST;
+  term->dt = _REQL_R_JSON;
+  term->args = args->args;
+  term->kwargs = kwargs->kwargs;
+  return term;
+}
+
+/**
+ */
+_ReQL_Op _reql_table_status(_ReQL_Op args, _ReQL_Op kwargs) {
+  _ReQL_Op term = _reql_expr_null();
+  term->tt = _REQL_TABLE_STATUS;
+  term->dt = _REQL_R_JSON;
+  term->args = args->args;
+  term->kwargs = kwargs->kwargs;
+  return term;
+}
+
+/**
+ */
+_ReQL_Op _reql_table_wait(_ReQL_Op args, _ReQL_Op kwargs) {
+  _ReQL_Op term = _reql_expr_null();
+  term->tt = _REQL_TABLE_WAIT;
   term->dt = _REQL_R_JSON;
   term->args = args->args;
   term->kwargs = kwargs->kwargs;

@@ -388,6 +388,20 @@ static PyObject *_reql_py_db(PyObject *self, PyObject *args, PyObject *kwargs) {
 
 /**
  */
+static PyObject *_reql_py_db_config(PyObject *self, PyObject *args, PyObject *kwargs) {
+  PyObject *val;
+
+  static char *kwlist[] = {NULL};
+
+  if (!PyArg_ParseTupleAndKeywords(args, kwargs, "o:r.db_config", kwlist, &val)) {
+    return self;
+  }
+
+  return val;
+}
+
+/**
+ */
 static PyObject *_reql_py_db_create(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -1718,6 +1732,34 @@ static PyObject *_reql_py_range(PyObject *self, PyObject *args, PyObject *kwargs
 
 /**
  */
+static PyObject *_reql_py_rebalance(PyObject *self, PyObject *args, PyObject *kwargs) {
+  PyObject *val;
+
+  static char *kwlist[] = {NULL};
+
+  if (!PyArg_ParseTupleAndKeywords(args, kwargs, "o:r.rebalance", kwlist, &val)) {
+    return self;
+  }
+
+  return val;
+}
+
+/**
+ */
+static PyObject *_reql_py_reconfigure(PyObject *self, PyObject *args, PyObject *kwargs) {
+  PyObject *val;
+
+  static char *kwlist[] = {NULL};
+
+  if (!PyArg_ParseTupleAndKeywords(args, kwargs, "o:r.reconfigure", kwlist, &val)) {
+    return self;
+  }
+
+  return val;
+}
+
+/**
+ */
 static PyObject *_reql_py_reduce(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -1984,6 +2026,20 @@ static PyObject *_reql_py_table(PyObject *self, PyObject *args, PyObject *kwargs
 
 /**
  */
+static PyObject *_reql_py_table_config(PyObject *self, PyObject *args, PyObject *kwargs) {
+  PyObject *val;
+
+  static char *kwlist[] = {NULL};
+
+  if (!PyArg_ParseTupleAndKeywords(args, kwargs, "o:r.table_config", kwlist, &val)) {
+    return self;
+  }
+
+  return val;
+}
+
+/**
+ */
 static PyObject *_reql_py_table_create(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -2018,6 +2074,34 @@ static PyObject *_reql_py_table_list(PyObject *self, PyObject *args, PyObject *k
   static char *kwlist[] = {NULL};
 
   if (!PyArg_ParseTupleAndKeywords(args, kwargs, "o:r.table_list", kwlist, &val)) {
+    return self;
+  }
+
+  return val;
+}
+
+/**
+ */
+static PyObject *_reql_py_table_status(PyObject *self, PyObject *args, PyObject *kwargs) {
+  PyObject *val;
+
+  static char *kwlist[] = {NULL};
+
+  if (!PyArg_ParseTupleAndKeywords(args, kwargs, "o:r.table_status", kwlist, &val)) {
+    return self;
+  }
+
+  return val;
+}
+
+/**
+ */
+static PyObject *_reql_py_table_wait(PyObject *self, PyObject *args, PyObject *kwargs) {
+  PyObject *val;
+
+  static char *kwlist[] = {NULL};
+
+  if (!PyArg_ParseTupleAndKeywords(args, kwargs, "o:r.table_wait", kwlist, &val)) {
     return self;
   }
 

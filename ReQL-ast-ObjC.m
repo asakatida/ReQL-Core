@@ -182,6 +182,12 @@ limitations under the License.
 
 /**
  */
+-(instancetype) db_config {
+  return self;
+}
+
+/**
+ */
 -(instancetype) db_create {
   return self;
 }
@@ -752,6 +758,18 @@ limitations under the License.
 
 /**
  */
+-(instancetype) rebalance {
+  return self;
+}
+
+/**
+ */
+-(instancetype) reconfigure {
+  return self;
+}
+
+/**
+ */
 -(instancetype) reduce {
   return self;
 }
@@ -866,6 +884,12 @@ limitations under the License.
 
 /**
  */
+-(instancetype) table_config {
+  return self;
+}
+
+/**
+ */
 -(instancetype) table_create {
   return self;
 }
@@ -879,6 +903,18 @@ limitations under the License.
 /**
  */
 -(instancetype) table_list {
+  return self;
+}
+
+/**
+ */
+-(instancetype) table_status {
+  return self;
+}
+
+/**
+ */
+-(instancetype) table_wait {
   return self;
 }
 

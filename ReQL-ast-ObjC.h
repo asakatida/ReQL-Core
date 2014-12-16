@@ -128,6 +128,10 @@ limitations under the License.
 
 /**
  */
+-(instancetype)db_config;
+
+/**
+ */
 -(instancetype)db_create;
 
 /**
@@ -508,6 +512,14 @@ limitations under the License.
 
 /**
  */
+-(instancetype)rebalance;
+
+/**
+ */
+-(instancetype)reconfigure;
+
+/**
+ */
 -(instancetype)reduce;
 
 /**
@@ -584,6 +596,10 @@ limitations under the License.
 
 /**
  */
+-(instancetype)table_config;
+
+/**
+ */
 -(instancetype)table_create;
 
 /**
@@ -593,6 +609,14 @@ limitations under the License.
 /**
  */
 -(instancetype)table_list;
+
+/**
+ */
+-(instancetype)table_status;
+
+/**
+ */
+-(instancetype)table_wait;
 
 /**
  */

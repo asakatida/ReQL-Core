@@ -182,6 +182,12 @@ ReQL_ast *ReQL_ast::db() {
 
 /**
  */
+ReQL_ast *ReQL_ast::db_config() {
+  return NULL;
+}
+
+/**
+ */
 ReQL_ast *ReQL_ast::db_create() {
   return NULL;
 }
@@ -752,6 +758,18 @@ ReQL_ast *ReQL_ast::range() {
 
 /**
  */
+ReQL_ast *ReQL_ast::rebalance() {
+  return NULL;
+}
+
+/**
+ */
+ReQL_ast *ReQL_ast::reconfigure() {
+  return NULL;
+}
+
+/**
+ */
 ReQL_ast *ReQL_ast::reduce() {
   return NULL;
 }
@@ -866,6 +884,12 @@ ReQL_ast *ReQL_ast::table() {
 
 /**
  */
+ReQL_ast *ReQL_ast::table_config() {
+  return NULL;
+}
+
+/**
+ */
 ReQL_ast *ReQL_ast::table_create() {
   return NULL;
 }
@@ -879,6 +903,18 @@ ReQL_ast *ReQL_ast::table_drop() {
 /**
  */
 ReQL_ast *ReQL_ast::table_list() {
+  return NULL;
+}
+
+/**
+ */
+ReQL_ast *ReQL_ast::table_status() {
+  return NULL;
+}
+
+/**
+ */
+ReQL_ast *ReQL_ast::table_wait() {
   return NULL;
 }
 

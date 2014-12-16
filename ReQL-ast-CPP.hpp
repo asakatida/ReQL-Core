@@ -132,6 +132,10 @@ public:
 
 /**
  */
+  ReQL_ast *db_config();
+
+/**
+ */
   ReQL_ast *db_create();
 
 /**
@@ -512,6 +516,14 @@ public:
 
 /**
  */
+  ReQL_ast *rebalance();
+
+/**
+ */
+  ReQL_ast *reconfigure();
+
+/**
+ */
   ReQL_ast *reduce();
 
 /**
@@ -588,6 +600,10 @@ public:
 
 /**
  */
+  ReQL_ast *table_config();
+
+/**
+ */
   ReQL_ast *table_create();
 
 /**
@@ -597,6 +613,14 @@ public:
 /**
  */
   ReQL_ast *table_list();
+
+/**
+ */
+  ReQL_ast *table_status();
+
+/**
+ */
+  ReQL_ast *table_wait();
 
 /**
  */
