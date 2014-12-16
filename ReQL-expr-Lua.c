@@ -78,9 +78,8 @@ int _reql_lua_is_instance(lua_State *L) {
 
 int _reql_lua_intsp(lua_State *L) {
   lua_settop(L, 1);
-  lua_rawlen(L, 1);
-  const unsigned int table_len = lua_tounsigned(L, 2);
-  lua_pop(L, 1);
+
+  const unsigned int table_len = (unsigned int)lua_rawlen(L, 1);
 
   lua_createtable(L, table_len * 2, table_len * 2);
   unsigned int i, j=1;
@@ -97,9 +96,8 @@ int _reql_lua_intsp(lua_State *L) {
 
 int _reql_lua_kved(lua_State *L) {
   lua_settop(L, 1);
-  lua_rawlen(L, 1);
-  const unsigned int table_len = lua_tounsigned(L, 2);
-  lua_pop(L, 1);
+
+  const unsigned int table_len = (unsigned int)lua_rawlen(L, 1);
 
   lua_createtable(L, table_len * 3, table_len * 3);
 
@@ -175,9 +173,8 @@ int _reql_lua_compose_term(lua_State *L) {
   }
 
   lua_getfield(L, 2, "args");
-  lua_rawlen(L, 3);
-  const unsigned int table_len = lua_tounsigned(L, 4);
-  lua_pop(L, 1);
+
+  const unsigned int table_len = (unsigned int)lua_rawlen(L, 3);
 
   lua_createtable(L, table_len, table_len);
 
@@ -203,8 +200,7 @@ int _reql_lua___call(lua_State *L) {
 int _reql_lua_join_tree(lua_State *L) {
   lua_settop(L, 2);
 
-  lua_rawlen(L, 2);
-  const double table_len = lua_tonumber(L, 3);
+  const unsigned int table_len = (unsigned int)lua_rawlen(L, 2);
 
   long i;
 

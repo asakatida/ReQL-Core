@@ -27,6 +27,10 @@ limitations under the License.
 #ifndef _REQL_EXPR_LUA
 #define _REQL_EXPR_LUA
 
+#if LUA_VERSION_NUM < 502
+#define lua_rawlen lua_objlen
+#endif
+
 int _reql_lua_expr(lua_State *L);
 int _reql_lua_is_instance(lua_State *L);
 _ReQL_Op _reql_from_lua(lua_State *L, const int idx, long nesting_depth);
