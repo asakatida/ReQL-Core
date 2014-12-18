@@ -548,6 +548,10 @@ void _reql_cursor_next(_ReQL_Cur_t *cur) {
 }
 
 void _reql_close_cur(_ReQL_Cur_t *cur) {
+  if (!cur) {
+    return;
+  }
+
   cur->prev->next = cur->next == cur ? cur->prev : cur->next;
   cur->next->prev = cur->prev == cur ? cur->next : cur->prev;
   free(cur); cur = NULL;
