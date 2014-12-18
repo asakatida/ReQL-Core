@@ -133,11 +133,16 @@ int _reql_to_c_array(_ReQL_Op obj, unsigned long *size) {
   return err;
 }
 
-void _reql_c_array_insert(_ReQL_Op obj, _ReQL_Op val, unsigned long idx) {
+int _reql_c_array_insert(_ReQL_Op obj, _ReQL_Op val, unsigned long idx) {
   if ((!(obj && val)) || obj->str_len <= idx) {
-    return;
+    return -1;
   }
+
+  _reql_expr_free(obj[idx].val);
+
   obj[idx].val = val;
+
+  return 0;
 }
 
 _ReQL_Op _reql_c_array_index(_ReQL_Op obj, unsigned long idx) {
@@ -167,10 +172,11 @@ _ReQL_Op _reql_to_array(_ReQL_Op obj) {
   return err;
 }
 
-void _reql_array_append(_ReQL_Op obj, _ReQL_Op val) {
+int _reql_array_append(_ReQL_Op obj, _ReQL_Op val) {
   if (!(obj && val)) {
-    return;
+    return -1;
   }
+
   while (obj->next != obj) {
     obj = obj->next;
   }
@@ -181,6 +187,8 @@ void _reql_array_append(_ReQL_Op obj, _ReQL_Op val) {
     obj->next = obj;
   }
   obj->val = val;
+
+  return 0;
 }
 
 int _reql_array_next(_ReQL_Op *obj, _ReQL_Op *val) {

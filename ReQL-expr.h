@@ -236,12 +236,12 @@ int _reql_to_string(_ReQL_Op obj, const char **val, unsigned long *str_len);
 
 _ReQL_Op _reql_expr_c_array(unsigned long size);
 int _reql_to_c_array(_ReQL_Op obj, unsigned long *size);
-void _reql_c_array_insert(_ReQL_Op obj, _ReQL_Op val, unsigned long idx);
+int _reql_c_array_insert(_ReQL_Op obj, _ReQL_Op val, unsigned long idx);
 _ReQL_Op _reql_c_array_index(_ReQL_Op obj, unsigned long idx);
 
 _ReQL_Op _reql_expr_array();
 _ReQL_Op _reql_to_array(_ReQL_Op obj);
-void _reql_array_append(_ReQL_Op arr, _ReQL_Op val);
+int _reql_array_append(_ReQL_Op arr, _ReQL_Op val);
 int _reql_array_next(_ReQL_Op *arr, _ReQL_Op *val);
 _ReQL_Op _reql_array_pop(_ReQL_Op obj);
 _ReQL_Op _reql_array_last(_ReQL_Op obj);
