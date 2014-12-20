@@ -52,16 +52,18 @@ struct _ReQL_Conn_s {
   unsigned int max_token;
   unsigned int auth_len;
 
-  unsigned short port;
-  unsigned char *addr;
+  struct timeval timeout;
+
+  char *port;
+  char *addr;
 
   char *auth;
   _ReQL_Cur_t *cursors;
 };
 typedef struct _ReQL_Conn_s _ReQL_Conn_t;
 
-_ReQL_Conn_t *_reql_new_connection(unsigned int *auth_len, unsigned short *port, unsigned char *addr, char *auth);
-int _reql_connect(_ReQL_Conn_t *conn, char *buf);
+_ReQL_Conn_t *_reql_new_connection(unsigned int *auth_len, char *port, char *addr, char *auth, unsigned long *timeout);
+int _reql_connect(_ReQL_Conn_t *conn, char **buf);
 int _reql_close_conn(_ReQL_Conn_t *conn);
 void _reql_free_conn(_ReQL_Conn_t *conn);
 
