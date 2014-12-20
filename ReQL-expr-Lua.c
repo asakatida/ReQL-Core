@@ -449,8 +449,9 @@ int _reql_lua_connect(lua_State *L) {
   }
 
   _ReQL_Conn_t *conn = _reql_new_connection(NULL, NULL, NULL, NULL);
-  char *msg = malloc(sizeof(char) * 100);
-  if (_reql_connect(conn, msg)) {
+  char *msg;
+
+  if (_reql_connect(conn, &msg)) {
     return 0;
   }
 

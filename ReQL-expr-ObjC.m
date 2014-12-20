@@ -22,151 +22,108 @@ limitations under the License.
 
 #include "ReQL.h"
 
+@implementation libReQL_Connection {
+  _ReQL_Conn_t *conn;
+}
+
+-(instancetype)initWithHost:(NSString *)host port:(NSNumber *)port key:(NSString *)key {
+  if (self = [super init]) {
+    self->conn = _reql_new_connection(NULL, NULL, NULL, NULL, NULL);
+
+    if (!self->conn) {
+      return nil;
+    }
+
+    char *buf;
+
+    _reql_connect(self->conn, &buf);
+
+    if (self->conn->error) {
+      NSLog(@"%s", buf);
+      _reql_close_conn(self->conn);
+      return nil;
+    }
+  }
+
+  return self;
+}
+
+-(instancetype)init {
+  return [self initWithHost:nil port:nil key:nil];
+}
+
+-(instancetype)initWithConnection:(_ReQL_Conn_t *)old_conn {
+  return [self initWithHost:[NSString stringWithUTF8String:old_conn->addr]
+                       port:[NSNumber numberWithInteger:
+                             [
+                              [NSString stringWithUTF8String:old_conn->port]
+                              integerValue
+                              ]
+                             ]
+                        key:[NSString stringWithUTF8String:old_conn->auth]];
+}
+
+-(instancetype)copyWithZone:(NSZone *)zone {
+  libReQL_Connection *new_obj = [[libReQL_Connection allocWithZone:zone]
+                                 initWithConnection:self->conn];
+
+  return new_obj;
+}
+
+-(void)close {
+  _reql_close_conn(self->conn);
+}
+
+@end
+
 @implementation libReQL_expr {
-  NSNumber *tt;
-  NSNumber *dt;
-  NSArray *arr;
-  NSNumber *num;
-  NSDictionary *obj;
-  NSString *str;
+  _ReQL_Op query;
 }
 
-+(_ReQL_Op)_reql_from_bool:(NSNumber*)obj {
-  return _reql_expr_bool([obj boolValue]);
++(instancetype)ReQLWithString:(NSString *)string {
+  const char *c_str = [string cStringUsingEncoding:NSUnicodeStringEncoding];
+  unsigned long c_str_len = [string lengthOfBytesUsingEncoding:NSUnicodeStringEncoding];
+  return [[libReQL_expr alloc] initWithReQL:_reql_expr_string(c_str, c_str_len)];
 }
 
-+(_ReQL_Op)_reql_from_obj:(id)obj {
-  if (!obj) {
-    return _reql_expr_null();
-  } else if ([obj isKindOfClass:[NSArray class]]) {
-    _ReQL_Op arr = _reql_expr_array();
-    [(NSArray*)obj enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-      _reql_array_append(arr, [libReQL_expr _reql_from_obj:obj]);
-    }];
-    return arr;
-  } else if ([obj isKindOfClass:[NSDictionary class]]) {
-    _ReQL_Op r_obj = _reql_expr_object();
-    [(NSDictionary*)obj enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-      _reql_object_add(r_obj, [libReQL_expr _reql_from_obj:key], [libReQL_expr _reql_from_obj:obj]);
-    }];
-    return r_obj;
-  } else if ([obj isKindOfClass:[NSString class]]) {
-    return _reql_expr_string(
-                             [(NSString *)obj cStringUsingEncoding:NSUnicodeStringEncoding],
-                             [(NSString *)obj lengthOfBytesUsingEncoding:NSUnicodeStringEncoding]);
-  } else if ([obj isKindOfClass:[NSNumber class]]) {
-    return _reql_expr_number([(NSNumber *)obj doubleValue]);
-  }
-  return NULL;
++(instancetype)ReQLWithNumber:(NSNumber *)number {
+  double val = [number doubleValue];
+  return [[libReQL_expr alloc] initWithReQL:_reql_expr_number(val)];
 }
 
-+(instancetype)_reql_to_obj:(_ReQL_Op)obj {
-  libReQL_expr *res = [libReQL_expr init];
-  switch (obj->dt) {
-    case _REQL_C_ARRAY: {
-      unsigned long size;
++(instancetype)ReQLWithBool:(BOOL)val {
+  return [[libReQL_expr alloc] initWithReQL:_reql_expr_bool(val)];
+}
 
-      if (_reql_to_c_array(obj, &size)) {
-        break;
-      }
++(instancetype)ReQLWithArray:(NSArray *)array {
+  _ReQL_Op val = _reql_expr_c_array([array count]);
 
-      NSMutableArray *arr = [NSMutableArray arrayWithCapacity:size];
+  unsigned long i = -1;
 
-      unsigned long i;
-
-      for (i=0; i<size; ++i) {
-        [arr insertObject:[libReQL_expr _reql_to_obj:_reql_c_array_index(obj, i)] atIndex:i];
-      }
-
-      res->arr = [NSArray arrayWithArray:arr];
-      break;
+  for (id elem in array) {
+    if ([elem isKindOfClass:[NSArray class]]) {
+      _reql_c_array_insert(val, [[libReQL_expr ReQLWithArray:elem] ReQLValue], ++i);
     }
-    case _REQL_R_ARRAY: {
-      _ReQL_Op iter = _reql_to_array(obj);
-      if (!iter) {
-        break;
-      }
-
-      NSMutableArray *arr = [NSMutableArray array];
-
-      _ReQL_Op elem;
-
-      while (_reql_array_next(&iter, &elem)) {
-        [arr addObject:[libReQL_expr _reql_to_obj:elem]];
-      }
-
-      res->arr = [NSArray arrayWithArray:arr];
-      break;
-    }
-    case _REQL_R_BOOL: {
-      int value;
-      if (_reql_to_bool(obj, &value)) {
-        break;
-      }
-
-      res->num = [NSNumber numberWithBool:value];
-      break;
-    }
-    case _REQL_R_JSON: {
-      break;
-    }
-    case _REQL_R_NULL: {
-      break;
-    }
-    case _REQL_R_NUM: {
-      double value;
-      if (_reql_to_number(obj, &value)) {
-        break;
-      }
-
-      res->num = [NSNumber numberWithDouble:value];
-      break;
-    }
-    case _REQL_R_OBJECT: {
-      _ReQL_Op iter = _reql_to_object(obj);
-      if (!iter) {
-        break;
-      }
-
-      NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-
-      _ReQL_Op key;
-      _ReQL_Op val;
-
-      while (_reql_object_next(&iter, &key, &val)) {
-        [dict setObject:[libReQL_expr _reql_to_obj:val] forKey:[libReQL_expr _reql_to_obj:key]];
-      }
-
-      res->obj = [NSDictionary dictionaryWithDictionary:dict];
-      break;
-    }
-    case _REQL_R_STR: {
-      unsigned long str_len;
-      const char *str;
-      if (_reql_to_string(obj, &str, &str_len)) {
-        break;
-      }
-
-      res->str = [[NSString alloc] initWithBytes:str length:str_len encoding:NSUnicodeStringEncoding];
-      break;
-    }
-    default:
-      res = nil;
   }
-  if (res) {
-    res->tt = [NSNumber numberWithInt:obj->tt];
-    res->dt = [NSNumber numberWithInt:obj->dt];
+
+  return [[libReQL_expr alloc] initWithReQL:val];
+}
+
+-(_ReQL_Op)ReQLValue {
+  return self->query;
+}
+
+-(instancetype)initWithReQL:(_ReQL_Op)obj {
+  if (self = [super init]) {
+    self->query = obj;
   }
-  return res;
+
+  return self;
 }
 
 -(instancetype)copyWithZone:(NSZone *)zone {
   libReQL_expr *new_obj = [libReQL_expr allocWithZone:zone];
   return new_obj;
-}
-
--(instancetype)expr:(NSString *)string {
-  return [libReQL_expr _reql_to_obj:[libReQL_expr _reql_from_obj:string]];
 }
 
 @end

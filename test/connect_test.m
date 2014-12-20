@@ -18,16 +18,28 @@ limitations under the License.
  * @copyright Apache
  */
 
-#import <Foundation/Foundation.h>
+#import <XCTest/XCTest.h>
 
-@interface libReQL_Connection : NSObject<NSCopying>
+#import "ReQL-ObjC.h"
 
--(void)close;
+@interface connect_test : XCTestCase
 
 @end
 
-@interface libReQL_expr : NSObject<NSCopying>
+@implementation connect_test
 
-+(instancetype)ReQLWithString:(NSString *)string;
+- (void)setUp {
+  [super setUp];
+}
+
+- (void)tearDown {
+  [super tearDown];
+}
+
+- (void)testExample {
+  libReQL_Connection *conn = [libReQL_Connection new];
+  XCTAssert(conn, @"Connection");
+  [conn close];
+}
 
 @end

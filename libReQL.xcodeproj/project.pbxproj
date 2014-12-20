@@ -54,6 +54,7 @@
 		1ED066751A046AC1005225FD /* ReQL-expr-ObjC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED066711A046AC1005225FD /* ReQL-expr-ObjC.m */; };
 		1ED066761A046AC1005225FD /* ReQL-expr.c in Sources */ = {isa = PBXBuildFile; fileRef = 1ED066721A046AC1005225FD /* ReQL-expr.c */; };
 		1ED066771A046AC1005225FD /* ReQL-expr.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ED066731A046AC1005225FD /* ReQL-expr.h */; };
+		879743B21A426437009F1A58 /* connect_test.m in Sources */ = {isa = PBXBuildFile; fileRef = 879743B11A426437009F1A58 /* connect_test.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -101,6 +102,7 @@
 		1ED066711A046AC1005225FD /* ReQL-expr-ObjC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ReQL-expr-ObjC.m"; sourceTree = "<group>"; };
 		1ED066721A046AC1005225FD /* ReQL-expr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "ReQL-expr.c"; sourceTree = "<group>"; };
 		1ED066731A046AC1005225FD /* ReQL-expr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ReQL-expr.h"; sourceTree = "<group>"; };
+		879743B11A426437009F1A58 /* connect_test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = connect_test.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -194,6 +196,7 @@
 		1ED0666D1A030B0C005225FD /* test */ = {
 			isa = PBXGroup;
 			children = (
+				879743B11A426437009F1A58 /* connect_test.m */,
 				1ED0666E1A030B0C005225FD /* Info.plist */,
 			);
 			path = test;
@@ -455,6 +458,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				879743B21A426437009F1A58 /* connect_test.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -712,6 +716,7 @@
 				1E3F9A0D1A3524F10065A82F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1E8435651A17193D008167E6 /* Build configuration list for PBXNativeTarget "libReQL-Lua" */ = {
 			isa = XCConfigurationList;
