@@ -430,6 +430,7 @@ void _reql_to_lua(lua_State *L, _ReQL_Op query) {
     }
   }
 }
+
 int _reql_lua_connect(lua_State *L) {
   lua_settop(L, 3);
   switch (lua_type(L, 2)) {
@@ -446,10 +447,12 @@ int _reql_lua_connect(lua_State *L) {
     default:
       break;
   }
+
   _ReQL_Conn_t *conn = _reql_new_connection(NULL, NULL, NULL, NULL);
   char *msg = malloc(sizeof(char) * 100);
   if (_reql_connect(conn, msg)) {
     return 0;
   }
+
   return 1;
 }
