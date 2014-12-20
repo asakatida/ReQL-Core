@@ -47,7 +47,13 @@ _ReQL_Op _reql_expr_string(const char *str, unsigned long str_len) {
   copy = memcpy(copy, str, sizeof(char) * str_len);
 
   if (copy) {
-    return _reql_expr_string_nc(copy, str_len);
+    _ReQL_Op res = _reql_expr_string_nc(copy, str_len);
+
+    if (!res) {
+      free(copy);
+    }
+
+    return res;
   }
 
   return NULL;
@@ -550,10 +556,15 @@ _ReQL_Op _reql_build(_ReQL_Op query) {
   }
 
   _ReQL_Op res = _reql_expr_c_array(3);
+
+  if (!res) {
+    return NULL;
+  }
+
   _reql_c_array_insert(res, _reql_expr_number(query->tt), 0);
   unsigned long size;
   _ReQL_Op args;
-  _ReQL_Op arr;
+  _ReQL_Op arr = NULL;
 
   if (!_reql_to_c_array(query->args, &size)) {
     _ReQL_Op arr = _reql_expr_c_array(size);
@@ -564,7 +575,7 @@ _ReQL_Op _reql_build(_ReQL_Op query) {
       _reql_c_array_insert(arr, _reql_build(_reql_c_array_index(query->args, i)), i);
     }
   } else if ((args = _reql_to_array(query->args))) {
-    _ReQL_Op elem;
+    _ReQL_Op elem = NULL;
     _ReQL_Op arr = _reql_expr_array();
 
     while (_reql_array_next(&args, &elem)) {
@@ -574,12 +585,15 @@ _ReQL_Op _reql_build(_ReQL_Op query) {
     _reql_expr_free(res); res = NULL;
   }
 
-  _reql_c_array_insert(res, arr, 1);
+  if (_reql_c_array_insert(res, arr, 1)) {
+    _reql_expr_free(arr);
+    _reql_expr_free(res);
+  }
 
   _ReQL_Op kwargs = _reql_to_object(query->kwargs);
   if (kwargs) {
-    _ReQL_Op key;
-    _ReQL_Op val;
+    _ReQL_Op key = NULL;
+    _ReQL_Op val = NULL;
     _ReQL_Op obj = _reql_expr_object();
 
     char has_kwargs = 0;
