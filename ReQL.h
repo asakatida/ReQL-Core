@@ -52,7 +52,7 @@ struct _ReQL_Conn_s {
   unsigned int max_token;
   unsigned int auth_len;
 
-  struct timeval timeout;
+  struct timeval *timeout;
 
   char *port;
   char *addr;

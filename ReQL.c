@@ -21,9 +21,12 @@ limitations under the License.
 #include "ReQL.h"
 
 #include <math.h>
+#include <netdb.h>
 #include <netinet/in.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/select.h>
+#include <sys/uio.h>
 #include <unistd.h>
 
 static const unsigned int _REQL_VERSION = 0x5f75e83e;
@@ -35,10 +38,6 @@ enum {
   _REQL_START = 1,
   _REQL_STOP = 3
 };
-
-#ifndef htole32
-#define htole32
-#endif
 
 _ReQL_Cur_t *_reql_new_cursor() {
   _ReQL_Cur_t *cur = malloc(sizeof(_ReQL_Cur_t));
@@ -60,11 +59,11 @@ _ReQL_Conn_t *_reql_new_connection(unsigned int *auth_len, char *port, char *add
   conn->max_token = 0;
   conn->cursors = _reql_new_cursor();
   if (timeout) {
-    conn->timeout.tv_sec = *timeout;
+    conn->timeout->tv_sec = *timeout;
   } else {
-    conn->timeout.tv_sec = 20;
+    conn->timeout->tv_sec = 20;
   }
-  conn->timeout.tv_usec = 0;
+  conn->timeout->tv_usec = 0;
 
   if (auth_len) {
     conn->auth_len = *auth_len;
@@ -82,47 +81,94 @@ _ReQL_Conn_t *_reql_new_connection(unsigned int *auth_len, char *port, char *add
   return conn;
 }
 
-int _reql_connect(_ReQL_Conn_t *conn, char *buf) {
-  conn->error = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);
-  if (conn->error > 0) {
-    conn->socket = conn->error;
+int _reql_connect(_ReQL_Conn_t *conn, char **buf) {
+  conn->error = -1;
 
-    struct sockaddr_in address;
+  struct addrinfo hints;
+  struct addrinfo *result, *rp;
 
-    bzero(&address, sizeof(address));
-    address.sin_family = AF_INET;
-    address.sin_port = htons(conn->port);
-    address.sin_addr.s_addr = htonl((((((conn->addr[0] << 8) | conn->addr[1]) << 8) | conn->addr[2]) << 8) | conn->addr[3]);
+  hints.ai_family = AF_UNSPEC;
+  hints.ai_socktype = SOCK_STREAM;
+  hints.ai_flags = 0;
+  hints.ai_protocol = IPPROTO_TCP;
 
-    conn->error = connect(conn->socket, (struct sockaddr *)&address, 0);
-    if (!conn->error) {
-      const unsigned int version = htole32(_REQL_VERSION);
-      char *msg_buf = malloc(sizeof(char) * (conn->auth_len + 12));
-      unsigned int i = -1;
-      unsigned int j = 0;
-      for (; j<4; ++j) {
-        msg_buf[++i] = (version << (8 * j)) & 0xff;
-      }
-      const unsigned int auth_len = htole32(conn->auth_len);
-      for (j=0; j<4; ++j) {
-        msg_buf[++i] = (auth_len << (8 * j)) & 0xff;
-      }
-      for (j=0; j<conn->auth_len; ++j) {
-        msg_buf[++i] = conn->auth[j];
-      }
-      const unsigned int protocol = htole32(_REQL_PROTOCOL);
-      for (j=0; j<4; ++j) {
-        msg_buf[++i] = (protocol << (8 * j)) & 0xff;
-      }
-      write(conn->socket, msg_buf, auth_len + 12);
-      recvfrom(conn->socket, buf, 8, MSG_WAITALL, NULL, NULL);
-      if (strcmp(buf, "SUCCESS")) {
-        conn->error = -1;
-        recvfrom(conn->socket, buf, 0, MSG_WAITALL, NULL, NULL);
-        close(conn->socket);
-      }
-    }
+  if (getaddrinfo(conn->addr, conn->port, &hints, &result)) {
+    return conn->error;
   }
+
+  for (rp = result; rp != NULL; rp = rp->ai_next) {
+    conn->socket = socket(rp->ai_family, rp->ai_socktype, rp->ai_protocol);
+
+    if (conn->socket == -1) continue;
+
+    if (connect(conn->socket, rp->ai_addr, rp->ai_addrlen) != -1) break;
+
+    close(conn->socket);
+  }
+
+  if (!rp) {
+    return conn->error;
+  }
+
+  freeaddrinfo(result);
+
+  unsigned int j;
+  char iov_base[3][4];
+
+  const unsigned int version = htonl(_REQL_VERSION);
+
+  for (j=0; j<4; ++j) {
+    iov_base[0][j] = (version << (8 * (3 - j))) & 0xff;
+  }
+
+  const unsigned int auth_len = htonl(conn->auth_len);
+
+  for (j=0; j<4; ++j) {
+    iov_base[1][j] = (auth_len << (8 * (3 - j))) & 0xff;
+  }
+
+  const unsigned int protocol = htonl(_REQL_PROTOCOL);
+
+  for (j=0; j<4; ++j) {
+    iov_base[2][j] = (protocol << (8 * (3 - j))) & 0xff;
+  }
+
+  struct iovec magic[4];
+
+  magic[0].iov_base = iov_base[0];
+  magic[0].iov_len = 4 * sizeof(char);
+
+  magic[1].iov_base = iov_base[1];
+  magic[1].iov_len = 4 * sizeof(char);
+
+  magic[2].iov_base = conn->auth;
+  magic[2].iov_len = conn->auth_len * sizeof(char);
+
+  magic[3].iov_base = iov_base[2];
+  magic[3].iov_len = 4 * sizeof(char);
+
+  writev(conn->socket, magic, 4);
+
+  *buf = malloc(sizeof(char) * 500);
+
+  conn->error = 0;
+
+  fd_set read;
+
+  FD_ZERO(&read);
+  FD_SET(conn->socket, &read);
+
+  if (select(1, NULL, &read, NULL, NULL) < 0) {
+    return conn->error;
+  }
+
+  recvfrom(conn->socket, buf, 500, MSG_WAITALL, NULL, NULL);
+
+  if (strcmp(*buf, "SUCCESS")) {
+    conn->error = -1;
+    close(conn->socket);
+  }
+
   return conn->error;
 }
 
