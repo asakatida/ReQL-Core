@@ -63,7 +63,7 @@ struct _ReQL_Conn_s {
 typedef struct _ReQL_Conn_s _ReQL_Conn_t;
 
 _ReQL_Conn_t *_reql_new_connection(_ReQL_Conn_t *conn);
-int _reql_conn_set_auth(_ReQL_Conn_t *conn, unsigned int auth_len, char *auth);
+int _reql_conn_set_auth(_ReQL_Conn_t *conn, unsigned int len, char *auth);
 int _reql_conn_set_addr(_ReQL_Conn_t *conn, char *addr);
 int _reql_conn_set_port(_ReQL_Conn_t *conn, char *port);
 int _reql_conn_set_timeout(_ReQL_Conn_t *conn, unsigned long timeout);

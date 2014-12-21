@@ -225,21 +225,28 @@ typedef struct _ReQL_Op_s _ReQL_Op_t;
 typedef _ReQL_Op_t* _ReQL_Op;
 
 _ReQL_Op _reql_expr_bool(int val);
+_ReQL_Op _reql_bool(_ReQL_Op obj, int val);
 int _reql_to_bool(_ReQL_Op obj, int *val);
 _ReQL_Op _reql_expr_null();
-int _reql_is_null(_ReQL_Op obj);
+_ReQL_Op _reql_null(_ReQL_Op obj);
+int _reql_to_null(_ReQL_Op obj);
 _ReQL_Op _reql_expr_number(double val);
+_ReQL_Op _reql_number(_ReQL_Op obj, double val);
 int _reql_to_number(_ReQL_Op obj, double *val);
 _ReQL_Op _reql_expr_string(const char *val, unsigned long str_len);
+_ReQL_Op _reql_string(_ReQL_Op obj, const char *val, unsigned long str_len);
 _ReQL_Op _reql_expr_string_nc(char *val, unsigned long str_len);
+_ReQL_Op _reql_string_nc(_ReQL_Op obj, char *val, unsigned long str_len);
 int _reql_to_string(_ReQL_Op obj, const char **val, unsigned long *str_len);
 
 _ReQL_Op _reql_expr_c_array(unsigned long size);
+_ReQL_Op _reql_c_array(_ReQL_Op obj, unsigned long size);
 int _reql_to_c_array(_ReQL_Op obj, unsigned long *size);
 int _reql_c_array_insert(_ReQL_Op obj, _ReQL_Op val, unsigned long idx);
 _ReQL_Op _reql_c_array_index(_ReQL_Op obj, unsigned long idx);
 
 _ReQL_Op _reql_expr_array();
+_ReQL_Op _reql_array(_ReQL_Op obj);
 _ReQL_Op _reql_to_array(_ReQL_Op obj);
 int _reql_array_append(_ReQL_Op arr, _ReQL_Op val);
 int _reql_array_next(_ReQL_Op *arr, _ReQL_Op *val);
@@ -247,6 +254,7 @@ _ReQL_Op _reql_array_pop(_ReQL_Op obj);
 _ReQL_Op _reql_array_last(_ReQL_Op obj);
 
 _ReQL_Op _reql_expr_object();
+_ReQL_Op _reql_object(_ReQL_Op obj);
 _ReQL_Op _reql_to_object(_ReQL_Op obj);
 void _reql_object_add(_ReQL_Op obj, _ReQL_Op key, _ReQL_Op val);
 int _reql_object_next(_ReQL_Op *obj, _ReQL_Op *key, _ReQL_Op *val);

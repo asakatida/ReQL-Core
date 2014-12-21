@@ -71,8 +71,8 @@ _ReQL_Conn_t *_reql_new_connection(_ReQL_Conn_t *conn) {
   return conn;
 }
 
-int _reql_conn_set_auth(_ReQL_Conn_t *conn, unsigned int auth_len, char *auth) {
-  conn->auth_len = auth_len;
+int _reql_conn_set_auth(_ReQL_Conn_t *conn, unsigned int len, char *auth) {
+  conn->auth_len = len;
   conn->auth = auth;
 
   return 0;
