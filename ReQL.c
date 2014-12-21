@@ -60,6 +60,7 @@ _ReQL_Conn_t *_reql_new_connection(_ReQL_Conn_t *conn) {
   conn->error = 0;
   conn->max_token = 0;
   conn->cursors = _reql_new_cursor();
+  conn->timeout = malloc(sizeof(struct timeval));
   conn->timeout->tv_sec = 20;
   conn->timeout->tv_usec = 0;
   conn->auth_len = 0;
@@ -206,6 +207,7 @@ int _reql_close_conn(_ReQL_Conn_t *conn) {
 
 void _reql_free_conn(_ReQL_Conn_t *conn) {
   _reql_free_cur(conn->cursors);
+  free(conn->timeout);
   free(conn); conn = NULL;
 }
 
