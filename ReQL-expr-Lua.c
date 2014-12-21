@@ -448,12 +448,16 @@ int _reql_lua_connect(lua_State *L) {
       break;
   }
 
-  _ReQL_Conn_t *conn = _reql_new_connection(NULL, NULL, NULL, NULL);
+  _ReQL_Conn_t *conn = lua_newuserdata(L, sizeof(_ReQL_Conn_t));
+
+  conn = _reql_new_connection(conn);
   char *msg;
 
   if (_reql_connect(conn, &msg)) {
     return 0;
   }
+
+  lua_rawset(L, 1);
 
   return 1;
 }

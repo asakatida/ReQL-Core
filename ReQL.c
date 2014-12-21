@@ -51,34 +51,48 @@ _ReQL_Cur_t *_reql_new_cursor() {
   return cur;
 }
 
-_ReQL_Conn_t *_reql_new_connection(unsigned int *auth_len, char *port, char *addr, char *auth, unsigned long *timeout) {
-  _ReQL_Conn_t *conn = malloc(sizeof(_ReQL_Conn_t));
+_ReQL_Conn_t *_reql_new_connection(_ReQL_Conn_t *conn) {
+  if (!conn) {
+    conn = malloc(sizeof(_ReQL_Conn_t));
+  }
 
   conn->socket = -1;
   conn->error = 0;
   conn->max_token = 0;
   conn->cursors = _reql_new_cursor();
-  if (timeout) {
-    conn->timeout->tv_sec = *timeout;
-  } else {
-    conn->timeout->tv_sec = 20;
-  }
+  conn->timeout->tv_sec = 20;
   conn->timeout->tv_usec = 0;
-
-  if (auth_len) {
-    conn->auth_len = *auth_len;
-  } else {
-    conn->auth_len = 0;
-  }
-  conn->auth = auth;
-  if (port) {
-    conn->port = port;
-  } else {
-    conn->port = "28015";
-  }
-  conn->addr = addr;
+  conn->auth_len = 0;
+  conn->auth = NULL;
+  conn->port = "28015";
+  conn->addr = NULL;
 
   return conn;
+}
+
+int _reql_conn_set_auth(_ReQL_Conn_t *conn, unsigned int auth_len, char *auth) {
+  conn->auth_len = auth_len;
+  conn->auth = auth;
+
+  return 0;
+}
+
+int _reql_conn_set_addr(_ReQL_Conn_t *conn, char *addr) {
+  conn->addr = addr;
+
+  return 0;
+}
+
+int _reql_conn_set_port(_ReQL_Conn_t *conn, char *port) {
+  conn->port = port;
+
+  return 0;
+}
+
+int _reql_conn_set_timeout(_ReQL_Conn_t *conn, unsigned long timeout) {
+  conn->timeout->tv_sec = timeout;
+
+  return 0;
 }
 
 int _reql_connect(_ReQL_Conn_t *conn, char **buf) {

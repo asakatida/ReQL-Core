@@ -28,7 +28,7 @@ limitations under the License.
 
 -(instancetype)initWithHost:(NSString *)host port:(NSNumber *)port key:(NSString *)key {
   if (self = [super init]) {
-    self->conn = _reql_new_connection(NULL, NULL, NULL, NULL, NULL);
+    self->conn = _reql_new_connection(NULL);
 
     if (!self->conn) {
       return nil;
