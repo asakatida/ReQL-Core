@@ -18,7 +18,7 @@ limitations under the License.
  * @copyright Apache
  */
 
-#include "ReQL-ast.h"
+#include "ReQL-expr.h"
 
 #ifndef _REQL_H
 #define _REQL_H
