@@ -22,4 +22,4 @@ limitations under the License.
 
 #include <cstdlib>
 
-#include "ReQL.h"
+#include "ReQL.hpp"

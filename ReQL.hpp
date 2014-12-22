@@ -18,8 +18,6 @@ limitations under the License.
  * @copyright Apache
  */
 
-#include "ReQL-CPP.hpp"
-
-#include <cstdlib>
-
-#include "ReQL.hpp" 
+extern "C" {
+  #include "ReQL.h"
+}

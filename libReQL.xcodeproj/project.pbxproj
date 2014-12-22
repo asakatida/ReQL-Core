@@ -63,6 +63,7 @@
 		8760588E1A47AF0F00FEA3E9 /* ReQL-json.h in Headers */ = {isa = PBXBuildFile; fileRef = 876058871A47AF0F00FEA3E9 /* ReQL-json.h */; };
 		8760588F1A47AF0F00FEA3E9 /* ReQL-json.h in Headers */ = {isa = PBXBuildFile; fileRef = 876058871A47AF0F00FEA3E9 /* ReQL-json.h */; };
 		879743B21A426437009F1A58 /* connect_test.m in Sources */ = {isa = PBXBuildFile; fileRef = 879743B11A426437009F1A58 /* connect_test.m */; };
+		87CFC9361A47D4BD00CCD339 /* ReQL.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 87CFC9351A47D4BD00CCD339 /* ReQL.hpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -112,7 +113,9 @@
 		1ED066731A046AC1005225FD /* ReQL-expr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ReQL-expr.h"; sourceTree = "<group>"; };
 		876058861A47AF0F00FEA3E9 /* ReQL-json.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "ReQL-json.c"; sourceTree = "<group>"; };
 		876058871A47AF0F00FEA3E9 /* ReQL-json.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ReQL-json.h"; sourceTree = "<group>"; };
+		876058901A47BE1C00FEA3E9 /* ReQL-test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "ReQL-test.cpp"; sourceTree = "<group>"; };
 		879743B11A426437009F1A58 /* connect_test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = connect_test.m; sourceTree = "<group>"; };
+		87CFC9351A47D4BD00CCD339 /* ReQL.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ReQL.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -187,8 +190,10 @@
 				1ED066611A030AE8005225FD /* ReQL-ObjC.h */,
 				1ED066621A030AE8005225FD /* ReQL-ObjC.m */,
 				1E3F9A191A35253F0065A82F /* ReQL-Python.c */,
+				876058901A47BE1C00FEA3E9 /* ReQL-test.cpp */,
 				1ED066631A030AE8005225FD /* ReQL.c */,
 				1ED066641A030AE8005225FD /* ReQL.h */,
+				87CFC9351A47D4BD00CCD339 /* ReQL.hpp */,
 				1ED0666D1A030B0C005225FD /* test */,
 			);
 			sourceTree = "<group>";
@@ -223,6 +228,7 @@
 			files = (
 				1E0915EF1A1A73A9007952FE /* ReQL.h in Headers */,
 				8760588E1A47AF0F00FEA3E9 /* ReQL-json.h in Headers */,
+				87CFC9361A47D4BD00CCD339 /* ReQL.hpp in Headers */,
 				1E0915F91A1A73D3007952FE /* ReQL-CPP.hpp in Headers */,
 				1E0915ED1A1A73A9007952FE /* ReQL-expr.h in Headers */,
 				1E0915EB1A1A73A9007952FE /* ReQL-ast.h in Headers */,
