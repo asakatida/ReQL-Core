@@ -70,10 +70,6 @@ _ReQL_Op _reql_json_string(_ReQL_Op obj, const char *str, unsigned long str_len)
   return NULL;
 }
 
-_ReQL_Op _reql_string(_ReQL_Op obj, const char *str, unsigned long str_len) {
-  return _reql_expr(_reql_json_string(obj, str, str_len));
-}
-
 int _reql_to_string(_ReQL_Op obj, const char **str, unsigned long *str_len) {
   int err = -1;
   if (obj) {
@@ -116,10 +112,6 @@ int _reql_iter_next(_ReQL_Op *obj) {
   return 0;
 }
 
-_ReQL_Op _reql_expr_c_array(unsigned long size) {
-  return _reql_c_array(NULL, size);
-}
-
 _ReQL_Op _reql_json_c_array(_ReQL_Op obj, unsigned long size) {
   if (!obj) {
     obj = malloc(sizeof(_ReQL_Op_t) * size);
@@ -134,10 +126,6 @@ _ReQL_Op _reql_json_c_array(_ReQL_Op obj, unsigned long size) {
     }
   }
   return _reql_expr(obj);
-}
-
-_ReQL_Op _reql_c_array(_ReQL_Op obj, unsigned long size) {
-  return _reql_expr(_reql_json_c_array(obj, size));
 }
 
 int _reql_to_c_array(_ReQL_Op obj, unsigned long *size) {
@@ -170,10 +158,6 @@ _ReQL_Op _reql_c_array_index(_ReQL_Op obj, unsigned long idx) {
   return obj[idx].val;
 }
 
-_ReQL_Op _reql_expr_array() {
-  return _reql_array(NULL);
-}
-
 _ReQL_Op _reql_json_array(_ReQL_Op obj) {
   obj = _reql_json_null(obj);
   if (obj) {
@@ -182,10 +166,6 @@ _ReQL_Op _reql_json_array(_ReQL_Op obj) {
     obj->val = NULL;
   }
   return obj;
-}
-
-_ReQL_Op _reql_array(_ReQL_Op obj) {
-  return _reql_expr(_reql_json_array(obj));
 }
 
 _ReQL_Op _reql_to_array(_ReQL_Op obj) {
@@ -264,10 +244,6 @@ _ReQL_Op _reql_array_last(_ReQL_Op obj) {
   return res;
 }
 
-_ReQL_Op _reql_expr_object() {
-  return _reql_object(NULL);
-}
-
 _ReQL_Op _reql_json_object(_ReQL_Op obj) {
   obj = _reql_json_null(obj);
   if (obj) {
@@ -277,10 +253,6 @@ _ReQL_Op _reql_json_object(_ReQL_Op obj) {
     obj->val = NULL;
   }
   return obj;
-}
-
-_ReQL_Op _reql_object(_ReQL_Op obj) {
-  return _reql_expr(_reql_json_object(obj));
 }
 
 _ReQL_Op _reql_to_object(_ReQL_Op obj) {
@@ -427,10 +399,6 @@ int _reql_object_next(_ReQL_Op *obj, _ReQL_Op *key, _ReQL_Op *val) {
   return err;
 }
 
-_ReQL_Op _reql_expr_null() {
-  return _reql_null(NULL);
-}
-
 _ReQL_Op _reql_json_null(_ReQL_Op obj) {
   if (!obj) {
     obj = malloc(sizeof(_ReQL_Op_t));
@@ -446,10 +414,6 @@ _ReQL_Op _reql_json_null(_ReQL_Op obj) {
   return obj;
 }
 
-_ReQL_Op _reql_null(_ReQL_Op obj) {
-  return _reql_expr(_reql_json_null(obj));
-}
-
 int _reql_to_null(_ReQL_Op obj) {
   if (!obj) {
     return -1;
@@ -460,10 +424,6 @@ int _reql_to_null(_ReQL_Op obj) {
   return -1;
 }
 
-_ReQL_Op _reql_expr_bool(int val) {
-  return _reql_bool(NULL, val);
-}
-
 _ReQL_Op _reql_json_bool(_ReQL_Op obj, int val) {
   obj = _reql_json_null(obj);
   if (obj) {
@@ -471,10 +431,6 @@ _ReQL_Op _reql_json_bool(_ReQL_Op obj, int val) {
     obj->str_len = (unsigned long)val;
   }
   return obj;
-}
-
-_ReQL_Op _reql_bool(_ReQL_Op obj, int val) {
-  return _reql_expr(_reql_json_bool(obj, val));
 }
 
 int _reql_to_bool(_ReQL_Op obj, int *val) {
@@ -594,72 +550,6 @@ void _reql_expr_free(_ReQL_Op obj) {
   _reql_expr_free(obj->prev); obj->prev = NULL;
 
   free(obj);
-}
-
-_ReQL_Op _reql_build(_ReQL_Op query) {
-  if (!query) {
-    return NULL;
-  }
-  if (query->tt == _REQL_DATUM) {
-    return query;
-  }
-
-  _ReQL_Op res = _reql_json_c_array(NULL, 3);
-
-  if (!res) {
-    return NULL;
-  }
-
-  _reql_c_array_insert(res, _reql_json_number(NULL, query->tt), 0);
-  unsigned long size;
-  _ReQL_Op args;
-  _ReQL_Op arr = NULL;
-
-  if (!_reql_to_c_array(query->args, &size)) {
-    _ReQL_Op arr = _reql_json_c_array(NULL, size);
-
-    unsigned long i;
-
-    for (i=0; i<size; ++i) {
-      _reql_c_array_insert(arr, _reql_build(_reql_c_array_index(query->args, i)), i);
-    }
-  } else if ((args = _reql_to_array(query->args))) {
-    _ReQL_Op elem = NULL;
-    _ReQL_Op arr = _reql_json_array(NULL);
-
-    while (_reql_array_next(&args, &elem)) {
-      _reql_array_append(arr, _reql_build(elem));
-    }
-  } else {
-    _reql_expr_free(res); res = NULL;
-  }
-
-  if (_reql_c_array_insert(res, arr, 1)) {
-    _reql_expr_free(arr);
-    _reql_expr_free(res);
-  }
-
-  _ReQL_Op kwargs = _reql_to_object(query->kwargs);
-  if (kwargs) {
-    _ReQL_Op key = NULL;
-    _ReQL_Op val = NULL;
-    _ReQL_Op obj = _reql_json_object(NULL);
-
-    char has_kwargs = 0;
-
-    while (_reql_object_next(&kwargs, &key, &val)) {
-      _reql_object_add(obj, _reql_build(key), _reql_build(val));
-      has_kwargs = 1;
-    }
-
-    if (has_kwargs) {
-      _reql_c_array_insert(res, obj, 2);
-    } else {
-      _reql_expr_free(obj);
-    }
-  }
-
-  return res;
 }
 
 int _reql_merge_stack_val(_ReQL_Op stack, _ReQL_Op val) {

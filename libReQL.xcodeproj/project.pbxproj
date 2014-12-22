@@ -54,6 +54,14 @@
 		1ED066751A046AC1005225FD /* ReQL-expr-ObjC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED066711A046AC1005225FD /* ReQL-expr-ObjC.m */; };
 		1ED066761A046AC1005225FD /* ReQL-expr.c in Sources */ = {isa = PBXBuildFile; fileRef = 1ED066721A046AC1005225FD /* ReQL-expr.c */; };
 		1ED066771A046AC1005225FD /* ReQL-expr.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ED066731A046AC1005225FD /* ReQL-expr.h */; };
+		876058881A47AF0F00FEA3E9 /* ReQL-json.c in Sources */ = {isa = PBXBuildFile; fileRef = 876058861A47AF0F00FEA3E9 /* ReQL-json.c */; };
+		876058891A47AF0F00FEA3E9 /* ReQL-json.c in Sources */ = {isa = PBXBuildFile; fileRef = 876058861A47AF0F00FEA3E9 /* ReQL-json.c */; };
+		8760588A1A47AF0F00FEA3E9 /* ReQL-json.c in Sources */ = {isa = PBXBuildFile; fileRef = 876058861A47AF0F00FEA3E9 /* ReQL-json.c */; };
+		8760588B1A47AF0F00FEA3E9 /* ReQL-json.c in Sources */ = {isa = PBXBuildFile; fileRef = 876058861A47AF0F00FEA3E9 /* ReQL-json.c */; };
+		8760588C1A47AF0F00FEA3E9 /* ReQL-json.h in Headers */ = {isa = PBXBuildFile; fileRef = 876058871A47AF0F00FEA3E9 /* ReQL-json.h */; };
+		8760588D1A47AF0F00FEA3E9 /* ReQL-json.h in Headers */ = {isa = PBXBuildFile; fileRef = 876058871A47AF0F00FEA3E9 /* ReQL-json.h */; };
+		8760588E1A47AF0F00FEA3E9 /* ReQL-json.h in Headers */ = {isa = PBXBuildFile; fileRef = 876058871A47AF0F00FEA3E9 /* ReQL-json.h */; };
+		8760588F1A47AF0F00FEA3E9 /* ReQL-json.h in Headers */ = {isa = PBXBuildFile; fileRef = 876058871A47AF0F00FEA3E9 /* ReQL-json.h */; };
 		879743B21A426437009F1A58 /* connect_test.m in Sources */ = {isa = PBXBuildFile; fileRef = 879743B11A426437009F1A58 /* connect_test.m */; };
 /* End PBXBuildFile section */
 
@@ -102,6 +110,8 @@
 		1ED066711A046AC1005225FD /* ReQL-expr-ObjC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ReQL-expr-ObjC.m"; sourceTree = "<group>"; };
 		1ED066721A046AC1005225FD /* ReQL-expr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "ReQL-expr.c"; sourceTree = "<group>"; };
 		1ED066731A046AC1005225FD /* ReQL-expr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ReQL-expr.h"; sourceTree = "<group>"; };
+		876058861A47AF0F00FEA3E9 /* ReQL-json.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "ReQL-json.c"; sourceTree = "<group>"; };
+		876058871A47AF0F00FEA3E9 /* ReQL-json.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ReQL-json.h"; sourceTree = "<group>"; };
 		879743B11A426437009F1A58 /* connect_test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = connect_test.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -171,6 +181,8 @@
 				1E3F9A181A35253F0065A82F /* ReQL-expr-Python.h */,
 				1ED066721A046AC1005225FD /* ReQL-expr.c */,
 				1ED066731A046AC1005225FD /* ReQL-expr.h */,
+				876058861A47AF0F00FEA3E9 /* ReQL-json.c */,
+				876058871A47AF0F00FEA3E9 /* ReQL-json.h */,
 				1E84356A1A171A0F008167E6 /* ReQL-Lua.c */,
 				1ED066611A030AE8005225FD /* ReQL-ObjC.h */,
 				1ED066621A030AE8005225FD /* ReQL-ObjC.m */,
@@ -210,6 +222,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1E0915EF1A1A73A9007952FE /* ReQL.h in Headers */,
+				8760588E1A47AF0F00FEA3E9 /* ReQL-json.h in Headers */,
 				1E0915F91A1A73D3007952FE /* ReQL-CPP.hpp in Headers */,
 				1E0915ED1A1A73A9007952FE /* ReQL-expr.h in Headers */,
 				1E0915EB1A1A73A9007952FE /* ReQL-ast.h in Headers */,
@@ -226,6 +239,7 @@
 				1E3F9A101A35250F0065A82F /* ReQL-ast.h in Headers */,
 				1E3F9A121A35250F0065A82F /* ReQL-expr.h in Headers */,
 				1E3F9A1B1A35253F0065A82F /* ReQL-ast-Python.h in Headers */,
+				8760588F1A47AF0F00FEA3E9 /* ReQL-json.h in Headers */,
 				1E3F9A1D1A35253F0065A82F /* ReQL-expr-Python.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -238,6 +252,7 @@
 				1E84356E1A171A0F008167E6 /* ReQL-expr-Lua.h in Headers */,
 				1E8435731A171A24008167E6 /* ReQL-expr.h in Headers */,
 				1E84356C1A171A0F008167E6 /* ReQL-ast-Lua.h in Headers */,
+				8760588D1A47AF0F00FEA3E9 /* ReQL-json.h in Headers */,
 				1E8435711A171A1D008167E6 /* ReQL-ast.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -247,6 +262,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1ED0666C1A030AE8005225FD /* ReQL.h in Headers */,
+				8760588C1A47AF0F00FEA3E9 /* ReQL-json.h in Headers */,
 				1ED066771A046AC1005225FD /* ReQL-expr.h in Headers */,
 				1ED066691A030AE8005225FD /* ReQL-ObjC.h in Headers */,
 				1ED066741A046AC1005225FD /* ReQL-expr-ObjC.h in Headers */,
@@ -410,6 +426,7 @@
 				1E0915F81A1A73D3007952FE /* ReQL-CPP.cpp in Sources */,
 				1E0915EC1A1A73A9007952FE /* ReQL-expr.c in Sources */,
 				1E0915FA1A1A73D3007952FE /* ReQL-expr-CPP.cpp in Sources */,
+				8760588A1A47AF0F00FEA3E9 /* ReQL-json.c in Sources */,
 				1E0915EE1A1A73A9007952FE /* ReQL.c in Sources */,
 				1E0915F61A1A73D3007952FE /* ReQL-ast-CPP.cpp in Sources */,
 			);
@@ -423,6 +440,7 @@
 				1E3F9A1E1A35253F0065A82F /* ReQL-Python.c in Sources */,
 				1E3F9A0F1A35250F0065A82F /* ReQL-ast.c in Sources */,
 				1E3F9A1A1A35253F0065A82F /* ReQL-ast-Python.c in Sources */,
+				8760588B1A47AF0F00FEA3E9 /* ReQL-json.c in Sources */,
 				1E3F9A131A35250F0065A82F /* ReQL.c in Sources */,
 				1E3F9A1C1A35253F0065A82F /* ReQL-expr-Python.c in Sources */,
 			);
@@ -436,6 +454,7 @@
 				1E8435701A171A19008167E6 /* ReQL-ast.c in Sources */,
 				1E84356B1A171A0F008167E6 /* ReQL-ast-Lua.c in Sources */,
 				1E84356F1A171A0F008167E6 /* ReQL-Lua.c in Sources */,
+				876058891A47AF0F00FEA3E9 /* ReQL-json.c in Sources */,
 				1E84356D1A171A0F008167E6 /* ReQL-expr-Lua.c in Sources */,
 				1E8435741A171A2D008167E6 /* ReQL.c in Sources */,
 			);
@@ -449,6 +468,7 @@
 				1ED066661A030AE8005225FD /* ReQL-ast-ObjC.m in Sources */,
 				1ED066751A046AC1005225FD /* ReQL-expr-ObjC.m in Sources */,
 				1ED0666A1A030AE8005225FD /* ReQL-ObjC.m in Sources */,
+				876058881A47AF0F00FEA3E9 /* ReQL-json.c in Sources */,
 				1ED066761A046AC1005225FD /* ReQL-expr.c in Sources */,
 				1ED066671A030AE8005225FD /* ReQL-ast.c in Sources */,
 			);
