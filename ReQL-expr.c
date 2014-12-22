@@ -72,30 +72,6 @@ _ReQL_Op _reql_string(_ReQL_Op obj, const char *str, unsigned long str_len) {
   return _reql_expr(_reql_json_string(obj, str, str_len));
 }
 
-_ReQL_Op _reql_expr_c_array(unsigned long size) {
-  return _reql_c_array(NULL, size);
-}
-
-_ReQL_Op _reql_c_array(_ReQL_Op obj, unsigned long size) {
-  return _reql_expr(_reql_json_c_array(obj, size));
-}
-
-_ReQL_Op _reql_expr_array() {
-  return _reql_array(NULL);
-}
-
-_ReQL_Op _reql_array(_ReQL_Op obj) {
-  return _reql_expr(_reql_json_array(obj));
-}
-
-_ReQL_Op _reql_expr_object() {
-  return _reql_object(NULL);
-}
-
-_ReQL_Op _reql_object(_ReQL_Op obj) {
-  return _reql_expr(_reql_json_object(obj));
-}
-
 _ReQL_Op _reql_expr_null() {
   return _reql_null(NULL);
 }
