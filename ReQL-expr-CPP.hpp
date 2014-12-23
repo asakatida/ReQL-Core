@@ -18,11 +18,23 @@ limitations under the License.
  * @copyright Apache
  */
 
+#include <map>
+#include <string>
+#include <vector>
+
 #ifndef _REQL_EXPR_CPP
 #define _REQL_EXPR_CPP
 
 class ReQL_expr {
+  struct _ReQL_Op_s *val;
+
 public:
+  ReQL_expr();
+  ReQL_expr(std::string);
+  ReQL_expr(double);
+  ReQL_expr(bool);
+  ReQL_expr(std::vector<ReQL_expr>);
+  ReQL_expr(std::map<std::string, ReQL_expr>);
 };
 
 #endif
