@@ -309,21 +309,21 @@ _ReQL_Op _reql_from_lua(lua_State *L, const int idx, long nesting_depth) {
       --nesting_depth;
 
       if (array) {
-        _ReQL_Op arr = _reql_expr_array();
+        _ReQL_Op arr = _reql_json_c_array(NULL, table_len);
         int i;
         for (i=1; i<=table_len; ++i) {
           lua_rawgeti(L, 2, i);
-          _reql_array_append(arr, _reql_from_lua(L, water_mark + 2, nesting_depth));
-          lua_pop(L, 0);
+          _reql_c_array_insert(arr, _reql_from_lua(L, water_mark + 2, nesting_depth), i);
+          lua_pop(L, 1);
         }
-        return _reql_ast_make_array(arr, NULL);
+        return _reql_expr(arr);
       }
-      _ReQL_Op obj = _reql_expr_object();
+      _ReQL_Op obj = _reql_json_object(NULL);
       while (lua_next(L, idx)) {
         _reql_object_add(obj, _reql_from_lua(L, water_mark + 1, nesting_depth), _reql_from_lua(L, water_mark + 2, nesting_depth));
         lua_pop(L, 1);
       }
-      return _reql_ast_make_obj(NULL, obj);
+      return _reql_expr(obj);
     }
   }
   luaL_error(L, "Unknown Lua type %i", lua_type(L, idx));

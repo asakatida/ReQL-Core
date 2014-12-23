@@ -96,7 +96,7 @@ limitations under the License.
 }
 
 +(instancetype)ReQLWithArray:(NSArray *)array {
-  _ReQL_Op val = _reql_expr_c_array([array count]);
+  _ReQL_Op val = _reql_json_c_array(NULL, [array count]);
 
   unsigned long i = -1;
 
