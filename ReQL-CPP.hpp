@@ -23,11 +23,10 @@ limitations under the License.
 #ifndef _REQL_HPP
 #define _REQL_HPP
 
-class ReQL : ReQL_ast {
-  int tt;
+class ReQLConnection {
+};
 
-public:
-  int connect();
+class ReQL : ReQL_ast {
 };
 
 #endif

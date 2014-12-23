@@ -20,6 +20,4 @@ limitations under the License.
 
 #include "ReQL-CPP.hpp"
 
-#include <cstdlib>
-
-#include "ReQL.hpp" 
+#include "ReQL.hpp"
