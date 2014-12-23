@@ -252,6 +252,7 @@ _ReQL_Op _reql_json_object(_ReQL_Op obj);
 _ReQL_Op _reql_to_object(_ReQL_Op obj);
 int _reql_object_add(_ReQL_Op obj, _ReQL_Op key, _ReQL_Op val);
 int _reql_object_next(_ReQL_Op *obj, _ReQL_Op *key, _ReQL_Op *val);
+_ReQL_Op _reql_object_get(_ReQL_Op obj, _ReQL_Op key);
 
 int _reql_op_eq(_ReQL_Op l, _ReQL_Op r);
 void _reql_expr_free(_ReQL_Op obj);

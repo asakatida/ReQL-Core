@@ -399,6 +399,28 @@ int _reql_object_next(_ReQL_Op *obj, _ReQL_Op *key, _ReQL_Op *val) {
   return err;
 }
 
+_ReQL_Op _reql_object_get(_ReQL_Op obj, _ReQL_Op key) {
+  if (!key) {
+    return NULL;
+  }
+
+  obj = _reql_to_object(obj);
+
+  if (!obj) {
+    return NULL;
+  }
+
+  _ReQL_Op _key = NULL, val = NULL;
+
+  while (!_reql_object_next(&obj, &_key, &val)) {
+    if (_reql_op_eq(key, _key)) {
+      return val;
+    }
+  }
+
+  return NULL;
+}
+
 _ReQL_Op _reql_json_null(_ReQL_Op obj) {
   if (!obj) {
     obj = malloc(sizeof(_ReQL_Op_t));
