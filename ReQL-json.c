@@ -366,21 +366,27 @@ int _reql_op_eq(_ReQL_Op l, _ReQL_Op r) {
   return res;
 }
 
-void _reql_object_add(_ReQL_Op obj, _ReQL_Op key, _ReQL_Op val) {
-  if (!(obj && key && val)) {
-    return;
+int _reql_object_add(_ReQL_Op obj, _ReQL_Op key, _ReQL_Op val) {
+  if (!(obj && key)) {
+    return -1;
   }
   while (obj->next != obj && !_reql_op_eq(obj->key, key)) {
     obj = obj->next;
   }
   if (obj->key && !_reql_op_eq(obj->key, key)) {
     obj->next = _reql_json_object(NULL);
+    if (!obj->next) {
+      obj->next = obj;
+      return -1;
+    }
     obj->next->prev = obj;
     obj = obj->next;
     obj->next = obj;
   }
   obj->key = key;
   obj->val = val;
+
+  return 0;
 }
 
 int _reql_object_next(_ReQL_Op *obj, _ReQL_Op *key, _ReQL_Op *val) {
