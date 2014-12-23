@@ -21,4 +21,5 @@ install:
   - rm -rf tmp
 
 script:
+  - make test
   - busted

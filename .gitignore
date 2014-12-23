@@ -22,6 +22,7 @@ DerivedData
 *.xcuserstate
 
 # Compiled Object files
+libReQLtest
 __pycache__/
 *.out
 *.py[cod]
