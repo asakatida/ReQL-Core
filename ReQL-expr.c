@@ -56,19 +56,11 @@ _ReQL_Op _reql_number(_ReQL_Op obj, double num) {
   return _reql_expr(_reql_json_number(obj, num));
 }
 
-_ReQL_Op _reql_expr_string_nc(char *str, unsigned long str_len) {
-  return _reql_string_nc(NULL, str, str_len);
-}
-
-_ReQL_Op _reql_string_nc(_ReQL_Op obj, char *str, unsigned long str_len) {
-  return _reql_expr(_reql_json_string_nc(obj, str, str_len));
-}
-
-_ReQL_Op _reql_expr_string(const char *str, unsigned long str_len) {
+_ReQL_Op _reql_expr_string(char *str, unsigned long str_len) {
   return _reql_string(NULL, str, str_len);
 }
 
-_ReQL_Op _reql_string(_ReQL_Op obj, const char *str, unsigned long str_len) {
+_ReQL_Op _reql_string(_ReQL_Op obj, char *str, unsigned long str_len) {
   return _reql_expr(_reql_json_string(obj, str, str_len));
 }
 

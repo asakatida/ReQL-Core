@@ -262,7 +262,7 @@ _ReQL_Op _reql_from_lua(lua_State *L, const int idx, long nesting_depth) {
     }
     case LUA_TSTRING: {
       size_t len;
-      return _reql_expr_string(lua_tolstring(L, idx, &len), len);
+      return _reql_expr_string((char *)lua_tolstring(L, idx, &len), len);
     }
     case LUA_TTABLE: {
       const int water_mark = lua_gettop(L);
@@ -420,7 +420,7 @@ void _reql_to_lua(lua_State *L, _ReQL_Op query) {
     }
     case _REQL_R_STR: {
       unsigned long str_len;
-      const char *str;
+      char *str;
       if (_reql_to_string(query, &str, &str_len)) {
         lua_pushnil(L);
         break;

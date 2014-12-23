@@ -43,24 +43,18 @@ int _reql_to_number(_ReQL_Op obj, double *num) {
   return -1;
 }
 
-_ReQL_Op _reql_json_string_nc(_ReQL_Op obj, char *str, unsigned long str_len) {
-  obj = _reql_json_null(obj);
-  if (obj) {
-    obj->dt = _REQL_R_STR;
-    obj->str = str;
-    obj->str_len = str_len;
-  }
-  return obj;
-}
-
-_ReQL_Op _reql_json_string(_ReQL_Op obj, const char *str, unsigned long str_len) {
+_ReQL_Op _reql_json_string(_ReQL_Op obj, char *str, unsigned long str_len) {
   char *copy = malloc(sizeof(char) * str_len);
   copy = memcpy(copy, str, sizeof(char) * str_len);
 
   if (copy) {
-    obj = _reql_json_string_nc(obj, copy, str_len);
+    obj = _reql_json_null(obj);
 
-    if (!obj) {
+    if (obj) {
+      obj->dt = _REQL_R_STR;
+      obj->str = str;
+      obj->str_len = str_len;
+    } else {
       free(copy);
     }
 
@@ -70,7 +64,7 @@ _ReQL_Op _reql_json_string(_ReQL_Op obj, const char *str, unsigned long str_len)
   return NULL;
 }
 
-int _reql_to_string(_ReQL_Op obj, const char **str, unsigned long *str_len) {
+int _reql_to_string(_ReQL_Op obj, char **str, unsigned long *str_len) {
   int err = -1;
   if (obj) {
     if (obj->dt == _REQL_R_STR) {
@@ -348,8 +342,8 @@ int _reql_op_eq(_ReQL_Op l, _ReQL_Op r) {
             break;
           }
           case _REQL_R_STR: {
-            const char *rstr;
-            const char *lstr;
+            char *rstr;
+            char *lstr;
             unsigned long lstr_len, rstr_len;
             if (_reql_to_string(l, &lstr, &lstr_len) || _reql_to_string(r, &rstr, &rstr_len)) {
               break;
@@ -518,7 +512,7 @@ _ReQL_Op _reql_expr_copy(_ReQL_Op obj) {
       break;
     }
     case _REQL_R_STR: {
-      const char *str;
+      char *str;
       unsigned long str_len;
       if (_reql_to_string(obj, &str, &str_len)) {
         break;
@@ -657,7 +651,7 @@ _ReQL_Op _reql_string_decode(unsigned long json_len, char *json) {
   if (j != json_len) {
     utf8_str = realloc(utf8_str, j);
   }
-  _ReQL_Op str = _reql_json_string_nc(NULL, utf8_str, j);
+  _ReQL_Op str = _reql_json_string(NULL, utf8_str, j);
   return str;
 }
 

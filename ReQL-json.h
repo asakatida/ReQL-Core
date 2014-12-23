@@ -233,9 +233,8 @@ int _reql_to_null(_ReQL_Op obj);
 _ReQL_Op _reql_json_number(_ReQL_Op obj, double val);
 int _reql_to_number(_ReQL_Op obj, double *val);
 
-_ReQL_Op _reql_json_string(_ReQL_Op obj, const char *val, unsigned long str_len);
-_ReQL_Op _reql_json_string_nc(_ReQL_Op obj, char *val, unsigned long str_len);
-int _reql_to_string(_ReQL_Op obj, const char **val, unsigned long *str_len);
+_ReQL_Op _reql_json_string(_ReQL_Op obj, char *val, unsigned long str_len);
+int _reql_to_string(_ReQL_Op obj, char **val, unsigned long *str_len);
 
 _ReQL_Op _reql_json_c_array(_ReQL_Op obj, unsigned long size);
 int _reql_to_c_array(_ReQL_Op obj, unsigned long *size);

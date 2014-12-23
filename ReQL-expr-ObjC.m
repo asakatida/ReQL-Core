@@ -83,7 +83,7 @@ limitations under the License.
 +(instancetype)ReQLWithString:(NSString *)string {
   const char *c_str = [string cStringUsingEncoding:NSUnicodeStringEncoding];
   unsigned long c_str_len = [string lengthOfBytesUsingEncoding:NSUnicodeStringEncoding];
-  return [[libReQL_expr alloc] initWithReQL:_reql_expr_string(c_str, c_str_len)];
+  return [[libReQL_expr alloc] initWithReQL:_reql_expr_string((char  *)c_str, c_str_len)];
 }
 
 +(instancetype)ReQLWithNumber:(NSNumber *)number {

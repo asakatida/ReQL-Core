@@ -100,7 +100,7 @@ static VALUE _reql_to_rb(_ReQL_Op query) {
     }
     case _REQL_R_STR: {
       unsigned long str_len;
-      const char *str;
+      char *str;
       if (_reql_to_string(query, &str, &str_len)) {
         break;
       }

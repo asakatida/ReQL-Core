@@ -34,11 +34,9 @@ int _reql_to_null(_ReQL_Op obj);
 _ReQL_Op _reql_expr_number(double val);
 _ReQL_Op _reql_number(_ReQL_Op obj, double val);
 int _reql_to_number(_ReQL_Op obj, double *val);
-_ReQL_Op _reql_expr_string(const char *val, unsigned long str_len);
-_ReQL_Op _reql_string(_ReQL_Op obj, const char *val, unsigned long str_len);
-_ReQL_Op _reql_expr_string_nc(char *val, unsigned long str_len);
-_ReQL_Op _reql_string_nc(_ReQL_Op obj, char *val, unsigned long str_len);
-int _reql_to_string(_ReQL_Op obj, const char **val, unsigned long *str_len);
+_ReQL_Op _reql_expr_string(char *val, unsigned long str_len);
+_ReQL_Op _reql_string(_ReQL_Op obj, char *val, unsigned long str_len);
+int _reql_to_string(_ReQL_Op obj, char **val, unsigned long *str_len);
 
 _ReQL_Op _reql_build(_ReQL_Op query);
 
