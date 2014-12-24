@@ -3,49 +3,37 @@ all: libReQL.a
 test: libReQLtest
 	./libReQLtest
 
-libReQL.a: ReQL-CPP.o ReQL-ast-CPP.o ReQL-expr-CPP.o ReQL.o ReQL-ast.o ReQL-expr.o ReQL-json.o
-	g++ -shared -o libReQL.a \
-            ReQL-CPP.o \
-            ReQL-ast-CPP.o \
-            ReQL-expr-CPP.o \
-            ReQL.o \
-            ReQL-ast.o \
-            ReQL-expr.o \
-            ReQL-json.o
+OBJS = ReQL-CPP.o \
+       ReQL-ast-CPP.o \
+			 ReQL-expr-CPP.o \
+			 ReQL.o \
+			 ReQL-ast.o \
+			 ReQL-expr.o \
+			 ReQL-json.o
 
-ReQL-CPP.o: ReQL-CPP.cpp
-	gcc -fPIC -c $<
+LDFLAGS += -shared
+CXXFLAGS += -std=c++11 -fPIC
+CCFLAGS += -fPIC
 
-ReQL-ast-CPP.o: ReQL-ast-CPP.cpp
-	gcc -fPIC -c $<
+TESTOBJS = ReQL-test.o ReQL-ast-test.o ReQL-expr-test.o
 
-ReQL-expr-CPP.o: ReQL-expr-CPP.cpp
-	gcc -fPIC -c $<
+libReQL.a: $(OBJS)
+	g++ $(LDFLAGS) -o $@ $(OBJS)
 
 ReQL.o: ReQL.c
-	gcc -fPIC -c $<
+	gcc $(CCFLAGS) -c $<
 
 ReQL-ast.o: ReQL-ast.c
-	gcc -fPIC -c $<
+	gcc $(CCFLAGS) -c $<
 
 ReQL-expr.o: ReQL-expr.c
-	gcc -fPIC -c $<
+	gcc $(CCFLAGS) -c $<
 
 ReQL-json.o: ReQL-json.c
-	gcc -fPIC -c $<
+	gcc $(CCFLAGS) -c $<
 
-libReQLtest: all ReQL-test.o ReQL-ast-test.o ReQL-expr-test.o
-	g++ -o libReQLtest \
-            ReQL-test.o \
-            ReQL-ast-test.o \
-            ReQL-expr-test.o \
-            libReQL.a
+%.o: %.cpp
+	g++ $(CXXFLAGS) -o $@ -c $<
 
-ReQL-test.o: ReQL-test.cpp
-	g++ -fPIC -c $<
-
-ReQL-ast-test.o: ReQL-ast-test.cpp
-	g++ -fPIC -c $<
-
-ReQL-expr-test.o: ReQL-expr-test.cpp
-	g++ -fPIC -c $<
+libReQLtest: libReQL.a $(TESTOBJS)
+	g++ -o libReQLtest $(TESTOBJS) libReQL.a
