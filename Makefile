@@ -15,25 +15,28 @@ LDFLAGS += -shared
 CXXFLAGS += -std=c++11 -fPIC
 CCFLAGS += -fPIC
 
+CXX = $(CXX) $(CXXFLAGS)
+CC = $(CC) $(CCFLAGS)
+
 TESTOBJS = ReQL-test.o ReQL-ast-test.o ReQL-expr-test.o
 
 libReQL.a: $(OBJS)
-	g++ $(LDFLAGS) -o $@ $(OBJS)
+	$(CXX) $(LDFLAGS) -o $@ $(OBJS)
 
 ReQL.o: ReQL.c
-	gcc $(CCFLAGS) -c $<
+	$(CC) -c $<
 
 ReQL-ast.o: ReQL-ast.c
-	gcc $(CCFLAGS) -c $<
+	$(CC) -c $<
 
 ReQL-expr.o: ReQL-expr.c
-	gcc $(CCFLAGS) -c $<
+	$(CC) -c $<
 
 ReQL-json.o: ReQL-json.c
-	gcc $(CCFLAGS) -c $<
+	$(CC) -c $<
 
 %.o: %.cpp
-	g++ $(CXXFLAGS) -o $@ -c $<
+	$(CXX) -o $@ -c $<
 
 libReQLtest: libReQL.a $(TESTOBJS)
-	g++ -o libReQLtest $(TESTOBJS) libReQL.a
+	$(CXX) -o $@ $(TESTOBJS) $<
