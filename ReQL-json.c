@@ -928,6 +928,10 @@ _ReQL_C_String_t *_reql_c_string() {
 }
 
 int _reql_c_string_append(_ReQL_C_String_t *orig, char *ext, unsigned long ext_len) {
+  if (!orig) {
+    return -1;
+  }
+
   if ((orig->len + ext_len) > orig->alloc_len) {
     orig->alloc_len *= 1.1;
     orig->alloc_len += ext_len;
@@ -937,11 +941,178 @@ int _reql_c_string_append(_ReQL_C_String_t *orig, char *ext, unsigned long ext_l
     }
   }
 
-  orig->str = memcpy(orig->str, ext, sizeof(char) * ext_len);
+  orig->str = memcpy(&orig->str[orig->len + 1], ext, sizeof(char) * ext_len);
+
+  orig->len += ext_len;
 
   return 0;
 }
 
+int _reql_c_string_append_(_ReQL_C_String_t *orig, char ext) {
+  if (!orig) {
+    return -1;
+  }
+
+  if (orig->len >= orig->alloc_len) {
+    char new[1] = {ext};
+    return _reql_c_string_append(orig, new, 1);
+  }
+
+  orig->len += 1;
+
+  orig->str[orig->len] = ext;
+
+  return 0;
+}
+
+int _reql_json_encode_(_ReQL_Op obj, _ReQL_C_String_t *json) {
+  if (!json) {
+    return -1;
+  }
+
+  int err = -1;
+
+  switch (obj->dt) {
+    case _REQL_C_ARRAY: {
+      unsigned long size;
+      if (_reql_to_c_array(obj, &size)) {
+        break;
+      }
+      err = 0;
+      for (unsigned long i=0; i<size; ++i) {
+        if (i) {
+          if (_reql_c_string_append_(json, ',')) {
+            err = -1;
+            break;
+          }
+        }
+        if (_reql_json_encode_(_reql_c_array_index(obj, i), json)) {
+          err = -1;
+          break;
+        }
+      }
+      break;
+    }
+    case _REQL_R_ARRAY: {
+      obj = _reql_to_array(obj);
+      if (!obj) {
+        break;
+      }
+      char first = 1;
+      _ReQL_Op elem;
+      err = 0;
+      while (!_reql_array_next(&obj, &elem)) {
+        if (!first) {
+          if (_reql_c_string_append_(json, ',')) {
+            err = -1;
+            break;
+          }
+        }
+        if (_reql_json_encode_(elem, json)) {
+          err = -1;
+          break;
+        }
+        first = 0;
+      }
+      break;
+    }
+    case _REQL_R_BOOL: {
+      int val;
+      if (_reql_to_bool(obj, &val)) {
+        break;
+      }
+      if (val) {
+        if (_reql_c_string_append(json, "true", 4)) {
+          break;
+        }
+      } else {
+        if (_reql_c_string_append(json, "false", 5)) {
+          break;
+        }
+      }
+      err = 0;
+      break;
+    }
+    case _REQL_R_JSON: {
+      break;
+    }
+    case _REQL_R_NULL: {
+      err = _reql_c_string_append(json, "null", 4);
+      break;
+    }
+    case _REQL_R_NUM: {
+      double val;
+      if (_reql_to_number(obj, &val)) {
+        break;
+      }
+      err = 0;
+      break;
+    }
+    case _REQL_R_OBJECT: {
+      obj = _reql_to_object(obj);
+      if (!obj) {
+        break;
+      }
+      char first = 1;
+      _ReQL_Op key;
+      _ReQL_Op val;
+      err = 0;
+      while (!_reql_object_next(&obj, &key, &val)) {
+        if (!first) {
+          if (_reql_c_string_append_(json, ',')) {
+            err = -1;
+            break;
+          }
+        }
+        if (_reql_json_encode_(key, json)) {
+          err = -1;
+          break;
+        }
+        if (_reql_c_string_append_(json, ':')) {
+          err = -1;
+          break;
+        }
+        if (_reql_json_encode_(val, json)) {
+          err = -1;
+          break;
+        }
+        first = 0;
+      }
+      break;
+    }
+    case _REQL_R_STR: {
+      if (_reql_c_string_append_(json, '"')) {
+        break;
+      }
+      char *str;
+      unsigned long str_len;
+      if (_reql_to_string(obj, &str, &str_len)) {
+        break;
+      }
+      if (_reql_c_string_append(json, str, str_len)) {
+        break;
+      }
+      if (_reql_c_string_append_(json, '"')) {
+        break;
+      }
+      err = 0;
+      break;
+    }
+  }
+
+  return err;
+}
+
 int _reql_json_encode(_ReQL_Op val, char **json) {
+  _ReQL_C_String_t *_json = _reql_c_string();
+
+  if (_reql_json_encode_(val, _json)) {
+    free(_json->str); _json->str = NULL;
+    free(_json); _json = NULL;
+    return -1;
+  }
+
+  *json = malloc(_json->len);
+  *json = memcpy(*json, _json->str, sizeof(char) * _json->len);
   return 0;
 }
