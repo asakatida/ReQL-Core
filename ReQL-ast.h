@@ -23,7 +23,8 @@ limitations under the License.
 #ifndef _REQL_AST_H
 #define _REQL_AST_H
 
-typedef _ReQL_Op (*_ReQL_AST_Function) (_ReQL_Op args, _ReQL_Op kwargs);
+typedef _ReQL_Op (*_ReQL_AST_Function) (_ReQL_Op, _ReQL_Op);
+typedef _ReQL_Op (*_ReQL_AST_Function_) (_ReQL_Op, _ReQL_Op , _ReQL_Op);
 
 /**
  */
