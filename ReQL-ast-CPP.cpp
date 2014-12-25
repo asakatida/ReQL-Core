@@ -47,14 +47,8 @@ ReQL_ast init(_ReQL_AST_Function_ f, std::vector<ReQL_ast> args, std::map<std::s
 }
 
 ReQL_ast init(_ReQL_AST_Function_ f, ReQL_ast *term, std::vector<ReQL_ast> args, std::map<std::string, ReQL_ast> kwargs) {
-  std::vector<ReQL_ast> _args;
-  _args.push_back(*term);
-
-  for (auto it=args.cbegin(); it!=args.cend(); ++it) {
-    _args.push_back(*it);
-  }
-
-  return init(f, _args, kwargs);
+  args.insert(args.begin(), *term);
+  return init(f, args, kwargs);
 }
 
 ReQL_ast init(_ReQL_AST_Function_ f, std::vector<ReQL_ast> args) {
