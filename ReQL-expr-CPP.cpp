@@ -64,7 +64,22 @@ ReQL_expr expr() {
   return ReQL_expr();
 }
 
-template<typename T>
-ReQL_expr expr(T val) {
+ReQL_expr expr(std::string val) {
+  return ReQL_expr(val);
+}
+
+ReQL_expr expr(double val) {
+  return ReQL_expr(val);
+}
+
+ReQL_expr expr(bool val) {
+  return ReQL_expr(val);
+}
+
+ReQL_expr expr(std::vector<ReQL_expr> val) {
+  return ReQL_expr(val);
+}
+
+ReQL_expr expr(std::map<std::string, ReQL_expr> val) {
   return ReQL_expr(val);
 }

@@ -23,7 +23,7 @@ limitations under the License.
 #ifndef _REQL_AST_CPP
 #define _REQL_AST_CPP
 
-class ReQL_ast : ReQL_expr {
+class ReQL_ast : public ReQL_expr {
 public:
 
 /**

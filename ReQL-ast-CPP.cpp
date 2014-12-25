@@ -24,21 +24,49 @@ limitations under the License.
 
 #include "ReQL.hpp"
 
-ReQL_ast init(_ReQL_AST_Function_ f, ReQL_ast *term, std::vector<ReQL_ast> args, std::map<std::string, ReQL_ast> kwargs) {
-  return ReQL_ast();
-}
-
-ReQL_ast init(_ReQL_AST_Function_ f, ReQL_ast *term, std::vector<ReQL_ast> args) {
-  return ReQL_ast();
-}
-
 ReQL_ast init(_ReQL_AST_Function_ f, std::vector<ReQL_ast> args, std::map<std::string, ReQL_ast> kwargs) {
-  return ReQL_ast();
+  ReQL_ast term;
+
+  term.val = new _ReQL_Op_t();
+
+  _ReQL_Op _args = _reql_json_array(new _ReQL_Op_t());
+
+  for (auto it=args.cbegin(); it!=args.cend(); ++it) {
+    _reql_array_append(_args, it->val);
+  }
+
+  _ReQL_Op _kwargs = _reql_json_object(new _ReQL_Op_t());
+
+  for (auto it=kwargs.cbegin(); it!=kwargs.cend(); ++it) {
+    _reql_object_add(_kwargs, expr(it->first).val, it->second.val);
+  }
+
+  term.val = f(term.val, _args, _kwargs);
+
+  return term;
+}
+
+ReQL_ast init(_ReQL_AST_Function_ f, ReQL_ast *term, std::vector<ReQL_ast> args, std::map<std::string, ReQL_ast> kwargs) {
+  std::vector<ReQL_ast> _args;
+  _args.push_back(*term);
+
+  for (auto it=args.cbegin(); it!=args.cend(); ++it) {
+    _args.push_back(*it);
+  }
+
+  return init(f, _args, kwargs);
 }
 
 ReQL_ast init(_ReQL_AST_Function_ f, std::vector<ReQL_ast> args) {
-  return ReQL_ast();
+  std::map<std::string, ReQL_ast> kwargs;
+  return init(f, args, kwargs);
 }
+
+ReQL_ast init(_ReQL_AST_Function_ f, ReQL_ast *term, std::vector<ReQL_ast> args) {
+  std::map<std::string, ReQL_ast> kwargs;
+  return init(f, term, args, kwargs);
+}
+
 /**
  */
 ReQL_ast ReQL_ast::add(std::vector<ReQL_ast> args) {
