@@ -26,9 +26,9 @@ limitations under the License.
 #define _REQL_EXPR_CPP
 
 class ReQL_expr {
+public:
   struct _ReQL_Op_s *val;
 
-public:
   ReQL_expr();
   ReQL_expr(std::string);
   ReQL_expr(double);
@@ -36,5 +36,12 @@ public:
   ReQL_expr(std::vector<ReQL_expr>);
   ReQL_expr(std::map<std::string, ReQL_expr>);
 };
+
+ReQL_expr expr();
+ReQL_expr expr(std::string);
+ReQL_expr expr(double);
+ReQL_expr expr(bool);
+ReQL_expr expr(std::vector<ReQL_expr>);
+ReQL_expr expr(std::map<std::string, ReQL_expr>);
 
 #endif

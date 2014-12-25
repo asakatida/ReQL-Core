@@ -59,3 +59,12 @@ ReQL_expr::ReQL_expr(std::map<std::string, ReQL_expr> val) {
 
   this->val = _reql_expr(obj);
 }
+
+ReQL_expr expr() {
+  return ReQL_expr();
+}
+
+template<typename T>
+ReQL_expr expr(T val) {
+  return ReQL_expr(val);
+}
