@@ -21,3 +21,87 @@ limitations under the License.
 #include "ReQL-CPP.hpp"
 
 #include "ReQL.hpp"
+
+#include <cstdlib>
+
+using namespace ReQL;
+
+Connection::Connection() {
+  conn = (struct _ReQL_Conn_s *)new _ReQL_Conn_t();
+  conn = (struct _ReQL_Conn_s *)_reql_new_connection((_ReQL_Conn_t *)conn);
+
+  if (!conn) {
+    return;
+  }
+
+  char *buf;
+
+  if (_reql_connect((_ReQL_Conn_t *)conn, &buf)) {
+  }
+
+  free(buf);
+}
+
+Connection::Connection(std::string host) {
+  conn = (struct _ReQL_Conn_s *)new _ReQL_Conn_t();
+  conn = (struct _ReQL_Conn_s *)_reql_new_connection((_ReQL_Conn_t *)conn);
+
+  if (!conn) {
+    return;
+  }
+
+  char *buf;
+
+  if (_reql_connect((_ReQL_Conn_t *)conn, &buf)) {
+  }
+
+  free(buf);
+}
+
+Connection::Connection(std::string host, std::string port) {
+  conn = (struct _ReQL_Conn_s *)new _ReQL_Conn_t();
+  conn = (struct _ReQL_Conn_s *)_reql_new_connection((_ReQL_Conn_t *)conn);
+
+  if (!conn) {
+    return;
+  }
+
+  char *buf;
+
+  if (_reql_connect((_ReQL_Conn_t *)conn, &buf)) {
+  }
+
+  free(buf);
+}
+
+Connection::Connection(std::string host, std::string port, std::string key) {
+  conn = (struct _ReQL_Conn_s *)new _ReQL_Conn_t();
+  conn = (struct _ReQL_Conn_s *)_reql_new_connection((_ReQL_Conn_t *)conn);
+
+  if (!conn) {
+    return;
+  }
+
+  char *buf;
+
+  if (_reql_connect((_ReQL_Conn_t *)conn, &buf)) {
+  }
+
+  free(buf);
+}
+
+Connection connect() {
+  return Connection();
+}
+
+Connection connect(std::string host) {
+  return Connection(host);
+}
+
+Connection connect(std::string host, std::string port) {
+  return Connection(host, port);
+}
+
+Connection connect(std::string host, std::string port, std::string key) {
+  return Connection(host, port, key);
+}
