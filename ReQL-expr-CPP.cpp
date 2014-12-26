@@ -22,64 +22,66 @@ limitations under the License.
 
 #include "ReQL.hpp"
 
-ReQL_expr::ReQL_expr() {
-  this->val = _reql_expr_null();
+using namespace ReQL;
+
+Expr::Expr() {
+  query = (struct _ReQL_Op_s *)_reql_expr_null();
 }
 
-ReQL_expr::ReQL_expr(std::string val) {
-  this->val = _reql_expr_string((char *)val.c_str(), val.size());
+Expr::Expr(std::string val) {
+  query = (struct _ReQL_Op_s *)_reql_expr_string((char *)val.c_str(), val.size());
 }
 
-ReQL_expr::ReQL_expr(double val) {
-  this->val = _reql_expr_number(val);
+Expr::Expr(double val) {
+  query = (struct _ReQL_Op_s *)_reql_expr_number(val);
 }
 
-ReQL_expr::ReQL_expr(bool val) {
-  this->val = _reql_expr_bool(val);
+Expr::Expr(bool val) {
+  query = (struct _ReQL_Op_s *)_reql_expr_bool(val);
 }
 
-ReQL_expr::ReQL_expr(std::vector<ReQL_expr> val) {
+Expr::Expr(std::vector<Expr> val) {
   _ReQL_Op obj = _reql_json_array(NULL);
 
   for (auto iter=val.cbegin(); iter!=val.cend(); ++iter) {
-    _reql_array_append(obj, _reql_expr_copy(iter->val));
+    _reql_array_append(obj, _reql_expr_copy((_ReQL_Op)iter->query));
   }
 
-  this->val = _reql_expr(obj);
+  query = (struct _ReQL_Op_s *)_reql_expr(obj);
 }
 
-ReQL_expr::ReQL_expr(std::map<std::string, ReQL_expr> val) {
+Expr::Expr(std::map<std::string, Expr> val) {
   _ReQL_Op obj = _reql_json_object(NULL);
 
   for (auto iter=val.cbegin(); iter!=val.cend(); ++iter) {
     std::string key_str = iter->first;
     _ReQL_Op key = _reql_json_string(NULL, (char *)key_str.c_str(), key_str.size());
-    _reql_object_add(obj, key, _reql_expr_copy(iter->second.val));
+    _reql_object_add(obj, key, _reql_expr_copy((_ReQL_Op)iter->second.query));
   }
 
-  this->val = _reql_expr(obj);
+  query = (struct _ReQL_Op_s *)_reql_expr(obj);
 }
 
-ReQL_expr expr() {
-  return ReQL_expr();
+Expr expr() {
+  return Expr();
 }
 
-ReQL_expr expr(std::string val) {
-  return ReQL_expr(val);
+Expr ReQL::expr(std::string val) {
+  return Expr(val);
 }
 
-ReQL_expr expr(double val) {
-  return ReQL_expr(val);
+Expr expr(double val) {
+  return Expr(val);
 }
 
-ReQL_expr expr(bool val) {
-  return ReQL_expr(val);
+Expr expr(bool val) {
+  return Expr(val);
 }
 
-ReQL_expr expr(std::vector<ReQL_expr> val) {
-  return ReQL_expr(val);
+Expr expr(std::vector<Expr> val) {
+  return Expr(val);
 }
 
-ReQL_expr expr(std::map<std::string, ReQL_expr> val) {
-  return ReQL_expr(val);
+Expr expr(std::map<std::string, Expr> val) {
+  return Expr(val);
 }

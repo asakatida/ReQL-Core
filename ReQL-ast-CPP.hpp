@@ -23,1412 +23,1415 @@ limitations under the License.
 #ifndef _REQL_AST_CPP
 #define _REQL_AST_CPP
 
-class ReQL_ast : public ReQL_expr {
+namespace ReQL {
+
+class AST : public Expr {
 public:
 
-/**
- */
-  ReQL_ast add(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast all(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast any(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast append(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast april(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast args(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast asc(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast august(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast avg(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast between(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast binary(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast bracket(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast branch(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast changes(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast change_at(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast circle(std::vector<ReQL_ast>, std::map<std::string, ReQL_ast>);
-  ReQL_ast circle(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast coerce_to(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast concat_map(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast contains(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast count(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast date(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast datum(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast day(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast day_of_week(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast day_of_year(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast db(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast db_config(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast db_create(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast db_drop(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast db_list(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast december(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast default_(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast delete_(std::vector<ReQL_ast>, std::map<std::string, ReQL_ast>);
-  ReQL_ast delete_(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast delete_at(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast desc(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast difference(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast distance(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast distinct(std::vector<ReQL_ast>, std::map<std::string, ReQL_ast>);
-  ReQL_ast distinct(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast div(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast downcase(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast during(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast epoch_time(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast eq(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast eq_join(std::vector<ReQL_ast>, std::map<std::string, ReQL_ast>);
-  ReQL_ast eq_join(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast error(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast february(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast fill(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast filter(std::vector<ReQL_ast>, std::map<std::string, ReQL_ast>);
-  ReQL_ast filter(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast for_each(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast friday(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast func(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast funcall(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast ge(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast geojson(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast get(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast get_all(std::vector<ReQL_ast>, std::map<std::string, ReQL_ast>);
-  ReQL_ast get_all(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast get_field(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast get_intersecting(std::vector<ReQL_ast>, std::map<std::string, ReQL_ast>);
-  ReQL_ast get_intersecting(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast get_nearest(std::vector<ReQL_ast>, std::map<std::string, ReQL_ast>);
-  ReQL_ast get_nearest(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast group(std::vector<ReQL_ast>, std::map<std::string, ReQL_ast>);
-  ReQL_ast group(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast gt(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast has_fields(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast hours(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast http(std::vector<ReQL_ast>, std::map<std::string, ReQL_ast>);
-  ReQL_ast http(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast implicit_var(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast includes(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast indexes_of(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast index_create(std::vector<ReQL_ast>, std::map<std::string, ReQL_ast>);
-  ReQL_ast index_create(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast index_drop(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast index_list(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast index_rename(std::vector<ReQL_ast>, std::map<std::string, ReQL_ast>);
-  ReQL_ast index_rename(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast index_status(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast index_wait(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast info(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast inner_join(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast insert(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast insert_at(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast intersects(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast in_timezone(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast iso8601(std::vector<ReQL_ast>, std::map<std::string, ReQL_ast>);
-  ReQL_ast iso8601(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast is_empty(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast january(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast javascript(std::vector<ReQL_ast>, std::map<std::string, ReQL_ast>);
-  ReQL_ast javascript(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast json(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast july(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast june(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast keys(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast le(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast limit(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast line(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast literal(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast lt(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast make_array(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast make_obj(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast map(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast march(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast match(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast max(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast may(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast merge(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast min(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast minutes(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast mod(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast monday(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast month(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast mul(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast ne(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast not_(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast november(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast now(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast nth(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast object(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast october(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast order_by(std::vector<ReQL_ast>, std::map<std::string, ReQL_ast>);
-  ReQL_ast order_by(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast outer_join(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast pluck(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast point(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast polygon(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast polygon_sub(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast prepend(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast random(std::vector<ReQL_ast>, std::map<std::string, ReQL_ast>);
-  ReQL_ast random(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast range(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast rebalance(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast reconfigure(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast reduce(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast replace(std::vector<ReQL_ast>, std::map<std::string, ReQL_ast>);
-  ReQL_ast replace(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast sample(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast saturday(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast seconds(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast september(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast set_difference(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast set_insert(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast set_intersection(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast set_union(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast skip(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast slice(std::vector<ReQL_ast>, std::map<std::string, ReQL_ast>);
-  ReQL_ast slice(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast splice_at(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast split(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast sub(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast sum(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast sunday(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast sync(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast table(std::vector<ReQL_ast>, std::map<std::string, ReQL_ast>);
-  ReQL_ast table(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast table_config(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast table_create(std::vector<ReQL_ast>, std::map<std::string, ReQL_ast>);
-  ReQL_ast table_create(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast table_drop(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast table_list(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast table_status(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast table_wait(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast thursday(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast time(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast timezone_(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast time_of_day(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast to_epoch_time(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast to_geojson(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast to_iso8601(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast to_json_string(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast tuesday(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast type_of(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast ungroup(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast union_(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast upcase(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast update(std::vector<ReQL_ast>, std::map<std::string, ReQL_ast>);
-  ReQL_ast update(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast uuid(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast var(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast wednesday(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast without(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast with_fields(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast year(std::vector<ReQL_ast>);
-
-/**
- */
-  ReQL_ast zip(std::vector<ReQL_ast>);
+  /**
+   */
+  AST add(std::vector<AST>);
+
+  /**
+   */
+  AST all(std::vector<AST>);
+
+  /**
+   */
+  AST any(std::vector<AST>);
+
+  /**
+   */
+  AST append(std::vector<AST>);
+
+  /**
+   */
+  AST april(std::vector<AST>);
+
+  /**
+   */
+  AST args(std::vector<AST>);
+
+  /**
+   */
+  AST asc(std::vector<AST>);
+
+  /**
+   */
+  AST august(std::vector<AST>);
+
+  /**
+   */
+  AST avg(std::vector<AST>);
+
+  /**
+   */
+  AST between(std::vector<AST>);
+
+  /**
+   */
+  AST binary(std::vector<AST>);
+
+  /**
+   */
+  AST bracket(std::vector<AST>);
+
+  /**
+   */
+  AST branch(std::vector<AST>);
+
+  /**
+   */
+  AST changes(std::vector<AST>);
+
+  /**
+   */
+  AST change_at(std::vector<AST>);
+
+  /**
+   */
+  AST circle(std::vector<AST>, std::map<std::string, AST>);
+  AST circle(std::vector<AST>);
+
+  /**
+   */
+  AST coerce_to(std::vector<AST>);
+
+  /**
+   */
+  AST concat_map(std::vector<AST>);
+
+  /**
+   */
+  AST contains(std::vector<AST>);
+
+  /**
+   */
+  AST count(std::vector<AST>);
+
+  /**
+   */
+  AST date(std::vector<AST>);
+
+  /**
+   */
+  AST datum(std::vector<AST>);
+
+  /**
+   */
+  AST day(std::vector<AST>);
+
+  /**
+   */
+  AST day_of_week(std::vector<AST>);
+
+  /**
+   */
+  AST day_of_year(std::vector<AST>);
+
+  /**
+   */
+  AST db(std::vector<AST>);
+
+  /**
+   */
+  AST db_config(std::vector<AST>);
+
+  /**
+   */
+  AST db_create(std::vector<AST>);
+
+  /**
+   */
+  AST db_drop(std::vector<AST>);
+
+  /**
+   */
+  AST db_list(std::vector<AST>);
+
+  /**
+   */
+  AST december(std::vector<AST>);
+
+  /**
+   */
+  AST default_(std::vector<AST>);
+
+  /**
+   */
+  AST delete_(std::vector<AST>, std::map<std::string, AST>);
+  AST delete_(std::vector<AST>);
+
+  /**
+   */
+  AST delete_at(std::vector<AST>);
+
+  /**
+   */
+  AST desc(std::vector<AST>);
+
+  /**
+   */
+  AST difference(std::vector<AST>);
+
+  /**
+   */
+  AST distance(std::vector<AST>);
+
+  /**
+   */
+  AST distinct(std::vector<AST>, std::map<std::string, AST>);
+  AST distinct(std::vector<AST>);
+
+  /**
+   */
+  AST div(std::vector<AST>);
+
+  /**
+   */
+  AST downcase(std::vector<AST>);
+
+  /**
+   */
+  AST during(std::vector<AST>);
+
+  /**
+   */
+  AST epoch_time(std::vector<AST>);
+
+  /**
+   */
+  AST eq(std::vector<AST>);
+
+  /**
+   */
+  AST eq_join(std::vector<AST>, std::map<std::string, AST>);
+  AST eq_join(std::vector<AST>);
+
+  /**
+   */
+  AST error(std::vector<AST>);
+
+  /**
+   */
+  AST february(std::vector<AST>);
+
+  /**
+   */
+  AST fill(std::vector<AST>);
+
+  /**
+   */
+  AST filter(std::vector<AST>, std::map<std::string, AST>);
+  AST filter(std::vector<AST>);
+
+  /**
+   */
+  AST for_each(std::vector<AST>);
+
+  /**
+   */
+  AST friday(std::vector<AST>);
+
+  /**
+   */
+  AST func(std::vector<AST>);
+
+  /**
+   */
+  AST funcall(std::vector<AST>);
+
+  /**
+   */
+  AST ge(std::vector<AST>);
+
+  /**
+   */
+  AST geojson(std::vector<AST>);
+
+  /**
+   */
+  AST get(std::vector<AST>);
+
+  /**
+   */
+  AST get_all(std::vector<AST>, std::map<std::string, AST>);
+  AST get_all(std::vector<AST>);
+
+  /**
+   */
+  AST get_field(std::vector<AST>);
+
+  /**
+   */
+  AST get_intersecting(std::vector<AST>, std::map<std::string, AST>);
+  AST get_intersecting(std::vector<AST>);
+
+  /**
+   */
+  AST get_nearest(std::vector<AST>, std::map<std::string, AST>);
+  AST get_nearest(std::vector<AST>);
+
+  /**
+   */
+  AST group(std::vector<AST>, std::map<std::string, AST>);
+  AST group(std::vector<AST>);
+
+  /**
+   */
+  AST gt(std::vector<AST>);
+
+  /**
+   */
+  AST has_fields(std::vector<AST>);
+
+  /**
+   */
+  AST hours(std::vector<AST>);
+
+  /**
+   */
+  AST http(std::vector<AST>, std::map<std::string, AST>);
+  AST http(std::vector<AST>);
+
+  /**
+   */
+  AST implicit_var(std::vector<AST>);
+
+  /**
+   */
+  AST includes(std::vector<AST>);
+
+  /**
+   */
+  AST indexes_of(std::vector<AST>);
+
+  /**
+   */
+  AST index_create(std::vector<AST>, std::map<std::string, AST>);
+  AST index_create(std::vector<AST>);
+
+  /**
+   */
+  AST index_drop(std::vector<AST>);
+
+  /**
+   */
+  AST index_list(std::vector<AST>);
+
+  /**
+   */
+  AST index_rename(std::vector<AST>, std::map<std::string, AST>);
+  AST index_rename(std::vector<AST>);
+
+  /**
+   */
+  AST index_status(std::vector<AST>);
+
+  /**
+   */
+  AST index_wait(std::vector<AST>);
+
+  /**
+   */
+  AST info(std::vector<AST>);
+
+  /**
+   */
+  AST inner_join(std::vector<AST>);
+
+  /**
+   */
+  AST insert(std::vector<AST>);
+
+  /**
+   */
+  AST insert_at(std::vector<AST>);
+
+  /**
+   */
+  AST intersects(std::vector<AST>);
+
+  /**
+   */
+  AST in_timezone(std::vector<AST>);
+
+  /**
+   */
+  AST iso8601(std::vector<AST>, std::map<std::string, AST>);
+  AST iso8601(std::vector<AST>);
+
+  /**
+   */
+  AST is_empty(std::vector<AST>);
+
+  /**
+   */
+  AST january(std::vector<AST>);
+
+  /**
+   */
+  AST javascript(std::vector<AST>, std::map<std::string, AST>);
+  AST javascript(std::vector<AST>);
+
+  /**
+   */
+  AST json(std::vector<AST>);
+
+  /**
+   */
+  AST july(std::vector<AST>);
+
+  /**
+   */
+  AST june(std::vector<AST>);
+
+  /**
+   */
+  AST keys(std::vector<AST>);
+
+  /**
+   */
+  AST le(std::vector<AST>);
+
+  /**
+   */
+  AST limit(std::vector<AST>);
+
+  /**
+   */
+  AST line(std::vector<AST>);
+
+  /**
+   */
+  AST literal(std::vector<AST>);
+
+  /**
+   */
+  AST lt(std::vector<AST>);
+
+  /**
+   */
+  AST make_array(std::vector<AST>);
+
+  /**
+   */
+  AST make_obj(std::vector<AST>);
+
+  /**
+   */
+  AST map(std::vector<AST>);
+
+  /**
+   */
+  AST march(std::vector<AST>);
+
+  /**
+   */
+  AST match(std::vector<AST>);
+
+  /**
+   */
+  AST max(std::vector<AST>);
+
+  /**
+   */
+  AST may(std::vector<AST>);
+
+  /**
+   */
+  AST merge(std::vector<AST>);
+
+  /**
+   */
+  AST min(std::vector<AST>);
+
+  /**
+   */
+  AST minutes(std::vector<AST>);
+
+  /**
+   */
+  AST mod(std::vector<AST>);
+
+  /**
+   */
+  AST monday(std::vector<AST>);
+
+  /**
+   */
+  AST month(std::vector<AST>);
+
+  /**
+   */
+  AST mul(std::vector<AST>);
+
+  /**
+   */
+  AST ne(std::vector<AST>);
+
+  /**
+   */
+  AST not_(std::vector<AST>);
+
+  /**
+   */
+  AST november(std::vector<AST>);
+
+  /**
+   */
+  AST now(std::vector<AST>);
+
+  /**
+   */
+  AST nth(std::vector<AST>);
+
+  /**
+   */
+  AST object(std::vector<AST>);
+
+  /**
+   */
+  AST october(std::vector<AST>);
+
+  /**
+   */
+  AST order_by(std::vector<AST>, std::map<std::string, AST>);
+  AST order_by(std::vector<AST>);
+
+  /**
+   */
+  AST outer_join(std::vector<AST>);
+
+  /**
+   */
+  AST pluck(std::vector<AST>);
+
+  /**
+   */
+  AST point(std::vector<AST>);
+
+  /**
+   */
+  AST polygon(std::vector<AST>);
+
+  /**
+   */
+  AST polygon_sub(std::vector<AST>);
+
+  /**
+   */
+  AST prepend(std::vector<AST>);
+
+  /**
+   */
+  AST random(std::vector<AST>, std::map<std::string, AST>);
+  AST random(std::vector<AST>);
+
+  /**
+   */
+  AST range(std::vector<AST>);
+
+  /**
+   */
+  AST rebalance(std::vector<AST>);
+
+  /**
+   */
+  AST reconfigure(std::vector<AST>);
+
+  /**
+   */
+  AST reduce(std::vector<AST>);
+
+  /**
+   */
+  AST replace(std::vector<AST>, std::map<std::string, AST>);
+  AST replace(std::vector<AST>);
+
+  /**
+   */
+  AST sample(std::vector<AST>);
+
+  /**
+   */
+  AST saturday(std::vector<AST>);
+
+  /**
+   */
+  AST seconds(std::vector<AST>);
+
+  /**
+   */
+  AST september(std::vector<AST>);
+
+  /**
+   */
+  AST set_difference(std::vector<AST>);
+
+  /**
+   */
+  AST set_insert(std::vector<AST>);
+
+  /**
+   */
+  AST set_intersection(std::vector<AST>);
+
+  /**
+   */
+  AST set_union(std::vector<AST>);
+
+  /**
+   */
+  AST skip(std::vector<AST>);
+
+  /**
+   */
+  AST slice(std::vector<AST>, std::map<std::string, AST>);
+  AST slice(std::vector<AST>);
+
+  /**
+   */
+  AST splice_at(std::vector<AST>);
+
+  /**
+   */
+  AST split(std::vector<AST>);
+
+  /**
+   */
+  AST sub(std::vector<AST>);
+
+  /**
+   */
+  AST sum(std::vector<AST>);
+
+  /**
+   */
+  AST sunday(std::vector<AST>);
+
+  /**
+   */
+  AST sync(std::vector<AST>);
+
+  /**
+   */
+  AST table(std::vector<AST>, std::map<std::string, AST>);
+  AST table(std::vector<AST>);
+
+  /**
+   */
+  AST table_config(std::vector<AST>);
+
+  /**
+   */
+  AST table_create(std::vector<AST>, std::map<std::string, AST>);
+  AST table_create(std::vector<AST>);
+
+  /**
+   */
+  AST table_drop(std::vector<AST>);
+
+  /**
+   */
+  AST table_list(std::vector<AST>);
+
+  /**
+   */
+  AST table_status(std::vector<AST>);
+
+  /**
+   */
+  AST table_wait(std::vector<AST>);
+
+  /**
+   */
+  AST thursday(std::vector<AST>);
+
+  /**
+   */
+  AST time(std::vector<AST>);
+
+  /**
+   */
+  AST timezone_(std::vector<AST>);
+
+  /**
+   */
+  AST time_of_day(std::vector<AST>);
+
+  /**
+   */
+  AST to_epoch_time(std::vector<AST>);
+
+  /**
+   */
+  AST to_geojson(std::vector<AST>);
+
+  /**
+   */
+  AST to_iso8601(std::vector<AST>);
+
+  /**
+   */
+  AST to_json_string(std::vector<AST>);
+
+  /**
+   */
+  AST tuesday(std::vector<AST>);
+
+  /**
+   */
+  AST type_of(std::vector<AST>);
+
+  /**
+   */
+  AST ungroup(std::vector<AST>);
+
+  /**
+   */
+  AST union_(std::vector<AST>);
+
+  /**
+   */
+  AST upcase(std::vector<AST>);
+
+  /**
+   */
+  AST update(std::vector<AST>, std::map<std::string, AST>);
+  AST update(std::vector<AST>);
+
+  /**
+   */
+  AST uuid(std::vector<AST>);
+
+  /**
+   */
+  AST var(std::vector<AST>);
+
+  /**
+   */
+  AST wednesday(std::vector<AST>);
+
+  /**
+   */
+  AST without(std::vector<AST>);
+
+  /**
+   */
+  AST with_fields(std::vector<AST>);
+
+  /**
+   */
+  AST year(std::vector<AST>);
+
+  /**
+   */
+  AST zip(std::vector<AST>);
 };
 
 
 /**
  */
-ReQL_ast add(std::vector<ReQL_ast>);
+AST add(std::vector<AST>);
 
 /**
  */
-ReQL_ast all(std::vector<ReQL_ast>);
+AST all(std::vector<AST>);
 
 /**
  */
-ReQL_ast any(std::vector<ReQL_ast>);
+AST any(std::vector<AST>);
 
 /**
  */
-ReQL_ast append(std::vector<ReQL_ast>);
+AST append(std::vector<AST>);
 
 /**
  */
-ReQL_ast april(std::vector<ReQL_ast>);
+AST april(std::vector<AST>);
 
 /**
  */
-ReQL_ast args(std::vector<ReQL_ast>);
+AST args(std::vector<AST>);
 
 /**
  */
-ReQL_ast asc(std::vector<ReQL_ast>);
+AST asc(std::vector<AST>);
 
 /**
  */
-ReQL_ast august(std::vector<ReQL_ast>);
+AST august(std::vector<AST>);
 
 /**
  */
-ReQL_ast avg(std::vector<ReQL_ast>);
+AST avg(std::vector<AST>);
 
 /**
  */
-ReQL_ast between(std::vector<ReQL_ast>);
+AST between(std::vector<AST>);
 
 /**
  */
-ReQL_ast binary(std::vector<ReQL_ast>);
+AST binary(std::vector<AST>);
 
 /**
  */
-ReQL_ast bracket(std::vector<ReQL_ast>);
+AST bracket(std::vector<AST>);
 
 /**
  */
-ReQL_ast branch(std::vector<ReQL_ast>);
+AST branch(std::vector<AST>);
 
 /**
  */
-ReQL_ast changes(std::vector<ReQL_ast>);
+AST changes(std::vector<AST>);
 
 /**
  */
-ReQL_ast change_at(std::vector<ReQL_ast>);
+AST change_at(std::vector<AST>);
 
 /**
  */
-ReQL_ast circle(std::vector<ReQL_ast>, std::map<std::string, ReQL_ast>);
-ReQL_ast circle(std::vector<ReQL_ast>);
+AST circle(std::vector<AST>, std::map<std::string, AST>);
+AST circle(std::vector<AST>);
 
 /**
  */
-ReQL_ast coerce_to(std::vector<ReQL_ast>);
+AST coerce_to(std::vector<AST>);
 
 /**
  */
-ReQL_ast concat_map(std::vector<ReQL_ast>);
+AST concat_map(std::vector<AST>);
 
 /**
  */
-ReQL_ast contains(std::vector<ReQL_ast>);
+AST contains(std::vector<AST>);
 
 /**
  */
-ReQL_ast count(std::vector<ReQL_ast>);
+AST count(std::vector<AST>);
 
 /**
  */
-ReQL_ast date(std::vector<ReQL_ast>);
+AST date(std::vector<AST>);
 
 /**
  */
-ReQL_ast datum(std::vector<ReQL_ast>);
+AST datum(std::vector<AST>);
 
 /**
  */
-ReQL_ast day(std::vector<ReQL_ast>);
+AST day(std::vector<AST>);
 
 /**
  */
-ReQL_ast day_of_week(std::vector<ReQL_ast>);
+AST day_of_week(std::vector<AST>);
 
 /**
  */
-ReQL_ast day_of_year(std::vector<ReQL_ast>);
+AST day_of_year(std::vector<AST>);
 
 /**
  */
-ReQL_ast db(std::vector<ReQL_ast>);
+AST db(std::vector<AST>);
 
 /**
  */
-ReQL_ast db_config(std::vector<ReQL_ast>);
+AST db_config(std::vector<AST>);
 
 /**
  */
-ReQL_ast db_create(std::vector<ReQL_ast>);
+AST db_create(std::vector<AST>);
 
 /**
  */
-ReQL_ast db_drop(std::vector<ReQL_ast>);
+AST db_drop(std::vector<AST>);
 
 /**
  */
-ReQL_ast db_list(std::vector<ReQL_ast>);
+AST db_list(std::vector<AST>);
 
 /**
  */
-ReQL_ast december(std::vector<ReQL_ast>);
+AST december(std::vector<AST>);
 
 /**
  */
-ReQL_ast default_(std::vector<ReQL_ast>);
+AST default_(std::vector<AST>);
 
 /**
  */
-ReQL_ast delete_(std::vector<ReQL_ast>, std::map<std::string, ReQL_ast>);
-ReQL_ast delete_(std::vector<ReQL_ast>);
+AST delete_(std::vector<AST>, std::map<std::string, AST>);
+AST delete_(std::vector<AST>);
 
 /**
  */
-ReQL_ast delete_at(std::vector<ReQL_ast>);
+AST delete_at(std::vector<AST>);
 
 /**
  */
-ReQL_ast desc(std::vector<ReQL_ast>);
+AST desc(std::vector<AST>);
 
 /**
  */
-ReQL_ast difference(std::vector<ReQL_ast>);
+AST difference(std::vector<AST>);
 
 /**
  */
-ReQL_ast distance(std::vector<ReQL_ast>);
+AST distance(std::vector<AST>);
 
 /**
  */
-ReQL_ast distinct(std::vector<ReQL_ast>, std::map<std::string, ReQL_ast>);
-ReQL_ast distinct(std::vector<ReQL_ast>);
+AST distinct(std::vector<AST>, std::map<std::string, AST>);
+AST distinct(std::vector<AST>);
 
 /**
  */
-ReQL_ast div(std::vector<ReQL_ast>);
+AST div(std::vector<AST>);
 
 /**
  */
-ReQL_ast downcase(std::vector<ReQL_ast>);
+AST downcase(std::vector<AST>);
 
 /**
  */
-ReQL_ast during(std::vector<ReQL_ast>);
+AST during(std::vector<AST>);
 
 /**
  */
-ReQL_ast epoch_time(std::vector<ReQL_ast>);
+AST epoch_time(std::vector<AST>);
 
 /**
  */
-ReQL_ast eq(std::vector<ReQL_ast>);
+AST eq(std::vector<AST>);
 
 /**
  */
-ReQL_ast eq_join(std::vector<ReQL_ast>, std::map<std::string, ReQL_ast>);
-ReQL_ast eq_join(std::vector<ReQL_ast>);
+AST eq_join(std::vector<AST>, std::map<std::string, AST>);
+AST eq_join(std::vector<AST>);
 
 /**
  */
-ReQL_ast error(std::vector<ReQL_ast>);
+AST error(std::vector<AST>);
 
 /**
  */
-ReQL_ast february(std::vector<ReQL_ast>);
+AST february(std::vector<AST>);
 
 /**
  */
-ReQL_ast fill(std::vector<ReQL_ast>);
+AST fill(std::vector<AST>);
 
 /**
  */
-ReQL_ast filter(std::vector<ReQL_ast>, std::map<std::string, ReQL_ast>);
-ReQL_ast filter(std::vector<ReQL_ast>);
+AST filter(std::vector<AST>, std::map<std::string, AST>);
+AST filter(std::vector<AST>);
 
 /**
  */
-ReQL_ast for_each(std::vector<ReQL_ast>);
+AST for_each(std::vector<AST>);
 
 /**
  */
-ReQL_ast friday(std::vector<ReQL_ast>);
+AST friday(std::vector<AST>);
 
 /**
  */
-ReQL_ast func(std::vector<ReQL_ast>);
+AST func(std::vector<AST>);
 
 /**
  */
-ReQL_ast funcall(std::vector<ReQL_ast>);
+AST funcall(std::vector<AST>);
 
 /**
  */
-ReQL_ast ge(std::vector<ReQL_ast>);
+AST ge(std::vector<AST>);
 
 /**
  */
-ReQL_ast geojson(std::vector<ReQL_ast>);
+AST geojson(std::vector<AST>);
 
 /**
  */
-ReQL_ast get(std::vector<ReQL_ast>);
+AST get(std::vector<AST>);
 
 /**
  */
-ReQL_ast get_all(std::vector<ReQL_ast>, std::map<std::string, ReQL_ast>);
-ReQL_ast get_all(std::vector<ReQL_ast>);
+AST get_all(std::vector<AST>, std::map<std::string, AST>);
+AST get_all(std::vector<AST>);
 
 /**
  */
-ReQL_ast get_field(std::vector<ReQL_ast>);
+AST get_field(std::vector<AST>);
 
 /**
  */
-ReQL_ast get_intersecting(std::vector<ReQL_ast>, std::map<std::string, ReQL_ast>);
-ReQL_ast get_intersecting(std::vector<ReQL_ast>);
+AST get_intersecting(std::vector<AST>, std::map<std::string, AST>);
+AST get_intersecting(std::vector<AST>);
 
 /**
  */
-ReQL_ast get_nearest(std::vector<ReQL_ast>, std::map<std::string, ReQL_ast>);
-ReQL_ast get_nearest(std::vector<ReQL_ast>);
+AST get_nearest(std::vector<AST>, std::map<std::string, AST>);
+AST get_nearest(std::vector<AST>);
 
 /**
  */
-ReQL_ast group(std::vector<ReQL_ast>, std::map<std::string, ReQL_ast>);
-ReQL_ast group(std::vector<ReQL_ast>);
+AST group(std::vector<AST>, std::map<std::string, AST>);
+AST group(std::vector<AST>);
 
 /**
  */
-ReQL_ast gt(std::vector<ReQL_ast>);
+AST gt(std::vector<AST>);
 
 /**
  */
-ReQL_ast has_fields(std::vector<ReQL_ast>);
+AST has_fields(std::vector<AST>);
 
 /**
  */
-ReQL_ast hours(std::vector<ReQL_ast>);
+AST hours(std::vector<AST>);
 
 /**
  */
-ReQL_ast http(std::vector<ReQL_ast>, std::map<std::string, ReQL_ast>);
-ReQL_ast http(std::vector<ReQL_ast>);
+AST http(std::vector<AST>, std::map<std::string, AST>);
+AST http(std::vector<AST>);
 
 /**
  */
-ReQL_ast implicit_var(std::vector<ReQL_ast>);
+AST implicit_var(std::vector<AST>);
 
 /**
  */
-ReQL_ast includes(std::vector<ReQL_ast>);
+AST includes(std::vector<AST>);
 
 /**
  */
-ReQL_ast indexes_of(std::vector<ReQL_ast>);
+AST indexes_of(std::vector<AST>);
 
 /**
  */
-ReQL_ast index_create(std::vector<ReQL_ast>, std::map<std::string, ReQL_ast>);
-ReQL_ast index_create(std::vector<ReQL_ast>);
+AST index_create(std::vector<AST>, std::map<std::string, AST>);
+AST index_create(std::vector<AST>);
 
 /**
  */
-ReQL_ast index_drop(std::vector<ReQL_ast>);
+AST index_drop(std::vector<AST>);
 
 /**
  */
-ReQL_ast index_list(std::vector<ReQL_ast>);
+AST index_list(std::vector<AST>);
 
 /**
  */
-ReQL_ast index_rename(std::vector<ReQL_ast>, std::map<std::string, ReQL_ast>);
-ReQL_ast index_rename(std::vector<ReQL_ast>);
+AST index_rename(std::vector<AST>, std::map<std::string, AST>);
+AST index_rename(std::vector<AST>);
 
 /**
  */
-ReQL_ast index_status(std::vector<ReQL_ast>);
+AST index_status(std::vector<AST>);
 
 /**
  */
-ReQL_ast index_wait(std::vector<ReQL_ast>);
+AST index_wait(std::vector<AST>);
 
 /**
  */
-ReQL_ast info(std::vector<ReQL_ast>);
+AST info(std::vector<AST>);
 
 /**
  */
-ReQL_ast inner_join(std::vector<ReQL_ast>);
+AST inner_join(std::vector<AST>);
 
 /**
  */
-ReQL_ast insert(std::vector<ReQL_ast>);
+AST insert(std::vector<AST>);
 
 /**
  */
-ReQL_ast insert_at(std::vector<ReQL_ast>);
+AST insert_at(std::vector<AST>);
 
 /**
  */
-ReQL_ast intersects(std::vector<ReQL_ast>);
+AST intersects(std::vector<AST>);
 
 /**
  */
-ReQL_ast in_timezone(std::vector<ReQL_ast>);
+AST in_timezone(std::vector<AST>);
 
 /**
  */
-ReQL_ast iso8601(std::vector<ReQL_ast>, std::map<std::string, ReQL_ast>);
-ReQL_ast iso8601(std::vector<ReQL_ast>);
+AST iso8601(std::vector<AST>, std::map<std::string, AST>);
+AST iso8601(std::vector<AST>);
 
 /**
  */
-ReQL_ast is_empty(std::vector<ReQL_ast>);
+AST is_empty(std::vector<AST>);
 
 /**
  */
-ReQL_ast january(std::vector<ReQL_ast>);
+AST january(std::vector<AST>);
 
 /**
  */
-ReQL_ast javascript(std::vector<ReQL_ast>, std::map<std::string, ReQL_ast>);
-ReQL_ast javascript(std::vector<ReQL_ast>);
+AST javascript(std::vector<AST>, std::map<std::string, AST>);
+AST javascript(std::vector<AST>);
 
 /**
  */
-ReQL_ast json(std::vector<ReQL_ast>);
+AST json(std::vector<AST>);
 
 /**
  */
-ReQL_ast july(std::vector<ReQL_ast>);
+AST july(std::vector<AST>);
 
 /**
  */
-ReQL_ast june(std::vector<ReQL_ast>);
+AST june(std::vector<AST>);
 
 /**
  */
-ReQL_ast keys(std::vector<ReQL_ast>);
+AST keys(std::vector<AST>);
 
 /**
  */
-ReQL_ast le(std::vector<ReQL_ast>);
+AST le(std::vector<AST>);
 
 /**
  */
-ReQL_ast limit(std::vector<ReQL_ast>);
+AST limit(std::vector<AST>);
 
 /**
  */
-ReQL_ast line(std::vector<ReQL_ast>);
+AST line(std::vector<AST>);
 
 /**
  */
-ReQL_ast literal(std::vector<ReQL_ast>);
+AST literal(std::vector<AST>);
 
 /**
  */
-ReQL_ast lt(std::vector<ReQL_ast>);
+AST lt(std::vector<AST>);
 
 /**
  */
-ReQL_ast make_array(std::vector<ReQL_ast>);
+AST make_array(std::vector<AST>);
 
 /**
  */
-ReQL_ast make_obj(std::vector<ReQL_ast>);
+AST make_obj(std::vector<AST>);
 
 /**
  */
-ReQL_ast map(std::vector<ReQL_ast>);
+AST map(std::vector<AST>);
 
 /**
  */
-ReQL_ast march(std::vector<ReQL_ast>);
+AST march(std::vector<AST>);
 
 /**
  */
-ReQL_ast match(std::vector<ReQL_ast>);
+AST match(std::vector<AST>);
 
 /**
  */
-ReQL_ast max(std::vector<ReQL_ast>);
+AST max(std::vector<AST>);
 
 /**
  */
-ReQL_ast may(std::vector<ReQL_ast>);
+AST may(std::vector<AST>);
 
 /**
  */
-ReQL_ast merge(std::vector<ReQL_ast>);
+AST merge(std::vector<AST>);
 
 /**
  */
-ReQL_ast min(std::vector<ReQL_ast>);
+AST min(std::vector<AST>);
 
 /**
  */
-ReQL_ast minutes(std::vector<ReQL_ast>);
+AST minutes(std::vector<AST>);
 
 /**
  */
-ReQL_ast mod(std::vector<ReQL_ast>);
+AST mod(std::vector<AST>);
 
 /**
  */
-ReQL_ast monday(std::vector<ReQL_ast>);
+AST monday(std::vector<AST>);
 
 /**
  */
-ReQL_ast month(std::vector<ReQL_ast>);
+AST month(std::vector<AST>);
 
 /**
  */
-ReQL_ast mul(std::vector<ReQL_ast>);
+AST mul(std::vector<AST>);
 
 /**
  */
-ReQL_ast ne(std::vector<ReQL_ast>);
+AST ne(std::vector<AST>);
 
 /**
  */
-ReQL_ast not_(std::vector<ReQL_ast>);
+AST not_(std::vector<AST>);
 
 /**
  */
-ReQL_ast november(std::vector<ReQL_ast>);
+AST november(std::vector<AST>);
 
 /**
  */
-ReQL_ast now(std::vector<ReQL_ast>);
+AST now(std::vector<AST>);
 
 /**
  */
-ReQL_ast nth(std::vector<ReQL_ast>);
+AST nth(std::vector<AST>);
 
 /**
  */
-ReQL_ast object(std::vector<ReQL_ast>);
+AST object(std::vector<AST>);
 
 /**
  */
-ReQL_ast october(std::vector<ReQL_ast>);
+AST october(std::vector<AST>);
 
 /**
  */
-ReQL_ast order_by(std::vector<ReQL_ast>, std::map<std::string, ReQL_ast>);
-ReQL_ast order_by(std::vector<ReQL_ast>);
+AST order_by(std::vector<AST>, std::map<std::string, AST>);
+AST order_by(std::vector<AST>);
 
 /**
  */
-ReQL_ast outer_join(std::vector<ReQL_ast>);
+AST outer_join(std::vector<AST>);
 
 /**
  */
-ReQL_ast pluck(std::vector<ReQL_ast>);
+AST pluck(std::vector<AST>);
 
 /**
  */
-ReQL_ast point(std::vector<ReQL_ast>);
+AST point(std::vector<AST>);
 
 /**
  */
-ReQL_ast polygon(std::vector<ReQL_ast>);
+AST polygon(std::vector<AST>);
 
 /**
  */
-ReQL_ast polygon_sub(std::vector<ReQL_ast>);
+AST polygon_sub(std::vector<AST>);
 
 /**
  */
-ReQL_ast prepend(std::vector<ReQL_ast>);
+AST prepend(std::vector<AST>);
 
 /**
  */
-ReQL_ast random(std::vector<ReQL_ast>, std::map<std::string, ReQL_ast>);
-ReQL_ast random(std::vector<ReQL_ast>);
+AST random(std::vector<AST>, std::map<std::string, AST>);
+AST random(std::vector<AST>);
 
 /**
  */
-ReQL_ast range(std::vector<ReQL_ast>);
+AST range(std::vector<AST>);
 
 /**
  */
-ReQL_ast rebalance(std::vector<ReQL_ast>);
+AST rebalance(std::vector<AST>);
 
 /**
  */
-ReQL_ast reconfigure(std::vector<ReQL_ast>);
+AST reconfigure(std::vector<AST>);
 
 /**
  */
-ReQL_ast reduce(std::vector<ReQL_ast>);
+AST reduce(std::vector<AST>);
 
 /**
  */
-ReQL_ast replace(std::vector<ReQL_ast>, std::map<std::string, ReQL_ast>);
-ReQL_ast replace(std::vector<ReQL_ast>);
+AST replace(std::vector<AST>, std::map<std::string, AST>);
+AST replace(std::vector<AST>);
 
 /**
  */
-ReQL_ast sample(std::vector<ReQL_ast>);
+AST sample(std::vector<AST>);
 
 /**
  */
-ReQL_ast saturday(std::vector<ReQL_ast>);
+AST saturday(std::vector<AST>);
 
 /**
  */
-ReQL_ast seconds(std::vector<ReQL_ast>);
+AST seconds(std::vector<AST>);
 
 /**
  */
-ReQL_ast september(std::vector<ReQL_ast>);
+AST september(std::vector<AST>);
 
 /**
  */
-ReQL_ast set_difference(std::vector<ReQL_ast>);
+AST set_difference(std::vector<AST>);
 
 /**
  */
-ReQL_ast set_insert(std::vector<ReQL_ast>);
+AST set_insert(std::vector<AST>);
 
 /**
  */
-ReQL_ast set_intersection(std::vector<ReQL_ast>);
+AST set_intersection(std::vector<AST>);
 
 /**
  */
-ReQL_ast set_union(std::vector<ReQL_ast>);
+AST set_union(std::vector<AST>);
 
 /**
  */
-ReQL_ast skip(std::vector<ReQL_ast>);
+AST skip(std::vector<AST>);
 
 /**
  */
-ReQL_ast slice(std::vector<ReQL_ast>, std::map<std::string, ReQL_ast>);
-ReQL_ast slice(std::vector<ReQL_ast>);
+AST slice(std::vector<AST>, std::map<std::string, AST>);
+AST slice(std::vector<AST>);
 
 /**
  */
-ReQL_ast splice_at(std::vector<ReQL_ast>);
+AST splice_at(std::vector<AST>);
 
 /**
  */
-ReQL_ast split(std::vector<ReQL_ast>);
+AST split(std::vector<AST>);
 
 /**
  */
-ReQL_ast sub(std::vector<ReQL_ast>);
+AST sub(std::vector<AST>);
 
 /**
  */
-ReQL_ast sum(std::vector<ReQL_ast>);
+AST sum(std::vector<AST>);
 
 /**
  */
-ReQL_ast sunday(std::vector<ReQL_ast>);
+AST sunday(std::vector<AST>);
 
 /**
  */
-ReQL_ast sync(std::vector<ReQL_ast>);
+AST sync(std::vector<AST>);
 
 /**
  */
-ReQL_ast table(std::vector<ReQL_ast>, std::map<std::string, ReQL_ast>);
-ReQL_ast table(std::vector<ReQL_ast>);
+AST table(std::vector<AST>, std::map<std::string, AST>);
+AST table(std::vector<AST>);
 
 /**
  */
-ReQL_ast table_config(std::vector<ReQL_ast>);
+AST table_config(std::vector<AST>);
 
 /**
  */
-ReQL_ast table_create(std::vector<ReQL_ast>, std::map<std::string, ReQL_ast>);
-ReQL_ast table_create(std::vector<ReQL_ast>);
+AST table_create(std::vector<AST>, std::map<std::string, AST>);
+AST table_create(std::vector<AST>);
 
 /**
  */
-ReQL_ast table_drop(std::vector<ReQL_ast>);
+AST table_drop(std::vector<AST>);
 
 /**
  */
-ReQL_ast table_list(std::vector<ReQL_ast>);
+AST table_list(std::vector<AST>);
 
 /**
  */
-ReQL_ast table_status(std::vector<ReQL_ast>);
+AST table_status(std::vector<AST>);
 
 /**
  */
-ReQL_ast table_wait(std::vector<ReQL_ast>);
+AST table_wait(std::vector<AST>);
 
 /**
  */
-ReQL_ast thursday(std::vector<ReQL_ast>);
+AST thursday(std::vector<AST>);
 
 /**
  */
-ReQL_ast time(std::vector<ReQL_ast>);
+AST time(std::vector<AST>);
 
 /**
  */
-ReQL_ast timezone_(std::vector<ReQL_ast>);
+AST timezone_(std::vector<AST>);
 
 /**
  */
-ReQL_ast time_of_day(std::vector<ReQL_ast>);
+AST time_of_day(std::vector<AST>);
 
 /**
  */
-ReQL_ast to_epoch_time(std::vector<ReQL_ast>);
+AST to_epoch_time(std::vector<AST>);
 
 /**
  */
-ReQL_ast to_geojson(std::vector<ReQL_ast>);
+AST to_geojson(std::vector<AST>);
 
 /**
  */
-ReQL_ast to_iso8601(std::vector<ReQL_ast>);
+AST to_iso8601(std::vector<AST>);
 
 /**
  */
-ReQL_ast to_json_string(std::vector<ReQL_ast>);
+AST to_json_string(std::vector<AST>);
 
 /**
  */
-ReQL_ast tuesday(std::vector<ReQL_ast>);
+AST tuesday(std::vector<AST>);
 
 /**
  */
-ReQL_ast type_of(std::vector<ReQL_ast>);
+AST type_of(std::vector<AST>);
 
 /**
  */
-ReQL_ast ungroup(std::vector<ReQL_ast>);
+AST ungroup(std::vector<AST>);
 
 /**
  */
-ReQL_ast union_(std::vector<ReQL_ast>);
+AST union_(std::vector<AST>);
 
 /**
  */
-ReQL_ast upcase(std::vector<ReQL_ast>);
+AST upcase(std::vector<AST>);
 
 /**
  */
-ReQL_ast update(std::vector<ReQL_ast>, std::map<std::string, ReQL_ast>);
-ReQL_ast update(std::vector<ReQL_ast>);
+AST update(std::vector<AST>, std::map<std::string, AST>);
+AST update(std::vector<AST>);
 
 /**
  */
-ReQL_ast uuid(std::vector<ReQL_ast>);
+AST uuid(std::vector<AST>);
 
 /**
  */
-ReQL_ast var(std::vector<ReQL_ast>);
+AST var(std::vector<AST>);
 
 /**
  */
-ReQL_ast wednesday(std::vector<ReQL_ast>);
+AST wednesday(std::vector<AST>);
 
 /**
  */
-ReQL_ast without(std::vector<ReQL_ast>);
+AST without(std::vector<AST>);
 
 /**
  */
-ReQL_ast with_fields(std::vector<ReQL_ast>);
+AST with_fields(std::vector<AST>);
 
 /**
  */
-ReQL_ast year(std::vector<ReQL_ast>);
+AST year(std::vector<AST>);
 
 /**
  */
-ReQL_ast zip(std::vector<ReQL_ast>);
+AST zip(std::vector<AST>);
 
+}
 
 #endif

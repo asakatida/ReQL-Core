@@ -23,22 +23,28 @@ limitations under the License.
 #ifndef _REQL_HPP
 #define _REQL_HPP
 
-class ReQLConnection {
+namespace ReQL {
+
+class Connection {
 public:
-  ReQLConnection();
-  ReQLConnection(std::string);
-  ReQLConnection(std::string, std::string);
-  ReQLConnection(std::string, std::string, std::string);
+  struct _ReQL_Conn_s *conn;
+
+  Connection();
+  Connection(std::string);
+  Connection(std::string, std::string);
+  Connection(std::string, std::string, std::string);
 
   int close();
 };
 
-ReQLConnection connect();
-ReQLConnection connect(std::string);
-ReQLConnection connect(std::string, std::string);
-ReQLConnection connect(std::string, std::string, std::string);
+Connection connect();
+Connection connect(std::string);
+Connection connect(std::string, std::string);
+Connection connect(std::string, std::string, std::string);
 
-class ReQL : public ReQL_ast {
+class Query : public AST {
 };
+
+}
 
 #endif
