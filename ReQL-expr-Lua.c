@@ -419,13 +419,12 @@ void _reql_to_lua(lua_State *L, _ReQL_Op query) {
       break;
     }
     case _REQL_R_STR: {
-      unsigned long str_len;
-      char *str;
-      if (_reql_to_string(query, &str, &str_len)) {
+      _ReQL_C_String_t *str;
+      if (_reql_to_string(query, &str)) {
         lua_pushnil(L);
         break;
       }
-      lua_pushlstring(L, str, str_len);
+      lua_pushlstring(L, str->str, str->len);
       break;
     }
   }

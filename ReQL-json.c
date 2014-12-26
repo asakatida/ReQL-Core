@@ -45,15 +45,14 @@ int _reql_to_number(_ReQL_Op obj, double *num) {
 
 _ReQL_Op _reql_json_string(_ReQL_Op obj, char *str, unsigned long str_len) {
   char *copy = malloc(sizeof(char) * str_len);
-  copy = memcpy(copy, str, sizeof(char) * str_len);
+  copy = memcpy(copy, str, str_len);
 
   if (copy) {
     obj = _reql_json_null(obj);
 
     if (obj) {
       obj->dt = _REQL_R_STR;
-      obj->str = str;
-      obj->str_len = str_len;
+      obj->str = _reql_c_string(NULL, str, str_len);
     } else {
       free(copy);
     }
@@ -64,12 +63,11 @@ _ReQL_Op _reql_json_string(_ReQL_Op obj, char *str, unsigned long str_len) {
   return NULL;
 }
 
-int _reql_to_string(_ReQL_Op obj, char **str, unsigned long *str_len) {
+int _reql_to_string(_ReQL_Op obj, _ReQL_C_String_t **str) {
   int err = -1;
   if (obj) {
     if (obj->dt == _REQL_R_STR) {
       if (obj->str) {
-        *str_len = obj->str_len;
         *str = obj->str;
         err = 0;
       }
@@ -116,7 +114,7 @@ _ReQL_Op _reql_json_c_array(_ReQL_Op obj, unsigned long size) {
       _reql_json_null(&obj[i]);
       obj[i].tt = _REQL_DATUM;
       obj[i].dt = _REQL_C_ARRAY;
-      obj[i].str_len = size - i;
+      obj[i].num = size - i;
     }
   }
   return _reql_expr(obj);
@@ -126,7 +124,7 @@ int _reql_to_c_array(_ReQL_Op obj, unsigned long *size) {
   int err = -1;
   if (obj) {
     if (obj->dt == _REQL_C_ARRAY) {
-      *size = obj->str_len;
+      *size = obj->num;
       err = 0;
     }
   }
@@ -134,7 +132,7 @@ int _reql_to_c_array(_ReQL_Op obj, unsigned long *size) {
 }
 
 int _reql_c_array_insert(_ReQL_Op obj, _ReQL_Op val, unsigned long idx) {
-  if ((!(obj && val)) || obj->str_len <= idx) {
+  if ((!(obj && val)) || obj->num <= idx) {
     return -1;
   }
 
@@ -146,7 +144,7 @@ int _reql_c_array_insert(_ReQL_Op obj, _ReQL_Op val, unsigned long idx) {
 }
 
 _ReQL_Op _reql_c_array_index(_ReQL_Op obj, unsigned long idx) {
-  if ((!obj) || obj->str_len <= idx) {
+  if ((!obj) || obj->num <= idx) {
     return NULL;
   }
   return obj[idx].val;
@@ -342,14 +340,13 @@ int _reql_op_eq(_ReQL_Op l, _ReQL_Op r) {
             break;
           }
           case _REQL_R_STR: {
-            char *rstr;
-            char *lstr;
-            unsigned long lstr_len, rstr_len;
-            if (_reql_to_string(l, &lstr, &lstr_len) || _reql_to_string(r, &rstr, &rstr_len)) {
+            _ReQL_C_String_t *rstr;
+            _ReQL_C_String_t *lstr;
+            if (_reql_to_string(l, &lstr) || _reql_to_string(r, &rstr)) {
               break;
             }
-            if (lstr_len == rstr_len) {
-              res = !memcmp(rstr, lstr, lstr_len);
+            if (lstr->len == rstr->len) {
+              res = !memcmp(lstr->str, rstr->str, lstr->len);
             }
             break;
           }
@@ -430,7 +427,7 @@ _ReQL_Op _reql_json_null(_ReQL_Op obj) {
     obj->dt = _REQL_R_NULL;
     obj->args = obj->kwargs = obj->key = obj->val = NULL;
     obj->next = obj->prev = obj;
-    obj->str_len = obj->num = 0.0;
+    obj->num = 0.0;
     obj->str = NULL;
   }
   return obj;
@@ -450,7 +447,7 @@ _ReQL_Op _reql_json_bool(_ReQL_Op obj, int val) {
   obj = _reql_json_null(obj);
   if (obj) {
     obj->dt = _REQL_R_BOOL;
-    obj->str_len = (unsigned long)val;
+    obj->num = val;
   }
   return obj;
 }
@@ -458,7 +455,7 @@ _ReQL_Op _reql_json_bool(_ReQL_Op obj, int val) {
 int _reql_to_bool(_ReQL_Op obj, int *val) {
   if (obj) {
     if (obj->dt == _REQL_R_BOOL) {
-      *val = (int)obj->str_len;
+      *val = obj->num;
       return 0;
     }
   }
@@ -534,12 +531,11 @@ _ReQL_Op _reql_expr_copy(_ReQL_Op obj) {
       break;
     }
     case _REQL_R_STR: {
-      char *str;
-      unsigned long str_len;
-      if (_reql_to_string(obj, &str, &str_len)) {
+      _ReQL_C_String_t *str;
+      if (_reql_to_string(obj, &str)) {
         break;
       }
-      res = _reql_json_string(NULL, str, str_len);
+      res = _reql_json_string(NULL, str->str, str->len);
       break;
     }
   }
@@ -907,21 +903,24 @@ int _reql_json_decode(_ReQL_Op *val, unsigned long json_len, char *json) {
   return -1;
 }
 
-struct _ReQL_C_String_s {
-  unsigned long len;
-  unsigned long alloc_len;
-  char *str;
-};
-typedef struct _ReQL_C_String_s _ReQL_C_String_t;
-
-_ReQL_C_String_t *_reql_c_string() {
-  _ReQL_C_String_t *str = malloc(sizeof(_ReQL_C_String_t));
+_ReQL_C_String_t *_reql_c_string(_ReQL_C_String_t *str, char *buf, unsigned long len) {
+  if (!str) {
+    str = malloc(sizeof(_ReQL_C_String_t));
+  }
   if (str) {
-    str->len = 0;
-    str->alloc_len = 100;
+    str->len = len;
+    str->alloc_len = len;
+    if (!str->alloc_len) {
+      str->alloc_len = 100;
+    }
     str->str = malloc(sizeof(char) * str->alloc_len);
     if (!str->str) {
-      free(str); str = NULL;
+      str = NULL;
+    }
+    if (buf) {
+      if (_reql_c_string_append(str, buf, len)) {
+        str = NULL;
+      }
     }
   }
   return str;
@@ -946,6 +945,19 @@ int _reql_c_string_append(_ReQL_C_String_t *orig, char *ext, unsigned long ext_l
   orig->len += ext_len;
 
   return 0;
+}
+
+void _reql_c_string_free(_ReQL_C_String_t *str) {
+  if (!str) {
+    return;
+  }
+
+  if (str->str) {
+    free(str->str); str->str = NULL;
+  }
+
+  str->alloc_len = 0;
+  str->len = 0;
 }
 
 int _reql_c_string_append_(_ReQL_C_String_t *orig, char ext) {
@@ -1084,12 +1096,11 @@ int _reql_json_encode_(_ReQL_Op obj, _ReQL_C_String_t *json) {
       if (_reql_c_string_append_(json, '"')) {
         break;
       }
-      char *str;
-      unsigned long str_len;
-      if (_reql_to_string(obj, &str, &str_len)) {
+      _ReQL_C_String_t *str;
+      if (_reql_to_string(obj, &str)) {
         break;
       }
-      if (_reql_c_string_append(json, str, str_len)) {
+      if (_reql_c_string_append(json, str->str, str->len)) {
         break;
       }
       if (_reql_c_string_append_(json, '"')) {
@@ -1103,16 +1114,13 @@ int _reql_json_encode_(_ReQL_Op obj, _ReQL_C_String_t *json) {
   return err;
 }
 
-int _reql_json_encode(_ReQL_Op val, char **json) {
-  _ReQL_C_String_t *_json = _reql_c_string();
+_ReQL_C_String_t *_reql_json_encode(_ReQL_Op val) {
+  _ReQL_C_String_t *json = _reql_c_string(NULL, NULL, 0);
 
-  if (_reql_json_encode_(val, _json)) {
-    free(_json->str); _json->str = NULL;
-    free(_json); _json = NULL;
-    return -1;
+  if (_reql_json_encode_(val, json)) {
+    _reql_c_string_free(json);
+    return NULL;
   }
 
-  *json = malloc(_json->len);
-  *json = memcpy(*json, _json->str, sizeof(char) * _json->len);
-  return 0;
+  return json;
 }

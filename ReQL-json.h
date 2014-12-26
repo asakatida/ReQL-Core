@@ -205,12 +205,18 @@ typedef enum {
   _REQL_ZIP = 72
 } _ReQL_Term_t;
 
+struct _ReQL_C_String_s {
+  unsigned long len;
+  unsigned long alloc_len;
+  char *str;
+};
+typedef struct _ReQL_C_String_s _ReQL_C_String_t;
+
 struct _ReQL_Op_s {
   _ReQL_Term_t tt;
   _ReQL_Datum_t dt;
 
-  unsigned long str_len;
-  char *str;
+  _ReQL_C_String_t *str;
 
   double num;
 
@@ -234,7 +240,7 @@ _ReQL_Op _reql_json_number(_ReQL_Op obj, double val);
 int _reql_to_number(_ReQL_Op obj, double *val);
 
 _ReQL_Op _reql_json_string(_ReQL_Op obj, char *val, unsigned long str_len);
-int _reql_to_string(_ReQL_Op obj, char **val, unsigned long *str_len);
+int _reql_to_string(_ReQL_Op obj, _ReQL_C_String_t **str);
 
 _ReQL_Op _reql_json_c_array(_ReQL_Op obj, unsigned long size);
 int _reql_to_c_array(_ReQL_Op obj, unsigned long *size);
@@ -258,7 +264,11 @@ int _reql_op_eq(_ReQL_Op l, _ReQL_Op r);
 void _reql_expr_free(_ReQL_Op obj);
 _ReQL_Op _reql_expr_copy(_ReQL_Op obj);
 
+_ReQL_C_String_t *_reql_c_string(_ReQL_C_String_t *str, char *buf, unsigned long len);
+int _reql_c_string_append(_ReQL_C_String_t *orig, char *ext, unsigned long ext_len);
+void _reql_c_string_free(_ReQL_C_String_t *str);
+
 int _reql_json_decode(_ReQL_Op *val, unsigned long json_len, char *json);
-int _reql_json_encode(_ReQL_Op val, char **json);
+_ReQL_C_String_t *_reql_json_encode(_ReQL_Op val);
 
 #endif
