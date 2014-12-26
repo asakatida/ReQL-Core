@@ -395,7 +395,7 @@ void _reql_to_lua(lua_State *L, _ReQL_Op query) {
         lua_pushnil(L);
         break;
       }
-      lua_pushnumber(L, query->num);
+      lua_pushnumber(L, value);
       break;
     }
     case _REQL_R_OBJECT: {
