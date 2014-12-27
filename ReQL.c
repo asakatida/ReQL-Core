@@ -26,6 +26,7 @@ limitations under the License.
 #include <string.h>
 #include <sys/select.h>
 #include <sys/uio.h>
+#include <pthread.h>
 #include <unistd.h>
 
 static const unsigned int _REQL_VERSION = 0x5f75e83e;
@@ -93,6 +94,40 @@ int _reql_conn_set_timeout(_ReQL_Conn_t *conn, unsigned long timeout) {
   conn->timeout->tv_sec = timeout;
 
   return 0;
+}
+
+void *_reql_conn_loop(void *_conn) {
+  _ReQL_Conn_t *conn = _conn;
+  char msg_header[12];
+  char *response = NULL;
+  unsigned int token = 0;
+  long pos = 0, msg_len = 0;
+
+  while (conn->socket > 0) {
+    if (response) {
+      pos += recvfrom(conn->socket, &response[pos], msg_len, MSG_WAITALL, NULL, NULL);
+      if (pos == msg_len) {
+        pos = 0;
+        free(response); response = NULL;
+      }
+    } else {
+      pos += recvfrom(conn->socket, &msg_header[pos], 12, MSG_WAITALL, NULL, NULL);
+      if (pos == 12) {
+        pos = 0;
+        for (unsigned char i=0; i<8; ++i) {
+          token = (((((((msg_header[0] << 8) | msg_header[1] << 8) | msg_header[2] << 8) | msg_header[3] << 8) | msg_header[4] << 8) | msg_header[5] << 8) | msg_header[6] << 8) | msg_header[7];
+        }
+
+        msg_len = ntohl((((msg_header[11] << 8) | msg_header[10] << 8) | msg_header[9] << 8) | msg_header[8]);
+        response = malloc(sizeof(char) * msg_len);
+        if (!response) {
+          return NULL;
+        }
+      }
+    }
+  }
+  
+  return NULL;
 }
 
 int _reql_connect(_ReQL_Conn_t *conn, char **buf) {
@@ -179,8 +214,17 @@ int _reql_connect(_ReQL_Conn_t *conn, char **buf) {
   recvfrom(conn->socket, buf, 500, MSG_WAITALL, NULL, NULL);
 
   if (strcmp(*buf, "SUCCESS")) {
+    conn->error = -1 | _reql_close_conn(conn);
+  }
+
+  pthread_t thread;
+
+  if (pthread_create(&thread, NULL, _reql_conn_loop, conn)) {
     conn->error = -1;
-    close(conn->socket);
+  }
+
+  if (pthread_detach(thread)) {
+    conn->error = -1;
   }
 
   return conn->error;
