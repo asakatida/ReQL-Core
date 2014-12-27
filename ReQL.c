@@ -211,7 +211,7 @@ int _reql_connect(_ReQL_Conn_t *conn, char **buf) {
     return conn->error;
   }
 
-  recvfrom(conn->socket, buf, 500, MSG_WAITALL, NULL, NULL);
+  recvfrom(conn->socket, *buf, 500, MSG_WAITALL, NULL, NULL);
 
   if (strcmp(*buf, "SUCCESS")) {
     conn->error = -1 | _reql_close_conn(conn);
