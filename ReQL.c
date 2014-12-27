@@ -147,7 +147,7 @@ void *_reql_conn_loop(void *_conn) {
       }
     }
   }
-  
+
   return NULL;
 }
 
