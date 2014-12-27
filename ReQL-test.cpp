@@ -3,6 +3,8 @@
 
 #include "ReQL-CPP.hpp"
 
+using namespace ReQL;
+
 int testCONNECT(int argc, char **argv) {
   return 0;
 }
