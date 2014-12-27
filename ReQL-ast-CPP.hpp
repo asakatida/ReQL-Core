@@ -28,6 +28,13 @@ namespace ReQL {
 class AST : public Expr {
 public:
 
+  AST() : Expr() {};
+  explicit AST(std::string val) : Expr(val) {};
+  explicit AST(double val) : Expr(val) {};
+  explicit AST(bool val) : Expr(val) {};
+  explicit AST(std::vector<Expr> val) : Expr(val) {};
+  explicit AST(std::map<std::string, Expr> val) : Expr(val) {};
+
   /**
    */
   AST add(std::vector<AST>);

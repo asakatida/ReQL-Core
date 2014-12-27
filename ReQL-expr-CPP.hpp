@@ -32,11 +32,11 @@ public:
   struct _ReQL_Op_s *query;
 
   Expr();
-  Expr(std::string);
-  Expr(double);
-  Expr(bool);
-  Expr(std::vector<Expr>);
-  Expr(std::map<std::string, Expr>);
+  explicit Expr(std::string);
+  explicit Expr(double);
+  explicit Expr(bool);
+  explicit Expr(std::vector<Expr>);
+  explicit Expr(std::map<std::string, Expr>);
 };
 
 Expr expr();

@@ -43,6 +43,13 @@ Connection connect(std::string, std::string);
 Connection connect(std::string, std::string, std::string);
 
 class Query : public AST {
+public:
+  Query() : AST() {};
+  explicit Query(std::string val) : AST(val) {};
+  explicit Query(double val) : AST(val) {};
+  explicit Query(bool val) : AST(val) {};
+  explicit Query(std::vector<Expr> val) : AST(val) {};
+  explicit Query(std::map<std::string, Expr> val) : AST(val) {};
 };
 
 }
