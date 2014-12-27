@@ -135,7 +135,8 @@ void *_reql_conn_loop(void *_conn) {
       pos += recvfrom(conn->socket, &msg_header[pos], 12, MSG_WAITALL, NULL, NULL);
       if (pos == 12) {
         pos = 0;
-        for (unsigned char i=0; i<8; ++i) {
+        unsigned char i;
+        for (i=0; i<8; ++i) {
           token = (((((((msg_header[0] << 8) | msg_header[1] << 8) | msg_header[2] << 8) | msg_header[3] << 8) | msg_header[4] << 8) | msg_header[5] << 8) | msg_header[6] << 8) | msg_header[7];
         }
 
