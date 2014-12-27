@@ -96,6 +96,25 @@ int _reql_conn_set_timeout(_ReQL_Conn_t *conn, unsigned long timeout) {
   return 0;
 }
 
+void _reql_set_cur_res(_ReQL_Conn_t *conn, _ReQL_Op res, unsigned int token) {
+  _ReQL_Cur_t *cur = conn->cursors;
+
+  if (cur->token == token) {
+    cur->response = res;
+    return;
+  }
+
+  while (cur->next != cur) {
+    cur = cur->next;
+    if (cur->token == token) {
+      cur->response = res;
+      return;
+    }
+  }
+
+  conn->error = -1;
+}
+
 void *_reql_conn_loop(void *_conn) {
   _ReQL_Conn_t *conn = _conn;
   char msg_header[12];
@@ -107,6 +126,8 @@ void *_reql_conn_loop(void *_conn) {
     if (response) {
       pos += recvfrom(conn->socket, &response[pos], msg_len, MSG_WAITALL, NULL, NULL);
       if (pos == msg_len) {
+        _ReQL_C_String_t *json = _reql_c_string(NULL, response, msg_len);
+        _reql_set_cur_res(conn, _reql_json_decode(json), token);
         pos = 0;
         free(response); response = NULL;
       }
