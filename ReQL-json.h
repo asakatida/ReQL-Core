@@ -268,7 +268,7 @@ _ReQL_C_String_t *_reql_c_string(_ReQL_C_String_t *str, char *buf, unsigned long
 int _reql_c_string_append(_ReQL_C_String_t *orig, char *ext, unsigned long ext_len);
 void _reql_c_string_free(_ReQL_C_String_t *str);
 
-int _reql_json_decode(_ReQL_Op *val, unsigned long json_len, char *json);
+_ReQL_Op _reql_json_decode(_ReQL_C_String_t *json);
 _ReQL_C_String_t *_reql_json_encode(_ReQL_Op val);
 
 #endif

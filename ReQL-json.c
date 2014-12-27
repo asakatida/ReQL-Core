@@ -666,10 +666,8 @@ _ReQL_Op _reql_string_decode(unsigned long json_len, char *json) {
     }
     utf8_str[j++] = res;
   }
-  if (j != json_len) {
-    utf8_str = realloc(utf8_str, j);
-  }
   _ReQL_Op str = _reql_json_string(NULL, utf8_str, j);
+  free(utf8_str);
   return str;
 }
 
@@ -712,14 +710,14 @@ int _reql_number_decode(unsigned long json_len, char *json, double *val) {
   return 0;
 }
 
-_ReQL_Op _reql_json_decode_(_ReQL_Op stack, unsigned long json_len, char *json) {
+_ReQL_Op _reql_json_decode_(_ReQL_Op stack, _ReQL_C_String_t *json) {
   _ReQL_Datum_t state = _REQL_R_JSON;
   char esc = 0;
   unsigned long i, str_start = 0;
-  for (i=0; i<json_len; ++i) {
+  for (i=0; i<json->len; ++i) {
     switch (state) {
       case _REQL_R_ARRAY: {
-        switch (json[i]) {
+        switch (json->str[i]) {
           case ',': {
             state = _REQL_R_JSON;
             break;
@@ -735,7 +733,7 @@ _ReQL_Op _reql_json_decode_(_ReQL_Op stack, unsigned long json_len, char *json) 
         break;
       }
       case _REQL_R_JSON: {
-        switch (json[i]) {
+        switch (json->str[i]) {
           case '\t':
           case '\n':
           case '\r':
@@ -773,21 +771,21 @@ _ReQL_Op _reql_json_decode_(_ReQL_Op stack, unsigned long json_len, char *json) 
             break;
           }
           case 't': {
-            if (strncmp(json + i * sizeof(char), "true", 4)) {
+            if (strncmp(&json->str[i], "true", 4)) {
               state = _reql_merge_stack_val(stack, _reql_json_bool(NULL, 1));
               i += 4;
               break;
             }
           }
           case 'f': {
-            if (strncmp(json + i * sizeof(char), "false", 5)) {
+            if (strncmp(&json->str[i], "false", 5)) {
               state = _reql_merge_stack_val(stack, _reql_json_bool(NULL, 0));
               i += 5;
               break;
             }
           }
           case 'n': {
-            if (strncmp(json + i * sizeof(char), "null", 4)) {
+            if (strncmp(&json->str[i], "null", 4)) {
               state = _reql_merge_stack_val(stack, _reql_json_null(NULL));
               i += 4;
               break;
@@ -800,7 +798,7 @@ _ReQL_Op _reql_json_decode_(_ReQL_Op stack, unsigned long json_len, char *json) 
         break;
       }
       case _REQL_R_NUM: {
-        switch (json[i]) {
+        switch (json->str[i]) {
           case '-':
           case '.':
           case '+':
@@ -820,7 +818,7 @@ _ReQL_Op _reql_json_decode_(_ReQL_Op stack, unsigned long json_len, char *json) 
           }
           default: {
             double num;
-            if (_reql_number_decode(i - str_start - 1, json + str_start * sizeof(char), &num)) {
+            if (_reql_number_decode(i - str_start - 1, &json->str[str_start], &num)) {
               return NULL;
             }
             state = _reql_merge_stack_val(stack, _reql_json_number(NULL, num));
@@ -830,7 +828,7 @@ _ReQL_Op _reql_json_decode_(_ReQL_Op stack, unsigned long json_len, char *json) 
         break;
       }
       case _REQL_R_OBJECT: {
-        switch (json[i]) {
+        switch (json->str[i]) {
           case ',':
           case ':': {
             state = _REQL_R_JSON;
@@ -847,14 +845,14 @@ _ReQL_Op _reql_json_decode_(_ReQL_Op stack, unsigned long json_len, char *json) 
         break;
       }
       case _REQL_R_STR: {
-        switch (json[i]) {
+        switch (json->str[i]) {
           case '\\': {
             esc = 1;
             break;
           }
           case '"': {
             if (!esc) {
-              _ReQL_Op str = _reql_string_decode(i - str_start - 1, json + str_start * sizeof(char));
+              _ReQL_Op str = _reql_string_decode(i - str_start - 1, &json->str[str_start]);
               if (!str) {
                 return NULL;
               }
@@ -891,16 +889,12 @@ _ReQL_Op _reql_json_decode_(_ReQL_Op stack, unsigned long json_len, char *json) 
   return res;
 }
 
-int _reql_json_decode(_ReQL_Op *val, unsigned long json_len, char *json) {
+_ReQL_Op _reql_json_decode(_ReQL_C_String_t *json) {
   _ReQL_Op stack = _reql_json_array(NULL);
-  *val = _reql_json_decode_(stack, json_len, json);
+  _ReQL_Op val = _reql_json_decode_(stack, json);
   _reql_expr_free(stack);
 
-  if (*val) {
-    return 0;
-  }
-
-  return -1;
+  return val;
 }
 
 _ReQL_C_String_t *_reql_c_string(_ReQL_C_String_t *str, char *buf, unsigned long len) {
