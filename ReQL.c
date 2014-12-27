@@ -245,7 +245,8 @@ int _reql_close_conn(_ReQL_Conn_t *conn) {
   conn->max_token = 0;
   _reql_free_cur(conn->cursors);
   conn->cursors = _reql_new_cursor();
-  return conn->error = close(conn->socket);
+  conn->error = close(conn->socket); conn->socket = -1;
+  return conn->error;
 }
 
 void _reql_free_conn(_ReQL_Conn_t *conn) {
