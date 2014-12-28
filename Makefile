@@ -11,7 +11,7 @@ OBJS = ReQL-CPP.o \
 			 ReQL-expr.o \
 			 ReQL-json.o
 
-LDFLAGS += -shared
+LDFLAGS += -pthread -shared
 CXXFLAGS += -std=c++11 -fPIC
 CCFLAGS += -fPIC
 
