@@ -27,8 +27,8 @@ limitations under the License.
 using namespace ReQL;
 
 Connection::Connection() {
-  conn = (struct _ReQL_Conn_s *)new _ReQL_Conn_t();
-  conn = (struct _ReQL_Conn_s *)_reql_new_connection((_ReQL_Conn_t *)conn);
+  conn = new _ReQL_Conn_t();
+  conn = _reql_new_connection(conn);
 
   if (!conn) {
     return;
@@ -36,15 +36,15 @@ Connection::Connection() {
 
   char *buf;
 
-  if (_reql_connect((_ReQL_Conn_t *)conn, &buf)) {
+  if (_reql_connect(conn, &buf)) {
   }
 
   free(buf);
 }
 
 Connection::Connection(std::string host) {
-  conn = (struct _ReQL_Conn_s *)new _ReQL_Conn_t();
-  conn = (struct _ReQL_Conn_s *)_reql_new_connection((_ReQL_Conn_t *)conn);
+  conn = new _ReQL_Conn_t();
+  conn = _reql_new_connection(conn);
 
   if (!conn) {
     return;
@@ -52,15 +52,15 @@ Connection::Connection(std::string host) {
 
   char *buf;
 
-  if (_reql_connect((_ReQL_Conn_t *)conn, &buf)) {
+  if (_reql_connect(conn, &buf)) {
   }
 
   free(buf);
 }
 
 Connection::Connection(std::string host, std::string port) {
-  conn = (struct _ReQL_Conn_s *)new _ReQL_Conn_t();
-  conn = (struct _ReQL_Conn_s *)_reql_new_connection((_ReQL_Conn_t *)conn);
+  conn = new _ReQL_Conn_t();
+  conn = _reql_new_connection(conn);
 
   if (!conn) {
     return;
@@ -68,15 +68,15 @@ Connection::Connection(std::string host, std::string port) {
 
   char *buf;
 
-  if (_reql_connect((_ReQL_Conn_t *)conn, &buf)) {
+  if (_reql_connect(conn, &buf)) {
   }
 
   free(buf);
 }
 
 Connection::Connection(std::string host, std::string port, std::string key) {
-  conn = (struct _ReQL_Conn_s *)new _ReQL_Conn_t();
-  conn = (struct _ReQL_Conn_s *)_reql_new_connection((_ReQL_Conn_t *)conn);
+  conn = new _ReQL_Conn_t();
+  conn = _reql_new_connection(conn);
 
   if (!conn) {
     return;
@@ -84,7 +84,7 @@ Connection::Connection(std::string host, std::string port, std::string key) {
 
   char *buf;
 
-  if (_reql_connect((_ReQL_Conn_t *)conn, &buf)) {
+  if (_reql_connect(conn, &buf)) {
   }
 
   free(buf);

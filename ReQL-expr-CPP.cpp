@@ -26,29 +26,29 @@ limitations under the License.
 using namespace ReQL;
 
 Expr::Expr() {
-  query = (struct _ReQL_Op_s *)_reql_expr_null();
+  query = _reql_expr_null();
 }
 
 Expr::Expr(std::string val) {
-  query = (struct _ReQL_Op_s *)_reql_expr_string((char *)val.c_str(), val.size());
+  query = _reql_expr_string((char *)val.c_str(), val.size());
 }
 
 Expr::Expr(double val) {
-  query = (struct _ReQL_Op_s *)_reql_expr_number(val);
+  query = _reql_expr_number(val);
 }
 
 Expr::Expr(bool val) {
-  query = (struct _ReQL_Op_s *)_reql_expr_bool(val);
+  query = _reql_expr_bool(val);
 }
 
 Expr::Expr(std::vector<Query> val) {
   _ReQL_Op obj = _reql_json_array(NULL);
 
   for (auto iter=val.cbegin(); iter!=val.cend(); ++iter) {
-    _reql_array_append(obj, _reql_expr_copy((_ReQL_Op)iter->query));
+    _reql_array_append(obj, _reql_expr_copy(iter->query));
   }
 
-  query = (struct _ReQL_Op_s *)_reql_expr(obj);
+  query = _reql_expr(obj);
 }
 
 Expr::Expr(std::map<std::string, Query> val) {
@@ -57,10 +57,10 @@ Expr::Expr(std::map<std::string, Query> val) {
   for (auto iter=val.cbegin(); iter!=val.cend(); ++iter) {
     std::string key_str = iter->first;
     _ReQL_Op key = _reql_json_string(NULL, (char *)key_str.c_str(), key_str.size());
-    _reql_object_add(obj, key, _reql_expr_copy((_ReQL_Op)iter->second.query));
+    _reql_object_add(obj, key, _reql_expr_copy(iter->second.query));
   }
 
-  query = (struct _ReQL_Op_s *)_reql_expr(obj);
+  query = _reql_expr(obj);
 }
 
 Expr expr() {

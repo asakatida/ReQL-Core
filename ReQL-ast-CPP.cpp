@@ -30,7 +30,7 @@ using namespace ReQL;
 AST init(_ReQL_AST_Function_ f, std::vector<Query> args, std::map<std::string, Query> kwargs) {
   AST term;
 
-  term.query = (struct _ReQL_Op_s *)new _ReQL_Op_t();
+  term.query = new _ReQL_Op_t();
 
   _ReQL_Op _args = _reql_json_array(new _ReQL_Op_t());
 
@@ -44,7 +44,7 @@ AST init(_ReQL_AST_Function_ f, std::vector<Query> args, std::map<std::string, Q
     _reql_object_add(_kwargs, (_ReQL_Op)expr(it->first).query, (_ReQL_Op)it->second.query);
   }
 
-  term.query = (struct _ReQL_Op_s *)f((_ReQL_Op)term.query, _args, _kwargs);
+  term.query = f((_ReQL_Op)term.query, _args, _kwargs);
 
   return term;
 }
