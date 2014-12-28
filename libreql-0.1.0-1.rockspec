@@ -14,6 +14,7 @@ build = {
   type = 'builtin',
   modules = {
     libReQL = {
+      libraries = {'pthread'},
       sources = {
         'ReQL-ast-Lua.c',
         'ReQL-ast.c',
