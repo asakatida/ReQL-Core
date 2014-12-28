@@ -50,21 +50,7 @@ Connection::Connection(std::string host) {
     return;
   }
 
-  char *buf;
-
-  if (_reql_connect(conn, &buf)) {
-  }
-
-  free(buf);
-}
-
-Connection::Connection(std::string host, std::string port) {
-  conn = new _ReQL_Conn_t();
-  conn = _reql_new_connection(conn);
-
-  if (!conn) {
-    return;
-  }
+  _reql_conn_set_addr(conn, (char *)host.c_str());
 
   char *buf;
 
@@ -74,13 +60,45 @@ Connection::Connection(std::string host, std::string port) {
   free(buf);
 }
 
-Connection::Connection(std::string host, std::string port, std::string key) {
+Connection::Connection(std::string host, unsigned int port) {
   conn = new _ReQL_Conn_t();
   conn = _reql_new_connection(conn);
 
   if (!conn) {
     return;
   }
+
+  std::string _port = std::to_string(port);
+
+  _reql_conn_set_addr(conn, (char *)host.c_str());
+  _reql_conn_set_port(conn, (char *)_port.c_str());
+
+  char *buf;
+
+  if (_reql_connect(conn, &buf)) {
+  }
+
+  free(buf);
+}
+
+Connection::Connection(std::string host, unsigned int port, std::string key) {
+  conn = new _ReQL_Conn_t();
+  conn = _reql_new_connection(conn);
+
+  if (!conn) {
+    return;
+  }
+
+  if (key.size() > UINT_MAX) {
+  }
+
+  unsigned int key_len = (unsigned int)key.size();
+
+  std::string _port = std::to_string(port);
+
+  _reql_conn_set_addr(conn, (char *)host.c_str());
+  _reql_conn_set_port(conn, (char *)_port.c_str());
+  _reql_conn_set_auth(conn, key_len, (char *)key.c_str());
 
   char *buf;
 
@@ -98,10 +116,10 @@ Connection connect(std::string host) {
   return Connection(host);
 }
 
-Connection connect(std::string host, std::string port) {
+Connection connect(std::string host, unsigned int port) {
   return Connection(host, port);
 }
 
-Connection connect(std::string host, std::string port, std::string key) {
+Connection connect(std::string host, unsigned int port, std::string key) {
   return Connection(host, port, key);
 }
