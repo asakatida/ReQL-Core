@@ -39,6 +39,8 @@ public:
   explicit Expr(bool);
   explicit Expr(std::vector<Query>);
   explicit Expr(std::map<std::string, Query>);
+
+  ~Expr();
 };
 
 Expr expr();

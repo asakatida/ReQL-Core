@@ -63,8 +63,8 @@ Expr::Expr(std::map<std::string, Query> val) {
   query = _reql_expr(obj);
 }
 
-Expr expr() {
-  return Expr();
+Expr::~Expr() {
+  _reql_expr_free(query);
 }
 
 Expr ReQL::expr(std::string val) {
