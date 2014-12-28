@@ -19,6 +19,7 @@ build = {
         'ReQL-ast.c',
         'ReQL-expr-Lua.c',
         'ReQL-expr.c',
+        'ReQL-json.c',
         'ReQL-Lua.c',
         'ReQL.c'
       }

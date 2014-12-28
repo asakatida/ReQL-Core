@@ -83,6 +83,7 @@ def create_makefile(target, srcprefix = nil)
     'ReQL-ast.c',
     'ReQL-expr-Ruby.c',
     'ReQL-expr.c',
+    'ReQL-json.c',
     'ReQL-Ruby.c',
     'ReQL.c'
   ] ## Monkey patch
@@ -419,6 +420,7 @@ module MakeMakefile
       'ReQL-ast.c',
       'ReQL-expr-Ruby.c',
       'ReQL-expr.c',
+      'ReQL-json.c',
       'ReQL-Ruby.c',
       'ReQL.c'
     ] ## Monkey patch

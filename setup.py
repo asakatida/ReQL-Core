@@ -2,6 +2,7 @@ from setuptools import setup, Extension
 
 setup(
     ext_modules=[Extension('libReQL', [
+        'ReQL-json.c',
         'ReQL-expr.c',
         'ReQL-ast.c',
         'ReQL.c',

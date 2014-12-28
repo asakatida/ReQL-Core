@@ -6,6 +6,7 @@
         "ReQL-ast.c",
         "ReQL-expr-Node.cpp",
         "ReQL-expr.c",
+        "ReQL-json.c",
         "ReQL-Node.cpp",
         "ReQL.c"
       ],

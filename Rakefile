@@ -16,6 +16,7 @@ A Ruby driver for RethinkDB.
     'ReQL-ast.c',
     'ReQL-expr-Ruby.c',
     'ReQL-expr.c',
+    'ReQL-json.c',
     'ReQL-Ruby.c',
     'ReQL.c'
   ]
@@ -35,7 +36,7 @@ Gem::PackageTask.new(spec) do |pkg|
   pkg.need_tar = true
 end
 
-task test: %w[compile] do
+task test: %w(compile) do
 end
 
 task default: :test
