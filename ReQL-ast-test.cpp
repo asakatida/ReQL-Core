@@ -4,6 +4,6 @@
 
 using namespace ReQL;
 
-int testAST(int argc, char **argv) {
+int ReQL::testAST(int argc, char **argv) {
   return 0;
 }

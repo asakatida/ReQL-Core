@@ -20,6 +20,7 @@ limitations under the License.
 
 #include "ReQL-expr-CPP.hpp"
 
+#include "ReQL-CPP.hpp"
 #include "ReQL.hpp"
 
 using namespace ReQL;
@@ -40,7 +41,7 @@ Expr::Expr(bool val) {
   query = (struct _ReQL_Op_s *)_reql_expr_bool(val);
 }
 
-Expr::Expr(std::vector<Expr> val) {
+Expr::Expr(std::vector<Query> val) {
   _ReQL_Op obj = _reql_json_array(NULL);
 
   for (auto iter=val.cbegin(); iter!=val.cend(); ++iter) {
@@ -50,7 +51,7 @@ Expr::Expr(std::vector<Expr> val) {
   query = (struct _ReQL_Op_s *)_reql_expr(obj);
 }
 
-Expr::Expr(std::map<std::string, Expr> val) {
+Expr::Expr(std::map<std::string, Query> val) {
   _ReQL_Op obj = _reql_json_object(NULL);
 
   for (auto iter=val.cbegin(); iter!=val.cend(); ++iter) {
@@ -78,10 +79,10 @@ Expr expr(bool val) {
   return Expr(val);
 }
 
-Expr expr(std::vector<Expr> val) {
+Expr expr(std::vector<Query> val) {
   return Expr(val);
 }
 
-Expr expr(std::map<std::string, Expr> val) {
+Expr expr(std::map<std::string, Query> val) {
   return Expr(val);
 }

@@ -27,6 +27,8 @@ limitations under the License.
 
 namespace ReQL {
 
+class Query;
+  
 class Expr {
 public:
   struct _ReQL_Op_s *query;
@@ -35,16 +37,16 @@ public:
   explicit Expr(std::string);
   explicit Expr(double);
   explicit Expr(bool);
-  explicit Expr(std::vector<Expr>);
-  explicit Expr(std::map<std::string, Expr>);
+  explicit Expr(std::vector<Query>);
+  explicit Expr(std::map<std::string, Query>);
 };
 
 Expr expr();
 Expr expr(std::string);
 Expr expr(double);
 Expr expr(bool);
-Expr expr(std::vector<Expr>);
-Expr expr(std::map<std::string, Expr>);
+Expr expr(std::vector<Query>);
+Expr expr(std::map<std::string, Query>);
 
 }
 #endif

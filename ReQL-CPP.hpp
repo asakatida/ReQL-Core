@@ -48,8 +48,8 @@ public:
   explicit Query(std::string val) : AST(val) {};
   explicit Query(double val) : AST(val) {};
   explicit Query(bool val) : AST(val) {};
-  explicit Query(std::vector<Expr> val) : AST(val) {};
-  explicit Query(std::map<std::string, Expr> val) : AST(val) {};
+  explicit Query(std::vector<Query> val) : AST(val) {};
+  explicit Query(std::map<std::string, Query> val) : AST(val) {};
 };
 
 }

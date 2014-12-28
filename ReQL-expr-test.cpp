@@ -4,6 +4,6 @@
 
 using namespace ReQL;
 
-int testEXPR(int argc, char **argv) {
+int ReQL::testEXPR(int argc, char **argv) {
   return 0;
 }
