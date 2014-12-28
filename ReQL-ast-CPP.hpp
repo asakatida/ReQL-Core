@@ -37,1407 +37,1407 @@ public:
 
   /**
    */
-  AST add(std::vector<AST>);
+  AST add(std::vector<Query>);
 
   /**
    */
-  AST all(std::vector<AST>);
+  AST all(std::vector<Query>);
 
   /**
    */
-  AST any(std::vector<AST>);
+  AST any(std::vector<Query>);
 
   /**
    */
-  AST append(std::vector<AST>);
+  AST append(std::vector<Query>);
 
   /**
    */
-  AST april(std::vector<AST>);
+  AST april(std::vector<Query>);
 
   /**
    */
-  AST args(std::vector<AST>);
+  AST args(std::vector<Query>);
 
   /**
    */
-  AST asc(std::vector<AST>);
+  AST asc(std::vector<Query>);
 
   /**
    */
-  AST august(std::vector<AST>);
+  AST august(std::vector<Query>);
 
   /**
    */
-  AST avg(std::vector<AST>);
+  AST avg(std::vector<Query>);
 
   /**
    */
-  AST between(std::vector<AST>);
+  AST between(std::vector<Query>);
 
   /**
    */
-  AST binary(std::vector<AST>);
+  AST binary(std::vector<Query>);
 
   /**
    */
-  AST bracket(std::vector<AST>);
+  AST bracket(std::vector<Query>);
 
   /**
    */
-  AST branch(std::vector<AST>);
+  AST branch(std::vector<Query>);
 
   /**
    */
-  AST changes(std::vector<AST>);
+  AST changes(std::vector<Query>);
 
   /**
    */
-  AST change_at(std::vector<AST>);
+  AST change_at(std::vector<Query>);
 
   /**
    */
-  AST circle(std::vector<AST>, std::map<std::string, AST>);
-  AST circle(std::vector<AST>);
+  AST circle(std::vector<Query>, std::map<std::string, Query>);
+  AST circle(std::vector<Query>);
 
   /**
    */
-  AST coerce_to(std::vector<AST>);
+  AST coerce_to(std::vector<Query>);
 
   /**
    */
-  AST concat_map(std::vector<AST>);
+  AST concat_map(std::vector<Query>);
 
   /**
    */
-  AST contains(std::vector<AST>);
+  AST contains(std::vector<Query>);
 
   /**
    */
-  AST count(std::vector<AST>);
+  AST count(std::vector<Query>);
 
   /**
    */
-  AST date(std::vector<AST>);
+  AST date(std::vector<Query>);
 
   /**
    */
-  AST datum(std::vector<AST>);
+  AST datum(std::vector<Query>);
 
   /**
    */
-  AST day(std::vector<AST>);
+  AST day(std::vector<Query>);
 
   /**
    */
-  AST day_of_week(std::vector<AST>);
+  AST day_of_week(std::vector<Query>);
 
   /**
    */
-  AST day_of_year(std::vector<AST>);
+  AST day_of_year(std::vector<Query>);
 
   /**
    */
-  AST db(std::vector<AST>);
+  AST db(std::vector<Query>);
 
   /**
    */
-  AST db_config(std::vector<AST>);
+  AST db_config(std::vector<Query>);
 
   /**
    */
-  AST db_create(std::vector<AST>);
+  AST db_create(std::vector<Query>);
 
   /**
    */
-  AST db_drop(std::vector<AST>);
+  AST db_drop(std::vector<Query>);
 
   /**
    */
-  AST db_list(std::vector<AST>);
+  AST db_list(std::vector<Query>);
 
   /**
    */
-  AST december(std::vector<AST>);
+  AST december(std::vector<Query>);
 
   /**
    */
-  AST default_(std::vector<AST>);
+  AST default_(std::vector<Query>);
 
   /**
    */
-  AST delete_(std::vector<AST>, std::map<std::string, AST>);
-  AST delete_(std::vector<AST>);
+  AST delete_(std::vector<Query>, std::map<std::string, Query>);
+  AST delete_(std::vector<Query>);
 
   /**
    */
-  AST delete_at(std::vector<AST>);
+  AST delete_at(std::vector<Query>);
 
   /**
    */
-  AST desc(std::vector<AST>);
+  AST desc(std::vector<Query>);
 
   /**
    */
-  AST difference(std::vector<AST>);
+  AST difference(std::vector<Query>);
 
   /**
    */
-  AST distance(std::vector<AST>);
+  AST distance(std::vector<Query>);
 
   /**
    */
-  AST distinct(std::vector<AST>, std::map<std::string, AST>);
-  AST distinct(std::vector<AST>);
+  AST distinct(std::vector<Query>, std::map<std::string, Query>);
+  AST distinct(std::vector<Query>);
 
   /**
    */
-  AST div(std::vector<AST>);
+  AST div(std::vector<Query>);
 
   /**
    */
-  AST downcase(std::vector<AST>);
+  AST downcase(std::vector<Query>);
 
   /**
    */
-  AST during(std::vector<AST>);
+  AST during(std::vector<Query>);
 
   /**
    */
-  AST epoch_time(std::vector<AST>);
+  AST epoch_time(std::vector<Query>);
 
   /**
    */
-  AST eq(std::vector<AST>);
+  AST eq(std::vector<Query>);
 
   /**
    */
-  AST eq_join(std::vector<AST>, std::map<std::string, AST>);
-  AST eq_join(std::vector<AST>);
+  AST eq_join(std::vector<Query>, std::map<std::string, Query>);
+  AST eq_join(std::vector<Query>);
 
   /**
    */
-  AST error(std::vector<AST>);
+  AST error(std::vector<Query>);
 
   /**
    */
-  AST february(std::vector<AST>);
+  AST february(std::vector<Query>);
 
   /**
    */
-  AST fill(std::vector<AST>);
+  AST fill(std::vector<Query>);
 
   /**
    */
-  AST filter(std::vector<AST>, std::map<std::string, AST>);
-  AST filter(std::vector<AST>);
+  AST filter(std::vector<Query>, std::map<std::string, Query>);
+  AST filter(std::vector<Query>);
 
   /**
    */
-  AST for_each(std::vector<AST>);
+  AST for_each(std::vector<Query>);
 
   /**
    */
-  AST friday(std::vector<AST>);
+  AST friday(std::vector<Query>);
 
   /**
    */
-  AST func(std::vector<AST>);
+  AST func(std::vector<Query>);
 
   /**
    */
-  AST funcall(std::vector<AST>);
+  AST funcall(std::vector<Query>);
 
   /**
    */
-  AST ge(std::vector<AST>);
+  AST ge(std::vector<Query>);
 
   /**
    */
-  AST geojson(std::vector<AST>);
+  AST geojson(std::vector<Query>);
 
   /**
    */
-  AST get(std::vector<AST>);
+  AST get(std::vector<Query>);
 
   /**
    */
-  AST get_all(std::vector<AST>, std::map<std::string, AST>);
-  AST get_all(std::vector<AST>);
+  AST get_all(std::vector<Query>, std::map<std::string, Query>);
+  AST get_all(std::vector<Query>);
 
   /**
    */
-  AST get_field(std::vector<AST>);
+  AST get_field(std::vector<Query>);
 
   /**
    */
-  AST get_intersecting(std::vector<AST>, std::map<std::string, AST>);
-  AST get_intersecting(std::vector<AST>);
+  AST get_intersecting(std::vector<Query>, std::map<std::string, Query>);
+  AST get_intersecting(std::vector<Query>);
 
   /**
    */
-  AST get_nearest(std::vector<AST>, std::map<std::string, AST>);
-  AST get_nearest(std::vector<AST>);
+  AST get_nearest(std::vector<Query>, std::map<std::string, Query>);
+  AST get_nearest(std::vector<Query>);
 
   /**
    */
-  AST group(std::vector<AST>, std::map<std::string, AST>);
-  AST group(std::vector<AST>);
+  AST group(std::vector<Query>, std::map<std::string, Query>);
+  AST group(std::vector<Query>);
 
   /**
    */
-  AST gt(std::vector<AST>);
+  AST gt(std::vector<Query>);
 
   /**
    */
-  AST has_fields(std::vector<AST>);
+  AST has_fields(std::vector<Query>);
 
   /**
    */
-  AST hours(std::vector<AST>);
+  AST hours(std::vector<Query>);
 
   /**
    */
-  AST http(std::vector<AST>, std::map<std::string, AST>);
-  AST http(std::vector<AST>);
+  AST http(std::vector<Query>, std::map<std::string, Query>);
+  AST http(std::vector<Query>);
 
   /**
    */
-  AST implicit_var(std::vector<AST>);
+  AST implicit_var(std::vector<Query>);
 
   /**
    */
-  AST includes(std::vector<AST>);
+  AST includes(std::vector<Query>);
 
   /**
    */
-  AST indexes_of(std::vector<AST>);
+  AST indexes_of(std::vector<Query>);
 
   /**
    */
-  AST index_create(std::vector<AST>, std::map<std::string, AST>);
-  AST index_create(std::vector<AST>);
+  AST index_create(std::vector<Query>, std::map<std::string, Query>);
+  AST index_create(std::vector<Query>);
 
   /**
    */
-  AST index_drop(std::vector<AST>);
+  AST index_drop(std::vector<Query>);
 
   /**
    */
-  AST index_list(std::vector<AST>);
+  AST index_list(std::vector<Query>);
 
   /**
    */
-  AST index_rename(std::vector<AST>, std::map<std::string, AST>);
-  AST index_rename(std::vector<AST>);
+  AST index_rename(std::vector<Query>, std::map<std::string, Query>);
+  AST index_rename(std::vector<Query>);
 
   /**
    */
-  AST index_status(std::vector<AST>);
+  AST index_status(std::vector<Query>);
 
   /**
    */
-  AST index_wait(std::vector<AST>);
+  AST index_wait(std::vector<Query>);
 
   /**
    */
-  AST info(std::vector<AST>);
+  AST info(std::vector<Query>);
 
   /**
    */
-  AST inner_join(std::vector<AST>);
+  AST inner_join(std::vector<Query>);
 
   /**
    */
-  AST insert(std::vector<AST>);
+  AST insert(std::vector<Query>);
 
   /**
    */
-  AST insert_at(std::vector<AST>);
+  AST insert_at(std::vector<Query>);
 
   /**
    */
-  AST intersects(std::vector<AST>);
+  AST intersects(std::vector<Query>);
 
   /**
    */
-  AST in_timezone(std::vector<AST>);
+  AST in_timezone(std::vector<Query>);
 
   /**
    */
-  AST iso8601(std::vector<AST>, std::map<std::string, AST>);
-  AST iso8601(std::vector<AST>);
+  AST iso8601(std::vector<Query>, std::map<std::string, Query>);
+  AST iso8601(std::vector<Query>);
 
   /**
    */
-  AST is_empty(std::vector<AST>);
+  AST is_empty(std::vector<Query>);
 
   /**
    */
-  AST january(std::vector<AST>);
+  AST january(std::vector<Query>);
 
   /**
    */
-  AST javascript(std::vector<AST>, std::map<std::string, AST>);
-  AST javascript(std::vector<AST>);
+  AST javascript(std::vector<Query>, std::map<std::string, Query>);
+  AST javascript(std::vector<Query>);
 
   /**
    */
-  AST json(std::vector<AST>);
+  AST json(std::vector<Query>);
 
   /**
    */
-  AST july(std::vector<AST>);
+  AST july(std::vector<Query>);
 
   /**
    */
-  AST june(std::vector<AST>);
+  AST june(std::vector<Query>);
 
   /**
    */
-  AST keys(std::vector<AST>);
+  AST keys(std::vector<Query>);
 
   /**
    */
-  AST le(std::vector<AST>);
+  AST le(std::vector<Query>);
 
   /**
    */
-  AST limit(std::vector<AST>);
+  AST limit(std::vector<Query>);
 
   /**
    */
-  AST line(std::vector<AST>);
+  AST line(std::vector<Query>);
 
   /**
    */
-  AST literal(std::vector<AST>);
+  AST literal(std::vector<Query>);
 
   /**
    */
-  AST lt(std::vector<AST>);
+  AST lt(std::vector<Query>);
 
   /**
    */
-  AST make_array(std::vector<AST>);
+  AST make_array(std::vector<Query>);
 
   /**
    */
-  AST make_obj(std::vector<AST>);
+  AST make_obj(std::vector<Query>);
 
   /**
    */
-  AST map(std::vector<AST>);
+  AST map(std::vector<Query>);
 
   /**
    */
-  AST march(std::vector<AST>);
+  AST march(std::vector<Query>);
 
   /**
    */
-  AST match(std::vector<AST>);
+  AST match(std::vector<Query>);
 
   /**
    */
-  AST max(std::vector<AST>);
+  AST max(std::vector<Query>);
 
   /**
    */
-  AST may(std::vector<AST>);
+  AST may(std::vector<Query>);
 
   /**
    */
-  AST merge(std::vector<AST>);
+  AST merge(std::vector<Query>);
 
   /**
    */
-  AST min(std::vector<AST>);
+  AST min(std::vector<Query>);
 
   /**
    */
-  AST minutes(std::vector<AST>);
+  AST minutes(std::vector<Query>);
 
   /**
    */
-  AST mod(std::vector<AST>);
+  AST mod(std::vector<Query>);
 
   /**
    */
-  AST monday(std::vector<AST>);
+  AST monday(std::vector<Query>);
 
   /**
    */
-  AST month(std::vector<AST>);
+  AST month(std::vector<Query>);
 
   /**
    */
-  AST mul(std::vector<AST>);
+  AST mul(std::vector<Query>);
 
   /**
    */
-  AST ne(std::vector<AST>);
+  AST ne(std::vector<Query>);
 
   /**
    */
-  AST not_(std::vector<AST>);
+  AST not_(std::vector<Query>);
 
   /**
    */
-  AST november(std::vector<AST>);
+  AST november(std::vector<Query>);
 
   /**
    */
-  AST now(std::vector<AST>);
+  AST now(std::vector<Query>);
 
   /**
    */
-  AST nth(std::vector<AST>);
+  AST nth(std::vector<Query>);
 
   /**
    */
-  AST object(std::vector<AST>);
+  AST object(std::vector<Query>);
 
   /**
    */
-  AST october(std::vector<AST>);
+  AST october(std::vector<Query>);
 
   /**
    */
-  AST order_by(std::vector<AST>, std::map<std::string, AST>);
-  AST order_by(std::vector<AST>);
+  AST order_by(std::vector<Query>, std::map<std::string, Query>);
+  AST order_by(std::vector<Query>);
 
   /**
    */
-  AST outer_join(std::vector<AST>);
+  AST outer_join(std::vector<Query>);
 
   /**
    */
-  AST pluck(std::vector<AST>);
+  AST pluck(std::vector<Query>);
 
   /**
    */
-  AST point(std::vector<AST>);
+  AST point(std::vector<Query>);
 
   /**
    */
-  AST polygon(std::vector<AST>);
+  AST polygon(std::vector<Query>);
 
   /**
    */
-  AST polygon_sub(std::vector<AST>);
+  AST polygon_sub(std::vector<Query>);
 
   /**
    */
-  AST prepend(std::vector<AST>);
+  AST prepend(std::vector<Query>);
 
   /**
    */
-  AST random(std::vector<AST>, std::map<std::string, AST>);
-  AST random(std::vector<AST>);
+  AST random(std::vector<Query>, std::map<std::string, Query>);
+  AST random(std::vector<Query>);
 
   /**
    */
-  AST range(std::vector<AST>);
+  AST range(std::vector<Query>);
 
   /**
    */
-  AST rebalance(std::vector<AST>);
+  AST rebalance(std::vector<Query>);
 
   /**
    */
-  AST reconfigure(std::vector<AST>);
+  AST reconfigure(std::vector<Query>);
 
   /**
    */
-  AST reduce(std::vector<AST>);
+  AST reduce(std::vector<Query>);
 
   /**
    */
-  AST replace(std::vector<AST>, std::map<std::string, AST>);
-  AST replace(std::vector<AST>);
+  AST replace(std::vector<Query>, std::map<std::string, Query>);
+  AST replace(std::vector<Query>);
 
   /**
    */
-  AST sample(std::vector<AST>);
+  AST sample(std::vector<Query>);
 
   /**
    */
-  AST saturday(std::vector<AST>);
+  AST saturday(std::vector<Query>);
 
   /**
    */
-  AST seconds(std::vector<AST>);
+  AST seconds(std::vector<Query>);
 
   /**
    */
-  AST september(std::vector<AST>);
+  AST september(std::vector<Query>);
 
   /**
    */
-  AST set_difference(std::vector<AST>);
+  AST set_difference(std::vector<Query>);
 
   /**
    */
-  AST set_insert(std::vector<AST>);
+  AST set_insert(std::vector<Query>);
 
   /**
    */
-  AST set_intersection(std::vector<AST>);
+  AST set_intersection(std::vector<Query>);
 
   /**
    */
-  AST set_union(std::vector<AST>);
+  AST set_union(std::vector<Query>);
 
   /**
    */
-  AST skip(std::vector<AST>);
+  AST skip(std::vector<Query>);
 
   /**
    */
-  AST slice(std::vector<AST>, std::map<std::string, AST>);
-  AST slice(std::vector<AST>);
+  AST slice(std::vector<Query>, std::map<std::string, Query>);
+  AST slice(std::vector<Query>);
 
   /**
    */
-  AST splice_at(std::vector<AST>);
+  AST splice_at(std::vector<Query>);
 
   /**
    */
-  AST split(std::vector<AST>);
+  AST split(std::vector<Query>);
 
   /**
    */
-  AST sub(std::vector<AST>);
+  AST sub(std::vector<Query>);
 
   /**
    */
-  AST sum(std::vector<AST>);
+  AST sum(std::vector<Query>);
 
   /**
    */
-  AST sunday(std::vector<AST>);
+  AST sunday(std::vector<Query>);
 
   /**
    */
-  AST sync(std::vector<AST>);
+  AST sync(std::vector<Query>);
 
   /**
    */
-  AST table(std::vector<AST>, std::map<std::string, AST>);
-  AST table(std::vector<AST>);
+  AST table(std::vector<Query>, std::map<std::string, Query>);
+  AST table(std::vector<Query>);
 
   /**
    */
-  AST table_config(std::vector<AST>);
+  AST table_config(std::vector<Query>);
 
   /**
    */
-  AST table_create(std::vector<AST>, std::map<std::string, AST>);
-  AST table_create(std::vector<AST>);
+  AST table_create(std::vector<Query>, std::map<std::string, Query>);
+  AST table_create(std::vector<Query>);
 
   /**
    */
-  AST table_drop(std::vector<AST>);
+  AST table_drop(std::vector<Query>);
 
   /**
    */
-  AST table_list(std::vector<AST>);
+  AST table_list(std::vector<Query>);
 
   /**
    */
-  AST table_status(std::vector<AST>);
+  AST table_status(std::vector<Query>);
 
   /**
    */
-  AST table_wait(std::vector<AST>);
+  AST table_wait(std::vector<Query>);
 
   /**
    */
-  AST thursday(std::vector<AST>);
+  AST thursday(std::vector<Query>);
 
   /**
    */
-  AST time(std::vector<AST>);
+  AST time(std::vector<Query>);
 
   /**
    */
-  AST timezone_(std::vector<AST>);
+  AST timezone_(std::vector<Query>);
 
   /**
    */
-  AST time_of_day(std::vector<AST>);
+  AST time_of_day(std::vector<Query>);
 
   /**
    */
-  AST to_epoch_time(std::vector<AST>);
+  AST to_epoch_time(std::vector<Query>);
 
   /**
    */
-  AST to_geojson(std::vector<AST>);
+  AST to_geojson(std::vector<Query>);
 
   /**
    */
-  AST to_iso8601(std::vector<AST>);
+  AST to_iso8601(std::vector<Query>);
 
   /**
    */
-  AST to_json_string(std::vector<AST>);
+  AST to_json_string(std::vector<Query>);
 
   /**
    */
-  AST tuesday(std::vector<AST>);
+  AST tuesday(std::vector<Query>);
 
   /**
    */
-  AST type_of(std::vector<AST>);
+  AST type_of(std::vector<Query>);
 
   /**
    */
-  AST ungroup(std::vector<AST>);
+  AST ungroup(std::vector<Query>);
 
   /**
    */
-  AST union_(std::vector<AST>);
+  AST union_(std::vector<Query>);
 
   /**
    */
-  AST upcase(std::vector<AST>);
+  AST upcase(std::vector<Query>);
 
   /**
    */
-  AST update(std::vector<AST>, std::map<std::string, AST>);
-  AST update(std::vector<AST>);
+  AST update(std::vector<Query>, std::map<std::string, Query>);
+  AST update(std::vector<Query>);
 
   /**
    */
-  AST uuid(std::vector<AST>);
+  AST uuid(std::vector<Query>);
 
   /**
    */
-  AST var(std::vector<AST>);
+  AST var(std::vector<Query>);
 
   /**
    */
-  AST wednesday(std::vector<AST>);
+  AST wednesday(std::vector<Query>);
 
   /**
    */
-  AST without(std::vector<AST>);
+  AST without(std::vector<Query>);
 
   /**
    */
-  AST with_fields(std::vector<AST>);
+  AST with_fields(std::vector<Query>);
 
   /**
    */
-  AST year(std::vector<AST>);
+  AST year(std::vector<Query>);
 
   /**
    */
-  AST zip(std::vector<AST>);
+  AST zip(std::vector<Query>);
 };
 
 
 /**
  */
-AST add(std::vector<AST>);
+AST add(std::vector<Query>);
 
 /**
  */
-AST all(std::vector<AST>);
+AST all(std::vector<Query>);
 
 /**
  */
-AST any(std::vector<AST>);
+AST any(std::vector<Query>);
 
 /**
  */
-AST append(std::vector<AST>);
+AST append(std::vector<Query>);
 
 /**
  */
-AST april(std::vector<AST>);
+AST april(std::vector<Query>);
 
 /**
  */
-AST args(std::vector<AST>);
+AST args(std::vector<Query>);
 
 /**
  */
-AST asc(std::vector<AST>);
+AST asc(std::vector<Query>);
 
 /**
  */
-AST august(std::vector<AST>);
+AST august(std::vector<Query>);
 
 /**
  */
-AST avg(std::vector<AST>);
+AST avg(std::vector<Query>);
 
 /**
  */
-AST between(std::vector<AST>);
+AST between(std::vector<Query>);
 
 /**
  */
-AST binary(std::vector<AST>);
+AST binary(std::vector<Query>);
 
 /**
  */
-AST bracket(std::vector<AST>);
+AST bracket(std::vector<Query>);
 
 /**
  */
-AST branch(std::vector<AST>);
+AST branch(std::vector<Query>);
 
 /**
  */
-AST changes(std::vector<AST>);
+AST changes(std::vector<Query>);
 
 /**
  */
-AST change_at(std::vector<AST>);
+AST change_at(std::vector<Query>);
 
 /**
  */
-AST circle(std::vector<AST>, std::map<std::string, AST>);
-AST circle(std::vector<AST>);
+AST circle(std::vector<Query>, std::map<std::string, Query>);
+AST circle(std::vector<Query>);
 
 /**
  */
-AST coerce_to(std::vector<AST>);
+AST coerce_to(std::vector<Query>);
 
 /**
  */
-AST concat_map(std::vector<AST>);
+AST concat_map(std::vector<Query>);
 
 /**
  */
-AST contains(std::vector<AST>);
+AST contains(std::vector<Query>);
 
 /**
  */
-AST count(std::vector<AST>);
+AST count(std::vector<Query>);
 
 /**
  */
-AST date(std::vector<AST>);
+AST date(std::vector<Query>);
 
 /**
  */
-AST datum(std::vector<AST>);
+AST datum(std::vector<Query>);
 
 /**
  */
-AST day(std::vector<AST>);
+AST day(std::vector<Query>);
 
 /**
  */
-AST day_of_week(std::vector<AST>);
+AST day_of_week(std::vector<Query>);
 
 /**
  */
-AST day_of_year(std::vector<AST>);
+AST day_of_year(std::vector<Query>);
 
 /**
  */
-AST db(std::vector<AST>);
+AST db(std::vector<Query>);
 
 /**
  */
-AST db_config(std::vector<AST>);
+AST db_config(std::vector<Query>);
 
 /**
  */
-AST db_create(std::vector<AST>);
+AST db_create(std::vector<Query>);
 
 /**
  */
-AST db_drop(std::vector<AST>);
+AST db_drop(std::vector<Query>);
 
 /**
  */
-AST db_list(std::vector<AST>);
+AST db_list(std::vector<Query>);
 
 /**
  */
-AST december(std::vector<AST>);
+AST december(std::vector<Query>);
 
 /**
  */
-AST default_(std::vector<AST>);
+AST default_(std::vector<Query>);
 
 /**
  */
-AST delete_(std::vector<AST>, std::map<std::string, AST>);
-AST delete_(std::vector<AST>);
+AST delete_(std::vector<Query>, std::map<std::string, Query>);
+AST delete_(std::vector<Query>);
 
 /**
  */
-AST delete_at(std::vector<AST>);
+AST delete_at(std::vector<Query>);
 
 /**
  */
-AST desc(std::vector<AST>);
+AST desc(std::vector<Query>);
 
 /**
  */
-AST difference(std::vector<AST>);
+AST difference(std::vector<Query>);
 
 /**
  */
-AST distance(std::vector<AST>);
+AST distance(std::vector<Query>);
 
 /**
  */
-AST distinct(std::vector<AST>, std::map<std::string, AST>);
-AST distinct(std::vector<AST>);
+AST distinct(std::vector<Query>, std::map<std::string, Query>);
+AST distinct(std::vector<Query>);
 
 /**
  */
-AST div(std::vector<AST>);
+AST div(std::vector<Query>);
 
 /**
  */
-AST downcase(std::vector<AST>);
+AST downcase(std::vector<Query>);
 
 /**
  */
-AST during(std::vector<AST>);
+AST during(std::vector<Query>);
 
 /**
  */
-AST epoch_time(std::vector<AST>);
+AST epoch_time(std::vector<Query>);
 
 /**
  */
-AST eq(std::vector<AST>);
+AST eq(std::vector<Query>);
 
 /**
  */
-AST eq_join(std::vector<AST>, std::map<std::string, AST>);
-AST eq_join(std::vector<AST>);
+AST eq_join(std::vector<Query>, std::map<std::string, Query>);
+AST eq_join(std::vector<Query>);
 
 /**
  */
-AST error(std::vector<AST>);
+AST error(std::vector<Query>);
 
 /**
  */
-AST february(std::vector<AST>);
+AST february(std::vector<Query>);
 
 /**
  */
-AST fill(std::vector<AST>);
+AST fill(std::vector<Query>);
 
 /**
  */
-AST filter(std::vector<AST>, std::map<std::string, AST>);
-AST filter(std::vector<AST>);
+AST filter(std::vector<Query>, std::map<std::string, Query>);
+AST filter(std::vector<Query>);
 
 /**
  */
-AST for_each(std::vector<AST>);
+AST for_each(std::vector<Query>);
 
 /**
  */
-AST friday(std::vector<AST>);
+AST friday(std::vector<Query>);
 
 /**
  */
-AST func(std::vector<AST>);
+AST func(std::vector<Query>);
 
 /**
  */
-AST funcall(std::vector<AST>);
+AST funcall(std::vector<Query>);
 
 /**
  */
-AST ge(std::vector<AST>);
+AST ge(std::vector<Query>);
 
 /**
  */
-AST geojson(std::vector<AST>);
+AST geojson(std::vector<Query>);
 
 /**
  */
-AST get(std::vector<AST>);
+AST get(std::vector<Query>);
 
 /**
  */
-AST get_all(std::vector<AST>, std::map<std::string, AST>);
-AST get_all(std::vector<AST>);
+AST get_all(std::vector<Query>, std::map<std::string, Query>);
+AST get_all(std::vector<Query>);
 
 /**
  */
-AST get_field(std::vector<AST>);
+AST get_field(std::vector<Query>);
 
 /**
  */
-AST get_intersecting(std::vector<AST>, std::map<std::string, AST>);
-AST get_intersecting(std::vector<AST>);
+AST get_intersecting(std::vector<Query>, std::map<std::string, Query>);
+AST get_intersecting(std::vector<Query>);
 
 /**
  */
-AST get_nearest(std::vector<AST>, std::map<std::string, AST>);
-AST get_nearest(std::vector<AST>);
+AST get_nearest(std::vector<Query>, std::map<std::string, Query>);
+AST get_nearest(std::vector<Query>);
 
 /**
  */
-AST group(std::vector<AST>, std::map<std::string, AST>);
-AST group(std::vector<AST>);
+AST group(std::vector<Query>, std::map<std::string, Query>);
+AST group(std::vector<Query>);
 
 /**
  */
-AST gt(std::vector<AST>);
+AST gt(std::vector<Query>);
 
 /**
  */
-AST has_fields(std::vector<AST>);
+AST has_fields(std::vector<Query>);
 
 /**
  */
-AST hours(std::vector<AST>);
+AST hours(std::vector<Query>);
 
 /**
  */
-AST http(std::vector<AST>, std::map<std::string, AST>);
-AST http(std::vector<AST>);
+AST http(std::vector<Query>, std::map<std::string, Query>);
+AST http(std::vector<Query>);
 
 /**
  */
-AST implicit_var(std::vector<AST>);
+AST implicit_var(std::vector<Query>);
 
 /**
  */
-AST includes(std::vector<AST>);
+AST includes(std::vector<Query>);
 
 /**
  */
-AST indexes_of(std::vector<AST>);
+AST indexes_of(std::vector<Query>);
 
 /**
  */
-AST index_create(std::vector<AST>, std::map<std::string, AST>);
-AST index_create(std::vector<AST>);
+AST index_create(std::vector<Query>, std::map<std::string, Query>);
+AST index_create(std::vector<Query>);
 
 /**
  */
-AST index_drop(std::vector<AST>);
+AST index_drop(std::vector<Query>);
 
 /**
  */
-AST index_list(std::vector<AST>);
+AST index_list(std::vector<Query>);
 
 /**
  */
-AST index_rename(std::vector<AST>, std::map<std::string, AST>);
-AST index_rename(std::vector<AST>);
+AST index_rename(std::vector<Query>, std::map<std::string, Query>);
+AST index_rename(std::vector<Query>);
 
 /**
  */
-AST index_status(std::vector<AST>);
+AST index_status(std::vector<Query>);
 
 /**
  */
-AST index_wait(std::vector<AST>);
+AST index_wait(std::vector<Query>);
 
 /**
  */
-AST info(std::vector<AST>);
+AST info(std::vector<Query>);
 
 /**
  */
-AST inner_join(std::vector<AST>);
+AST inner_join(std::vector<Query>);
 
 /**
  */
-AST insert(std::vector<AST>);
+AST insert(std::vector<Query>);
 
 /**
  */
-AST insert_at(std::vector<AST>);
+AST insert_at(std::vector<Query>);
 
 /**
  */
-AST intersects(std::vector<AST>);
+AST intersects(std::vector<Query>);
 
 /**
  */
-AST in_timezone(std::vector<AST>);
+AST in_timezone(std::vector<Query>);
 
 /**
  */
-AST iso8601(std::vector<AST>, std::map<std::string, AST>);
-AST iso8601(std::vector<AST>);
+AST iso8601(std::vector<Query>, std::map<std::string, Query>);
+AST iso8601(std::vector<Query>);
 
 /**
  */
-AST is_empty(std::vector<AST>);
+AST is_empty(std::vector<Query>);
 
 /**
  */
-AST january(std::vector<AST>);
+AST january(std::vector<Query>);
 
 /**
  */
-AST javascript(std::vector<AST>, std::map<std::string, AST>);
-AST javascript(std::vector<AST>);
+AST javascript(std::vector<Query>, std::map<std::string, Query>);
+AST javascript(std::vector<Query>);
 
 /**
  */
-AST json(std::vector<AST>);
+AST json(std::vector<Query>);
 
 /**
  */
-AST july(std::vector<AST>);
+AST july(std::vector<Query>);
 
 /**
  */
-AST june(std::vector<AST>);
+AST june(std::vector<Query>);
 
 /**
  */
-AST keys(std::vector<AST>);
+AST keys(std::vector<Query>);
 
 /**
  */
-AST le(std::vector<AST>);
+AST le(std::vector<Query>);
 
 /**
  */
-AST limit(std::vector<AST>);
+AST limit(std::vector<Query>);
 
 /**
  */
-AST line(std::vector<AST>);
+AST line(std::vector<Query>);
 
 /**
  */
-AST literal(std::vector<AST>);
+AST literal(std::vector<Query>);
 
 /**
  */
-AST lt(std::vector<AST>);
+AST lt(std::vector<Query>);
 
 /**
  */
-AST make_array(std::vector<AST>);
+AST make_array(std::vector<Query>);
 
 /**
  */
-AST make_obj(std::vector<AST>);
+AST make_obj(std::vector<Query>);
 
 /**
  */
-AST map(std::vector<AST>);
+AST map(std::vector<Query>);
 
 /**
  */
-AST march(std::vector<AST>);
+AST march(std::vector<Query>);
 
 /**
  */
-AST match(std::vector<AST>);
+AST match(std::vector<Query>);
 
 /**
  */
-AST max(std::vector<AST>);
+AST max(std::vector<Query>);
 
 /**
  */
-AST may(std::vector<AST>);
+AST may(std::vector<Query>);
 
 /**
  */
-AST merge(std::vector<AST>);
+AST merge(std::vector<Query>);
 
 /**
  */
-AST min(std::vector<AST>);
+AST min(std::vector<Query>);
 
 /**
  */
-AST minutes(std::vector<AST>);
+AST minutes(std::vector<Query>);
 
 /**
  */
-AST mod(std::vector<AST>);
+AST mod(std::vector<Query>);
 
 /**
  */
-AST monday(std::vector<AST>);
+AST monday(std::vector<Query>);
 
 /**
  */
-AST month(std::vector<AST>);
+AST month(std::vector<Query>);
 
 /**
  */
-AST mul(std::vector<AST>);
+AST mul(std::vector<Query>);
 
 /**
  */
-AST ne(std::vector<AST>);
+AST ne(std::vector<Query>);
 
 /**
  */
-AST not_(std::vector<AST>);
+AST not_(std::vector<Query>);
 
 /**
  */
-AST november(std::vector<AST>);
+AST november(std::vector<Query>);
 
 /**
  */
-AST now(std::vector<AST>);
+AST now(std::vector<Query>);
 
 /**
  */
-AST nth(std::vector<AST>);
+AST nth(std::vector<Query>);
 
 /**
  */
-AST object(std::vector<AST>);
+AST object(std::vector<Query>);
 
 /**
  */
-AST october(std::vector<AST>);
+AST october(std::vector<Query>);
 
 /**
  */
-AST order_by(std::vector<AST>, std::map<std::string, AST>);
-AST order_by(std::vector<AST>);
+AST order_by(std::vector<Query>, std::map<std::string, Query>);
+AST order_by(std::vector<Query>);
 
 /**
  */
-AST outer_join(std::vector<AST>);
+AST outer_join(std::vector<Query>);
 
 /**
  */
-AST pluck(std::vector<AST>);
+AST pluck(std::vector<Query>);
 
 /**
  */
-AST point(std::vector<AST>);
+AST point(std::vector<Query>);
 
 /**
  */
-AST polygon(std::vector<AST>);
+AST polygon(std::vector<Query>);
 
 /**
  */
-AST polygon_sub(std::vector<AST>);
+AST polygon_sub(std::vector<Query>);
 
 /**
  */
-AST prepend(std::vector<AST>);
+AST prepend(std::vector<Query>);
 
 /**
  */
-AST random(std::vector<AST>, std::map<std::string, AST>);
-AST random(std::vector<AST>);
+AST random(std::vector<Query>, std::map<std::string, Query>);
+AST random(std::vector<Query>);
 
 /**
  */
-AST range(std::vector<AST>);
+AST range(std::vector<Query>);
 
 /**
  */
-AST rebalance(std::vector<AST>);
+AST rebalance(std::vector<Query>);
 
 /**
  */
-AST reconfigure(std::vector<AST>);
+AST reconfigure(std::vector<Query>);
 
 /**
  */
-AST reduce(std::vector<AST>);
+AST reduce(std::vector<Query>);
 
 /**
  */
-AST replace(std::vector<AST>, std::map<std::string, AST>);
-AST replace(std::vector<AST>);
+AST replace(std::vector<Query>, std::map<std::string, Query>);
+AST replace(std::vector<Query>);
 
 /**
  */
-AST sample(std::vector<AST>);
+AST sample(std::vector<Query>);
 
 /**
  */
-AST saturday(std::vector<AST>);
+AST saturday(std::vector<Query>);
 
 /**
  */
-AST seconds(std::vector<AST>);
+AST seconds(std::vector<Query>);
 
 /**
  */
-AST september(std::vector<AST>);
+AST september(std::vector<Query>);
 
 /**
  */
-AST set_difference(std::vector<AST>);
+AST set_difference(std::vector<Query>);
 
 /**
  */
-AST set_insert(std::vector<AST>);
+AST set_insert(std::vector<Query>);
 
 /**
  */
-AST set_intersection(std::vector<AST>);
+AST set_intersection(std::vector<Query>);
 
 /**
  */
-AST set_union(std::vector<AST>);
+AST set_union(std::vector<Query>);
 
 /**
  */
-AST skip(std::vector<AST>);
+AST skip(std::vector<Query>);
 
 /**
  */
-AST slice(std::vector<AST>, std::map<std::string, AST>);
-AST slice(std::vector<AST>);
+AST slice(std::vector<Query>, std::map<std::string, Query>);
+AST slice(std::vector<Query>);
 
 /**
  */
-AST splice_at(std::vector<AST>);
+AST splice_at(std::vector<Query>);
 
 /**
  */
-AST split(std::vector<AST>);
+AST split(std::vector<Query>);
 
 /**
  */
-AST sub(std::vector<AST>);
+AST sub(std::vector<Query>);
 
 /**
  */
-AST sum(std::vector<AST>);
+AST sum(std::vector<Query>);
 
 /**
  */
-AST sunday(std::vector<AST>);
+AST sunday(std::vector<Query>);
 
 /**
  */
-AST sync(std::vector<AST>);
+AST sync(std::vector<Query>);
 
 /**
  */
-AST table(std::vector<AST>, std::map<std::string, AST>);
-AST table(std::vector<AST>);
+AST table(std::vector<Query>, std::map<std::string, Query>);
+AST table(std::vector<Query>);
 
 /**
  */
-AST table_config(std::vector<AST>);
+AST table_config(std::vector<Query>);
 
 /**
  */
-AST table_create(std::vector<AST>, std::map<std::string, AST>);
-AST table_create(std::vector<AST>);
+AST table_create(std::vector<Query>, std::map<std::string, Query>);
+AST table_create(std::vector<Query>);
 
 /**
  */
-AST table_drop(std::vector<AST>);
+AST table_drop(std::vector<Query>);
 
 /**
  */
-AST table_list(std::vector<AST>);
+AST table_list(std::vector<Query>);
 
 /**
  */
-AST table_status(std::vector<AST>);
+AST table_status(std::vector<Query>);
 
 /**
  */
-AST table_wait(std::vector<AST>);
+AST table_wait(std::vector<Query>);
 
 /**
  */
-AST thursday(std::vector<AST>);
+AST thursday(std::vector<Query>);
 
 /**
  */
-AST time(std::vector<AST>);
+AST time(std::vector<Query>);
 
 /**
  */
-AST timezone_(std::vector<AST>);
+AST timezone_(std::vector<Query>);
 
 /**
  */
-AST time_of_day(std::vector<AST>);
+AST time_of_day(std::vector<Query>);
 
 /**
  */
-AST to_epoch_time(std::vector<AST>);
+AST to_epoch_time(std::vector<Query>);
 
 /**
  */
-AST to_geojson(std::vector<AST>);
+AST to_geojson(std::vector<Query>);
 
 /**
  */
-AST to_iso8601(std::vector<AST>);
+AST to_iso8601(std::vector<Query>);
 
 /**
  */
-AST to_json_string(std::vector<AST>);
+AST to_json_string(std::vector<Query>);
 
 /**
  */
-AST tuesday(std::vector<AST>);
+AST tuesday(std::vector<Query>);
 
 /**
  */
-AST type_of(std::vector<AST>);
+AST type_of(std::vector<Query>);
 
 /**
  */
-AST ungroup(std::vector<AST>);
+AST ungroup(std::vector<Query>);
 
 /**
  */
-AST union_(std::vector<AST>);
+AST union_(std::vector<Query>);
 
 /**
  */
-AST upcase(std::vector<AST>);
+AST upcase(std::vector<Query>);
 
 /**
  */
-AST update(std::vector<AST>, std::map<std::string, AST>);
-AST update(std::vector<AST>);
+AST update(std::vector<Query>, std::map<std::string, Query>);
+AST update(std::vector<Query>);
 
 /**
  */
-AST uuid(std::vector<AST>);
+AST uuid(std::vector<Query>);
 
 /**
  */
-AST var(std::vector<AST>);
+AST var(std::vector<Query>);
 
 /**
  */
-AST wednesday(std::vector<AST>);
+AST wednesday(std::vector<Query>);
 
 /**
  */
-AST without(std::vector<AST>);
+AST without(std::vector<Query>);
 
 /**
  */
-AST with_fields(std::vector<AST>);
+AST with_fields(std::vector<Query>);
 
 /**
  */
-AST year(std::vector<AST>);
+AST year(std::vector<Query>);
 
 /**
  */
-AST zip(std::vector<AST>);
+AST zip(std::vector<Query>);
 
 }
 
