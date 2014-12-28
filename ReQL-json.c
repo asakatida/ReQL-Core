@@ -985,7 +985,8 @@ int _reql_json_encode_(_ReQL_Op obj, _ReQL_C_String_t *json) {
         break;
       }
       err = 0;
-      for (unsigned long i=0; i<size; ++i) {
+      unsigned long i;
+      for (i=0; i<size; ++i) {
         if (i) {
           if (_reql_c_string_append_(json, ',')) {
             err = -1;
