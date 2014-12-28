@@ -67,22 +67,26 @@ Expr::~Expr() {
   _reql_expr_free(query);
 }
 
-Expr ReQL::expr(std::string val) {
-  return Expr(val);
+Query expr() {
+  return Query();
 }
 
-Expr expr(double val) {
-  return Expr(val);
+Query ReQL::expr(std::string val) {
+  return Query(val);
 }
 
-Expr expr(bool val) {
-  return Expr(val);
+Query expr(double val) {
+  return Query(val);
 }
 
-Expr expr(std::vector<Query> val) {
-  return Expr(val);
+Query expr(bool val) {
+  return Query(val);
 }
 
-Expr expr(std::map<std::string, Query> val) {
-  return Expr(val);
+Query expr(std::vector<Query> val) {
+  return Query(val);
+}
+
+Query expr(std::map<std::string, Query> val) {
+  return Query(val);
 }

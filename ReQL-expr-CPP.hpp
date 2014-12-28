@@ -43,12 +43,12 @@ public:
   ~Expr();
 };
 
-Expr expr();
-Expr expr(std::string);
-Expr expr(double);
-Expr expr(bool);
-Expr expr(std::vector<Query>);
-Expr expr(std::map<std::string, Query>);
+Query expr();
+Query expr(std::string);
+Query expr(double);
+Query expr(bool);
+Query expr(std::vector<Query>);
+Query expr(std::map<std::string, Query>);
 
 }
 #endif
