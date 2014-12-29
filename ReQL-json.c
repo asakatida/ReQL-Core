@@ -44,23 +44,14 @@ int _reql_to_number(_ReQL_Op obj, double *num) {
 }
 
 _ReQL_Op _reql_json_string(_ReQL_Op obj, char *str, unsigned long str_len) {
-  char *copy = malloc(sizeof(char) * str_len);
-  copy = memcpy(copy, str, str_len);
+  obj = _reql_json_null(obj);
 
-  if (copy) {
-    obj = _reql_json_null(obj);
-
-    if (obj) {
-      obj->dt = _REQL_R_STR;
-      obj->str = _reql_c_string(NULL, str, str_len);
-    } else {
-      free(copy);
-    }
-
-    return obj;
+  if (obj) {
+    obj->dt = _REQL_R_STR;
+    obj->str = _reql_c_string(NULL, str, str_len);
   }
 
-  return NULL;
+  return obj;
 }
 
 int _reql_to_string(_ReQL_Op obj, _ReQL_C_String_t **str) {
@@ -909,11 +900,11 @@ _ReQL_C_String_t *_reql_c_string(_ReQL_C_String_t *str, char *buf, unsigned long
     }
     str->str = malloc(sizeof(char) * str->alloc_len);
     if (!str->str) {
-      str = NULL;
+      free(str); str = NULL;
     }
     if (buf) {
       if (_reql_c_string_append(str, buf, len)) {
-        str = NULL;
+        free(str); str = NULL;
       }
     }
   }
