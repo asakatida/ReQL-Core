@@ -57,7 +57,7 @@ void _reql_make_magic_64(char *buf, const unsigned long long magic) {
 
 unsigned long long _reql_get_magic(char *buf, size_t size) {
   size_t i;
-  unsigned long long magic;
+  unsigned long long magic = 0;
 
   for (i=size; i>1; --i) {
     magic |= buf[i];
