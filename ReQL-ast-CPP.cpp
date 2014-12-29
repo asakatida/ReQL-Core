@@ -25,7 +25,7 @@ limitations under the License.
 
 #include <cstdlib>
 
-using namespace ReQL;
+namespace ReQL {
 
 AST init(_ReQL_AST_Function_ f, std::vector<Query> args, std::map<std::string, Query> kwargs) {
   AST term;
@@ -1718,4 +1718,6 @@ AST AST::zip(std::vector<Query> args) {
 }
 AST zip(std::vector<Query> args) {
   return init(_reql_ast_zip_, args);
+}
+
 }

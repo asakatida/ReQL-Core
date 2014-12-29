@@ -23,7 +23,7 @@ limitations under the License.
 #include "ReQL-CPP.hpp"
 #include "ReQL.hpp"
 
-using namespace ReQL;
+namespace ReQL {
 
 Expr::Expr() {
   query = _reql_expr_null();
@@ -71,7 +71,7 @@ Query expr() {
   return Query();
 }
 
-Query ReQL::expr(std::string val) {
+Query expr(std::string val) {
   return Query(val);
 }
 
@@ -89,4 +89,6 @@ Query expr(std::vector<Query> val) {
 
 Query expr(std::map<std::string, Query> val) {
   return Query(val);
+}
+
 }

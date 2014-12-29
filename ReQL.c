@@ -22,11 +22,11 @@ limitations under the License.
 
 #include <netdb.h>
 #include <netinet/in.h>
+#include <pthread.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/select.h>
 #include <sys/uio.h>
-#include <pthread.h>
 #include <unistd.h>
 
 static const unsigned int _REQL_VERSION = 0x5f75e83e;
@@ -38,6 +38,44 @@ enum {
   _REQL_START = 1,
   _REQL_STOP = 3
 };
+
+void _reql_make_magic(char *buf, size_t size, const unsigned long long magic) {
+  size_t i;
+
+  for (i=0; i<size; ++i) {
+    buf[i] = (magic >> (8 * (size - i - 1))) & 0xff;
+  }
+}
+
+void _reql_make_magic_32(char *buf, const unsigned long magic) {
+  _reql_make_magic(buf, 4, htonl(magic));
+}
+
+void _reql_make_magic_64(char *buf, const unsigned long long magic) {
+  _reql_make_magic(buf, 8, htonll(magic));
+}
+
+unsigned long long _reql_get_magic(char *buf, size_t size) {
+  size_t i;
+  unsigned long long magic;
+
+  for (i=size; i>1; --i) {
+    magic |= buf[i];
+    magic <<= 8;
+  }
+
+  magic |= buf[0];
+
+  return magic;
+}
+
+unsigned long _reql_get_magic_32(char *buf) {
+  return ntohl(_reql_get_magic(buf, 4));
+}
+
+unsigned long long _reql_get_magic_64(char *buf) {
+  return ntohll(_reql_get_magic(buf, 8));
+}
 
 _ReQL_Cur_t *_reql_new_cursor() {
   _ReQL_Cur_t *cur = malloc(sizeof(_ReQL_Cur_t));
@@ -60,9 +98,7 @@ _ReQL_Conn_t *_reql_new_connection(_ReQL_Conn_t *conn) {
   conn->error = 0;
   conn->max_token = 0;
   conn->cursors = _reql_new_cursor();
-  conn->timeout = malloc(sizeof(struct timeval));
-  conn->timeout->tv_sec = 20;
-  conn->timeout->tv_usec = 0;
+  conn->timeout = 20;
   conn->auth_len = 0;
   conn->auth = NULL;
   conn->port = "28015";
@@ -91,12 +127,12 @@ int _reql_conn_set_port(_ReQL_Conn_t *conn, char *port) {
 }
 
 int _reql_conn_set_timeout(_ReQL_Conn_t *conn, unsigned long timeout) {
-  conn->timeout->tv_sec = timeout;
+  conn->timeout = timeout;
 
   return 0;
 }
 
-void _reql_set_cur_res(_ReQL_Conn_t *conn, _ReQL_Op res, unsigned int token) {
+void _reql_set_cur_res(_ReQL_Conn_t *conn, _ReQL_Op res, unsigned long long token) {
   _ReQL_Cur_t *cur = conn->cursors;
 
   if (cur->token == token) {
@@ -119,7 +155,7 @@ void *_reql_conn_loop(void *_conn) {
   _ReQL_Conn_t *conn = _conn;
   char msg_header[12];
   char *response = NULL;
-  unsigned int token = 0;
+  unsigned long long token = 0;
   long pos = 0, msg_len = 0;
 
   while (conn->socket > 0) {
@@ -135,12 +171,8 @@ void *_reql_conn_loop(void *_conn) {
       pos += recvfrom(conn->socket, &msg_header[pos], 12, MSG_WAITALL, NULL, NULL);
       if (pos == 12) {
         pos = 0;
-        unsigned char i;
-        for (i=0; i<8; ++i) {
-          token = (((((((msg_header[0] << 8) | msg_header[1] << 8) | msg_header[2] << 8) | msg_header[3] << 8) | msg_header[4] << 8) | msg_header[5] << 8) | msg_header[6] << 8) | msg_header[7];
-        }
-
-        msg_len = ntohl((((msg_header[11] << 8) | msg_header[10] << 8) | msg_header[9] << 8) | msg_header[8]);
+        token = _reql_get_magic_64(&msg_header[0]);
+        msg_len = _reql_get_magic_32(&msg_header[8]);
         response = malloc(sizeof(char) * msg_len);
         if (!response) {
           return NULL;
@@ -183,40 +215,38 @@ int _reql_connect(_ReQL_Conn_t *conn, char **buf) {
 
   freeaddrinfo(result);
 
-  unsigned int j;
+  struct timeval timeout;
+
+  timeout.tv_sec = conn->timeout;
+  timeout.tv_usec = 0;
+
+  if (setsockopt(conn->socket, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout))) {
+    return conn->error;
+  }
+
+  if (setsockopt(conn->socket, SOL_SOCKET, SO_SNDTIMEO, &timeout, sizeof(timeout))) {
+    return conn->error;
+  }
+
   char iov_base[3][4];
 
-  const unsigned int version = htonl(_REQL_VERSION);
-
-  for (j=0; j<4; ++j) {
-    iov_base[0][j] = (version << (8 * (3 - j))) & 0xff;
-  }
-
-  const unsigned int auth_len = htonl(conn->auth_len);
-
-  for (j=0; j<4; ++j) {
-    iov_base[1][j] = (auth_len << (8 * (3 - j))) & 0xff;
-  }
-
-  const unsigned int protocol = htonl(_REQL_PROTOCOL);
-
-  for (j=0; j<4; ++j) {
-    iov_base[2][j] = (protocol << (8 * (3 - j))) & 0xff;
-  }
+  _reql_make_magic_32(iov_base[0], _REQL_VERSION);
+  _reql_make_magic_32(iov_base[1], conn->auth_len);
+  _reql_make_magic_32(iov_base[2], _REQL_PROTOCOL);
 
   struct iovec magic[4];
 
   magic[0].iov_base = iov_base[0];
-  magic[0].iov_len = 4 * sizeof(char);
+  magic[0].iov_len = 4;
 
   magic[1].iov_base = iov_base[1];
-  magic[1].iov_len = 4 * sizeof(char);
+  magic[1].iov_len = 4;
 
   magic[2].iov_base = conn->auth;
-  magic[2].iov_len = conn->auth_len * sizeof(char);
+  magic[2].iov_len = conn->auth_len;
 
   magic[3].iov_base = iov_base[2];
-  magic[3].iov_len = 4 * sizeof(char);
+  magic[3].iov_len = 4;
 
   writev(conn->socket, magic, 4);
 
@@ -224,18 +254,10 @@ int _reql_connect(_ReQL_Conn_t *conn, char **buf) {
 
   conn->error = 0;
 
-  fd_set read;
-
-  FD_ZERO(&read);
-  FD_SET(conn->socket, &read);
-
-  if (select(1, NULL, &read, NULL, NULL) < 0) {
-    return conn->error;
-  }
-
-  recvfrom(conn->socket, *buf, 500, MSG_WAITALL, NULL, NULL);
+  recvfrom(conn->socket, *buf, 8, MSG_WAITALL, NULL, NULL);
 
   if (strcmp(*buf, "SUCCESS")) {
+    recvfrom(conn->socket, *buf, 500, MSG_WAITALL, NULL, NULL);
     conn->error = -1 | _reql_close_conn(conn);
   }
 
@@ -273,7 +295,6 @@ int _reql_close_conn(_ReQL_Conn_t *conn) {
 
 void _reql_free_conn(_ReQL_Conn_t *conn) {
   _reql_free_cur(conn->cursors);
-  free(conn->timeout);
   free(conn); conn = NULL;
 }
 

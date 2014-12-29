@@ -35,7 +35,7 @@ typedef enum {
 } _ReQL_Response_t;
 
 struct _ReQL_Cur_s {
-  unsigned int token;
+  unsigned long long token;
   unsigned int idx;
   struct _ReQL_Conn_s *conn;
   _ReQL_Op response;
@@ -49,10 +49,10 @@ typedef struct _ReQL_Cur_s _ReQL_Cur_t;
 struct _ReQL_Conn_s {
   int socket;
   int error;
-  unsigned int max_token;
+  unsigned long long max_token;
   unsigned int auth_len;
 
-  struct timeval *timeout;
+  unsigned long timeout;
 
   char *port;
   char *addr;

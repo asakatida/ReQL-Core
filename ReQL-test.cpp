@@ -6,7 +6,8 @@
 using namespace ReQL;
 
 int testCONNECT(int argc, char **argv) {
-  return 0;
+  Connection conn = connect();
+  return conn.close();
 }
 
 int main(int argc, char **argv) {

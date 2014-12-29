@@ -24,7 +24,7 @@ limitations under the License.
 
 #include <cstdlib>
 
-using namespace ReQL;
+namespace ReQL {
 
 Connection::Connection() {
   conn = new _ReQL_Conn_t();
@@ -34,12 +34,14 @@ Connection::Connection() {
     return;
   }
 
-  char *buf;
+  char *buf = nullptr;
 
   if (_reql_connect(conn, &buf)) {
   }
 
-  free(buf);
+  if (buf) {
+    free(buf);
+  }
 }
 
 Connection::Connection(std::string host) {
@@ -108,6 +110,10 @@ Connection::Connection(std::string host, unsigned int port, std::string key) {
   free(buf);
 }
 
+int Connection::close() {
+  return _reql_close_conn(conn);
+}
+
 Connection connect() {
   return Connection();
 }
@@ -122,4 +128,6 @@ Connection connect(std::string host, unsigned int port) {
 
 Connection connect(std::string host, unsigned int port, std::string key) {
   return Connection(host, port, key);
+}
+
 }
