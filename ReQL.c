@@ -29,6 +29,8 @@ limitations under the License.
 #include <sys/uio.h>
 #include <unistd.h>
 
+static pthread_mutex_t *response_lock;
+static pthread_once_t *init_lock = NULL;
 static const unsigned int _REQL_VERSION = 0x5f75e83e;
 static const unsigned int _REQL_PROTOCOL = 0x7e6970c7;
 
@@ -136,14 +138,58 @@ void _reql_set_cur_res(_ReQL_Conn_t *conn, _ReQL_Op res, unsigned long long toke
   _ReQL_Cur_t *cur = conn->cursors;
 
   if (cur->token == token) {
+    pthread_mutex_lock(response_lock);
     cur->response = res;
+    pthread_mutex_unlock(response_lock);
     return;
   }
 
   while (cur->next != cur) {
     cur = cur->next;
     if (cur->token == token) {
+      pthread_mutex_lock(response_lock);
       cur->response = res;
+      pthread_mutex_unlock(response_lock);
+      return;
+    }
+  }
+
+  conn->error = -1;
+}
+
+_ReQL_Op _reql_get_cur_res(_ReQL_Cur_t *cur) {
+  _ReQL_Op res = NULL;
+
+  while (1) {
+    pthread_mutex_lock(response_lock);
+    if (cur->response) {
+      res = _reql_expr_copy(cur->response);
+      pthread_mutex_unlock(response_lock);
+      break;
+    }
+    pthread_mutex_unlock(response_lock);
+    sleep(1);
+  }
+
+  return res;
+}
+
+void _reql_end_cur_res(_ReQL_Conn_t *conn, _ReQL_Op res, unsigned long long token) {
+  _ReQL_Cur_t *cur = conn->cursors;
+
+  if (cur->token == token) {
+    pthread_mutex_lock(response_lock);
+    cur->response = res;
+    pthread_mutex_unlock(response_lock);
+    return;
+  }
+
+  while (cur->next != cur) {
+    cur = cur->next;
+    if (cur->token == token) {
+      pthread_mutex_lock(response_lock);
+      cur->response = res;
+      pthread_mutex_unlock(response_lock);
       return;
     }
   }
@@ -182,6 +228,17 @@ void *_reql_conn_loop(void *_conn) {
   }
 
   return NULL;
+}
+
+void _reql_init(void) {
+  pthread_mutexattr_t *attrs = NULL;
+
+  pthread_mutexattr_init(attrs);
+  pthread_mutexattr_settype(attrs, PTHREAD_MUTEX_ERRORCHECK);
+
+  pthread_mutex_init(response_lock, attrs);
+
+  pthread_mutexattr_destroy(attrs);
 }
 
 int _reql_connect(_ReQL_Conn_t *conn, char **buf) {
@@ -262,6 +319,8 @@ int _reql_connect(_ReQL_Conn_t *conn, char **buf) {
   }
 
   pthread_t thread;
+
+  pthread_once(init_lock, _reql_init);
 
   if (pthread_create(&thread, NULL, _reql_conn_loop, conn)) {
     conn->error = -1;
