@@ -36,7 +36,7 @@ static _ReQL_Op _reql_from_rb(VALUE obj, long nesting_depth) {
 
 static VALUE _reql_to_rb(_ReQL_Op query) {
   VALUE res = NULL;
-  switch (query->dt) {
+  switch (query->obj.datum.dt) {
     case _REQL_R_ARRAY: {
       unsigned long size;
       if (_reql_to_array_(query, &size)) {
