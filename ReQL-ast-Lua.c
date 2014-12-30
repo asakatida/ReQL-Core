@@ -22,10 +22,10 @@ limitations under the License.
 
 int _reql_lua_ast_class(lua_State *L, _ReQL_AST_Function f, _ReQL_Op kwargs) {
   int size = lua_gettop(L), i;
-  _ReQL_Op args = _reql_json_c_array(NULL, size);
+  _ReQL_Op args = _reql_json_array_(NULL, size);
 
   for (i=0; i<size; ++i) {
-    _reql_c_array_insert(args, _reql_from_lua(L, i, 20), i);
+    _reql_array_insert(args, _reql_from_lua(L, i, 20), i);
   }
 
   _reql_to_lua(L, f(args, kwargs));

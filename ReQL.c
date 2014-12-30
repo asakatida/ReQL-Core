@@ -99,7 +99,7 @@ _ReQL_Conn_t *_reql_new_connection(_ReQL_Conn_t *conn) {
   conn->max_token = 0;
   conn->cursors = _reql_new_cursor();
   conn->timeout = 20;
-  conn->auth_len = 0;
+  conn->auth_size = 0;
   conn->auth = NULL;
   conn->port = "28015";
   conn->addr = NULL;
@@ -107,8 +107,8 @@ _ReQL_Conn_t *_reql_new_connection(_ReQL_Conn_t *conn) {
   return conn;
 }
 
-int _reql_conn_set_auth(_ReQL_Conn_t *conn, unsigned int len, char *auth) {
-  conn->auth_len = len;
+int _reql_conn_set_auth(_ReQL_Conn_t *conn, unsigned int size, char *auth) {
+  conn->auth_size = size;
   conn->auth = auth;
 
   return 0;
@@ -156,13 +156,13 @@ void *_reql_conn_loop(void *_conn) {
   char msg_header[12];
   char *response = NULL;
   unsigned long long token = 0;
-  long pos = 0, msg_len = 0;
+  long pos = 0, size = 0;
 
   while (conn->socket > 0) {
     if (response) {
-      pos += recvfrom(conn->socket, &response[pos], msg_len, MSG_WAITALL, NULL, NULL);
-      if (pos == msg_len) {
-        _ReQL_C_String_t *json = _reql_c_string(NULL, response, msg_len);
+      pos += recvfrom(conn->socket, &response[pos], size, MSG_WAITALL, NULL, NULL);
+      if (pos == size) {
+        _ReQL_String_t *json = _reql_string(NULL, response, size);
         _reql_set_cur_res(conn, _reql_json_decode(json), token);
         pos = 0;
         free(response); response = NULL;
@@ -172,8 +172,8 @@ void *_reql_conn_loop(void *_conn) {
       if (pos == 12) {
         pos = 0;
         token = _reql_get_magic_64(&msg_header[0]);
-        msg_len = _reql_get_magic_32(&msg_header[8]);
-        response = malloc(sizeof(char) * msg_len);
+        size = _reql_get_magic_32(&msg_header[8]);
+        response = malloc(sizeof(char) * size);
         if (!response) {
           return NULL;
         }
@@ -231,7 +231,7 @@ int _reql_connect(_ReQL_Conn_t *conn, char **buf) {
   char iov_base[3][4];
 
   _reql_make_magic_32(iov_base[0], _REQL_VERSION);
-  _reql_make_magic_32(iov_base[1], conn->auth_len);
+  _reql_make_magic_32(iov_base[1], conn->auth_size);
   _reql_make_magic_32(iov_base[2], _REQL_PROTOCOL);
 
   struct iovec magic[4];
@@ -243,7 +243,7 @@ int _reql_connect(_ReQL_Conn_t *conn, char **buf) {
   magic[1].iov_len = 4;
 
   magic[2].iov_base = conn->auth;
-  magic[2].iov_len = conn->auth_len;
+  magic[2].iov_len = conn->auth_size;
 
   magic[3].iov_base = iov_base[2];
   magic[3].iov_len = 4;

@@ -31,8 +31,8 @@ _ReQL_Op _reql_expr_null();
 _ReQL_Op _reql_null(_ReQL_Op obj);
 _ReQL_Op _reql_expr_number(double val);
 _ReQL_Op _reql_number(_ReQL_Op obj, double val);
-_ReQL_Op _reql_expr_string(char *val, unsigned long str_len);
-_ReQL_Op _reql_string(_ReQL_Op obj, char *val, unsigned long str_len);
+_ReQL_Op _reql_expr_string(char *val, unsigned long size);
+_ReQL_Op _reql_string_(_ReQL_Op obj, char *val, unsigned long size);
 
 _ReQL_Op _reql_build(_ReQL_Op query);
 

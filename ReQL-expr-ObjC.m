@@ -96,13 +96,13 @@ limitations under the License.
 }
 
 +(instancetype)ReQLWithArray:(NSArray *)array {
-  _ReQL_Op val = _reql_json_c_array(NULL, [array count]);
+  _ReQL_Op val = _reql_json_array_(NULL, [array count]);
 
   unsigned long i = -1;
 
   for (id elem in array) {
     if ([elem isKindOfClass:[NSArray class]]) {
-      _reql_c_array_insert(val, [[libReQL_expr ReQLWithArray:elem] ReQLValue], ++i);
+      _reql_array_insert(val, [[libReQL_expr ReQLWithArray:elem] ReQLValue], ++i);
     }
   }
 

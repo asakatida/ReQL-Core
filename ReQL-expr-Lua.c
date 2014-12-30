@@ -309,11 +309,11 @@ _ReQL_Op _reql_from_lua(lua_State *L, const int idx, long nesting_depth) {
       --nesting_depth;
 
       if (array) {
-        _ReQL_Op arr = _reql_json_c_array(NULL, table_len);
+        _ReQL_Op arr = _reql_json_array_(NULL, table_len);
         int i;
         for (i=1; i<=table_len; ++i) {
           lua_rawgeti(L, 2, i);
-          _reql_c_array_insert(arr, _reql_from_lua(L, water_mark + 2, nesting_depth), i);
+          _reql_array_insert(arr, _reql_from_lua(L, water_mark + 2, nesting_depth), i);
           lua_pop(L, 1);
         }
         return _reql_expr(arr);
@@ -331,11 +331,11 @@ _ReQL_Op _reql_from_lua(lua_State *L, const int idx, long nesting_depth) {
 }
 
 void _reql_to_lua(lua_State *L, _ReQL_Op query) {
-  switch (query->dt) {
-    case _REQL_C_ARRAY: {
+  switch (query->obj.datum.dt) {
+    case _REQL_R_ARRAY: {
       unsigned long size;
 
-      if (_reql_to_c_array(query, &size)) {
+      if (_reql_to_array_(query, &size)) {
         lua_pushnil(L);
         break;
       }
@@ -347,33 +347,13 @@ void _reql_to_lua(lua_State *L, _ReQL_Op query) {
       int table_idx = lua_gettop(L);
 
       for (i=0; i<trunc_size; ++i) {
-        _reql_to_lua(L, _reql_c_array_index(query, i));
-        lua_rawseti(L, table_idx, i);
-      }
-      break;
-    }
-    case _REQL_R_ARRAY: {
-      _ReQL_Op iter = _reql_to_array(query);
-      if (!iter) {
-        lua_pushnil(L);
-        break;
-      }
-
-      _ReQL_Op elem;
-      int i = 0;
-
-      lua_newtable(L);
-      int table_idx = lua_gettop(L);
-
-      while (_reql_array_next(&iter, &elem)) {
-        ++i;
-        _reql_to_lua(L, elem);
+        _reql_to_lua(L, _reql_array_index(query, i));
         lua_rawseti(L, table_idx, i);
       }
       break;
     }
     case _REQL_R_BOOL: {
-      int value;
+      char value;
       if (_reql_to_bool(query, &value)) {
         lua_pushnil(L);
         break;
@@ -399,7 +379,7 @@ void _reql_to_lua(lua_State *L, _ReQL_Op query) {
       break;
     }
     case _REQL_R_OBJECT: {
-      _ReQL_Op iter = _reql_to_object(query);
+      _ReQL_Iter iter = _reql_to_object(query);
       if (!iter) {
         lua_pushnil(L);
         break;
@@ -411,7 +391,7 @@ void _reql_to_lua(lua_State *L, _ReQL_Op query) {
       lua_newtable(L);
       int table_idx = lua_gettop(L);
 
-      while (_reql_object_next(&iter, &key, &val)) {
+      while (_reql_object_next(iter, &key, &val)) {
         _reql_to_lua(L, key);
         _reql_to_lua(L, val);
         lua_settable(L, table_idx);
@@ -419,12 +399,12 @@ void _reql_to_lua(lua_State *L, _ReQL_Op query) {
       break;
     }
     case _REQL_R_STR: {
-      _ReQL_C_String_t *str;
+      _ReQL_String_t *str;
       if (_reql_to_string(query, &str)) {
         lua_pushnil(L);
         break;
       }
-      lua_pushlstring(L, str->str, str->len);
+      lua_pushlstring(L, str->str, str->size);
       break;
     }
   }

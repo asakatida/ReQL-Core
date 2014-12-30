@@ -40,7 +40,7 @@ struct _ReQL_Cur_s {
   struct _ReQL_Conn_s *conn;
   _ReQL_Op response;
   _ReQL_Op array;
-  _ReQL_Op iter;
+  _ReQL_Iter iter;
   struct _ReQL_Cur_s *next;
   struct _ReQL_Cur_s *prev;
 };
@@ -50,7 +50,7 @@ struct _ReQL_Conn_s {
   int socket;
   int error;
   unsigned long long max_token;
-  unsigned int auth_len;
+  unsigned int auth_size;
 
   unsigned long timeout;
 
@@ -63,7 +63,7 @@ struct _ReQL_Conn_s {
 typedef struct _ReQL_Conn_s _ReQL_Conn_t;
 
 _ReQL_Conn_t *_reql_new_connection(_ReQL_Conn_t *conn);
-int _reql_conn_set_auth(_ReQL_Conn_t *conn, unsigned int len, char *auth);
+int _reql_conn_set_auth(_ReQL_Conn_t *conn, unsigned int size, char *auth);
 int _reql_conn_set_addr(_ReQL_Conn_t *conn, char *addr);
 int _reql_conn_set_port(_ReQL_Conn_t *conn, char *port);
 int _reql_conn_set_timeout(_ReQL_Conn_t *conn, unsigned long timeout);

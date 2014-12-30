@@ -22,7 +22,6 @@ limitations under the License.
 #define _REQL_CONFIG_H
 
 typedef enum {
-  _REQL_C_ARRAY,
   _REQL_R_ARRAY = 5,
   _REQL_R_BOOL = 2,
   _REQL_R_JSON = 7,
@@ -205,33 +204,67 @@ typedef enum {
   _REQL_ZIP = 72
 } _ReQL_Term_t;
 
-struct _ReQL_C_String_s {
-  unsigned long len;
-  unsigned long alloc_len;
+struct _ReQL_String_s {
+  unsigned long size;
+  unsigned long alloc_size;
   char *str;
 };
-typedef struct _ReQL_C_String_s _ReQL_C_String_t;
+typedef struct _ReQL_String_s _ReQL_String_t;
+typedef _ReQL_String_t* _ReQL_String;
+
+struct _ReQL_Array_s {
+  unsigned long size;
+  unsigned long alloc_size;
+  struct _ReQL_Op_s **arr;
+};
+typedef struct _ReQL_Array_s _ReQL_Array_t;
+
+struct _ReQL_Pair_s {
+  struct _ReQL_Op_s *key;
+  struct _ReQL_Op_s *val;
+};
+typedef struct _ReQL_Pair_s _ReQL_Pair_t;
+
+struct _ReQL_Object_s {
+  unsigned long size;
+  unsigned long alloc_size;
+  _ReQL_Pair_t *pair;
+};
+typedef struct _ReQL_Object_s _ReQL_Object_t;
+
+struct _ReQL_Iter_s {
+  unsigned long idx;
+  struct _ReQL_Op_s *obj;
+};
+typedef struct _ReQL_Iter_s _ReQL_Iter_t;
+typedef _ReQL_Iter_t* _ReQL_Iter;
+
+struct _ReQL_Datum_s {
+  _ReQL_Datum_t dt;
+  union {
+    _ReQL_String_t *string;
+    double number;
+    char boolean;
+    _ReQL_Array_t array;
+    _ReQL_Object_t object;
+  } json;
+};
 
 struct _ReQL_Op_s {
   _ReQL_Term_t tt;
-  _ReQL_Datum_t dt;
-
-  _ReQL_C_String_t *str;
-
-  double num;
-
-  struct _ReQL_Op_s *key;
-  struct _ReQL_Op_s *val;
-  struct _ReQL_Op_s *args;
-  struct _ReQL_Op_s *kwargs;
-  struct _ReQL_Op_s *next;
-  struct _ReQL_Op_s *prev;
+  union {
+    struct _ReQL_Datum_s datum;
+    struct {
+      struct _ReQL_Op_s *args;
+      struct _ReQL_Op_s *kwargs;
+    } args;
+  } obj;
 };
 typedef struct _ReQL_Op_s _ReQL_Op_t;
 typedef _ReQL_Op_t* _ReQL_Op;
 
-_ReQL_Op _reql_json_bool(_ReQL_Op obj, int val);
-int _reql_to_bool(_ReQL_Op obj, int *val);
+_ReQL_Op _reql_json_bool(_ReQL_Op obj, char val);
+int _reql_to_bool(_ReQL_Op obj, char *val);
 
 _ReQL_Op _reql_json_null(_ReQL_Op obj);
 int _reql_to_null(_ReQL_Op obj);
@@ -239,36 +272,38 @@ int _reql_to_null(_ReQL_Op obj);
 _ReQL_Op _reql_json_number(_ReQL_Op obj, double val);
 int _reql_to_number(_ReQL_Op obj, double *val);
 
-_ReQL_Op _reql_json_string(_ReQL_Op obj, char *val, unsigned long str_len);
-int _reql_to_string(_ReQL_Op obj, _ReQL_C_String_t **str);
+_ReQL_Op _reql_json_string(_ReQL_Op obj, char *val, unsigned long size);
+int _reql_to_string(_ReQL_Op obj, _ReQL_String_t **str);
 
-_ReQL_Op _reql_json_c_array(_ReQL_Op obj, unsigned long size);
-int _reql_to_c_array(_ReQL_Op obj, unsigned long *size);
-int _reql_c_array_insert(_ReQL_Op obj, _ReQL_Op val, unsigned long idx);
-_ReQL_Op _reql_c_array_index(_ReQL_Op obj, unsigned long idx);
+_ReQL_Op _reql_json_array_(_ReQL_Op obj, unsigned long size);
+int _reql_to_array_(_ReQL_Op obj, unsigned long *size);
+int _reql_array_insert(_ReQL_Op obj, _ReQL_Op val, unsigned long idx);
+_ReQL_Op _reql_array_index(_ReQL_Op obj, unsigned long idx);
+
+void _reql_iter_free(_ReQL_Iter_t *obj);
 
 _ReQL_Op _reql_json_array(_ReQL_Op obj);
-_ReQL_Op _reql_to_array(_ReQL_Op obj);
+_ReQL_Iter _reql_to_array(_ReQL_Op obj);
 int _reql_array_append(_ReQL_Op arr, _ReQL_Op val);
-int _reql_array_next(_ReQL_Op *arr, _ReQL_Op *val);
+int _reql_array_next(_ReQL_Iter arr, _ReQL_Op *val);
 _ReQL_Op _reql_array_pop(_ReQL_Op obj);
 _ReQL_Op _reql_array_last(_ReQL_Op obj);
 
 _ReQL_Op _reql_json_object(_ReQL_Op obj);
-_ReQL_Op _reql_to_object(_ReQL_Op obj);
+_ReQL_Iter _reql_to_object(_ReQL_Op obj);
 int _reql_object_add(_ReQL_Op obj, _ReQL_Op key, _ReQL_Op val);
-int _reql_object_next(_ReQL_Op *obj, _ReQL_Op *key, _ReQL_Op *val);
+int _reql_object_next(_ReQL_Iter obj, _ReQL_Op *key, _ReQL_Op *val);
 _ReQL_Op _reql_object_get(_ReQL_Op obj, _ReQL_Op key);
 
 int _reql_op_eq(_ReQL_Op l, _ReQL_Op r);
 void _reql_expr_free(_ReQL_Op obj);
 _ReQL_Op _reql_expr_copy(_ReQL_Op obj);
 
-_ReQL_C_String_t *_reql_c_string(_ReQL_C_String_t *str, char *buf, unsigned long len);
-int _reql_c_string_append(_ReQL_C_String_t *orig, char *ext, unsigned long ext_len);
-void _reql_c_string_free(_ReQL_C_String_t *str);
+_ReQL_String _reql_string(_ReQL_String str, char *buf, unsigned long size);
+int _reql_string_append(_ReQL_String orig, char *ext, unsigned long size);
+void _reql_string_free(_ReQL_String str);
 
-_ReQL_Op _reql_json_decode(_ReQL_C_String_t *json);
-_ReQL_C_String_t *_reql_json_encode(_ReQL_Op val);
+_ReQL_Op _reql_json_decode(_ReQL_String json);
+_ReQL_String _reql_json_encode(_ReQL_Op val);
 
 #endif

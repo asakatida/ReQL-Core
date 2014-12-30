@@ -37,29 +37,16 @@ static _ReQL_Op _reql_from_rb(VALUE obj, long nesting_depth) {
 static VALUE _reql_to_rb(_ReQL_Op query) {
   VALUE res = NULL;
   switch (query->dt) {
-    case _REQL_C_ARRAY: {
+    case _REQL_R_ARRAY: {
       unsigned long size;
-      if (_reql_to_c_array(query, &size)) {
+      if (_reql_to_array_(query, &size)) {
         break;
       }
 
       unsigned long i;
 
       for (i=0; i<size; ++i) {
-        _reql_to_rb(_reql_c_array_index(query, i));
-      }
-      break;
-    }
-    case _REQL_R_ARRAY: {
-      _ReQL_Op iter = _reql_to_array(query);
-      if (!iter) {
-        break;
-      }
-
-      _ReQL_Op elem;
-
-      while (_reql_array_next(&iter, &elem)) {
-        _reql_to_rb(elem);
+        _reql_to_rb(_reql_array_index(query, i));
       }
       break;
     }
@@ -99,7 +86,7 @@ static VALUE _reql_to_rb(_ReQL_Op query) {
       break;
     }
     case _REQL_R_STR: {
-      _ReQL_C_String_t *str;
+      _ReQL_String_t *str;
       if (_reql_to_string(query, &str)) {
         break;
       }
