@@ -62,7 +62,7 @@ Connection::Connection(std::string host) {
   free(buf);
 }
 
-Connection::Connection(std::string host, unsigned int port) {
+Connection::Connection(std::string host, std::uint16_t port) {
   conn = new _ReQL_Conn_t();
   conn = _reql_new_connection(conn);
 
@@ -83,7 +83,7 @@ Connection::Connection(std::string host, unsigned int port) {
   free(buf);
 }
 
-Connection::Connection(std::string host, unsigned int port, std::string key) {
+Connection::Connection(std::string host, std::uint16_t port, std::string key) {
   conn = new _ReQL_Conn_t();
   conn = _reql_new_connection(conn);
 
@@ -122,11 +122,11 @@ Connection connect(std::string host) {
   return Connection(host);
 }
 
-Connection connect(std::string host, unsigned int port) {
+Connection connect(std::string host, std::uint16_t port) {
   return Connection(host, port);
 }
 
-Connection connect(std::string host, unsigned int port, std::string key) {
+Connection connect(std::string host, std::uint16_t port, std::string key) {
   return Connection(host, port, key);
 }
 

@@ -31,16 +31,16 @@ public:
 
   Connection();
   Connection(std::string);
-  Connection(std::string, unsigned int);
-  Connection(std::string, unsigned int, std::string);
+  Connection(std::string, std::uint16_t);
+  Connection(std::string, std::uint16_t, std::string);
 
   int close();
 };
 
 Connection connect();
 Connection connect(std::string);
-Connection connect(std::string, unsigned int);
-Connection connect(std::string, unsigned int, std::string);
+Connection connect(std::string, std::uint16_t);
+Connection connect(std::string, std::uint16_t, std::string);
 
 class Query : public AST {
 public:
