@@ -47,8 +47,8 @@ limitations under the License.
 
 static pthread_mutex_t *response_lock;
 static pthread_once_t *init_lock = NULL;
-static const unsigned int _REQL_VERSION = 0x5f75e83e;
-static const unsigned int _REQL_PROTOCOL = 0x7e6970c7;
+static const uint32_t _REQL_VERSION = 0x5f75e83e;
+static const uint32_t _REQL_PROTOCOL = 0x7e6970c7;
 
 enum {
   _REQL_CONTINUE = 2,
