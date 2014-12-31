@@ -22,6 +22,7 @@ limitations under the License.
 #define _REQL_CONFIG_H
 
 typedef enum {
+  _REQL_R_REQL,
   _REQL_R_ARRAY = 5,
   _REQL_R_BOOL = 2,
   _REQL_R_JSON = 7,
