@@ -29,6 +29,22 @@ limitations under the License.
 #include <sys/uio.h>
 #include <unistd.h>
 
+#ifndef htole32
+#ifdef OSSwapHostToLittleConstInt32
+#define htole32 OSSwapHostToLittleConstInt32
+#else
+#error need to provide htole32 for this platform
+#endif
+#endif
+
+#ifndef le32toh
+#ifdef OSSwapLittleToHostConstInt32
+#define le32toh OSSwapLittleToHostConstInt32
+#else
+#error need to provide le32toh for this platform
+#endif
+#endif
+
 static pthread_mutex_t *response_lock;
 static pthread_once_t *init_lock = NULL;
 static const unsigned int _REQL_VERSION = 0x5f75e83e;
@@ -41,42 +57,36 @@ enum {
   _REQL_STOP = 3
 };
 
-void _reql_make_magic(char *buf, size_t size, const unsigned long long magic) {
-  size_t i;
+typedef union {
+  uint32_t num;
+  uint8_t buf[4];
+} _ReQL_LE32;
 
-  for (i=0; i<size; ++i) {
-    buf[i] = (magic >> (8 * (size - i - 1))) & 0xff;
-  }
+typedef union {
+  uint64_t num;
+  uint8_t buf[8];
+} _ReQL_LE64;
+
+void _reql_make_32_le(uint8_t *buf, const uint32_t magic) {
+  _ReQL_LE32 _magic = {htole32(magic)};
+  memcpy(buf, _magic.buf, 4);
 }
 
-void _reql_make_magic_32(char *buf, const unsigned long magic) {
-  _reql_make_magic(buf, 4, htonl(magic));
+void _reql_make_64_token(uint8_t *buf, const uint64_t magic) {
+  _ReQL_LE64 _magic = {magic};
+  memcpy(buf, _magic.buf, 8);
 }
 
-void _reql_make_magic_64(char *buf, const unsigned long long magic) {
-  _reql_make_magic(buf, 8, htonll(magic));
+uint32_t _reql_get_32_le(char *buf) {
+  _ReQL_LE32 _magic = {0};
+  memcpy(_magic.buf, buf, 4);
+  return le32toh(_magic.num);
 }
 
-unsigned long long _reql_get_magic(char *buf, size_t size) {
-  size_t i;
-  unsigned long long magic = 0;
-
-  for (i=size; i>1; --i) {
-    magic |= buf[i];
-    magic <<= 8;
-  }
-
-  magic |= buf[0];
-
-  return magic;
-}
-
-unsigned long _reql_get_magic_32(char *buf) {
-  return ntohl(_reql_get_magic(buf, 4));
-}
-
-unsigned long long _reql_get_magic_64(char *buf) {
-  return ntohll(_reql_get_magic(buf, 8));
+uint64_t _reql_get_64_token(char *buf) {
+  _ReQL_LE64 _magic = {0};
+  memcpy(_magic.buf, buf, 8);
+  return _magic.num;
 }
 
 _ReQL_Cur_t *_reql_new_cursor() {
