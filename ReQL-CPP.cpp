@@ -86,7 +86,7 @@ Connection::Connection(std::string host, std::uint16_t port, std::string key) {
   if (key.size() > UINT_MAX) {
   }
 
-  unsigned int key_len = (unsigned int)key.size();
+  std::uint32_t key_len = (std::uint32_t)key.size();
 
   std::string _port = std::to_string(port);
 
