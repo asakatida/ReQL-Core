@@ -34,13 +34,9 @@ Connection::Connection() {
     return;
   }
 
-  char *buf = nullptr;
+  char buf[500];
 
-  if (_reql_connect(conn, &buf)) {
-  }
-
-  if (buf) {
-    free(buf);
+  if (_reql_connect(conn, buf, 500)) {
   }
 }
 
@@ -54,12 +50,10 @@ Connection::Connection(std::string host) {
 
   _reql_conn_set_addr(conn, (char *)host.c_str());
 
-  char *buf;
+  char buf[500];
 
-  if (_reql_connect(conn, &buf)) {
+  if (_reql_connect(conn, buf, 500)) {
   }
-
-  free(buf);
 }
 
 Connection::Connection(std::string host, std::uint16_t port) {
@@ -75,12 +69,10 @@ Connection::Connection(std::string host, std::uint16_t port) {
   _reql_conn_set_addr(conn, (char *)host.c_str());
   _reql_conn_set_port(conn, (char *)_port.c_str());
 
-  char *buf;
+  char buf[500];
 
-  if (_reql_connect(conn, &buf)) {
+  if (_reql_connect(conn, buf, 500)) {
   }
-
-  free(buf);
 }
 
 Connection::Connection(std::string host, std::uint16_t port, std::string key) {
@@ -102,12 +94,10 @@ Connection::Connection(std::string host, std::uint16_t port, std::string key) {
   _reql_conn_set_port(conn, (char *)_port.c_str());
   _reql_conn_set_auth(conn, key_len, (char *)key.c_str());
 
-  char *buf;
+  char buf[500];
 
-  if (_reql_connect(conn, &buf)) {
+  if (_reql_connect(conn, buf, 500)) {
   }
-
-  free(buf);
 }
 
 int Connection::close() {
