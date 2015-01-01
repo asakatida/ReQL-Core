@@ -92,59 +92,43 @@ uint64_t _reql_get_64_token(char *buf) {
   return _magic.num;
 }
 
-_ReQL_Cur_t *_reql_new_cursor() {
-  _ReQL_Cur_t *cur = malloc(sizeof(_ReQL_Cur_t));
+void _reql_cursor_init(_ReQL_Cur cur, _ReQL_Op arr, _ReQL_Iter iter) {
   cur->token = 0;
-  cur->idx = 0;
+  cur->done = 0;
   cur->next = cur->prev = cur;
   cur->conn = NULL;
   cur->response = NULL;
-  cur->array = _reql_json_array(NULL);
-  cur->iter = _reql_to_array(cur->array);
-  return cur;
+  cur->array = arr;
+  cur->iter = iter;
 }
 
-_ReQL_Conn_t *_reql_new_connection(_ReQL_Conn_t *conn) {
-  if (!conn) {
-    conn = malloc(sizeof(_ReQL_Conn_t));
-  }
-
+void _reql_connection_init(_ReQL_Conn conn) {
   conn->socket = -1;
-  conn->error = 0;
+  conn->done = 0;
   conn->max_token = 0;
-  conn->cursors = _reql_new_cursor();
+  conn->cursors = NULL;
   conn->timeout = 20;
   conn->auth_size = 0;
   conn->auth = NULL;
   conn->port = "28015";
   conn->addr = NULL;
-
-  return conn;
 }
 
-int _reql_conn_set_auth(_ReQL_Conn_t *conn, unsigned int size, char *auth) {
+void _reql_conn_set_auth(_ReQL_Conn_t *conn, unsigned int size, char *auth) {
   conn->auth_size = size;
   conn->auth = auth;
-
-  return 0;
 }
 
-int _reql_conn_set_addr(_ReQL_Conn_t *conn, char *addr) {
+void _reql_conn_set_addr(_ReQL_Conn_t *conn, char *addr) {
   conn->addr = addr;
-
-  return 0;
 }
 
-int _reql_conn_set_port(_ReQL_Conn_t *conn, char *port) {
+void _reql_conn_set_port(_ReQL_Conn_t *conn, char *port) {
   conn->port = port;
-
-  return 0;
 }
 
-int _reql_conn_set_timeout(_ReQL_Conn_t *conn, unsigned long timeout) {
+void _reql_conn_set_timeout(_ReQL_Conn_t *conn, unsigned long timeout) {
   conn->timeout = timeout;
-
-  return 0;
 }
 
 void _reql_set_cur_res(_ReQL_Conn_t *conn, _ReQL_Op res, unsigned long long token) {
@@ -166,8 +150,6 @@ void _reql_set_cur_res(_ReQL_Conn_t *conn, _ReQL_Op res, unsigned long long toke
       return;
     }
   }
-
-  conn->error = -1;
 }
 
 _ReQL_Op _reql_get_cur_res(_ReQL_Cur_t *cur) {
@@ -176,7 +158,7 @@ _ReQL_Op _reql_get_cur_res(_ReQL_Cur_t *cur) {
   while (1) {
     pthread_mutex_lock(response_lock);
     if (cur->response) {
-      res = _reql_expr_copy(cur->response);
+      _reql_expr_copy(res, cur->response);
       pthread_mutex_unlock(response_lock);
       break;
     }
@@ -187,7 +169,7 @@ _ReQL_Op _reql_get_cur_res(_ReQL_Cur_t *cur) {
   return res;
 }
 
-void _reql_end_cur_res(_ReQL_Conn_t *conn, _ReQL_Op res, unsigned long long token) {
+void _reql_end_cur_res(_ReQL_Conn_t *conn, _ReQL_Op res, uint64_t token) {
   _ReQL_Cur_t *cur = conn->cursors;
 
   if (cur->token == token) {
@@ -206,32 +188,35 @@ void _reql_end_cur_res(_ReQL_Conn_t *conn, _ReQL_Op res, unsigned long long toke
       return;
     }
   }
-
-  conn->error = -1;
 }
 
 void *_reql_conn_loop(void *_conn) {
   _ReQL_Conn_t *conn = _conn;
   char msg_header[12];
-  char *response = NULL;
-  unsigned long long token = 0;
-  long pos = 0, size = 0;
+  uint8_t *response = NULL;
+  uint64_t token = 0;
+  uint32_t pos = 0, size = 12;
 
   while (conn->socket > 0) {
+    pos += recvfrom(conn->socket, &response[pos], size, MSG_WAITALL, NULL, NULL);
     if (response) {
-      pos += recvfrom(conn->socket, &response[pos], size, MSG_WAITALL, NULL, NULL);
       if (pos == size) {
-        _ReQL_String_t *json = _reql_string(NULL, response, size);
-        _reql_set_cur_res(conn, _reql_json_decode(json), token);
+        _ReQL_Op json = malloc(sizeof(_ReQL_Op_t));
+
+        _reql_string_init(json, response, size);
+        _reql_set_cur_res(conn, _reql_decode(json), token);
+
         pos = 0;
+        size = 12;
+
+        free(json); json = NULL;
         free(response); response = NULL;
       }
     } else {
-      pos += recvfrom(conn->socket, &msg_header[pos], 12, MSG_WAITALL, NULL, NULL);
       if (pos == 12) {
         pos = 0;
-        token = _reql_get_magic_64(&msg_header[0]);
-        size = _reql_get_magic_32(&msg_header[8]);
+        token = _reql_get_64_token(&msg_header[0]);
+        size = _reql_get_32_le(&msg_header[8]);
         response = malloc(sizeof(char) * size);
         if (!response) {
           return NULL;
@@ -254,9 +239,7 @@ void _reql_init(void) {
   pthread_mutexattr_destroy(attrs);
 }
 
-int _reql_connect(_ReQL_Conn_t *conn, char **buf) {
-  conn->error = -1;
-
+int _reql_connect(_ReQL_Conn_t *conn, char *buf, size_t size) {
   struct addrinfo hints;
   struct addrinfo *result, *rp;
 
@@ -266,7 +249,7 @@ int _reql_connect(_ReQL_Conn_t *conn, char **buf) {
   hints.ai_protocol = IPPROTO_TCP;
 
   if (getaddrinfo(conn->addr, conn->port, &hints, &result)) {
-    return conn->error;
+    return -1;
   }
 
   for (rp = result; rp != NULL; rp = rp->ai_next) {
@@ -280,7 +263,7 @@ int _reql_connect(_ReQL_Conn_t *conn, char **buf) {
   }
 
   if (!rp) {
-    return conn->error;
+    return -1;
   }
 
   freeaddrinfo(result);
@@ -291,18 +274,18 @@ int _reql_connect(_ReQL_Conn_t *conn, char **buf) {
   timeout.tv_usec = 0;
 
   if (setsockopt(conn->socket, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout))) {
-    return conn->error;
+    return -1;
   }
 
   if (setsockopt(conn->socket, SOL_SOCKET, SO_SNDTIMEO, &timeout, sizeof(timeout))) {
-    return conn->error;
+    return -1;
   }
 
-  char iov_base[3][4];
+  uint8_t iov_base[3][4];
 
-  _reql_make_magic_32(iov_base[0], _REQL_VERSION);
-  _reql_make_magic_32(iov_base[1], conn->auth_size);
-  _reql_make_magic_32(iov_base[2], _REQL_PROTOCOL);
+  _reql_make_32_le(iov_base[0], _REQL_VERSION);
+  _reql_make_32_le(iov_base[1], conn->auth_size);
+  _reql_make_32_le(iov_base[2], _REQL_PROTOCOL);
 
   struct iovec magic[4];
 
@@ -320,15 +303,12 @@ int _reql_connect(_ReQL_Conn_t *conn, char **buf) {
 
   writev(conn->socket, magic, 4);
 
-  *buf = malloc(sizeof(char) * 500);
+  recvfrom(conn->socket, buf, 8, MSG_WAITALL, NULL, NULL);
 
-  conn->error = 0;
-
-  recvfrom(conn->socket, *buf, 8, MSG_WAITALL, NULL, NULL);
-
-  if (strcmp(*buf, "SUCCESS")) {
-    recvfrom(conn->socket, *buf, 500, MSG_WAITALL, NULL, NULL);
-    conn->error = -1 | _reql_close_conn(conn);
+  if (strcmp(buf, "SUCCESS")) {
+    recvfrom(conn->socket, buf, size - 8, MSG_WAITALL, NULL, NULL);
+    _reql_close_conn(conn);
+    return -1;
   }
 
   pthread_t thread;
@@ -336,71 +316,40 @@ int _reql_connect(_ReQL_Conn_t *conn, char **buf) {
   pthread_once(init_lock, _reql_init);
 
   if (pthread_create(&thread, NULL, _reql_conn_loop, conn)) {
-    conn->error = -1;
+    _reql_close_conn(conn);
+    return -1;
   }
 
   if (pthread_detach(thread)) {
-    conn->error = -1;
+    _reql_close_conn(conn);
+    return -1;
   }
 
-  return conn->error;
+  return -1;
 }
 
-void _reql_free_cur(_ReQL_Cur_t *cur) {
-  while (cur != cur->prev) {
-    cur = cur->prev;
-  }
-  while (cur != cur->next) {
-    cur = cur->next;
-    _reql_close_cur(cur->prev);
-  }
-  _reql_close_cur(cur);
+void _reql_close_conn(_ReQL_Conn_t *conn) {
+  conn->done = 1;
 }
 
-int _reql_close_conn(_ReQL_Conn_t *conn) {
-  conn->max_token = 0;
-  _reql_free_cur(conn->cursors);
-  conn->cursors = _reql_new_cursor();
-  conn->error = close(conn->socket); conn->socket = -1;
-  return conn->error;
-}
-
-void _reql_free_conn(_ReQL_Conn_t *conn) {
-  _reql_free_cur(conn->cursors);
-  free(conn); conn = NULL;
-}
-
-_ReQL_Cur_t *_reql_run(_ReQL_Op query, _ReQL_Conn_t *conn, _ReQL_Op kwargs) {
-  _ReQL_Cur_t *cur = conn->cursors;
-
-  while (cur->next != cur) {
-    cur = cur->next;
-  }
-
-  if (cur->response) {
-    cur->next = _reql_new_cursor();
+int _reql_run(_ReQL_Cur cur, _ReQL_Op query, _ReQL_Conn conn, _ReQL_Op kwargs) {
+  if (conn->cursors) {
+    cur->next = conn->cursors;
     cur->next->prev = cur;
-    cur = cur->next;
   }
+
+  conn->cursors = cur;
 
   cur->conn = conn;
   cur->token = conn->max_token++;
 
-  _reql_build(query);
-
-  return cur;
+  return 0;
 }
 
 void _reql_cursor_next(_ReQL_Cur_t *cur) {
-  cur->response = _reql_expr_null();
 }
 
-void _reql_close_cur(_ReQL_Cur_t *cur) {
-  if (!cur) {
-    return;
-  }
-
+void _reql_close_cur(_ReQL_Cur cur) {
   cur->prev->next = cur->next == cur ? cur->prev : cur->next;
   cur->next->prev = cur->prev == cur ? cur->next : cur->prev;
-  free(cur); cur = NULL;
 }

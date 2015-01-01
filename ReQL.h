@@ -35,9 +35,8 @@ typedef enum {
 } _ReQL_Response_t;
 
 struct _ReQL_Cur_s {
-  unsigned long long token;
-  unsigned int idx;
   char done;
+  uint64_t token;
   struct _ReQL_Conn_s *conn;
   _ReQL_Op response;
   _ReQL_Op array;
@@ -46,13 +45,14 @@ struct _ReQL_Cur_s {
   struct _ReQL_Cur_s *prev;
 };
 typedef struct _ReQL_Cur_s _ReQL_Cur_t;
+typedef _ReQL_Cur_t* _ReQL_Cur;
 
 struct _ReQL_Conn_s {
   char done;
   int socket;
-  int error;
-  unsigned long long max_token;
-  unsigned int auth_size;
+
+  uint64_t max_token;
+  uint32_t auth_size;
 
   unsigned long timeout;
 
@@ -63,18 +63,18 @@ struct _ReQL_Conn_s {
   _ReQL_Cur_t *cursors;
 };
 typedef struct _ReQL_Conn_s _ReQL_Conn_t;
+typedef _ReQL_Conn_t* _ReQL_Conn;
 
-_ReQL_Conn_t *_reql_new_connection(_ReQL_Conn_t *conn);
-int _reql_conn_set_auth(_ReQL_Conn_t *conn, unsigned int size, char *auth);
-int _reql_conn_set_addr(_ReQL_Conn_t *conn, char *addr);
-int _reql_conn_set_port(_ReQL_Conn_t *conn, char *port);
-int _reql_conn_set_timeout(_ReQL_Conn_t *conn, unsigned long timeout);
-int _reql_connect(_ReQL_Conn_t *conn, char **buf);
-int _reql_close_conn(_ReQL_Conn_t *conn);
-void _reql_free_conn(_ReQL_Conn_t *conn);
+_ReQL_Conn _reql_new_connection(_ReQL_Conn conn);
+void _reql_conn_set_auth(_ReQL_Conn conn, uint32_t size, char *auth);
+void _reql_conn_set_addr(_ReQL_Conn conn, char *addr);
+void _reql_conn_set_port(_ReQL_Conn conn, char *port);
+void _reql_conn_set_timeout(_ReQL_Conn conn, unsigned long timeout);
+int _reql_connect(_ReQL_Conn conn, char *buf, size_t size);
+void _reql_close_conn(_ReQL_Conn conn);
 
-_ReQL_Cur_t *_reql_run(_ReQL_Op query, _ReQL_Conn_t *conn, _ReQL_Op kwargs);
-void _reql_cursor_next(_ReQL_Cur_t *cur);
-void _reql_close_cur(_ReQL_Cur_t *cur);
+int _reql_run(_ReQL_Cur cur, _ReQL_Op query, _ReQL_Conn conn, _ReQL_Op kwargs);
+void _reql_cursor_next(_ReQL_Cur cur);
+void _reql_close_cur(_ReQL_Cur cur);
 
 #endif
