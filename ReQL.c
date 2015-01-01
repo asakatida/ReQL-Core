@@ -20,6 +20,9 @@ limitations under the License.
 
 #include "ReQL.h"
 
+#include "ReQL-encode.h"
+#include "ReQL-decode.h"
+
 #include <netdb.h>
 #include <netinet/in.h>
 #include <pthread.h>

@@ -280,8 +280,6 @@ double _reql_to_number(_ReQL_Op obj);
 void _reql_string_init(_ReQL_Op obj, uint8_t *buf, uint32_t size);
 uint8_t *_reql_string_buf(_ReQL_Op obj);
 uint32_t _reql_string_size(_ReQL_Op obj);
-size_t _reql_string_append(_ReQL_Op obj, uint8_t *ext, uint32_t size);
-void _reql_string_resize(_ReQL_Op obj, uint8_t *buf, uint32_t size);
 
 void _reql_array_init(_ReQL_Op obj, _ReQL_Op *arr, uint32_t size);
 uint32_t _reql_array_size(_ReQL_Op obj);
@@ -297,11 +295,5 @@ _ReQL_Op _reql_iter_next(_ReQL_Iter arr);
 void _reql_object_init(_ReQL_Op obj, _ReQL_Pair pair, uint32_t size);
 size_t _reql_object_add(_ReQL_Op obj, _ReQL_Op key, _ReQL_Op val);
 _ReQL_Op _reql_object_get(_ReQL_Op obj, _ReQL_Op key);
-
-char _reql_op_eq(_ReQL_Op l, _ReQL_Op r);
-void _reql_expr_copy(_ReQL_Op obj, _ReQL_Op orig);
-
-_ReQL_Op _reql_decode(_ReQL_Op json);
-_ReQL_Op _reql_encode(_ReQL_Op val);
 
 #endif
