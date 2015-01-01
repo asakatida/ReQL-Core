@@ -49,6 +49,7 @@ limitations under the License.
 #endif
 
 static pthread_mutex_t *response_lock;
+static pthread_mutex_t *conn_lock;
 static pthread_once_t *init_lock = NULL;
 static const uint32_t _REQL_VERSION = 0x5f75e83e;
 static const uint32_t _REQL_PROTOCOL = 0x7e6970c7;
@@ -197,7 +198,13 @@ void *_reql_conn_loop(void *_conn) {
   uint64_t token = 0;
   uint32_t pos = 0, size = 12;
 
-  while (conn->socket > 0) {
+  while (1) {
+    pthread_mutex_lock(conn_lock);
+    if (conn->socket < 0) {
+      pthread_mutex_unlock(conn_lock);
+      break;
+    }
+    pthread_mutex_unlock(conn_lock);
     pos += recvfrom(conn->socket, &response[pos], size, MSG_WAITALL, NULL, NULL);
     if (response) {
       if (pos == size) {
