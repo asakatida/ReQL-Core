@@ -24,208 +24,118 @@ limitations under the License.
 #include <stdlib.h>
 #include <string.h>
 
-_ReQL_Op _reql_json_number(_ReQL_Op obj, double num) {
-  obj = _reql_json_null(obj);
-  if (obj) {
-    obj->obj.datum.dt = _REQL_R_NUM;
-    obj->obj.datum.json.number = num;
+_ReQL_Datum_t _reql_datum_type(_ReQL_Op obj) {
+  if (_reql_term_type(obj) != _REQL_DATUM) {
+    return _REQL_R_REQL;
   }
-  return obj;
+
+  return obj->obj.datum.dt;
 }
 
-int _reql_to_number(_ReQL_Op obj, double *num) {
-  if (obj) {
-    if (obj->tt != _REQL_DATUM) {
-      return -1;
+_ReQL_Term_t _reql_term_type(_ReQL_Op obj) {
+  return obj->tt;
+}
+
+void _reql_number_init(_ReQL_Op obj, double num) {
+  _reql_null_init(obj);
+
+  obj->obj.datum.dt = _REQL_R_NUM;
+  obj->obj.datum.json.number = num;
+}
+
+double _reql_to_number(_ReQL_Op obj) {
+  return obj->obj.datum.json.number;
+}
+
+void _reql_string_init(_ReQL_Op obj, uint8_t *str, uint32_t size) {
+  _reql_null_init(obj);
+
+  obj->obj.datum.dt = _REQL_R_STR;
+  obj->obj.datum.json.string.str = str;
+  obj->obj.datum.json.string.alloc_size = size;
+}
+
+uint8_t *_reql_string_buf(_ReQL_Op obj) {
+  return obj->obj.datum.json.string.str;
+}
+
+uint32_t _reql_string_size(_ReQL_Op obj) {
+  return obj->obj.datum.json.string.size;
+}
+
+void _reql_iter_init(_ReQL_Iter res, _ReQL_Op obj) {
+  res->idx = 0;
+  res->obj = obj;
+}
+
+_ReQL_Op _reql_iter_next(_ReQL_Iter obj) {
+  _ReQL_Op next = NULL;
+
+  if (_reql_datum_type(obj->obj) == _REQL_R_ARRAY) {
+    if (obj->obj->obj.datum.json.array.alloc_size < obj->idx) {
+      next = _reql_array_index(obj->obj, obj->idx);
+      obj->idx += 1;
     }
-    if (obj->obj.datum.dt == _REQL_R_NUM) {
-      *num = obj->obj.datum.json.number;
-      return 0;
+  } else {
+    if (obj->obj->obj.datum.json.object.alloc_size < obj->idx) {
+      next = obj->obj->obj.datum.json.object.pair[obj->idx].key;
+      obj->idx += 1;
     }
   }
-  return -1;
+
+  return next;
 }
 
-_ReQL_Op _reql_json_string(_ReQL_Op obj, char *str, unsigned long size) {
-  _ReQL_String_t *r_str = _reql_string(NULL, str, size);
-
-  if (!r_str) {
-    return NULL;
-  }
-
-  obj = _reql_json_null(obj);
-
-  if (obj) {
-    obj->obj.datum.dt = _REQL_R_STR;
-    obj->obj.datum.json.string = r_str;
-  }
-
-  return obj;
-}
-
-int _reql_to_string(_ReQL_Op obj, _ReQL_String *str) {
-  int err = -1;
-  if (obj) {
-    if (obj->tt != _REQL_DATUM) {
-      return -1;
-    }
-    if (obj->obj.datum.dt == _REQL_R_STR) {
-      if (obj->obj.datum.json.string) {
-        *str = obj->obj.datum.json.string;
-        err = 0;
-      }
-    }
-  }
-  return err;
-}
-
-_ReQL_Iter _reql_iter(_ReQL_Op obj) {
-  _ReQL_Iter res = malloc(sizeof(_ReQL_Iter_t));
-
-  if (res) {
-    res->idx = 0;
-    res->obj = obj;
-  }
-
-  return res;
-}
-
-void _reql_iter_free(_ReQL_Iter obj) {
-  free(obj); obj = NULL;
-}
-
-_ReQL_Op _reql_json_array_(_ReQL_Op obj, unsigned long size) {
-  _ReQL_Op *arr = malloc(sizeof(_ReQL_Op) * size);
-
-  if (!arr) {
-    return NULL;
-  }
-
-  unsigned long i;
+void _reql_array_init(_ReQL_Op obj, _ReQL_Op *arr, uint32_t size) {
+  uint32_t i;
 
   for (i=0; i<size; ++i) {
     arr[i] = NULL;
   }
 
-  obj = _reql_json_null(obj);
+  _reql_null_init(obj);
 
-  if (obj) {
-    obj->obj.datum.dt = _REQL_R_ARRAY;
-    obj->obj.datum.json.array.arr = arr;
-    obj->obj.datum.json.array.alloc_size = size;
-    obj->obj.datum.json.array.size = 0;
-  } else {
-    free(arr);
-  }
-
-  return obj;
+  obj->obj.datum.dt = _REQL_R_ARRAY;
+  obj->obj.datum.json.array.arr = arr;
+  obj->obj.datum.json.array.alloc_size = size;
+  obj->obj.datum.json.array.size = 0;
 }
 
-int _reql_to_array_(_ReQL_Op obj, unsigned long *size) {
-  int err = -1;
-  if (obj) {
-    if (obj->tt != _REQL_DATUM) {
-      return -1;
-    }
-    if (obj->obj.datum.dt == _REQL_R_ARRAY) {
-      if (size) {
-        *size = obj->obj.datum.json.array.size;
-      }
-      err = 0;
-    }
-  }
-  return err;
+uint32_t _reql_array_size(_ReQL_Op obj) {
+  return obj->obj.datum.json.array.size;
 }
 
-int _reql_array_insert(_ReQL_Op obj, _ReQL_Op val, unsigned long idx) {
-  if (!obj) {
-    return -1;
-  }
-
+size_t _reql_array_insert(_ReQL_Op obj, _ReQL_Op val, uint32_t idx) {
   if (idx >= obj->obj.datum.json.array.alloc_size) {
-    obj->obj.datum.json.array.alloc_size = idx;
-    obj->obj.datum.json.array.alloc_size *= 1.1;
+    size_t alloc_size = idx * 1.1;
 
-    _ReQL_Op *arr = obj->obj.datum.json.array.arr;
-    arr = realloc(arr, obj->obj.datum.json.array.alloc_size);
-
-    if (!arr) {
-      obj->obj.datum.json.array.alloc_size = 0;
-      obj->obj.datum.json.array.size = 0;
-      return -1;
+    if (alloc_size < idx) {
+      return SIZE_MAX;
     }
 
-    unsigned long i;
-
-    for (i=obj->obj.datum.json.array.size; i<obj->obj.datum.json.array.alloc_size; ++i) {
-      arr[i] = NULL;
-    }
-
-    obj->obj.datum.json.array.arr = arr;
+    return alloc_size * sizeof(_ReQL_Op_t);
   }
 
   if (idx > obj->obj.datum.json.array.size) {
     obj->obj.datum.json.array.size = idx;
   }
 
-  _reql_expr_free(obj->obj.datum.json.array.arr[idx]);
-
   obj->obj.datum.json.array.arr[idx] = val;
 
   return 0;
 }
 
-_ReQL_Op _reql_array_index(_ReQL_Op obj, unsigned long idx) {
-  if ((!obj) || obj->obj.datum.json.array.alloc_size <= idx) {
+_ReQL_Op _reql_array_index(_ReQL_Op obj, uint32_t idx) {
+  if (obj->obj.datum.json.array.alloc_size <= idx) {
     return NULL;
   }
 
   return obj->obj.datum.json.array.arr[idx];
 }
 
-_ReQL_Op _reql_json_array(_ReQL_Op obj) {
-  return _reql_json_array_(obj, 10);
-}
-
-_ReQL_Iter _reql_to_array(_ReQL_Op obj) {
-  if (_reql_to_array_(obj, NULL)) {
-    return NULL;
-  }
-  return _reql_iter(obj);
-}
-
-int _reql_array_append(_ReQL_Op obj, _ReQL_Op val) {
-  unsigned long size;
-
-  if (_reql_to_array_(obj, &size)) {
-    return -1;
-  }
-
-  ++size;
-
-  return _reql_array_insert(obj, val, size);
-}
-
-int _reql_array_next(_ReQL_Iter obj, _ReQL_Op *val) {
-  if (!obj) {
-    return -1;
-  }
-
-  unsigned long size;
-
-  if (_reql_to_array_(obj->obj, &size)) {
-    return -1;
-  }
-
-  if (obj->idx >= size) {
-    return -1;
-  }
-
-  *val = _reql_array_index(obj->obj, obj->idx);
-
-  obj->idx += 1;
-
-  return 0;
+size_t _reql_array_append(_ReQL_Op obj, _ReQL_Op val) {
+  uint32_t size = _reql_array_size(obj);
+  return _reql_array_insert(obj, val, size + 1);
 }
 
 _ReQL_Op _reql_array_pop(_ReQL_Op obj) {
@@ -239,56 +149,27 @@ _ReQL_Op _reql_array_pop(_ReQL_Op obj) {
 }
 
 _ReQL_Op _reql_array_last(_ReQL_Op obj) {
-  unsigned long size;
-
-  if (_reql_to_array_(obj, &size)) {
-    return NULL;
-  }
-
-  return _reql_array_index(obj, size);
+  return _reql_array_index(obj, _reql_array_size(obj));
 }
 
-_ReQL_Op _reql_json_object(_ReQL_Op obj) {
-  _ReQL_Pair_t *pairs = malloc(sizeof(_ReQL_Pair_t) * 10);
-
-  if (!pairs) {
-    return NULL;
-  }
-
-  unsigned long i;
+void _reql_object_init(_ReQL_Op obj, _ReQL_Pair pairs, uint32_t size) {
+  uint32_t i;
 
   for (i=0; i<10; ++i) {
     pairs[i].key = NULL;
     pairs[i].val = NULL;
   }
 
-  obj = _reql_json_null(obj);
+  _reql_null_init(obj);
 
-  if (obj) {
-    obj->obj.datum.dt = _REQL_R_OBJECT;
-    obj->obj.datum.json.object.pair = pairs;
-    obj->obj.datum.json.object.size = 0;
-    obj->obj.datum.json.object.alloc_size = 10;
-  } else {
-    free(pairs);
-  }
-
-  return obj;
+  obj->obj.datum.dt = _REQL_R_OBJECT;
+  obj->obj.datum.json.object.pair = pairs;
+  obj->obj.datum.json.object.size = 0;
+  obj->obj.datum.json.object.alloc_size = size;
 }
 
-_ReQL_Iter _reql_to_object(_ReQL_Op obj) {
-  if (obj) {
-    if (obj->tt == _REQL_DATUM) {
-      if (obj->obj.datum.dt == _REQL_R_OBJECT) {
-        return _reql_iter(obj);
-      }
-    }
-  }
-  return NULL;
-}
-
-int _reql_op_eq(_ReQL_Op l, _ReQL_Op r) {
-  int res = 0;
+char _reql_op_eq(_ReQL_Op l, _ReQL_Op r) {
+  char res = 0;
   if (l == r) {
     res = 1;
   } else {
@@ -298,73 +179,58 @@ int _reql_op_eq(_ReQL_Op l, _ReQL_Op r) {
           if (l->obj.datum.dt == r->obj.datum.dt) {
             switch (l->obj.datum.dt) {
               case _REQL_R_ARRAY: {
-                unsigned long larr_size, rarr_size;
-                if (_reql_to_array_(l, &larr_size) || _reql_to_array_(r, &rarr_size)) {
-                  break;
-                }
-                if (larr_size == rarr_size) {
+                uint32_t l_size = _reql_array_size(l), r_size = _reql_array_size(r);
+                if (l_size == r_size) {
                   res = 1;
-                  unsigned long i;
-                  for (i=0; i<larr_size; ++i) {
+                  uint32_t i;
+                  for (i=0; i<l_size; ++i) {
                     res &= _reql_op_eq(_reql_array_index(l, i), _reql_array_index(r, i));
                   }
                 }
                 break;
               }
               case _REQL_R_BOOL: {
-                char lval, rval;
-                if (_reql_to_bool(l, &lval) || _reql_to_bool(r, &rval)) {
-                  break;
-                }
-                res = lval == rval;
+                res = _reql_to_bool(l) == _reql_to_bool(r);
                 break;
               }
-              case _REQL_R_JSON: break;
               case _REQL_R_NULL: {
                 res = 1;
                 break;
               }
               case _REQL_R_NUM: {
-                double lval, rval;
-                if (_reql_to_number(l, &lval) || _reql_to_number(r, &rval)) {
-                  break;
-                }
-                res = lval == rval;
+                res = _reql_to_number(l) == _reql_to_number(r);
                 break;
               }
               case _REQL_R_OBJECT: {
-                _ReQL_Iter i = _reql_to_object(l);
-                if (!i) {
-                  break;
-                }
+                _ReQL_Iter i = malloc(sizeof(_ReQL_Iter_t));
+                _reql_iter_init(i, l);
+
                 res = 1;
                 _ReQL_Op key = NULL;
-                _ReQL_Op val = NULL;
 
-                while (!_reql_object_next(i, &key, &val)) {
-                  res &= _reql_op_eq(val, _reql_object_get(r, key));
+                while ((key = _reql_iter_next(i))) {
+                  res &= _reql_op_eq(_reql_object_get(l, key), _reql_object_get(r, key));
                 }
 
-                _reql_iter_free(i); i = _reql_to_object(r);
+                _reql_iter_init(i, r);
 
-                while (!_reql_object_next(i, &key, &val)) {
-                  res &= _reql_op_eq(val, _reql_object_get(l, key));
+                while ((key = _reql_iter_next(i))) {
+                  res &= _reql_op_eq(_reql_object_get(l, key), _reql_object_get(r, key));
                 }
 
-                _reql_iter_free(i); i = NULL;
+                free(i); i = NULL;
                 break;
               }
               case _REQL_R_STR: {
-                _ReQL_String_t *rstr;
-                _ReQL_String_t *lstr;
-                if (_reql_to_string(l, &lstr) || _reql_to_string(r, &rstr)) {
-                  break;
-                }
-                if (lstr->size == rstr->size) {
-                  res = !memcmp(lstr->str, rstr->str, lstr->size);
+                uint32_t size = _reql_string_size(l);
+
+                if (size == _reql_string_size(r)) {
+                  res = !memcmp(_reql_string_buf(r), _reql_string_buf(r), size);
                 }
                 break;
               }
+              case _REQL_R_REQL:
+              case _REQL_R_JSON: break;
             }
           }
         } else {
@@ -378,18 +244,14 @@ int _reql_op_eq(_ReQL_Op l, _ReQL_Op r) {
   return res;
 }
 
-int _reql_object_add(_ReQL_Op obj, _ReQL_Op key, _ReQL_Op val) {
-  if (!(obj && key)) {
-    return -1;
-  }
-
+size_t _reql_object_add(_ReQL_Op obj, _ReQL_Op key, _ReQL_Op val) {
   _ReQL_Pair_t *pair = obj->obj.datum.json.object.pair;
 
-  unsigned long idx;
+  uint32_t idx;
 
   for (idx=0; idx<obj->obj.datum.json.object.size; ++idx) {
     if (_reql_op_eq(pair[idx].key, key)) {
-      _reql_expr_free(pair[idx].key); pair[idx].key = NULL;
+      pair[idx].key = NULL;
       break;
     }
   }
@@ -409,7 +271,7 @@ int _reql_object_add(_ReQL_Op obj, _ReQL_Op key, _ReQL_Op val) {
       return -1;
     }
 
-    unsigned long i;
+    uint32_t i;
 
     for (i=obj->obj.datum.json.array.size; i<obj->obj.datum.json.array.alloc_size; ++i) {
       pair[i].key = NULL;
@@ -438,7 +300,7 @@ int _reql_object_next(_ReQL_Iter obj, _ReQL_Op *key, _ReQL_Op *val) {
     return -1;
   }
 
-  unsigned long size = obj->obj->obj.datum.json.object.size;
+  uint32_t size = obj->obj->obj.datum.json.object.size;
 
   if (obj->idx >= size) {
     return -1;
@@ -457,205 +319,45 @@ int _reql_object_next(_ReQL_Iter obj, _ReQL_Op *key, _ReQL_Op *val) {
 }
 
 _ReQL_Op _reql_object_get(_ReQL_Op obj, _ReQL_Op key) {
-  if (!key) {
-    return NULL;
-  }
-
-  _ReQL_Iter iter = _reql_to_object(obj);
+  _ReQL_Iter iter = malloc(sizeof(_ReQL_Iter_t));
 
   if (!iter) {
     return NULL;
   }
 
+  _reql_iter_init(iter, obj);
+
   _ReQL_Op _key = NULL, val = NULL;
 
-  while (!_reql_object_next(iter, &_key, &val)) {
+  while ((_key = _reql_iter_next(iter)) != NULL) {
     if (_reql_op_eq(key, _key)) {
-      return val;
-    }
-  }
-
-  return NULL;
-}
-
-_ReQL_Op _reql_json_null(_ReQL_Op obj) {
-  if (!obj) {
-    obj = malloc(sizeof(_ReQL_Op_t));
-  }
-  if (obj) {
-    obj->tt = _REQL_DATUM;
-    obj->obj.datum.dt = _REQL_R_NULL;
-  }
-  return obj;
-}
-
-int _reql_to_null(_ReQL_Op obj) {
-  if (!obj) {
-    return -1;
-  }
-  if (obj->tt != _REQL_DATUM) {
-    return -1;
-  }
-  if (obj->obj.datum.dt == _REQL_R_NULL) {
-    return 0;
-  }
-  return -1;
-}
-
-_ReQL_Op _reql_json_bool(_ReQL_Op obj, char val) {
-  obj = _reql_json_null(obj);
-  if (obj) {
-    obj->obj.datum.dt = _REQL_R_BOOL;
-    obj->obj.datum.json.boolean = val;
-  }
-  return obj;
-}
-
-int _reql_to_bool(_ReQL_Op obj, char *val) {
-  if (obj) {
-    if (obj->tt != _REQL_DATUM) {
-      return -1;
-    }
-    if (obj->obj.datum.dt == _REQL_R_BOOL) {
-      *val = obj->obj.datum.json.number;
-      return 0;
-    }
-  }
-  return -1;
-}
-
-_ReQL_Op _reql_expr_copy(_ReQL_Op obj) {
-  if (!obj) {
-    return NULL;
-  }
-
-  _ReQL_Op res = NULL;
-
-  if (obj->tt == _REQL_DATUM) {
-    switch (obj->obj.datum.dt) {
-      case _REQL_R_ARRAY: {
-        unsigned long size;
-        if (_reql_to_array_(obj, &size)) {
-          break;
-        }
-        res = _reql_json_array_(NULL, size);
-        unsigned long i;
-        for (i=0; i<size; ++i) {
-          _reql_array_insert(obj, _reql_expr_copy(_reql_array_index(obj, i)), i);
-        }
-        break;
-      }
-      case _REQL_R_BOOL: {
-        char val;
-        if (_reql_to_bool(obj, &val)) {
-          break;
-        }
-        res = _reql_json_bool(NULL, val);
-        break;
-      }
-      case _REQL_R_JSON: {
-        break;
-      }
-      case _REQL_R_NULL: {
-        obj = _reql_json_null(NULL);
-        break;
-      }
-      case _REQL_R_NUM: {
-        double val;
-        if (_reql_to_number(obj, &val)) {
-          break;
-        }
-        res = _reql_json_number(NULL, val);
-        break;
-      }
-      case _REQL_R_OBJECT: {
-        _ReQL_Iter iter = _reql_to_object(obj);
-        if (!iter) {
-          break;
-        }
-        res = _reql_json_object(NULL);
-        _ReQL_Op key;
-        _ReQL_Op val;
-        while (!_reql_object_next(iter, &key, &val)) {
-          _reql_object_add(res, _reql_expr_copy(key), _reql_expr_copy(val));
-        }
-        break;
-      }
-      case _REQL_R_STR: {
-        _ReQL_String_t *str;
-        if (_reql_to_string(obj, &str)) {
-          break;
-        }
-        res = _reql_json_string(NULL, str->str, str->size);
-        break;
-      }
-    }
-  } else {
-    res = _reql_json_null(NULL);
-    res->tt = obj->tt;
-    res->obj.args.args = _reql_expr_copy(obj->obj.args.args);
-    res->obj.args.kwargs = _reql_expr_copy(obj->obj.args.kwargs);
-  }
-  return res;
-}
-
-void _reql_expr_free(_ReQL_Op obj) {
-  if (!obj) {
-    return;
-  }
-
-  if (obj->tt == _REQL_DATUM) {
-    switch (obj->obj.datum.dt) {
-      case _REQL_R_ARRAY: {
-        unsigned long i;
-
-        for (i=0; i<obj->obj.datum.json.array.alloc_size; ++i) {
-          _reql_expr_free(obj->obj.datum.json.array.arr[i]);
-        }
-
-        free(obj->obj.datum.json.array.arr);
-        break;
-      }
-      case _REQL_R_BOOL:
-      case _REQL_R_JSON:
-      case _REQL_R_NULL:
-      case _REQL_R_NUM: break;
-      case _REQL_R_OBJECT: {
-        unsigned long i;
-
-        for (i=0; i<obj->obj.datum.json.object.alloc_size; ++i) {
-          _reql_expr_free(obj->obj.datum.json.object.pair[i].key);
-          _reql_expr_free(obj->obj.datum.json.object.pair[i].val);
-        }
-
-        free(obj->obj.datum.json.object.pair);
-        break;
-      }
-      case _REQL_R_STR: {
-        _reql_string_free(obj->obj.datum.json.string);
-        break;
-      }
-    }
-  } else {
-    _reql_expr_free(obj->obj.args.args);
-    _reql_expr_free(obj->obj.args.args);
-  }
-
-  free(obj);
-}
-
+      val = _reql_object_get(obj, key);
       break;
     }
   }
 
+  free(iter);
 
+  return NULL;
 }
 
+void _reql_null_init(_ReQL_Op obj) {
+  obj->tt = _REQL_DATUM;
+  obj->obj.datum.dt = _REQL_R_NULL;
 }
 
+void _reql_bool_init(_ReQL_Op obj, char val) {
+  _reql_null_init(obj);
 
+  obj->obj.datum.dt = _REQL_R_BOOL;
+  obj->obj.datum.json.boolean = val;
 }
 
+char _reql_to_bool(_ReQL_Op obj) {
+  return obj->obj.datum.json.boolean;
 }
 
+void _reql_expr_copy(_ReQL_Op obj, _ReQL_Op orig) {
+  obj->tt = orig->tt;
+  obj->obj = orig->obj;
 }
