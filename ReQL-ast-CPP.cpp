@@ -27,7 +27,7 @@ limitations under the License.
 
 namespace ReQL {
 
-AST init(_ReQL_AST_Function_ f, std::vector<Query> args, std::map<std::string, Query> kwargs) {
+AST init(_ReQL_AST_Function f, std::vector<Query> args, std::map<std::string, Query> kwargs) {
   AST term;
 
   term.query = new _ReQL_Op_t();
@@ -49,17 +49,17 @@ AST init(_ReQL_AST_Function_ f, std::vector<Query> args, std::map<std::string, Q
   return term;
 }
 
-AST init(_ReQL_AST_Function_ f, AST *term, std::vector<Query> args, std::map<std::string, Query> kwargs) {
+AST init(_ReQL_AST_Function f, AST *term, std::vector<Query> args, std::map<std::string, Query> kwargs) {
   args.insert(args.begin(), static_cast<Query>(term));
   return init(f, args, kwargs);
 }
 
-AST init(_ReQL_AST_Function_ f, std::vector<Query> args) {
+AST init(_ReQL_AST_Function f, std::vector<Query> args) {
   std::map<std::string, Query> kwargs;
   return init(f, args, kwargs);
 }
 
-AST init(_ReQL_AST_Function_ f, AST *term, std::vector<Query> args) {
+AST init(_ReQL_AST_Function f, AST *term, std::vector<Query> args) {
   std::map<std::string, Query> kwargs;
   return init(f, term, args, kwargs);
 }
@@ -67,1657 +67,1657 @@ AST init(_ReQL_AST_Function_ f, AST *term, std::vector<Query> args) {
 /**
  */
 AST AST::add(std::vector<Query> args) {
-  return init(_reql_ast_add_, this, args);
+  return init(_reql_ast_add, this, args);
 }
 AST add(std::vector<Query> args) {
-  return init(_reql_ast_add_, args);
+  return init(_reql_ast_add, args);
 }
 
 /**
  */
 AST AST::all(std::vector<Query> args) {
-  return init(_reql_ast_all_, this, args);
+  return init(_reql_ast_all, this, args);
 }
 AST all(std::vector<Query> args) {
-  return init(_reql_ast_all_, args);
+  return init(_reql_ast_all, args);
 }
 
 /**
  */
 AST AST::any(std::vector<Query> args) {
-  return init(_reql_ast_any_, this, args);
+  return init(_reql_ast_any, this, args);
 }
 AST any(std::vector<Query> args) {
-  return init(_reql_ast_any_, args);
+  return init(_reql_ast_any, args);
 }
 
 /**
  */
 AST AST::append(std::vector<Query> args) {
-  return init(_reql_ast_append_, this, args);
+  return init(_reql_ast_append, this, args);
 }
 AST append(std::vector<Query> args) {
-  return init(_reql_ast_append_, args);
+  return init(_reql_ast_append, args);
 }
 
 /**
  */
 AST AST::april(std::vector<Query> args) {
-  return init(_reql_ast_april_, this, args);
+  return init(_reql_ast_april, this, args);
 }
 AST april(std::vector<Query> args) {
-  return init(_reql_ast_april_, args);
+  return init(_reql_ast_april, args);
 }
 
 /**
  */
 AST AST::args(std::vector<Query> args) {
-  return init(_reql_ast_args_, this, args);
+  return init(_reql_ast_args, this, args);
 }
 AST args(std::vector<Query> args) {
-  return init(_reql_ast_args_, args);
+  return init(_reql_ast_args, args);
 }
 
 /**
  */
 AST AST::asc(std::vector<Query> args) {
-  return init(_reql_ast_asc_, this, args);
+  return init(_reql_ast_asc, this, args);
 }
 AST asc(std::vector<Query> args) {
-  return init(_reql_ast_asc_, args);
+  return init(_reql_ast_asc, args);
 }
 
 /**
  */
 AST AST::august(std::vector<Query> args) {
-  return init(_reql_ast_august_, this, args);
+  return init(_reql_ast_august, this, args);
 }
 AST august(std::vector<Query> args) {
-  return init(_reql_ast_august_, args);
+  return init(_reql_ast_august, args);
 }
 
 /**
  */
 AST AST::avg(std::vector<Query> args) {
-  return init(_reql_ast_avg_, this, args);
+  return init(_reql_ast_avg, this, args);
 }
 AST avg(std::vector<Query> args) {
-  return init(_reql_ast_avg_, args);
+  return init(_reql_ast_avg, args);
 }
 
 /**
  */
 AST AST::between(std::vector<Query> args) {
-  return init(_reql_ast_between_, this, args);
+  return init(_reql_ast_between, this, args);
 }
 AST between(std::vector<Query> args) {
-  return init(_reql_ast_between_, args);
+  return init(_reql_ast_between, args);
 }
 
 /**
  */
 AST AST::binary(std::vector<Query> args) {
-  return init(_reql_ast_binary_, this, args);
+  return init(_reql_ast_binary, this, args);
 }
 AST binary(std::vector<Query> args) {
-  return init(_reql_ast_binary_, args);
+  return init(_reql_ast_binary, args);
 }
 
 /**
  */
 AST AST::bracket(std::vector<Query> args) {
-  return init(_reql_ast_bracket_, this, args);
+  return init(_reql_ast_bracket, this, args);
 }
 AST bracket(std::vector<Query> args) {
-  return init(_reql_ast_bracket_, args);
+  return init(_reql_ast_bracket, args);
 }
 
 /**
  */
 AST AST::branch(std::vector<Query> args) {
-  return init(_reql_ast_branch_, this, args);
+  return init(_reql_ast_branch, this, args);
 }
 AST branch(std::vector<Query> args) {
-  return init(_reql_ast_branch_, args);
+  return init(_reql_ast_branch, args);
 }
 
 /**
  */
 AST AST::changes(std::vector<Query> args) {
-  return init(_reql_ast_changes_, this, args);
+  return init(_reql_ast_changes, this, args);
 }
 AST changes(std::vector<Query> args) {
-  return init(_reql_ast_changes_, args);
+  return init(_reql_ast_changes, args);
 }
 
 /**
  */
 AST AST::change_at(std::vector<Query> args) {
-  return init(_reql_ast_change_at_, this, args);
+  return init(_reql_ast_change_at, this, args);
 }
 AST change_at(std::vector<Query> args) {
-  return init(_reql_ast_change_at_, args);
+  return init(_reql_ast_change_at, args);
 }
 
 /**
  */
 AST AST::circle(std::vector<Query> args, std::map<std::string, Query> kwargs) {
-  return init(_reql_ast_circle_, this, args, kwargs);
+  return init(_reql_ast_circle, this, args, kwargs);
 }
 AST circle(std::vector<Query> args, std::map<std::string, Query> kwargs) {
-  return init(_reql_ast_circle_, args, kwargs);
+  return init(_reql_ast_circle, args, kwargs);
 }
 AST AST::circle(std::vector<Query> args) {
-  return init(_reql_ast_circle_, this, args);
+  return init(_reql_ast_circle, this, args);
 }
 AST circle(std::vector<Query> args) {
-  return init(_reql_ast_circle_, args);
+  return init(_reql_ast_circle, args);
 }
 
 /**
  */
 AST AST::coerce_to(std::vector<Query> args) {
-  return init(_reql_ast_coerce_to_, this, args);
+  return init(_reql_ast_coerce_to, this, args);
 }
 AST coerce_to(std::vector<Query> args) {
-  return init(_reql_ast_coerce_to_, args);
+  return init(_reql_ast_coerce_to, args);
 }
 
 /**
  */
 AST AST::concat_map(std::vector<Query> args) {
-  return init(_reql_ast_concat_map_, this, args);
+  return init(_reql_ast_concat_map, this, args);
 }
 AST concat_map(std::vector<Query> args) {
-  return init(_reql_ast_concat_map_, args);
+  return init(_reql_ast_concat_map, args);
 }
 
 /**
  */
 AST AST::contains(std::vector<Query> args) {
-  return init(_reql_ast_contains_, this, args);
+  return init(_reql_ast_contains, this, args);
 }
 AST contains(std::vector<Query> args) {
-  return init(_reql_ast_contains_, args);
+  return init(_reql_ast_contains, args);
 }
 
 /**
  */
 AST AST::count(std::vector<Query> args) {
-  return init(_reql_ast_count_, this, args);
+  return init(_reql_ast_count, this, args);
 }
 AST count(std::vector<Query> args) {
-  return init(_reql_ast_count_, args);
+  return init(_reql_ast_count, args);
 }
 
 /**
  */
 AST AST::date(std::vector<Query> args) {
-  return init(_reql_ast_date_, this, args);
+  return init(_reql_ast_date, this, args);
 }
 AST date(std::vector<Query> args) {
-  return init(_reql_ast_date_, args);
+  return init(_reql_ast_date, args);
 }
 
 /**
  */
 AST AST::datum(std::vector<Query> args) {
-  return init(_reql_ast_datum_, this, args);
+  return init(_reql_ast_datum, this, args);
 }
 AST datum(std::vector<Query> args) {
-  return init(_reql_ast_datum_, args);
+  return init(_reql_ast_datum, args);
 }
 
 /**
  */
 AST AST::day(std::vector<Query> args) {
-  return init(_reql_ast_day_, this, args);
+  return init(_reql_ast_day, this, args);
 }
 AST day(std::vector<Query> args) {
-  return init(_reql_ast_day_, args);
+  return init(_reql_ast_day, args);
 }
 
 /**
  */
 AST AST::day_of_week(std::vector<Query> args) {
-  return init(_reql_ast_day_of_week_, this, args);
+  return init(_reql_ast_day_of_week, this, args);
 }
 AST day_of_week(std::vector<Query> args) {
-  return init(_reql_ast_day_of_week_, args);
+  return init(_reql_ast_day_of_week, args);
 }
 
 /**
  */
 AST AST::day_of_year(std::vector<Query> args) {
-  return init(_reql_ast_day_of_year_, this, args);
+  return init(_reql_ast_day_of_year, this, args);
 }
 AST day_of_year(std::vector<Query> args) {
-  return init(_reql_ast_day_of_year_, args);
+  return init(_reql_ast_day_of_year, args);
 }
 
 /**
  */
 AST AST::db(std::vector<Query> args) {
-  return init(_reql_ast_db_, this, args);
+  return init(_reql_ast_db, this, args);
 }
 AST db(std::vector<Query> args) {
-  return init(_reql_ast_db_, args);
+  return init(_reql_ast_db, args);
 }
 
 /**
  */
 AST AST::db_config(std::vector<Query> args) {
-  return init(_reql_ast_db_config_, this, args);
+  return init(_reql_ast_db_config, this, args);
 }
 AST db_config(std::vector<Query> args) {
-  return init(_reql_ast_db_config_, args);
+  return init(_reql_ast_db_config, args);
 }
 
 /**
  */
 AST AST::db_create(std::vector<Query> args) {
-  return init(_reql_ast_db_create_, this, args);
+  return init(_reql_ast_db_create, this, args);
 }
 AST db_create(std::vector<Query> args) {
-  return init(_reql_ast_db_create_, args);
+  return init(_reql_ast_db_create, args);
 }
 
 /**
  */
 AST AST::db_drop(std::vector<Query> args) {
-  return init(_reql_ast_db_drop_, this, args);
+  return init(_reql_ast_db_drop, this, args);
 }
 AST db_drop(std::vector<Query> args) {
-  return init(_reql_ast_db_drop_, args);
+  return init(_reql_ast_db_drop, args);
 }
 
 /**
  */
 AST AST::db_list(std::vector<Query> args) {
-  return init(_reql_ast_db_list_, this, args);
+  return init(_reql_ast_db_list, this, args);
 }
 AST db_list(std::vector<Query> args) {
-  return init(_reql_ast_db_list_, args);
+  return init(_reql_ast_db_list, args);
 }
 
 /**
  */
 AST AST::december(std::vector<Query> args) {
-  return init(_reql_ast_december_, this, args);
+  return init(_reql_ast_december, this, args);
 }
 AST december(std::vector<Query> args) {
-  return init(_reql_ast_december_, args);
+  return init(_reql_ast_december, args);
 }
 
 /**
  */
 AST AST::default_(std::vector<Query> args) {
-  return init(_reql_ast_default_, this, args);
+  return init(_reql_ast_default, this, args);
 }
 AST default_(std::vector<Query> args) {
-  return init(_reql_ast_default_, args);
+  return init(_reql_ast_default, args);
 }
 
 /**
  */
 AST AST::delete_(std::vector<Query> args, std::map<std::string, Query> kwargs) {
-  return init(_reql_ast_delete_, this, args, kwargs);
+  return init(_reql_ast_delete, this, args, kwargs);
 }
 AST delete_(std::vector<Query> args, std::map<std::string, Query> kwargs) {
-  return init(_reql_ast_delete_, args, kwargs);
+  return init(_reql_ast_delete, args, kwargs);
 }
 AST AST::delete_(std::vector<Query> args) {
-  return init(_reql_ast_delete_, this, args);
+  return init(_reql_ast_delete, this, args);
 }
 AST delete_(std::vector<Query> args) {
-  return init(_reql_ast_delete_, args);
+  return init(_reql_ast_delete, args);
 }
 
 /**
  */
 AST AST::delete_at(std::vector<Query> args) {
-  return init(_reql_ast_delete_at_, this, args);
+  return init(_reql_ast_delete_at, this, args);
 }
 AST delete_at(std::vector<Query> args) {
-  return init(_reql_ast_delete_at_, args);
+  return init(_reql_ast_delete_at, args);
 }
 
 /**
  */
 AST AST::desc(std::vector<Query> args) {
-  return init(_reql_ast_desc_, this, args);
+  return init(_reql_ast_desc, this, args);
 }
 AST desc(std::vector<Query> args) {
-  return init(_reql_ast_desc_, args);
+  return init(_reql_ast_desc, args);
 }
 
 /**
  */
 AST AST::difference(std::vector<Query> args) {
-  return init(_reql_ast_difference_, this, args);
+  return init(_reql_ast_difference, this, args);
 }
 AST difference(std::vector<Query> args) {
-  return init(_reql_ast_difference_, args);
+  return init(_reql_ast_difference, args);
 }
 
 /**
  */
 AST AST::distance(std::vector<Query> args) {
-  return init(_reql_ast_distance_, this, args);
+  return init(_reql_ast_distance, this, args);
 }
 AST distance(std::vector<Query> args) {
-  return init(_reql_ast_distance_, args);
+  return init(_reql_ast_distance, args);
 }
 
 /**
  */
 AST AST::distinct(std::vector<Query> args, std::map<std::string, Query> kwargs) {
-  return init(_reql_ast_distinct_, this, args, kwargs);
+  return init(_reql_ast_distinct, this, args, kwargs);
 }
 AST distinct(std::vector<Query> args, std::map<std::string, Query> kwargs) {
-  return init(_reql_ast_distinct_, args, kwargs);
+  return init(_reql_ast_distinct, args, kwargs);
 }
 AST AST::distinct(std::vector<Query> args) {
-  return init(_reql_ast_distinct_, this, args);
+  return init(_reql_ast_distinct, this, args);
 }
 AST distinct(std::vector<Query> args) {
-  return init(_reql_ast_distinct_, args);
+  return init(_reql_ast_distinct, args);
 }
 
 /**
  */
 AST AST::div(std::vector<Query> args) {
-  return init(_reql_ast_div_, this, args);
+  return init(_reql_ast_div, this, args);
 }
 AST div(std::vector<Query> args) {
-  return init(_reql_ast_div_, args);
+  return init(_reql_ast_div, args);
 }
 
 /**
  */
 AST AST::downcase(std::vector<Query> args) {
-  return init(_reql_ast_downcase_, this, args);
+  return init(_reql_ast_downcase, this, args);
 }
 AST downcase(std::vector<Query> args) {
-  return init(_reql_ast_downcase_, args);
+  return init(_reql_ast_downcase, args);
 }
 
 /**
  */
 AST AST::during(std::vector<Query> args) {
-  return init(_reql_ast_during_, this, args);
+  return init(_reql_ast_during, this, args);
 }
 AST during(std::vector<Query> args) {
-  return init(_reql_ast_during_, args);
+  return init(_reql_ast_during, args);
 }
 
 /**
  */
 AST AST::epoch_time(std::vector<Query> args) {
-  return init(_reql_ast_epoch_time_, this, args);
+  return init(_reql_ast_epoch_time, this, args);
 }
 AST epoch_time(std::vector<Query> args) {
-  return init(_reql_ast_epoch_time_, args);
+  return init(_reql_ast_epoch_time, args);
 }
 
 /**
  */
 AST AST::eq(std::vector<Query> args) {
-  return init(_reql_ast_eq_, this, args);
+  return init(_reql_ast_eq, this, args);
 }
 AST eq(std::vector<Query> args) {
-  return init(_reql_ast_eq_, args);
+  return init(_reql_ast_eq, args);
 }
 
 /**
  */
 AST AST::eq_join(std::vector<Query> args, std::map<std::string, Query> kwargs) {
-  return init(_reql_ast_eq_join_, this, args, kwargs);
+  return init(_reql_ast_eq_join, this, args, kwargs);
 }
 AST eq_join(std::vector<Query> args, std::map<std::string, Query> kwargs) {
-  return init(_reql_ast_eq_join_, args, kwargs);
+  return init(_reql_ast_eq_join, args, kwargs);
 }
 AST AST::eq_join(std::vector<Query> args) {
-  return init(_reql_ast_eq_join_, this, args);
+  return init(_reql_ast_eq_join, this, args);
 }
 AST eq_join(std::vector<Query> args) {
-  return init(_reql_ast_eq_join_, args);
+  return init(_reql_ast_eq_join, args);
 }
 
 /**
  */
 AST AST::error(std::vector<Query> args) {
-  return init(_reql_ast_error_, this, args);
+  return init(_reql_ast_error, this, args);
 }
 AST error(std::vector<Query> args) {
-  return init(_reql_ast_error_, args);
+  return init(_reql_ast_error, args);
 }
 
 /**
  */
 AST AST::february(std::vector<Query> args) {
-  return init(_reql_ast_february_, this, args);
+  return init(_reql_ast_february, this, args);
 }
 AST february(std::vector<Query> args) {
-  return init(_reql_ast_february_, args);
+  return init(_reql_ast_february, args);
 }
 
 /**
  */
 AST AST::fill(std::vector<Query> args) {
-  return init(_reql_ast_fill_, this, args);
+  return init(_reql_ast_fill, this, args);
 }
 AST fill(std::vector<Query> args) {
-  return init(_reql_ast_fill_, args);
+  return init(_reql_ast_fill, args);
 }
 
 /**
  */
 AST AST::filter(std::vector<Query> args, std::map<std::string, Query> kwargs) {
-  return init(_reql_ast_filter_, this, args, kwargs);
+  return init(_reql_ast_filter, this, args, kwargs);
 }
 AST filter(std::vector<Query> args, std::map<std::string, Query> kwargs) {
-  return init(_reql_ast_filter_, args, kwargs);
+  return init(_reql_ast_filter, args, kwargs);
 }
 AST AST::filter(std::vector<Query> args) {
-  return init(_reql_ast_filter_, this, args);
+  return init(_reql_ast_filter, this, args);
 }
 AST filter(std::vector<Query> args) {
-  return init(_reql_ast_filter_, args);
+  return init(_reql_ast_filter, args);
 }
 
 /**
  */
 AST AST::for_each(std::vector<Query> args) {
-  return init(_reql_ast_for_each_, this, args);
+  return init(_reql_ast_for_each, this, args);
 }
 AST for_each(std::vector<Query> args) {
-  return init(_reql_ast_for_each_, args);
+  return init(_reql_ast_for_each, args);
 }
 
 /**
  */
 AST AST::friday(std::vector<Query> args) {
-  return init(_reql_ast_friday_, this, args);
+  return init(_reql_ast_friday, this, args);
 }
 AST friday(std::vector<Query> args) {
-  return init(_reql_ast_friday_, args);
+  return init(_reql_ast_friday, args);
 }
 
 /**
  */
 AST AST::func(std::vector<Query> args) {
-  return init(_reql_ast_func_, this, args);
+  return init(_reql_ast_func, this, args);
 }
 AST func(std::vector<Query> args) {
-  return init(_reql_ast_func_, args);
+  return init(_reql_ast_func, args);
 }
 
 /**
  */
 AST AST::funcall(std::vector<Query> args) {
-  return init(_reql_ast_funcall_, this, args);
+  return init(_reql_ast_funcall, this, args);
 }
 AST funcall(std::vector<Query> args) {
-  return init(_reql_ast_funcall_, args);
+  return init(_reql_ast_funcall, args);
 }
 
 /**
  */
 AST AST::ge(std::vector<Query> args) {
-  return init(_reql_ast_ge_, this, args);
+  return init(_reql_ast_ge, this, args);
 }
 AST ge(std::vector<Query> args) {
-  return init(_reql_ast_ge_, args);
+  return init(_reql_ast_ge, args);
 }
 
 /**
  */
 AST AST::geojson(std::vector<Query> args) {
-  return init(_reql_ast_geojson_, this, args);
+  return init(_reql_ast_geojson, this, args);
 }
 AST geojson(std::vector<Query> args) {
-  return init(_reql_ast_geojson_, args);
+  return init(_reql_ast_geojson, args);
 }
 
 /**
  */
 AST AST::get(std::vector<Query> args) {
-  return init(_reql_ast_get_, this, args);
+  return init(_reql_ast_get, this, args);
 }
 AST get(std::vector<Query> args) {
-  return init(_reql_ast_get_, args);
+  return init(_reql_ast_get, args);
 }
 
 /**
  */
 AST AST::get_all(std::vector<Query> args, std::map<std::string, Query> kwargs) {
-  return init(_reql_ast_get_all_, this, args, kwargs);
+  return init(_reql_ast_get_all, this, args, kwargs);
 }
 AST get_all(std::vector<Query> args, std::map<std::string, Query> kwargs) {
-  return init(_reql_ast_get_all_, args, kwargs);
+  return init(_reql_ast_get_all, args, kwargs);
 }
 AST AST::get_all(std::vector<Query> args) {
-  return init(_reql_ast_get_all_, this, args);
+  return init(_reql_ast_get_all, this, args);
 }
 AST get_all(std::vector<Query> args) {
-  return init(_reql_ast_get_all_, args);
+  return init(_reql_ast_get_all, args);
 }
 
 /**
  */
 AST AST::get_field(std::vector<Query> args) {
-  return init(_reql_ast_get_field_, this, args);
+  return init(_reql_ast_get_field, this, args);
 }
 AST get_field(std::vector<Query> args) {
-  return init(_reql_ast_get_field_, args);
+  return init(_reql_ast_get_field, args);
 }
 
 /**
  */
 AST AST::get_intersecting(std::vector<Query> args, std::map<std::string, Query> kwargs) {
-  return init(_reql_ast_get_intersecting_, this, args, kwargs);
+  return init(_reql_ast_get_intersecting, this, args, kwargs);
 }
 AST get_intersecting(std::vector<Query> args, std::map<std::string, Query> kwargs) {
-  return init(_reql_ast_get_intersecting_, args, kwargs);
+  return init(_reql_ast_get_intersecting, args, kwargs);
 }
 AST AST::get_intersecting(std::vector<Query> args) {
-  return init(_reql_ast_get_intersecting_, this, args);
+  return init(_reql_ast_get_intersecting, this, args);
 }
 AST get_intersecting(std::vector<Query> args) {
-  return init(_reql_ast_get_intersecting_, args);
+  return init(_reql_ast_get_intersecting, args);
 }
 
 /**
  */
 AST AST::get_nearest(std::vector<Query> args, std::map<std::string, Query> kwargs) {
-  return init(_reql_ast_get_nearest_, this, args, kwargs);
+  return init(_reql_ast_get_nearest, this, args, kwargs);
 }
 AST get_nearest(std::vector<Query> args, std::map<std::string, Query> kwargs) {
-  return init(_reql_ast_get_nearest_, args, kwargs);
+  return init(_reql_ast_get_nearest, args, kwargs);
 }
 AST AST::get_nearest(std::vector<Query> args) {
-  return init(_reql_ast_get_nearest_, this, args);
+  return init(_reql_ast_get_nearest, this, args);
 }
 AST get_nearest(std::vector<Query> args) {
-  return init(_reql_ast_get_nearest_, args);
+  return init(_reql_ast_get_nearest, args);
 }
 
 /**
  */
 AST AST::group(std::vector<Query> args, std::map<std::string, Query> kwargs) {
-  return init(_reql_ast_group_, this, args, kwargs);
+  return init(_reql_ast_group, this, args, kwargs);
 }
 AST group(std::vector<Query> args, std::map<std::string, Query> kwargs) {
-  return init(_reql_ast_group_, args, kwargs);
+  return init(_reql_ast_group, args, kwargs);
 }
 AST AST::group(std::vector<Query> args) {
-  return init(_reql_ast_group_, this, args);
+  return init(_reql_ast_group, this, args);
 }
 AST group(std::vector<Query> args) {
-  return init(_reql_ast_group_, args);
+  return init(_reql_ast_group, args);
 }
 
 /**
  */
 AST AST::gt(std::vector<Query> args) {
-  return init(_reql_ast_gt_, this, args);
+  return init(_reql_ast_gt, this, args);
 }
 AST gt(std::vector<Query> args) {
-  return init(_reql_ast_gt_, args);
+  return init(_reql_ast_gt, args);
 }
 
 /**
  */
 AST AST::has_fields(std::vector<Query> args) {
-  return init(_reql_ast_has_fields_, this, args);
+  return init(_reql_ast_has_fields, this, args);
 }
 AST has_fields(std::vector<Query> args) {
-  return init(_reql_ast_has_fields_, args);
+  return init(_reql_ast_has_fields, args);
 }
 
 /**
  */
 AST AST::hours(std::vector<Query> args) {
-  return init(_reql_ast_hours_, this, args);
+  return init(_reql_ast_hours, this, args);
 }
 AST hours(std::vector<Query> args) {
-  return init(_reql_ast_hours_, args);
+  return init(_reql_ast_hours, args);
 }
 
 /**
  */
 AST AST::http(std::vector<Query> args, std::map<std::string, Query> kwargs) {
-  return init(_reql_ast_http_, this, args, kwargs);
+  return init(_reql_ast_http, this, args, kwargs);
 }
 AST http(std::vector<Query> args, std::map<std::string, Query> kwargs) {
-  return init(_reql_ast_http_, args, kwargs);
+  return init(_reql_ast_http, args, kwargs);
 }
 AST AST::http(std::vector<Query> args) {
-  return init(_reql_ast_http_, this, args);
+  return init(_reql_ast_http, this, args);
 }
 AST http(std::vector<Query> args) {
-  return init(_reql_ast_http_, args);
+  return init(_reql_ast_http, args);
 }
 
 /**
  */
 AST AST::implicit_var(std::vector<Query> args) {
-  return init(_reql_ast_implicit_var_, this, args);
+  return init(_reql_ast_implicit_var, this, args);
 }
 AST implicit_var(std::vector<Query> args) {
-  return init(_reql_ast_implicit_var_, args);
+  return init(_reql_ast_implicit_var, args);
 }
 
 /**
  */
 AST AST::includes(std::vector<Query> args) {
-  return init(_reql_ast_includes_, this, args);
+  return init(_reql_ast_includes, this, args);
 }
 AST includes(std::vector<Query> args) {
-  return init(_reql_ast_includes_, args);
+  return init(_reql_ast_includes, args);
 }
 
 /**
  */
 AST AST::indexes_of(std::vector<Query> args) {
-  return init(_reql_ast_indexes_of_, this, args);
+  return init(_reql_ast_indexes_of, this, args);
 }
 AST indexes_of(std::vector<Query> args) {
-  return init(_reql_ast_indexes_of_, args);
+  return init(_reql_ast_indexes_of, args);
 }
 
 /**
  */
 AST AST::index_create(std::vector<Query> args, std::map<std::string, Query> kwargs) {
-  return init(_reql_ast_index_create_, this, args, kwargs);
+  return init(_reql_ast_index_create, this, args, kwargs);
 }
 AST index_create(std::vector<Query> args, std::map<std::string, Query> kwargs) {
-  return init(_reql_ast_index_create_, args, kwargs);
+  return init(_reql_ast_index_create, args, kwargs);
 }
 AST AST::index_create(std::vector<Query> args) {
-  return init(_reql_ast_index_create_, this, args);
+  return init(_reql_ast_index_create, this, args);
 }
 AST index_create(std::vector<Query> args) {
-  return init(_reql_ast_index_create_, args);
+  return init(_reql_ast_index_create, args);
 }
 
 /**
  */
 AST AST::index_drop(std::vector<Query> args) {
-  return init(_reql_ast_index_drop_, this, args);
+  return init(_reql_ast_index_drop, this, args);
 }
 AST index_drop(std::vector<Query> args) {
-  return init(_reql_ast_index_drop_, args);
+  return init(_reql_ast_index_drop, args);
 }
 
 /**
  */
 AST AST::index_list(std::vector<Query> args) {
-  return init(_reql_ast_index_list_, this, args);
+  return init(_reql_ast_index_list, this, args);
 }
 AST index_list(std::vector<Query> args) {
-  return init(_reql_ast_index_list_, args);
+  return init(_reql_ast_index_list, args);
 }
 
 /**
  */
 AST AST::index_rename(std::vector<Query> args, std::map<std::string, Query> kwargs) {
-  return init(_reql_ast_index_rename_, this, args, kwargs);
+  return init(_reql_ast_index_rename, this, args, kwargs);
 }
 AST index_rename(std::vector<Query> args, std::map<std::string, Query> kwargs) {
-  return init(_reql_ast_index_rename_, args, kwargs);
+  return init(_reql_ast_index_rename, args, kwargs);
 }
 AST AST::index_rename(std::vector<Query> args) {
-  return init(_reql_ast_index_rename_, this, args);
+  return init(_reql_ast_index_rename, this, args);
 }
 AST index_rename(std::vector<Query> args) {
-  return init(_reql_ast_index_rename_, args);
+  return init(_reql_ast_index_rename, args);
 }
 
 /**
  */
 AST AST::index_status(std::vector<Query> args) {
-  return init(_reql_ast_index_status_, this, args);
+  return init(_reql_ast_index_status, this, args);
 }
 AST index_status(std::vector<Query> args) {
-  return init(_reql_ast_index_status_, args);
+  return init(_reql_ast_index_status, args);
 }
 
 /**
  */
 AST AST::index_wait(std::vector<Query> args) {
-  return init(_reql_ast_index_wait_, this, args);
+  return init(_reql_ast_index_wait, this, args);
 }
 AST index_wait(std::vector<Query> args) {
-  return init(_reql_ast_index_wait_, args);
+  return init(_reql_ast_index_wait, args);
 }
 
 /**
  */
 AST AST::info(std::vector<Query> args) {
-  return init(_reql_ast_info_, this, args);
+  return init(_reql_ast_info, this, args);
 }
 AST info(std::vector<Query> args) {
-  return init(_reql_ast_info_, args);
+  return init(_reql_ast_info, args);
 }
 
 /**
  */
 AST AST::inner_join(std::vector<Query> args) {
-  return init(_reql_ast_inner_join_, this, args);
+  return init(_reql_ast_inner_join, this, args);
 }
 AST inner_join(std::vector<Query> args) {
-  return init(_reql_ast_inner_join_, args);
+  return init(_reql_ast_inner_join, args);
 }
 
 /**
  */
 AST AST::insert(std::vector<Query> args) {
-  return init(_reql_ast_insert_, this, args);
+  return init(_reql_ast_insert, this, args);
 }
 AST insert(std::vector<Query> args) {
-  return init(_reql_ast_insert_, args);
+  return init(_reql_ast_insert, args);
 }
 
 /**
  */
 AST AST::insert_at(std::vector<Query> args) {
-  return init(_reql_ast_insert_at_, this, args);
+  return init(_reql_ast_insert_at, this, args);
 }
 AST insert_at(std::vector<Query> args) {
-  return init(_reql_ast_insert_at_, args);
+  return init(_reql_ast_insert_at, args);
 }
 
 /**
  */
 AST AST::intersects(std::vector<Query> args) {
-  return init(_reql_ast_intersects_, this, args);
+  return init(_reql_ast_intersects, this, args);
 }
 AST intersects(std::vector<Query> args) {
-  return init(_reql_ast_intersects_, args);
+  return init(_reql_ast_intersects, args);
 }
 
 /**
  */
 AST AST::in_timezone(std::vector<Query> args) {
-  return init(_reql_ast_in_timezone_, this, args);
+  return init(_reql_ast_in_timezone, this, args);
 }
 AST in_timezone(std::vector<Query> args) {
-  return init(_reql_ast_in_timezone_, args);
+  return init(_reql_ast_in_timezone, args);
 }
 
 /**
  */
 AST AST::iso8601(std::vector<Query> args, std::map<std::string, Query> kwargs) {
-  return init(_reql_ast_iso8601_, this, args, kwargs);
+  return init(_reql_ast_iso8601, this, args, kwargs);
 }
 AST iso8601(std::vector<Query> args, std::map<std::string, Query> kwargs) {
-  return init(_reql_ast_iso8601_, args, kwargs);
+  return init(_reql_ast_iso8601, args, kwargs);
 }
 AST AST::iso8601(std::vector<Query> args) {
-  return init(_reql_ast_iso8601_, this, args);
+  return init(_reql_ast_iso8601, this, args);
 }
 AST iso8601(std::vector<Query> args) {
-  return init(_reql_ast_iso8601_, args);
+  return init(_reql_ast_iso8601, args);
 }
 
 /**
  */
 AST AST::is_empty(std::vector<Query> args) {
-  return init(_reql_ast_is_empty_, this, args);
+  return init(_reql_ast_is_empty, this, args);
 }
 AST is_empty(std::vector<Query> args) {
-  return init(_reql_ast_is_empty_, args);
+  return init(_reql_ast_is_empty, args);
 }
 
 /**
  */
 AST AST::january(std::vector<Query> args) {
-  return init(_reql_ast_january_, this, args);
+  return init(_reql_ast_january, this, args);
 }
 AST january(std::vector<Query> args) {
-  return init(_reql_ast_january_, args);
+  return init(_reql_ast_january, args);
 }
 
 /**
  */
 AST AST::javascript(std::vector<Query> args, std::map<std::string, Query> kwargs) {
-  return init(_reql_ast_javascript_, this, args, kwargs);
+  return init(_reql_ast_javascript, this, args, kwargs);
 }
 AST javascript(std::vector<Query> args, std::map<std::string, Query> kwargs) {
-  return init(_reql_ast_javascript_, args, kwargs);
+  return init(_reql_ast_javascript, args, kwargs);
 }
 AST AST::javascript(std::vector<Query> args) {
-  return init(_reql_ast_javascript_, this, args);
+  return init(_reql_ast_javascript, this, args);
 }
 AST javascript(std::vector<Query> args) {
-  return init(_reql_ast_javascript_, args);
+  return init(_reql_ast_javascript, args);
 }
 
 /**
  */
 AST AST::json(std::vector<Query> args) {
-  return init(_reql_ast_json_, this, args);
+  return init(_reql_ast_json, this, args);
 }
 AST json(std::vector<Query> args) {
-  return init(_reql_ast_json_, args);
+  return init(_reql_ast_json, args);
 }
 
 /**
  */
 AST AST::july(std::vector<Query> args) {
-  return init(_reql_ast_july_, this, args);
+  return init(_reql_ast_july, this, args);
 }
 AST july(std::vector<Query> args) {
-  return init(_reql_ast_july_, args);
+  return init(_reql_ast_july, args);
 }
 
 /**
  */
 AST AST::june(std::vector<Query> args) {
-  return init(_reql_ast_june_, this, args);
+  return init(_reql_ast_june, this, args);
 }
 AST june(std::vector<Query> args) {
-  return init(_reql_ast_june_, args);
+  return init(_reql_ast_june, args);
 }
 
 /**
  */
 AST AST::keys(std::vector<Query> args) {
-  return init(_reql_ast_keys_, this, args);
+  return init(_reql_ast_keys, this, args);
 }
 AST keys(std::vector<Query> args) {
-  return init(_reql_ast_keys_, args);
+  return init(_reql_ast_keys, args);
 }
 
 /**
  */
 AST AST::le(std::vector<Query> args) {
-  return init(_reql_ast_le_, this, args);
+  return init(_reql_ast_le, this, args);
 }
 AST le(std::vector<Query> args) {
-  return init(_reql_ast_le_, args);
+  return init(_reql_ast_le, args);
 }
 
 /**
  */
 AST AST::limit(std::vector<Query> args) {
-  return init(_reql_ast_limit_, this, args);
+  return init(_reql_ast_limit, this, args);
 }
 AST limit(std::vector<Query> args) {
-  return init(_reql_ast_limit_, args);
+  return init(_reql_ast_limit, args);
 }
 
 /**
  */
 AST AST::line(std::vector<Query> args) {
-  return init(_reql_ast_line_, this, args);
+  return init(_reql_ast_line, this, args);
 }
 AST line(std::vector<Query> args) {
-  return init(_reql_ast_line_, args);
+  return init(_reql_ast_line, args);
 }
 
 /**
  */
 AST AST::literal(std::vector<Query> args) {
-  return init(_reql_ast_literal_, this, args);
+  return init(_reql_ast_literal, this, args);
 }
 AST literal(std::vector<Query> args) {
-  return init(_reql_ast_literal_, args);
+  return init(_reql_ast_literal, args);
 }
 
 /**
  */
 AST AST::lt(std::vector<Query> args) {
-  return init(_reql_ast_lt_, this, args);
+  return init(_reql_ast_lt, this, args);
 }
 AST lt(std::vector<Query> args) {
-  return init(_reql_ast_lt_, args);
+  return init(_reql_ast_lt, args);
 }
 
 /**
  */
 AST AST::make_array(std::vector<Query> args) {
-  return init(_reql_ast_make_array_, this, args);
+  return init(_reql_ast_make_array, this, args);
 }
 AST make_array(std::vector<Query> args) {
-  return init(_reql_ast_make_array_, args);
+  return init(_reql_ast_make_array, args);
 }
 
 /**
  */
 AST AST::make_obj(std::vector<Query> args) {
-  return init(_reql_ast_make_obj_, this, args);
+  return init(_reql_ast_make_obj, this, args);
 }
 AST make_obj(std::vector<Query> args) {
-  return init(_reql_ast_make_obj_, args);
+  return init(_reql_ast_make_obj, args);
 }
 
 /**
  */
 AST AST::map(std::vector<Query> args) {
-  return init(_reql_ast_map_, this, args);
+  return init(_reql_ast_map, this, args);
 }
 AST map(std::vector<Query> args) {
-  return init(_reql_ast_map_, args);
+  return init(_reql_ast_map, args);
 }
 
 /**
  */
 AST AST::march(std::vector<Query> args) {
-  return init(_reql_ast_march_, this, args);
+  return init(_reql_ast_march, this, args);
 }
 AST march(std::vector<Query> args) {
-  return init(_reql_ast_march_, args);
+  return init(_reql_ast_march, args);
 }
 
 /**
  */
 AST AST::match(std::vector<Query> args) {
-  return init(_reql_ast_match_, this, args);
+  return init(_reql_ast_match, this, args);
 }
 AST match(std::vector<Query> args) {
-  return init(_reql_ast_match_, args);
+  return init(_reql_ast_match, args);
 }
 
 /**
  */
 AST AST::max(std::vector<Query> args) {
-  return init(_reql_ast_max_, this, args);
+  return init(_reql_ast_max, this, args);
 }
 AST max(std::vector<Query> args) {
-  return init(_reql_ast_max_, args);
+  return init(_reql_ast_max, args);
 }
 
 /**
  */
 AST AST::may(std::vector<Query> args) {
-  return init(_reql_ast_may_, this, args);
+  return init(_reql_ast_may, this, args);
 }
 AST may(std::vector<Query> args) {
-  return init(_reql_ast_may_, args);
+  return init(_reql_ast_may, args);
 }
 
 /**
  */
 AST AST::merge(std::vector<Query> args) {
-  return init(_reql_ast_merge_, this, args);
+  return init(_reql_ast_merge, this, args);
 }
 AST merge(std::vector<Query> args) {
-  return init(_reql_ast_merge_, args);
+  return init(_reql_ast_merge, args);
 }
 
 /**
  */
 AST AST::min(std::vector<Query> args) {
-  return init(_reql_ast_min_, this, args);
+  return init(_reql_ast_min, this, args);
 }
 AST min(std::vector<Query> args) {
-  return init(_reql_ast_min_, args);
+  return init(_reql_ast_min, args);
 }
 
 /**
  */
 AST AST::minutes(std::vector<Query> args) {
-  return init(_reql_ast_minutes_, this, args);
+  return init(_reql_ast_minutes, this, args);
 }
 AST minutes(std::vector<Query> args) {
-  return init(_reql_ast_minutes_, args);
+  return init(_reql_ast_minutes, args);
 }
 
 /**
  */
 AST AST::mod(std::vector<Query> args) {
-  return init(_reql_ast_mod_, this, args);
+  return init(_reql_ast_mod, this, args);
 }
 AST mod(std::vector<Query> args) {
-  return init(_reql_ast_mod_, args);
+  return init(_reql_ast_mod, args);
 }
 
 /**
  */
 AST AST::monday(std::vector<Query> args) {
-  return init(_reql_ast_monday_, this, args);
+  return init(_reql_ast_monday, this, args);
 }
 AST monday(std::vector<Query> args) {
-  return init(_reql_ast_monday_, args);
+  return init(_reql_ast_monday, args);
 }
 
 /**
  */
 AST AST::month(std::vector<Query> args) {
-  return init(_reql_ast_month_, this, args);
+  return init(_reql_ast_month, this, args);
 }
 AST month(std::vector<Query> args) {
-  return init(_reql_ast_month_, args);
+  return init(_reql_ast_month, args);
 }
 
 /**
  */
 AST AST::mul(std::vector<Query> args) {
-  return init(_reql_ast_mul_, this, args);
+  return init(_reql_ast_mul, this, args);
 }
 AST mul(std::vector<Query> args) {
-  return init(_reql_ast_mul_, args);
+  return init(_reql_ast_mul, args);
 }
 
 /**
  */
 AST AST::ne(std::vector<Query> args) {
-  return init(_reql_ast_ne_, this, args);
+  return init(_reql_ast_ne, this, args);
 }
 AST ne(std::vector<Query> args) {
-  return init(_reql_ast_ne_, args);
+  return init(_reql_ast_ne, args);
 }
 
 /**
  */
 AST AST::not_(std::vector<Query> args) {
-  return init(_reql_ast_not_, this, args);
+  return init(_reql_ast_not, this, args);
 }
 AST not_(std::vector<Query> args) {
-  return init(_reql_ast_not_, args);
+  return init(_reql_ast_not, args);
 }
 
 /**
  */
 AST AST::november(std::vector<Query> args) {
-  return init(_reql_ast_november_, this, args);
+  return init(_reql_ast_november, this, args);
 }
 AST november(std::vector<Query> args) {
-  return init(_reql_ast_november_, args);
+  return init(_reql_ast_november, args);
 }
 
 /**
  */
 AST AST::now(std::vector<Query> args) {
-  return init(_reql_ast_now_, this, args);
+  return init(_reql_ast_now, this, args);
 }
 AST now(std::vector<Query> args) {
-  return init(_reql_ast_now_, args);
+  return init(_reql_ast_now, args);
 }
 
 /**
  */
 AST AST::nth(std::vector<Query> args) {
-  return init(_reql_ast_nth_, this, args);
+  return init(_reql_ast_nth, this, args);
 }
 AST nth(std::vector<Query> args) {
-  return init(_reql_ast_nth_, args);
+  return init(_reql_ast_nth, args);
 }
 
 /**
  */
 AST AST::object(std::vector<Query> args) {
-  return init(_reql_ast_object_, this, args);
+  return init(_reql_ast_object, this, args);
 }
 AST object(std::vector<Query> args) {
-  return init(_reql_ast_object_, args);
+  return init(_reql_ast_object, args);
 }
 
 /**
  */
 AST AST::october(std::vector<Query> args) {
-  return init(_reql_ast_october_, this, args);
+  return init(_reql_ast_october, this, args);
 }
 AST october(std::vector<Query> args) {
-  return init(_reql_ast_october_, args);
+  return init(_reql_ast_october, args);
 }
 
 /**
  */
 AST AST::order_by(std::vector<Query> args, std::map<std::string, Query> kwargs) {
-  return init(_reql_ast_order_by_, this, args, kwargs);
+  return init(_reql_ast_order_by, this, args, kwargs);
 }
 AST order_by(std::vector<Query> args, std::map<std::string, Query> kwargs) {
-  return init(_reql_ast_order_by_, args, kwargs);
+  return init(_reql_ast_order_by, args, kwargs);
 }
 AST AST::order_by(std::vector<Query> args) {
-  return init(_reql_ast_order_by_, this, args);
+  return init(_reql_ast_order_by, this, args);
 }
 AST order_by(std::vector<Query> args) {
-  return init(_reql_ast_order_by_, args);
+  return init(_reql_ast_order_by, args);
 }
 
 /**
  */
 AST AST::outer_join(std::vector<Query> args) {
-  return init(_reql_ast_outer_join_, this, args);
+  return init(_reql_ast_outer_join, this, args);
 }
 AST outer_join(std::vector<Query> args) {
-  return init(_reql_ast_outer_join_, args);
+  return init(_reql_ast_outer_join, args);
 }
 
 /**
  */
 AST AST::pluck(std::vector<Query> args) {
-  return init(_reql_ast_pluck_, this, args);
+  return init(_reql_ast_pluck, this, args);
 }
 AST pluck(std::vector<Query> args) {
-  return init(_reql_ast_pluck_, args);
+  return init(_reql_ast_pluck, args);
 }
 
 /**
  */
 AST AST::point(std::vector<Query> args) {
-  return init(_reql_ast_point_, this, args);
+  return init(_reql_ast_point, this, args);
 }
 AST point(std::vector<Query> args) {
-  return init(_reql_ast_point_, args);
+  return init(_reql_ast_point, args);
 }
 
 /**
  */
 AST AST::polygon(std::vector<Query> args) {
-  return init(_reql_ast_polygon_, this, args);
+  return init(_reql_ast_polygon, this, args);
 }
 AST polygon(std::vector<Query> args) {
-  return init(_reql_ast_polygon_, args);
+  return init(_reql_ast_polygon, args);
 }
 
 /**
  */
 AST AST::polygon_sub(std::vector<Query> args) {
-  return init(_reql_ast_polygon_sub_, this, args);
+  return init(_reql_ast_polygon_sub, this, args);
 }
 AST polygon_sub(std::vector<Query> args) {
-  return init(_reql_ast_polygon_sub_, args);
+  return init(_reql_ast_polygon_sub, args);
 }
 
 /**
  */
 AST AST::prepend(std::vector<Query> args) {
-  return init(_reql_ast_prepend_, this, args);
+  return init(_reql_ast_prepend, this, args);
 }
 AST prepend(std::vector<Query> args) {
-  return init(_reql_ast_prepend_, args);
+  return init(_reql_ast_prepend, args);
 }
 
 /**
  */
 AST AST::random(std::vector<Query> args, std::map<std::string, Query> kwargs) {
-  return init(_reql_ast_random_, this, args, kwargs);
+  return init(_reql_ast_random, this, args, kwargs);
 }
 AST random(std::vector<Query> args, std::map<std::string, Query> kwargs) {
-  return init(_reql_ast_random_, args, kwargs);
+  return init(_reql_ast_random, args, kwargs);
 }
 AST AST::random(std::vector<Query> args) {
-  return init(_reql_ast_random_, this, args);
+  return init(_reql_ast_random, this, args);
 }
 AST random(std::vector<Query> args) {
-  return init(_reql_ast_random_, args);
+  return init(_reql_ast_random, args);
 }
 
 /**
  */
 AST AST::range(std::vector<Query> args) {
-  return init(_reql_ast_range_, this, args);
+  return init(_reql_ast_range, this, args);
 }
 AST range(std::vector<Query> args) {
-  return init(_reql_ast_range_, args);
+  return init(_reql_ast_range, args);
 }
 
 /**
  */
 AST AST::rebalance(std::vector<Query> args) {
-  return init(_reql_ast_rebalance_, this, args);
+  return init(_reql_ast_rebalance, this, args);
 }
 AST rebalance(std::vector<Query> args) {
-  return init(_reql_ast_rebalance_, args);
+  return init(_reql_ast_rebalance, args);
 }
 
 /**
  */
 AST AST::reconfigure(std::vector<Query> args) {
-  return init(_reql_ast_reconfigure_, this, args);
+  return init(_reql_ast_reconfigure, this, args);
 }
 AST reconfigure(std::vector<Query> args) {
-  return init(_reql_ast_reconfigure_, args);
+  return init(_reql_ast_reconfigure, args);
 }
 
 /**
  */
 AST AST::reduce(std::vector<Query> args) {
-  return init(_reql_ast_reduce_, this, args);
+  return init(_reql_ast_reduce, this, args);
 }
 AST reduce(std::vector<Query> args) {
-  return init(_reql_ast_reduce_, args);
+  return init(_reql_ast_reduce, args);
 }
 
 /**
  */
 AST AST::replace(std::vector<Query> args, std::map<std::string, Query> kwargs) {
-  return init(_reql_ast_replace_, this, args, kwargs);
+  return init(_reql_ast_replace, this, args, kwargs);
 }
 AST replace(std::vector<Query> args, std::map<std::string, Query> kwargs) {
-  return init(_reql_ast_replace_, args, kwargs);
+  return init(_reql_ast_replace, args, kwargs);
 }
 AST AST::replace(std::vector<Query> args) {
-  return init(_reql_ast_replace_, this, args);
+  return init(_reql_ast_replace, this, args);
 }
 AST replace(std::vector<Query> args) {
-  return init(_reql_ast_replace_, args);
+  return init(_reql_ast_replace, args);
 }
 
 /**
  */
 AST AST::sample(std::vector<Query> args) {
-  return init(_reql_ast_sample_, this, args);
+  return init(_reql_ast_sample, this, args);
 }
 AST sample(std::vector<Query> args) {
-  return init(_reql_ast_sample_, args);
+  return init(_reql_ast_sample, args);
 }
 
 /**
  */
 AST AST::saturday(std::vector<Query> args) {
-  return init(_reql_ast_saturday_, this, args);
+  return init(_reql_ast_saturday, this, args);
 }
 AST saturday(std::vector<Query> args) {
-  return init(_reql_ast_saturday_, args);
+  return init(_reql_ast_saturday, args);
 }
 
 /**
  */
 AST AST::seconds(std::vector<Query> args) {
-  return init(_reql_ast_seconds_, this, args);
+  return init(_reql_ast_seconds, this, args);
 }
 AST seconds(std::vector<Query> args) {
-  return init(_reql_ast_seconds_, args);
+  return init(_reql_ast_seconds, args);
 }
 
 /**
  */
 AST AST::september(std::vector<Query> args) {
-  return init(_reql_ast_september_, this, args);
+  return init(_reql_ast_september, this, args);
 }
 AST september(std::vector<Query> args) {
-  return init(_reql_ast_september_, args);
+  return init(_reql_ast_september, args);
 }
 
 /**
  */
 AST AST::set_difference(std::vector<Query> args) {
-  return init(_reql_ast_set_difference_, this, args);
+  return init(_reql_ast_set_difference, this, args);
 }
 AST set_difference(std::vector<Query> args) {
-  return init(_reql_ast_set_difference_, args);
+  return init(_reql_ast_set_difference, args);
 }
 
 /**
  */
 AST AST::set_insert(std::vector<Query> args) {
-  return init(_reql_ast_set_insert_, this, args);
+  return init(_reql_ast_set_insert, this, args);
 }
 AST set_insert(std::vector<Query> args) {
-  return init(_reql_ast_set_insert_, args);
+  return init(_reql_ast_set_insert, args);
 }
 
 /**
  */
 AST AST::set_intersection(std::vector<Query> args) {
-  return init(_reql_ast_set_intersection_, this, args);
+  return init(_reql_ast_set_intersection, this, args);
 }
 AST set_intersection(std::vector<Query> args) {
-  return init(_reql_ast_set_intersection_, args);
+  return init(_reql_ast_set_intersection, args);
 }
 
 /**
  */
 AST AST::set_union(std::vector<Query> args) {
-  return init(_reql_ast_set_union_, this, args);
+  return init(_reql_ast_set_union, this, args);
 }
 AST set_union(std::vector<Query> args) {
-  return init(_reql_ast_set_union_, args);
+  return init(_reql_ast_set_union, args);
 }
 
 /**
  */
 AST AST::skip(std::vector<Query> args) {
-  return init(_reql_ast_skip_, this, args);
+  return init(_reql_ast_skip, this, args);
 }
 AST skip(std::vector<Query> args) {
-  return init(_reql_ast_skip_, args);
+  return init(_reql_ast_skip, args);
 }
 
 /**
  */
 AST AST::slice(std::vector<Query> args, std::map<std::string, Query> kwargs) {
-  return init(_reql_ast_slice_, this, args, kwargs);
+  return init(_reql_ast_slice, this, args, kwargs);
 }
 AST slice(std::vector<Query> args, std::map<std::string, Query> kwargs) {
-  return init(_reql_ast_slice_, args, kwargs);
+  return init(_reql_ast_slice, args, kwargs);
 }
 AST AST::slice(std::vector<Query> args) {
-  return init(_reql_ast_slice_, this, args);
+  return init(_reql_ast_slice, this, args);
 }
 AST slice(std::vector<Query> args) {
-  return init(_reql_ast_slice_, args);
+  return init(_reql_ast_slice, args);
 }
 
 /**
  */
 AST AST::splice_at(std::vector<Query> args) {
-  return init(_reql_ast_splice_at_, this, args);
+  return init(_reql_ast_splice_at, this, args);
 }
 AST splice_at(std::vector<Query> args) {
-  return init(_reql_ast_splice_at_, args);
+  return init(_reql_ast_splice_at, args);
 }
 
 /**
  */
 AST AST::split(std::vector<Query> args) {
-  return init(_reql_ast_split_, this, args);
+  return init(_reql_ast_split, this, args);
 }
 AST split(std::vector<Query> args) {
-  return init(_reql_ast_split_, args);
+  return init(_reql_ast_split, args);
 }
 
 /**
  */
 AST AST::sub(std::vector<Query> args) {
-  return init(_reql_ast_sub_, this, args);
+  return init(_reql_ast_sub, this, args);
 }
 AST sub(std::vector<Query> args) {
-  return init(_reql_ast_sub_, args);
+  return init(_reql_ast_sub, args);
 }
 
 /**
  */
 AST AST::sum(std::vector<Query> args) {
-  return init(_reql_ast_sum_, this, args);
+  return init(_reql_ast_sum, this, args);
 }
 AST sum(std::vector<Query> args) {
-  return init(_reql_ast_sum_, args);
+  return init(_reql_ast_sum, args);
 }
 
 /**
  */
 AST AST::sunday(std::vector<Query> args) {
-  return init(_reql_ast_sunday_, this, args);
+  return init(_reql_ast_sunday, this, args);
 }
 AST sunday(std::vector<Query> args) {
-  return init(_reql_ast_sunday_, args);
+  return init(_reql_ast_sunday, args);
 }
 
 /**
  */
 AST AST::sync(std::vector<Query> args) {
-  return init(_reql_ast_sync_, this, args);
+  return init(_reql_ast_sync, this, args);
 }
 AST sync(std::vector<Query> args) {
-  return init(_reql_ast_sync_, args);
+  return init(_reql_ast_sync, args);
 }
 
 /**
  */
 AST AST::table(std::vector<Query> args, std::map<std::string, Query> kwargs) {
-  return init(_reql_ast_table_, this, args, kwargs);
+  return init(_reql_ast_table, this, args, kwargs);
 }
 AST table(std::vector<Query> args, std::map<std::string, Query> kwargs) {
-  return init(_reql_ast_table_, args, kwargs);
+  return init(_reql_ast_table, args, kwargs);
 }
 AST AST::table(std::vector<Query> args) {
-  return init(_reql_ast_table_, this, args);
+  return init(_reql_ast_table, this, args);
 }
 AST table(std::vector<Query> args) {
-  return init(_reql_ast_table_, args);
+  return init(_reql_ast_table, args);
 }
 
 /**
  */
 AST AST::table_config(std::vector<Query> args) {
-  return init(_reql_ast_table_config_, this, args);
+  return init(_reql_ast_table_config, this, args);
 }
 AST table_config(std::vector<Query> args) {
-  return init(_reql_ast_table_config_, args);
+  return init(_reql_ast_table_config, args);
 }
 
 /**
  */
 AST AST::table_create(std::vector<Query> args, std::map<std::string, Query> kwargs) {
-  return init(_reql_ast_table_create_, this, args, kwargs);
+  return init(_reql_ast_table_create, this, args, kwargs);
 }
 AST table_create(std::vector<Query> args, std::map<std::string, Query> kwargs) {
-  return init(_reql_ast_table_create_, args, kwargs);
+  return init(_reql_ast_table_create, args, kwargs);
 }
 AST AST::table_create(std::vector<Query> args) {
-  return init(_reql_ast_table_create_, this, args);
+  return init(_reql_ast_table_create, this, args);
 }
 AST table_create(std::vector<Query> args) {
-  return init(_reql_ast_table_create_, args);
+  return init(_reql_ast_table_create, args);
 }
 
 /**
  */
 AST AST::table_drop(std::vector<Query> args) {
-  return init(_reql_ast_table_drop_, this, args);
+  return init(_reql_ast_table_drop, this, args);
 }
 AST table_drop(std::vector<Query> args) {
-  return init(_reql_ast_table_drop_, args);
+  return init(_reql_ast_table_drop, args);
 }
 
 /**
  */
 AST AST::table_list(std::vector<Query> args) {
-  return init(_reql_ast_table_list_, this, args);
+  return init(_reql_ast_table_list, this, args);
 }
 AST table_list(std::vector<Query> args) {
-  return init(_reql_ast_table_list_, args);
+  return init(_reql_ast_table_list, args);
 }
 
 /**
  */
 AST AST::table_status(std::vector<Query> args) {
-  return init(_reql_ast_table_status_, this, args);
+  return init(_reql_ast_table_status, this, args);
 }
 AST table_status(std::vector<Query> args) {
-  return init(_reql_ast_table_status_, args);
+  return init(_reql_ast_table_status, args);
 }
 
 /**
  */
 AST AST::table_wait(std::vector<Query> args) {
-  return init(_reql_ast_table_wait_, this, args);
+  return init(_reql_ast_table_wait, this, args);
 }
 AST table_wait(std::vector<Query> args) {
-  return init(_reql_ast_table_wait_, args);
+  return init(_reql_ast_table_wait, args);
 }
 
 /**
  */
 AST AST::thursday(std::vector<Query> args) {
-  return init(_reql_ast_thursday_, this, args);
+  return init(_reql_ast_thursday, this, args);
 }
 AST thursday(std::vector<Query> args) {
-  return init(_reql_ast_thursday_, args);
+  return init(_reql_ast_thursday, args);
 }
 
 /**
  */
 AST AST::time(std::vector<Query> args) {
-  return init(_reql_ast_time_, this, args);
+  return init(_reql_ast_time, this, args);
 }
 AST time(std::vector<Query> args) {
-  return init(_reql_ast_time_, args);
+  return init(_reql_ast_time, args);
 }
 
 /**
  */
 AST AST::timezone_(std::vector<Query> args) {
-  return init(_reql_ast_timezone_, this, args);
+  return init(_reql_ast_timezone, this, args);
 }
 AST timezone_(std::vector<Query> args) {
-  return init(_reql_ast_timezone_, args);
+  return init(_reql_ast_timezone, args);
 }
 
 /**
  */
 AST AST::time_of_day(std::vector<Query> args) {
-  return init(_reql_ast_time_of_day_, this, args);
+  return init(_reql_ast_time_of_day, this, args);
 }
 AST time_of_day(std::vector<Query> args) {
-  return init(_reql_ast_time_of_day_, args);
+  return init(_reql_ast_time_of_day, args);
 }
 
 /**
  */
 AST AST::to_epoch_time(std::vector<Query> args) {
-  return init(_reql_ast_to_epoch_time_, this, args);
+  return init(_reql_ast_to_epoch_time, this, args);
 }
 AST to_epoch_time(std::vector<Query> args) {
-  return init(_reql_ast_to_epoch_time_, args);
+  return init(_reql_ast_to_epoch_time, args);
 }
 
 /**
  */
 AST AST::to_geojson(std::vector<Query> args) {
-  return init(_reql_ast_to_geojson_, this, args);
+  return init(_reql_ast_to_geojson, this, args);
 }
 AST to_geojson(std::vector<Query> args) {
-  return init(_reql_ast_to_geojson_, args);
+  return init(_reql_ast_to_geojson, args);
 }
 
 /**
  */
 AST AST::to_iso8601(std::vector<Query> args) {
-  return init(_reql_ast_to_iso8601_, this, args);
+  return init(_reql_ast_to_iso8601, this, args);
 }
 AST to_iso8601(std::vector<Query> args) {
-  return init(_reql_ast_to_iso8601_, args);
+  return init(_reql_ast_to_iso8601, args);
 }
 
 /**
  */
 AST AST::to_json_string(std::vector<Query> args) {
-  return init(_reql_ast_to_json_string_, this, args);
+  return init(_reql_ast_to_json_string, this, args);
 }
 AST to_json_string(std::vector<Query> args) {
-  return init(_reql_ast_to_json_string_, args);
+  return init(_reql_ast_to_json_string, args);
 }
 
 /**
  */
 AST AST::tuesday(std::vector<Query> args) {
-  return init(_reql_ast_tuesday_, this, args);
+  return init(_reql_ast_tuesday, this, args);
 }
 AST tuesday(std::vector<Query> args) {
-  return init(_reql_ast_tuesday_, args);
+  return init(_reql_ast_tuesday, args);
 }
 
 /**
  */
 AST AST::type_of(std::vector<Query> args) {
-  return init(_reql_ast_type_of_, this, args);
+  return init(_reql_ast_type_of, this, args);
 }
 AST type_of(std::vector<Query> args) {
-  return init(_reql_ast_type_of_, args);
+  return init(_reql_ast_type_of, args);
 }
 
 /**
  */
 AST AST::ungroup(std::vector<Query> args) {
-  return init(_reql_ast_ungroup_, this, args);
+  return init(_reql_ast_ungroup, this, args);
 }
 AST ungroup(std::vector<Query> args) {
-  return init(_reql_ast_ungroup_, args);
+  return init(_reql_ast_ungroup, args);
 }
 
 /**
  */
 AST AST::union_(std::vector<Query> args) {
-  return init(_reql_ast_union_, this, args);
+  return init(_reql_ast_union, this, args);
 }
 AST union_(std::vector<Query> args) {
-  return init(_reql_ast_union_, args);
+  return init(_reql_ast_union, args);
 }
 
 /**
  */
 AST AST::upcase(std::vector<Query> args) {
-  return init(_reql_ast_upcase_, this, args);
+  return init(_reql_ast_upcase, this, args);
 }
 AST upcase(std::vector<Query> args) {
-  return init(_reql_ast_upcase_, args);
+  return init(_reql_ast_upcase, args);
 }
 
 /**
  */
 AST AST::update(std::vector<Query> args, std::map<std::string, Query> kwargs) {
-  return init(_reql_ast_update_, this, args, kwargs);
+  return init(_reql_ast_update, this, args, kwargs);
 }
 AST update(std::vector<Query> args, std::map<std::string, Query> kwargs) {
-  return init(_reql_ast_update_, args, kwargs);
+  return init(_reql_ast_update, args, kwargs);
 }
 AST AST::update(std::vector<Query> args) {
-  return init(_reql_ast_update_, this, args);
+  return init(_reql_ast_update, this, args);
 }
 AST update(std::vector<Query> args) {
-  return init(_reql_ast_update_, args);
+  return init(_reql_ast_update, args);
 }
 
 /**
  */
 AST AST::uuid(std::vector<Query> args) {
-  return init(_reql_ast_uuid_, this, args);
+  return init(_reql_ast_uuid, this, args);
 }
 AST uuid(std::vector<Query> args) {
-  return init(_reql_ast_uuid_, args);
+  return init(_reql_ast_uuid, args);
 }
 
 /**
  */
 AST AST::var(std::vector<Query> args) {
-  return init(_reql_ast_var_, this, args);
+  return init(_reql_ast_var, this, args);
 }
 AST var(std::vector<Query> args) {
-  return init(_reql_ast_var_, args);
+  return init(_reql_ast_var, args);
 }
 
 /**
  */
 AST AST::wednesday(std::vector<Query> args) {
-  return init(_reql_ast_wednesday_, this, args);
+  return init(_reql_ast_wednesday, this, args);
 }
 AST wednesday(std::vector<Query> args) {
-  return init(_reql_ast_wednesday_, args);
+  return init(_reql_ast_wednesday, args);
 }
 
 /**
  */
 AST AST::without(std::vector<Query> args) {
-  return init(_reql_ast_without_, this, args);
+  return init(_reql_ast_without, this, args);
 }
 AST without(std::vector<Query> args) {
-  return init(_reql_ast_without_, args);
+  return init(_reql_ast_without, args);
 }
 
 /**
  */
 AST AST::with_fields(std::vector<Query> args) {
-  return init(_reql_ast_with_fields_, this, args);
+  return init(_reql_ast_with_fields, this, args);
 }
 AST with_fields(std::vector<Query> args) {
-  return init(_reql_ast_with_fields_, args);
+  return init(_reql_ast_with_fields, args);
 }
 
 /**
  */
 AST AST::year(std::vector<Query> args) {
-  return init(_reql_ast_year_, this, args);
+  return init(_reql_ast_year, this, args);
 }
 AST year(std::vector<Query> args) {
-  return init(_reql_ast_year_, args);
+  return init(_reql_ast_year, args);
 }
 
 /**
  */
 AST AST::zip(std::vector<Query> args) {
-  return init(_reql_ast_zip_, this, args);
+  return init(_reql_ast_zip, this, args);
 }
 AST zip(std::vector<Query> args) {
-  return init(_reql_ast_zip_, args);
+  return init(_reql_ast_zip, args);
 }
 
 }

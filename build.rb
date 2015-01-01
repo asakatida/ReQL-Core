@@ -246,10 +246,6 @@ def ast_name(lang, name)
 end
 
 def c_ast_name(name)
-  "#{c_ast_name_alloc name}_"
-end
-
-def c_ast_name_alloc(name)
   ast_name 'ast', name
 end
 
@@ -395,7 +391,7 @@ int #{lua_ast_name name}(lua_State *L) {
     else
       'ast_class'
     end
-  }(L, #{c_ast_name_alloc name}#{
+  }(L, #{c_ast_name name}#{
     if opts? name
       ''
     else
@@ -492,30 +488,19 @@ build('ReQL-ast-Ruby.h', /.{9}int _reql_rb_add.*_zip.*}/m) do |name|
 static VALUE #{rb_ast_name name}(int argn, VALUE *args, VALUE self);"
 end
 
-build('ReQL-ast.c', /.{9}_ReQL_Op #{c_ast_name_alloc first_term}.*_ReQL_Op #{c_ast_name last_term}.*}/m) do |name|
+build('ReQL-ast.c', /.{9}_ReQL_Op #{c_ast_name first_term}.*_ReQL_Op #{c_ast_name last_term}.*}/m) do |name|
   "
 /**
  */
-_ReQL_Op #{c_ast_name_alloc name}(_ReQL_Op args, _ReQL_Op kwargs) {
-  return #{c_ast_name name}(NULL, args, kwargs);
-}
-
-/**
- */
-_ReQL_Op #{c_ast_name name}(_ReQL_Op term, _ReQL_Op args, _ReQL_Op kwargs) {
-  term = _reql_json_null(term);
+void #{c_ast_name name}(_ReQL_Op term, _ReQL_Op args, _ReQL_Op kwargs) {
   term->tt = _REQL_#{name};
   term->obj.args.args = args;
   term->obj.args.kwargs = kwargs;
-  return term;
 }"
 end
 
-build('ReQL-ast.h', /.{9}_ReQL_Op #{c_ast_name_alloc first_term}.*_ReQL_Op #{c_ast_name last_term}.*;/m) do |name|
+build('ReQL-ast.h', /.{9}_ReQL_Op #{c_ast_name first_term}.*_ReQL_Op #{c_ast_name last_term}.*;/m) do |name|
   "
-/**
- */
-_ReQL_Op #{c_ast_name_alloc name}(_ReQL_Op args, _ReQL_Op kwargs);
 /**
  */
 _ReQL_Op #{c_ast_name name}(_ReQL_Op term, _ReQL_Op args, _ReQL_Op kwargs);"
