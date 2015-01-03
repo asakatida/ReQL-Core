@@ -101,7 +101,8 @@ Connection::Connection(std::string host, std::uint16_t port, std::string key) {
 }
 
 int Connection::close() {
-  return _reql_close_conn(conn);
+  _reql_close_conn(conn);
+  return 0;
 }
 
 Connection connect() {
