@@ -499,7 +499,7 @@ build('ReQL-ast.h', /.{9}_ReQL_Op #{c_ast_name first_term}.*_ReQL_Op #{c_ast_nam
   "
 /**
  */
-_ReQL_Op #{c_ast_name name}(_ReQL_Op term, _ReQL_Op args, _ReQL_Op kwargs);"
+void #{c_ast_name name}(_ReQL_Op term, _ReQL_Op args, _ReQL_Op kwargs);"
 end
 
 build('ReQL-json.h', /_REQL_#{first_term}.*#{last_term} = #{RethinkDB::Term::TermType.const_get last_term}/m, ",\n  ") do |name|
