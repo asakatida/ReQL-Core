@@ -22,6 +22,7 @@ limitations under the License.
 
 #include <math.h>
 #include <stdlib.h>
+#include <string.h>
 
 _ReQL_Datum_t _reql_merge_stack_val(_ReQL_Op stack, _ReQL_Op val) {
   _ReQL_Datum_t state = _REQL_R_REQL;
