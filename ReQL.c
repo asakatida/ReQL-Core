@@ -159,7 +159,8 @@ _ReQL_Op _reql_get_cur_res(_ReQL_Cur_t *cur) {
   while (1) {
     pthread_mutex_lock(response_lock);
     if (cur->response) {
-      _reql_expr_copy(res, cur->response);
+      res = cur->response;
+      cur->response = NULL;
       pthread_mutex_unlock(response_lock);
       break;
     }
