@@ -317,16 +317,14 @@ end
 
 def build(f_name, regex, join_str = "\n", block = Proc.new)
   open(f_name, File::RDWR, 0644) do |f|
-    terms = (RethinkDB::Term::TermType.constants.sort.map do |term|
-      block.call term
-    end).join join_str
-
     regex.match f.read do |m|
       f.rewind
 
       f.write(m.pre_match)
 
-      f.write(terms)
+      f.write((RethinkDB::Term::TermType.constants.sort.map do |term|
+        block.call term
+      end).join join_str)
 
       f.write(m.post_match)
     end
