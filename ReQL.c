@@ -209,15 +209,11 @@ void *_reql_conn_loop(void *_conn) {
     pos += recvfrom(conn->socket, &response[pos], size, MSG_WAITALL, NULL, NULL);
     if (response) {
       if (pos == size) {
-        _ReQL_Op json = malloc(sizeof(_ReQL_Op_t));
-
-        _reql_string_init(json, response, size);
-        _reql_set_cur_res(conn, _reql_decode(json), token);
+        _reql_set_cur_res(conn, _reql_decode(response, size), token);
 
         pos = 0;
         size = 12;
 
-        free(json); json = NULL;
         free(response); response = NULL;
       }
     } else {
