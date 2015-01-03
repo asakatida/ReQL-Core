@@ -65,7 +65,7 @@ struct _ReQL_Conn_s {
 typedef struct _ReQL_Conn_s _ReQL_Conn_t;
 typedef _ReQL_Conn_t* _ReQL_Conn;
 
-_ReQL_Conn _reql_new_connection(_ReQL_Conn conn);
+void _reql_connection_init(_ReQL_Conn conn);
 void _reql_conn_set_auth(_ReQL_Conn conn, uint32_t size, char *auth);
 void _reql_conn_set_addr(_ReQL_Conn conn, char *addr);
 void _reql_conn_set_port(_ReQL_Conn conn, char *port);
