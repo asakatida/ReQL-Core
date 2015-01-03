@@ -28,11 +28,7 @@ namespace ReQL {
 
 Connection::Connection() {
   conn = new _ReQL_Conn_t();
-  conn = _reql_new_connection(conn);
-
-  if (!conn) {
-    return;
-  }
+  _reql_connection_init(conn);
 
   char buf[500];
 
@@ -42,11 +38,7 @@ Connection::Connection() {
 
 Connection::Connection(std::string host) {
   conn = new _ReQL_Conn_t();
-  conn = _reql_new_connection(conn);
-
-  if (!conn) {
-    return;
-  }
+  _reql_connection_init(conn);
 
   _reql_conn_set_addr(conn, (char *)host.c_str());
 
@@ -58,11 +50,7 @@ Connection::Connection(std::string host) {
 
 Connection::Connection(std::string host, std::uint16_t port) {
   conn = new _ReQL_Conn_t();
-  conn = _reql_new_connection(conn);
-
-  if (!conn) {
-    return;
-  }
+  _reql_connection_init(conn);
 
   std::string _port = std::to_string(port);
 
@@ -77,11 +65,7 @@ Connection::Connection(std::string host, std::uint16_t port) {
 
 Connection::Connection(std::string host, std::uint16_t port, std::string key) {
   conn = new _ReQL_Conn_t();
-  conn = _reql_new_connection(conn);
-
-  if (!conn) {
-    return;
-  }
+  _reql_connection_init(conn);
 
   if (key.size() > UINT32_MAX) {
   }
