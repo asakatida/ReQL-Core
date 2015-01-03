@@ -353,9 +353,14 @@ _ReQL_Op _reql_decode_(_ReQL_Op stack, uint8_t *json, uint32_t size) {
 }
 
 _ReQL_Op _reql_decode(uint8_t *json, uint32_t size) {
-  _ReQL_Op stack = _reql_array(NULL);
+  _ReQL_Op stack = malloc(sizeof(_ReQL_Op_t));
+  _ReQL_Op *arr = malloc(sizeof(_ReQL_Op) * 10);
+  _reql_array_init(stack, arr, 10);
+
   _ReQL_Op val = _reql_decode_(stack, json, size);
-  _reql_expr_free(stack);
+
+  free(arr);
+  free(stack);
 
   return val;
 }
