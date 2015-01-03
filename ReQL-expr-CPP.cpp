@@ -26,45 +26,82 @@ limitations under the License.
 namespace ReQL {
 
 Expr::Expr() {
-  query = _reql_expr_null();
+  _ReQL_Op _val = new _ReQL_Op_t();
+
+  _reql_null_init(_val);
+
+  query = new _ReQL_Op_t();
+
+  _reql_ast_datum(query, _val, NULL);
 }
 
 Expr::Expr(std::string val) {
-  query = _reql_expr_string((char *)val.c_str(), val.size());
+  _ReQL_Op _val = new _ReQL_Op_t();
+
+  uint8_t *_str = new uint8_t[val.size()]();
+
+  _str = static_cast<uint8_t *>(memcpy(_str, val.c_str(), val.size()));
+
+  _reql_string_init(_val, _str, static_cast<uint32_t>(val.size()));
+
+  query = new _ReQL_Op_t();
+
+  _reql_ast_datum(query, _val, NULL);
 }
 
 Expr::Expr(double val) {
-  query = _reql_expr_number(val);
+  _ReQL_Op _val = new _ReQL_Op_t();
+
+  _reql_number_init(_val, val);
+
+  query = new _ReQL_Op_t();
+
+  _reql_ast_datum(query, _val, NULL);
 }
 
 Expr::Expr(bool val) {
-  query = _reql_expr_bool(val);
+  _ReQL_Op _val = new _ReQL_Op_t();
+
+  _reql_bool_init(_val, val);
+
+  query = new _ReQL_Op_t();
+
+  _reql_ast_datum(query, _val, NULL);
 }
 
 Expr::Expr(std::vector<Query> val) {
-  _ReQL_Op obj = _reql_json_array(NULL);
+  _ReQL_Op _val = new _ReQL_Op_t();
+  _ReQL_Op *arr = new _ReQL_Op[val.size()];
+
+  _reql_array_init(_val, arr, static_cast<std::uint32_t>(val.size()));
 
   for (auto iter=val.cbegin(); iter!=val.cend(); ++iter) {
-    _reql_array_append(obj, _reql_expr_copy(iter->query));
+    _reql_array_append(_val, iter->query);
   }
 
-  query = _reql_expr(obj);
+  query = new _ReQL_Op_t();
+
+  _reql_ast_make_array(query, _val, NULL);
 }
 
 Expr::Expr(std::map<std::string, Query> val) {
-  _ReQL_Op obj = _reql_json_object(NULL);
+  _ReQL_Op _val = new _ReQL_Op_t();
+  _ReQL_Pair pair = new _ReQL_Pair_t[val.size()];
+
+  _reql_object_init(_val, pair, static_cast<std::uint32_t>(val.size()));
 
   for (auto iter=val.cbegin(); iter!=val.cend(); ++iter) {
-    std::string key_str = iter->first;
-    _ReQL_Op key = _reql_json_string(NULL, (char *)key_str.c_str(), key_str.size());
-    _reql_object_add(obj, key, _reql_expr_copy(iter->second.query));
+    Query key(iter->first);
+    _reql_object_add(_val, key.query, iter->second.query);
   }
 
-  query = _reql_expr(obj);
+  query = new _ReQL_Op_t();
+
+  _reql_ast_make_obj(query, NULL, _val);
 }
 
 Expr::~Expr() {
-  _reql_expr_free(query);
+  delete query;
 }
 
 Query expr() {

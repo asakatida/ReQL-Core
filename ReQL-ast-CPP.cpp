@@ -32,19 +32,25 @@ AST init(_ReQL_AST_Function f, std::vector<Query> args, std::map<std::string, Qu
 
   term.query = new _ReQL_Op_t();
 
-  _ReQL_Op _args = _reql_json_array(new _ReQL_Op_t());
+  _ReQL_Op _args = new _ReQL_Op_t();
+  _ReQL_Op *arr = new _ReQL_Op[args.size()];
+
+  _reql_array_init(_args, arr, static_cast<std::uint32_t>(args.size()));
 
   for (auto it=args.cbegin(); it!=args.cend(); ++it) {
     _reql_array_append(_args, it->query);
   }
 
-  _ReQL_Op _kwargs = _reql_json_object(new _ReQL_Op_t());
+  _ReQL_Op _kwargs = new _ReQL_Op_t();
+  _ReQL_Pair pair = new _ReQL_Pair_t[kwargs.size()]();
+
+  _reql_object_init(_kwargs, pair, static_cast<std::uint32_t>(kwargs.size()));
 
   for (auto it=kwargs.cbegin(); it!=kwargs.cend(); ++it) {
     _reql_object_add(_kwargs, expr(it->first).query, it->second.query);
   }
 
-  term.query = f(term.query, _args, _kwargs);
+  f(term.query, _args, _kwargs);
 
   return term;
 }
