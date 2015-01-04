@@ -6,6 +6,8 @@ test: libReQLtest
 OBJS = ReQL-CPP.obj \
        ReQL-ast-CPP.obj \
 			 ReQL-expr-CPP.obj \
+			 ReQL-decode.o \
+			 ReQL-encode.o \
 			 ReQL.o \
 			 ReQL-ast.o \
 			 ReQL-expr.o \
