@@ -3,9 +3,9 @@ all: libReQL.a
 test: libReQLtest
 	./libReQLtest
 
-OBJS = ReQL-CPP.o \
-       ReQL-ast-CPP.o \
-			 ReQL-expr-CPP.o \
+OBJS = ReQL-CPP.obj \
+       ReQL-ast-CPP.obj \
+			 ReQL-expr-CPP.obj \
 			 ReQL.o \
 			 ReQL-ast.o \
 			 ReQL-expr.o \
@@ -20,19 +20,10 @@ TESTOBJS = ReQL-test.o ReQL-ast-test.o ReQL-expr-test.o
 libReQL.a: $(OBJS)
 	$(CXX) $(LDFLAGS) -o $@ $(OBJS)
 
-ReQL.o: ReQL.c
-	$(CC) $(CCFLAGS) -c $<
+%.o: %.c
+	$(CC) $(CCFLAGS) -o $@ -c $<
 
-ReQL-ast.o: ReQL-ast.c
-	$(CC) $(CCFLAGS) -c $<
-
-ReQL-expr.o: ReQL-expr.c
-	$(CC) $(CCFLAGS) -c $<
-
-ReQL-json.o: ReQL-json.c
-	$(CC) $(CCFLAGS) -c $<
-
-%.o: %.cpp
+%.obj: %.cpp
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
 libReQLtest: libReQL.a $(TESTOBJS)
