@@ -28,21 +28,13 @@ limitations under the License.
 
 -(instancetype)initWithHost:(NSString *)host port:(NSNumber *)port key:(NSString *)key {
   if (self = [super init]) {
-    self->conn = _reql_new_connection(NULL);
+    self->conn = malloc(sizeof(_ReQL_Conn_t));
 
-    if (!self->conn) {
-      return nil;
-    }
+    char buf[500];
 
-    char *buf;
+    _reql_connect(self->conn, buf, 500);
 
-    _reql_connect(self->conn, &buf);
-
-    if (self->conn->error) {
-      NSLog(@"%s", buf);
-      _reql_close_conn(self->conn);
-      return nil;
-    }
+    NSLog(@"%s", buf);
   }
 
   return self;
@@ -81,32 +73,85 @@ limitations under the License.
 }
 
 +(instancetype)ReQLWithString:(NSString *)string {
-  const char *c_str = [string cStringUsingEncoding:NSUnicodeStringEncoding];
-  unsigned long c_str_len = [string lengthOfBytesUsingEncoding:NSUnicodeStringEncoding];
-  return [[libReQL_expr alloc] initWithReQL:_reql_expr_string((char  *)c_str, c_str_len)];
+  uint32_t c_str_len = (uint32_t)[string lengthOfBytesUsingEncoding:NSUnicodeStringEncoding];
+
+  uint8_t *c_str = malloc(sizeof(uint8_t) * c_str_len);
+
+  [string getBytes:c_str maxLength:c_str_len usedLength:NULL encoding:NSUnicodeStringEncoding options:NSStringEncodingConversionAllowLossy range:NSMakeRange(0, c_str_len) remainingRange:NULL];
+
+  _ReQL_Op val = malloc(sizeof(_ReQL_Op_t));
+
+  _reql_string_init(val, c_str, c_str_len);
+
+  _ReQL_Op expr = malloc(sizeof(_ReQL_Op_t));
+
+  _reql_ast_datum(expr, val, NULL);
+
+  return [[libReQL_expr alloc] initWithReQL:expr];
 }
 
 +(instancetype)ReQLWithNumber:(NSNumber *)number {
-  double val = [number doubleValue];
-  return [[libReQL_expr alloc] initWithReQL:_reql_expr_number(val)];
+  _ReQL_Op val = malloc(sizeof(_ReQL_Op_t));
+
+  _reql_number_init(val, [number doubleValue]);
+
+  _ReQL_Op expr = malloc(sizeof(_ReQL_Op_t));
+
+  _reql_ast_datum(expr, val, NULL);
+
+  return [[libReQL_expr alloc] initWithReQL:expr];
 }
 
 +(instancetype)ReQLWithBool:(BOOL)val {
-  return [[libReQL_expr alloc] initWithReQL:_reql_expr_bool(val)];
+  _ReQL_Op _val = malloc(sizeof(_ReQL_Op_t));
+
+  _reql_bool_init(_val, val);
+
+  _ReQL_Op expr = malloc(sizeof(_ReQL_Op_t));
+
+  _reql_ast_datum(expr, _val, NULL);
+
+  return [[libReQL_expr alloc] initWithReQL:expr];
 }
 
 +(instancetype)ReQLWithArray:(NSArray *)array {
-  _ReQL_Op val = _reql_json_array_(NULL, [array count]);
+  uint32_t size = (uint32_t)[array count];
 
-  unsigned long i = -1;
+  _ReQL_Op val = malloc(sizeof(_ReQL_Op_t));
+  _ReQL_Op *arr = malloc(sizeof(_ReQL_Op) * size);
 
-  for (id elem in array) {
-    if ([elem isKindOfClass:[NSArray class]]) {
-      _reql_array_insert(val, [[libReQL_expr ReQLWithArray:elem] ReQLValue], ++i);
-    }
+  _reql_array_init(val, arr, size);
+
+  uint32_t i = -1;
+
+  for (libReQL_expr *elem in array) {
+    _reql_array_insert(val, elem->query, ++i);
   }
 
-  return [[libReQL_expr alloc] initWithReQL:val];
+  _ReQL_Op expr = malloc(sizeof(_ReQL_Op_t));
+
+  _reql_ast_datum(expr, val, NULL);
+
+  return [[libReQL_expr alloc] initWithReQL:expr];
+}
+
++(instancetype)ReQLWithDict:(NSDictionary *)obj {
+  uint32_t size = (uint32_t)[obj count];
+
+  _ReQL_Op val = malloc(sizeof(_ReQL_Op_t));
+  _ReQL_Pair pair = malloc(sizeof(_ReQL_Pair_t) * size);
+
+  _reql_object_init(val, pair, size);
+
+  for (NSString *key in [obj keyEnumerator]) {
+    _reql_object_add(val, [libReQL_expr ReQLWithString:key]->query, ((libReQL_expr *)[obj valueForKey:key])->query);
+  }
+
+  _ReQL_Op expr = malloc(sizeof(_ReQL_Op_t));
+
+  _reql_ast_datum(expr, val, NULL);
+
+  return [[libReQL_expr alloc] initWithReQL:expr];
 }
 
 -(_ReQL_Op)ReQLValue {

@@ -18,6 +18,7 @@ limitations under the License.
  * @copyright Apache
  */
 
+#include <stddef.h>
 #include <stdint.h>
 
 #ifndef _REQL_CONFIG_H
