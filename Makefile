@@ -3,6 +3,8 @@ all: libReQL.a
 test: libReQLtest
 	./libReQLtest
 
+check: test
+
 OBJS = ReQL-CPP.obj \
        ReQL-ast-CPP.obj \
 			 ReQL-expr-CPP.obj \
