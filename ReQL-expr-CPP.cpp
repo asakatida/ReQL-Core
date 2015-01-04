@@ -40,7 +40,7 @@ Expr::Expr(std::string val) {
 
   uint8_t *_str = new uint8_t[val.size()]();
 
-  _str = static_cast<uint8_t *>(memcpy(_str, val.c_str(), val.size()));
+  val.copy((char *)_str, val.size());
 
   _reql_string_init(_val, _str, static_cast<uint32_t>(val.size()));
 
