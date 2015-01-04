@@ -21,14 +21,20 @@ limitations under the License.
 #include "ReQL-ast-Lua.h"
 
 int _reql_lua_ast_class(lua_State *L, _ReQL_AST_Function f, _ReQL_Op kwargs) {
-  int size = lua_gettop(L), i;
-  _ReQL_Op args = _reql_json_array_(NULL, size);
+  uint32_t size = lua_gettop(L), i;
+
+  _ReQL_Op args = lua_newuserdata(L, sizeof(_ReQL_Op_t));
+  _ReQL_Op *arr = lua_newuserdata(L, sizeof(_ReQL_Op) * size);
+
+  _reql_array_init(args, arr, size);
 
   for (i=0; i<size; ++i) {
     _reql_array_insert(args, _reql_from_lua(L, i, 20), i);
   }
 
-  _reql_to_lua(L, f(args, kwargs));
+  _ReQL_Op val = lua_newuserdata(L, sizeof(_ReQL_Op_t));
+
+  f(val, args, kwargs);
 
   return 1;
 }
