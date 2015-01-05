@@ -1,6 +1,6 @@
 #include "ReQL-ast-test.hpp"
 
-#include "ReQL-CPP.hpp"
+#include "ReQL.hpp"
 
 using namespace ReQL;
 

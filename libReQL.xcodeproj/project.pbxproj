@@ -13,12 +13,12 @@
 		1E0915ED1A1A73A9007952FE /* ReQL-expr.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ED066731A046AC1005225FD /* ReQL-expr.h */; };
 		1E0915EE1A1A73A9007952FE /* ReQL.c in Sources */ = {isa = PBXBuildFile; fileRef = 1ED066631A030AE8005225FD /* ReQL.c */; };
 		1E0915EF1A1A73A9007952FE /* ReQL.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ED066641A030AE8005225FD /* ReQL.h */; };
-		1E0915F61A1A73D3007952FE /* ReQL-ast-CPP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1E0915F01A1A73D3007952FE /* ReQL-ast-CPP.cpp */; };
-		1E0915F71A1A73D3007952FE /* ReQL-ast-CPP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 1E0915F11A1A73D3007952FE /* ReQL-ast-CPP.hpp */; };
-		1E0915F81A1A73D3007952FE /* ReQL-CPP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1E0915F21A1A73D3007952FE /* ReQL-CPP.cpp */; };
-		1E0915F91A1A73D3007952FE /* ReQL-CPP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 1E0915F31A1A73D3007952FE /* ReQL-CPP.hpp */; };
-		1E0915FA1A1A73D3007952FE /* ReQL-expr-CPP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1E0915F41A1A73D3007952FE /* ReQL-expr-CPP.cpp */; };
-		1E0915FB1A1A73D3007952FE /* ReQL-expr-CPP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 1E0915F51A1A73D3007952FE /* ReQL-expr-CPP.hpp */; };
+		1E0915F61A1A73D3007952FE /* ReQL-ast.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1E0915F01A1A73D3007952FE /* ReQL-ast.cpp */; };
+		1E0915F71A1A73D3007952FE /* ReQL-ast.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 1E0915F11A1A73D3007952FE /* ReQL-ast.hpp */; };
+		1E0915F81A1A73D3007952FE /* ReQL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1E0915F21A1A73D3007952FE /* ReQL.cpp */; };
+		1E0915F91A1A73D3007952FE /* ReQL.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 1E0915F31A1A73D3007952FE /* ReQL.hpp */; };
+		1E0915FA1A1A73D3007952FE /* ReQL-expr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1E0915F41A1A73D3007952FE /* ReQL-expr.cpp */; };
+		1E0915FB1A1A73D3007952FE /* ReQL-expr.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 1E0915F51A1A73D3007952FE /* ReQL-expr.hpp */; };
 		1E3F9A0F1A35250F0065A82F /* ReQL-ast.c in Sources */ = {isa = PBXBuildFile; fileRef = 1ED0665F1A030AE8005225FD /* ReQL-ast.c */; };
 		1E3F9A101A35250F0065A82F /* ReQL-ast.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ED066601A030AE8005225FD /* ReQL-ast.h */; };
 		1E3F9A111A35250F0065A82F /* ReQL-expr.c in Sources */ = {isa = PBXBuildFile; fileRef = 1ED066721A046AC1005225FD /* ReQL-expr.c */; };
@@ -68,7 +68,6 @@
 		87A31C5E1A4B2109002B8CC7 /* ReQL-expr-test.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 87A31C5C1A4B2109002B8CC7 /* ReQL-expr-test.hpp */; };
 		87A31C611A4B211C002B8CC7 /* ReQL-ast-test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87A31C5F1A4B211C002B8CC7 /* ReQL-ast-test.cpp */; };
 		87A31C621A4B211C002B8CC7 /* ReQL-ast-test.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 87A31C601A4B211C002B8CC7 /* ReQL-ast-test.hpp */; };
-		87CFC9361A47D4BD00CCD339 /* ReQL.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 87CFC9351A47D4BD00CCD339 /* ReQL.hpp */; };
 		87E33B591A54DE7800F3C411 /* ReQL-decode.c in Sources */ = {isa = PBXBuildFile; fileRef = 87E33B551A54DE7800F3C411 /* ReQL-decode.c */; };
 		87E33B5A1A54DE7800F3C411 /* ReQL-decode.c in Sources */ = {isa = PBXBuildFile; fileRef = 87E33B551A54DE7800F3C411 /* ReQL-decode.c */; };
 		87E33B5B1A54DE7800F3C411 /* ReQL-decode.c in Sources */ = {isa = PBXBuildFile; fileRef = 87E33B551A54DE7800F3C411 /* ReQL-decode.c */; };
@@ -99,12 +98,12 @@
 
 /* Begin PBXFileReference section */
 		1E0915DF1A1A7385007952FE /* liblibReQL-CPP.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "liblibReQL-CPP.dylib"; sourceTree = BUILT_PRODUCTS_DIR; };
-		1E0915F01A1A73D3007952FE /* ReQL-ast-CPP.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "ReQL-ast-CPP.cpp"; sourceTree = "<group>"; };
-		1E0915F11A1A73D3007952FE /* ReQL-ast-CPP.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "ReQL-ast-CPP.hpp"; sourceTree = "<group>"; };
-		1E0915F21A1A73D3007952FE /* ReQL-CPP.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "ReQL-CPP.cpp"; sourceTree = "<group>"; };
-		1E0915F31A1A73D3007952FE /* ReQL-CPP.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "ReQL-CPP.hpp"; sourceTree = "<group>"; };
-		1E0915F41A1A73D3007952FE /* ReQL-expr-CPP.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "ReQL-expr-CPP.cpp"; sourceTree = "<group>"; };
-		1E0915F51A1A73D3007952FE /* ReQL-expr-CPP.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "ReQL-expr-CPP.hpp"; sourceTree = "<group>"; };
+		1E0915F01A1A73D3007952FE /* ReQL-ast.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "ReQL-ast.cpp"; sourceTree = "<group>"; };
+		1E0915F11A1A73D3007952FE /* ReQL-ast.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "ReQL-ast.hpp"; sourceTree = "<group>"; };
+		1E0915F21A1A73D3007952FE /* ReQL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ReQL.cpp; sourceTree = "<group>"; };
+		1E0915F31A1A73D3007952FE /* ReQL.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ReQL.hpp; sourceTree = "<group>"; };
+		1E0915F41A1A73D3007952FE /* ReQL-expr.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "ReQL-expr.cpp"; sourceTree = "<group>"; };
+		1E0915F51A1A73D3007952FE /* ReQL-expr.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "ReQL-expr.hpp"; sourceTree = "<group>"; };
 		1E3F9A0B1A3524F10065A82F /* liblibReQL-Python.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "liblibReQL-Python.dylib"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E3F9A151A35253F0065A82F /* ReQL-ast-Python.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "ReQL-ast-Python.c"; sourceTree = SOURCE_ROOT; };
 		1E3F9A161A35253F0065A82F /* ReQL-ast-Python.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ReQL-ast-Python.h"; sourceTree = SOURCE_ROOT; };
@@ -140,7 +139,6 @@
 		87A31C5C1A4B2109002B8CC7 /* ReQL-expr-test.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "ReQL-expr-test.hpp"; sourceTree = "<group>"; };
 		87A31C5F1A4B211C002B8CC7 /* ReQL-ast-test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "ReQL-ast-test.cpp"; sourceTree = "<group>"; };
 		87A31C601A4B211C002B8CC7 /* ReQL-ast-test.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "ReQL-ast-test.hpp"; sourceTree = "<group>"; };
-		87CFC9351A47D4BD00CCD339 /* ReQL.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ReQL.hpp; sourceTree = "<group>"; };
 		87E33B551A54DE7800F3C411 /* ReQL-decode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "ReQL-decode.c"; sourceTree = "<group>"; };
 		87E33B561A54DE7800F3C411 /* ReQL-decode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ReQL-decode.h"; sourceTree = "<group>"; };
 		87E33B571A54DE7800F3C411 /* ReQL-encode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "ReQL-encode.c"; sourceTree = "<group>"; };
@@ -191,8 +189,8 @@
 			isa = PBXGroup;
 			children = (
 				1E9D4B781A03011100201983 /* Products */,
-				1E0915F01A1A73D3007952FE /* ReQL-ast-CPP.cpp */,
-				1E0915F11A1A73D3007952FE /* ReQL-ast-CPP.hpp */,
+				1E0915F01A1A73D3007952FE /* ReQL-ast.cpp */,
+				1E0915F11A1A73D3007952FE /* ReQL-ast.hpp */,
 				1E8435661A171A0F008167E6 /* ReQL-ast-Lua.c */,
 				1E8435671A171A0F008167E6 /* ReQL-ast-Lua.h */,
 				1ED0665D1A030AE8005225FD /* ReQL-ast-ObjC.h */,
@@ -203,14 +201,14 @@
 				87A31C601A4B211C002B8CC7 /* ReQL-ast-test.hpp */,
 				1ED0665F1A030AE8005225FD /* ReQL-ast.c */,
 				1ED066601A030AE8005225FD /* ReQL-ast.h */,
-				1E0915F21A1A73D3007952FE /* ReQL-CPP.cpp */,
-				1E0915F31A1A73D3007952FE /* ReQL-CPP.hpp */,
+				1E0915F21A1A73D3007952FE /* ReQL.cpp */,
+				1E0915F31A1A73D3007952FE /* ReQL.hpp */,
 				87E33B551A54DE7800F3C411 /* ReQL-decode.c */,
 				87E33B561A54DE7800F3C411 /* ReQL-decode.h */,
 				87E33B571A54DE7800F3C411 /* ReQL-encode.c */,
 				87E33B581A54DE7800F3C411 /* ReQL-encode.h */,
-				1E0915F41A1A73D3007952FE /* ReQL-expr-CPP.cpp */,
-				1E0915F51A1A73D3007952FE /* ReQL-expr-CPP.hpp */,
+				1E0915F41A1A73D3007952FE /* ReQL-expr.cpp */,
+				1E0915F51A1A73D3007952FE /* ReQL-expr.hpp */,
 				1E8435681A171A0F008167E6 /* ReQL-expr-Lua.c */,
 				1E8435691A171A0F008167E6 /* ReQL-expr-Lua.h */,
 				1ED066701A046AC1005225FD /* ReQL-expr-ObjC.h */,
@@ -230,7 +228,6 @@
 				876058901A47BE1C00FEA3E9 /* ReQL-test.cpp */,
 				1ED066631A030AE8005225FD /* ReQL.c */,
 				1ED066641A030AE8005225FD /* ReQL.h */,
-				87CFC9351A47D4BD00CCD339 /* ReQL.hpp */,
 				1ED0666D1A030B0C005225FD /* test */,
 			);
 			sourceTree = "<group>";
@@ -266,13 +263,12 @@
 				1E0915EF1A1A73A9007952FE /* ReQL.h in Headers */,
 				8760588E1A47AF0F00FEA3E9 /* ReQL-json.h in Headers */,
 				87E33B671A54DE7800F3C411 /* ReQL-encode.h in Headers */,
-				87CFC9361A47D4BD00CCD339 /* ReQL.hpp in Headers */,
-				1E0915F91A1A73D3007952FE /* ReQL-CPP.hpp in Headers */,
+				1E0915F91A1A73D3007952FE /* ReQL.hpp in Headers */,
 				1E0915ED1A1A73A9007952FE /* ReQL-expr.h in Headers */,
 				1E0915EB1A1A73A9007952FE /* ReQL-ast.h in Headers */,
-				1E0915F71A1A73D3007952FE /* ReQL-ast-CPP.hpp in Headers */,
+				1E0915F71A1A73D3007952FE /* ReQL-ast.hpp in Headers */,
 				87A31C621A4B211C002B8CC7 /* ReQL-ast-test.hpp in Headers */,
-				1E0915FB1A1A73D3007952FE /* ReQL-expr-CPP.hpp in Headers */,
+				1E0915FB1A1A73D3007952FE /* ReQL-expr.hpp in Headers */,
 				87A31C5E1A4B2109002B8CC7 /* ReQL-expr-test.hpp in Headers */,
 				87E33B5F1A54DE7800F3C411 /* ReQL-decode.h in Headers */,
 			);
@@ -478,13 +474,13 @@
 				1E0915EA1A1A73A9007952FE /* ReQL-ast.c in Sources */,
 				87A31C5D1A4B2109002B8CC7 /* ReQL-expr-test.cpp in Sources */,
 				87A31C611A4B211C002B8CC7 /* ReQL-ast-test.cpp in Sources */,
-				1E0915F81A1A73D3007952FE /* ReQL-CPP.cpp in Sources */,
+				1E0915F81A1A73D3007952FE /* ReQL.cpp in Sources */,
 				1E0915EC1A1A73A9007952FE /* ReQL-expr.c in Sources */,
 				87E33B631A54DE7800F3C411 /* ReQL-encode.c in Sources */,
-				1E0915FA1A1A73D3007952FE /* ReQL-expr-CPP.cpp in Sources */,
+				1E0915FA1A1A73D3007952FE /* ReQL-expr.cpp in Sources */,
 				8760588A1A47AF0F00FEA3E9 /* ReQL-json.c in Sources */,
 				1E0915EE1A1A73A9007952FE /* ReQL.c in Sources */,
-				1E0915F61A1A73D3007952FE /* ReQL-ast-CPP.cpp in Sources */,
+				1E0915F61A1A73D3007952FE /* ReQL-ast.cpp in Sources */,
 				87E33B5B1A54DE7800F3C411 /* ReQL-decode.c in Sources */,
 				87A31C5A1A4B20D6002B8CC7 /* ReQL-test.cpp in Sources */,
 			);

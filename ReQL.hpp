@@ -18,8 +18,46 @@ limitations under the License.
  * @copyright Apache
  */
 
+#include "ReQL-ast.hpp"
+
 namespace ReQL {
 extern "C" {
-  #include "ReQL.h"
+#include "ReQL.h"
 }
 }
+
+#ifndef _REQL_HPP
+#define _REQL_HPP
+
+namespace ReQL {
+
+class Connection {
+public:
+  struct _ReQL_Conn_s *conn;
+
+  Connection();
+  Connection(std::string);
+  Connection(std::string, std::uint16_t);
+  Connection(std::string, std::uint16_t, std::string);
+
+  int close();
+};
+
+Connection connect();
+Connection connect(std::string);
+Connection connect(std::string, std::uint16_t);
+Connection connect(std::string, std::uint16_t, std::string);
+
+class Query : public AST {
+public:
+  Query() : AST() {};
+  explicit Query(std::string val) : AST(val) {};
+  explicit Query(double val) : AST(val) {};
+  explicit Query(bool val) : AST(val) {};
+  explicit Query(std::vector<Query> val) : AST(val) {};
+  explicit Query(std::map<std::string, Query> val) : AST(val) {};
+};
+
+}
+
+#endif

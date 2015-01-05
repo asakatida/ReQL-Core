@@ -18,11 +18,7 @@ limitations under the License.
  * @copyright Apache
  */
 
-#include "ReQL-CPP.hpp"
-
 #include "ReQL.hpp"
-
-#include <cstdlib>
 
 namespace ReQL {
 

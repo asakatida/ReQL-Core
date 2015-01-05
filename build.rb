@@ -334,7 +334,7 @@ end
 first_term = 'ADD'
 last_term = 'ZIP'
 
-build('ReQL-ast-CPP.cpp', /.{9}AST AST::#{mangle_cpp_const first_term}.*#{mangle_cpp_const last_term}.*?}/m) do |name|
+build('ReQL-ast.cpp', /.{9}AST AST::#{mangle_cpp_const first_term}.*#{mangle_cpp_const last_term}.*?}/m) do |name|
   "
 /**
  */#{
@@ -354,7 +354,7 @@ AST #{mangle_cpp_const name}(std::vector<Query> args) {
 }"
 end
 
-build('ReQL-ast-CPP.hpp', /.{15}AST add.*?zip.*?;/m) do |name|
+build('ReQL-ast.hpp', /.{15}AST add.*?zip.*?;/m) do |name|
   "
   /**
    */#{
@@ -365,7 +365,7 @@ build('ReQL-ast-CPP.hpp', /.{15}AST add.*?zip.*?;/m) do |name|
   AST #{mangle_cpp_const name}(std::vector<Query>);"
 end
 
-build('ReQL-ast-CPP.hpp', /.{8}\nAST add.*zip.*;/m) do |name|
+build('ReQL-ast.hpp', /.{8}\nAST add.*zip.*;/m) do |name|
   "
 /**
  */#{

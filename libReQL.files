@@ -1,5 +1,5 @@
-ReQL-ast-CPP.cpp
-ReQL-ast-CPP.hpp
+ReQL-ast.cpp
+ReQL-ast.hpp
 ReQL-ast-Lua.c
 ReQL-ast-Lua.h
 ReQL-ast-Node.cpp
@@ -12,16 +12,16 @@ ReQL-ast-test.cpp
 ReQL-ast-test.hpp
 ReQL-ast.c
 ReQL-ast.h
-ReQL-CPP.cpp
-ReQL-CPP.hpp
+ReQL.cpp
+ReQL.hpp
 ReQL-decode.c
 ReQL-decode.h
 ReQL-encode.c
 ReQL-encode.h
 ReQL-error.c
 ReQL-error.h
-ReQL-expr-CPP.cpp
-ReQL-expr-CPP.hpp
+ReQL-expr.cpp
+ReQL-expr.hpp
 ReQL-expr-Lua.c
 ReQL-expr-Lua.h
 ReQL-expr-Node.cpp
@@ -43,4 +43,3 @@ ReQL-Ruby.c
 ReQL-test.cpp
 ReQL.c
 ReQL.h
-ReQL.hpp

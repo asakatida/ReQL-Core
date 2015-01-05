@@ -5,9 +5,9 @@ test: libReQLtest
 
 check: test
 
-OBJS = ReQL-CPP.obj \
-       ReQL-ast-CPP.obj \
-			 ReQL-expr-CPP.obj \
+OBJS = ReQL.obj \
+       ReQL-ast.obj \
+			 ReQL-expr.obj \
 			 ReQL-decode.o \
 			 ReQL-encode.o \
 			 ReQL.o \
