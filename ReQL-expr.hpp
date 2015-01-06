@@ -28,7 +28,7 @@ limitations under the License.
 namespace ReQL {
 
 class Query;
-  
+
 class Expr {
 public:
   struct _ReQL_Op_s *query;

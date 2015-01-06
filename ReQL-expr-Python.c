@@ -113,7 +113,7 @@ _reql_py_expr(PyObject *self, PyObject *args) {
   return _reql_to_py(_reql_ast_datum(_reql_from_py(val), NULL));
 }
 
-static _ReQL_Op 
+static _ReQL_Op
 _reql_from_py(PyObject *query) {
   return NULL;
 }
