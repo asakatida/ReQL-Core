@@ -20,8 +20,6 @@ limitations under the License.
 
 #include "ReQL-expr-Lua.h"
 
-#include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 
 int _reql_lua_expr(lua_State *L) {
@@ -249,20 +247,19 @@ _ReQL_Op _reql_from_lua(lua_State *L, const int idx, long nesting_depth) {
 
   switch (lua_type(L, idx)) {
     case LUA_TBOOLEAN: {
-      return _reql_expr_bool(lua_toboolean(L, idx));
+      return _reql_lua_new_bool(L, idx);
     }
     case LUA_TFUNCTION: {
       return NULL;
     }
     case LUA_TNIL: {
-      return _reql_expr_null();
+      return _reql_lua_new_null(L);
     }
     case LUA_TNUMBER: {
-      return _reql_expr_number(lua_tonumber(L, idx));
+      return _reql_lua_new_number(L, idx);
     }
     case LUA_TSTRING: {
-      size_t len;
-      return _reql_expr_string((char *)lua_tolstring(L, idx, &len), len);
+      return _reql_lua_new_string(L, idx);
     }
     case LUA_TTABLE: {
       const int water_mark = lua_gettop(L);
@@ -309,14 +306,14 @@ _ReQL_Op _reql_from_lua(lua_State *L, const int idx, long nesting_depth) {
       --nesting_depth;
 
       if (array) {
-        _ReQL_Op arr = _reql_json_array_(NULL, table_len);
+        _ReQL_Op arr = _reql_lua_new_array(L, table_len);
         int i;
         for (i=1; i<=table_len; ++i) {
           lua_rawgeti(L, 2, i);
           _reql_array_insert(arr, _reql_from_lua(L, water_mark + 2, nesting_depth), i);
           lua_pop(L, 1);
         }
-        return _reql_expr(arr);
+        return arr;
       }
       _ReQL_Op obj = _reql_json_object(NULL);
       while (lua_next(L, idx)) {

@@ -18,11 +18,7 @@ limitations under the License.
  * @copyright Apache
  */
 
-#include <lua.h>
-#include <lauxlib.h>
-#include <lualib.h>
-
-#include "ReQL.h"
+#include "ReQL-new-Lua.h"
 
 #ifndef _REQL_EXPR_LUA
 #define _REQL_EXPR_LUA
