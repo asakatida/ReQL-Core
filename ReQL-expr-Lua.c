@@ -328,14 +328,9 @@ _ReQL_Op _reql_from_lua(lua_State *L, const int idx, long nesting_depth) {
 }
 
 void _reql_to_lua(lua_State *L, _ReQL_Op query) {
-  switch (query->obj.datum.dt) {
+  switch (_reql_datum_type(query)) {
     case _REQL_R_ARRAY: {
-      unsigned long size;
-
-      if (_reql_to_array_(query, &size)) {
-        lua_pushnil(L);
-        break;
-      }
+      uint32_t size = _reql_array_size(query);
 
       int trunc_size = (int)size;
       int i;
@@ -350,14 +345,11 @@ void _reql_to_lua(lua_State *L, _ReQL_Op query) {
       break;
     }
     case _REQL_R_BOOL: {
-      char value;
-      if (_reql_to_bool(query, &value)) {
-        lua_pushnil(L);
-        break;
-      }
+      char value = _reql_to_bool(query);
       lua_pushboolean(L, value);
       break;
     }
+    case _REQL_R_REQL:
     case _REQL_R_JSON: {
       lua_pushnil(L);
       break;
@@ -367,41 +359,28 @@ void _reql_to_lua(lua_State *L, _ReQL_Op query) {
       break;
     }
     case _REQL_R_NUM: {
-      double value;
-      if (_reql_to_number(query, &value)) {
-        lua_pushnil(L);
-        break;
-      }
+      double value = _reql_to_number(query);
       lua_pushnumber(L, value);
       break;
     }
     case _REQL_R_OBJECT: {
-      _ReQL_Iter iter = _reql_to_object(query);
-      if (!iter) {
-        lua_pushnil(L);
-        break;
-      }
+      _ReQL_Iter iter = lua_newuserdata(L, sizeof(_ReQL_Iter_t));
+      _reql_iter_init(iter, query);
 
       _ReQL_Op key;
-      _ReQL_Op val;
 
       lua_newtable(L);
       int table_idx = lua_gettop(L);
 
-      while (_reql_object_next(iter, &key, &val)) {
+      while ((key = _reql_iter_next(iter))) {
         _reql_to_lua(L, key);
-        _reql_to_lua(L, val);
+        _reql_to_lua(L, _reql_object_get(query, key));
         lua_settable(L, table_idx);
       }
       break;
     }
     case _REQL_R_STR: {
-      _ReQL_String_t *str;
-      if (_reql_to_string(query, &str)) {
-        lua_pushnil(L);
-        break;
-      }
-      lua_pushlstring(L, str->str, str->size);
+      lua_pushlstring(L, (char *)_reql_string_buf(query), _reql_string_size(query));
       break;
     }
   }
