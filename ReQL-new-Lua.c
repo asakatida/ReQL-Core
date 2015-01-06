@@ -71,9 +71,14 @@ _ReQL_Op _reql_lua_new_number(lua_State *L, const int idx) {
   return obj;
 }
 
-_ReQL_Op _reql_lua_new_object(lua_State *L, const int idx) {
+_ReQL_Op _reql_lua_new_object(lua_State *L, uint32_t size) {
   _ReQL_Op obj = _reql_lua_alloc_term(L);
-  _reql_bool_init(obj, lua_toboolean(L, idx));
+  lua_createtable(L, 1, 1);
+  lua_pushliteral(L, "_pair");
+  _ReQL_Pair pair = lua_newuserdata(L, sizeof(_ReQL_Pair_t) * size);
+  _reql_object_init(obj, pair, size);
+  lua_settable(L, -3);
+  lua_setmetatable(L, -2);
   return obj;
 }
 

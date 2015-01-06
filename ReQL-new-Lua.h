@@ -34,7 +34,7 @@ _ReQL_Op _reql_lua_new_make_array(lua_State *L, _ReQL_Op arg);
 _ReQL_Op _reql_lua_new_make_obj(lua_State *L, _ReQL_Op arg);
 _ReQL_Op _reql_lua_new_null(lua_State *L);
 _ReQL_Op _reql_lua_new_number(lua_State *L, const int idx);
-_ReQL_Op _reql_lua_new_object(lua_State *L, const int idx);
+_ReQL_Op _reql_lua_new_object(lua_State *L, uint32_t idx);
 _ReQL_Op _reql_lua_new_string(lua_State *L, const int idx);
 
 #endif

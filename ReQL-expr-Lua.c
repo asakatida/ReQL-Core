@@ -247,19 +247,19 @@ _ReQL_Op _reql_from_lua(lua_State *L, const int idx, long nesting_depth) {
 
   switch (lua_type(L, idx)) {
     case LUA_TBOOLEAN: {
-      return _reql_lua_new_bool(L, idx);
+      return _reql_lua_new_datum(L, _reql_lua_new_bool(L, idx));
     }
     case LUA_TFUNCTION: {
       return NULL;
     }
     case LUA_TNIL: {
-      return _reql_lua_new_null(L);
+      return _reql_lua_new_datum(L, _reql_lua_new_null(L));
     }
     case LUA_TNUMBER: {
-      return _reql_lua_new_number(L, idx);
+      return _reql_lua_new_datum(L, _reql_lua_new_number(L, idx));
     }
     case LUA_TSTRING: {
-      return _reql_lua_new_string(L, idx);
+      return _reql_lua_new_datum(L, _reql_lua_new_string(L, idx));
     }
     case LUA_TTABLE: {
       const int water_mark = lua_gettop(L);
@@ -313,14 +313,14 @@ _ReQL_Op _reql_from_lua(lua_State *L, const int idx, long nesting_depth) {
           _reql_array_insert(arr, _reql_from_lua(L, water_mark + 2, nesting_depth), i);
           lua_pop(L, 1);
         }
-        return arr;
+        return _reql_lua_new_make_array(L, arr);
       }
-      _ReQL_Op obj = _reql_json_object(NULL);
+      _ReQL_Op obj = _reql_lua_new_object(L, table_len);
       while (lua_next(L, idx)) {
         _reql_object_add(obj, _reql_from_lua(L, water_mark + 1, nesting_depth), _reql_from_lua(L, water_mark + 2, nesting_depth));
         lua_pop(L, 1);
       }
-      return _reql_expr(obj);
+      return _reql_lua_new_make_obj(L, obj);
     }
   }
   luaL_error(L, "Unknown Lua type %i", lua_type(L, idx));
