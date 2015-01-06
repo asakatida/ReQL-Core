@@ -426,10 +426,10 @@ int _reql_lua_connect(lua_State *L) {
 
   _ReQL_Conn_t *conn = lua_newuserdata(L, sizeof(_ReQL_Conn_t));
 
-  conn = _reql_new_connection(conn);
-  char *msg;
+  _reql_connection_init(conn);
+  char msg[500];
 
-  if (_reql_connect(conn, &msg)) {
+  if (_reql_connect(conn, msg, 500)) {
     return 0;
   }
 
