@@ -35,7 +35,7 @@ limitations under the License.
 
 static pthread_mutex_t *response_lock;
 static pthread_mutex_t *conn_lock;
-static pthread_once_t *init_lock = NULL;
+static pthread_once_t init_lock = PTHREAD_ONCE_INIT;
 static const uint32_t _REQL_VERSION = 0x5f75e83e;
 static const uint32_t _REQL_PROTOCOL = 0x7e6970c7;
 
@@ -302,7 +302,7 @@ int _reql_connect(_ReQL_Conn_t *conn, char *buf, size_t size) {
 
   pthread_t thread;
 
-  pthread_once(init_lock, _reql_init);
+  pthread_once(&init_lock, _reql_init);
 
   if (pthread_create(&thread, NULL, _reql_conn_loop, conn)) {
     _reql_close_conn(conn);
