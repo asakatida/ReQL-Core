@@ -80,6 +80,10 @@ Connection::Connection(std::string host, std::uint16_t port, std::string key) {
   }
 }
 
+Connection::~Connection() {
+  delete conn;
+}
+
 int Connection::close() {
   _reql_close_conn(conn);
   return 0;

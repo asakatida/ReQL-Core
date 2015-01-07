@@ -27,12 +27,14 @@ namespace ReQL {
 
 class Connection {
 public:
-  struct _ReQL_Conn_s *conn;
+  _ReQL_Conn conn;
 
   Connection();
   Connection(std::string);
   Connection(std::string, std::uint16_t);
   Connection(std::string, std::uint16_t, std::string);
+
+  ~Connection();
 
   int close();
 };
