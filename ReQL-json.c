@@ -113,7 +113,7 @@ size_t _reql_array_insert(_ReQL_Op obj, _ReQL_Op val, uint32_t idx) {
       return SIZE_MAX;
     }
 
-    return alloc_size * sizeof(_ReQL_Op_t);
+    return alloc_size * sizeof(_ReQL_Op);
   }
 
   if (idx > obj->obj.datum.json.array.size) {
