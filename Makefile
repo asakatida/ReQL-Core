@@ -8,6 +8,7 @@ check: test
 OBJS = ReQL.obj \
        ReQL-ast.obj \
 			 ReQL-expr.obj \
+			 ReQL-new.obj \
 			 ReQL-decode.o \
 			 ReQL-encode.o \
 			 ReQL.o \
