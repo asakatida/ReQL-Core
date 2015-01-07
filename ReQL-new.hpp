@@ -18,41 +18,38 @@ limitations under the License.
  * @copyright Apache
  */
 
-#include "ReQL-new.hpp"
+#include <string>
 
-#include <map>
-#include <vector>
+namespace ReQL {
+extern "C" {
+#include "ReQL.h"
+}
+}
 
-#ifndef _REQL_EXPR_CPP
-#define _REQL_EXPR_CPP
+#ifndef _REQL_NEW_CPP
+#define _REQL_NEW_CPP
 
 namespace ReQL {
 
-class Query;
-
-class Expr {
-public:
-  _ReQL_Op query;
-  std::vector<Query> sub_query;
-
-  Expr();
-  explicit Expr(_ReQL_Op val);
-  explicit Expr(std::string);
-  explicit Expr(double);
-  explicit Expr(bool);
-  explicit Expr(std::vector<Query>);
-  explicit Expr(std::map<std::string, Query>);
-
-  ~Expr();
-};
-
-Query expr();
-Query expr(_ReQL_Op);
-Query expr(std::string);
-Query expr(double);
-Query expr(bool);
-Query expr(std::vector<Query>);
-Query expr(std::map<std::string, Query>);
+_ReQL_Op
+_reql_new_array(std::uint32_t size);
+_ReQL_Op
+_reql_new_bool(bool val);
+_ReQL_Op
+_reql_new_datum(_ReQL_Op val);
+_ReQL_Op
+_reql_new_make_array(_ReQL_Op val);
+_ReQL_Op
+_reql_new_make_obj(_ReQL_Op val);
+_ReQL_Op
+_reql_new_null();
+_ReQL_Op
+_reql_new_number(double val);
+_ReQL_Op
+_reql_new_object(uint32_t idx);
+_ReQL_Op
+_reql_new_string(std::string val);
 
 }
+
 #endif

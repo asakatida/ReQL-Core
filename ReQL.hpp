@@ -20,12 +20,6 @@ limitations under the License.
 
 #include "ReQL-ast.hpp"
 
-namespace ReQL {
-extern "C" {
-#include "ReQL.h"
-}
-}
-
 #ifndef _REQL_HPP
 #define _REQL_HPP
 
@@ -51,6 +45,7 @@ Connection connect(std::string, std::uint16_t, std::string);
 class Query : public AST {
 public:
   Query() : AST() {};
+  explicit Query(_ReQL_Op val) : AST(val) {};
   explicit Query(std::string val) : AST(val) {};
   explicit Query(double val) : AST(val) {};
   explicit Query(bool val) : AST(val) {};

@@ -21,6 +21,8 @@
 		1E0915FB1A1A73D3007952FE /* ReQL-expr.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 1E0915F51A1A73D3007952FE /* ReQL-expr.hpp */; };
 		1E0B92E11A5C8AE700DD5965 /* ReQL-new-Python.c in Sources */ = {isa = PBXBuildFile; fileRef = 1E0B92DF1A5C8AE700DD5965 /* ReQL-new-Python.c */; };
 		1E0B92E21A5C8AE700DD5965 /* ReQL-new-Python.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E0B92E01A5C8AE700DD5965 /* ReQL-new-Python.h */; };
+		1E0B92E51A5CBDEB00DD5965 /* ReQL-new.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1E0B92E31A5CBDEB00DD5965 /* ReQL-new.cpp */; };
+		1E0B92E61A5CBDEB00DD5965 /* ReQL-new.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 1E0B92E41A5CBDEB00DD5965 /* ReQL-new.hpp */; };
 		1E3F9A0F1A35250F0065A82F /* ReQL-ast.c in Sources */ = {isa = PBXBuildFile; fileRef = 1ED0665F1A030AE8005225FD /* ReQL-ast.c */; };
 		1E3F9A101A35250F0065A82F /* ReQL-ast.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ED066601A030AE8005225FD /* ReQL-ast.h */; };
 		1E3F9A111A35250F0065A82F /* ReQL-expr.c in Sources */ = {isa = PBXBuildFile; fileRef = 1ED066721A046AC1005225FD /* ReQL-expr.c */; };
@@ -110,6 +112,8 @@
 		1E0915F51A1A73D3007952FE /* ReQL-expr.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "ReQL-expr.hpp"; sourceTree = "<group>"; };
 		1E0B92DF1A5C8AE700DD5965 /* ReQL-new-Python.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "ReQL-new-Python.c"; sourceTree = "<group>"; };
 		1E0B92E01A5C8AE700DD5965 /* ReQL-new-Python.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ReQL-new-Python.h"; sourceTree = "<group>"; };
+		1E0B92E31A5CBDEB00DD5965 /* ReQL-new.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "ReQL-new.cpp"; sourceTree = "<group>"; };
+		1E0B92E41A5CBDEB00DD5965 /* ReQL-new.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "ReQL-new.hpp"; sourceTree = "<group>"; };
 		1E3F9A0B1A3524F10065A82F /* liblibReQL-Python.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "liblibReQL-Python.dylib"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E3F9A151A35253F0065A82F /* ReQL-ast-Python.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "ReQL-ast-Python.c"; sourceTree = SOURCE_ROOT; };
 		1E3F9A161A35253F0065A82F /* ReQL-ast-Python.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ReQL-ast-Python.h"; sourceTree = SOURCE_ROOT; };
@@ -234,6 +238,8 @@
 				1E4660081A5A183900735BD7 /* ReQL-new-Lua.h */,
 				1E0B92DF1A5C8AE700DD5965 /* ReQL-new-Python.c */,
 				1E0B92E01A5C8AE700DD5965 /* ReQL-new-Python.h */,
+				1E0B92E31A5CBDEB00DD5965 /* ReQL-new.cpp */,
+				1E0B92E41A5CBDEB00DD5965 /* ReQL-new.hpp */,
 				1ED066611A030AE8005225FD /* ReQL-ObjC.h */,
 				1ED066621A030AE8005225FD /* ReQL-ObjC.m */,
 				1E3F9A191A35253F0065A82F /* ReQL-Python.c */,
@@ -277,6 +283,7 @@
 				87E33B671A54DE7800F3C411 /* ReQL-encode.h in Headers */,
 				1E0915F91A1A73D3007952FE /* ReQL.hpp in Headers */,
 				1E0915ED1A1A73A9007952FE /* ReQL-expr.h in Headers */,
+				1E0B92E61A5CBDEB00DD5965 /* ReQL-new.hpp in Headers */,
 				1E0915EB1A1A73A9007952FE /* ReQL-ast.h in Headers */,
 				1E0915F71A1A73D3007952FE /* ReQL-ast.hpp in Headers */,
 				87A31C621A4B211C002B8CC7 /* ReQL-ast-test.hpp in Headers */,
@@ -485,6 +492,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1E0B92E51A5CBDEB00DD5965 /* ReQL-new.cpp in Sources */,
 				1E0915EA1A1A73A9007952FE /* ReQL-ast.c in Sources */,
 				87A31C5D1A4B2109002B8CC7 /* ReQL-expr-test.cpp in Sources */,
 				87A31C611A4B211C002B8CC7 /* ReQL-ast-test.cpp in Sources */,

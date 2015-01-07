@@ -22,81 +22,73 @@ limitations under the License.
 
 #include "ReQL.hpp"
 
+#include <limits>
+
 namespace ReQL {
 
 Expr::Expr() {
-  _ReQL_Op _val = new _ReQL_Op_t();
+  Query _val = expr(_reql_new_null());
+  sub_query.push_back(_val);
+  query = _reql_new_datum(_val.query);
+}
 
-  _reql_null_init(_val);
-
-  query = new _ReQL_Op_t();
-
-  _reql_ast_datum(query, _val, NULL);
+Expr::Expr(_ReQL_Op val) {
+  query = val;
 }
 
 Expr::Expr(std::string val) {
-  _ReQL_Op _val = new _ReQL_Op_t();
-
-  uint8_t *_str = new uint8_t[val.size()]();
-
-  val.copy((char *)_str, val.size());
-
-  _reql_string_init(_val, _str, static_cast<uint32_t>(val.size()));
-
-  query = new _ReQL_Op_t();
-
-  _reql_ast_datum(query, _val, NULL);
+  Query _val = expr(_reql_new_string(val));
+  sub_query.push_back(_val);
+  query = _reql_new_datum(_val.query);
 }
 
 Expr::Expr(double val) {
-  _ReQL_Op _val = new _ReQL_Op_t();
-
-  _reql_number_init(_val, val);
-
-  query = new _ReQL_Op_t();
-
-  _reql_ast_datum(query, _val, NULL);
+  Query _val = expr(_reql_new_number(val));
+  sub_query.push_back(_val);
+  query = _reql_new_datum(_val.query);
 }
 
 Expr::Expr(bool val) {
-  _ReQL_Op _val = new _ReQL_Op_t();
-
-  _reql_bool_init(_val, val);
-
-  query = new _ReQL_Op_t();
-
-  _reql_ast_datum(query, _val, NULL);
+  Query _val = expr(_reql_new_bool(val));
+  sub_query.push_back(_val);
+  query = _reql_new_datum(_val.query);
 }
 
 Expr::Expr(std::vector<Query> val) {
-  _ReQL_Op _val = new _ReQL_Op_t();
-  _ReQL_Op *arr = new _ReQL_Op[val.size()];
-
-  _reql_array_init(_val, arr, static_cast<std::uint32_t>(val.size()));
-
-  for (auto iter=val.cbegin(); iter!=val.cend(); ++iter) {
-    _reql_array_append(_val, iter->query);
+  if (val.size() > std::numeric_limits<std::uint32_t>::max()) {
+    throw;
   }
 
-  query = new _ReQL_Op_t();
+  sub_query.assign(val.begin(), val.end());
 
-  _reql_ast_make_array(query, _val, NULL);
+  Query _val = expr(_reql_new_array(static_cast<std::uint32_t>(val.size())));
+
+  sub_query.push_back(_val);
+
+  for (auto iter=val.cbegin(); iter!=val.cend(); ++iter) {
+    _reql_array_append(_val.query, iter->query);
+  }
+
+  query = _reql_new_make_array(_val.query);
 }
 
 Expr::Expr(std::map<std::string, Query> val) {
-  _ReQL_Op _val = new _ReQL_Op_t();
-  _ReQL_Pair pair = new _ReQL_Pair_t[val.size()];
+  if (val.size() > std::numeric_limits<std::uint32_t>::max()) {
+    throw;
+  }
 
-  _reql_object_init(_val, pair, static_cast<std::uint32_t>(val.size()));
+  Query _val = expr(_reql_new_object(static_cast<std::uint32_t>(val.size())));
+
+  sub_query.push_back(_val);
 
   for (auto iter=val.cbegin(); iter!=val.cend(); ++iter) {
     Query key(iter->first);
-    _reql_object_add(_val, key.query, iter->second.query);
+    sub_query.push_back(key);
+    sub_query.push_back(iter->second);
+    _reql_object_add(_val.query, key.query, iter->second.query);
   }
 
-  query = new _ReQL_Op_t();
-
-  _reql_ast_make_obj(query, NULL, _val);
+  query = _reql_new_make_obj(_val.query);
 }
 
 Expr::~Expr() {
@@ -105,6 +97,10 @@ Expr::~Expr() {
 
 Query expr() {
   return Query();
+}
+
+Query expr(_ReQL_Op val) {
+  return Query(val);
 }
 
 Query expr(std::string val) {
