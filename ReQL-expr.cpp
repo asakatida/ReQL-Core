@@ -92,6 +92,18 @@ Expr::Expr(std::map<std::string, Query> val) {
 }
 
 Expr::~Expr() {
+  switch (_reql_datum_type(query)) {
+    case _REQL_R_ARRAY: {
+      delete [] query->obj.datum.json.array.arr;
+      break;
+    }
+    case _REQL_R_OBJECT: {
+      delete [] query->obj.datum.json.object.pair;
+      break;
+    }
+    default:
+      break;
+  }
   delete query;
 }
 
