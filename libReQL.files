@@ -38,6 +38,7 @@ ReQL-json.c
 ReQL-json.h
 ReQL-Lua.c
 ReQL-new-Lua.c
+ReQL-new-Python.c
 ReQL-Node.cpp
 ReQL-Python.c
 ReQL-Ruby.c

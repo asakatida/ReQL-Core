@@ -18,13 +18,32 @@ limitations under the License.
  * @copyright Apache
  */
 
-#include "ReQL-new-Python.h"
+//#define Py_LIMITED_API
 
-#ifndef _REQL_EXPR_PYTHON
-#define _REQL_EXPR_PYTHON
+#include <Python.h>
 
-static PyObject *_reql_py_expr(PyObject *self, PyObject *args);
-static _ReQL_Op _reql_from_py(PyObject *query);
-static PyObject *_reql_to_py(_ReQL_Op query);
+#include "ReQL.h"
+
+#ifndef _REQL_NEW_PYTHON
+#define _REQL_NEW_PYTHON
+
+_ReQL_Op
+_reql_py_new_array(uint32_t size);
+_ReQL_Op
+_reql_py_new_bool(PyObject *val);
+_ReQL_Op
+_reql_py_new_datum(_ReQL_Op val);
+_ReQL_Op
+_reql_py_new_make_array(_ReQL_Op val);
+_ReQL_Op
+_reql_py_new_make_obj(_ReQL_Op val);
+_ReQL_Op
+_reql_py_new_null();
+_ReQL_Op
+_reql_py_new_number(PyObject *val);
+_ReQL_Op
+_reql_py_new_object(uint32_t idx);
+_ReQL_Op
+_reql_py_new_string(PyObject *val);
 
 #endif
