@@ -339,17 +339,17 @@ build('ReQL-ast.cpp', /.{9}AST AST::#{mangle_cpp_const first_term}.*#{mangle_cpp
 /**
  */#{
 "
-AST AST::#{mangle_cpp_const name}(std::vector<Query> args, std::map<std::string, Query> kwargs) {
+Query AST::#{mangle_cpp_const name}(std::vector<Query> args, std::map<std::string, Query> kwargs) {
   return init(#{c_ast_name name}, this, args, kwargs);
 }
-AST #{mangle_cpp_const name}(std::vector<Query> args, std::map<std::string, Query> kwargs) {
+Query #{mangle_cpp_const name}(std::vector<Query> args, std::map<std::string, Query> kwargs) {
   return init(#{c_ast_name name}, args, kwargs);
 }" if opts? name
 }
-AST AST::#{mangle_cpp_const name}(std::vector<Query> args) {
+Query AST::#{mangle_cpp_const name}(std::vector<Query> args) {
   return init(#{c_ast_name name}, this, args);
 }
-AST #{mangle_cpp_const name}(std::vector<Query> args) {
+Query #{mangle_cpp_const name}(std::vector<Query> args) {
   return init(#{c_ast_name name}, args);
 }"
 end
@@ -358,22 +358,22 @@ build('ReQL-ast.hpp', /.{15}AST add.*?zip.*?;/m) do |name|
   "
   /**
    */#{
-      "\n  AST #{
+      "\n  Query #{
         mangle_cpp_const name
       }(std::vector<Query>, std::map<std::string, Query>);" if opts? name
     }
-  AST #{mangle_cpp_const name}(std::vector<Query>);"
+  Query #{mangle_cpp_const name}(std::vector<Query>);"
 end
 
 build('ReQL-ast.hpp', /.{8}\nAST add.*zip.*;/m) do |name|
   "
 /**
  */#{
-  "\nAST #{
+  "\nQuery #{
   mangle_cpp_const name
   }(std::vector<Query>, std::map<std::string, Query>);" if opts? name
 }
-AST #{mangle_cpp_const name}(std::vector<Query>);"
+Query #{mangle_cpp_const name}(std::vector<Query>);"
 end
 
 build('ReQL-ast-Lua.c', /.{9}int _reql_lua_add.*ast_zip.*}/m) do |name|
