@@ -28,6 +28,9 @@ DerivedData
 *.ipa
 *.xcuserstate
 
+# QT Creator
+*.user
+
 # Compiled Object files
 libReQLtest
 __pycache__/
