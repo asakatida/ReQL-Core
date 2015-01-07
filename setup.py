@@ -6,6 +6,7 @@ setup(
         'ReQL-expr.c',
         'ReQL-ast.c',
         'ReQL.c',
+        'ReQL-new-Python.c',
         'ReQL-expr-Python.c',
         'ReQL-ast-Python.c',
         'ReQL-Python.c'
