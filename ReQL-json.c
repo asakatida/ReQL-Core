@@ -245,6 +245,13 @@ char _reql_op_eq(_ReQL_Op l, _ReQL_Op r) {
 }
 
 int _reql_key_sort(const void *l, const void *r) {
+  if (l == NULL && r == NULL) {
+    return 0;
+  } else if (l == NULL) {
+    return -1;
+  } else if (r == NULL) {
+    return 1;
+  }
   _ReQL_Pair lobj = (_ReQL_Pair)l;
   _ReQL_Pair robj = (_ReQL_Pair)r;
   uint32_t lsize = _reql_string_size(lobj->key);
@@ -269,7 +276,9 @@ size_t _reql_object_add(_ReQL_Op obj, _ReQL_Op key, _ReQL_Op val) {
   _ReQL_Pair pair = _reql_object_find(obj, key);
 
   if (pair == NULL) {
-    obj->obj.datum.json.object.size += 1;
+    if (obj->obj.datum.json.object.pair[obj->obj.datum.json.object.size].key != NULL) {
+      obj->obj.datum.json.object.size += 1;
+    }
 
     if (obj->obj.datum.json.object.size >= obj->obj.datum.json.object.alloc_size) {
       size_t alloc_size = obj->obj.datum.json.object.alloc_size * 1.1;
