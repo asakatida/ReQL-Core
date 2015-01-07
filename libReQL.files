@@ -1,3 +1,4 @@
+portable_endian.h
 ReQL-ast.cpp
 ReQL-ast.hpp
 ReQL-ast-Lua.c
@@ -43,5 +44,6 @@ ReQL-Node.cpp
 ReQL-Python.c
 ReQL-Ruby.c
 ReQL-test.cpp
+ReQL-util.h
 ReQL.c
 ReQL.h
