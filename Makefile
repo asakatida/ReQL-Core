@@ -20,7 +20,7 @@ LDFLAGS += -pthread -shared
 CXXFLAGS += -std=c++11 -fPIC
 CCFLAGS += -fPIC
 
-TESTOBJS = ReQL-test.o ReQL-ast-test.o ReQL-expr-test.o
+TESTOBJS = ReQL-test.obj ReQL-ast-test.obj ReQL-expr-test.obj
 
 libReQL.a: $(OBJS)
 	$(CXX) $(LDFLAGS) -o $@ $(OBJS)
