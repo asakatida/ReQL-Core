@@ -20,6 +20,7 @@ limitations under the License.
 
 #include "ReQL.h"
 
+#include "ReQL-util.h"
 #include "ReQL-encode.h"
 #include "ReQL-decode.h"
 
@@ -31,22 +32,6 @@ limitations under the License.
 #include <sys/select.h>
 #include <sys/uio.h>
 #include <unistd.h>
-
-#ifndef htole32
-#ifdef OSSwapHostToLittleConstInt32
-#define htole32 OSSwapHostToLittleConstInt32
-#else
-#error need to provide htole32 for this platform
-#endif
-#endif
-
-#ifndef le32toh
-#ifdef OSSwapLittleToHostConstInt32
-#define le32toh OSSwapLittleToHostConstInt32
-#else
-#error need to provide le32toh for this platform
-#endif
-#endif
 
 static pthread_mutex_t *response_lock;
 static pthread_mutex_t *conn_lock;
@@ -77,7 +62,7 @@ void _reql_make_32_le(uint8_t *buf, const uint32_t magic) {
 }
 
 void _reql_make_64_token(uint8_t *buf, const uint64_t magic) {
-  _ReQL_LE64 _magic = {magic};
+  _ReQL_LE64 _magic = {htole64(magic)};
   memcpy(buf, _magic.buf, 8);
 }
 
@@ -90,7 +75,7 @@ uint32_t _reql_get_32_le(char *buf) {
 uint64_t _reql_get_64_token(char *buf) {
   _ReQL_LE64 _magic = {0};
   memcpy(_magic.buf, buf, 8);
-  return _magic.num;
+  return le64toh(_magic.num);
 }
 
 void _reql_cursor_init(_ReQL_Cur cur, _ReQL_Op arr) {
