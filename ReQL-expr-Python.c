@@ -34,15 +34,15 @@ _reql_py_expr(PyObject *self, PyObject *args) {
   }
 
   if (PyCallable_Check(val)) {
-    return _reql_to_py(_reql_ast_func(_reql_from_py(val), NULL));
+    return NULL;
   }
 
   if (PyUnicode_Check(val)) {
-    return _reql_to_py(_reql_ast_datum(_reql_from_py(val), NULL));
+    return _reql_to_py(_reql_py_new_datum(_reql_from_py(val)));
   }
 
   if (PyBytes_Check(val)) {
-    return _reql_to_py(_reql_ast_binary(_reql_from_py(val), NULL));
+    return NULL;
   }
 
   --nesting_depth;
@@ -110,7 +110,7 @@ _reql_py_expr(PyObject *self, PyObject *args) {
     return reql_val;
   }
 
-  return _reql_to_py(_reql_ast_datum(_reql_from_py(val), NULL));
+  return _reql_to_py(_reql_from_py(val));
 }
 
 static _ReQL_Op
