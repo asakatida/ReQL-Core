@@ -1,6 +1,10 @@
 # Backup files
 *~
 
+# Python
+*.egg-info
+dist
+
 # Rake
 pkg/
 tmp/
