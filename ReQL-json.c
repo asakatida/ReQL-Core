@@ -244,101 +244,62 @@ char _reql_op_eq(_ReQL_Op l, _ReQL_Op r) {
   return res;
 }
 
-size_t _reql_object_add(_ReQL_Op obj, _ReQL_Op key, _ReQL_Op val) {
-  _ReQL_Pair_t *pair = obj->obj.datum.json.object.pair;
-
-  uint32_t idx;
-
-  for (idx=0; idx<obj->obj.datum.json.object.size; ++idx) {
-    if (_reql_op_eq(pair[idx].key, key)) {
-      pair[idx].key = NULL;
-      break;
-    }
+int _reql_key_sort(const void *l, const void *r) {
+  _ReQL_Pair lobj = (_ReQL_Pair)l;
+  _ReQL_Pair robj = (_ReQL_Pair)r;
+  uint32_t lsize = _reql_string_size(lobj->key);
+  uint32_t rsize = _reql_string_size(robj->key);
+  if (lsize == rsize) {
+    return memcmp(_reql_string_buf(lobj->key), _reql_string_buf(robj->key), lsize);
+  } else if (lsize < rsize) {
+    return -1;
   }
-
-  if (pair[idx].key) {
-    ++idx;
-  }
-
-  if (idx >= obj->obj.datum.json.object.alloc_size) {
-    obj->obj.datum.json.object.alloc_size *= 1.1;
-
-    pair = realloc(pair, obj->obj.datum.json.object.alloc_size);
-
-    if (!pair) {
-      obj->obj.datum.json.object.alloc_size = 0;
-      obj->obj.datum.json.object.size = 0;
-      return -1;
-    }
-
-    uint32_t i;
-
-    for (i=obj->obj.datum.json.array.size; i<obj->obj.datum.json.array.alloc_size; ++i) {
-      pair[i].key = NULL;
-      pair[i].val = NULL;
-    }
-
-    obj->obj.datum.json.object.pair = pair;
-  }
-
-  if (idx > obj->obj.datum.json.object.size) {
-    obj->obj.datum.json.object.size = idx;
-  }
-
-  pair[idx].key = key;
-  pair[idx].val = val;
-
-  return 0;
+  return 1;
 }
 
-int _reql_object_next(_ReQL_Iter obj, _ReQL_Op *key, _ReQL_Op *val) {
-  if (!obj) {
-    return -1;
-  }
+_ReQL_Pair _reql_object_find(_ReQL_Op obj, _ReQL_Op key) {
+  _ReQL_Pair pair = obj->obj.datum.json.object.pair;
+  _ReQL_Pair_t test;
+  test.key = key;
 
-  if (!obj) {
-    return -1;
-  }
+  return bsearch(&test, pair, obj->obj.datum.json.object.size, sizeof(_ReQL_Pair_t), _reql_key_sort);
+}
 
-  uint32_t size = obj->obj->obj.datum.json.object.size;
+size_t _reql_object_add(_ReQL_Op obj, _ReQL_Op key, _ReQL_Op val) {
+  _ReQL_Pair pair = _reql_object_find(obj, key);
 
-  if (obj->idx >= size) {
-    return -1;
-  }
+  if (pair == NULL) {
+    obj->obj.datum.json.object.size += 1;
 
-  if (obj->obj->obj.datum.json.object.pair[obj->idx].key) {
-    if (key && val) {
-      *key = obj->obj->obj.datum.json.object.pair[obj->idx].key;
-      *val = obj->obj->obj.datum.json.object.pair[obj->idx].val;
+    if (obj->obj.datum.json.object.size >= obj->obj.datum.json.object.alloc_size) {
+      size_t alloc_size = obj->obj.datum.json.object.alloc_size * 1.1;
+
+      if (alloc_size < obj->obj.datum.json.object.alloc_size) {
+        return SIZE_MAX;
+      }
+
+      return alloc_size * sizeof(_ReQL_Pair_t);
     }
-  }
 
-  obj->idx += 1;
+    obj->obj.datum.json.object.pair[obj->obj.datum.json.object.size].key = key;
+    obj->obj.datum.json.object.pair[obj->obj.datum.json.object.size].val = val;
+
+    qsort(pair, obj->obj.datum.json.object.size, sizeof(_ReQL_Pair_t), _reql_key_sort);
+  } else {
+    pair->val = val;
+  }
 
   return 0;
 }
 
 _ReQL_Op _reql_object_get(_ReQL_Op obj, _ReQL_Op key) {
-  _ReQL_Iter iter = malloc(sizeof(_ReQL_Iter_t));
+  _ReQL_Pair pair = _reql_object_find(obj, key);
 
-  if (!iter) {
+  if (pair == NULL) {
     return NULL;
   }
 
-  _reql_iter_init(iter, obj);
-
-  _ReQL_Op _key = NULL, val = NULL;
-
-  while ((_key = _reql_iter_next(iter)) != NULL) {
-    if (_reql_op_eq(key, _key)) {
-      val = _reql_object_get(obj, key);
-      break;
-    }
-  }
-
-  free(iter);
-
-  return NULL;
+  return pair->val;
 }
 
 void _reql_null_init(_ReQL_Op obj) {
