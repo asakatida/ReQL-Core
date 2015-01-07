@@ -40,7 +40,7 @@ struct _ReQL_Cur_s {
   struct _ReQL_Conn_s *conn;
   _ReQL_Op response;
   _ReQL_Op array;
-  _ReQL_Iter iter;
+  _ReQL_Iter_t iter;
   struct _ReQL_Cur_s *next;
   struct _ReQL_Cur_s *prev;
 };

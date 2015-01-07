@@ -93,14 +93,14 @@ uint64_t _reql_get_64_token(char *buf) {
   return _magic.num;
 }
 
-void _reql_cursor_init(_ReQL_Cur cur, _ReQL_Op arr, _ReQL_Iter iter) {
+void _reql_cursor_init(_ReQL_Cur cur, _ReQL_Op arr) {
   cur->token = 0;
   cur->done = 0;
   cur->next = cur->prev = cur;
   cur->conn = NULL;
   cur->response = NULL;
   cur->array = arr;
-  cur->iter = iter;
+  cur->iter = _reql_new_iter(arr);
 }
 
 void _reql_connection_init(_ReQL_Conn conn) {

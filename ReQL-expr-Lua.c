@@ -364,15 +364,14 @@ void _reql_to_lua(lua_State *L, _ReQL_Op query) {
       break;
     }
     case _REQL_R_OBJECT: {
-      _ReQL_Iter iter = lua_newuserdata(L, sizeof(_ReQL_Iter_t));
-      _reql_iter_init(iter, query);
+      _ReQL_Iter_t iter = _reql_new_iter(query);
 
       _ReQL_Op key;
 
       lua_newtable(L);
       int table_idx = lua_gettop(L);
 
-      while ((key = _reql_iter_next(iter))) {
+      while ((key = _reql_iter_next(&iter))) {
         _reql_to_lua(L, key);
         _reql_to_lua(L, _reql_object_get(query, key));
         lua_settable(L, table_idx);

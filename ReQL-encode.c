@@ -110,18 +110,12 @@ int _reql_encode_(_ReQL_Op obj, _ReQL_String_t *json) {
         return -1;
       }
 
-      _ReQL_Iter iter = malloc(sizeof(_ReQL_Iter_t));
-
-      if (!iter) {
-        return -1;
-      }
-
-      _reql_iter_init(iter, obj);
+      _ReQL_Iter_t iter = _reql_new_iter(obj);
 
       char first = 1;
       _ReQL_Op key = NULL;
 
-      while ((key = _reql_iter_next(iter))) {
+      while ((key = _reql_iter_next(&iter))) {
         if (!first) {
           if (_reql_string_append(json, ",", 1)) {
             return -1;

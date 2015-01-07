@@ -241,7 +241,6 @@ struct _ReQL_Iter_s {
   struct _ReQL_Op_s *obj;
 };
 typedef struct _ReQL_Iter_s _ReQL_Iter_t;
-typedef _ReQL_Iter_t* _ReQL_Iter;
 
 struct _ReQL_Datum_s {
   _ReQL_Datum_t dt;
@@ -290,8 +289,8 @@ size_t _reql_array_append(_ReQL_Op arr, _ReQL_Op val);
 _ReQL_Op _reql_array_pop(_ReQL_Op obj);
 _ReQL_Op _reql_array_last(_ReQL_Op obj);
 
-void _reql_iter_init(_ReQL_Iter iter, _ReQL_Op obj);
-_ReQL_Op _reql_iter_next(_ReQL_Iter arr);
+_ReQL_Iter_t _reql_new_iter(_ReQL_Op obj);
+_ReQL_Op _reql_iter_next(_ReQL_Iter_t *arr);
 
 void _reql_object_init(_ReQL_Op obj, _ReQL_Pair pair, uint32_t size);
 size_t _reql_object_add(_ReQL_Op obj, _ReQL_Op key, _ReQL_Op val);

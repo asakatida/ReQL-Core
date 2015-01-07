@@ -63,24 +63,36 @@ uint32_t _reql_string_size(_ReQL_Op obj) {
   return obj->obj.datum.json.string.size;
 }
 
-void _reql_iter_init(_ReQL_Iter res, _ReQL_Op obj) {
-  res->idx = 0;
-  res->obj = obj;
+_ReQL_Iter_t _reql_new_iter(_ReQL_Op obj) {
+  _ReQL_Iter_t iter;
+  iter.idx = 0;
+  iter.obj = obj;
+  return iter;
 }
 
-_ReQL_Op _reql_iter_next(_ReQL_Iter obj) {
+_ReQL_Pair _reql_object_index(_ReQL_Op obj, uint32_t idx) {
+  if (obj->obj.datum.json.object.alloc_size <= idx) {
+    return NULL;
+  }
+
+  return &obj->obj.datum.json.object.pair[idx];
+}
+
+_ReQL_Op _reql_iter_next(_ReQL_Iter_t *obj) {
   _ReQL_Op next = NULL;
 
   if (_reql_datum_type(obj->obj) == _REQL_R_ARRAY) {
     if (obj->obj->obj.datum.json.array.alloc_size < obj->idx) {
       next = _reql_array_index(obj->obj, obj->idx);
-      obj->idx += 1;
     }
   } else {
     if (obj->obj->obj.datum.json.object.alloc_size < obj->idx) {
-      next = obj->obj->obj.datum.json.object.pair[obj->idx].key;
-      obj->idx += 1;
+      next = _reql_object_index(obj->obj, obj->idx)->key;
     }
+  }
+
+  if (next != NULL) {
+    obj->idx += 1;
   }
 
   return next;
@@ -202,23 +214,20 @@ char _reql_op_eq(_ReQL_Op l, _ReQL_Op r) {
                 break;
               }
               case _REQL_R_OBJECT: {
-                _ReQL_Iter i = malloc(sizeof(_ReQL_Iter_t));
-                _reql_iter_init(i, l);
+                _ReQL_Iter_t i = _reql_new_iter(l);
 
                 res = 1;
                 _ReQL_Op key = NULL;
 
-                while ((key = _reql_iter_next(i))) {
+                while ((key = _reql_iter_next(&i))) {
                   res &= _reql_op_eq(_reql_object_get(l, key), _reql_object_get(r, key));
                 }
 
-                _reql_iter_init(i, r);
+                i = _reql_new_iter(r);
 
-                while ((key = _reql_iter_next(i))) {
+                while ((key = _reql_iter_next(&i))) {
                   res &= _reql_op_eq(_reql_object_get(l, key), _reql_object_get(r, key));
                 }
-
-                free(i); i = NULL;
                 break;
               }
               case _REQL_R_STR: {
@@ -290,8 +299,9 @@ size_t _reql_object_add(_ReQL_Op obj, _ReQL_Op key, _ReQL_Op val) {
       return alloc_size * sizeof(_ReQL_Pair_t);
     }
 
-    obj->obj.datum.json.object.pair[obj->obj.datum.json.object.size].key = key;
-    obj->obj.datum.json.object.pair[obj->obj.datum.json.object.size].val = val;
+    pair = _reql_object_index(obj, obj->obj.datum.json.object.size);
+    pair->key = key;
+    pair->val = val;
 
     qsort(pair, obj->obj.datum.json.object.size, sizeof(_ReQL_Pair_t), _reql_key_sort);
   } else {
