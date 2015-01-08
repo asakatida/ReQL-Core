@@ -33,8 +33,8 @@ limitations under the License.
 #include <sys/uio.h>
 #include <unistd.h>
 
-static pthread_mutex_t *response_lock;
-static pthread_mutex_t *conn_lock;
+static pthread_mutex_t response_lock = PTHREAD_MUTEX_INITIALIZER;
+static pthread_mutex_t conn_lock = PTHREAD_MUTEX_INITIALIZER;
 static pthread_once_t init_lock = PTHREAD_ONCE_INIT;
 static const uint32_t _REQL_VERSION = 0x5f75e83e;
 static const uint32_t _REQL_PROTOCOL = 0x7e6970c7;
@@ -117,23 +117,23 @@ void _reql_conn_set_timeout(_ReQL_Conn_t *conn, unsigned long timeout) {
   conn->timeout = timeout;
 }
 
+void _reql_set_cur_response(_ReQL_Cur_t *cur, _ReQL_Op res) {
+  pthread_mutex_lock(&response_lock);
+  cur->response = res;
+  pthread_mutex_unlock(&response_lock);
+}
+
 void _reql_set_cur_res(_ReQL_Conn_t *conn, _ReQL_Op res, unsigned long long token) {
   _ReQL_Cur_t *cur = conn->cursors;
 
   if (cur->token == token) {
-    pthread_mutex_lock(response_lock);
-    cur->response = res;
-    pthread_mutex_unlock(response_lock);
-    return;
+    return _reql_set_cur_response(cur, res);
   }
 
   while (cur->next != cur) {
     cur = cur->next;
     if (cur->token == token) {
-      pthread_mutex_lock(response_lock);
-      cur->response = res;
-      pthread_mutex_unlock(response_lock);
-      return;
+        return _reql_set_cur_response(cur, res);
     }
   }
 }
@@ -142,39 +142,25 @@ _ReQL_Op _reql_get_cur_res(_ReQL_Cur_t *cur) {
   _ReQL_Op res = NULL;
 
   while (1) {
-    pthread_mutex_lock(response_lock);
+    pthread_mutex_lock(&response_lock);
     if (cur->response) {
       res = cur->response;
       cur->response = NULL;
-      pthread_mutex_unlock(response_lock);
+      pthread_mutex_unlock(&response_lock);
       break;
     }
-    pthread_mutex_unlock(response_lock);
+    pthread_mutex_unlock(&response_lock);
     sleep(1);
   }
 
   return res;
 }
 
-void _reql_end_cur_res(_ReQL_Conn_t *conn, _ReQL_Op res, uint64_t token) {
-  _ReQL_Cur_t *cur = conn->cursors;
-
-  if (cur->token == token) {
-    pthread_mutex_lock(response_lock);
-    cur->response = res;
-    pthread_mutex_unlock(response_lock);
-    return;
-  }
-
-  while (cur->next != cur) {
-    cur = cur->next;
-    if (cur->token == token) {
-      pthread_mutex_lock(response_lock);
-      cur->response = res;
-      pthread_mutex_unlock(response_lock);
-      return;
-    }
-  }
+char _reql_conn_done(_ReQL_Conn_t *conn) {
+  pthread_mutex_lock(&conn_lock);
+  char res = conn->done;
+  pthread_mutex_unlock(&conn_lock);
+  return res;
 }
 
 void *_reql_conn_loop(void *_conn) {
@@ -184,9 +170,7 @@ void *_reql_conn_loop(void *_conn) {
   uint64_t token = 0;
   uint32_t pos = 0, size = 12;
 
-  pthread_mutex_lock(conn_lock);
-  while (!conn->done) {
-    pthread_mutex_unlock(conn_lock);
+  while (!_reql_conn_done(conn)) {
     pos += recvfrom(conn->socket, &response[pos], size, MSG_WAITALL, NULL, NULL);
     if (response) {
       if (pos == size) {
@@ -208,9 +192,7 @@ void *_reql_conn_loop(void *_conn) {
         }
       }
     }
-    pthread_mutex_lock(conn_lock);
   }
-  pthread_mutex_unlock(conn_lock);
 
   if (close(conn->socket)) {
     return NULL;
@@ -225,8 +207,8 @@ void _reql_init(void) {
   pthread_mutexattr_init(attrs);
   pthread_mutexattr_settype(attrs, PTHREAD_MUTEX_ERRORCHECK);
 
-  pthread_mutex_init(response_lock, attrs);
-  pthread_mutex_init(conn_lock, attrs);
+  pthread_mutex_init(&response_lock, attrs);
+  pthread_mutex_init(&conn_lock, attrs);
 
   pthread_mutexattr_destroy(attrs);
 }
@@ -317,13 +299,13 @@ int _reql_connect(_ReQL_Conn_t *conn, char *buf, size_t size) {
     return -1;
   }
 
-  return -1;
+  return 0;
 }
 
 void _reql_close_conn(_ReQL_Conn_t *conn) {
-  pthread_mutex_lock(conn_lock);
+  pthread_mutex_lock(&conn_lock);
   conn->done = 1;
-  pthread_mutex_unlock(conn_lock);
+  pthread_mutex_unlock(&conn_lock);
 }
 
 int _reql_run(_ReQL_Cur cur, _ReQL_Op query, _ReQL_Conn conn, _ReQL_Op kwargs) {

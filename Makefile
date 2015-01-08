@@ -16,14 +16,14 @@ OBJS = ReQL.obj \
 			 ReQL-expr.o \
 			 ReQL-json.o
 
-LDFLAGS += -pthread -shared
+LDFLAGS += -pthread
 CXXFLAGS += -std=c++11 -fPIC
 CCFLAGS += -fPIC
 
 TESTOBJS = ReQL-test.obj ReQL-ast-test.obj ReQL-expr-test.obj
 
 libReQL.a: $(OBJS)
-	$(CXX) $(LDFLAGS) -o $@ $(OBJS)
+	$(CXX) $(LDFLAGS) -shared -o $@ $(OBJS)
 
 %.o: %.c
 	$(CC) $(CCFLAGS) -o $@ -c $<
@@ -31,5 +31,6 @@ libReQL.a: $(OBJS)
 %.obj: %.cpp
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
-libReQLtest: libReQL.a $(TESTOBJS)
-	$(CXX) $(CXXFLAGS) -o $@ $(TESTOBJS) $<
+libReQLtest: $(OBJS) $(TESTOBJS)
+	$(CXX) $(LDFLAGS) -o $@ $(OBJS) $(TESTOBJS)
+
