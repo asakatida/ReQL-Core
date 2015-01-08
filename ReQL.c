@@ -184,12 +184,8 @@ void *_reql_conn_loop(void *_conn) {
   uint64_t token = 0;
   uint32_t pos = 0, size = 12;
 
-  while (1) {
-    pthread_mutex_lock(conn_lock);
-    if (conn->socket < 0) {
-      pthread_mutex_unlock(conn_lock);
-      break;
-    }
+  pthread_mutex_lock(conn_lock);
+  while (!conn->done) {
     pthread_mutex_unlock(conn_lock);
     pos += recvfrom(conn->socket, &response[pos], size, MSG_WAITALL, NULL, NULL);
     if (response) {
@@ -212,6 +208,12 @@ void *_reql_conn_loop(void *_conn) {
         }
       }
     }
+    pthread_mutex_lock(conn_lock);
+  }
+  pthread_mutex_unlock(conn_lock);
+
+  if (close(conn->socket)) {
+    return NULL;
   }
 
   return NULL;
@@ -319,7 +321,9 @@ int _reql_connect(_ReQL_Conn_t *conn, char *buf, size_t size) {
 }
 
 void _reql_close_conn(_ReQL_Conn_t *conn) {
+  pthread_mutex_lock(conn_lock);
   conn->done = 1;
+  pthread_mutex_unlock(conn_lock);
 }
 
 int _reql_run(_ReQL_Cur cur, _ReQL_Op query, _ReQL_Conn conn, _ReQL_Op kwargs) {
