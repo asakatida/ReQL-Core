@@ -224,6 +224,7 @@ void _reql_init(void) {
   pthread_mutexattr_settype(attrs, PTHREAD_MUTEX_ERRORCHECK);
 
   pthread_mutex_init(response_lock, attrs);
+  pthread_mutex_init(conn_lock, attrs);
 
   pthread_mutexattr_destroy(attrs);
 }
