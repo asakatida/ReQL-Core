@@ -4,6 +4,8 @@ setup(
     ext_modules=[Extension('libReQL', [
         'ReQL-json.c',
         'ReQL-expr.c',
+        'ReQL-encode.c',
+        'ReQL-decode.c',
         'ReQL-ast.c',
         'ReQL.c',
         'ReQL-new-Python.c',
