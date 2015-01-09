@@ -92,14 +92,12 @@ void _reql_init(void) {
   free(attrs);
 }
 
-void _reql_cursor_init(_ReQL_Cur cur, _ReQL_Op arr) {
+void _reql_cursor_init(_ReQL_Cur cur) {
   cur->token = 0;
   cur->done = 0;
   cur->next = cur->prev = cur;
   cur->conn = NULL;
   cur->response = NULL;
-  cur->array = arr;
-  cur->iter = _reql_new_iter(arr);
 }
 
 void _reql_connection_init(_ReQL_Conn conn) {
