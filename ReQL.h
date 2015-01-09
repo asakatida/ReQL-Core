@@ -72,6 +72,7 @@ void _reql_conn_set_port(_ReQL_Conn conn, char *port);
 void _reql_conn_set_timeout(_ReQL_Conn conn, unsigned long timeout);
 int _reql_connect(_ReQL_Conn conn, char *buf, size_t size);
 void _reql_close_conn(_ReQL_Conn conn);
+void _reql_ensure_conn_close(_ReQL_Conn_t *conn);
 
 int _reql_run(_ReQL_Cur cur, _ReQL_Op query, _ReQL_Conn conn, _ReQL_Op kwargs);
 void _reql_cursor_next(_ReQL_Cur cur);

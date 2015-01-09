@@ -85,7 +85,7 @@ Connection::~Connection() {
 }
 
 int Connection::close() {
-  _reql_close_conn(conn);
+  _reql_ensure_conn_close(conn);
   return 0;
 }
 

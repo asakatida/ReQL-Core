@@ -117,6 +117,20 @@ void _reql_conn_set_timeout(_ReQL_Conn_t *conn, unsigned long timeout) {
   conn->timeout = timeout;
 }
 
+int _reql_conn_socket(_ReQL_Conn_t *conn) {
+  pthread_mutex_lock(&conn_lock);
+  int sock = conn->socket;
+  pthread_mutex_unlock(&conn_lock);
+  return sock;
+}
+
+void _reql_conn_close_socket(_ReQL_Conn_t *conn) {
+  pthread_mutex_lock(&conn_lock);
+  close(conn->socket);
+  conn->socket = -1;
+  pthread_mutex_unlock(&conn_lock);
+}
+
 void _reql_set_cur_response(_ReQL_Cur_t *cur, _ReQL_Op res) {
   pthread_mutex_lock(&response_lock);
   cur->response = res;
@@ -194,9 +208,7 @@ void *_reql_conn_loop(void *_conn) {
     }
   }
 
-  if (close(conn->socket)) {
-    return NULL;
-  }
+  _reql_conn_close_socket(conn);
 
   return NULL;
 }
@@ -291,6 +303,7 @@ int _reql_connect(_ReQL_Conn_t *conn, char *buf, size_t size) {
 
   if (pthread_create(&thread, NULL, _reql_conn_loop, conn)) {
     _reql_close_conn(conn);
+    _reql_conn_close_socket(conn);
     return -1;
   }
 
@@ -306,6 +319,13 @@ void _reql_close_conn(_ReQL_Conn_t *conn) {
   pthread_mutex_lock(&conn_lock);
   conn->done = 1;
   pthread_mutex_unlock(&conn_lock);
+}
+
+void _reql_ensure_conn_close(_ReQL_Conn_t *conn) {
+  _reql_close_conn(conn);
+  while (_reql_conn_socket(conn) > 0) {
+    sleep(1);
+  }
 }
 
 int _reql_run(_ReQL_Cur cur, _ReQL_Op query, _ReQL_Conn conn, _ReQL_Op kwargs) {
