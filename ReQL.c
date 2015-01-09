@@ -228,6 +228,8 @@ void _reql_init(void) {
 }
 
 int _reql_connect(_ReQL_Conn_t *conn, char *buf, size_t size) {
+  pthread_once(&init_lock, _reql_init);
+
   struct addrinfo hints;
   struct addrinfo *result, *rp;
 
@@ -252,6 +254,7 @@ int _reql_connect(_ReQL_Conn_t *conn, char *buf, size_t size) {
 
   if (!rp) {
     freeaddrinfo(result);
+    conn->socket = -1;
     return -1;
   }
 
@@ -306,8 +309,6 @@ int _reql_connect(_ReQL_Conn_t *conn, char *buf, size_t size) {
   }
 
   pthread_t thread;
-
-  pthread_once(&init_lock, _reql_init);
 
   if (pthread_create(&thread, NULL, _reql_conn_loop, conn)) {
     _reql_close_conn(conn);
