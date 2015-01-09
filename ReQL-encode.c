@@ -38,7 +38,7 @@ int _reql_string_append(_ReQL_String_t *obj, char *ext, uint32_t size) {
     }
   }
 
-  memcpy(&obj->str[obj->size + 1], ext, size);
+  memcpy(&obj->str[obj->size], ext, size);
 
   obj->size += size;
 
