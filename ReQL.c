@@ -329,6 +329,7 @@ void _reql_ensure_conn_close(_ReQL_Conn_t *conn) {
 }
 
 int _reql_run(_ReQL_Cur cur, _ReQL_Op query, _ReQL_Conn conn, _ReQL_Op kwargs) {
+  pthread_mutex_lock(&conn_lock);
   if (conn->cursors) {
     cur->next = conn->cursors;
     cur->next->prev = cur;
@@ -339,6 +340,7 @@ int _reql_run(_ReQL_Cur cur, _ReQL_Op query, _ReQL_Conn conn, _ReQL_Op kwargs) {
   cur->conn = conn;
   cur->token = conn->max_token++;
 
+  pthread_mutex_unlock(&conn_lock);
   return 0;
 }
 
