@@ -81,11 +81,12 @@ Connection::Connection(std::string host, std::uint16_t port, std::string key) {
 }
 
 Connection::~Connection() {
+  _reql_ensure_conn_close(conn);
   delete conn;
 }
 
 int Connection::close() {
-  _reql_ensure_conn_close(conn);
+  _reql_close_conn(conn);
   return 0;
 }
 
