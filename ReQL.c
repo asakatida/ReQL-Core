@@ -187,8 +187,8 @@ void *_reql_conn_loop(void *_conn) {
         token = _reql_get_64_token(&msg_header[0]);
         size = _reql_get_32_le(&msg_header[8]);
         response = malloc(sizeof(char) * size);
-        if (!response) {
-          return NULL;
+        if (response == NULL) {
+          _reql_close_conn(conn);
         }
       }
     }
