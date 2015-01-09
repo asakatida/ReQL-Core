@@ -263,10 +263,14 @@ int _reql_connect(_ReQL_Conn_t *conn, char *buf, size_t size) {
   timeout.tv_usec = 0;
 
   if (setsockopt(conn->socket, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout))) {
+    _reql_close_conn(conn);
+    _reql_conn_close_socket(conn);
     return -1;
   }
 
   if (setsockopt(conn->socket, SOL_SOCKET, SO_SNDTIMEO, &timeout, sizeof(timeout))) {
+    _reql_close_conn(conn);
+    _reql_conn_close_socket(conn);
     return -1;
   }
 
@@ -297,6 +301,7 @@ int _reql_connect(_ReQL_Conn_t *conn, char *buf, size_t size) {
   if (strcmp(buf, "SUCCESS")) {
     recvfrom(conn->socket, buf, size - 8, MSG_WAITALL, NULL, NULL);
     _reql_close_conn(conn);
+    _reql_conn_close_socket(conn);
     return -1;
   }
 
@@ -311,7 +316,7 @@ int _reql_connect(_ReQL_Conn_t *conn, char *buf, size_t size) {
   }
 
   if (pthread_detach(thread)) {
-    _reql_close_conn(conn);
+    _reql_ensure_conn_close(conn);
     return -1;
   }
 
