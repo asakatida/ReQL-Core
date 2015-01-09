@@ -78,6 +78,20 @@ uint64_t _reql_get_64_token(char *buf) {
   return le64toh(_magic.num);
 }
 
+void _reql_init(void) {
+  pthread_mutexattr_t *attrs = malloc(sizeof(pthread_mutexattr_t));
+
+  pthread_mutexattr_init(attrs);
+  pthread_mutexattr_settype(attrs, PTHREAD_MUTEX_ERRORCHECK);
+
+  pthread_mutex_init(&response_lock, attrs);
+  pthread_mutex_init(&conn_lock, attrs);
+
+  pthread_mutexattr_destroy(attrs);
+
+  free(attrs);
+}
+
 void _reql_cursor_init(_ReQL_Cur cur, _ReQL_Op arr) {
   cur->token = 0;
   cur->done = 0;
@@ -89,6 +103,8 @@ void _reql_cursor_init(_ReQL_Cur cur, _ReQL_Op arr) {
 }
 
 void _reql_connection_init(_ReQL_Conn conn) {
+  pthread_once(&init_lock, _reql_init);
+
   conn->socket = -1;
   conn->done = 0;
   conn->max_token = 0;
@@ -213,23 +229,7 @@ void *_reql_conn_loop(void *_conn) {
   return NULL;
 }
 
-void _reql_init(void) {
-  pthread_mutexattr_t *attrs = malloc(sizeof(pthread_mutexattr_t));
-
-  pthread_mutexattr_init(attrs);
-  pthread_mutexattr_settype(attrs, PTHREAD_MUTEX_ERRORCHECK);
-
-  pthread_mutex_init(&response_lock, attrs);
-  pthread_mutex_init(&conn_lock, attrs);
-
-  pthread_mutexattr_destroy(attrs);
-
-  free(attrs);
-}
-
 int _reql_connect(_ReQL_Conn_t *conn, char *buf, size_t size) {
-  pthread_once(&init_lock, _reql_init);
-
   struct addrinfo hints;
   struct addrinfo *result, *rp;
 
