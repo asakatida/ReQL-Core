@@ -133,7 +133,7 @@ void _reql_set_cur_res(_ReQL_Conn_t *conn, _ReQL_Op res, unsigned long long toke
   while (cur->next != cur) {
     cur = cur->next;
     if (cur->token == token) {
-        return _reql_set_cur_response(cur, res);
+      return _reql_set_cur_response(cur, res);
     }
   }
 }
