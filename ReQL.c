@@ -200,7 +200,7 @@ void *_reql_conn_loop(void *_conn) {
         pos = 0;
         token = _reql_get_64_token(&msg_header[0]);
         size = _reql_get_32_le(&msg_header[8]);
-        response = malloc(sizeof(char) * size);
+        response = malloc(sizeof(uint8_t) * size);
         if (response == NULL) {
           _reql_close_conn(conn);
         }

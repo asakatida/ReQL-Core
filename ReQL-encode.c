@@ -149,7 +149,12 @@ int _reql_encode_(_ReQL_Op obj, _ReQL_String_t *json) {
 }
 
 _ReQL_String_t *_reql_encode(_ReQL_Op val) {
-  _ReQL_String_t *json;
+  _ReQL_String_t *json = malloc(sizeof(_ReQL_String_t));
+
+  json->str = malloc(sizeof(uint8_t) * 100);
+
+  json->size = 0;
+  json->alloc_size = 100;
 
   if (_reql_encode_(val, json)) {
     return NULL;
