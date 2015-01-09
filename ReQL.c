@@ -100,7 +100,7 @@ void _reql_connection_init(_ReQL_Conn conn) {
   conn->addr = NULL;
 }
 
-void _reql_conn_set_auth(_ReQL_Conn_t *conn, unsigned int size, char *auth) {
+void _reql_conn_set_auth(_ReQL_Conn_t *conn, uint32_t size, char *auth) {
   conn->auth_size = size;
   conn->auth = auth;
 }
