@@ -214,7 +214,7 @@ void *_reql_conn_loop(void *_conn) {
 }
 
 void _reql_init(void) {
-  pthread_mutexattr_t *attrs = NULL;
+  pthread_mutexattr_t *attrs = malloc(sizeof(pthread_mutexattr_t));
 
   pthread_mutexattr_init(attrs);
   pthread_mutexattr_settype(attrs, PTHREAD_MUTEX_ERRORCHECK);
@@ -223,6 +223,8 @@ void _reql_init(void) {
   pthread_mutex_init(&conn_lock, attrs);
 
   pthread_mutexattr_destroy(attrs);
+
+  free(attrs);
 }
 
 int _reql_connect(_ReQL_Conn_t *conn, char *buf, size_t size) {
@@ -249,6 +251,7 @@ int _reql_connect(_ReQL_Conn_t *conn, char *buf, size_t size) {
   }
 
   if (!rp) {
+    freeaddrinfo(result);
     return -1;
   }
 
