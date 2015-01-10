@@ -1,5 +1,5 @@
 /*
-Copyright 2014 Adam Grandquist
+Copyright 2015 Adam Grandquist
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -33,7 +33,6 @@ limitations under the License.
 #include <sys/uio.h>
 #include <unistd.h>
 
-static pthread_mutex_t response_lock = PTHREAD_MUTEX_INITIALIZER;
 static pthread_mutex_t conn_lock = PTHREAD_MUTEX_INITIALIZER;
 static pthread_once_t init_lock = PTHREAD_ONCE_INIT;
 static const uint32_t _REQL_VERSION = 0x5f75e83e;
@@ -78,13 +77,12 @@ uint64_t _reql_get_64_token(char *buf) {
   return le64toh(_magic.num);
 }
 
-void _reql_init(void) {
+void _reql_init_conn(void) {
   pthread_mutexattr_t *attrs = malloc(sizeof(pthread_mutexattr_t));
 
   pthread_mutexattr_init(attrs);
   pthread_mutexattr_settype(attrs, PTHREAD_MUTEX_ERRORCHECK);
 
-  pthread_mutex_init(&response_lock, attrs);
   pthread_mutex_init(&conn_lock, attrs);
 
   pthread_mutexattr_destroy(attrs);
@@ -92,16 +90,8 @@ void _reql_init(void) {
   free(attrs);
 }
 
-void _reql_cursor_init(_ReQL_Cur cur) {
-  cur->token = 0;
-  cur->done = 0;
-  cur->next = cur->prev = cur;
-  cur->conn = NULL;
-  cur->response = NULL;
-}
-
 void _reql_connection_init(_ReQL_Conn conn) {
-  pthread_once(&init_lock, _reql_init);
+  pthread_once(&init_lock, _reql_init_conn);
 
   conn->socket = -1;
   conn->done = 0;
@@ -145,12 +135,6 @@ void _reql_conn_close_socket(_ReQL_Conn_t *conn) {
   pthread_mutex_unlock(&conn_lock);
 }
 
-void _reql_set_cur_response(_ReQL_Cur_t *cur, _ReQL_Op res) {
-  pthread_mutex_lock(&response_lock);
-  cur->response = res;
-  pthread_mutex_unlock(&response_lock);
-}
-
 void _reql_set_cur_res(_ReQL_Conn_t *conn, _ReQL_Op res, unsigned long long token) {
   _ReQL_Cur_t *cur = conn->cursors;
 
@@ -164,24 +148,6 @@ void _reql_set_cur_res(_ReQL_Conn_t *conn, _ReQL_Op res, unsigned long long toke
       return _reql_set_cur_response(cur, res);
     }
   }
-}
-
-_ReQL_Op _reql_get_cur_res(_ReQL_Cur_t *cur) {
-  _ReQL_Op res = NULL;
-
-  while (1) {
-    pthread_mutex_lock(&response_lock);
-    if (cur->response) {
-      res = cur->response;
-      cur->response = NULL;
-      pthread_mutex_unlock(&response_lock);
-      break;
-    }
-    pthread_mutex_unlock(&response_lock);
-    sleep(1);
-  }
-
-  return res;
 }
 
 char _reql_conn_done(_ReQL_Conn_t *conn) {
@@ -349,12 +315,4 @@ int _reql_run(_ReQL_Cur cur, _ReQL_Op query, _ReQL_Conn conn, _ReQL_Op kwargs) {
 
   pthread_mutex_unlock(&conn_lock);
   return 0;
-}
-
-void _reql_cursor_next(_ReQL_Cur_t *cur) {
-}
-
-void _reql_close_cur(_ReQL_Cur cur) {
-  cur->prev->next = cur->next == cur ? cur->prev : cur->next;
-  cur->next->prev = cur->prev == cur ? cur->next : cur->prev;
 }

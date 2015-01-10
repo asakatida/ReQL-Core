@@ -56,6 +56,14 @@
 		1E8435741A171A2D008167E6 /* ReQL.c in Sources */ = {isa = PBXBuildFile; fileRef = 1ED066631A030AE8005225FD /* ReQL.c */; };
 		1E8435751A171A3F008167E6 /* ReQL.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ED066641A030AE8005225FD /* ReQL.h */; };
 		1E9D4B831A03011100201983 /* liblibReQL.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E9D4B771A03011100201983 /* liblibReQL.dylib */; };
+		1EAC78F11A6191FD00710286 /* ReQL-cursor.c in Sources */ = {isa = PBXBuildFile; fileRef = 1EAC78EB1A6191FD00710286 /* ReQL-cursor.c */; };
+		1EAC78F21A6191FD00710286 /* ReQL-cursor.c in Sources */ = {isa = PBXBuildFile; fileRef = 1EAC78EB1A6191FD00710286 /* ReQL-cursor.c */; };
+		1EAC78F31A6191FD00710286 /* ReQL-cursor.c in Sources */ = {isa = PBXBuildFile; fileRef = 1EAC78EB1A6191FD00710286 /* ReQL-cursor.c */; };
+		1EAC78F41A6191FD00710286 /* ReQL-cursor.c in Sources */ = {isa = PBXBuildFile; fileRef = 1EAC78EB1A6191FD00710286 /* ReQL-cursor.c */; };
+		1EAC78F51A6191FD00710286 /* ReQL-cursor.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EAC78EC1A6191FD00710286 /* ReQL-cursor.h */; };
+		1EAC78F61A6191FD00710286 /* ReQL-cursor.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EAC78EC1A6191FD00710286 /* ReQL-cursor.h */; };
+		1EAC78F71A6191FD00710286 /* ReQL-cursor.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EAC78EC1A6191FD00710286 /* ReQL-cursor.h */; };
+		1EAC78F81A6191FD00710286 /* ReQL-cursor.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EAC78EC1A6191FD00710286 /* ReQL-cursor.h */; };
 		1ED066651A030AE8005225FD /* ReQL-ast-ObjC.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ED0665D1A030AE8005225FD /* ReQL-ast-ObjC.h */; };
 		1ED066661A030AE8005225FD /* ReQL-ast-ObjC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED0665E1A030AE8005225FD /* ReQL-ast-ObjC.m */; };
 		1ED066671A030AE8005225FD /* ReQL-ast.c in Sources */ = {isa = PBXBuildFile; fileRef = 1ED0665F1A030AE8005225FD /* ReQL-ast.c */; };
@@ -140,6 +148,8 @@
 		1E84356A1A171A0F008167E6 /* ReQL-Lua.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "ReQL-Lua.c"; sourceTree = "<group>"; };
 		1E9D4B771A03011100201983 /* liblibReQL.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = liblibReQL.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E9D4B821A03011100201983 /* libReQLTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = libReQLTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1EAC78EB1A6191FD00710286 /* ReQL-cursor.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "ReQL-cursor.c"; sourceTree = "<group>"; };
+		1EAC78EC1A6191FD00710286 /* ReQL-cursor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ReQL-cursor.h"; sourceTree = "<group>"; };
 		1ED0665D1A030AE8005225FD /* ReQL-ast-ObjC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ReQL-ast-ObjC.h"; sourceTree = "<group>"; };
 		1ED0665E1A030AE8005225FD /* ReQL-ast-ObjC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ReQL-ast-ObjC.m"; sourceTree = "<group>"; };
 		1ED0665F1A030AE8005225FD /* ReQL-ast.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "ReQL-ast.c"; sourceTree = "<group>"; };
@@ -226,6 +236,8 @@
 				1ED066601A030AE8005225FD /* ReQL-ast.h */,
 				1E0915F21A1A73D3007952FE /* ReQL.cpp */,
 				1E0915F31A1A73D3007952FE /* ReQL.hpp */,
+				1EAC78EB1A6191FD00710286 /* ReQL-cursor.c */,
+				1EAC78EC1A6191FD00710286 /* ReQL-cursor.h */,
 				87E33B551A54DE7800F3C411 /* ReQL-decode.c */,
 				87E33B561A54DE7800F3C411 /* ReQL-decode.h */,
 				87E33B571A54DE7800F3C411 /* ReQL-encode.c */,
@@ -292,6 +304,7 @@
 			files = (
 				1E0915EF1A1A73A9007952FE /* ReQL.h in Headers */,
 				8760588E1A47AF0F00FEA3E9 /* ReQL-json.h in Headers */,
+				1EAC78F71A6191FD00710286 /* ReQL-cursor.h in Headers */,
 				87E33B671A54DE7800F3C411 /* ReQL-encode.h in Headers */,
 				1E0915F91A1A73D3007952FE /* ReQL.hpp in Headers */,
 				1E0915ED1A1A73A9007952FE /* ReQL-expr.h in Headers */,
@@ -322,6 +335,7 @@
 				8760588F1A47AF0F00FEA3E9 /* ReQL-json.h in Headers */,
 				1E0B92E21A5C8AE700DD5965 /* ReQL-new-Python.h in Headers */,
 				1E3F9A1D1A35253F0065A82F /* ReQL-expr-Python.h in Headers */,
+				1EAC78F81A6191FD00710286 /* ReQL-cursor.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -340,6 +354,7 @@
 				87E33B5E1A54DE7800F3C411 /* ReQL-decode.h in Headers */,
 				8760588D1A47AF0F00FEA3E9 /* ReQL-json.h in Headers */,
 				1E8435711A171A1D008167E6 /* ReQL-ast.h in Headers */,
+				1EAC78F61A6191FD00710286 /* ReQL-cursor.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -358,6 +373,7 @@
 				1ED066741A046AC1005225FD /* ReQL-expr-ObjC.h in Headers */,
 				1ED066651A030AE8005225FD /* ReQL-ast-ObjC.h in Headers */,
 				1ED066681A030AE8005225FD /* ReQL-ast.h in Headers */,
+				1EAC78F51A6191FD00710286 /* ReQL-cursor.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -517,6 +533,7 @@
 				87A31C5D1A4B2109002B8CC7 /* ReQL-expr-test.cpp in Sources */,
 				87A31C611A4B211C002B8CC7 /* ReQL-ast-test.cpp in Sources */,
 				1E0915F81A1A73D3007952FE /* ReQL.cpp in Sources */,
+				1EAC78F31A6191FD00710286 /* ReQL-cursor.c in Sources */,
 				1E0915EC1A1A73A9007952FE /* ReQL-expr.c in Sources */,
 				87E33B631A54DE7800F3C411 /* ReQL-encode.c in Sources */,
 				1E0915FA1A1A73D3007952FE /* ReQL-expr.cpp in Sources */,
@@ -533,6 +550,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1E3F9A111A35250F0065A82F /* ReQL-expr.c in Sources */,
+				1EAC78F41A6191FD00710286 /* ReQL-cursor.c in Sources */,
 				1E3F9A1E1A35253F0065A82F /* ReQL-Python.c in Sources */,
 				1E3F9A0F1A35250F0065A82F /* ReQL-ast.c in Sources */,
 				87E33B5C1A54DE7800F3C411 /* ReQL-decode.c in Sources */,
@@ -550,6 +568,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1E8435721A171A1F008167E6 /* ReQL-expr.c in Sources */,
+				1EAC78F21A6191FD00710286 /* ReQL-cursor.c in Sources */,
 				1E8435701A171A19008167E6 /* ReQL-ast.c in Sources */,
 				1E84356B1A171A0F008167E6 /* ReQL-ast-Lua.c in Sources */,
 				87E33B5A1A54DE7800F3C411 /* ReQL-decode.c in Sources */,
@@ -569,6 +588,7 @@
 				1ED0666B1A030AE8005225FD /* ReQL.c in Sources */,
 				1ED066661A030AE8005225FD /* ReQL-ast-ObjC.m in Sources */,
 				1ED066751A046AC1005225FD /* ReQL-expr-ObjC.m in Sources */,
+				1EAC78F11A6191FD00710286 /* ReQL-cursor.c in Sources */,
 				87E33B591A54DE7800F3C411 /* ReQL-decode.c in Sources */,
 				1ED0666A1A030AE8005225FD /* ReQL-ObjC.m in Sources */,
 				87E33B611A54DE7800F3C411 /* ReQL-encode.c in Sources */,

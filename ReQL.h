@@ -1,5 +1,5 @@
 /*
-Copyright 2014 Adam Grandquist
+Copyright 2015 Adam Grandquist
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -18,32 +18,10 @@ limitations under the License.
  * @copyright Apache
  */
 
-#include "ReQL-expr.h"
+#include "ReQL-cursor.h"
 
 #ifndef _REQL_H
 #define _REQL_H
-
-typedef enum {
-  _REQL_CLIENT_ERROR = 16,
-  _REQL_COMPILE_ERROR = 17,
-  _REQL_RUNTIME_ERROR = 18,
-  _REQL_SUCCESS_ATOM = 1,
-  _REQL_SUCCESS_FEED = 5,
-  _REQL_SUCCESS_PARTIAL = 3,
-  _REQL_SUCCESS_SEQUENCE = 2,
-  _REQL_WAIT_COMPLETE = 4
-} _ReQL_Response_t;
-
-struct _ReQL_Cur_s {
-  char done;
-  uint64_t token;
-  struct _ReQL_Conn_s *conn;
-  _ReQL_Op response;
-  struct _ReQL_Cur_s *next;
-  struct _ReQL_Cur_s *prev;
-};
-typedef struct _ReQL_Cur_s _ReQL_Cur_t;
-typedef _ReQL_Cur_t* _ReQL_Cur;
 
 struct _ReQL_Conn_s {
   char done;
@@ -73,7 +51,5 @@ void _reql_close_conn(_ReQL_Conn conn);
 void _reql_ensure_conn_close(_ReQL_Conn_t *conn);
 
 int _reql_run(_ReQL_Cur cur, _ReQL_Op query, _ReQL_Conn conn, _ReQL_Op kwargs);
-void _reql_cursor_next(_ReQL_Cur cur);
-void _reql_close_cur(_ReQL_Cur cur);
 
 #endif
