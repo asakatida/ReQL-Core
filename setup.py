@@ -6,6 +6,8 @@ setup(
         'ReQL-expr.c',
         'ReQL-encode.c',
         'ReQL-decode.c',
+        'ReQL-cursor.c',
+        'ReQL-char.c',
         'ReQL-ast.c',
         'ReQL.c',
         'ReQL-new-Python.c',

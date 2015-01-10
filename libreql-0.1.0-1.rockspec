@@ -18,6 +18,8 @@ build = {
       sources = {
         'ReQL-ast-Lua.c',
         'ReQL-ast.c',
+        'ReQL-char.c',
+        'ReQL-cursor.c',
         'ReQL-decode.c',
         'ReQL-encode.c',
         'ReQL-expr-Lua.c',

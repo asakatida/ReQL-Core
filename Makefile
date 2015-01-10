@@ -6,15 +6,17 @@ test: libReQLtest
 check: test
 
 OBJS = ReQL.obj \
-       ReQL-ast.obj \
-			 ReQL-expr.obj \
-			 ReQL-new.obj \
-			 ReQL-decode.o \
-			 ReQL-encode.o \
-			 ReQL.o \
-			 ReQL-ast.o \
-			 ReQL-expr.o \
-			 ReQL-json.o
+	ReQL-ast.obj \
+	ReQL-expr.obj \
+	ReQL-new.obj \
+	ReQL-decode.o \
+	ReQL-encode.o \
+	ReQL.o \
+	ReQL-ast.o \
+	ReQL-char.o \
+	ReQL-cursor.o \
+	ReQL-expr.o \
+	ReQL-json.o
 
 LDFLAGS += -pthread
 CXXFLAGS += -std=c++11 -fPIC
@@ -33,4 +35,3 @@ libReQL.a: $(OBJS)
 
 libReQLtest: $(OBJS) $(TESTOBJS)
 	$(CXX) $(LDFLAGS) -o $@ $(OBJS) $(TESTOBJS)
-

@@ -13,6 +13,10 @@ ReQL-ast-test.cpp
 ReQL-ast-test.hpp
 ReQL-ast.c
 ReQL-ast.h
+ReQL-char.c
+ReQL-char.h
+ReQL-cursor.c
+ReQL-cursor.h
 ReQL.cpp
 ReQL.hpp
 ReQL-decode.c
