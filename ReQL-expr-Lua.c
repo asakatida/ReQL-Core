@@ -387,20 +387,6 @@ void _reql_to_lua(lua_State *L, _ReQL_Op query) {
 
 int _reql_lua_connect(lua_State *L) {
   lua_settop(L, 3);
-  switch (lua_type(L, 2)) {
-    case LUA_TFUNCTION:
-      lua_createtable(L, 0, 0);
-      lua_insert(L, 2);
-      break;
-    case LUA_TSTRING:
-      lua_createtable(L, 1, 1);
-      lua_pushliteral(L, "host");
-      lua_rawset(L, 2);
-      lua_insert(L, 2);
-      break;
-    default:
-      break;
-  }
 
   _ReQL_Conn_t *conn = lua_newuserdata(L, sizeof(_ReQL_Conn_t));
 
@@ -411,7 +397,7 @@ int _reql_lua_connect(lua_State *L) {
     return 0;
   }
 
-  lua_rawset(L, 1);
+  _reql_ensure_conn_close(conn);
 
   return 1;
 }
