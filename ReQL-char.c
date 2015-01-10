@@ -20,6 +20,8 @@ limitations under the License.
 
 #include "ReQL-char.h"
 
+#include <stdlib.h>
+
 const uint8_t *_reql_json_string_esc(uint8_t chr) {
   switch (chr) {
     case 0x00: return json_char_0x00;
