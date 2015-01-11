@@ -201,7 +201,7 @@ static const struct luaL_Reg libReQL[] = {
 
 extern int luaopen_libReQL(lua_State *L) {
 #if LUA_VERSION_NUM < 502
-  luaL_register(L, NULL, libReQL);
+  luaL_register(L, "libReQL", libReQL);
 #else
   luaL_newlib(L, libReQL);
 #endif
