@@ -1,5 +1,5 @@
 /*
-Copyright 2014 Adam Grandquist
+Copyright 2014-2015 Adam Grandquist
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -152,6 +152,7 @@ size_t _reql_array_append(_ReQL_Op obj, _ReQL_Op val) {
 
 _ReQL_Op _reql_array_pop(_ReQL_Op obj) {
   _ReQL_Op res = _reql_array_last(obj);
+  _reql_array_insert(obj, NULL, _reql_array_size(obj));
 
   if (res) {
     obj->obj.datum.json.array.size -= 1;
