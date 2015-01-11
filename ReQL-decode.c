@@ -172,11 +172,11 @@ _ReQL_Op _reql_decode_(_ReQL_Op stack, uint8_t *json, uint32_t size) {
     switch (state) {
       case _REQL_R_ARRAY: {
         switch (json[i]) {
-          case comma: {
+          case 0x2C: { /* , */
             state = _REQL_R_JSON;
             break;
           }
-          case right_square_bracket: {
+          case 0x5D: { /* ] */
             state = _reql_merge_stack(stack);
             break;
           }
@@ -194,7 +194,7 @@ _ReQL_Op _reql_decode_(_ReQL_Op stack, uint8_t *json, uint32_t size) {
           case ' ': {
             break;
           }
-          case left_square_bracket: {
+          case 0x5B: { /* [ */
             _ReQL_Op obj = malloc(sizeof(_ReQL_Op_t));
             _ReQL_Op *_intern = malloc(sizeof(_ReQL_Op) * 10);
             _reql_array_init(obj, _intern, 10);
@@ -202,7 +202,7 @@ _ReQL_Op _reql_decode_(_ReQL_Op stack, uint8_t *json, uint32_t size) {
             state = _REQL_R_ARRAY;
             break;
           }
-          case left_curly_bracket: {
+          case 0x7B: { /* { */
             _ReQL_Op obj = malloc(sizeof(_ReQL_Op_t));
             _ReQL_Pair _intern = malloc(sizeof(_ReQL_Pair_t) * 10);
             _reql_object_init(obj, _intern, 10);
@@ -210,7 +210,7 @@ _ReQL_Op _reql_decode_(_ReQL_Op stack, uint8_t *json, uint32_t size) {
             state = _REQL_R_OBJECT;
             break;
           }
-          case quotation: {
+          case 0x22: { /* " */
             state = _REQL_R_STR;
             str_start = i + 1;
             break;
@@ -297,12 +297,12 @@ _ReQL_Op _reql_decode_(_ReQL_Op stack, uint8_t *json, uint32_t size) {
       }
       case _REQL_R_OBJECT: {
         switch (json[i]) {
-          case comma:
-          case colon: {
+          case 0x2C: /* , */
+          case 0x3A: { /* : */
             state = _REQL_R_JSON;
             break;
           }
-          case right_curly_bracket: {
+          case 0x7D: { /* } */
             state = _reql_merge_stack(stack);
             break;
           }
@@ -318,7 +318,7 @@ _ReQL_Op _reql_decode_(_ReQL_Op stack, uint8_t *json, uint32_t size) {
             esc = 1;
             break;
           }
-          case quotation: {
+          case 0x22: { /* " */
             if (!esc) {
               _ReQL_Op obj = malloc(sizeof(_ReQL_Op_t));
               _reql_string_init(obj, &json[str_start], _reql_string_decode(i - str_start - 1, &json[str_start]));
