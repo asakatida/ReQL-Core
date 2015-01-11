@@ -20,6 +20,8 @@ limitations under the License.
 
 #include "ReQL-decode.h"
 
+#include "ReQL-char.h"
+
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
@@ -170,11 +172,11 @@ _ReQL_Op _reql_decode_(_ReQL_Op stack, uint8_t *json, uint32_t size) {
     switch (state) {
       case _REQL_R_ARRAY: {
         switch (json[i]) {
-          case ',': {
+          case comma: {
             state = _REQL_R_JSON;
             break;
           }
-          case ']': {
+          case right_square_bracket: {
             state = _reql_merge_stack(stack);
             break;
           }
@@ -192,7 +194,7 @@ _ReQL_Op _reql_decode_(_ReQL_Op stack, uint8_t *json, uint32_t size) {
           case ' ': {
             break;
           }
-          case '[': {
+          case left_square_bracket: {
             _ReQL_Op obj = malloc(sizeof(_ReQL_Op_t));
             _ReQL_Op *_intern = malloc(sizeof(_ReQL_Op) * 10);
             _reql_array_init(obj, _intern, 10);
@@ -200,7 +202,7 @@ _ReQL_Op _reql_decode_(_ReQL_Op stack, uint8_t *json, uint32_t size) {
             state = _REQL_R_ARRAY;
             break;
           }
-          case '{': {
+          case left_curly_bracket: {
             _ReQL_Op obj = malloc(sizeof(_ReQL_Op_t));
             _ReQL_Pair _intern = malloc(sizeof(_ReQL_Pair_t) * 10);
             _reql_object_init(obj, _intern, 10);
@@ -208,7 +210,7 @@ _ReQL_Op _reql_decode_(_ReQL_Op stack, uint8_t *json, uint32_t size) {
             state = _REQL_R_OBJECT;
             break;
           }
-          case '"': {
+          case quotation: {
             state = _REQL_R_STR;
             str_start = i + 1;
             break;
@@ -229,7 +231,7 @@ _ReQL_Op _reql_decode_(_ReQL_Op stack, uint8_t *json, uint32_t size) {
             break;
           }
           case 't': {
-            if (strncmp((char *)&json[i], "true", 4)) {
+            if (strncmp((char *)&json[i], (char *)json_true, 4)) {
               _ReQL_Op obj = malloc(sizeof(_ReQL_Op_t));
               _reql_bool_init(obj, 1);
               state = _reql_merge_stack_val(stack, obj);
@@ -238,7 +240,7 @@ _ReQL_Op _reql_decode_(_ReQL_Op stack, uint8_t *json, uint32_t size) {
             }
           }
           case 'f': {
-            if (strncmp((char *)&json[i], "false", 5)) {
+            if (strncmp((char *)&json[i], (char *)json_false, 5)) {
               _ReQL_Op obj = malloc(sizeof(_ReQL_Op_t));
               _reql_bool_init(obj, 1);
               state = _reql_merge_stack_val(stack, obj);
@@ -247,7 +249,7 @@ _ReQL_Op _reql_decode_(_ReQL_Op stack, uint8_t *json, uint32_t size) {
             }
           }
           case 'n': {
-            if (strncmp((char *)&json[i], "null", 4)) {
+            if (strncmp((char *)&json[i], (char *)json_null, 4)) {
               _ReQL_Op obj = malloc(sizeof(_ReQL_Op_t));
               _reql_null_init(obj);
               state = _reql_merge_stack_val(stack, obj);
@@ -295,12 +297,12 @@ _ReQL_Op _reql_decode_(_ReQL_Op stack, uint8_t *json, uint32_t size) {
       }
       case _REQL_R_OBJECT: {
         switch (json[i]) {
-          case ',':
-          case ':': {
+          case comma:
+          case colon: {
             state = _REQL_R_JSON;
             break;
           }
-          case '}': {
+          case right_curly_bracket: {
             state = _reql_merge_stack(stack);
             break;
           }
@@ -316,7 +318,7 @@ _ReQL_Op _reql_decode_(_ReQL_Op stack, uint8_t *json, uint32_t size) {
             esc = 1;
             break;
           }
-          case '"': {
+          case quotation: {
             if (!esc) {
               _ReQL_Op obj = malloc(sizeof(_ReQL_Op_t));
               _reql_string_init(obj, &json[str_start], _reql_string_decode(i - str_start - 1, &json[str_start]));
@@ -332,9 +334,7 @@ _ReQL_Op _reql_decode_(_ReQL_Op stack, uint8_t *json, uint32_t size) {
       }
       case _REQL_R_NULL:
       case _REQL_R_BOOL:
-      default: {
-        return NULL;
-      }
+      case _REQL_R_REQL: return NULL;
     }
   }
   if (state != _REQL_R_JSON || _reql_merge_stack(stack) != _REQL_R_JSON) {
