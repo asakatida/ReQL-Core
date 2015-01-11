@@ -1,5 +1,5 @@
 /*
-Copyright 2014 Adam Grandquist
+Copyright 2014-2015 Adam Grandquist
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -343,10 +343,8 @@ _ReQL_Op _reql_decode_(_ReQL_Op stack, uint8_t *json, uint32_t size) {
 
   _ReQL_Op res = _reql_array_pop(stack);
 
-  _ReQL_Op extra = _reql_array_pop(stack);
-
-  if (extra) {
-    return NULL;
+  if (_reql_array_last(stack)) {
+    _reql_json_destroy(res); res = NULL;
   }
 
   return res;
@@ -359,8 +357,70 @@ _ReQL_Op _reql_decode(uint8_t *json, uint32_t size) {
 
   _ReQL_Op val = _reql_decode_(stack, json, size);
 
-  free(arr);
-  free(stack);
+  _reql_json_destroy(stack);
 
   return val;
+}
+
+void _reql_arr_destroy(_ReQL_Op *arr, int32_t size) {
+  if (arr == NULL) {
+    return;
+  }
+
+  int32_t i;
+
+  for (i=0; i<size; ++i) {
+    _reql_json_destroy(arr[i]);
+  }
+
+  free(arr);
+}
+
+void _reql_pair_destroy(_ReQL_Pair pair, int32_t size) {
+  if (pair == NULL) {
+    return;
+  }
+
+  int32_t i;
+
+  for (i=0; i<size; ++i) {
+    _reql_json_destroy(pair[i].key);
+    _reql_json_destroy(pair[i].val);
+  }
+  
+  free(pair);
+}
+
+void _reql_json_destroy(_ReQL_Op json) {
+  if (json == NULL) {
+    return;
+  }
+
+  switch (_reql_datum_type(json)) {
+    case _REQL_R_ARRAY: {
+      _reql_arr_destroy(json->obj.datum.json.array.arr, json->obj.datum.json.array.alloc_size);
+      break;
+    }
+    case _REQL_R_BOOL:
+    case _REQL_R_JSON:
+    case _REQL_R_NULL:
+    case _REQL_R_NUM: break;
+    case _REQL_R_OBJECT: {
+      _reql_pair_destroy(json->obj.datum.json.object.pair, json->obj.datum.json.object.alloc_size);
+      break;
+    }
+    case _REQL_R_REQL: {
+      _reql_json_destroy(json->obj.args.args);
+      _reql_json_destroy(json->obj.args.kwargs);
+      break;
+    }
+    case _REQL_R_STR: {
+      if (json->obj.datum.json.string.str != NULL) {
+        free(json->obj.datum.json.string.str);
+      }
+      break;
+    }
+  }
+
+  free(json);
 }

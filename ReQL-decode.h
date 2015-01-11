@@ -1,5 +1,5 @@
 /*
-Copyright 2014 Adam Grandquist
+Copyright 2014-2015 Adam Grandquist
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -21,3 +21,4 @@ limitations under the License.
 #include "ReQL-json.h"
 
 _ReQL_Op _reql_decode(uint8_t *json, uint32_t size);
+void _reql_json_destroy(_ReQL_Op json);
