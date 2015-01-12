@@ -311,15 +311,11 @@ def mangle_objc_const(name)
   mangle_const name, objc_keyword?(name)
 end
 
-def build(f_name, regex, join_str = "\n", block = Proc.new)
-  m = nil
+def regx(conv)
+  /#{Regexp.escape send(conv, 'ADD')}.*#{Regexp.escape send(conv, 'ZIP')}/m
+end
 
-  open(f_name, File::RDONLY, 0644) do |f|
-    m = regex.match f.read
-  end
-
-  return unless m
-
+def build_output(f_name, m, join_str, block = Proc.new)
   open(f_name, File::RDWR | File::TRUNC, 0644) do |f|
     f.write(m.pre_match)
 
@@ -331,32 +327,19 @@ def build(f_name, regex, join_str = "\n", block = Proc.new)
   end
 end
 
-first_term = 'ADD'
-last_term = 'ZIP'
+def build(f_name, regex, join_str = "\n", block = Proc.new)
+  m = nil
 
-def cpp_term_imp(name)
-  Regexp.escape "
-/**
- */#{
-"
-Query AST::#{mangle_cpp_const name}(std::vector<Query> args, std::map<std::string, Query> kwargs) {
-  return init(#{c_ast_name name}, this, args, kwargs);
-}
-Query #{mangle_cpp_const name}(std::vector<Query> args, std::map<std::string, Query> kwargs) {
-  return init(#{c_ast_name name}, args, kwargs);
-}" if opts? name
-}
-Query AST::#{mangle_cpp_const name}(std::vector<Query> args) {
-  return init(#{c_ast_name name}, this, args);
-}
-Query #{mangle_cpp_const name}(std::vector<Query> args) {
-  return init(#{c_ast_name name}, args);
-}"
+  open(f_name, File::RDONLY, 0644) do |f|
+    m = regx(regex).match f.read
+  end
+
+  return unless m
+
+  build_output(f_name, m, join_str, block)
 end
 
-regx = /#{cpp_term_imp first_term}.*#{cpp_term_imp last_term}/m
-
-build('ReQL-ast.cpp', regx) do |name|
+def cpp_term_imp(name)
   "#{
 "
 Query
@@ -378,20 +361,11 @@ Query
 }"
 end
 
-def cpp_term_class(name)
-  Regexp.escape "
-  /**
-   */#{
-      "\n  Query #{
-        mangle_cpp_const name
-      }(std::vector<Query>, std::map<std::string, Query>);" if opts? name
-    }
-  Query #{mangle_cpp_const name}(std::vector<Query>);"
+build('ReQL-ast.cpp', :cpp_term_imp) do |name|
+  cpp_term_imp name
 end
 
-regx = /#{cpp_term_class first_term}.*#{cpp_term_class last_term}/m
-
-build('ReQL-ast.hpp', regx) do |name|
+def cpp_term_class(name)
   "
   /**
    */#{
@@ -405,20 +379,11 @@ build('ReQL-ast.hpp', regx) do |name|
   #{mangle_cpp_const name}(std::vector<Query>);"
 end
 
-def cpp_term_def(name)
-  Regexp.escape "
-/**
- */#{
-  "\nQuery #{
-  mangle_cpp_const name
-  }(std::vector<Query>, std::map<std::string, Query>);" if opts? name
-}
-Query #{mangle_cpp_const name}(std::vector<Query>);"
+build('ReQL-ast.hpp', :cpp_term_class) do |name|
+  cpp_term_class name
 end
 
-regx = /#{cpp_term_def first_term}.*#{cpp_term_def last_term}/m
-
-build('ReQL-ast.hpp', regx) do |name|
+def cpp_term_def(name)
   "
 /**
  */#{
@@ -432,30 +397,11 @@ Query
 #{mangle_cpp_const name}(std::vector<Query>);"
 end
 
-def lua_term_imp(name)
-  Regexp.escape "
-/**
- */
-int #{lua_ast_name name}(lua_State *L) {
-  return _reql_lua_#{
-    if opts? name
-      'get_opts'
-    else
-      'ast_class'
-    end
-  }(L, #{c_ast_name name}#{
-    if opts? name
-      ''
-    else
-      ', NULL'
-    end
-  });
-}"
+build('ReQL-ast.hpp', :cpp_term_def) do |name|
+  cpp_term_def name
 end
 
-regx = /#{lua_term_imp first_term}.*#{lua_term_imp last_term}/m
-
-build('ReQL-ast-Lua.c', regx) do |name|
+def lua_term_imp(name)
   "
 extern int
 #{lua_ast_name name}(lua_State *L) {
@@ -475,16 +421,11 @@ extern int
 }"
 end
 
-def lua_term_def(name)
-  Regexp.escape "
-/**
- */
-int #{lua_ast_name name}(lua_State *L);"
+build('ReQL-ast-Lua.c', :lua_term_imp) do |name|
+  lua_term_imp name
 end
 
-regx = /#{lua_term_def first_term}.*#{lua_term_def last_term}/m
-
-build('ReQL-ast-Lua.h', regx) do |name|
+def lua_term_def(name)
   "
 /**
  */
@@ -492,27 +433,13 @@ extern int
 #{lua_ast_name name}(lua_State *L);"
 end
 
-def node_term_imp(name)
-  Regexp.escape "
-/**
- */
-v8::Handle<v8::Value> #{node_ast_name name}(const v8::Arguments& args) {
-  v8::HandleScope scope;
-
-  v8::Local<v8::Object> obj = v8::Object::New();
-
-  if (!args[0]->IsUndefined()) {
-  }
-
-  return scope.Close(obj);
-}"
+build('ReQL-ast-Lua.h', :lua_term_def) do |name|
+  lua_term_def name
 end
 
-regx = /#{node_term_imp first_term}.*#{node_term_imp last_term}/m
-
-build('ReQL-ast-Node.cpp', regx) do |name|
+def node_term_imp(name)
   "
-extern v8::Handle<v8::Value>
+v8::Handle<v8::Value>
 #{node_ast_name name}(const v8::Arguments& args) {
   v8::HandleScope scope;
 
@@ -525,33 +452,23 @@ extern v8::Handle<v8::Value>
 }"
 end
 
-def node_term_def(name)
-  Regexp.escape "
-/**
- */
-v8::Handle<v8::Value> #{node_ast_name name}(const v8::Arguments& args);"
+build('ReQL-ast-Node.cpp', :node_term_imp) do |name|
+  node_term_imp name
 end
 
-regx = /#{node_term_def first_term}.*#{node_term_def last_term}/m
-
-build('ReQL-ast-Node.hpp', regx) do |name|
+def node_term_def(name)
   "
 /**
  */
-extern v8::Handle<v8::Value>
+v8::Handle<v8::Value>
 #{node_ast_name name}(const v8::Arguments& args);"
 end
 
-def objc_term_def(name)
-  Regexp.escape "
-/**
- */
--(instancetype)#{mangle_objc_const name};"
+build('ReQL-ast-Node.hpp', :node_term_def) do |name|
+  node_term_def name
 end
 
-regx = /#{objc_term_def first_term}.*#{objc_term_def last_term}/m
-
-build('ReQL-ast-ObjC.h', regx) do |name|
+def objc_term_def(name)
   "
 /**
  */
@@ -559,18 +476,11 @@ build('ReQL-ast-ObjC.h', regx) do |name|
 #{mangle_objc_const name};"
 end
 
-def objc_term_imp(name)
-  Regexp.escape "
-/**
- */
--(instancetype) #{mangle_objc_const name} {
-  return self;
-}"
+build('ReQL-ast-ObjC.h', :objc_term_def) do |name|
+  objc_term_def name
 end
 
-regx = /#{objc_term_imp first_term}.*#{objc_term_imp last_term}/m
-
-build('ReQL-ast-ObjC.m', regx) do |name|
+def objc_term_imp(name)
   "
 -(instancetype)
 #{mangle_objc_const name} {
@@ -578,11 +488,14 @@ build('ReQL-ast-ObjC.m', regx) do |name|
 }"
 end
 
+build('ReQL-ast-ObjC.m', :objc_term_imp) do |name|
+  objc_term_imp name
+end
+
 def py_term_imp(name)
-  Regexp.escape "
-/**
- */
-static PyObject *#{py_ast_name name}(PyObject *self, PyObject *args, PyObject *kwargs) {
+  "
+extern PyObject *
+#{py_ast_name name}(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
   static char *kwlist[] = {NULL};
@@ -597,36 +510,11 @@ static PyObject *#{py_ast_name name}(PyObject *self, PyObject *args, PyObject *k
 }"
 end
 
-regx = /#{py_term_imp first_term}.*#{py_term_imp last_term}/m
-
-build('ReQL-ast-Python.c', regx) do |name|
-  "
-extern PyObject *
-#{py_ast_name name}(PyObject *self, PyObject *args, PyObject *kwargs) {
-  PyObject *val;
-
-  static char *kwlist[] = {NULL};
-
-  if (!PyArg_ParseTupleAndKeywords(args, kwargs, \"o:r.#{
-    name.downcase
-    }\", kwlist, &val)) {
-    return self;
-  }
-
-  return val;
-}"
+build('ReQL-ast-Python.c', :py_term_imp) do |name|
+  py_term_imp name
 end
 
 def py_term_def(name)
-  Regexp.escape "
-/**
- */
-static PyObject *#{py_ast_name name}(PyObject *self, PyObject *args, PyObject *kwargs);"
-end
-
-regx = /#{py_term_def first_term}.*#{py_term_def last_term}/m
-
-build('ReQL-ast-Python.h', regx) do |name|
   "
 /**
  */
@@ -634,18 +522,11 @@ extern PyObject *
 #{py_ast_name name}(PyObject *self, PyObject *args, PyObject *kwargs);"
 end
 
-def rb_term_imp(name)
-  Regexp.escape "
-/**
- */
-static VALUE #{rb_ast_name name}(int argn, VALUE *args, VALUE self) {
-  return self;
-}"
+build('ReQL-ast-Python.h', :py_term_def) do |name|
+  py_term_def name
 end
 
-regx = /#{rb_term_imp first_term}.*#{rb_term_imp last_term}/m
-
-build('ReQL-ast-Ruby.c', regx) do |name|
+def rb_term_imp(name)
   "
 extern VALUE
 #{rb_ast_name name}(int argn, VALUE *args, VALUE self) {
@@ -653,16 +534,11 @@ extern VALUE
 }"
 end
 
-def rb_term_def(name)
-  Regexp.escape "
-/**
- */
-static VALUE #{rb_ast_name name}(int argn, VALUE *args, VALUE self);"
+build('ReQL-ast-Ruby.c', :rb_term_imp) do |name|
+  rb_term_imp name
 end
 
-regx = /#{rb_term_def first_term}.*#{rb_term_def last_term}/m
-
-build('ReQL-ast-Ruby.h', regx) do |name|
+def rb_term_def(name)
   "
 /**
  */
@@ -670,20 +546,11 @@ extern VALUE
 #{rb_ast_name name}(int argn, VALUE *args, VALUE self);"
 end
 
-def term_imp(name)
-  Regexp.escape "
-/**
- */
-void #{c_ast_name name}(_ReQL_Op term, _ReQL_Op args, _ReQL_Op kwargs) {
-  term->tt = _REQL_#{name};
-  term->obj.args.args = args;
-  term->obj.args.kwargs = kwargs;
-}"
+build('ReQL-ast-Ruby.h', :rb_term_def) do |name|
+  rb_term_def name
 end
 
-regx = /#{term_imp first_term}.*#{term_imp last_term}/m
-
-build('ReQL-ast.c', regx) do |name|
+def term_imp(name)
   "
 extern void
 #{c_ast_name name}(_ReQL_Op term, _ReQL_Op args, _ReQL_Op kwargs) {
@@ -693,16 +560,11 @@ extern void
 }"
 end
 
-def term_def(name)
-  Regexp.escape "
-/**
- */
-void #{c_ast_name name}(_ReQL_Op term, _ReQL_Op args, _ReQL_Op kwargs);"
+build('ReQL-ast.c', :term_imp) do |name|
+  term_imp name
 end
 
-regx = /#{term_def first_term}.*#{term_def last_term}/m
-
-build('ReQL-ast.h', regx) do |name|
+def term_def(name)
   "
 /**
  */
@@ -710,13 +572,15 @@ extern void
 #{c_ast_name name}(_ReQL_Op term, _ReQL_Op args, _ReQL_Op kwargs);"
 end
 
+build('ReQL-ast.h', :term_def) do |name|
+  term_def name
+end
+
 def enum_def(name)
   "_REQL_#{name} = #{RethinkDB::Term::TermType.const_get name}"
 end
 
-regx = /#{Regexp.escape enum_def first_term}.*#{Regexp.escape enum_def last_term}/m
-
-build('ReQL-json.h', regx, ",\n  ") do |name|
+build('ReQL-json.h', :enum_def, ",\n  ") do |name|
   enum_def name
 end
 
@@ -724,8 +588,6 @@ def lua_lib(name)
   "{\"#{mangle_lua_const name}\", #{lua_ast_name name}},"
 end
 
-regx = /#{Regexp.escape lua_lib first_term}.*#{Regexp.escape lua_lib last_term}/m
-
-build('ReQL-Lua.c', regx, "\n  ") do |name|
+build('ReQL-Lua.c', :lua_lib, "\n  ") do |name|
   lua_lib name
 end
