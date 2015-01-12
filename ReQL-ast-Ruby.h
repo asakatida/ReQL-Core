@@ -116,6 +116,11 @@ _reql_rb_concat_map(int argn, VALUE *args, VALUE self);
 /**
  */
 extern VALUE
+_reql_rb_config(int argn, VALUE *args, VALUE self);
+
+/**
+ */
+extern VALUE
 _reql_rb_contains(int argn, VALUE *args, VALUE self);
 
 /**
@@ -152,11 +157,6 @@ _reql_rb_day_of_year(int argn, VALUE *args, VALUE self);
  */
 extern VALUE
 _reql_rb_db(int argn, VALUE *args, VALUE self);
-
-/**
- */
-extern VALUE
-_reql_rb_db_config(int argn, VALUE *args, VALUE self);
 
 /**
  */
@@ -716,6 +716,11 @@ _reql_rb_split(int argn, VALUE *args, VALUE self);
 /**
  */
 extern VALUE
+_reql_rb_status(int argn, VALUE *args, VALUE self);
+
+/**
+ */
+extern VALUE
 _reql_rb_sub(int argn, VALUE *args, VALUE self);
 
 /**
@@ -741,11 +746,6 @@ _reql_rb_table(int argn, VALUE *args, VALUE self);
 /**
  */
 extern VALUE
-_reql_rb_table_config(int argn, VALUE *args, VALUE self);
-
-/**
- */
-extern VALUE
 _reql_rb_table_create(int argn, VALUE *args, VALUE self);
 
 /**
@@ -757,16 +757,6 @@ _reql_rb_table_drop(int argn, VALUE *args, VALUE self);
  */
 extern VALUE
 _reql_rb_table_list(int argn, VALUE *args, VALUE self);
-
-/**
- */
-extern VALUE
-_reql_rb_table_status(int argn, VALUE *args, VALUE self);
-
-/**
- */
-extern VALUE
-_reql_rb_table_wait(int argn, VALUE *args, VALUE self);
 
 /**
  */
@@ -847,6 +837,11 @@ _reql_rb_uuid(int argn, VALUE *args, VALUE self);
  */
 extern VALUE
 _reql_rb_var(int argn, VALUE *args, VALUE self);
+
+/**
+ */
+extern VALUE
+_reql_rb_wait(int argn, VALUE *args, VALUE self);
 
 /**
  */

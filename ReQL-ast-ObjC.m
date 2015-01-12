@@ -115,6 +115,11 @@ concat_map {
 }
 
 -(instancetype)
+config {
+  return self;
+}
+
+-(instancetype)
 contains {
   return self;
 }
@@ -151,11 +156,6 @@ day_of_year {
 
 -(instancetype)
 db {
-  return self;
-}
-
--(instancetype)
-db_config {
   return self;
 }
 
@@ -715,6 +715,11 @@ split {
 }
 
 -(instancetype)
+status {
+  return self;
+}
+
+-(instancetype)
 sub {
   return self;
 }
@@ -740,11 +745,6 @@ table {
 }
 
 -(instancetype)
-table_config {
-  return self;
-}
-
--(instancetype)
 table_create {
   return self;
 }
@@ -756,16 +756,6 @@ table_drop {
 
 -(instancetype)
 table_list {
-  return self;
-}
-
--(instancetype)
-table_status {
-  return self;
-}
-
--(instancetype)
-table_wait {
   return self;
 }
 
@@ -846,6 +836,11 @@ uuid {
 
 -(instancetype)
 var {
+  return self;
+}
+
+-(instancetype)
+wait {
   return self;
 }
 

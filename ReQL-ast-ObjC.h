@@ -115,6 +115,11 @@ concat_map;
 /**
  */
 -(instancetype)
+config;
+
+/**
+ */
+-(instancetype)
 contains;
 
 /**
@@ -151,11 +156,6 @@ day_of_year;
  */
 -(instancetype)
 db;
-
-/**
- */
--(instancetype)
-db_config;
 
 /**
  */
@@ -715,6 +715,11 @@ split;
 /**
  */
 -(instancetype)
+status;
+
+/**
+ */
+-(instancetype)
 sub;
 
 /**
@@ -740,11 +745,6 @@ table;
 /**
  */
 -(instancetype)
-table_config;
-
-/**
- */
--(instancetype)
 table_create;
 
 /**
@@ -756,16 +756,6 @@ table_drop;
  */
 -(instancetype)
 table_list;
-
-/**
- */
--(instancetype)
-table_status;
-
-/**
- */
--(instancetype)
-table_wait;
 
 /**
  */
@@ -846,6 +836,11 @@ uuid;
  */
 -(instancetype)
 var;
+
+/**
+ */
+-(instancetype)
+wait;
 
 /**
  */

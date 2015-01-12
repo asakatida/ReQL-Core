@@ -131,6 +131,11 @@ public:
   /**
    */
   Query
+  config(std::vector<Query>);
+
+  /**
+   */
+  Query
   contains(std::vector<Query>);
 
   /**
@@ -167,11 +172,6 @@ public:
    */
   Query
   db(std::vector<Query>);
-
-  /**
-   */
-  Query
-  db_config(std::vector<Query>);
 
   /**
    */
@@ -765,6 +765,11 @@ public:
   /**
    */
   Query
+  status(std::vector<Query>);
+
+  /**
+   */
+  Query
   sub(std::vector<Query>);
 
   /**
@@ -792,11 +797,6 @@ public:
   /**
    */
   Query
-  table_config(std::vector<Query>);
-
-  /**
-   */
-  Query
   table_create(std::vector<Query>, std::map<std::string, Query>);
   Query
   table_create(std::vector<Query>);
@@ -810,16 +810,6 @@ public:
    */
   Query
   table_list(std::vector<Query>);
-
-  /**
-   */
-  Query
-  table_status(std::vector<Query>);
-
-  /**
-   */
-  Query
-  table_wait(std::vector<Query>);
 
   /**
    */
@@ -902,6 +892,11 @@ public:
    */
   Query
   var(std::vector<Query>);
+
+  /**
+   */
+  Query
+  wait(std::vector<Query>);
 
   /**
    */
@@ -1025,6 +1020,11 @@ concat_map(std::vector<Query>);
 /**
  */
 Query
+config(std::vector<Query>);
+
+/**
+ */
+Query
 contains(std::vector<Query>);
 
 /**
@@ -1061,11 +1061,6 @@ day_of_year(std::vector<Query>);
  */
 Query
 db(std::vector<Query>);
-
-/**
- */
-Query
-db_config(std::vector<Query>);
 
 /**
  */
@@ -1659,6 +1654,11 @@ split(std::vector<Query>);
 /**
  */
 Query
+status(std::vector<Query>);
+
+/**
+ */
+Query
 sub(std::vector<Query>);
 
 /**
@@ -1686,11 +1686,6 @@ table(std::vector<Query>);
 /**
  */
 Query
-table_config(std::vector<Query>);
-
-/**
- */
-Query
 table_create(std::vector<Query>, std::map<std::string, Query>);
 Query
 table_create(std::vector<Query>);
@@ -1704,16 +1699,6 @@ table_drop(std::vector<Query>);
  */
 Query
 table_list(std::vector<Query>);
-
-/**
- */
-Query
-table_status(std::vector<Query>);
-
-/**
- */
-Query
-table_wait(std::vector<Query>);
 
 /**
  */
@@ -1796,6 +1781,11 @@ uuid(std::vector<Query>);
  */
 Query
 var(std::vector<Query>);
+
+/**
+ */
+Query
+wait(std::vector<Query>);
 
 /**
  */

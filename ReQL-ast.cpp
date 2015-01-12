@@ -239,6 +239,15 @@ concat_map(std::vector<Query> args) {
 }
 
 Query
+AST::config(std::vector<Query> args) {
+  return init(_reql_ast_config, this, args);
+}
+Query
+config(std::vector<Query> args) {
+  return init(_reql_ast_config, args);
+}
+
+Query
 AST::contains(std::vector<Query> args) {
   return init(_reql_ast_contains, this, args);
 }
@@ -308,15 +317,6 @@ AST::db(std::vector<Query> args) {
 Query
 db(std::vector<Query> args) {
   return init(_reql_ast_db, args);
-}
-
-Query
-AST::db_config(std::vector<Query> args) {
-  return init(_reql_ast_db_config, this, args);
-}
-Query
-db_config(std::vector<Query> args) {
-  return init(_reql_ast_db_config, args);
 }
 
 Query
@@ -1455,6 +1455,15 @@ split(std::vector<Query> args) {
 }
 
 Query
+AST::status(std::vector<Query> args) {
+  return init(_reql_ast_status, this, args);
+}
+Query
+status(std::vector<Query> args) {
+  return init(_reql_ast_status, args);
+}
+
+Query
 AST::sub(std::vector<Query> args) {
   return init(_reql_ast_sub, this, args);
 }
@@ -1508,15 +1517,6 @@ table(std::vector<Query> args) {
 }
 
 Query
-AST::table_config(std::vector<Query> args) {
-  return init(_reql_ast_table_config, this, args);
-}
-Query
-table_config(std::vector<Query> args) {
-  return init(_reql_ast_table_config, args);
-}
-
-Query
 AST::table_create(std::vector<Query> args, std::map<std::string, Query> kwargs) {
   return init(_reql_ast_table_create, this, args, kwargs);
 }
@@ -1549,24 +1549,6 @@ AST::table_list(std::vector<Query> args) {
 Query
 table_list(std::vector<Query> args) {
   return init(_reql_ast_table_list, args);
-}
-
-Query
-AST::table_status(std::vector<Query> args) {
-  return init(_reql_ast_table_status, this, args);
-}
-Query
-table_status(std::vector<Query> args) {
-  return init(_reql_ast_table_status, args);
-}
-
-Query
-AST::table_wait(std::vector<Query> args) {
-  return init(_reql_ast_table_wait, this, args);
-}
-Query
-table_wait(std::vector<Query> args) {
-  return init(_reql_ast_table_wait, args);
 }
 
 Query
@@ -1719,6 +1701,15 @@ AST::var(std::vector<Query> args) {
 Query
 var(std::vector<Query> args) {
   return init(_reql_ast_var, args);
+}
+
+Query
+AST::wait(std::vector<Query> args) {
+  return init(_reql_ast_wait, this, args);
+}
+Query
+wait(std::vector<Query> args) {
+  return init(_reql_ast_wait, args);
 }
 
 Query

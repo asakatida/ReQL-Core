@@ -116,6 +116,11 @@ _reql_lua_concat_map(lua_State *L);
 /**
  */
 extern int
+_reql_lua_config(lua_State *L);
+
+/**
+ */
+extern int
 _reql_lua_contains(lua_State *L);
 
 /**
@@ -152,11 +157,6 @@ _reql_lua_day_of_year(lua_State *L);
  */
 extern int
 _reql_lua_db(lua_State *L);
-
-/**
- */
-extern int
-_reql_lua_db_config(lua_State *L);
 
 /**
  */
@@ -716,6 +716,11 @@ _reql_lua_split(lua_State *L);
 /**
  */
 extern int
+_reql_lua_status(lua_State *L);
+
+/**
+ */
+extern int
 _reql_lua_sub(lua_State *L);
 
 /**
@@ -741,11 +746,6 @@ _reql_lua_table(lua_State *L);
 /**
  */
 extern int
-_reql_lua_table_config(lua_State *L);
-
-/**
- */
-extern int
 _reql_lua_table_create(lua_State *L);
 
 /**
@@ -757,16 +757,6 @@ _reql_lua_table_drop(lua_State *L);
  */
 extern int
 _reql_lua_table_list(lua_State *L);
-
-/**
- */
-extern int
-_reql_lua_table_status(lua_State *L);
-
-/**
- */
-extern int
-_reql_lua_table_wait(lua_State *L);
 
 /**
  */
@@ -847,6 +837,11 @@ _reql_lua_uuid(lua_State *L);
  */
 extern int
 _reql_lua_var(lua_State *L);
+
+/**
+ */
+extern int
+_reql_lua_wait(lua_State *L);
 
 /**
  */

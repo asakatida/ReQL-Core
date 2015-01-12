@@ -149,6 +149,13 @@ _reql_ast_concat_map(_ReQL_Op term, _ReQL_Op args, _ReQL_Op kwargs) {
 }
 
 extern void
+_reql_ast_config(_ReQL_Op term, _ReQL_Op args, _ReQL_Op kwargs) {
+  term->tt = _REQL_CONFIG;
+  term->obj.args.args = args;
+  term->obj.args.kwargs = kwargs;
+}
+
+extern void
 _reql_ast_contains(_ReQL_Op term, _ReQL_Op args, _ReQL_Op kwargs) {
   term->tt = _REQL_CONTAINS;
   term->obj.args.args = args;
@@ -200,13 +207,6 @@ _reql_ast_day_of_year(_ReQL_Op term, _ReQL_Op args, _ReQL_Op kwargs) {
 extern void
 _reql_ast_db(_ReQL_Op term, _ReQL_Op args, _ReQL_Op kwargs) {
   term->tt = _REQL_DB;
-  term->obj.args.args = args;
-  term->obj.args.kwargs = kwargs;
-}
-
-extern void
-_reql_ast_db_config(_ReQL_Op term, _ReQL_Op args, _ReQL_Op kwargs) {
-  term->tt = _REQL_DB_CONFIG;
   term->obj.args.args = args;
   term->obj.args.kwargs = kwargs;
 }
@@ -989,6 +989,13 @@ _reql_ast_split(_ReQL_Op term, _ReQL_Op args, _ReQL_Op kwargs) {
 }
 
 extern void
+_reql_ast_status(_ReQL_Op term, _ReQL_Op args, _ReQL_Op kwargs) {
+  term->tt = _REQL_STATUS;
+  term->obj.args.args = args;
+  term->obj.args.kwargs = kwargs;
+}
+
+extern void
 _reql_ast_sub(_ReQL_Op term, _ReQL_Op args, _ReQL_Op kwargs) {
   term->tt = _REQL_SUB;
   term->obj.args.args = args;
@@ -1024,13 +1031,6 @@ _reql_ast_table(_ReQL_Op term, _ReQL_Op args, _ReQL_Op kwargs) {
 }
 
 extern void
-_reql_ast_table_config(_ReQL_Op term, _ReQL_Op args, _ReQL_Op kwargs) {
-  term->tt = _REQL_TABLE_CONFIG;
-  term->obj.args.args = args;
-  term->obj.args.kwargs = kwargs;
-}
-
-extern void
 _reql_ast_table_create(_ReQL_Op term, _ReQL_Op args, _ReQL_Op kwargs) {
   term->tt = _REQL_TABLE_CREATE;
   term->obj.args.args = args;
@@ -1047,20 +1047,6 @@ _reql_ast_table_drop(_ReQL_Op term, _ReQL_Op args, _ReQL_Op kwargs) {
 extern void
 _reql_ast_table_list(_ReQL_Op term, _ReQL_Op args, _ReQL_Op kwargs) {
   term->tt = _REQL_TABLE_LIST;
-  term->obj.args.args = args;
-  term->obj.args.kwargs = kwargs;
-}
-
-extern void
-_reql_ast_table_status(_ReQL_Op term, _ReQL_Op args, _ReQL_Op kwargs) {
-  term->tt = _REQL_TABLE_STATUS;
-  term->obj.args.args = args;
-  term->obj.args.kwargs = kwargs;
-}
-
-extern void
-_reql_ast_table_wait(_ReQL_Op term, _ReQL_Op args, _ReQL_Op kwargs) {
-  term->tt = _REQL_TABLE_WAIT;
   term->obj.args.args = args;
   term->obj.args.kwargs = kwargs;
 }
@@ -1173,6 +1159,13 @@ _reql_ast_uuid(_ReQL_Op term, _ReQL_Op args, _ReQL_Op kwargs) {
 extern void
 _reql_ast_var(_ReQL_Op term, _ReQL_Op args, _ReQL_Op kwargs) {
   term->tt = _REQL_VAR;
+  term->obj.args.args = args;
+  term->obj.args.kwargs = kwargs;
+}
+
+extern void
+_reql_ast_wait(_ReQL_Op term, _ReQL_Op args, _ReQL_Op kwargs) {
+  term->tt = _REQL_WAIT;
   term->obj.args.args = args;
   term->obj.args.kwargs = kwargs;
 }

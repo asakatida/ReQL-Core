@@ -116,6 +116,11 @@ _reql_py_concat_map(PyObject *self, PyObject *args, PyObject *kwargs);
 /**
  */
 extern PyObject *
+_reql_py_config(PyObject *self, PyObject *args, PyObject *kwargs);
+
+/**
+ */
+extern PyObject *
 _reql_py_contains(PyObject *self, PyObject *args, PyObject *kwargs);
 
 /**
@@ -152,11 +157,6 @@ _reql_py_day_of_year(PyObject *self, PyObject *args, PyObject *kwargs);
  */
 extern PyObject *
 _reql_py_db(PyObject *self, PyObject *args, PyObject *kwargs);
-
-/**
- */
-extern PyObject *
-_reql_py_db_config(PyObject *self, PyObject *args, PyObject *kwargs);
 
 /**
  */
@@ -716,6 +716,11 @@ _reql_py_split(PyObject *self, PyObject *args, PyObject *kwargs);
 /**
  */
 extern PyObject *
+_reql_py_status(PyObject *self, PyObject *args, PyObject *kwargs);
+
+/**
+ */
+extern PyObject *
 _reql_py_sub(PyObject *self, PyObject *args, PyObject *kwargs);
 
 /**
@@ -741,11 +746,6 @@ _reql_py_table(PyObject *self, PyObject *args, PyObject *kwargs);
 /**
  */
 extern PyObject *
-_reql_py_table_config(PyObject *self, PyObject *args, PyObject *kwargs);
-
-/**
- */
-extern PyObject *
 _reql_py_table_create(PyObject *self, PyObject *args, PyObject *kwargs);
 
 /**
@@ -757,16 +757,6 @@ _reql_py_table_drop(PyObject *self, PyObject *args, PyObject *kwargs);
  */
 extern PyObject *
 _reql_py_table_list(PyObject *self, PyObject *args, PyObject *kwargs);
-
-/**
- */
-extern PyObject *
-_reql_py_table_status(PyObject *self, PyObject *args, PyObject *kwargs);
-
-/**
- */
-extern PyObject *
-_reql_py_table_wait(PyObject *self, PyObject *args, PyObject *kwargs);
 
 /**
  */
@@ -847,6 +837,11 @@ _reql_py_uuid(PyObject *self, PyObject *args, PyObject *kwargs);
  */
 extern PyObject *
 _reql_py_var(PyObject *self, PyObject *args, PyObject *kwargs);
+
+/**
+ */
+extern PyObject *
+_reql_py_wait(PyObject *self, PyObject *args, PyObject *kwargs);
 
 /**
  */

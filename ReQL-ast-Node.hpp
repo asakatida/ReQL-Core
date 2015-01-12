@@ -116,6 +116,11 @@ _reql_node_concat_map(const v8::Arguments& args);
 /**
  */
 v8::Handle<v8::Value>
+_reql_node_config(const v8::Arguments& args);
+
+/**
+ */
+v8::Handle<v8::Value>
 _reql_node_contains(const v8::Arguments& args);
 
 /**
@@ -152,11 +157,6 @@ _reql_node_day_of_year(const v8::Arguments& args);
  */
 v8::Handle<v8::Value>
 _reql_node_db(const v8::Arguments& args);
-
-/**
- */
-v8::Handle<v8::Value>
-_reql_node_db_config(const v8::Arguments& args);
 
 /**
  */
@@ -716,6 +716,11 @@ _reql_node_split(const v8::Arguments& args);
 /**
  */
 v8::Handle<v8::Value>
+_reql_node_status(const v8::Arguments& args);
+
+/**
+ */
+v8::Handle<v8::Value>
 _reql_node_sub(const v8::Arguments& args);
 
 /**
@@ -741,11 +746,6 @@ _reql_node_table(const v8::Arguments& args);
 /**
  */
 v8::Handle<v8::Value>
-_reql_node_table_config(const v8::Arguments& args);
-
-/**
- */
-v8::Handle<v8::Value>
 _reql_node_table_create(const v8::Arguments& args);
 
 /**
@@ -757,16 +757,6 @@ _reql_node_table_drop(const v8::Arguments& args);
  */
 v8::Handle<v8::Value>
 _reql_node_table_list(const v8::Arguments& args);
-
-/**
- */
-v8::Handle<v8::Value>
-_reql_node_table_status(const v8::Arguments& args);
-
-/**
- */
-v8::Handle<v8::Value>
-_reql_node_table_wait(const v8::Arguments& args);
 
 /**
  */
@@ -847,6 +837,11 @@ _reql_node_uuid(const v8::Arguments& args);
  */
 v8::Handle<v8::Value>
 _reql_node_var(const v8::Arguments& args);
+
+/**
+ */
+v8::Handle<v8::Value>
+_reql_node_wait(const v8::Arguments& args);
 
 /**
  */
