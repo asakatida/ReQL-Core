@@ -61,7 +61,7 @@ _reql_merge_stack(_ReQL_Op stack) {
 static uint32_t
 _reql_string_decode(uint32_t size, uint8_t *json) {
   uint8_t res;
-  uint32_t i, j = -1;
+  uint32_t i, j = 0;
   for (i=0; i<size; ++i) {
     res = json[i];
     if (res == 0x5C) { /* \ */
@@ -94,7 +94,8 @@ _reql_string_decode(uint32_t size, uint8_t *json) {
         case 'u': {
           res = 'u';
           if ((i + 4) < size) {
-            char hex, valid = 1;
+            char valid = 1;
+            uint8_t hex;
             int n;
             for (n=1; n<=4; ++n) {
               hex = json[i + n];
@@ -105,8 +106,11 @@ _reql_string_decode(uint32_t size, uint8_t *json) {
               }
             }
             if (valid) {
+              if (json[++i] != '0' || json[++i] != '0') {
+                return -1;
+              }
               res = 0;
-              for (n=3; n>=0; --n) {
+              for (n=1; n>=0; --n) {
                 hex = json[++i];
                 if (hex >= '0' && hex <= '9') {
                   hex -= '0';
@@ -123,7 +127,7 @@ _reql_string_decode(uint32_t size, uint8_t *json) {
         }
       }
     }
-    json[++j] = res;
+    json[j++] = res;
   }
   return j;
 }
@@ -325,8 +329,15 @@ _reql_decode_(_ReQL_Op stack, uint8_t *json, uint32_t size) {
           }
           case 0x22: { /* " */
             if (!esc) {
+              uint32_t orig_size = i - str_start - 1;
+              uint32_t size = _reql_string_decode(orig_size, &json[str_start]);
+
+              if (orig_size < size) {
+                return NULL;
+              }
+
               _ReQL_Op obj = malloc(sizeof(_ReQL_Op_t));
-              _reql_string_init(obj, &json[str_start], _reql_string_decode(i - str_start - 1, &json[str_start]));
+              _reql_string_init(obj, &json[str_start], size);
               state = _reql_merge_stack_val(stack, obj);
               break;
             }
