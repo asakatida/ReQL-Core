@@ -26,7 +26,8 @@ limitations under the License.
 #include <stdlib.h>
 #include <string.h>
 
-int _reql_string_append(_ReQL_String_t *obj, const uint8_t *ext, uint32_t size) {
+static int
+_reql_string_append(_ReQL_String_t *obj, const uint8_t *ext, uint32_t size) {
   if (obj->alloc_size <= (obj->size + size)) {
     obj->alloc_size += size;
     obj->alloc_size *= 1.1;
@@ -50,7 +51,8 @@ int _reql_string_append(_ReQL_String_t *obj, const uint8_t *ext, uint32_t size) 
   return 0;
 }
 
-int _reql_string_append_(_ReQL_String_t *json, const uint8_t ext) {
+static int
+_reql_string_append_(_ReQL_String_t *json, const uint8_t ext) {
   if (json->alloc_size <= (json->size + 1)) {
     uint8_t _ext[1] = {ext};
     return _reql_string_append(json, _ext, 1);
@@ -63,7 +65,8 @@ int _reql_string_append_(_ReQL_String_t *json, const uint8_t ext) {
   return 0;
 }
 
-int _reql_escape_string(_ReQL_String_t *json, const uint8_t *str, uint32_t size) {
+static int
+_reql_escape_string(_ReQL_String_t *json, const uint8_t *str, uint32_t size) {
   if (_reql_string_append_(json, quotation)) {
     return -1;
   }
@@ -80,7 +83,8 @@ int _reql_escape_string(_ReQL_String_t *json, const uint8_t *str, uint32_t size)
   return _reql_string_append_(json, quotation);
 }
 
-int _reql_encode_(_ReQL_Op obj, _ReQL_String_t *json) {
+static int
+_reql_encode_(_ReQL_Op obj, _ReQL_String_t *json) {
   switch (_reql_datum_type(obj)) {
     case _REQL_R_ARRAY: {
       if (_reql_string_append_(json, left_square_bracket)) {
@@ -178,7 +182,8 @@ int _reql_encode_(_ReQL_Op obj, _ReQL_String_t *json) {
   return -1;
 }
 
-_ReQL_String_t *_reql_encode(_ReQL_Op val) {
+extern _ReQL_String_t *
+_reql_encode(_ReQL_Op val) {
   _ReQL_String_t *json = malloc(sizeof(_ReQL_String_t));
 
   json->str = malloc(sizeof(uint8_t) * 100);

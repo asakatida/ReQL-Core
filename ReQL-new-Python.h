@@ -1,5 +1,5 @@
 /*
-Copyright 2014 Adam Grandquist
+Copyright 2014-2015 Adam Grandquist
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,23 +27,23 @@ limitations under the License.
 #ifndef _REQL_NEW_PYTHON
 #define _REQL_NEW_PYTHON
 
-_ReQL_Op
+extern _ReQL_Op
 _reql_py_new_array(uint32_t size);
-_ReQL_Op
+extern _ReQL_Op
 _reql_py_new_bool(PyObject *val);
-_ReQL_Op
+extern _ReQL_Op
 _reql_py_new_datum(_ReQL_Op val);
-_ReQL_Op
+extern _ReQL_Op
 _reql_py_new_make_array(_ReQL_Op val);
-_ReQL_Op
+extern _ReQL_Op
 _reql_py_new_make_obj(_ReQL_Op val);
-_ReQL_Op
+extern _ReQL_Op
 _reql_py_new_null();
-_ReQL_Op
+extern _ReQL_Op
 _reql_py_new_number(PyObject *val);
-_ReQL_Op
+extern _ReQL_Op
 _reql_py_new_object(uint32_t idx);
-_ReQL_Op
+extern _ReQL_Op
 _reql_py_new_string(PyObject *val);
 
 #endif

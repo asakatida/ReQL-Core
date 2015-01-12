@@ -1,5 +1,5 @@
 /*
-Copyright 2014 Adam Grandquist
+Copyright 2014-2015 Adam Grandquist
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@ limitations under the License.
 
 #include "ReQL-expr-Python.h"
 
-static PyObject *
+extern PyObject *
 _reql_py_expr(PyObject *self, PyObject *args) {
   PyObject *val;
   int nesting_depth = 20;
@@ -113,12 +113,12 @@ _reql_py_expr(PyObject *self, PyObject *args) {
   return _reql_to_py(_reql_from_py(val));
 }
 
-static _ReQL_Op
+extern _ReQL_Op
 _reql_from_py(PyObject *query) {
   return NULL;
 }
 
-static PyObject *
+extern PyObject *
 _reql_to_py(_ReQL_Op query) {
   return NULL;
 }

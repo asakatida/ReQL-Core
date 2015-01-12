@@ -26,7 +26,8 @@ limitations under the License.
 #include <stdlib.h>
 #include <string.h>
 
-_ReQL_Datum_t _reql_merge_stack_val(_ReQL_Op stack, _ReQL_Op val) {
+static _ReQL_Datum_t
+_reql_merge_stack_val(_ReQL_Op stack, _ReQL_Op val) {
   _ReQL_Datum_t state = _REQL_R_REQL;
   if (val != NULL) {
     state = _REQL_R_JSON;
@@ -52,11 +53,13 @@ _ReQL_Datum_t _reql_merge_stack_val(_ReQL_Op stack, _ReQL_Op val) {
   return state;
 }
 
-int _reql_merge_stack(_ReQL_Op stack) {
+static int
+_reql_merge_stack(_ReQL_Op stack) {
   return _reql_merge_stack_val(stack, _reql_array_pop(stack));
 }
 
-uint32_t _reql_string_decode(uint32_t size, uint8_t *json) {
+static uint32_t
+_reql_string_decode(uint32_t size, uint8_t *json) {
   uint8_t res;
   uint32_t i, j = -1;
   for (i=0; i<size; ++i) {
@@ -125,7 +128,8 @@ uint32_t _reql_string_decode(uint32_t size, uint8_t *json) {
   return j;
 }
 
-int _reql_number_decode(uint32_t size, uint8_t *json, double *val) {
+static int
+_reql_number_decode(uint32_t size, uint8_t *json, double *val) {
   double num = 0;
   uint32_t i;
   uint8_t digit = '0';
@@ -164,7 +168,8 @@ int _reql_number_decode(uint32_t size, uint8_t *json, double *val) {
   return 0;
 }
 
-_ReQL_Op _reql_decode_(_ReQL_Op stack, uint8_t *json, uint32_t size) {
+static _ReQL_Op
+_reql_decode_(_ReQL_Op stack, uint8_t *json, uint32_t size) {
   _ReQL_Datum_t state = _REQL_R_JSON;
   char esc = 0;
   uint32_t i, str_start = 0;
@@ -350,7 +355,8 @@ _ReQL_Op _reql_decode_(_ReQL_Op stack, uint8_t *json, uint32_t size) {
   return res;
 }
 
-_ReQL_Op _reql_decode(uint8_t *json, uint32_t size) {
+extern _ReQL_Op
+_reql_decode(uint8_t *json, uint32_t size) {
   _ReQL_Op stack = malloc(sizeof(_ReQL_Op_t));
   _ReQL_Op *arr = malloc(sizeof(_ReQL_Op) * 10);
   _reql_array_init(stack, arr, 10);
@@ -362,7 +368,8 @@ _ReQL_Op _reql_decode(uint8_t *json, uint32_t size) {
   return val;
 }
 
-void _reql_arr_destroy(_ReQL_Op *arr, int32_t size) {
+static void
+_reql_arr_destroy(_ReQL_Op *arr, int32_t size) {
   if (arr == NULL) {
     return;
   }
@@ -376,7 +383,8 @@ void _reql_arr_destroy(_ReQL_Op *arr, int32_t size) {
   free(arr);
 }
 
-void _reql_pair_destroy(_ReQL_Pair pair, int32_t size) {
+static void
+_reql_pair_destroy(_ReQL_Pair pair, int32_t size) {
   if (pair == NULL) {
     return;
   }
@@ -391,7 +399,8 @@ void _reql_pair_destroy(_ReQL_Pair pair, int32_t size) {
   free(pair);
 }
 
-void _reql_json_destroy(_ReQL_Op json) {
+extern void
+_reql_json_destroy(_ReQL_Op json) {
   if (json == NULL) {
     return;
   }

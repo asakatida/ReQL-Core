@@ -55,29 +55,34 @@ typedef union {
   uint8_t buf[8];
 } _ReQL_LE64;
 
-void _reql_make_32_le(uint8_t *buf, const uint32_t magic) {
+static void
+_reql_make_32_le(uint8_t *buf, const uint32_t magic) {
   _ReQL_LE32 _magic = {htole32(magic)};
   memcpy(buf, _magic.buf, 4);
 }
 
-void _reql_make_64_token(uint8_t *buf, const uint64_t magic) {
+static void
+_reql_make_64_token(uint8_t *buf, const uint64_t magic) {
   _ReQL_LE64 _magic = {htole64(magic)};
   memcpy(buf, _magic.buf, 8);
 }
 
-uint32_t _reql_get_32_le(char *buf) {
+static uint32_t
+_reql_get_32_le(char *buf) {
   _ReQL_LE32 _magic = {0};
   memcpy(_magic.buf, buf, 4);
   return le32toh(_magic.num);
 }
 
-uint64_t _reql_get_64_token(char *buf) {
+static int64_t
+_reql_get_64_token(char *buf) {
   _ReQL_LE64 _magic = {0};
   memcpy(_magic.buf, buf, 8);
   return le64toh(_magic.num);
 }
 
-void _reql_init_conn(void) {
+static void
+_reql_init_conn(void) {
   pthread_mutexattr_t *attrs = malloc(sizeof(pthread_mutexattr_t));
 
   pthread_mutexattr_init(attrs);
@@ -90,7 +95,8 @@ void _reql_init_conn(void) {
   free(attrs);
 }
 
-void _reql_connection_init(_ReQL_Conn conn) {
+extern void
+_reql_connection_init(_ReQL_Conn conn) {
   pthread_once(&init_lock, _reql_init_conn);
 
   conn->socket = -1;
@@ -104,38 +110,45 @@ void _reql_connection_init(_ReQL_Conn conn) {
   conn->addr = NULL;
 }
 
-void _reql_conn_set_auth(_ReQL_Conn_t *conn, uint32_t size, char *auth) {
+extern void
+_reql_conn_set_auth(_ReQL_Conn_t *conn, uint32_t size, char *auth) {
   conn->auth_size = size;
   conn->auth = auth;
 }
 
-void _reql_conn_set_addr(_ReQL_Conn_t *conn, char *addr) {
+extern void
+_reql_conn_set_addr(_ReQL_Conn_t *conn, char *addr) {
   conn->addr = addr;
 }
 
-void _reql_conn_set_port(_ReQL_Conn_t *conn, char *port) {
+extern void
+_reql_conn_set_port(_ReQL_Conn_t *conn, char *port) {
   conn->port = port;
 }
 
-void _reql_conn_set_timeout(_ReQL_Conn_t *conn, unsigned long timeout) {
+extern void
+_reql_conn_set_timeout(_ReQL_Conn_t *conn, unsigned long timeout) {
   conn->timeout = timeout;
 }
 
-int _reql_conn_socket(_ReQL_Conn_t *conn) {
+static int
+_reql_conn_socket(_ReQL_Conn_t *conn) {
   pthread_mutex_lock(&conn_lock);
   int sock = conn->socket;
   pthread_mutex_unlock(&conn_lock);
   return sock;
 }
 
-void _reql_conn_close_socket(_ReQL_Conn_t *conn) {
+static void
+_reql_conn_close_socket(_ReQL_Conn_t *conn) {
   pthread_mutex_lock(&conn_lock);
   close(conn->socket);
   conn->socket = -1;
   pthread_mutex_unlock(&conn_lock);
 }
 
-void _reql_set_cur_res(_ReQL_Conn_t *conn, _ReQL_Op res, unsigned long long token) {
+static void
+_reql_set_cur_res(_ReQL_Conn_t *conn, _ReQL_Op res, unsigned long long token) {
   _ReQL_Cur_t *cur = conn->cursors;
 
   if (cur->token == token) {
@@ -150,14 +163,16 @@ void _reql_set_cur_res(_ReQL_Conn_t *conn, _ReQL_Op res, unsigned long long toke
   }
 }
 
-char _reql_conn_done(_ReQL_Conn_t *conn) {
+static char
+_reql_conn_done(_ReQL_Conn_t *conn) {
   pthread_mutex_lock(&conn_lock);
   char res = conn->done;
   pthread_mutex_unlock(&conn_lock);
   return res;
 }
 
-void *_reql_conn_loop(void *_conn) {
+static void *
+_reql_conn_loop(void *_conn) {
   _ReQL_Conn_t *conn = _conn;
   char msg_header[12];
   uint8_t *response = NULL;
@@ -193,7 +208,8 @@ void *_reql_conn_loop(void *_conn) {
   return NULL;
 }
 
-int _reql_connect(_ReQL_Conn_t *conn, char *buf, size_t size) {
+extern int
+_reql_connect(_ReQL_Conn_t *conn, char *buf, size_t size) {
   struct addrinfo hints;
   struct addrinfo *result, *rp;
 
@@ -288,20 +304,23 @@ int _reql_connect(_ReQL_Conn_t *conn, char *buf, size_t size) {
   return 0;
 }
 
-void _reql_close_conn(_ReQL_Conn_t *conn) {
+extern void
+_reql_close_conn(_ReQL_Conn_t *conn) {
   pthread_mutex_lock(&conn_lock);
   conn->done = 1;
   pthread_mutex_unlock(&conn_lock);
 }
 
-void _reql_ensure_conn_close(_ReQL_Conn_t *conn) {
+extern void
+_reql_ensure_conn_close(_ReQL_Conn_t *conn) {
   _reql_close_conn(conn);
   while (_reql_conn_socket(conn) > 0) {
     sleep(1);
   }
 }
 
-int _reql_run(_ReQL_Cur cur, _ReQL_Op query, _ReQL_Conn conn, _ReQL_Op kwargs) {
+extern int
+_reql_run(_ReQL_Cur cur, _ReQL_Op query, _ReQL_Conn conn, _ReQL_Op kwargs) {
   pthread_mutex_lock(&conn_lock);
   if (conn->cursors) {
     cur->next = conn->cursors;

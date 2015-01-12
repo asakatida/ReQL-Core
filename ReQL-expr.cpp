@@ -1,5 +1,5 @@
 /*
-Copyright 2014 Adam Grandquist
+Copyright 2014-2015 Adam Grandquist
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -107,31 +107,38 @@ Expr::~Expr() {
   delete query;
 }
 
-Query expr() {
+Query
+expr() {
   return Query();
 }
 
-Query expr(_ReQL_Op val) {
+Query
+expr(_ReQL_Op val) {
   return Query(val);
 }
 
-Query expr(std::string val) {
+Query
+expr(std::string val) {
   return Query(val);
 }
 
-Query expr(double val) {
+Query
+expr(double val) {
   return Query(val);
 }
 
-Query expr(bool val) {
+Query
+expr(bool val) {
   return Query(val);
 }
 
-Query expr(std::vector<Query> val) {
+Query
+expr(std::vector<Query> val) {
   return Query(val);
 }
 
-Query expr(std::map<std::string, Query> val) {
+Query
+expr(std::map<std::string, Query> val) {
   return Query(val);
 }
 

@@ -1,5 +1,5 @@
 /*
-Copyright 2014 Adam Grandquist
+Copyright 2014-2015 Adam Grandquist
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -23,8 +23,11 @@ limitations under the License.
 #ifndef _REQL_EXPR_PYTHON
 #define _REQL_EXPR_PYTHON
 
-static PyObject *_reql_py_expr(PyObject *self, PyObject *args);
-static _ReQL_Op _reql_from_py(PyObject *query);
-static PyObject *_reql_to_py(_ReQL_Op query);
+extern PyObject *
+_reql_py_expr(PyObject *self, PyObject *args);
+extern _ReQL_Op
+_reql_from_py(PyObject *query);
+extern PyObject *
+_reql_to_py(_ReQL_Op query);
 
 #endif

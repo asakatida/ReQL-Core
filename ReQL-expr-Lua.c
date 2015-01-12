@@ -1,5 +1,5 @@
 /*
-Copyright 2014 Adam Grandquist
+Copyright 2014-2015 Adam Grandquist
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -22,7 +22,8 @@ limitations under the License.
 
 #include <string.h>
 
-int _reql_lua_expr(lua_State *L) {
+extern int
+_reql_lua_expr(lua_State *L) {
   lua_settop(L, 3);
 
   const long nesting_depth = luaL_optlong(L, 3, 20);
@@ -32,7 +33,8 @@ int _reql_lua_expr(lua_State *L) {
   return 1;
 }
 
-int _reql_lua_is_instance(lua_State *L) {
+extern int
+_reql_lua_is_instance(lua_State *L) {
   const int argn = lua_gettop(L);
   const int type_table = lua_istable(L, 1);
 
@@ -74,7 +76,8 @@ int _reql_lua_is_instance(lua_State *L) {
   return 1;
 }
 
-int _reql_lua_intsp(lua_State *L) {
+extern int
+_reql_lua_intsp(lua_State *L) {
   lua_settop(L, 1);
 
   const unsigned int table_len = (unsigned int)lua_rawlen(L, 1);
@@ -92,7 +95,8 @@ int _reql_lua_intsp(lua_State *L) {
   return 1;
 }
 
-int _reql_lua_kved(lua_State *L) {
+extern int
+_reql_lua_kved(lua_State *L) {
   lua_settop(L, 1);
 
   const unsigned int table_len = (unsigned int)lua_rawlen(L, 1);
@@ -129,7 +133,8 @@ int _reql_lua_kved(lua_State *L) {
   return 1;
 }
 
-int _reql_lua_intspallargs(lua_State *L) {
+extern int
+_reql_lua_intspallargs(lua_State *L) {
   lua_settop(L, 2);
 
   lua_pushcfunction(L, _reql_lua_intsp);
@@ -151,19 +156,22 @@ int _reql_lua_intspallargs(lua_State *L) {
   return 1;
 }
 
-int _reql_lua_reqlqueryprinter__init(lua_State *L) {
+extern int
+_reql_lua_reqlqueryprinter__init(lua_State *L) {
   lua_settop(L, 3);
   lua_setfield(L, 1, "frames");
   lua_setfield(L, 1, "term");
   return 1;
 }
 
-int _reql_lua_print_query(lua_State *L) {
+static int
+_reql_lua_print_query(lua_State *L) {
   lua_settop(L, 1);
   return 1;
 }
 
-int _reql_lua_compose_term(lua_State *L) {
+static int
+_reql_lua_compose_term(lua_State *L) {
   lua_settop(L, 2);
   if (!lua_istable(L, 2)) {
     lua_tostring(L, 2);
@@ -189,13 +197,15 @@ int _reql_lua_compose_term(lua_State *L) {
   return 1;
 }
 
-int _reql_lua___call(lua_State *L) {
+extern int
+_reql_lua___call(lua_State *L) {
   lua_createtable(L, 0, 0);
   lua_createtable(L, 2, 2);
   return 1;
 }
 
-int _reql_lua_join_tree(lua_State *L) {
+static int
+_reql_lua_join_tree(lua_State *L) {
   lua_settop(L, 2);
 
   const unsigned int table_len = (unsigned int)lua_rawlen(L, 2);
@@ -208,11 +218,13 @@ int _reql_lua_join_tree(lua_State *L) {
   return 1;
 }
 
-int _reql_lua_ast(lua_State *L) {
+extern int
+_reql_lua_ast(lua_State *L) {
   return 1;
 }
 
-int _reql_lua___index(lua_State *L) {
+extern int
+_reql_lua___index(lua_State *L) {
   lua_getfield(L, 1, "__base");
   lua_pushvalue(L, 2);
   lua_rawget(L, 2);
@@ -224,7 +236,8 @@ int _reql_lua___index(lua_State *L) {
   return 1;
 }
 
-void _reql_lua_class(lua_State *L, const char *name, const int parent, const int base) {
+extern void
+_reql_lua_class(lua_State *L, const char *name, const int parent, const int base) {
   lua_createtable(L, 4, 0);
   lua_pushliteral(L, "__name");
   lua_pushlstring(L, name, 1);
@@ -239,7 +252,8 @@ void _reql_lua_class(lua_State *L, const char *name, const int parent, const int
   }
 }
 
-_ReQL_Op _reql_from_lua(lua_State *L, const int idx, long nesting_depth) {
+extern _ReQL_Op
+_reql_from_lua(lua_State *L, const int idx, long nesting_depth) {
   if (nesting_depth <= 0) {
     luaL_error(L, "Nesting depth limit exceeded");
     return NULL;
@@ -327,7 +341,8 @@ _ReQL_Op _reql_from_lua(lua_State *L, const int idx, long nesting_depth) {
   return NULL;
 }
 
-void _reql_to_lua(lua_State *L, _ReQL_Op query) {
+extern void
+_reql_to_lua(lua_State *L, _ReQL_Op query) {
   switch (_reql_datum_type(query)) {
     case _REQL_R_ARRAY: {
       uint32_t size = _reql_array_size(query);
@@ -385,7 +400,8 @@ void _reql_to_lua(lua_State *L, _ReQL_Op query) {
   }
 }
 
-int _reql_lua_connect(lua_State *L) {
+extern int
+_reql_lua_connect(lua_State *L) {
   lua_settop(L, 3);
 
   _ReQL_Conn_t *conn = lua_newuserdata(L, sizeof(_ReQL_Conn_t));

@@ -1,5 +1,5 @@
 /*
-Copyright 2014 Adam Grandquist
+Copyright 2014-2015 Adam Grandquist
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -266,34 +266,56 @@ struct _ReQL_Op_s {
 typedef struct _ReQL_Op_s _ReQL_Op_t;
 typedef _ReQL_Op_t* _ReQL_Op;
 
-_ReQL_Datum_t _reql_datum_type(_ReQL_Op obj);
-_ReQL_Term_t _reql_term_type(_ReQL_Op obj);
+extern _ReQL_Datum_t
+_reql_datum_type(_ReQL_Op obj);
+extern _ReQL_Term_t
+_reql_term_type(_ReQL_Op obj);
 
-void _reql_bool_init(_ReQL_Op obj, char val);
-char _reql_to_bool(_ReQL_Op obj);
+extern void
+_reql_bool_init(_ReQL_Op obj, char val);
+extern char
+_reql_to_bool(_ReQL_Op obj);
 
-void _reql_null_init(_ReQL_Op obj);
+extern void
+_reql_null_init(_ReQL_Op obj);
 
-void _reql_number_init(_ReQL_Op obj, double val);
-double _reql_to_number(_ReQL_Op obj);
+extern void
+_reql_number_init(_ReQL_Op obj, double val);
+extern double
+_reql_to_number(_ReQL_Op obj);
 
-void _reql_string_init(_ReQL_Op obj, uint8_t *buf, uint32_t size);
-uint8_t *_reql_string_buf(_ReQL_Op obj);
-uint32_t _reql_string_size(_ReQL_Op obj);
+extern void
+_reql_string_init(_ReQL_Op obj, uint8_t *buf, uint32_t size);
+extern uint8_t *
+_reql_string_buf(_ReQL_Op obj);
+extern uint32_t
+_reql_string_size(_ReQL_Op obj);
 
-void _reql_array_init(_ReQL_Op obj, _ReQL_Op *arr, uint32_t size);
-uint32_t _reql_array_size(_ReQL_Op obj);
-size_t _reql_array_insert(_ReQL_Op obj, _ReQL_Op val, uint32_t idx);
-_ReQL_Op _reql_array_index(_ReQL_Op obj, uint32_t idx);
-size_t _reql_array_append(_ReQL_Op arr, _ReQL_Op val);
-_ReQL_Op _reql_array_pop(_ReQL_Op obj);
-_ReQL_Op _reql_array_last(_ReQL_Op obj);
+extern void
+_reql_array_init(_ReQL_Op obj, _ReQL_Op *arr, uint32_t size);
+extern uint32_t
+_reql_array_size(_ReQL_Op obj);
+extern size_t
+_reql_array_insert(_ReQL_Op obj, _ReQL_Op val, uint32_t idx);
+extern _ReQL_Op
+_reql_array_index(_ReQL_Op obj, uint32_t idx);
+extern size_t
+_reql_array_append(_ReQL_Op arr, _ReQL_Op val);
+extern _ReQL_Op
+_reql_array_pop(_ReQL_Op obj);
+extern _ReQL_Op
+_reql_array_last(_ReQL_Op obj);
 
-_ReQL_Iter_t _reql_new_iter(_ReQL_Op obj);
-_ReQL_Op _reql_iter_next(_ReQL_Iter_t *arr);
+extern _ReQL_Iter_t
+_reql_new_iter(_ReQL_Op obj);
+extern _ReQL_Op
+_reql_iter_next(_ReQL_Iter_t *arr);
 
-void _reql_object_init(_ReQL_Op obj, _ReQL_Pair pair, uint32_t size);
-size_t _reql_object_add(_ReQL_Op obj, _ReQL_Op key, _ReQL_Op val);
-_ReQL_Op _reql_object_get(_ReQL_Op obj, _ReQL_Op key);
+extern void
+_reql_object_init(_ReQL_Op obj, _ReQL_Pair pair, uint32_t size);
+extern size_t
+_reql_object_add(_ReQL_Op obj, _ReQL_Op key, _ReQL_Op val);
+extern _ReQL_Op
+_reql_object_get(_ReQL_Op obj, _ReQL_Op key);
 
 #endif

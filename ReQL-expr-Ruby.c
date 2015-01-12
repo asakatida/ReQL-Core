@@ -1,5 +1,5 @@
 /*
-Copyright 2014 Adam Grandquist
+Copyright 2014-2015 Adam Grandquist
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -20,13 +20,15 @@ limitations under the License.
 
 #include "ReQL-expr-Ruby.h"
 
-static VALUE _reql_rb_expr(int argn, VALUE *args, VALUE self) {
+extern VALUE
+_reql_rb_expr(int argn, VALUE *args, VALUE self) {
   const long nesting_depth = 20;
 
   return _reql_to_rb(_reql_from_rb(args[0], nesting_depth));
 }
 
-static _ReQL_Op _reql_from_rb(VALUE obj, long nesting_depth) {
+extern _ReQL_Op
+_reql_from_rb(VALUE obj, long nesting_depth) {
   if (nesting_depth <= 0) {
     return NULL;
   }
@@ -34,7 +36,8 @@ static _ReQL_Op _reql_from_rb(VALUE obj, long nesting_depth) {
   return NULL;
 }
 
-static VALUE _reql_to_rb(_ReQL_Op query) {
+extern VALUE
+_reql_to_rb(_ReQL_Op query) {
   VALUE res;
   return res;
 }

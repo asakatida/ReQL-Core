@@ -24,7 +24,8 @@ limitations under the License.
 #include <stdlib.h>
 #include <string.h>
 
-_ReQL_Datum_t _reql_datum_type(_ReQL_Op obj) {
+extern _ReQL_Datum_t
+_reql_datum_type(_ReQL_Op obj) {
   if (_reql_term_type(obj) != _REQL_DATUM) {
     return _REQL_R_REQL;
   }
@@ -32,22 +33,26 @@ _ReQL_Datum_t _reql_datum_type(_ReQL_Op obj) {
   return obj->obj.datum.dt;
 }
 
-_ReQL_Term_t _reql_term_type(_ReQL_Op obj) {
+extern _ReQL_Term_t
+_reql_term_type(_ReQL_Op obj) {
   return obj->tt;
 }
 
-void _reql_number_init(_ReQL_Op obj, double num) {
+extern void
+_reql_number_init(_ReQL_Op obj, double num) {
   _reql_null_init(obj);
 
   obj->obj.datum.dt = _REQL_R_NUM;
   obj->obj.datum.json.number = num;
 }
 
-double _reql_to_number(_ReQL_Op obj) {
+extern double
+_reql_to_number(_ReQL_Op obj) {
   return obj->obj.datum.json.number;
 }
 
-void _reql_string_init(_ReQL_Op obj, uint8_t *str, uint32_t size) {
+extern void
+_reql_string_init(_ReQL_Op obj, uint8_t *str, uint32_t size) {
   _reql_null_init(obj);
 
   obj->obj.datum.dt = _REQL_R_STR;
@@ -55,22 +60,26 @@ void _reql_string_init(_ReQL_Op obj, uint8_t *str, uint32_t size) {
   obj->obj.datum.json.string.alloc_size = size;
 }
 
-uint8_t *_reql_string_buf(_ReQL_Op obj) {
+extern uint8_t *
+_reql_string_buf(_ReQL_Op obj) {
   return obj->obj.datum.json.string.str;
 }
 
-uint32_t _reql_string_size(_ReQL_Op obj) {
+extern uint32_t
+_reql_string_size(_ReQL_Op obj) {
   return obj->obj.datum.json.string.size;
 }
 
-_ReQL_Iter_t _reql_new_iter(_ReQL_Op obj) {
+extern _ReQL_Iter_t
+_reql_new_iter(_ReQL_Op obj) {
   _ReQL_Iter_t iter;
   iter.idx = 0;
   iter.obj = obj;
   return iter;
 }
 
-_ReQL_Pair _reql_object_index(_ReQL_Op obj, uint32_t idx) {
+extern _ReQL_Pair
+_reql_object_index(_ReQL_Op obj, uint32_t idx) {
   if (obj->obj.datum.json.object.alloc_size <= idx) {
     return NULL;
   }
@@ -78,7 +87,8 @@ _ReQL_Pair _reql_object_index(_ReQL_Op obj, uint32_t idx) {
   return &obj->obj.datum.json.object.pair[idx];
 }
 
-_ReQL_Op _reql_iter_next(_ReQL_Iter_t *obj) {
+extern _ReQL_Op
+_reql_iter_next(_ReQL_Iter_t *obj) {
   _ReQL_Op next = NULL;
 
   if (_reql_datum_type(obj->obj) == _REQL_R_ARRAY) {
@@ -98,7 +108,8 @@ _ReQL_Op _reql_iter_next(_ReQL_Iter_t *obj) {
   return next;
 }
 
-void _reql_array_init(_ReQL_Op obj, _ReQL_Op *arr, uint32_t size) {
+extern void
+_reql_array_init(_ReQL_Op obj, _ReQL_Op *arr, uint32_t size) {
   uint32_t i;
 
   for (i=0; i<size; ++i) {
@@ -113,11 +124,13 @@ void _reql_array_init(_ReQL_Op obj, _ReQL_Op *arr, uint32_t size) {
   obj->obj.datum.json.array.size = 0;
 }
 
-uint32_t _reql_array_size(_ReQL_Op obj) {
+extern uint32_t
+_reql_array_size(_ReQL_Op obj) {
   return obj->obj.datum.json.array.size;
 }
 
-size_t _reql_array_insert(_ReQL_Op obj, _ReQL_Op val, uint32_t idx) {
+extern size_t
+_reql_array_insert(_ReQL_Op obj, _ReQL_Op val, uint32_t idx) {
   if (idx >= obj->obj.datum.json.array.alloc_size) {
     size_t alloc_size = idx * 1.1;
 
@@ -137,7 +150,8 @@ size_t _reql_array_insert(_ReQL_Op obj, _ReQL_Op val, uint32_t idx) {
   return 0;
 }
 
-_ReQL_Op _reql_array_index(_ReQL_Op obj, uint32_t idx) {
+extern _ReQL_Op
+_reql_array_index(_ReQL_Op obj, uint32_t idx) {
   if (obj->obj.datum.json.array.alloc_size <= idx) {
     return NULL;
   }
@@ -145,12 +159,14 @@ _ReQL_Op _reql_array_index(_ReQL_Op obj, uint32_t idx) {
   return obj->obj.datum.json.array.arr[idx];
 }
 
-size_t _reql_array_append(_ReQL_Op obj, _ReQL_Op val) {
+extern size_t
+_reql_array_append(_ReQL_Op obj, _ReQL_Op val) {
   uint32_t size = _reql_array_size(obj);
   return _reql_array_insert(obj, val, size + 1);
 }
 
-_ReQL_Op _reql_array_pop(_ReQL_Op obj) {
+extern _ReQL_Op
+_reql_array_pop(_ReQL_Op obj) {
   _ReQL_Op res = _reql_array_last(obj);
   _reql_array_insert(obj, NULL, _reql_array_size(obj));
 
@@ -161,11 +177,13 @@ _ReQL_Op _reql_array_pop(_ReQL_Op obj) {
   return res;
 }
 
-_ReQL_Op _reql_array_last(_ReQL_Op obj) {
+extern _ReQL_Op
+_reql_array_last(_ReQL_Op obj) {
   return _reql_array_index(obj, _reql_array_size(obj));
 }
 
-void _reql_object_init(_ReQL_Op obj, _ReQL_Pair pairs, uint32_t size) {
+extern void
+_reql_object_init(_ReQL_Op obj, _ReQL_Pair pairs, uint32_t size) {
   uint32_t i;
 
   for (i=0; i<10; ++i) {
@@ -181,7 +199,8 @@ void _reql_object_init(_ReQL_Op obj, _ReQL_Pair pairs, uint32_t size) {
   obj->obj.datum.json.object.alloc_size = size;
 }
 
-char _reql_op_eq(_ReQL_Op l, _ReQL_Op r) {
+extern char
+_reql_op_eq(_ReQL_Op l, _ReQL_Op r) {
   char res = 0;
   if (l == r) {
     res = 1;
@@ -254,7 +273,8 @@ char _reql_op_eq(_ReQL_Op l, _ReQL_Op r) {
   return res;
 }
 
-int _reql_key_sort(const void *l, const void *r) {
+static int
+_reql_key_sort(const void *l, const void *r) {
   if (l == NULL && r == NULL) {
     return 0;
   } else if (l == NULL) {
@@ -274,7 +294,8 @@ int _reql_key_sort(const void *l, const void *r) {
   return 1;
 }
 
-_ReQL_Pair _reql_object_find(_ReQL_Op obj, _ReQL_Op key) {
+static _ReQL_Pair
+_reql_object_find(_ReQL_Op obj, _ReQL_Op key) {
   _ReQL_Pair pair = obj->obj.datum.json.object.pair;
   _ReQL_Pair_t test;
   test.key = key;
@@ -282,7 +303,8 @@ _ReQL_Pair _reql_object_find(_ReQL_Op obj, _ReQL_Op key) {
   return bsearch(&test, pair, obj->obj.datum.json.object.size, sizeof(_ReQL_Pair_t), _reql_key_sort);
 }
 
-size_t _reql_object_add(_ReQL_Op obj, _ReQL_Op key, _ReQL_Op val) {
+extern size_t
+_reql_object_add(_ReQL_Op obj, _ReQL_Op key, _ReQL_Op val) {
   _ReQL_Pair pair = _reql_object_find(obj, key);
 
   if (pair == NULL) {
@@ -312,7 +334,8 @@ size_t _reql_object_add(_ReQL_Op obj, _ReQL_Op key, _ReQL_Op val) {
   return 0;
 }
 
-_ReQL_Op _reql_object_get(_ReQL_Op obj, _ReQL_Op key) {
+extern _ReQL_Op
+_reql_object_get(_ReQL_Op obj, _ReQL_Op key) {
   _ReQL_Pair pair = _reql_object_find(obj, key);
 
   if (pair == NULL) {
@@ -322,23 +345,21 @@ _ReQL_Op _reql_object_get(_ReQL_Op obj, _ReQL_Op key) {
   return pair->val;
 }
 
-void _reql_null_init(_ReQL_Op obj) {
+extern void
+_reql_null_init(_ReQL_Op obj) {
   obj->tt = _REQL_DATUM;
   obj->obj.datum.dt = _REQL_R_NULL;
 }
 
-void _reql_bool_init(_ReQL_Op obj, char val) {
+extern void
+_reql_bool_init(_ReQL_Op obj, char val) {
   _reql_null_init(obj);
 
   obj->obj.datum.dt = _REQL_R_BOOL;
   obj->obj.datum.json.boolean = val;
 }
 
-char _reql_to_bool(_ReQL_Op obj) {
+extern char
+_reql_to_bool(_ReQL_Op obj) {
   return obj->obj.datum.json.boolean;
-}
-
-void _reql_expr_copy(_ReQL_Op obj, _ReQL_Op orig) {
-  obj->tt = orig->tt;
-  obj->obj = orig->obj;
 }

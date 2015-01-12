@@ -22,7 +22,8 @@ limitations under the License.
 
 #include <stdlib.h>
 
-const uint8_t *_reql_json_string_esc(uint8_t chr) {
+extern const uint8_t *
+_reql_json_string_esc(uint8_t chr) {
   switch (chr) {
     case 0x00: return json_char_0x00;
     case 0x01: return json_char_0x01;
@@ -62,7 +63,8 @@ const uint8_t *_reql_json_string_esc(uint8_t chr) {
   }
 }
 
-const uint32_t _reql_json_string_esc_size(uint8_t chr) {
+extern const uint32_t
+_reql_json_string_esc_size(uint8_t chr) {
   switch (chr) {
     case 0x00: return 6;
     case 0x01: return 6;

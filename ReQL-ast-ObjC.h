@@ -1,5 +1,5 @@
 /*
-Copyright 2014 Adam Grandquist
+Copyright 2014-2015 Adam Grandquist
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -24,682 +24,852 @@ limitations under the License.
 
 /**
  */
--(instancetype)add;
+-(instancetype)
+add;
 
 /**
  */
--(instancetype)all;
+-(instancetype)
+all;
 
 /**
  */
--(instancetype)any;
+-(instancetype)
+any;
 
 /**
  */
--(instancetype)append;
+-(instancetype)
+append;
 
 /**
  */
--(instancetype)april;
+-(instancetype)
+april;
 
 /**
  */
--(instancetype)args;
+-(instancetype)
+args;
 
 /**
  */
--(instancetype)asc;
+-(instancetype)
+asc;
 
 /**
  */
--(instancetype)august;
+-(instancetype)
+august;
 
 /**
  */
--(instancetype)avg;
+-(instancetype)
+avg;
 
 /**
  */
--(instancetype)between;
+-(instancetype)
+between;
 
 /**
  */
--(instancetype)binary;
+-(instancetype)
+binary;
 
 /**
  */
--(instancetype)bracket;
+-(instancetype)
+bracket;
 
 /**
  */
--(instancetype)branch;
+-(instancetype)
+branch;
 
 /**
  */
--(instancetype)changes;
+-(instancetype)
+changes;
 
 /**
  */
--(instancetype)change_at;
+-(instancetype)
+change_at;
 
 /**
  */
--(instancetype)circle;
+-(instancetype)
+circle;
 
 /**
  */
--(instancetype)coerce_to;
+-(instancetype)
+coerce_to;
 
 /**
  */
--(instancetype)concat_map;
+-(instancetype)
+concat_map;
 
 /**
  */
--(instancetype)contains;
+-(instancetype)
+contains;
 
 /**
  */
--(instancetype)count;
+-(instancetype)
+count;
 
 /**
  */
--(instancetype)date;
+-(instancetype)
+date;
 
 /**
  */
--(instancetype)datum;
+-(instancetype)
+datum;
 
 /**
  */
--(instancetype)day;
+-(instancetype)
+day;
 
 /**
  */
--(instancetype)day_of_week;
+-(instancetype)
+day_of_week;
 
 /**
  */
--(instancetype)day_of_year;
+-(instancetype)
+day_of_year;
 
 /**
  */
--(instancetype)db;
+-(instancetype)
+db;
 
 /**
  */
--(instancetype)db_config;
+-(instancetype)
+db_config;
 
 /**
  */
--(instancetype)db_create;
+-(instancetype)
+db_create;
 
 /**
  */
--(instancetype)db_drop;
+-(instancetype)
+db_drop;
 
 /**
  */
--(instancetype)db_list;
+-(instancetype)
+db_list;
 
 /**
  */
--(instancetype)december;
+-(instancetype)
+december;
 
 /**
  */
--(instancetype)default_;
+-(instancetype)
+default;
 
 /**
  */
--(instancetype)delete_;
+-(instancetype)
+delete;
 
 /**
  */
--(instancetype)delete_at;
+-(instancetype)
+delete_at;
 
 /**
  */
--(instancetype)desc;
+-(instancetype)
+desc;
 
 /**
  */
--(instancetype)difference;
+-(instancetype)
+difference;
 
 /**
  */
--(instancetype)distance;
+-(instancetype)
+distance;
 
 /**
  */
--(instancetype)distinct;
+-(instancetype)
+distinct;
 
 /**
  */
--(instancetype)div;
+-(instancetype)
+div;
 
 /**
  */
--(instancetype)downcase;
+-(instancetype)
+downcase;
 
 /**
  */
--(instancetype)during;
+-(instancetype)
+during;
 
 /**
  */
--(instancetype)epoch_time;
+-(instancetype)
+epoch_time;
 
 /**
  */
--(instancetype)eq;
+-(instancetype)
+eq;
 
 /**
  */
--(instancetype)eq_join;
+-(instancetype)
+eq_join;
 
 /**
  */
--(instancetype)error;
+-(instancetype)
+error;
 
 /**
  */
--(instancetype)february;
+-(instancetype)
+february;
 
 /**
  */
--(instancetype)fill;
+-(instancetype)
+fill;
 
 /**
  */
--(instancetype)filter;
+-(instancetype)
+filter;
 
 /**
  */
--(instancetype)for_each;
+-(instancetype)
+for_each;
 
 /**
  */
--(instancetype)friday;
+-(instancetype)
+friday;
 
 /**
  */
--(instancetype)func;
+-(instancetype)
+func;
 
 /**
  */
--(instancetype)funcall;
+-(instancetype)
+funcall;
 
 /**
  */
--(instancetype)ge;
+-(instancetype)
+ge;
 
 /**
  */
--(instancetype)geojson;
+-(instancetype)
+geojson;
 
 /**
  */
--(instancetype)get;
+-(instancetype)
+get;
 
 /**
  */
--(instancetype)get_all;
+-(instancetype)
+get_all;
 
 /**
  */
--(instancetype)get_field;
+-(instancetype)
+get_field;
 
 /**
  */
--(instancetype)get_intersecting;
+-(instancetype)
+get_intersecting;
 
 /**
  */
--(instancetype)get_nearest;
+-(instancetype)
+get_nearest;
 
 /**
  */
--(instancetype)group;
+-(instancetype)
+group;
 
 /**
  */
--(instancetype)gt;
+-(instancetype)
+gt;
 
 /**
  */
--(instancetype)has_fields;
+-(instancetype)
+has_fields;
 
 /**
  */
--(instancetype)hours;
+-(instancetype)
+hours;
 
 /**
  */
--(instancetype)http;
+-(instancetype)
+http;
 
 /**
  */
--(instancetype)implicit_var;
+-(instancetype)
+implicit_var;
 
 /**
  */
--(instancetype)includes;
+-(instancetype)
+includes;
 
 /**
  */
--(instancetype)indexes_of;
+-(instancetype)
+indexes_of;
 
 /**
  */
--(instancetype)index_create;
+-(instancetype)
+index_create;
 
 /**
  */
--(instancetype)index_drop;
+-(instancetype)
+index_drop;
 
 /**
  */
--(instancetype)index_list;
+-(instancetype)
+index_list;
 
 /**
  */
--(instancetype)index_rename;
+-(instancetype)
+index_rename;
 
 /**
  */
--(instancetype)index_status;
+-(instancetype)
+index_status;
 
 /**
  */
--(instancetype)index_wait;
+-(instancetype)
+index_wait;
 
 /**
  */
--(instancetype)info;
+-(instancetype)
+info;
 
 /**
  */
--(instancetype)inner_join;
+-(instancetype)
+inner_join;
 
 /**
  */
--(instancetype)insert;
+-(instancetype)
+insert;
 
 /**
  */
--(instancetype)insert_at;
+-(instancetype)
+insert_at;
 
 /**
  */
--(instancetype)intersects;
+-(instancetype)
+intersects;
 
 /**
  */
--(instancetype)in_timezone;
+-(instancetype)
+in_timezone;
 
 /**
  */
--(instancetype)iso8601;
+-(instancetype)
+iso8601;
 
 /**
  */
--(instancetype)is_empty;
+-(instancetype)
+is_empty;
 
 /**
  */
--(instancetype)january;
+-(instancetype)
+january;
 
 /**
  */
--(instancetype)javascript;
+-(instancetype)
+javascript;
 
 /**
  */
--(instancetype)json;
+-(instancetype)
+json;
 
 /**
  */
--(instancetype)july;
+-(instancetype)
+july;
 
 /**
  */
--(instancetype)june;
+-(instancetype)
+june;
 
 /**
  */
--(instancetype)keys;
+-(instancetype)
+keys;
 
 /**
  */
--(instancetype)le;
+-(instancetype)
+le;
 
 /**
  */
--(instancetype)limit;
+-(instancetype)
+limit;
 
 /**
  */
--(instancetype)line;
+-(instancetype)
+line;
 
 /**
  */
--(instancetype)literal;
+-(instancetype)
+literal;
 
 /**
  */
--(instancetype)lt;
+-(instancetype)
+lt;
 
 /**
  */
--(instancetype)make_array;
+-(instancetype)
+make_array;
 
 /**
  */
--(instancetype)make_obj;
+-(instancetype)
+make_obj;
 
 /**
  */
--(instancetype)map;
+-(instancetype)
+map;
 
 /**
  */
--(instancetype)march;
+-(instancetype)
+march;
 
 /**
  */
--(instancetype)match;
+-(instancetype)
+match;
 
 /**
  */
--(instancetype)max;
+-(instancetype)
+max;
 
 /**
  */
--(instancetype)may;
+-(instancetype)
+may;
 
 /**
  */
--(instancetype)merge;
+-(instancetype)
+merge;
 
 /**
  */
--(instancetype)min;
+-(instancetype)
+min;
 
 /**
  */
--(instancetype)minutes;
+-(instancetype)
+minutes;
 
 /**
  */
--(instancetype)mod;
+-(instancetype)
+mod;
 
 /**
  */
--(instancetype)monday;
+-(instancetype)
+monday;
 
 /**
  */
--(instancetype)month;
+-(instancetype)
+month;
 
 /**
  */
--(instancetype)mul;
+-(instancetype)
+mul;
 
 /**
  */
--(instancetype)ne;
+-(instancetype)
+ne;
 
 /**
  */
--(instancetype)not_;
+-(instancetype)
+not;
 
 /**
  */
--(instancetype)november;
+-(instancetype)
+november;
 
 /**
  */
--(instancetype)now;
+-(instancetype)
+now;
 
 /**
  */
--(instancetype)nth;
+-(instancetype)
+nth;
 
 /**
  */
--(instancetype)object;
+-(instancetype)
+object;
 
 /**
  */
--(instancetype)october;
+-(instancetype)
+october;
 
 /**
  */
--(instancetype)order_by;
+-(instancetype)
+order_by;
 
 /**
  */
--(instancetype)outer_join;
+-(instancetype)
+outer_join;
 
 /**
  */
--(instancetype)pluck;
+-(instancetype)
+pluck;
 
 /**
  */
--(instancetype)point;
+-(instancetype)
+point;
 
 /**
  */
--(instancetype)polygon;
+-(instancetype)
+polygon;
 
 /**
  */
--(instancetype)polygon_sub;
+-(instancetype)
+polygon_sub;
 
 /**
  */
--(instancetype)prepend;
+-(instancetype)
+prepend;
 
 /**
  */
--(instancetype)random;
+-(instancetype)
+random;
 
 /**
  */
--(instancetype)range;
+-(instancetype)
+range;
 
 /**
  */
--(instancetype)rebalance;
+-(instancetype)
+rebalance;
 
 /**
  */
--(instancetype)reconfigure;
+-(instancetype)
+reconfigure;
 
 /**
  */
--(instancetype)reduce;
+-(instancetype)
+reduce;
 
 /**
  */
--(instancetype)replace;
+-(instancetype)
+replace;
 
 /**
  */
--(instancetype)sample;
+-(instancetype)
+sample;
 
 /**
  */
--(instancetype)saturday;
+-(instancetype)
+saturday;
 
 /**
  */
--(instancetype)seconds;
+-(instancetype)
+seconds;
 
 /**
  */
--(instancetype)september;
+-(instancetype)
+september;
 
 /**
  */
--(instancetype)set_difference;
+-(instancetype)
+set_difference;
 
 /**
  */
--(instancetype)set_insert;
+-(instancetype)
+set_insert;
 
 /**
  */
--(instancetype)set_intersection;
+-(instancetype)
+set_intersection;
 
 /**
  */
--(instancetype)set_union;
+-(instancetype)
+set_union;
 
 /**
  */
--(instancetype)skip;
+-(instancetype)
+skip;
 
 /**
  */
--(instancetype)slice;
+-(instancetype)
+slice;
 
 /**
  */
--(instancetype)splice_at;
+-(instancetype)
+splice_at;
 
 /**
  */
--(instancetype)split;
+-(instancetype)
+split;
 
 /**
  */
--(instancetype)sub;
+-(instancetype)
+sub;
 
 /**
  */
--(instancetype)sum;
+-(instancetype)
+sum;
 
 /**
  */
--(instancetype)sunday;
+-(instancetype)
+sunday;
 
 /**
  */
--(instancetype)sync;
+-(instancetype)
+sync;
 
 /**
  */
--(instancetype)table;
+-(instancetype)
+table;
 
 /**
  */
--(instancetype)table_config;
+-(instancetype)
+table_config;
 
 /**
  */
--(instancetype)table_create;
+-(instancetype)
+table_create;
 
 /**
  */
--(instancetype)table_drop;
+-(instancetype)
+table_drop;
 
 /**
  */
--(instancetype)table_list;
+-(instancetype)
+table_list;
 
 /**
  */
--(instancetype)table_status;
+-(instancetype)
+table_status;
 
 /**
  */
--(instancetype)table_wait;
+-(instancetype)
+table_wait;
 
 /**
  */
--(instancetype)thursday;
+-(instancetype)
+thursday;
 
 /**
  */
--(instancetype)time;
+-(instancetype)
+time;
 
 /**
  */
--(instancetype)timezone;
+-(instancetype)
+timezone;
 
 /**
  */
--(instancetype)time_of_day;
+-(instancetype)
+time_of_day;
 
 /**
  */
--(instancetype)to_epoch_time;
+-(instancetype)
+to_epoch_time;
 
 /**
  */
--(instancetype)to_geojson;
+-(instancetype)
+to_geojson;
 
 /**
  */
--(instancetype)to_iso8601;
+-(instancetype)
+to_iso8601;
 
 /**
  */
--(instancetype)to_json_string;
+-(instancetype)
+to_json_string;
 
 /**
  */
--(instancetype)tuesday;
+-(instancetype)
+tuesday;
 
 /**
  */
--(instancetype)type_of;
+-(instancetype)
+type_of;
 
 /**
  */
--(instancetype)ungroup;
+-(instancetype)
+ungroup;
 
 /**
  */
--(instancetype)union_;
+-(instancetype)
+union;
 
 /**
  */
--(instancetype)upcase;
+-(instancetype)
+upcase;
 
 /**
  */
--(instancetype)update;
+-(instancetype)
+update;
 
 /**
  */
--(instancetype)uuid;
+-(instancetype)
+uuid;
 
 /**
  */
--(instancetype)var;
+-(instancetype)
+var;
 
 /**
  */
--(instancetype)wednesday;
+-(instancetype)
+wednesday;
 
 /**
  */
--(instancetype)without;
+-(instancetype)
+without;
 
 /**
  */
--(instancetype)with_fields;
+-(instancetype)
+with_fields;
 
 /**
  */
--(instancetype)year;
+-(instancetype)
+year;
 
 /**
  */
--(instancetype)zip;
+-(instancetype)
+zip;
 
 @end

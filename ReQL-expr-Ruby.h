@@ -1,5 +1,5 @@
 /*
-Copyright 2014 Adam Grandquist
+Copyright 2014-2015 Adam Grandquist
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,8 +27,11 @@ limitations under the License.
 #ifndef _REQL_EXPR_RUBY
 #define _REQL_EXPR_RUBY
 
-static VALUE _reql_rb_expr(int argn, VALUE *args, VALUE self);
-static _ReQL_Op _reql_from_rb(VALUE obj, long nesting_depth);
-static VALUE _reql_to_rb(_ReQL_Op query);
+extern VALUE
+_reql_rb_expr(int argn, VALUE *args, VALUE self);
+extern _ReQL_Op
+_reql_from_rb(VALUE obj, long nesting_depth);
+extern VALUE
+_reql_to_rb(_ReQL_Op query);
 
 #endif

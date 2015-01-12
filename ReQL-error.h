@@ -1,5 +1,5 @@
 /*
-Copyright 2014 Adam Grandquist
+Copyright 2014-2015 Adam Grandquist
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -31,10 +31,15 @@ struct _ReQL_Error_s {
 
 typedef struct _ReQL_Error_s _ReQL_Error_t;
 
-int _reql_error();
+extern int
+_reql_error();
 
-char *_reql_error_msg();
-char *_reql_error_trace();
-_ReQL_Error_Type_t _reql_error_type();
+extern char *
+_reql_error_msg();
+extern char *
+_reql_error_trace();
+extern _ReQL_Error_Type_t
+_reql_error_type();
 
-void _reql_error_init(_ReQL_Error_Type_t err, char *msg, char *trace);
+extern void
+_reql_error_init(_ReQL_Error_Type_t err, char *msg, char *trace);

@@ -26,7 +26,8 @@ limitations under the License.
 static pthread_mutex_t response_lock = PTHREAD_MUTEX_INITIALIZER;
 static pthread_once_t init_lock = PTHREAD_ONCE_INIT;
 
-void _reql_init_cur(void) {
+static void
+_reql_init_cur(void) {
   pthread_mutexattr_t *attrs = malloc(sizeof(pthread_mutexattr_t));
 
   pthread_mutexattr_init(attrs);
@@ -37,7 +38,8 @@ void _reql_init_cur(void) {
   free(attrs);
 }
 
-void _reql_cursor_init(_ReQL_Cur cur) {
+extern void
+_reql_cursor_init(_ReQL_Cur cur) {
   pthread_once(&init_lock, _reql_init_cur);
 
   cur->token = 0;
@@ -47,13 +49,15 @@ void _reql_cursor_init(_ReQL_Cur cur) {
   cur->response = NULL;
 }
 
-void _reql_set_cur_response(_ReQL_Cur_t *cur, _ReQL_Op res) {
+extern void
+_reql_set_cur_response(_ReQL_Cur_t *cur, _ReQL_Op res) {
   pthread_mutex_lock(&response_lock);
   cur->response = res;
   pthread_mutex_unlock(&response_lock);
 }
 
-_ReQL_Op _reql_get_cur_res(_ReQL_Cur_t *cur) {
+extern _ReQL_Op
+_reql_get_cur_res(_ReQL_Cur_t *cur) {
   _ReQL_Op res = NULL;
 
   while (1) {
@@ -71,10 +75,11 @@ _ReQL_Op _reql_get_cur_res(_ReQL_Cur_t *cur) {
   return res;
 }
 
-void _reql_cursor_next(_ReQL_Cur_t *cur) {
+extern void
+_reql_cursor_next(_ReQL_Cur_t *cur) {
 }
 
-void _reql_close_cur(_ReQL_Cur cur) {
+extern void _reql_close_cur(_ReQL_Cur cur) {
   cur->prev->next = cur->next == cur ? cur->prev : cur->next;
   cur->next->prev = cur->prev == cur ? cur->next : cur->prev;
 }

@@ -45,9 +45,15 @@ struct _ReQL_Cur_s {
 typedef struct _ReQL_Cur_s _ReQL_Cur_t;
 typedef _ReQL_Cur_t* _ReQL_Cur;
 
-void _reql_set_cur_response(_ReQL_Cur_t *cur, _ReQL_Op res);
-_ReQL_Op _reql_get_cur_res(_ReQL_Cur_t *cur);
-void _reql_cursor_next(_ReQL_Cur cur);
-void _reql_close_cur(_ReQL_Cur cur);
+extern void
+_reql_cursor_init(_ReQL_Cur cur);
+extern void
+_reql_set_cur_response(_ReQL_Cur_t *cur, _ReQL_Op res);
+extern _ReQL_Op
+_reql_get_cur_res(_ReQL_Cur_t *cur);
+extern void
+_reql_cursor_next(_ReQL_Cur cur);
+extern void
+_reql_close_cur(_ReQL_Cur cur);
 
 #endif

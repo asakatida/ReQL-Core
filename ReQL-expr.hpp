@@ -1,5 +1,5 @@
 /*
-Copyright 2014 Adam Grandquist
+Copyright 2014-2015 Adam Grandquist
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -46,13 +46,20 @@ public:
   ~Expr();
 };
 
-Query expr();
-Query expr(_ReQL_Op);
-Query expr(std::string);
-Query expr(double);
-Query expr(bool);
-Query expr(std::vector<Query>);
-Query expr(std::map<std::string, Query>);
+Query
+expr();
+Query
+expr(_ReQL_Op);
+Query
+expr(std::string);
+Query
+expr(double);
+Query
+expr(bool);
+Query
+expr(std::vector<Query>);
+Query
+expr(std::map<std::string, Query>);
 
 }
 #endif

@@ -291,51 +291,51 @@ def const_args_w_opts?(name)
   /\A(TABLE)\Z/x =~ name
 end
 
-def const_args?(name)
-  false
-end
-
-def args_count(name)
-  0
+def mangle_const(name, mangle)
+  "#{name.downcase}#{'_' if mangle}"
 end
 
 def mangle_c_const(name)
-  "#{name.downcase}#{'_' if c_keyword? name}"
+  mangle_const name, c_keyword?(name)
 end
 
 def mangle_cpp_const(name)
-  "#{name.downcase}#{'_' if cpp_keyword? name}"
+  mangle_const name, cpp_keyword?(name)
 end
 
 def mangle_lua_const(name)
-  "#{name.downcase}#{'_' if lua_keyword? name}"
+  mangle_const name, lua_keyword?(name)
 end
 
 def mangle_objc_const(name)
-  "#{name.downcase}#{'_' if objc_keyword? name}"
+  mangle_const name, objc_keyword?(name)
 end
 
 def build(f_name, regex, join_str = "\n", block = Proc.new)
-  open(f_name, File::RDWR, 0644) do |f|
-    regex.match f.read do |m|
-      f.rewind
+  m = nil
 
-      f.write(m.pre_match)
+  open(f_name, File::RDONLY, 0644) do |f|
+    m = regex.match f.read
+  end
 
-      f.write((RethinkDB::Term::TermType.constants.sort.map do |term|
-        block.call term
-      end).join join_str)
+  return unless m
 
-      f.write(m.post_match)
-    end
+  open(f_name, File::RDWR | File::TRUNC, 0644) do |f|
+    f.write(m.pre_match)
+
+    f.write((RethinkDB::Term::TermType.constants.sort.map do |term|
+      block.call term
+    end).join join_str)
+
+    f.write(m.post_match)
   end
 end
 
 first_term = 'ADD'
 last_term = 'ZIP'
 
-build('ReQL-ast.cpp', /.{9}AST AST::#{mangle_cpp_const first_term}.*#{mangle_cpp_const last_term}.*?}/m) do |name|
-  "
+def cpp_term_imp(name)
+  Regexp.escape "
 /**
  */#{
 "
@@ -354,8 +354,32 @@ Query #{mangle_cpp_const name}(std::vector<Query> args) {
 }"
 end
 
-build('ReQL-ast.hpp', /.{15}AST add.*?zip.*?;/m) do |name|
-  "
+regx = /#{cpp_term_imp first_term}.*#{cpp_term_imp last_term}/m
+
+build('ReQL-ast.cpp', regx) do |name|
+  "#{
+"
+Query
+AST::#{mangle_cpp_const name}(std::vector<Query> args, std::map<std::string, Query> kwargs) {
+  return init(#{c_ast_name name}, this, args, kwargs);
+}
+Query
+#{mangle_cpp_const name}(std::vector<Query> args, std::map<std::string, Query> kwargs) {
+  return init(#{c_ast_name name}, args, kwargs);
+}" if opts? name
+}
+Query
+AST::#{mangle_cpp_const name}(std::vector<Query> args) {
+  return init(#{c_ast_name name}, this, args);
+}
+Query
+#{mangle_cpp_const name}(std::vector<Query> args) {
+  return init(#{c_ast_name name}, args);
+}"
+end
+
+def cpp_term_class(name)
+  Regexp.escape "
   /**
    */#{
       "\n  Query #{
@@ -365,8 +389,24 @@ build('ReQL-ast.hpp', /.{15}AST add.*?zip.*?;/m) do |name|
   Query #{mangle_cpp_const name}(std::vector<Query>);"
 end
 
-build('ReQL-ast.hpp', /.{8}\nAST add.*zip.*;/m) do |name|
+regx = /#{cpp_term_class first_term}.*#{cpp_term_class last_term}/m
+
+build('ReQL-ast.hpp', regx) do |name|
   "
+  /**
+   */#{
+    "
+  Query
+  #{
+    mangle_cpp_const name
+  }(std::vector<Query>, std::map<std::string, Query>);" if opts? name
+  }
+  Query
+  #{mangle_cpp_const name}(std::vector<Query>);"
+end
+
+def cpp_term_def(name)
+  Regexp.escape "
 /**
  */#{
   "\nQuery #{
@@ -376,8 +416,24 @@ build('ReQL-ast.hpp', /.{8}\nAST add.*zip.*;/m) do |name|
 Query #{mangle_cpp_const name}(std::vector<Query>);"
 end
 
-build('ReQL-ast-Lua.c', /.{9}int _reql_lua_add.*ast_zip.*}/m) do |name|
+regx = /#{cpp_term_def first_term}.*#{cpp_term_def last_term}/m
+
+build('ReQL-ast.hpp', regx) do |name|
   "
+/**
+ */#{
+  "
+Query
+#{
+  mangle_cpp_const name
+}(std::vector<Query>, std::map<std::string, Query>);" if opts? name
+}
+Query
+#{mangle_cpp_const name}(std::vector<Query>);"
+end
+
+def lua_term_imp(name)
+  Regexp.escape "
 /**
  */
 int #{lua_ast_name name}(lua_State *L) {
@@ -397,15 +453,47 @@ int #{lua_ast_name name}(lua_State *L) {
 }"
 end
 
-build('ReQL-ast-Lua.h', /.{9}int _reql_lua_add.*ast_zip.*}/m) do |name|
+regx = /#{lua_term_imp first_term}.*#{lua_term_imp last_term}/m
+
+build('ReQL-ast-Lua.c', regx) do |name|
   "
+extern int
+#{lua_ast_name name}(lua_State *L) {
+  return _reql_lua_#{
+    if opts? name
+      'get_opts'
+    else
+      'ast_class'
+    end
+  }(L, #{c_ast_name name}#{
+    if opts? name
+      ''
+    else
+      ', NULL'
+    end
+  });
+}"
+end
+
+def lua_term_def(name)
+  Regexp.escape "
 /**
  */
 int #{lua_ast_name name}(lua_State *L);"
 end
 
-build('ReQL-ast-Node.cpp', /.{9}int _reql_node_add.*_zip.*}/m) do |name|
+regx = /#{lua_term_def first_term}.*#{lua_term_def last_term}/m
+
+build('ReQL-ast-Lua.h', regx) do |name|
   "
+/**
+ */
+extern int
+#{lua_ast_name name}(lua_State *L);"
+end
+
+def node_term_imp(name)
+  Regexp.escape "
 /**
  */
 v8::Handle<v8::Value> #{node_ast_name name}(const v8::Arguments& args) {
@@ -419,22 +507,60 @@ v8::Handle<v8::Value> #{node_ast_name name}(const v8::Arguments& args) {
   return scope.Close(obj);
 }"
 end
-build('ReQL-ast-Node.hpp', /.{9}int _reql_node_add.*_zip.*}/m) do |name|
+
+regx = /#{node_term_imp first_term}.*#{node_term_imp last_term}/m
+
+build('ReQL-ast-Node.cpp', regx) do |name|
   "
+extern v8::Handle<v8::Value>
+#{node_ast_name name}(const v8::Arguments& args) {
+  v8::HandleScope scope;
+
+  v8::Local<v8::Object> obj = v8::Object::New();
+
+  if (!args[0]->IsUndefined()) {
+  }
+
+  return scope.Close(obj);
+}"
+end
+
+def node_term_def(name)
+  Regexp.escape "
 /**
  */
 v8::Handle<v8::Value> #{node_ast_name name}(const v8::Arguments& args);"
 end
 
-build('ReQL-ast-ObjC.h', /.{9}-(instancetype)add.*ast_zip.*}/m) do |name|
+regx = /#{node_term_def first_term}.*#{node_term_def last_term}/m
+
+build('ReQL-ast-Node.hpp', regx) do |name|
   "
+/**
+ */
+extern v8::Handle<v8::Value>
+#{node_ast_name name}(const v8::Arguments& args);"
+end
+
+def objc_term_def(name)
+  Regexp.escape "
 /**
  */
 -(instancetype)#{mangle_objc_const name};"
 end
 
-build('ReQL-ast-ObjC.m', /.{9}int _reql_node_add.*ast_zip.*}/m) do |name|
+regx = /#{objc_term_def first_term}.*#{objc_term_def last_term}/m
+
+build('ReQL-ast-ObjC.h', regx) do |name|
   "
+/**
+ */
+-(instancetype)
+#{mangle_objc_const name};"
+end
+
+def objc_term_imp(name)
+  Regexp.escape "
 /**
  */
 -(instancetype) #{mangle_objc_const name} {
@@ -442,8 +568,18 @@ build('ReQL-ast-ObjC.m', /.{9}int _reql_node_add.*ast_zip.*}/m) do |name|
 }"
 end
 
-build('ReQL-ast-Python.c', /.{9}int _reql_py_add.*py_zip.*return val.*}/m) do |name|
+regx = /#{objc_term_imp first_term}.*#{objc_term_imp last_term}/m
+
+build('ReQL-ast-ObjC.m', regx) do |name|
   "
+-(instancetype)
+#{mangle_objc_const name} {
+  return self;
+}"
+end
+
+def py_term_imp(name)
+  Regexp.escape "
 /**
  */
 static PyObject *#{py_ast_name name}(PyObject *self, PyObject *args, PyObject *kwargs) {
@@ -461,15 +597,45 @@ static PyObject *#{py_ast_name name}(PyObject *self, PyObject *args, PyObject *k
 }"
 end
 
-build('ReQL-ast-Python.h', /.{9}int _reql_py_add.*py_zip.*}/m) do |name|
+regx = /#{py_term_imp first_term}.*#{py_term_imp last_term}/m
+
+build('ReQL-ast-Python.c', regx) do |name|
   "
+extern PyObject *
+#{py_ast_name name}(PyObject *self, PyObject *args, PyObject *kwargs) {
+  PyObject *val;
+
+  static char *kwlist[] = {NULL};
+
+  if (!PyArg_ParseTupleAndKeywords(args, kwargs, \"o:r.#{
+    name.downcase
+    }\", kwlist, &val)) {
+    return self;
+  }
+
+  return val;
+}"
+end
+
+def py_term_def(name)
+  Regexp.escape "
 /**
  */
 static PyObject *#{py_ast_name name}(PyObject *self, PyObject *args, PyObject *kwargs);"
 end
 
-build('ReQL-ast-Ruby.c', /.{9}static VALUE #{rb_ast_name first_term}.*static VALUE #{rb_ast_name last_term}.*}/m) do |name|
+regx = /#{py_term_def first_term}.*#{py_term_def last_term}/m
+
+build('ReQL-ast-Python.h', regx) do |name|
   "
+/**
+ */
+extern PyObject *
+#{py_ast_name name}(PyObject *self, PyObject *args, PyObject *kwargs);"
+end
+
+def rb_term_imp(name)
+  Regexp.escape "
 /**
  */
 static VALUE #{rb_ast_name name}(int argn, VALUE *args, VALUE self) {
@@ -477,15 +643,35 @@ static VALUE #{rb_ast_name name}(int argn, VALUE *args, VALUE self) {
 }"
 end
 
-build('ReQL-ast-Ruby.h', /.{9}int _reql_rb_add.*_zip.*}/m) do |name|
+regx = /#{rb_term_imp first_term}.*#{rb_term_imp last_term}/m
+
+build('ReQL-ast-Ruby.c', regx) do |name|
   "
+extern VALUE
+#{rb_ast_name name}(int argn, VALUE *args, VALUE self) {
+  return self;
+}"
+end
+
+def rb_term_def(name)
+  Regexp.escape "
 /**
  */
 static VALUE #{rb_ast_name name}(int argn, VALUE *args, VALUE self);"
 end
 
-build('ReQL-ast.c', /.{9}_ReQL_Op #{c_ast_name first_term}.*_ReQL_Op #{c_ast_name last_term}.*}/m) do |name|
+regx = /#{rb_term_def first_term}.*#{rb_term_def last_term}/m
+
+build('ReQL-ast-Ruby.h', regx) do |name|
   "
+/**
+ */
+extern VALUE
+#{rb_ast_name name}(int argn, VALUE *args, VALUE self);"
+end
+
+def term_imp(name)
+  Regexp.escape "
 /**
  */
 void #{c_ast_name name}(_ReQL_Op term, _ReQL_Op args, _ReQL_Op kwargs) {
@@ -495,17 +681,51 @@ void #{c_ast_name name}(_ReQL_Op term, _ReQL_Op args, _ReQL_Op kwargs) {
 }"
 end
 
-build('ReQL-ast.h', /.{9}_ReQL_Op #{c_ast_name first_term}.*_ReQL_Op #{c_ast_name last_term}.*;/m) do |name|
+regx = /#{term_imp first_term}.*#{term_imp last_term}/m
+
+build('ReQL-ast.c', regx) do |name|
   "
+extern void
+#{c_ast_name name}(_ReQL_Op term, _ReQL_Op args, _ReQL_Op kwargs) {
+  term->tt = _REQL_#{name};
+  term->obj.args.args = args;
+  term->obj.args.kwargs = kwargs;
+}"
+end
+
+def term_def(name)
+  Regexp.escape "
 /**
  */
 void #{c_ast_name name}(_ReQL_Op term, _ReQL_Op args, _ReQL_Op kwargs);"
 end
 
-build('ReQL-json.h', /_REQL_#{first_term}.*#{last_term} = #{RethinkDB::Term::TermType.const_get last_term}/m, ",\n  ") do |name|
+regx = /#{term_def first_term}.*#{term_def last_term}/m
+
+build('ReQL-ast.h', regx) do |name|
+  "
+/**
+ */
+extern void
+#{c_ast_name name}(_ReQL_Op term, _ReQL_Op args, _ReQL_Op kwargs);"
+end
+
+def enum_def(name)
   "_REQL_#{name} = #{RethinkDB::Term::TermType.const_get name}"
 end
 
-build('ReQL-Lua.c', /{\"#{mangle_lua_const first_term}.*#{lua_ast_name last_term}},/m, "\n  ") do |name|
+regx = /#{Regexp.escape enum_def first_term}.*#{Regexp.escape enum_def last_term}/m
+
+build('ReQL-json.h', regx, ",\n  ") do |name|
+  enum_def name
+end
+
+def lua_lib(name)
   "{\"#{mangle_lua_const name}\", #{lua_ast_name name}},"
+end
+
+regx = /#{Regexp.escape lua_lib first_term}.*#{Regexp.escape lua_lib last_term}/m
+
+build('ReQL-Lua.c', regx, "\n  ") do |name|
+  lua_lib name
 end

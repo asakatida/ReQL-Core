@@ -1,5 +1,5 @@
 /*
-Copyright 2014 Adam Grandquist
+Copyright 2014-2015 Adam Grandquist
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,14 +27,23 @@ limitations under the License.
 #ifndef _REQL_NEW_LUA
 #define _REQL_NEW_LUA
 
-_ReQL_Op _reql_lua_new_array(lua_State *L, uint32_t size);
-_ReQL_Op _reql_lua_new_bool(lua_State *L, const int idx);
-_ReQL_Op _reql_lua_new_datum(lua_State *L, _ReQL_Op arg);
-_ReQL_Op _reql_lua_new_make_array(lua_State *L, _ReQL_Op arg);
-_ReQL_Op _reql_lua_new_make_obj(lua_State *L, _ReQL_Op arg);
-_ReQL_Op _reql_lua_new_null(lua_State *L);
-_ReQL_Op _reql_lua_new_number(lua_State *L, const int idx);
-_ReQL_Op _reql_lua_new_object(lua_State *L, uint32_t idx);
-_ReQL_Op _reql_lua_new_string(lua_State *L, const int idx);
+extern _ReQL_Op
+_reql_lua_new_array(lua_State *L, uint32_t size);
+extern _ReQL_Op
+_reql_lua_new_bool(lua_State *L, const int idx);
+extern _ReQL_Op
+_reql_lua_new_datum(lua_State *L, _ReQL_Op arg);
+extern _ReQL_Op
+_reql_lua_new_make_array(lua_State *L, _ReQL_Op arg);
+extern _ReQL_Op
+_reql_lua_new_make_obj(lua_State *L, _ReQL_Op arg);
+extern _ReQL_Op
+_reql_lua_new_null(lua_State *L);
+extern _ReQL_Op
+_reql_lua_new_number(lua_State *L, const int idx);
+extern _ReQL_Op
+_reql_lua_new_object(lua_State *L, uint32_t idx);
+extern _ReQL_Op
+_reql_lua_new_string(lua_State *L, const int idx);
 
 #endif

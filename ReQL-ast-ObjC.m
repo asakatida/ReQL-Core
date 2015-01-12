@@ -1,5 +1,5 @@
 /*
-Copyright 2014 Adam Grandquist
+Copyright 2014-2015 Adam Grandquist
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -24,1023 +24,853 @@ limitations under the License.
 
 @implementation libReQL_ast
 
-/**
- */
--(instancetype) add {
+-(instancetype)
+add {
   return self;
 }
 
-/**
- */
--(instancetype) all {
+-(instancetype)
+all {
   return self;
 }
 
-/**
- */
--(instancetype) any {
+-(instancetype)
+any {
   return self;
 }
 
-/**
- */
--(instancetype) append {
+-(instancetype)
+append {
   return self;
 }
 
-/**
- */
--(instancetype) april {
+-(instancetype)
+april {
   return self;
 }
 
-/**
- */
--(instancetype) args {
+-(instancetype)
+args {
   return self;
 }
 
-/**
- */
--(instancetype) asc {
+-(instancetype)
+asc {
   return self;
 }
 
-/**
- */
--(instancetype) august {
+-(instancetype)
+august {
   return self;
 }
 
-/**
- */
--(instancetype) avg {
+-(instancetype)
+avg {
   return self;
 }
 
-/**
- */
--(instancetype) between {
+-(instancetype)
+between {
   return self;
 }
 
-/**
- */
--(instancetype) binary {
+-(instancetype)
+binary {
   return self;
 }
 
-/**
- */
--(instancetype) bracket {
+-(instancetype)
+bracket {
   return self;
 }
 
-/**
- */
--(instancetype) branch {
+-(instancetype)
+branch {
   return self;
 }
 
-/**
- */
--(instancetype) changes {
+-(instancetype)
+changes {
   return self;
 }
 
-/**
- */
--(instancetype) change_at {
+-(instancetype)
+change_at {
   return self;
 }
 
-/**
- */
--(instancetype) circle {
+-(instancetype)
+circle {
   return self;
 }
 
-/**
- */
--(instancetype) coerce_to {
+-(instancetype)
+coerce_to {
   return self;
 }
 
-/**
- */
--(instancetype) concat_map {
+-(instancetype)
+concat_map {
   return self;
 }
 
-/**
- */
--(instancetype) contains {
+-(instancetype)
+contains {
   return self;
 }
 
-/**
- */
--(instancetype) count {
+-(instancetype)
+count {
   return self;
 }
 
-/**
- */
--(instancetype) date {
+-(instancetype)
+date {
   return self;
 }
 
-/**
- */
--(instancetype) datum {
+-(instancetype)
+datum {
   return self;
 }
 
-/**
- */
--(instancetype) day {
+-(instancetype)
+day {
   return self;
 }
 
-/**
- */
--(instancetype) day_of_week {
+-(instancetype)
+day_of_week {
   return self;
 }
 
-/**
- */
--(instancetype) day_of_year {
+-(instancetype)
+day_of_year {
   return self;
 }
 
-/**
- */
--(instancetype) db {
+-(instancetype)
+db {
   return self;
 }
 
-/**
- */
--(instancetype) db_config {
+-(instancetype)
+db_config {
   return self;
 }
 
-/**
- */
--(instancetype) db_create {
+-(instancetype)
+db_create {
   return self;
 }
 
-/**
- */
--(instancetype) db_drop {
+-(instancetype)
+db_drop {
   return self;
 }
 
-/**
- */
--(instancetype) db_list {
+-(instancetype)
+db_list {
   return self;
 }
 
-/**
- */
--(instancetype) december {
+-(instancetype)
+december {
   return self;
 }
 
-/**
- */
--(instancetype) default_ {
+-(instancetype)
+default {
   return self;
 }
 
-/**
- */
--(instancetype) delete_ {
+-(instancetype)
+delete {
   return self;
 }
 
-/**
- */
--(instancetype) delete_at {
+-(instancetype)
+delete_at {
   return self;
 }
 
-/**
- */
--(instancetype) desc {
+-(instancetype)
+desc {
   return self;
 }
 
-/**
- */
--(instancetype) difference {
+-(instancetype)
+difference {
   return self;
 }
 
-/**
- */
--(instancetype) distance {
+-(instancetype)
+distance {
   return self;
 }
 
-/**
- */
--(instancetype) distinct {
+-(instancetype)
+distinct {
   return self;
 }
 
-/**
- */
--(instancetype) div {
+-(instancetype)
+div {
   return self;
 }
 
-/**
- */
--(instancetype) downcase {
+-(instancetype)
+downcase {
   return self;
 }
 
-/**
- */
--(instancetype) during {
+-(instancetype)
+during {
   return self;
 }
 
-/**
- */
--(instancetype) epoch_time {
+-(instancetype)
+epoch_time {
   return self;
 }
 
-/**
- */
--(instancetype) eq {
+-(instancetype)
+eq {
   return self;
 }
 
-/**
- */
--(instancetype) eq_join {
+-(instancetype)
+eq_join {
   return self;
 }
 
-/**
- */
--(instancetype) error {
+-(instancetype)
+error {
   return self;
 }
 
-/**
- */
--(instancetype) february {
+-(instancetype)
+february {
   return self;
 }
 
-/**
- */
--(instancetype) fill {
+-(instancetype)
+fill {
   return self;
 }
 
-/**
- */
--(instancetype) filter {
+-(instancetype)
+filter {
   return self;
 }
 
-/**
- */
--(instancetype) for_each {
+-(instancetype)
+for_each {
   return self;
 }
 
-/**
- */
--(instancetype) friday {
+-(instancetype)
+friday {
   return self;
 }
 
-/**
- */
--(instancetype) func {
+-(instancetype)
+func {
   return self;
 }
 
-/**
- */
--(instancetype) funcall {
+-(instancetype)
+funcall {
   return self;
 }
 
-/**
- */
--(instancetype) ge {
+-(instancetype)
+ge {
   return self;
 }
 
-/**
- */
--(instancetype) geojson {
+-(instancetype)
+geojson {
   return self;
 }
 
-/**
- */
--(instancetype) get {
+-(instancetype)
+get {
   return self;
 }
 
-/**
- */
--(instancetype) get_all {
+-(instancetype)
+get_all {
   return self;
 }
 
-/**
- */
--(instancetype) get_field {
+-(instancetype)
+get_field {
   return self;
 }
 
-/**
- */
--(instancetype) get_intersecting {
+-(instancetype)
+get_intersecting {
   return self;
 }
 
-/**
- */
--(instancetype) get_nearest {
+-(instancetype)
+get_nearest {
   return self;
 }
 
-/**
- */
--(instancetype) group {
+-(instancetype)
+group {
   return self;
 }
 
-/**
- */
--(instancetype) gt {
+-(instancetype)
+gt {
   return self;
 }
 
-/**
- */
--(instancetype) has_fields {
+-(instancetype)
+has_fields {
   return self;
 }
 
-/**
- */
--(instancetype) hours {
+-(instancetype)
+hours {
   return self;
 }
 
-/**
- */
--(instancetype) http {
+-(instancetype)
+http {
   return self;
 }
 
-/**
- */
--(instancetype) implicit_var {
+-(instancetype)
+implicit_var {
   return self;
 }
 
-/**
- */
--(instancetype) includes {
+-(instancetype)
+includes {
   return self;
 }
 
-/**
- */
--(instancetype) indexes_of {
+-(instancetype)
+indexes_of {
   return self;
 }
 
-/**
- */
--(instancetype) index_create {
+-(instancetype)
+index_create {
   return self;
 }
 
-/**
- */
--(instancetype) index_drop {
+-(instancetype)
+index_drop {
   return self;
 }
 
-/**
- */
--(instancetype) index_list {
+-(instancetype)
+index_list {
   return self;
 }
 
-/**
- */
--(instancetype) index_rename {
+-(instancetype)
+index_rename {
   return self;
 }
 
-/**
- */
--(instancetype) index_status {
+-(instancetype)
+index_status {
   return self;
 }
 
-/**
- */
--(instancetype) index_wait {
+-(instancetype)
+index_wait {
   return self;
 }
 
-/**
- */
--(instancetype) info {
+-(instancetype)
+info {
   return self;
 }
 
-/**
- */
--(instancetype) inner_join {
+-(instancetype)
+inner_join {
   return self;
 }
 
-/**
- */
--(instancetype) insert {
+-(instancetype)
+insert {
   return self;
 }
 
-/**
- */
--(instancetype) insert_at {
+-(instancetype)
+insert_at {
   return self;
 }
 
-/**
- */
--(instancetype) intersects {
+-(instancetype)
+intersects {
   return self;
 }
 
-/**
- */
--(instancetype) in_timezone {
+-(instancetype)
+in_timezone {
   return self;
 }
 
-/**
- */
--(instancetype) iso8601 {
+-(instancetype)
+iso8601 {
   return self;
 }
 
-/**
- */
--(instancetype) is_empty {
+-(instancetype)
+is_empty {
   return self;
 }
 
-/**
- */
--(instancetype) january {
+-(instancetype)
+january {
   return self;
 }
 
-/**
- */
--(instancetype) javascript {
+-(instancetype)
+javascript {
   return self;
 }
 
-/**
- */
--(instancetype) json {
+-(instancetype)
+json {
   return self;
 }
 
-/**
- */
--(instancetype) july {
+-(instancetype)
+july {
   return self;
 }
 
-/**
- */
--(instancetype) june {
+-(instancetype)
+june {
   return self;
 }
 
-/**
- */
--(instancetype) keys {
+-(instancetype)
+keys {
   return self;
 }
 
-/**
- */
--(instancetype) le {
+-(instancetype)
+le {
   return self;
 }
 
-/**
- */
--(instancetype) limit {
+-(instancetype)
+limit {
   return self;
 }
 
-/**
- */
--(instancetype) line {
+-(instancetype)
+line {
   return self;
 }
 
-/**
- */
--(instancetype) literal {
+-(instancetype)
+literal {
   return self;
 }
 
-/**
- */
--(instancetype) lt {
+-(instancetype)
+lt {
   return self;
 }
 
-/**
- */
--(instancetype) make_array {
+-(instancetype)
+make_array {
   return self;
 }
 
-/**
- */
--(instancetype) make_obj {
+-(instancetype)
+make_obj {
   return self;
 }
 
-/**
- */
--(instancetype) map {
+-(instancetype)
+map {
   return self;
 }
 
-/**
- */
--(instancetype) march {
+-(instancetype)
+march {
   return self;
 }
 
-/**
- */
--(instancetype) match {
+-(instancetype)
+match {
   return self;
 }
 
-/**
- */
--(instancetype) max {
+-(instancetype)
+max {
   return self;
 }
 
-/**
- */
--(instancetype) may {
+-(instancetype)
+may {
   return self;
 }
 
-/**
- */
--(instancetype) merge {
+-(instancetype)
+merge {
   return self;
 }
 
-/**
- */
--(instancetype) min {
+-(instancetype)
+min {
   return self;
 }
 
-/**
- */
--(instancetype) minutes {
+-(instancetype)
+minutes {
   return self;
 }
 
-/**
- */
--(instancetype) mod {
+-(instancetype)
+mod {
   return self;
 }
 
-/**
- */
--(instancetype) monday {
+-(instancetype)
+monday {
   return self;
 }
 
-/**
- */
--(instancetype) month {
+-(instancetype)
+month {
   return self;
 }
 
-/**
- */
--(instancetype) mul {
+-(instancetype)
+mul {
   return self;
 }
 
-/**
- */
--(instancetype) ne {
+-(instancetype)
+ne {
   return self;
 }
 
-/**
- */
--(instancetype) not_ {
+-(instancetype)
+not {
   return self;
 }
 
-/**
- */
--(instancetype) november {
+-(instancetype)
+november {
   return self;
 }
 
-/**
- */
--(instancetype) now {
+-(instancetype)
+now {
   return self;
 }
 
-/**
- */
--(instancetype) nth {
+-(instancetype)
+nth {
   return self;
 }
 
-/**
- */
--(instancetype) object {
+-(instancetype)
+object {
   return self;
 }
 
-/**
- */
--(instancetype) october {
+-(instancetype)
+october {
   return self;
 }
 
-/**
- */
--(instancetype) order_by {
+-(instancetype)
+order_by {
   return self;
 }
 
-/**
- */
--(instancetype) outer_join {
+-(instancetype)
+outer_join {
   return self;
 }
 
-/**
- */
--(instancetype) pluck {
+-(instancetype)
+pluck {
   return self;
 }
 
-/**
- */
--(instancetype) point {
+-(instancetype)
+point {
   return self;
 }
 
-/**
- */
--(instancetype) polygon {
+-(instancetype)
+polygon {
   return self;
 }
 
-/**
- */
--(instancetype) polygon_sub {
+-(instancetype)
+polygon_sub {
   return self;
 }
 
-/**
- */
--(instancetype) prepend {
+-(instancetype)
+prepend {
   return self;
 }
 
-/**
- */
--(instancetype) random {
+-(instancetype)
+random {
   return self;
 }
 
-/**
- */
--(instancetype) range {
+-(instancetype)
+range {
   return self;
 }
 
-/**
- */
--(instancetype) rebalance {
+-(instancetype)
+rebalance {
   return self;
 }
 
-/**
- */
--(instancetype) reconfigure {
+-(instancetype)
+reconfigure {
   return self;
 }
 
-/**
- */
--(instancetype) reduce {
+-(instancetype)
+reduce {
   return self;
 }
 
-/**
- */
--(instancetype) replace {
+-(instancetype)
+replace {
   return self;
 }
 
-/**
- */
--(instancetype) sample {
+-(instancetype)
+sample {
   return self;
 }
 
-/**
- */
--(instancetype) saturday {
+-(instancetype)
+saturday {
   return self;
 }
 
-/**
- */
--(instancetype) seconds {
+-(instancetype)
+seconds {
   return self;
 }
 
-/**
- */
--(instancetype) september {
+-(instancetype)
+september {
   return self;
 }
 
-/**
- */
--(instancetype) set_difference {
+-(instancetype)
+set_difference {
   return self;
 }
 
-/**
- */
--(instancetype) set_insert {
+-(instancetype)
+set_insert {
   return self;
 }
 
-/**
- */
--(instancetype) set_intersection {
+-(instancetype)
+set_intersection {
   return self;
 }
 
-/**
- */
--(instancetype) set_union {
+-(instancetype)
+set_union {
   return self;
 }
 
-/**
- */
--(instancetype) skip {
+-(instancetype)
+skip {
   return self;
 }
 
-/**
- */
--(instancetype) slice {
+-(instancetype)
+slice {
   return self;
 }
 
-/**
- */
--(instancetype) splice_at {
+-(instancetype)
+splice_at {
   return self;
 }
 
-/**
- */
--(instancetype) split {
+-(instancetype)
+split {
   return self;
 }
 
-/**
- */
--(instancetype) sub {
+-(instancetype)
+sub {
   return self;
 }
 
-/**
- */
--(instancetype) sum {
+-(instancetype)
+sum {
   return self;
 }
 
-/**
- */
--(instancetype) sunday {
+-(instancetype)
+sunday {
   return self;
 }
 
-/**
- */
--(instancetype) sync {
+-(instancetype)
+sync {
   return self;
 }
 
-/**
- */
--(instancetype) table {
+-(instancetype)
+table {
   return self;
 }
 
-/**
- */
--(instancetype) table_config {
+-(instancetype)
+table_config {
   return self;
 }
 
-/**
- */
--(instancetype) table_create {
+-(instancetype)
+table_create {
   return self;
 }
 
-/**
- */
--(instancetype) table_drop {
+-(instancetype)
+table_drop {
   return self;
 }
 
-/**
- */
--(instancetype) table_list {
+-(instancetype)
+table_list {
   return self;
 }
 
-/**
- */
--(instancetype) table_status {
+-(instancetype)
+table_status {
   return self;
 }
 
-/**
- */
--(instancetype) table_wait {
+-(instancetype)
+table_wait {
   return self;
 }
 
-/**
- */
--(instancetype) thursday {
+-(instancetype)
+thursday {
   return self;
 }
 
-/**
- */
--(instancetype) time {
+-(instancetype)
+time {
   return self;
 }
 
-/**
- */
--(instancetype) timezone {
+-(instancetype)
+timezone {
   return self;
 }
 
-/**
- */
--(instancetype) time_of_day {
+-(instancetype)
+time_of_day {
   return self;
 }
 
-/**
- */
--(instancetype) to_epoch_time {
+-(instancetype)
+to_epoch_time {
   return self;
 }
 
-/**
- */
--(instancetype) to_geojson {
+-(instancetype)
+to_geojson {
   return self;
 }
 
-/**
- */
--(instancetype) to_iso8601 {
+-(instancetype)
+to_iso8601 {
   return self;
 }
 
-/**
- */
--(instancetype) to_json_string {
+-(instancetype)
+to_json_string {
   return self;
 }
 
-/**
- */
--(instancetype) tuesday {
+-(instancetype)
+tuesday {
   return self;
 }
 
-/**
- */
--(instancetype) type_of {
+-(instancetype)
+type_of {
   return self;
 }
 
-/**
- */
--(instancetype) ungroup {
+-(instancetype)
+ungroup {
   return self;
 }
 
-/**
- */
--(instancetype) union_ {
+-(instancetype)
+union {
   return self;
 }
 
-/**
- */
--(instancetype) upcase {
+-(instancetype)
+upcase {
   return self;
 }
 
-/**
- */
--(instancetype) update {
+-(instancetype)
+update {
   return self;
 }
 
-/**
- */
--(instancetype) uuid {
+-(instancetype)
+uuid {
   return self;
 }
 
-/**
- */
--(instancetype) var {
+-(instancetype)
+var {
   return self;
 }
 
-/**
- */
--(instancetype) wednesday {
+-(instancetype)
+wednesday {
   return self;
 }
 
-/**
- */
--(instancetype) without {
+-(instancetype)
+without {
   return self;
 }
 
-/**
- */
--(instancetype) with_fields {
+-(instancetype)
+with_fields {
   return self;
 }
 
-/**
- */
--(instancetype) year {
+-(instancetype)
+year {
   return self;
 }
 
-/**
- */
--(instancetype) zip {
+-(instancetype)
+zip {
   return self;
 }
 

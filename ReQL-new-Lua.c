@@ -1,5 +1,5 @@
 /*
-Copyright 2014 Adam Grandquist
+Copyright 2014-2015 Adam Grandquist
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -20,11 +20,13 @@ limitations under the License.
 
 #include "ReQL-expr-Lua.h"
 
-_ReQL_Op _reql_lua_alloc_term(lua_State *L) {
+static _ReQL_Op
+_reql_lua_alloc_term(lua_State *L) {
   return lua_newuserdata(L, sizeof(_ReQL_Op_t));
 }
 
-_ReQL_Op _reql_lua_new_array(lua_State *L, uint32_t size) {
+extern _ReQL_Op
+_reql_lua_new_array(lua_State *L, uint32_t size) {
   _ReQL_Op obj = _reql_lua_alloc_term(L);
   lua_createtable(L, 1, 1);
   lua_pushliteral(L, "_arr");
@@ -35,43 +37,50 @@ _ReQL_Op _reql_lua_new_array(lua_State *L, uint32_t size) {
   return obj;
 }
 
-_ReQL_Op _reql_lua_new_bool(lua_State *L, const int idx) {
+extern _ReQL_Op
+_reql_lua_new_bool(lua_State *L, const int idx) {
   _ReQL_Op obj = _reql_lua_alloc_term(L);
   _reql_bool_init(obj, lua_toboolean(L, idx));
   return obj;
 }
 
-_ReQL_Op _reql_lua_new_datum(lua_State *L, _ReQL_Op arg) {
+extern _ReQL_Op
+_reql_lua_new_datum(lua_State *L, _ReQL_Op arg) {
   _ReQL_Op obj = _reql_lua_alloc_term(L);
   _reql_ast_datum(obj, arg, NULL);
   return obj;
 }
 
-_ReQL_Op _reql_lua_new_make_array(lua_State *L, _ReQL_Op arg) {
+extern _ReQL_Op
+_reql_lua_new_make_array(lua_State *L, _ReQL_Op arg) {
   _ReQL_Op obj = _reql_lua_alloc_term(L);
   _reql_ast_make_array(obj, arg, NULL);
   return obj;
 }
 
-_ReQL_Op _reql_lua_new_make_obj(lua_State *L, _ReQL_Op arg) {
+extern _ReQL_Op
+_reql_lua_new_make_obj(lua_State *L, _ReQL_Op arg) {
   _ReQL_Op obj = _reql_lua_alloc_term(L);
   _reql_ast_make_obj(obj, NULL, arg);
   return obj;
 }
 
-_ReQL_Op _reql_lua_new_null(lua_State *L) {
+extern _ReQL_Op
+_reql_lua_new_null(lua_State *L) {
   _ReQL_Op obj = _reql_lua_alloc_term(L);
   _reql_null_init(obj);
   return obj;
 }
 
-_ReQL_Op _reql_lua_new_number(lua_State *L, const int idx) {
+extern _ReQL_Op
+_reql_lua_new_number(lua_State *L, const int idx) {
   _ReQL_Op obj = _reql_lua_alloc_term(L);
   _reql_number_init(obj, lua_tonumber(L, idx));
   return obj;
 }
 
-_ReQL_Op _reql_lua_new_object(lua_State *L, uint32_t size) {
+extern _ReQL_Op
+_reql_lua_new_object(lua_State *L, uint32_t size) {
   _ReQL_Op obj = _reql_lua_alloc_term(L);
   lua_createtable(L, 1, 1);
   lua_pushliteral(L, "_pair");
@@ -82,7 +91,8 @@ _ReQL_Op _reql_lua_new_object(lua_State *L, uint32_t size) {
   return obj;
 }
 
-_ReQL_Op _reql_lua_new_string(lua_State *L, const int idx) {
+extern _ReQL_Op
+_reql_lua_new_string(lua_State *L, const int idx) {
   size_t len;
   uint8_t *str = (uint8_t *)lua_tolstring(L, idx, &len);
 
@@ -96,4 +106,3 @@ _ReQL_Op _reql_lua_new_string(lua_State *L, const int idx) {
 
   return obj;
 }
-
