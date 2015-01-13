@@ -20,6 +20,9 @@ limitations under the License.
 
 #include <stdint.h>
 
+#ifndef _REQL_CHAR_H
+#define _REQL_CHAR_H
+
 static const uint8_t left_square_bracket = 0x5B;
 static const uint8_t right_square_bracket = 0x5D;
 static const uint8_t left_curly_bracket = 0x7B;
@@ -117,3 +120,5 @@ enum {
   char_quotation = quotation,
   char_reverse_solidus = reverse_solidus,
 };
+
+#endif

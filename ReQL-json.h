@@ -21,8 +21,8 @@ limitations under the License.
 #include <stddef.h>
 #include <stdint.h>
 
-#ifndef _REQL_CONFIG_H
-#define _REQL_CONFIG_H
+#ifndef _REQL_JSON_H
+#define _REQL_JSON_H
 
 typedef enum {
   _REQL_R_REQL,
