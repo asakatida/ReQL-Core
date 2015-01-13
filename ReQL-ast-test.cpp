@@ -1,9 +1,22 @@
 #include "ReQL-ast-test.hpp"
 
-#include "ReQL.hpp"
+class BlankTest : public ASTTest {
+public:
+  BlankTest() : ASTTest() {
+  }
 
-using namespace ReQL;
+  void setup() {
+    setName("BlankTest");
+  }
 
-int ReQL::testAST(int argc, char **argv) {
-  return 0;
+  void run() {
+  }
+
+  void cleanup() {
+  }
+};
+
+void ASTTest::setup() {
+  setName("ASTTest");
+  addTest(BlankTest());
 }

@@ -1,9 +1,27 @@
 #include "ReQL-expr-test.hpp"
 
-#include "ReQL.hpp"
-
 using namespace ReQL;
 
-int ReQL::testEXPR(int argc, char **argv) {
-  return 0;
+class ConnectionTest : public ExprTest {
+public:
+  ConnectionTest() : ExprTest() {
+  };
+
+  void setup() {
+    setName("ConnectionTest");
+  }
+
+  void run() {
+    Connection conn = Connection();
+
+    conn.close();
+  };
+
+  void cleanup() {
+  }
+};
+
+void ExprTest::setup() {
+  setName("ExprTest");
+  addTest(ConnectionTest());
 }

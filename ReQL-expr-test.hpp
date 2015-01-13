@@ -1,5 +1,13 @@
-namespace ReQL {
+#include "ReQL-test.hpp"
 
-int testEXPR(int argc, char **argv);
+#ifndef _REQL_EXPR_TEST
+#define _REQL_EXPR_TEST
 
-}
+class ExprTest : public UnitTest {
+public:
+  ExprTest() : UnitTest() {};
+
+  void setup();
+};
+
+#endif
