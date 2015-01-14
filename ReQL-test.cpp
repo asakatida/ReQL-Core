@@ -71,10 +71,10 @@ bool CoreTest::hasFailure() {
 };
 
 void CoreTest::printResults() {
+  collectFailures();
   for (auto iter=p_failures.cbegin(); iter!=p_failures.cend(); ++iter) {
     std::cout << iter->first->getName() << " " << iter->second << std::endl;
   }
-  collectFailures();
   std::cout << "Test results: " << p_failures.size() << " failed of " << count() << " tests." << std::endl;
 }
 
