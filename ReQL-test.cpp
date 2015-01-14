@@ -102,14 +102,14 @@ void UnitTest::run() {
         iter->run();
       } catch (const TestFailure& e) {
       } catch (const std::exception& e) {
-        std::string err = "Uncaught exception thrown in test: ";
+        std::string err = "Uncaught exception in test: ";
         err.append(e.what());
         fail(err);
       }
       iter->cleanup();
     } catch (const TestFailure& e) {
     } catch (const std::exception& e) {
-      std::string err = "Uncaught exception thrown in test: ";
+      std::string err = "Uncaught exception: ";
       err.append(e.what());
       fail(err);
     }
