@@ -68,6 +68,8 @@ public:
   explicit Query(bool val) : AST(val) {};
   explicit Query(std::vector<Query> val) : AST(val) {};
   explicit Query(std::map<std::string, Query> val) : AST(val) {};
+
+  Cursor run(Connection);
 };
 
 }

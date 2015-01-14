@@ -127,4 +127,8 @@ Connection connect(std::string host, std::uint16_t port, std::string key) {
   return Connection(host, port, key);
 }
 
+Cursor Query::run(Connection conn) {
+  return Cursor();
+}
+
 }
