@@ -49,6 +49,8 @@ public:
 
   ~Connection();
 
+  bool isOpen();
+
   int close();
 };
 

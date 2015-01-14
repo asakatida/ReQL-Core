@@ -107,6 +107,10 @@ int Connection::close() {
   return 0;
 }
 
+bool Connection::isOpen() {
+  return false;
+}
+
 Connection connect() {
   return Connection();
 }
