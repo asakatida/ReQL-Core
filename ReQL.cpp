@@ -22,6 +22,23 @@ limitations under the License.
 
 namespace ReQL {
 
+Cursor::Cursor() {
+  cur = new _ReQL_Cur_t();
+  _reql_cursor_init(cur);
+}
+
+Cursor::~Cursor() {
+  delete cur;
+}
+
+bool Cursor::isOpen() {
+  return false;
+}
+
+int Cursor::close() {
+  return -1;
+}
+
 Connection::Connection() {
   conn = new _ReQL_Conn_t();
   _reql_connection_init(conn);
