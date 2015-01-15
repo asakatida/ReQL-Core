@@ -332,6 +332,29 @@ _reql_run(_ReQL_Cur cur, _ReQL_Op query, _ReQL_Conn conn, _ReQL_Op kwargs) {
   cur->conn = conn;
   cur->token = conn->max_token++;
 
+  _ReQL_String_t *_query = _reql_encode(query);
+
+  uint8_t token[8];
+
+  _reql_make_64_token(token, cur->token);
+
+  uint8_t size[4];
+
+  _reql_make_32_le(size, _query->size);
+
+  struct iovec magic[3];
+
+  magic[0].iov_base = token;
+  magic[0].iov_len = 8;
+
+  magic[1].iov_base = size;
+  magic[1].iov_len = 4;
+
+  magic[2].iov_base = _query->str;
+  magic[2].iov_len = _query->size;
+
+  writev(conn->socket, magic, 3);
+
   pthread_mutex_unlock(&conn_lock);
   return 0;
 }
