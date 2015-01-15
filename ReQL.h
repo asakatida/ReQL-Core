@@ -57,6 +57,8 @@ extern void
 _reql_close_conn(_ReQL_Conn conn);
 extern void
 _reql_ensure_conn_close(_ReQL_Conn_t *conn);
+extern char
+_reql_conn_open(_ReQL_Conn conn);
 
 extern int
 _reql_run(_ReQL_Cur cur, _ReQL_Op query, _ReQL_Conn conn, _ReQL_Op kwargs);

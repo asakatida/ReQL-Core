@@ -319,9 +319,20 @@ _reql_ensure_conn_close(_ReQL_Conn_t *conn) {
   }
 }
 
+extern char
+_reql_conn_open(_ReQL_Conn conn) {
+  return _reql_conn_socket(conn) > 0 && !_reql_conn_done(conn);
+}
+
 extern int
 _reql_run(_ReQL_Cur cur, _ReQL_Op query, _ReQL_Conn conn, _ReQL_Op kwargs) {
   pthread_mutex_lock(&conn_lock);
+
+  if (conn->socket < 0) {
+    pthread_mutex_unlock(&conn_lock);
+    return -1;
+  }
+
   if (conn->cursors) {
     cur->next = conn->cursors;
     cur->next->prev = cur;

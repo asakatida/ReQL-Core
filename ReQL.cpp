@@ -108,7 +108,7 @@ int Connection::close() {
 }
 
 bool Connection::isOpen() {
-  return false;
+  return _reql_conn_open(conn);
 }
 
 Connection connect() {
