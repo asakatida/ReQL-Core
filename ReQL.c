@@ -326,6 +326,23 @@ _reql_conn_open(_ReQL_Conn conn) {
 
 extern int
 _reql_run(_ReQL_Cur cur, _ReQL_Op query, _ReQL_Conn conn, _ReQL_Op kwargs) {
+  _ReQL_Op_t start;
+
+  _ReQL_Op_t array;
+  _ReQL_Op arr[3];
+
+  _reql_number_init(&start, _REQL_START);
+  _reql_array_init(&array, arr, 3);
+  _reql_array_insert(&array, &start, 0);
+  _reql_array_insert(&array, query, 1);
+  _reql_array_insert(&array, kwargs, 2);
+
+  _ReQL_String_t *_query = _reql_encode(&array);
+
+  if (_query == NULL) {
+    return -1;
+  }
+  
   pthread_mutex_lock(&conn_lock);
 
   if (conn->socket < 0) {
@@ -342,8 +359,6 @@ _reql_run(_ReQL_Cur cur, _ReQL_Op query, _ReQL_Conn conn, _ReQL_Op kwargs) {
 
   cur->conn = conn;
   cur->token = conn->max_token++;
-
-  _ReQL_String_t *_query = _reql_encode(query);
 
   uint8_t token[8];
 
