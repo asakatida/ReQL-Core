@@ -1,27 +1,11 @@
-#include "ReQL-expr-test.hpp"
+#include "ReQL-test.hpp"
+
+#include "catch.h"
 
 using namespace ReQL;
 
-class ConnectionTest : public ExprTest {
-public:
-  ConnectionTest() : ExprTest() {
-  };
+TEST_CASE("Connection", "[c++][connect]") {
+  Connection conn = connect();
 
-  void setup() {
-    setName("ConnectionTest");
-  }
-
-  void run() {
-    Connection conn = Connection();
-
-    conn.close();
-  };
-
-  void cleanup() {
-  }
-};
-
-void ExprTest::setup() {
-  setName("ExprTest");
-  addTest(ConnectionTest());
+  REQUIRE(conn.isOpen());
 }

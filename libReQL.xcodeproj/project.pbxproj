@@ -73,6 +73,7 @@
 		1EAC78FB1A61992F00710286 /* ReQL-char.c in Sources */ = {isa = PBXBuildFile; fileRef = 1EAC78F91A61992F00710286 /* ReQL-char.c */; };
 		1EAC78FC1A61992F00710286 /* ReQL-char.c in Sources */ = {isa = PBXBuildFile; fileRef = 1EAC78F91A61992F00710286 /* ReQL-char.c */; };
 		1EAC78FD1A61992F00710286 /* ReQL-char.c in Sources */ = {isa = PBXBuildFile; fileRef = 1EAC78F91A61992F00710286 /* ReQL-char.c */; };
+		1ED0307C1A678BC400E087F1 /* catch.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ED0307B1A678BC400E087F1 /* catch.h */; };
 		1ED066651A030AE8005225FD /* ReQL-ast-ObjC.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ED0665D1A030AE8005225FD /* ReQL-ast-ObjC.h */; };
 		1ED066661A030AE8005225FD /* ReQL-ast-ObjC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED0665E1A030AE8005225FD /* ReQL-ast-ObjC.m */; };
 		1ED066671A030AE8005225FD /* ReQL-ast.c in Sources */ = {isa = PBXBuildFile; fileRef = 1ED0665F1A030AE8005225FD /* ReQL-ast.c */; };
@@ -96,9 +97,7 @@
 		879743B21A426437009F1A58 /* connect_test.m in Sources */ = {isa = PBXBuildFile; fileRef = 879743B11A426437009F1A58 /* connect_test.m */; };
 		87A31C5A1A4B20D6002B8CC7 /* ReQL-test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 876058901A47BE1C00FEA3E9 /* ReQL-test.cpp */; };
 		87A31C5D1A4B2109002B8CC7 /* ReQL-expr-test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87A31C5B1A4B2109002B8CC7 /* ReQL-expr-test.cpp */; };
-		87A31C5E1A4B2109002B8CC7 /* ReQL-expr-test.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 87A31C5C1A4B2109002B8CC7 /* ReQL-expr-test.hpp */; };
 		87A31C611A4B211C002B8CC7 /* ReQL-ast-test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87A31C5F1A4B211C002B8CC7 /* ReQL-ast-test.cpp */; };
-		87A31C621A4B211C002B8CC7 /* ReQL-ast-test.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 87A31C601A4B211C002B8CC7 /* ReQL-ast-test.hpp */; };
 		87E33B591A54DE7800F3C411 /* ReQL-decode.c in Sources */ = {isa = PBXBuildFile; fileRef = 87E33B551A54DE7800F3C411 /* ReQL-decode.c */; };
 		87E33B5A1A54DE7800F3C411 /* ReQL-decode.c in Sources */ = {isa = PBXBuildFile; fileRef = 87E33B551A54DE7800F3C411 /* ReQL-decode.c */; };
 		87E33B5B1A54DE7800F3C411 /* ReQL-decode.c in Sources */ = {isa = PBXBuildFile; fileRef = 87E33B551A54DE7800F3C411 /* ReQL-decode.c */; };
@@ -162,6 +161,7 @@
 		1EAC78EB1A6191FD00710286 /* ReQL-cursor.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "ReQL-cursor.c"; sourceTree = "<group>"; };
 		1EAC78EC1A6191FD00710286 /* ReQL-cursor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ReQL-cursor.h"; sourceTree = "<group>"; };
 		1EAC78F91A61992F00710286 /* ReQL-char.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "ReQL-char.c"; sourceTree = "<group>"; };
+		1ED0307B1A678BC400E087F1 /* catch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = catch.h; sourceTree = "<group>"; };
 		1ED0665D1A030AE8005225FD /* ReQL-ast-ObjC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ReQL-ast-ObjC.h"; sourceTree = "<group>"; };
 		1ED0665E1A030AE8005225FD /* ReQL-ast-ObjC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ReQL-ast-ObjC.m"; sourceTree = "<group>"; };
 		1ED0665F1A030AE8005225FD /* ReQL-ast.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "ReQL-ast.c"; sourceTree = "<group>"; };
@@ -180,9 +180,7 @@
 		876058901A47BE1C00FEA3E9 /* ReQL-test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "ReQL-test.cpp"; sourceTree = "<group>"; };
 		879743B11A426437009F1A58 /* connect_test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = connect_test.m; sourceTree = "<group>"; };
 		87A31C5B1A4B2109002B8CC7 /* ReQL-expr-test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "ReQL-expr-test.cpp"; sourceTree = "<group>"; };
-		87A31C5C1A4B2109002B8CC7 /* ReQL-expr-test.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "ReQL-expr-test.hpp"; sourceTree = "<group>"; };
 		87A31C5F1A4B211C002B8CC7 /* ReQL-ast-test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "ReQL-ast-test.cpp"; sourceTree = "<group>"; };
-		87A31C601A4B211C002B8CC7 /* ReQL-ast-test.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "ReQL-ast-test.hpp"; sourceTree = "<group>"; };
 		87E33B551A54DE7800F3C411 /* ReQL-decode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "ReQL-decode.c"; sourceTree = "<group>"; };
 		87E33B561A54DE7800F3C411 /* ReQL-decode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ReQL-decode.h"; sourceTree = "<group>"; };
 		87E33B571A54DE7800F3C411 /* ReQL-encode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "ReQL-encode.c"; sourceTree = "<group>"; };
@@ -233,6 +231,7 @@
 			isa = PBXGroup;
 			children = (
 				1E9D4B781A03011100201983 /* Products */,
+				1ED0307B1A678BC400E087F1 /* catch.h */,
 				1E7318441A5DB939001AE5C8 /* portable_endian.h */,
 				1E0915F01A1A73D3007952FE /* ReQL-ast.cpp */,
 				1E0915F11A1A73D3007952FE /* ReQL-ast.hpp */,
@@ -243,7 +242,6 @@
 				1E3F9A151A35253F0065A82F /* ReQL-ast-Python.c */,
 				1E3F9A161A35253F0065A82F /* ReQL-ast-Python.h */,
 				87A31C5F1A4B211C002B8CC7 /* ReQL-ast-test.cpp */,
-				87A31C601A4B211C002B8CC7 /* ReQL-ast-test.hpp */,
 				1ED0665F1A030AE8005225FD /* ReQL-ast.c */,
 				1ED066601A030AE8005225FD /* ReQL-ast.h */,
 				1E0915F21A1A73D3007952FE /* ReQL.cpp */,
@@ -265,7 +263,6 @@
 				1E3F9A171A35253F0065A82F /* ReQL-expr-Python.c */,
 				1E3F9A181A35253F0065A82F /* ReQL-expr-Python.h */,
 				87A31C5B1A4B2109002B8CC7 /* ReQL-expr-test.cpp */,
-				87A31C5C1A4B2109002B8CC7 /* ReQL-expr-test.hpp */,
 				1ED066721A046AC1005225FD /* ReQL-expr.c */,
 				1ED066731A046AC1005225FD /* ReQL-expr.h */,
 				876058861A47AF0F00FEA3E9 /* ReQL-json.c */,
@@ -328,10 +325,9 @@
 				1E7318471A5DB93D001AE5C8 /* portable_endian.h in Headers */,
 				1E0915EB1A1A73A9007952FE /* ReQL-ast.h in Headers */,
 				1E0915F71A1A73D3007952FE /* ReQL-ast.hpp in Headers */,
-				87A31C621A4B211C002B8CC7 /* ReQL-ast-test.hpp in Headers */,
+				1ED0307C1A678BC400E087F1 /* catch.h in Headers */,
 				1EAC78EF1A6191FD00710286 /* ReQL-char.h in Headers */,
 				1E0915FB1A1A73D3007952FE /* ReQL-expr.hpp in Headers */,
-				87A31C5E1A4B2109002B8CC7 /* ReQL-expr-test.hpp in Headers */,
 				1E73184C1A5DB963001AE5C8 /* ReQL-util.h in Headers */,
 				87E33B5F1A54DE7800F3C411 /* ReQL-decode.h in Headers */,
 			);
