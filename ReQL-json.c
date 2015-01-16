@@ -187,7 +187,7 @@ extern void
 _reql_object_init(_ReQL_Op obj, _ReQL_Pair pairs, uint32_t size) {
   uint32_t i;
 
-  for (i=0; i<10; ++i) {
+  for (i=0; i<size; ++i) {
     pairs[i].key = NULL;
     pairs[i].val = NULL;
   }
