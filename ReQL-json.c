@@ -207,10 +207,10 @@ _reql_op_eq(_ReQL_Op l, _ReQL_Op r) {
     res = 1;
   } else {
     if ((l && r)) {
-      if (l->tt == r->tt) {
-        if (l->tt == _REQL_DATUM) {
-          if (l->obj.datum.dt == r->obj.datum.dt) {
-            switch (l->obj.datum.dt) {
+      if (_reql_term_type(l) == _reql_term_type(r)) {
+        if (_reql_term_type(l) == _REQL_DATUM) {
+          if (_reql_datum_type(l) == _reql_datum_type(r)) {
+            switch (_reql_datum_type(l)) {
               case _REQL_R_ARRAY: {
                 uint32_t l_size = _reql_array_size(l), r_size = _reql_array_size(r);
                 if (l_size == r_size) {
