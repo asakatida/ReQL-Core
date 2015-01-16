@@ -284,7 +284,7 @@ extern double
 _reql_to_number(_ReQL_Op obj);
 
 extern void
-_reql_string_init(_ReQL_Op obj, uint8_t *buf, uint32_t size);
+_reql_string_init(_ReQL_Op obj, uint8_t *buf, uint32_t size, uint32_t alloc_size);
 extern uint8_t *
 _reql_string_buf(_ReQL_Op obj);
 extern uint32_t

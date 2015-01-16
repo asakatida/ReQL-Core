@@ -52,12 +52,13 @@ _reql_to_number(_ReQL_Op obj) {
 }
 
 extern void
-_reql_string_init(_ReQL_Op obj, uint8_t *str, uint32_t size) {
+_reql_string_init(_ReQL_Op obj, uint8_t *str, uint32_t size, uint32_t alloc_size) {
   _reql_null_init(obj);
 
   obj->obj.datum.dt = _REQL_R_STR;
   obj->obj.datum.json.string.str = str;
-  obj->obj.datum.json.string.alloc_size = size;
+  obj->obj.datum.json.string.size = size;
+  obj->obj.datum.json.string.alloc_size = alloc_size;
 }
 
 extern uint8_t *
