@@ -13,6 +13,13 @@ TEST_CASE("Connection", "[c++][connect]") {
 }
 
 TEST_CASE("Expr", "[c][expr]") {
+  SECTION("null") {
+    _ReQL_Op_t null;
+
+    _reql_null_init(&null);
+
+    CHECK(_reql_datum_type(&null) == _REQL_R_NULL);
+  }
   SECTION("number") {
     _ReQL_Op_t num;
 
