@@ -13,6 +13,17 @@ TEST_CASE("Connection", "[c++][connect]") {
 }
 
 TEST_CASE("Expr", "[c][expr]") {
+  SECTION("bool") {
+    _ReQL_Op_t boolean;
+
+    _reql_bool_init(&boolean, 10);
+
+    CHECK(_reql_to_bool(&boolean) == true);
+
+    _reql_bool_init(&boolean, false);
+
+    CHECK(_reql_to_bool(&boolean) == false);
+  }
   SECTION("null") {
     _ReQL_Op_t null;
 
