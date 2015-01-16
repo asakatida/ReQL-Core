@@ -58,16 +58,23 @@ _reql_merge_stack(_ReQL_Op stack) {
   return _reql_merge_stack_val(stack, _reql_array_pop(stack));
 }
 
-static uint32_t
+static _ReQL_Op
 _reql_string_decode(uint32_t size, uint8_t *json) {
   uint8_t res;
+  uint8_t *str = malloc(sizeof(uint8_t) * size);
+
+  if (str == NULL) {
+    return NULL;
+  }
+
   uint32_t i, j = 0;
   for (i=0; i<size; ++i) {
     res = json[i];
     if (res == 0x5C) { /* \ */
       ++i;
       if (i >= size) {
-        return size;
+        free(str);
+        return NULL;
       }
       res = json[i];
       switch (json[i]) {
@@ -107,7 +114,8 @@ _reql_string_decode(uint32_t size, uint8_t *json) {
             }
             if (valid) {
               if (json[++i] != '0' || json[++i] != '0') {
-                return -1;
+                free(str);
+                return NULL;
               }
               res = 0;
               for (n=1; n>=0; --n) {
@@ -127,9 +135,21 @@ _reql_string_decode(uint32_t size, uint8_t *json) {
         }
       }
     }
-    json[j++] = res;
+    str[j++] = res;
   }
-  return j;
+
+  str = realloc(str, sizeof(uint8_t) * j);
+
+  _ReQL_Op out = malloc(sizeof(_ReQL_Op_t));
+
+  if (out == NULL) {
+    free(str);
+    return NULL;
+  }
+
+  _reql_string_init(out, str, j, j);
+
+  return out;
 }
 
 static int
@@ -330,14 +350,13 @@ _reql_decode_(_ReQL_Op stack, uint8_t *json, uint32_t size) {
           case 0x22: { /* " */
             if (!esc) {
               uint32_t orig_size = i - str_start - 1;
-              uint32_t size = _reql_string_decode(orig_size, &json[str_start]);
 
-              if (orig_size < size) {
+              _ReQL_Op obj = _reql_string_decode(orig_size, &json[str_start]);
+
+              if (obj == NULL) {
                 return NULL;
               }
 
-              _ReQL_Op obj = malloc(sizeof(_ReQL_Op_t));
-              _reql_string_init(obj, &json[str_start], size);
               state = _reql_merge_stack_val(stack, obj);
               break;
             }
@@ -406,7 +425,7 @@ _reql_pair_destroy(_ReQL_Pair pair, int32_t size) {
     _reql_json_destroy(pair[i].key);
     _reql_json_destroy(pair[i].val);
   }
-  
+
   free(pair);
 }
 
