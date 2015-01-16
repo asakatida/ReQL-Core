@@ -357,7 +357,7 @@ _reql_bool_init(_ReQL_Op obj, char val) {
   _reql_null_init(obj);
 
   obj->obj.datum.dt = _REQL_R_BOOL;
-  obj->obj.datum.json.boolean = val;
+  obj->obj.datum.json.boolean = val ? 1 : 0;
 }
 
 extern char
