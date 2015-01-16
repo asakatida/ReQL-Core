@@ -13,54 +13,50 @@ TEST_CASE("Connection", "[c++][connect]") {
 }
 
 TEST_CASE("Expr", "[c][expr]") {
+  _ReQL_Op_t val;
+
   SECTION("bool") {
-    _ReQL_Op_t boolean;
+    _reql_bool_init(&val, 10);
 
-    _reql_bool_init(&boolean, 10);
+    CHECK(_reql_to_bool(&val) == true);
 
-    CHECK(_reql_to_bool(&boolean) == true);
+    _reql_bool_init(&val, false);
 
-    _reql_bool_init(&boolean, false);
-
-    CHECK(_reql_to_bool(&boolean) == false);
+    CHECK(_reql_to_bool(&val) == false);
   }
+
   SECTION("null") {
-    _ReQL_Op_t null;
+    _reql_null_init(&val);
 
-    _reql_null_init(&null);
-
-    CHECK(_reql_datum_type(&null) == _REQL_R_NULL);
+    CHECK(_reql_datum_type(&val) == _REQL_R_NULL);
   }
+
   SECTION("number") {
-    _ReQL_Op_t num;
+    const double num = 42.0;
 
-    const double val = 42.0;
+    _reql_number_init(&val, num);
 
-    _reql_number_init(&num, val);
-
-    CHECK(val == _reql_to_number(&num));
+    CHECK(num == _reql_to_number(&val));
   }
+
   SECTION("number edges") {
-    _ReQL_Op_t num;
+    const double num = std::numeric_limits<std::double_t>::max();
 
-    const double val = std::numeric_limits<std::double_t>::max();
+    _reql_number_init(&val, num);
 
-    _reql_number_init(&num, val);
-
-    CHECK(val == _reql_to_number(&num));
+    CHECK(num == _reql_to_number(&val));
   }
-  SECTION("string") {
-    _ReQL_Op_t string;
 
+  SECTION("string") {
     const uint32_t size = 12;
 
     uint8_t buf[size] = "Hello World";
 
     std::string orig = std::string((char *)buf, size);
 
-    _reql_string_init(&string, buf, size, size);
+    _reql_string_init(&val, buf, size, size);
 
-    CHECK(orig.compare(0, size, (char *)_reql_string_buf(&string), size) == 0);
-    CHECK(size == _reql_string_size(&string));
+    CHECK(orig.compare(0, size, (char *)_reql_string_buf(&val), size) == 0);
+    CHECK(size == _reql_string_size(&val));
   }
 }
