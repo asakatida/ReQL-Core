@@ -2,6 +2,8 @@
 
 #include "catch.h"
 
+#include <limits>
+
 using namespace ReQL;
 
 TEST_CASE("Connection", "[c++][connect]") {
@@ -11,6 +13,24 @@ TEST_CASE("Connection", "[c++][connect]") {
 }
 
 TEST_CASE("Expr", "[c][expr]") {
+  SECTION("number") {
+    _ReQL_Op_t num;
+
+    const double val = 42.0;
+
+    _reql_number_init(&num, val);
+
+    CHECK(val == _reql_to_number(&num));
+  }
+  SECTION("number edges") {
+    _ReQL_Op_t num;
+
+    const double val = std::numeric_limits<std::double_t>::max();
+
+    _reql_number_init(&num, val);
+
+    CHECK(val == _reql_to_number(&num));
+  }
   SECTION("string") {
     _ReQL_Op_t string;
 
