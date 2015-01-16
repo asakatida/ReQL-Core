@@ -81,7 +81,7 @@ limitations under the License.
 
   _ReQL_Op val = malloc(sizeof(_ReQL_Op_t));
 
-  _reql_string_init(val, c_str, c_str_len);
+  _reql_string_init(val, c_str, c_str_len, c_str_len);
 
   _ReQL_Op expr = malloc(sizeof(_ReQL_Op_t));
 

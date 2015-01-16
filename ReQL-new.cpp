@@ -109,7 +109,7 @@ _reql_new_string(std::string val) {
 
   _ReQL_Op obj = _reql_alloc_term();
 
-  _reql_string_init(obj, str, (uint32_t)size);
+  _reql_string_init(obj, str, (uint32_t)size, (uint32_t)size);
 
   return obj;
 }

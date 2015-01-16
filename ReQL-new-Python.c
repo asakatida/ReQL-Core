@@ -172,7 +172,7 @@ _reql_py_new_string(PyObject *val) {
 
   _ReQL_Op obj = _reql_py_alloc_term();
 
-  _reql_string_init(obj, str, (uint32_t)size);
+  _reql_string_init(obj, str, (uint32_t)size, (uint32_t)size);
 
   return _reql_py_err_check(obj);
 }

@@ -102,7 +102,7 @@ _reql_lua_new_string(lua_State *L, const int idx) {
 
   _ReQL_Op obj = _reql_lua_alloc_term(L);
 
-  _reql_string_init(obj, str, (uint32_t)len);
+  _reql_string_init(obj, str, (uint32_t)len, (uint32_t)len);
 
   return obj;
 }
