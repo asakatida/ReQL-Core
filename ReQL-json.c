@@ -285,6 +285,13 @@ _reql_key_sort(const void *l, const void *r) {
   }
   _ReQL_Pair lobj = (_ReQL_Pair)l;
   _ReQL_Pair robj = (_ReQL_Pair)r;
+  if (lobj->key == NULL && robj->key == NULL) {
+    return 0;
+  } else if (lobj->key == NULL) {
+    return -1;
+  } else if (robj->key == NULL) {
+    return 1;
+  }
   uint32_t lsize = _reql_string_size(lobj->key);
   uint32_t rsize = _reql_string_size(robj->key);
   if (lsize == rsize) {
