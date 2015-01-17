@@ -35,7 +35,7 @@ _reql_string_append(_ReQL_String_t *obj, const uint8_t *ext, uint32_t size) {
     uint8_t *str = realloc(obj->str, sizeof(uint8_t) * obj->alloc_size);
 
     if (!str) {
-      free(obj->str);
+      free(obj->str); obj->str = NULL;
       obj->alloc_size = 0;
       obj->size = 0;
       return -1;
@@ -192,6 +192,10 @@ _reql_encode(_ReQL_Op val) {
   json->alloc_size = 100;
 
   if (_reql_encode_(val, json)) {
+    if (json->str != NULL) {
+      free(json->str);
+    }
+    free(json);
     return NULL;
   }
 
