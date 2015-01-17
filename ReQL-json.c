@@ -334,6 +334,8 @@ _reql_object_add(_ReQL_Op obj, _ReQL_Op key, _ReQL_Op val) {
     pair->key = key;
     pair->val = val;
 
+    obj->obj.datum.json.object.size += 1;
+
     qsort(pair, obj->obj.datum.json.object.size, sizeof(_ReQL_Pair_t), _reql_key_sort);
   } else {
     pair->val = val;
