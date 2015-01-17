@@ -12,6 +12,40 @@ TEST_CASE("Connection", "[c++][connect]") {
   REQUIRE(conn.isOpen());
 }
 
+TEST_CASE("Expr array", "[c][expr][array]") {
+  _ReQL_Op_t ary;
+
+  const uint32_t size = 5;
+
+  _ReQL_Op arr[size];
+
+  _reql_array_init(&ary, arr, size);
+
+  CHECK(_reql_array_size(&ary) == 0);
+
+  SECTION("over fill array") {
+    uint32_t i;
+
+    for (i=0; i<size - 1; ++i) {
+      CHECK(_reql_array_append(&ary, &ary) == 0);
+    }
+
+    CHECK(_reql_array_append(&ary, &ary) != 0);
+  }
+
+  SECTION("grow and shrink") {
+    _reql_array_append(&ary, &ary);
+
+    CHECK(_reql_array_pop(&ary) != NULL);
+    CHECK(_reql_array_last(&ary) == NULL);
+    CHECK(_reql_array_pop(&ary) == NULL);
+  }
+
+  SECTION("insert after end") {
+    CHECK(_reql_array_insert(&ary, &ary, size * 2) != 0);
+  }
+}
+
 TEST_CASE("Expr object", "[c][expr][object]") {
   _ReQL_Op_t obj, key, val;
 
