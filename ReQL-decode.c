@@ -27,35 +27,58 @@ limitations under the License.
 #include <string.h>
 
 static _ReQL_Datum_t
-_reql_merge_stack_val(_ReQL_Op stack, _ReQL_Op val) {
-  _ReQL_Datum_t state = _REQL_R_REQL;
-  if (val != NULL) {
-    state = _REQL_R_JSON;
-    _ReQL_Op arr = _reql_array_last(stack);
-    if (arr == NULL) {
-    } else if (_reql_datum_type(arr) == _REQL_R_ARRAY) {
-      _reql_array_append(arr, val);
-      state = _REQL_R_ARRAY;
-    } else if (_reql_datum_type(arr) == _REQL_R_STR) {
-      _ReQL_Op key = _reql_array_pop(stack);
-      _ReQL_Op obj = _reql_array_last(stack);
-      if (_reql_datum_type(obj) == _REQL_R_OBJECT) {
-        _reql_object_add(obj, key, val);
-        state = _REQL_R_OBJECT;
-      } else {
-        _reql_array_append(stack, arr);
-        _reql_array_append(stack, val);
-      }
-    } else {
-      _reql_array_append(stack, val);
-    }
-  }
-  return state;
+_reql_bad_pair(_ReQL_Op stack, _ReQL_Op key, _ReQL_Op val) {
+  _reql_array_append(stack, key);
+  _reql_array_append(stack, val);
+  return _REQL_R_JSON;
 }
 
-static int
+static _ReQL_Datum_t
+_reql_merge_stack_pair(_ReQL_Op stack, _ReQL_Op key, _ReQL_Op val) {
+  if (_reql_datum_type(key) != _REQL_R_STR) {
+    return _reql_bad_pair(stack, key, val);
+  }
+
+  _ReQL_Op obj = _reql_array_last(stack);
+
+  if (obj == NULL) {
+    return _reql_bad_pair(stack, key, val);
+  }
+
+  if (_reql_datum_type(obj) != _REQL_R_OBJECT) {
+    return _reql_bad_pair(stack, key, val);
+  }
+
+  _reql_object_add(obj, key, val);
+  return _REQL_R_OBJECT;
+}
+
+static _ReQL_Datum_t
+_reql_merge_stack_val(_ReQL_Op stack, _ReQL_Op val) {
+  _ReQL_Op arr = _reql_array_last(stack);
+
+  if (arr == NULL) {
+    _reql_array_append(stack, val);
+    return _REQL_R_JSON;
+  }
+
+  if (_reql_datum_type(arr) != _REQL_R_ARRAY) {
+    return _reql_merge_stack_pair(stack, _reql_array_pop(stack), val);
+  }
+
+  _reql_array_append(arr, val);
+  return _REQL_R_ARRAY;
+}
+
+static _ReQL_Datum_t
 _reql_merge_stack(_ReQL_Op stack) {
-  return _reql_merge_stack_val(stack, _reql_array_pop(stack));
+  _ReQL_Op val = _reql_array_pop(stack);
+
+  if (val == NULL) {
+    return _REQL_R_REQL;
+  }
+
+  return _reql_merge_stack_val(stack, val);
 }
 
 static _ReQL_Op
