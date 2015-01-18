@@ -52,7 +52,7 @@ _reql_conn_set_port(_ReQL_Conn conn, char *port);
 extern void
 _reql_conn_set_timeout(_ReQL_Conn conn, unsigned long timeout);
 extern int
-_reql_connect(_ReQL_Conn conn, char *buf, size_t size);
+_reql_connect(_ReQL_Conn conn, uint8_t *buf, uint32_t size);
 extern void
 _reql_close_conn(_ReQL_Conn conn);
 extern void

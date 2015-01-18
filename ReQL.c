@@ -171,16 +171,25 @@ _reql_conn_done(_ReQL_Conn_t *conn) {
   return res;
 }
 
+static uint32_t
+_reql_conn_read(_ReQL_Conn conn, uint8_t *buf, const uint32_t size) {
+  const ssize_t rcv_size = recvfrom(_reql_conn_socket(conn), buf, size, 0, NULL, NULL);
+
+  if (rcv_size != size) {
+  }
+
+  return (uint32_t)rcv_size;
+}
+
 static void *
-_reql_conn_loop(void *_conn) {
-  _ReQL_Conn_t *conn = _conn;
+_reql_conn_loop(void *conn) {
   char msg_header[12];
   uint8_t *response = NULL;
   uint64_t token = 0;
   uint32_t pos = 0, size = 12;
 
   while (!_reql_conn_done(conn)) {
-    pos += recvfrom(conn->socket, &response[pos], size, MSG_WAITALL, NULL, NULL);
+    pos += _reql_conn_read(conn, &response[pos], size);
     if (response) {
       if (pos == size) {
         _reql_set_cur_res(conn, _reql_decode(response, size), token);
@@ -209,7 +218,7 @@ _reql_conn_loop(void *_conn) {
 }
 
 extern int
-_reql_connect(_ReQL_Conn_t *conn, char *buf, size_t size) {
+_reql_connect(_ReQL_Conn_t *conn, uint8_t *buf, uint32_t size) {
   struct addrinfo hints;
   struct addrinfo *result, *rp;
 
@@ -279,10 +288,10 @@ _reql_connect(_ReQL_Conn_t *conn, char *buf, size_t size) {
 
   writev(conn->socket, magic, 4);
 
-  recvfrom(conn->socket, buf, 8, MSG_WAITALL, NULL, NULL);
+  _reql_conn_read(conn, buf, 8);
 
-  if (strcmp(buf, "SUCCESS")) {
-    recvfrom(conn->socket, buf, size - 8, MSG_WAITALL, NULL, NULL);
+  if (memcmp(buf, "SUCCESS", 8) != 0) {
+    _reql_conn_read(conn, buf, size - 8);
     _reql_close_conn(conn);
     _reql_conn_close_socket(conn);
     return -1;
