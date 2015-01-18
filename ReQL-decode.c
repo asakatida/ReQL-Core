@@ -289,7 +289,8 @@ _reql_decode_(_ReQL_Op stack, uint8_t *json, uint32_t size) {
             if (memcmp(&json[i], json_true, 4) == 0) {
               _ReQL_Op obj = malloc(sizeof(_ReQL_Op_t));
               _reql_bool_init(obj, 1);
-              state = _reql_merge_stack_val(stack, obj);
+              _reql_array_append(stack, obj);
+              state = _reql_merge_stack(stack);
               i += 4;
               break;
             }
@@ -298,7 +299,8 @@ _reql_decode_(_ReQL_Op stack, uint8_t *json, uint32_t size) {
             if (memcmp(&json[i], json_false, 5) == 0) {
               _ReQL_Op obj = malloc(sizeof(_ReQL_Op_t));
               _reql_bool_init(obj, 1);
-              state = _reql_merge_stack_val(stack, obj);
+              _reql_array_append(stack, obj);
+              state = _reql_merge_stack(stack);
               i += 5;
               break;
             }
@@ -307,7 +309,8 @@ _reql_decode_(_ReQL_Op stack, uint8_t *json, uint32_t size) {
             if (memcmp(&json[i], json_null, 4) == 0) {
               _ReQL_Op obj = malloc(sizeof(_ReQL_Op_t));
               _reql_null_init(obj);
-              state = _reql_merge_stack_val(stack, obj);
+              _reql_array_append(stack, obj);
+              state = _reql_merge_stack(stack);
               i += 4;
               break;
             }
@@ -344,7 +347,8 @@ _reql_decode_(_ReQL_Op stack, uint8_t *json, uint32_t size) {
             }
             _ReQL_Op obj = malloc(sizeof(_ReQL_Op_t));
             _reql_number_init(obj, num);
-            state = _reql_merge_stack_val(stack, obj);
+            _reql_array_append(stack, obj);
+            state = _reql_merge_stack(stack);
             --i;
           }
         }
@@ -383,7 +387,8 @@ _reql_decode_(_ReQL_Op stack, uint8_t *json, uint32_t size) {
                 return NULL;
               }
 
-              state = _reql_merge_stack_val(stack, obj);
+              _reql_array_append(stack, obj);
+              state = _reql_merge_stack(stack);
               break;
             }
           }
