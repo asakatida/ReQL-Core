@@ -12,6 +12,91 @@ TEST_CASE("Connection", "[c++][connect]") {
   REQUIRE(conn.isOpen());
 }
 
+TEST_CASE("decode errors", "[c][decode]") {
+  SECTION("empty string") {
+    const uint32_t size = 1;
+    uint8_t src[size] = "";
+
+    CHECK(_reql_decode(src, size) == NULL);
+  }
+
+  SECTION("unterminated object") {
+    const uint32_t size = 2;
+    uint8_t src[size] = "{";
+
+    CHECK(_reql_decode(src, size) == NULL);
+  }
+
+  SECTION("unterminated array") {
+    const uint32_t size = 12;
+    uint8_t src[size] = "[{}, [], 10";
+
+    CHECK(_reql_decode(src, size) == NULL);
+  }
+}
+
+TEST_CASE("decode values", "[c][decode]") {
+  SECTION("null") {
+    const uint32_t size = 6;
+    uint8_t src[size] = " null";
+
+    _ReQL_Op obj = _reql_decode(src, size);
+
+    REQUIRE(obj != NULL);
+    REQUIRE(_reql_datum_type(obj) == _REQL_R_NULL);
+
+    _reql_json_destroy(obj);
+  }
+
+  SECTION("true") {
+    const uint32_t size = 6;
+    uint8_t src[size] = "true ";
+
+    _ReQL_Op obj = _reql_decode(src, size);
+
+    REQUIRE(obj != NULL);
+    REQUIRE(_reql_datum_type(obj) == _REQL_R_BOOL);
+
+    _reql_json_destroy(obj);
+  }
+
+  SECTION("false") {
+    const uint32_t size = 6;
+    uint8_t src[size] = "false";
+
+    _ReQL_Op obj = _reql_decode(src, size);
+
+    REQUIRE(obj != NULL);
+    REQUIRE(_reql_datum_type(obj) == _REQL_R_BOOL);
+
+    _reql_json_destroy(obj);
+  }
+
+  SECTION("number") {
+    const uint32_t size = 6;
+    uint8_t src[size] = "1234 ";
+
+    _ReQL_Op obj = _reql_decode(src, size);
+
+    REQUIRE(obj != NULL);
+    REQUIRE(_reql_datum_type(obj) == _REQL_R_NUM);
+
+    _reql_json_destroy(obj);
+  }
+
+  SECTION("string") {
+    const uint32_t size = 6;
+    uint8_t src[size] = "\"hi!\"";
+
+    _ReQL_Op obj = _reql_decode(src, size);
+
+    REQUIRE(obj != NULL);
+    REQUIRE(_reql_datum_type(obj) == _REQL_R_STR);
+
+    _reql_json_destroy(obj);
+  }
+}
+
 TEST_CASE("Expr array", "[c][expr][array]") {
   _ReQL_Op_t ary;
 
