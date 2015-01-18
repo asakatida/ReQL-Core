@@ -1,3 +1,4 @@
+catch.h
 portable_endian.h
 ReQL-ast.cpp
 ReQL-ast.hpp
