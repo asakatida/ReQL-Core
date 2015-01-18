@@ -217,6 +217,9 @@ _reql_number_decode(uint32_t size, uint8_t *json, double *val) {
 
 static _ReQL_Op
 _reql_decode_(_ReQL_Op stack, uint8_t *json, uint32_t size) {
+  if (json[size - 1] == 0) {
+    --size;
+  }
   _ReQL_Datum_t state = _REQL_R_JSON;
   char esc = 0;
   uint32_t i, str_start = 0;
