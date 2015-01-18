@@ -294,6 +294,7 @@ _reql_decode_(_ReQL_Op stack, uint8_t *json, uint32_t size) {
               i += 4;
               break;
             }
+            return NULL;
           }
           case 'f': {
             if (memcmp(&json[i], json_false, 5) == 0) {
@@ -304,6 +305,7 @@ _reql_decode_(_ReQL_Op stack, uint8_t *json, uint32_t size) {
               i += 5;
               break;
             }
+            return NULL;
           }
           case 'n': {
             if (memcmp(&json[i], json_null, 4) == 0) {
@@ -314,6 +316,7 @@ _reql_decode_(_ReQL_Op stack, uint8_t *json, uint32_t size) {
               i += 4;
               break;
             }
+            return NULL;
           }
           default: {
             return NULL;
