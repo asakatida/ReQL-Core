@@ -5,47 +5,30 @@ compiler:
   - gcc
 env:
   - |
-    DEPEND=python3-dev
-    SETUP="curl https://bootstrap.pypa.io/get-pip.py | sudo python3"
-    BUILD="python3 setup.py build"
-    INSTALL="sudo python3 setup.py install"
+    BUILD=build-py.sh
     TEST=
   - |
-    DEPEND=luarocks
-    SETUP="sudo luarocks install busted"
-    BUILD=true
-    INSTALL="sudo luarocks make"
-    TEST="busted"
+    BUILD=build-lua.sh
+    TEST=busted
   - |
-    DEPEND=npm
-    SETUP=true
-    BUILD=true
-    INSTALL="sudo npm install"
-    TEST=true
+    BUILD=build-node.sh
+    TEST=
   - |
-    DEPEND=rethinkdb
-    SETUP="gem install rake-compiler"
-    BUILD=rake
-    INSTALL=true
-    TEST=true
+    BUILD=build-rb.sh
+    TEST=
   - |
-    DEPEND=rethinkdb
-    SETUP=true
-    BUILD=make
-    INSTALL="make libReQLtest"
+    BUILD=build-c++.sh
     TEST="make test"
 
 before_install:
   - source /etc/lsb-release && echo "deb http://download.rethinkdb.com/apt $DISTRIB_CODENAME main" | sudo tee /etc/apt/sources.list.d/rethinkdb.list
   - wget -qO- http://download.rethinkdb.com/apt/pubkey.gpg | sudo apt-key add -
   - sudo apt-get update
-  - sudo apt-get install rethinkdb $DEPEND
+  - sudo apt-get install rethinkdb
   - rethinkdb --daemon
-  - $SETUP
 
 install:
-  - $BUILD
-  - $INSTALL
+  - bash $BUILD
 
 script:
   - $TEST
