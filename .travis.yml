@@ -1,27 +1,51 @@
 language: cpp
 
+compiler:
+  - clang
+  - gcc
+env:
+  - |
+    DEPEND=python3-dev
+    SETUP="curl https://bootstrap.pypa.io/get-pip.py | sudo python3"
+    BUILD="python3 setup.py build"
+    INSTALL="sudo python3 setup.py install"
+    TEST=
+  - |
+    DEPEND=luarocks
+    SETUP="sudo luarocks install busted"
+    BUILD=true
+    INSTALL="sudo luarocks make"
+    TEST="busted"
+  - |
+    DEPEND=npm
+    SETUP=true
+    BUILD=true
+    INSTALL="sudo npm install"
+    TEST=true
+  - |
+    DEPEND=rethinkdb
+    SETUP="gem install rake-compiler"
+    BUILD=rake
+    INSTALL=true
+    TEST=true
+  - |
+    DEPEND=rethinkdb
+    SETUP=true
+    BUILD=make
+    INSTALL="make libReQLtest"
+    TEST="make test"
+
 before_install:
   - source /etc/lsb-release && echo "deb http://download.rethinkdb.com/apt $DISTRIB_CODENAME main" | sudo tee /etc/apt/sources.list.d/rethinkdb.list
   - wget -qO- http://download.rethinkdb.com/apt/pubkey.gpg | sudo apt-key add -
   - sudo apt-get update
-  - sudo apt-get install python3-dev luarocks npm rethinkdb
+  - sudo apt-get install rethinkdb $DEPEND
   - rethinkdb --daemon
-  - gem install rake-compiler
-  - curl https://bootstrap.pypa.io/get-pip.py | sudo python3
-  - sudo luarocks install busted
+  - $SETUP
 
 install:
-  - sudo luarocks make
-  - rm -f *.o
-  - python3 setup.py build
-  - sudo python3 setup.py install
-  - rm -rf build
-  - sudo npm install
-  - rake
-  - rm -rf tmp
-  - CC=clang CXX=clang++ make
-  - CC=clang CXX=clang++ make libReQLtest
+  - $BUILD
+  - $INSTALL
 
 script:
-  - CC=clang CXX=clang++ make test
-  - busted
+  - $TEST
