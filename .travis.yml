@@ -6,19 +6,19 @@ compiler:
 env:
   - |
     BUILD=build-py.sh
-    TEST=
+    TEST=test-py.sh
   - |
     BUILD=build-lua.sh
-    TEST=busted
+    TEST=test-lua.sh
   - |
     BUILD=build-node.sh
-    TEST=
+    TEST=test-node.sh
   - |
     BUILD=build-rb.sh
-    TEST=
+    TEST=test-rb.sh
   - |
     BUILD=build-c++.sh
-    TEST="make test"
+    TEST=test-c++.sh
 
 before_install:
   - source /etc/lsb-release && echo "deb http://download.rethinkdb.com/apt $DISTRIB_CODENAME main" | sudo tee /etc/apt/sources.list.d/rethinkdb.list
@@ -31,4 +31,4 @@ install:
   - bash $BUILD
 
 script:
-  - $TEST
+  - bash $TEST
