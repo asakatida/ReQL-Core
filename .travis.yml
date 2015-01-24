@@ -1,8 +1,5 @@
 language: cpp
 
-compiler:
-  - clang
-  - gcc
 env:
   - |
     BUILD=build-py.sh
@@ -21,11 +18,17 @@ env:
     TEST=test-c++.sh
 
 matrix:
-  exclude:
-    complier: gcc
-    env: |
-      BUILD=build-c++.sh
-      TEST=test-c++.sh
+  allow_failures:
+    - complier: gcc
+      env: |
+        BUILD=build-c++.sh
+        TEST=test-c++.sh
+  fast_finish: true
+  include:
+    - complier: clang
+      env: |
+        BUILD=build-c++.sh
+        TEST=test-c++.sh
 
 before_install:
   - source /etc/lsb-release && echo "deb http://download.rethinkdb.com/apt $DISTRIB_CODENAME main" | sudo tee /etc/apt/sources.list.d/rethinkdb.list
