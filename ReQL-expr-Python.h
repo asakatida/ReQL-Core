@@ -25,9 +25,9 @@ limitations under the License.
 
 extern PyObject *
 _reql_py_expr(PyObject *self, PyObject *args);
-extern _ReQL_Op
+extern _ReQL_Obj_t *
 _reql_from_py(PyObject *query);
 extern PyObject *
-_reql_to_py(_ReQL_Op query);
+_reql_to_py(_ReQL_Obj_t *query);
 
 #endif

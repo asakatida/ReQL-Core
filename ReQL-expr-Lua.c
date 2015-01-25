@@ -252,7 +252,7 @@ _reql_lua_class(lua_State *L, const char *name, const int parent, const int base
   }
 }
 
-extern _ReQL_Op
+extern _ReQL_Obj_t *
 _reql_from_lua(lua_State *L, const int idx, long nesting_depth) {
   if (nesting_depth <= 0) {
     luaL_error(L, "Nesting depth limit exceeded");
@@ -320,7 +320,7 @@ _reql_from_lua(lua_State *L, const int idx, long nesting_depth) {
       --nesting_depth;
 
       if (array) {
-        _ReQL_Op arr = _reql_lua_new_array(L, table_len);
+        _ReQL_Obj_t *arr = _reql_lua_new_array(L, table_len);
         int i;
         for (i=1; i<=table_len; ++i) {
           lua_rawgeti(L, 2, i);
@@ -329,7 +329,7 @@ _reql_from_lua(lua_State *L, const int idx, long nesting_depth) {
         }
         return _reql_lua_new_make_array(L, arr);
       }
-      _ReQL_Op obj = _reql_lua_new_object(L, table_len);
+      _ReQL_Obj_t *obj = _reql_lua_new_object(L, table_len);
       while (lua_next(L, idx)) {
         _reql_object_add(obj, _reql_from_lua(L, water_mark + 1, nesting_depth), _reql_from_lua(L, water_mark + 2, nesting_depth));
         lua_pop(L, 1);
@@ -342,7 +342,7 @@ _reql_from_lua(lua_State *L, const int idx, long nesting_depth) {
 }
 
 extern void
-_reql_to_lua(lua_State *L, _ReQL_Op query) {
+_reql_to_lua(lua_State *L, _ReQL_Obj_t *query) {
   switch (_reql_datum_type(query)) {
     case _REQL_R_ARRAY: {
       uint32_t size = _reql_array_size(query);
@@ -381,7 +381,7 @@ _reql_to_lua(lua_State *L, _ReQL_Op query) {
     case _REQL_R_OBJECT: {
       _ReQL_Iter_t iter = _reql_new_iter(query);
 
-      _ReQL_Op key;
+      _ReQL_Obj_t *key;
 
       lua_newtable(L);
       int table_idx = lua_gettop(L);

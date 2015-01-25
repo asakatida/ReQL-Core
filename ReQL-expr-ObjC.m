@@ -69,7 +69,7 @@ limitations under the License.
 @end
 
 @implementation libReQL_expr {
-  _ReQL_Op query;
+  _ReQL_Obj_t *query;
 }
 
 +(instancetype)ReQLWithString:(NSString *)string {
@@ -79,11 +79,11 @@ limitations under the License.
 
   [string getBytes:c_str maxLength:c_str_len usedLength:NULL encoding:NSUnicodeStringEncoding options:NSStringEncodingConversionAllowLossy range:NSMakeRange(0, c_str_len) remainingRange:NULL];
 
-  _ReQL_Op val = malloc(sizeof(_ReQL_Op_t));
+  _ReQL_Obj_t *val = malloc(sizeof(_ReQL_Obj_t));
 
-  _reql_string_init(val, c_str, c_str_len, c_str_len);
+  _reql_string_init(val, c_str, c_str_len);
 
-  _ReQL_Op expr = malloc(sizeof(_ReQL_Op_t));
+  _ReQL_Obj_t *expr = malloc(sizeof(_ReQL_Obj_t));
 
   _reql_ast_datum(expr, val, NULL);
 
@@ -91,11 +91,11 @@ limitations under the License.
 }
 
 +(instancetype)ReQLWithNumber:(NSNumber *)number {
-  _ReQL_Op val = malloc(sizeof(_ReQL_Op_t));
+  _ReQL_Obj_t *val = malloc(sizeof(_ReQL_Obj_t));
 
   _reql_number_init(val, [number doubleValue]);
 
-  _ReQL_Op expr = malloc(sizeof(_ReQL_Op_t));
+  _ReQL_Obj_t *expr = malloc(sizeof(_ReQL_Obj_t));
 
   _reql_ast_datum(expr, val, NULL);
 
@@ -103,11 +103,11 @@ limitations under the License.
 }
 
 +(instancetype)ReQLWithBool:(BOOL)val {
-  _ReQL_Op _val = malloc(sizeof(_ReQL_Op_t));
+  _ReQL_Obj_t *_val = malloc(sizeof(_ReQL_Obj_t));
 
   _reql_bool_init(_val, val);
 
-  _ReQL_Op expr = malloc(sizeof(_ReQL_Op_t));
+  _ReQL_Obj_t *expr = malloc(sizeof(_ReQL_Obj_t));
 
   _reql_ast_datum(expr, _val, NULL);
 
@@ -117,8 +117,8 @@ limitations under the License.
 +(instancetype)ReQLWithArray:(NSArray *)array {
   uint32_t size = (uint32_t)[array count];
 
-  _ReQL_Op val = malloc(sizeof(_ReQL_Op_t));
-  _ReQL_Op *arr = malloc(sizeof(_ReQL_Op) * size);
+  _ReQL_Obj_t *val = malloc(sizeof(_ReQL_Obj_t));
+  _ReQL_Obj_t **arr = malloc(sizeof(_ReQL_Obj_t *) * size);
 
   _reql_array_init(val, arr, size);
 
@@ -128,7 +128,7 @@ limitations under the License.
     _reql_array_insert(val, elem->query, ++i);
   }
 
-  _ReQL_Op expr = malloc(sizeof(_ReQL_Op_t));
+  _ReQL_Obj_t *expr = malloc(sizeof(_ReQL_Obj_t));
 
   _reql_ast_datum(expr, val, NULL);
 
@@ -138,8 +138,8 @@ limitations under the License.
 +(instancetype)ReQLWithDict:(NSDictionary *)obj {
   uint32_t size = (uint32_t)[obj count];
 
-  _ReQL_Op val = malloc(sizeof(_ReQL_Op_t));
-  _ReQL_Pair pair = malloc(sizeof(_ReQL_Pair_t) * size);
+  _ReQL_Obj_t *val = malloc(sizeof(_ReQL_Obj_t));
+  _ReQL_Pair_t *pair = malloc(sizeof(_ReQL_Pair_t) * size);
 
   _reql_object_init(val, pair, size);
 
@@ -147,18 +147,18 @@ limitations under the License.
     _reql_object_add(val, [libReQL_expr ReQLWithString:key]->query, ((libReQL_expr *)[obj valueForKey:key])->query);
   }
 
-  _ReQL_Op expr = malloc(sizeof(_ReQL_Op_t));
+  _ReQL_Obj_t *expr = malloc(sizeof(_ReQL_Obj_t));
 
   _reql_ast_datum(expr, val, NULL);
 
   return [[libReQL_expr alloc] initWithReQL:expr];
 }
 
--(_ReQL_Op)ReQLValue {
+-(_ReQL_Obj_t *)ReQLValue {
   return self->query;
 }
 
--(instancetype)initWithReQL:(_ReQL_Op)obj {
+-(instancetype)initWithReQL:(_ReQL_Obj_t *)obj {
   if (self = [super init]) {
     self->query = obj;
   }

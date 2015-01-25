@@ -22,80 +22,80 @@ limitations under the License.
 
 namespace ReQL {
 
-_ReQL_Op *
+_ReQL_Obj_t **
 _reql_alloc_arr(size_t size) {
-  return new _ReQL_Op[size]();
+  return new _ReQL_Obj_t *[size]();
 }
 
-_ReQL_Pair
+_ReQL_Pair_t *
 _reql_alloc_pair(size_t size) {
   return new _ReQL_Pair_t[size]();
 }
 
-_ReQL_Op
+_ReQL_Obj_t *
 _reql_alloc_term() {
-  return new _ReQL_Op_t();
+  return new _ReQL_Obj_t();
 }
 
-_ReQL_Op
+_ReQL_Obj_t *
 _reql_new_array(uint32_t size) {
-  _ReQL_Op obj = _reql_alloc_term();
-  _ReQL_Op *arr = _reql_alloc_arr(size);
+  _ReQL_Obj_t *obj = _reql_alloc_term();
+  _ReQL_Obj_t **arr = _reql_alloc_arr(size);
   _reql_array_init(obj, arr, size);
   return obj;
 }
 
-_ReQL_Op
+_ReQL_Obj_t *
 _reql_new_bool(bool val) {
-  _ReQL_Op obj = _reql_alloc_term();
+  _ReQL_Obj_t *obj = _reql_alloc_term();
   _reql_bool_init(obj, val);
   return obj;
 }
 
-_ReQL_Op
-_reql_new_datum(_ReQL_Op arg) {
-  _ReQL_Op obj = _reql_alloc_term();
+_ReQL_Obj_t *
+_reql_new_datum(_ReQL_Obj_t *arg) {
+  _ReQL_Obj_t *obj = _reql_alloc_term();
   _reql_ast_datum(obj, arg, NULL);
   return obj;
 }
 
-_ReQL_Op
-_reql_new_make_array(_ReQL_Op arg) {
-  _ReQL_Op obj = _reql_alloc_term();
+_ReQL_Obj_t *
+_reql_new_make_array(_ReQL_Obj_t *arg) {
+  _ReQL_Obj_t *obj = _reql_alloc_term();
   _reql_ast_make_array(obj, arg, NULL);
   return obj;
 }
 
-_ReQL_Op
-_reql_new_make_obj(_ReQL_Op arg) {
-  _ReQL_Op obj = _reql_alloc_term();
+_ReQL_Obj_t *
+_reql_new_make_obj(_ReQL_Obj_t *arg) {
+  _ReQL_Obj_t *obj = _reql_alloc_term();
   _reql_ast_make_obj(obj, NULL, arg);
   return obj;
 }
 
-_ReQL_Op
+_ReQL_Obj_t *
 _reql_new_null() {
-  _ReQL_Op obj = _reql_alloc_term();
+  _ReQL_Obj_t *obj = _reql_alloc_term();
   _reql_null_init(obj);
   return obj;
 }
 
-_ReQL_Op
+_ReQL_Obj_t *
 _reql_new_number(double val) {
-  _ReQL_Op obj = _reql_alloc_term();
+  _ReQL_Obj_t *obj = _reql_alloc_term();
   _reql_number_init(obj, val);
   return obj;
 }
 
-_ReQL_Op
+_ReQL_Obj_t *
 _reql_new_object(uint32_t size) {
-  _ReQL_Op obj = _reql_alloc_term();
-  _ReQL_Pair pair = _reql_alloc_pair(size);
+  _ReQL_Obj_t *obj = _reql_alloc_term();
+  _ReQL_Pair_t *pair = _reql_alloc_pair(size);
   _reql_object_init(obj, pair, size);
   return obj;
 }
 
-_ReQL_Op
+_ReQL_Obj_t *
 _reql_new_string(std::string val) {
   size_t size = val.size();
 
@@ -107,9 +107,9 @@ _reql_new_string(std::string val) {
 
   val.copy((char *)str, size);
 
-  _ReQL_Op obj = _reql_alloc_term();
+  _ReQL_Obj_t *obj = _reql_alloc_term();
 
-  _reql_string_init(obj, str, (uint32_t)size, (uint32_t)size);
+  _reql_string_init(obj, str, (uint32_t)size);
 
   return obj;
 }

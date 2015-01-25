@@ -27,23 +27,23 @@ limitations under the License.
 #ifndef _REQL_NEW_PYTHON
 #define _REQL_NEW_PYTHON
 
-extern _ReQL_Op
+extern _ReQL_Obj_t *
 _reql_py_new_array(uint32_t size);
-extern _ReQL_Op
+extern _ReQL_Obj_t *
 _reql_py_new_bool(PyObject *val);
-extern _ReQL_Op
-_reql_py_new_datum(_ReQL_Op val);
-extern _ReQL_Op
-_reql_py_new_make_array(_ReQL_Op val);
-extern _ReQL_Op
-_reql_py_new_make_obj(_ReQL_Op val);
-extern _ReQL_Op
+extern _ReQL_Obj_t *
+_reql_py_new_datum(_ReQL_Obj_t *val);
+extern _ReQL_Obj_t *
+_reql_py_new_make_array(_ReQL_Obj_t *val);
+extern _ReQL_Obj_t *
+_reql_py_new_make_obj(_ReQL_Obj_t *val);
+extern _ReQL_Obj_t *
 _reql_py_new_null();
-extern _ReQL_Op
+extern _ReQL_Obj_t *
 _reql_py_new_number(PyObject *val);
-extern _ReQL_Op
+extern _ReQL_Obj_t *
 _reql_py_new_object(uint32_t idx);
-extern _ReQL_Op
+extern _ReQL_Obj_t *
 _reql_py_new_string(PyObject *val);
 
 #endif

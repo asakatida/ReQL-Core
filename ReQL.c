@@ -148,7 +148,7 @@ _reql_conn_close_socket(_ReQL_Conn_t *conn) {
 }
 
 static void
-_reql_set_cur_res(_ReQL_Conn_t *conn, _ReQL_Op res, unsigned long long token) {
+_reql_set_cur_res(_ReQL_Conn_t *conn, _ReQL_Obj_t *res, unsigned long long token) {
   _ReQL_Cur_t *cur = conn->cursors;
 
   if (cur->token == token) {
@@ -334,11 +334,11 @@ _reql_conn_open(_ReQL_Conn conn) {
 }
 
 extern int
-_reql_run(_ReQL_Cur cur, _ReQL_Op query, _ReQL_Conn conn, _ReQL_Op kwargs) {
-  _ReQL_Op_t start;
+_reql_run(_ReQL_Cur cur, _ReQL_Obj_t *query, _ReQL_Conn conn, _ReQL_Obj_t *kwargs) {
+  _ReQL_Obj_t start;
 
-  _ReQL_Op_t array;
-  _ReQL_Op arr[3];
+  _ReQL_Obj_t array;
+  _ReQL_Obj_t *arr[3];
 
   _reql_number_init(&start, _REQL_START);
   _reql_array_init(&array, arr, 3);
@@ -351,7 +351,7 @@ _reql_run(_ReQL_Cur cur, _ReQL_Op query, _ReQL_Conn conn, _ReQL_Op kwargs) {
   if (_query == NULL) {
     return -1;
   }
-  
+
   pthread_mutex_lock(&conn_lock);
 
   if (conn->socket < 0) {

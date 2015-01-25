@@ -40,7 +40,7 @@ TEST_CASE("decode values", "[c][decode]") {
     const uint32_t size = 6;
     uint8_t src[size] = " null";
 
-    _ReQL_Op obj = _reql_decode(src, size);
+    _ReQL_Obj_t *obj = _reql_decode(src, size);
 
     REQUIRE(obj != NULL);
     REQUIRE(_reql_datum_type(obj) == _REQL_R_NULL);
@@ -52,7 +52,7 @@ TEST_CASE("decode values", "[c][decode]") {
     const uint32_t size = 6;
     uint8_t src[size] = "true ";
 
-    _ReQL_Op obj = _reql_decode(src, size);
+    _ReQL_Obj_t *obj = _reql_decode(src, size);
 
     REQUIRE(obj != NULL);
     REQUIRE(_reql_datum_type(obj) == _REQL_R_BOOL);
@@ -64,7 +64,7 @@ TEST_CASE("decode values", "[c][decode]") {
     const uint32_t size = 6;
     uint8_t src[size] = "false";
 
-    _ReQL_Op obj = _reql_decode(src, size);
+    _ReQL_Obj_t *obj = _reql_decode(src, size);
 
     REQUIRE(obj != NULL);
     REQUIRE(_reql_datum_type(obj) == _REQL_R_BOOL);
@@ -76,7 +76,7 @@ TEST_CASE("decode values", "[c][decode]") {
     const uint32_t size = 6;
     uint8_t src[size] = "1234 ";
 
-    _ReQL_Op obj = _reql_decode(src, size);
+    _ReQL_Obj_t *obj = _reql_decode(src, size);
 
     REQUIRE(obj != NULL);
     REQUIRE(_reql_datum_type(obj) == _REQL_R_NUM);
@@ -88,7 +88,7 @@ TEST_CASE("decode values", "[c][decode]") {
     const uint32_t size = 6;
     uint8_t src[size] = "\"hi!\"";
 
-    _ReQL_Op obj = _reql_decode(src, size);
+    _ReQL_Obj_t *obj = _reql_decode(src, size);
 
     REQUIRE(obj != NULL);
     REQUIRE(_reql_datum_type(obj) == _REQL_R_STR);
@@ -98,20 +98,22 @@ TEST_CASE("decode values", "[c][decode]") {
 }
 
 TEST_CASE("Expr array", "[c][expr][array]") {
-  _ReQL_Op_t ary;
+  _ReQL_Obj_t ary;
 
   const uint32_t size = 5;
 
-  _ReQL_Op arr[size];
+  _ReQL_Obj_t *arr[size];
 
   _reql_array_init(&ary, arr, size);
+
+  CHECK(_reql_datum_type(&ary) == _REQL_R_ARRAY);
 
   CHECK(_reql_array_size(&ary) == 0);
 
   SECTION("over fill array") {
     uint32_t i;
 
-    for (i=0; i<size - 1; ++i) {
+    for (i=0; i<size; ++i) {
       CHECK(_reql_array_append(&ary, &ary) == 0);
     }
 
@@ -132,17 +134,21 @@ TEST_CASE("Expr array", "[c][expr][array]") {
 }
 
 TEST_CASE("Expr object", "[c][expr][object]") {
-  _ReQL_Op_t obj, key, val;
+  _ReQL_Obj_t obj, key, val;
 
   _ReQL_Pair_t pair[1];
 
   _reql_object_init(&obj, pair, 1);
 
+  CHECK(_reql_datum_type(&obj) == _REQL_R_OBJECT);
+
   const uint32_t size = 4;
 
-  uint8_t buf[size] = "key";
+  uint8_t *buf = new uint8_t[size];
+  const uint8_t string[] = "key";
 
-  _reql_string_init(&key, buf, size, size);
+  _reql_string_init(&key, buf, size);
+  _reql_string_append(&key, string, size);
 
   _reql_null_init(&val);
 
@@ -151,13 +157,13 @@ TEST_CASE("Expr object", "[c][expr][object]") {
   SECTION("verify insert") {
     CHECK(_reql_object_get(&obj, &key) != NULL);
 
-    _ReQL_Op res = _reql_object_get(&obj, &key);
+    _ReQL_Obj_t *res = _reql_object_get(&obj, &key);
 
     CHECK(_reql_datum_type(res) == _REQL_R_NULL);
   }
 
   SECTION("reuse key") {
-    _ReQL_Op_t new_val;
+    _ReQL_Obj_t new_val;
 
     const double num = 3.14;
 
@@ -166,56 +172,68 @@ TEST_CASE("Expr object", "[c][expr][object]") {
     CHECK(_reql_object_add(&obj, &key, &new_val) == 0);
     CHECK(_reql_object_get(&obj, &key) != NULL);
 
-    _ReQL_Op res = _reql_object_get(&obj, &key);
+    _ReQL_Obj_t *res = _reql_object_get(&obj, &key);
 
     CHECK(_reql_datum_type(res) == _REQL_R_NUM);
     CHECK(_reql_to_number(res) == num);
   }
 
   SECTION("duplicate key") {
-    _ReQL_Op_t new_key, new_val;
+    _ReQL_Obj_t new_key, new_val;
 
     const double num = 3.14;
 
-    uint8_t new_buf[size] = "key";
+    uint8_t *new_buf = new uint8_t[size];
+    const uint8_t new_string[] = "key";
 
-    _reql_string_init(&new_key, new_buf, size, size);
+    _reql_string_init(&new_key, new_buf, size);
+    _reql_string_append(&new_key, new_string, size);
 
     _reql_number_init(&new_val, num);
 
     CHECK(_reql_object_add(&obj, &new_key, &new_val) == 0);
     CHECK(_reql_object_get(&obj, &new_key) != NULL);
 
-    _ReQL_Op res = _reql_object_get(&obj, &new_key);
+    _ReQL_Obj_t *res = _reql_object_get(&obj, &new_key);
 
     CHECK(_reql_datum_type(res) == _REQL_R_NUM);
+
+    delete [] new_buf;
   }
 
   SECTION("out of space") {
-    _ReQL_Op_t new_key, new_val;
+    _ReQL_Obj_t new_key, new_val;
 
     const double num = 3.14;
 
-    uint8_t new_buf[size] = "new";
+    uint8_t *new_buf = new uint8_t[size];
+    const uint8_t new_string[] = "new";
 
-    _reql_string_init(&new_key, new_buf, size, size);
+    _reql_string_init(&new_key, new_buf, size);
+    _reql_string_append(&new_key, new_string, size);
 
     _reql_number_init(&new_val, num);
 
     CHECK(_reql_object_add(&obj, &new_key, &new_val) != 0);
     CHECK(_reql_object_get(&obj, &new_key) == NULL);
 
-    _ReQL_Op res = _reql_object_get(&obj, &key);
+    _ReQL_Obj_t *res = _reql_object_get(&obj, &key);
 
     CHECK(_reql_datum_type(res) == _REQL_R_NULL);
+
+    delete [] new_buf;
   }
+
+  delete [] buf;
 }
 
 TEST_CASE("Expr", "[c][expr]") {
-  _ReQL_Op_t val;
+  _ReQL_Obj_t val;
 
   SECTION("bool") {
     _reql_bool_init(&val, 10);
+
+    CHECK(_reql_datum_type(&val) == _REQL_R_BOOL);
 
     CHECK(_reql_to_bool(&val) == true);
 
@@ -235,6 +253,8 @@ TEST_CASE("Expr", "[c][expr]") {
 
     _reql_number_init(&val, num);
 
+    CHECK(_reql_datum_type(&val) == _REQL_R_NUM);
+
     CHECK(num == _reql_to_number(&val));
   }
 
@@ -249,13 +269,19 @@ TEST_CASE("Expr", "[c][expr]") {
   SECTION("string") {
     const uint32_t size = 12;
 
-    uint8_t buf[size] = "Hello World";
+    uint8_t *buf = new uint8_t[size];
+    const uint8_t hello[] = "Hello World";
 
-    std::string orig = std::string((char *)buf, size);
+    std::string orig = std::string((char *)hello, size);
 
-    _reql_string_init(&val, buf, size, size);
+    _reql_string_init(&val, buf, size);
+    _reql_string_append(&val, hello, size);
+
+    CHECK(_reql_datum_type(&val) == _REQL_R_STR);
 
     CHECK(orig.compare(0, size, (char *)_reql_string_buf(&val), size) == 0);
     CHECK(size == _reql_string_size(&val));
+
+    delete [] buf;
   }
 }

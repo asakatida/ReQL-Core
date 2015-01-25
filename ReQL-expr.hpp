@@ -32,11 +32,11 @@ class Query;
 
 class Expr {
 public:
-  _ReQL_Op query;
+  _ReQL_Obj_t *query;
   std::vector<Query> sub_query;
 
   Expr();
-  explicit Expr(_ReQL_Op val);
+  explicit Expr(_ReQL_Obj_t *val);
   explicit Expr(std::string);
   explicit Expr(double);
   explicit Expr(bool);
@@ -49,7 +49,7 @@ public:
 Query
 expr();
 Query
-expr(_ReQL_Op);
+expr(_ReQL_Obj_t *);
 Query
 expr(std::string);
 Query

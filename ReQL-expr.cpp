@@ -32,7 +32,7 @@ Expr::Expr() {
   query = _reql_new_datum(_val.query);
 }
 
-Expr::Expr(_ReQL_Op val) {
+Expr::Expr(_ReQL_Obj_t *val) {
   query = val;
 }
 
@@ -94,11 +94,11 @@ Expr::Expr(std::map<std::string, Query> val) {
 Expr::~Expr() {
   switch (_reql_datum_type(query)) {
     case _REQL_R_ARRAY: {
-      delete [] query->obj.datum.json.array.arr;
+      delete [] query->obj.datum.json.array;
       break;
     }
     case _REQL_R_OBJECT: {
-      delete [] query->obj.datum.json.object.pair;
+      delete [] query->obj.datum.json.pair;
       break;
     }
     default:
@@ -113,7 +113,7 @@ expr() {
 }
 
 Query
-expr(_ReQL_Op val) {
+expr(_ReQL_Obj_t *val) {
   return Query(val);
 }
 

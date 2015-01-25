@@ -20,11 +20,11 @@ limitations under the License.
 
 #include "ReQL-ast-Lua.h"
 
-int _reql_lua_ast_class(lua_State *L, _ReQL_AST_Function f, _ReQL_Op kwargs) {
+int _reql_lua_ast_class(lua_State *L, _ReQL_AST_Function f, _ReQL_Obj_t *kwargs) {
   uint32_t size = lua_gettop(L), i;
 
-  _ReQL_Op args = lua_newuserdata(L, sizeof(_ReQL_Op_t));
-  _ReQL_Op *arr = lua_newuserdata(L, sizeof(_ReQL_Op) * size);
+  _ReQL_Obj_t *args = lua_newuserdata(L, sizeof(_ReQL_Obj_t));
+  _ReQL_Obj_t **arr = lua_newuserdata(L, sizeof(_ReQL_Obj_t *) * size);
 
   _reql_array_init(args, arr, size);
 
@@ -32,7 +32,7 @@ int _reql_lua_ast_class(lua_State *L, _ReQL_AST_Function f, _ReQL_Op kwargs) {
     _reql_array_insert(args, _reql_from_lua(L, i, 20), i);
   }
 
-  _ReQL_Op val = lua_newuserdata(L, sizeof(_ReQL_Op_t));
+  _ReQL_Obj_t *val = lua_newuserdata(L, sizeof(_ReQL_Obj_t));
 
   f(val, args, kwargs);
 
@@ -41,7 +41,7 @@ int _reql_lua_ast_class(lua_State *L, _ReQL_AST_Function f, _ReQL_Op kwargs) {
 
 int _reql_lua_get_opts(lua_State *L, _ReQL_AST_Function f) {
   const int argn = lua_gettop(L);
-  _ReQL_Op kwargs = NULL;
+  _ReQL_Obj_t *kwargs = NULL;
 
   if (lua_istable(L, argn)) {
     lua_pushcfunction(L, _reql_lua_is_instance);

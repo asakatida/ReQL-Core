@@ -207,114 +207,98 @@ typedef enum {
   _REQL_ZIP = 72
 } _ReQL_Term_t;
 
-struct _ReQL_String_s {
-  uint32_t size;
-  uint32_t alloc_size;
-  uint8_t *str;
-};
-typedef struct _ReQL_String_s _ReQL_String_t;
+typedef struct {
+  struct _ReQL_Obj_s *key;
+  struct _ReQL_Obj_s *val;
+} _ReQL_Pair_t;
 
-struct _ReQL_Array_s {
-  uint32_t size;
-  uint32_t alloc_size;
-  struct _ReQL_Op_s **arr;
-};
-typedef struct _ReQL_Array_s _ReQL_Array_t;
-
-struct _ReQL_Pair_s {
-  struct _ReQL_Op_s *key;
-  struct _ReQL_Op_s *val;
-};
-typedef struct _ReQL_Pair_s _ReQL_Pair_t;
-typedef _ReQL_Pair_t* _ReQL_Pair;
-
-struct _ReQL_Object_s {
-  uint32_t size;
-  uint32_t alloc_size;
-  _ReQL_Pair pair;
-};
-typedef struct _ReQL_Object_s _ReQL_Object_t;
-
-struct _ReQL_Iter_s {
+typedef struct {
   uint32_t idx;
-  struct _ReQL_Op_s *obj;
-};
-typedef struct _ReQL_Iter_s _ReQL_Iter_t;
+  struct _ReQL_Obj_s *obj;
+} _ReQL_Iter_t;
 
-struct _ReQL_Datum_s {
-  _ReQL_Datum_t dt;
-  union {
-    _ReQL_String_t string;
-    double number;
-    char boolean;
-    _ReQL_Array_t array;
-    _ReQL_Object_t object;
-  } json;
-};
-
-struct _ReQL_Op_s {
+struct _ReQL_Obj_s {
   _ReQL_Term_t tt;
   union {
-    struct _ReQL_Datum_s datum;
     struct {
-      struct _ReQL_Op_s *args;
-      struct _ReQL_Op_s *kwargs;
+      _ReQL_Datum_t dt;
+      union {
+        struct {
+          uint32_t size;
+          uint32_t alloc_size;
+          union {
+            uint8_t *str;
+            struct _ReQL_Obj_s **array;
+            _ReQL_Pair_t *pair;
+          };
+        };
+        double number;
+        char boolean;
+      } json;
+    } datum;
+    struct {
+      struct _ReQL_Obj_s *args;
+      struct _ReQL_Obj_s *kwargs;
     } args;
   } obj;
 };
-typedef struct _ReQL_Op_s _ReQL_Op_t;
-typedef _ReQL_Op_t* _ReQL_Op;
+typedef struct _ReQL_Obj_s _ReQL_Obj_t;
 
 extern _ReQL_Datum_t
-_reql_datum_type(_ReQL_Op obj);
+_reql_datum_type(_ReQL_Obj_t *obj);
 extern _ReQL_Term_t
-_reql_term_type(_ReQL_Op obj);
+_reql_term_type(_ReQL_Obj_t *obj);
 
 extern void
-_reql_bool_init(_ReQL_Op obj, char val);
+_reql_bool_init(_ReQL_Obj_t *obj, char val);
 extern char
-_reql_to_bool(_ReQL_Op obj);
+_reql_to_bool(_ReQL_Obj_t *obj);
 
 extern void
-_reql_null_init(_ReQL_Op obj);
+_reql_null_init(_ReQL_Obj_t *obj);
 
 extern void
-_reql_number_init(_ReQL_Op obj, double val);
+_reql_number_init(_ReQL_Obj_t *obj, double val);
 extern double
-_reql_to_number(_ReQL_Op obj);
+_reql_to_number(_ReQL_Obj_t *obj);
 
 extern void
-_reql_string_init(_ReQL_Op obj, uint8_t *buf, uint32_t size, uint32_t alloc_size);
+_reql_string_init(_ReQL_Obj_t *obj, uint8_t *buf, uint32_t alloc_size);
+extern size_t
+_reql_string_append(_ReQL_Obj_t *obj, const uint8_t *ext, const uint32_t size);
 extern uint8_t *
-_reql_string_buf(_ReQL_Op obj);
+_reql_string_buf(_ReQL_Obj_t *obj);
 extern uint32_t
-_reql_string_size(_ReQL_Op obj);
+_reql_string_size(_ReQL_Obj_t *obj);
 
 extern void
-_reql_array_init(_ReQL_Op obj, _ReQL_Op *arr, uint32_t size);
+_reql_array_init(_ReQL_Obj_t *obj, _ReQL_Obj_t **arr, uint32_t alloc_size);
 extern uint32_t
-_reql_array_size(_ReQL_Op obj);
+_reql_array_size(_ReQL_Obj_t *obj);
 extern size_t
-_reql_array_insert(_ReQL_Op obj, _ReQL_Op val, uint32_t idx);
-extern _ReQL_Op
-_reql_array_index(_ReQL_Op obj, uint32_t idx);
+_reql_array_insert(_ReQL_Obj_t *obj, _ReQL_Obj_t *val, uint32_t idx);
+extern _ReQL_Obj_t *
+_reql_array_index(_ReQL_Obj_t *obj, uint32_t idx);
 extern size_t
-_reql_array_append(_ReQL_Op arr, _ReQL_Op val);
-extern _ReQL_Op
-_reql_array_pop(_ReQL_Op obj);
-extern _ReQL_Op
-_reql_array_last(_ReQL_Op obj);
+_reql_array_append(_ReQL_Obj_t *arr, _ReQL_Obj_t *val);
+extern _ReQL_Obj_t *
+_reql_array_pop(_ReQL_Obj_t *obj);
+extern _ReQL_Obj_t *
+_reql_array_last(_ReQL_Obj_t *obj);
 
 extern _ReQL_Iter_t
-_reql_new_iter(_ReQL_Op obj);
-extern _ReQL_Op
+_reql_new_iter(_ReQL_Obj_t *obj);
+extern _ReQL_Obj_t *
 _reql_iter_next(_ReQL_Iter_t *arr);
 
 extern void
-_reql_object_init(_ReQL_Op obj, _ReQL_Pair pair, uint32_t size);
+_reql_object_init(_ReQL_Obj_t *obj, _ReQL_Pair_t *pair, uint32_t alloc_size);
 extern size_t
-_reql_object_add(_ReQL_Op obj, _ReQL_Op key, _ReQL_Op val);
-extern _ReQL_Op
-_reql_object_get(_ReQL_Op obj, _ReQL_Op key);
+_reql_object_add(_ReQL_Obj_t *obj, _ReQL_Obj_t *key, _ReQL_Obj_t *val);
+extern _ReQL_Obj_t *
+_reql_object_get(_ReQL_Obj_t *obj, _ReQL_Obj_t *key);
+
+extern void
+_reql_json_destroy(_ReQL_Obj_t *json);
 
 #endif

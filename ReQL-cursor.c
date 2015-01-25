@@ -50,15 +50,15 @@ _reql_cursor_init(_ReQL_Cur cur) {
 }
 
 extern void
-_reql_set_cur_response(_ReQL_Cur_t *cur, _ReQL_Op res) {
+_reql_set_cur_response(_ReQL_Cur_t *cur, _ReQL_Obj_t *res) {
   pthread_mutex_lock(&response_lock);
   cur->response = res;
   pthread_mutex_unlock(&response_lock);
 }
 
-extern _ReQL_Op
+extern _ReQL_Obj_t *
 _reql_get_cur_res(_ReQL_Cur_t *cur) {
-  _ReQL_Op res = NULL;
+  _ReQL_Obj_t *res = NULL;
 
   while (1) {
     pthread_mutex_lock(&response_lock);

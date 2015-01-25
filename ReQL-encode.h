@@ -20,5 +20,12 @@ limitations under the License.
 
 #include "ReQL-json.h"
 
+struct _ReQL_String_s {
+  uint32_t size;
+  uint32_t alloc_size;
+  uint8_t *str;
+};
+typedef struct _ReQL_String_s _ReQL_String_t;
+
 extern _ReQL_String_t *
-_reql_encode(_ReQL_Op val);
+_reql_encode(_ReQL_Obj_t *val);

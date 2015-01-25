@@ -29,7 +29,7 @@ class AST : public Expr {
 public:
 
   AST() : Expr() {};
-  explicit AST(_ReQL_Op val) : Expr(val) {};
+  explicit AST(_ReQL_Obj_t *val) : Expr(val) {};
   explicit AST(std::string val) : Expr(val) {};
   explicit AST(double val) : Expr(val) {};
   explicit AST(bool val) : Expr(val) {};

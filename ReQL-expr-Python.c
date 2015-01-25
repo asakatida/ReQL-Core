@@ -113,12 +113,12 @@ _reql_py_expr(PyObject *self, PyObject *args) {
   return _reql_to_py(_reql_from_py(val));
 }
 
-extern _ReQL_Op
+extern _ReQL_Obj_t *
 _reql_from_py(PyObject *query) {
   return NULL;
 }
 
 extern PyObject *
-_reql_to_py(_ReQL_Op query) {
+_reql_to_py(_ReQL_Obj_t *query) {
   return NULL;
 }

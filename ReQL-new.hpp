@@ -31,23 +31,23 @@ extern "C" {
 
 namespace ReQL {
 
-_ReQL_Op
+_ReQL_Obj_t *
 _reql_new_array(std::uint32_t size);
-_ReQL_Op
+_ReQL_Obj_t *
 _reql_new_bool(bool val);
-_ReQL_Op
-_reql_new_datum(_ReQL_Op val);
-_ReQL_Op
-_reql_new_make_array(_ReQL_Op val);
-_ReQL_Op
-_reql_new_make_obj(_ReQL_Op val);
-_ReQL_Op
+_ReQL_Obj_t *
+_reql_new_datum(_ReQL_Obj_t *val);
+_ReQL_Obj_t *
+_reql_new_make_array(_ReQL_Obj_t *val);
+_ReQL_Obj_t *
+_reql_new_make_obj(_ReQL_Obj_t *val);
+_ReQL_Obj_t *
 _reql_new_null();
-_ReQL_Op
+_ReQL_Obj_t *
 _reql_new_number(double val);
-_ReQL_Op
+_ReQL_Obj_t *
 _reql_new_object(uint32_t idx);
-_ReQL_Op
+_ReQL_Obj_t *
 _reql_new_string(std::string val);
 
 }

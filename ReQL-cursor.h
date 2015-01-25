@@ -38,7 +38,7 @@ struct _ReQL_Cur_s {
   char done;
   uint64_t token;
   struct _ReQL_Conn_s *conn;
-  _ReQL_Op response;
+  _ReQL_Obj_t *response;
   struct _ReQL_Cur_s *next;
   struct _ReQL_Cur_s *prev;
 };
@@ -48,8 +48,8 @@ typedef _ReQL_Cur_t* _ReQL_Cur;
 extern void
 _reql_cursor_init(_ReQL_Cur cur);
 extern void
-_reql_set_cur_response(_ReQL_Cur_t *cur, _ReQL_Op res);
-extern _ReQL_Op
+_reql_set_cur_response(_ReQL_Cur_t *cur, _ReQL_Obj_t *res);
+extern _ReQL_Obj_t *
 _reql_get_cur_res(_ReQL_Cur_t *cur);
 extern void
 _reql_cursor_next(_ReQL_Cur cur);

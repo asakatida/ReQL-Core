@@ -29,9 +29,9 @@ limitations under the License.
 
 extern VALUE
 _reql_rb_expr(int argn, VALUE *args, VALUE self);
-extern _ReQL_Op
+extern _ReQL_Obj_t *
 _reql_from_rb(VALUE obj, long nesting_depth);
 extern VALUE
-_reql_to_rb(_ReQL_Op query);
+_reql_to_rb(_ReQL_Obj_t *query);
 
 #endif

@@ -61,6 +61,6 @@ extern char
 _reql_conn_open(_ReQL_Conn conn);
 
 extern int
-_reql_run(_ReQL_Cur cur, _ReQL_Op query, _ReQL_Conn conn, _ReQL_Op kwargs);
+_reql_run(_ReQL_Cur cur, _ReQL_Obj_t *query, _ReQL_Conn conn, _ReQL_Obj_t *kwargs);
 
 #endif

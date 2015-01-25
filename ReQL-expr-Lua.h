@@ -31,10 +31,10 @@ extern int
 _reql_lua_expr(lua_State *L);
 extern int
 _reql_lua_is_instance(lua_State *L);
-extern _ReQL_Op
+extern _ReQL_Obj_t *
 _reql_from_lua(lua_State *L, const int idx, long nesting_depth);
 extern void
-_reql_to_lua(lua_State *L, _ReQL_Op query);
+_reql_to_lua(lua_State *L, _ReQL_Obj_t *query);
 
 extern int
 _reql_lua_intsp(lua_State *L);

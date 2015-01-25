@@ -53,10 +53,10 @@ _reql_py_alloc(size_t size) {
   return _reql_py_mem_check(obj);
 }
 
-static _ReQL_Op *
+static _ReQL_Obj_t *_t **
 _reql_py_alloc_arr(size_t size) {
   PyGILState_STATE gil = PyGILState_Ensure();
-  _ReQL_Op *obj = PyMem_New(_ReQL_Op, size);
+  _ReQL_Obj_t **obj = PyMem_New(_ReQL_Obj_t *, size);
   PyGILState_Release(gil);
 
   return _reql_py_mem_check(obj);
@@ -65,24 +65,24 @@ _reql_py_alloc_arr(size_t size) {
 static _ReQL_Pair
 _reql_py_alloc_pair(size_t size) {
   PyGILState_STATE gil = PyGILState_Ensure();
-  _ReQL_Pair obj = PyMem_New(_ReQL_Pair_t, size);
+  _ReQL_Pair_t *obj = PyMem_New(_ReQL_Pair_t, size);
   PyGILState_Release(gil);
 
   return _reql_py_mem_check(obj);
 }
 
-static _ReQL_Op
+static _ReQL_Obj_t *
 _reql_py_alloc_term() {
-  return _reql_py_alloc(sizeof(_ReQL_Op_t));
+  return _reql_py_alloc(sizeof(_ReQL_Obj_t));
 }
 
-extern _ReQL_Op
+extern _ReQL_Obj_t *
 _reql_py_new_array(uint32_t size) {
-  _ReQL_Op obj = _reql_py_alloc_term();
+  _ReQL_Obj_t *obj = _reql_py_alloc_term();
   if (obj == NULL) {
     return NULL;
   }
-  _ReQL_Op *arr = _reql_py_alloc_arr(size);
+  _ReQL_Obj_t **arr = _reql_py_alloc_arr(size);
   if (arr == NULL) {
     return NULL;
   }
@@ -90,9 +90,9 @@ _reql_py_new_array(uint32_t size) {
   return obj;
 }
 
-extern _ReQL_Op
+extern _ReQL_Obj_t *
 _reql_py_new_bool(PyObject *val) {
-  _ReQL_Op obj = _reql_py_alloc_term();
+  _ReQL_Obj_t *obj = _reql_py_alloc_term();
   if (obj == NULL) {
     return NULL;
   }
@@ -100,9 +100,9 @@ _reql_py_new_bool(PyObject *val) {
   return _reql_py_err_check(obj);
 }
 
-extern _ReQL_Op
-_reql_py_new_datum(_ReQL_Op arg) {
-  _ReQL_Op obj = _reql_py_alloc_term();
+extern _ReQL_Obj_t *
+_reql_py_new_datum(_ReQL_Obj_t *arg) {
+  _ReQL_Obj_t *obj = _reql_py_alloc_term();
   if (obj == NULL) {
     return NULL;
   }
@@ -110,9 +110,9 @@ _reql_py_new_datum(_ReQL_Op arg) {
   return _reql_py_err_check(obj);
 }
 
-extern _ReQL_Op
-_reql_py_new_make_array(_ReQL_Op arg) {
-  _ReQL_Op obj = _reql_py_alloc_term();
+extern _ReQL_Obj_t *
+_reql_py_new_make_array(_ReQL_Obj_t *arg) {
+  _ReQL_Obj_t *obj = _reql_py_alloc_term();
   if (obj == NULL) {
     return NULL;
   }
@@ -120,9 +120,9 @@ _reql_py_new_make_array(_ReQL_Op arg) {
   return _reql_py_err_check(obj);
 }
 
-extern _ReQL_Op
-_reql_py_new_make_obj(_ReQL_Op arg) {
-  _ReQL_Op obj = _reql_py_alloc_term();
+extern _ReQL_Obj_t *
+_reql_py_new_make_obj(_ReQL_Obj_t *arg) {
+  _ReQL_Obj_t *obj = _reql_py_alloc_term();
   if (obj == NULL) {
     return NULL;
   }
@@ -130,9 +130,9 @@ _reql_py_new_make_obj(_ReQL_Op arg) {
   return _reql_py_err_check(obj);
 }
 
-extern _ReQL_Op
+extern _ReQL_Obj_t *
 _reql_py_new_null() {
-  _ReQL_Op obj = _reql_py_alloc_term();
+  _ReQL_Obj_t *obj = _reql_py_alloc_term();
   if (obj == NULL) {
     return NULL;
   }
@@ -140,20 +140,20 @@ _reql_py_new_null() {
   return _reql_py_err_check(obj);
 }
 
-extern _ReQL_Op
+extern _ReQL_Obj_t *
 _reql_py_new_number(PyObject *val) {
-  _ReQL_Op obj = _reql_py_alloc_term();
+  _ReQL_Obj_t *obj = _reql_py_alloc_term();
   _reql_number_init(obj, PyFloat_AsDouble(val));
   return _reql_py_err_check(obj);
 }
 
-extern _ReQL_Op
+extern _ReQL_Obj_t *
 _reql_py_new_object(uint32_t size) {
-  _ReQL_Op obj = _reql_py_alloc_term();
+  _ReQL_Obj_t *obj = _reql_py_alloc_term();
   if (obj == NULL) {
     return NULL;
   }
-  _ReQL_Pair pair = _reql_py_alloc_pair(size);
+  _ReQL_Pair_t *pair = _reql_py_alloc_pair(size);
   if (pair == NULL) {
     return NULL;
   }
@@ -161,7 +161,7 @@ _reql_py_new_object(uint32_t size) {
   return _reql_py_err_check(obj);
 }
 
-extern _ReQL_Op
+extern _ReQL_Obj_t *
 _reql_py_new_string(PyObject *val) {
   Py_ssize_t size = 0;
 
@@ -170,9 +170,9 @@ _reql_py_new_string(PyObject *val) {
     return NULL;
   }
 
-  _ReQL_Op obj = _reql_py_alloc_term();
+  _ReQL_Obj_t *obj = _reql_py_alloc_term();
 
-  _reql_string_init(obj, str, (uint32_t)size, (uint32_t)size);
+  _reql_string_init(obj, str, (uint32_t)size);
 
   return _reql_py_err_check(obj);
 }
