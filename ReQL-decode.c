@@ -254,7 +254,7 @@ _reql_decode_(_ReQL_Obj_t *stack, uint8_t *json, uint32_t size) {
             _ReQL_Obj_t **_intern = malloc(sizeof(_ReQL_Obj_t*) * 10);
             _reql_array_init(obj, _intern, 10);
             _reql_array_append(stack, obj);
-            state = _REQL_R_ARRAY;
+            state = _REQL_R_JSON;
             break;
           }
           case 0x7B: { /* { */
@@ -262,7 +262,7 @@ _reql_decode_(_ReQL_Obj_t *stack, uint8_t *json, uint32_t size) {
             _ReQL_Pair_t *_intern = malloc(sizeof(_ReQL_Pair_t) * 10);
             _reql_object_init(obj, _intern, 10);
             _reql_array_append(stack, obj);
-            state = _REQL_R_OBJECT;
+            state = _REQL_R_JSON;
             break;
           }
           case 0x22: { /* " */
