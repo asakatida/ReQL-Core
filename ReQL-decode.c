@@ -227,6 +227,12 @@ _reql_decode_(_ReQL_Obj_t *stack, uint8_t *json, uint32_t size) {
     switch (state) {
       case _REQL_R_ARRAY: {
         switch (json[i]) {
+          case '\t':
+          case '\n':
+          case '\r':
+          case ' ': {
+            break;
+          }
           case 0x2C: { /* , */
             state = _REQL_R_JSON;
             break;
@@ -359,6 +365,12 @@ _reql_decode_(_ReQL_Obj_t *stack, uint8_t *json, uint32_t size) {
       }
       case _REQL_R_OBJECT: {
         switch (json[i]) {
+          case '\t':
+          case '\n':
+          case '\r':
+          case ' ': {
+            break;
+          }
           case 0x2C: /* , */
           case 0x3A: { /* : */
             state = _REQL_R_JSON;
