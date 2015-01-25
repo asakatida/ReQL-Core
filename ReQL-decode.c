@@ -442,7 +442,7 @@ _reql_decode_(_ReQL_Obj_t *stack, uint8_t *json, uint32_t size) {
           }
           case 0x22: { /* " */
             if (!esc) {
-              uint32_t orig_size = i - str_start - 1;
+              uint32_t orig_size = i - str_start;
 
               _ReQL_Obj_t *obj = _reql_string_decode(orig_size, &json[str_start]);
 
