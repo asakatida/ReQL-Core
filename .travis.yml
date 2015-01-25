@@ -1,37 +1,21 @@
 language: cpp
 
-matrix:
-  allow_failures:
-    - complier: gcc
-      env: |
-        BUILD=build-c++.sh
-        TEST=test-c++.sh
-  fast_finish: true
-  include:
-    - complier: clang
-      env: |
-        BUILD=build-c++.sh
-        TEST=test-c++.sh
-    - complier: gcc
-      env: |
-        BUILD=build-c++.sh
-        TEST=test-c++.sh
-    - complier: gcc
-      env: |
-        BUILD=build-py.sh
-        TEST=test-py.sh
-    - complier: gcc
-      env: |
-        BUILD=build-lua.sh
-        TEST=test-lua.sh
-    - complier: gcc
-      env: |
-        BUILD=build-node.sh
-        TEST=test-node.sh
-    - complier: gcc
-      env: |
-        BUILD=build-rb.sh
-        TEST=test-rb.sh
+env:
+  - |
+    BUILD=build-c++.sh
+    TEST=test-c++.sh
+  - |
+    BUILD=build-py.sh
+    TEST=test-py.sh
+  - |
+    BUILD=build-lua.sh
+    TEST=test-lua.sh
+  - |
+    BUILD=build-node.sh
+    TEST=test-node.sh
+  - |
+    BUILD=build-rb.sh
+    TEST=test-rb.sh
 
 before_install:
   - source /etc/lsb-release && echo "deb http://download.rethinkdb.com/apt $DISTRIB_CODENAME main" | sudo tee /etc/apt/sources.list.d/rethinkdb.list

@@ -27,26 +27,13 @@ namespace ReQL {
 Query init(_ReQL_AST_Function f, std::vector<Query> args, std::map<std::string, Query> kwargs) {
   Query term(new _ReQL_Obj_t());
 
-  term.sub_query.assign(args.begin(), args.end());
-
-  Query _args(_reql_new_array(static_cast<std::uint32_t>(args.size())));
+  Query _args(args);
 
   term.sub_query.push_back(_args);
 
-  for (auto it=args.cbegin(); it!=args.cend(); ++it) {
-    _reql_array_append(_args.query, it->query);
-  }
-
-  Query _kwargs(_reql_new_object(static_cast<std::uint32_t>(kwargs.size())));
+  Query _kwargs(kwargs);
 
   term.sub_query.push_back(_kwargs);
-
-  for (auto it=kwargs.cbegin(); it!=kwargs.cend(); ++it) {
-    Query key(it->first);
-    term.sub_query.push_back(key);
-    term.sub_query.push_back(it->second);
-    _reql_object_add(_kwargs.query, key.query, it->second.query);
-  }
 
   f(term.query, _args.query, _kwargs.query);
 

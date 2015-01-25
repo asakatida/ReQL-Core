@@ -65,7 +65,9 @@ Expr::Expr(std::vector<Query> val) {
 
   sub_query.push_back(_val);
 
-  for (auto iter=val.cbegin(); iter!=val.cend(); ++iter) {
+  std::vector<Query>::iterator iter;
+
+  for (iter=val.begin(); iter!=val.end(); ++iter) {
     _reql_array_append(_val.query, iter->query);
   }
 
@@ -81,7 +83,9 @@ Expr::Expr(std::map<std::string, Query> val) {
 
   sub_query.push_back(_val);
 
-  for (auto iter=val.cbegin(); iter!=val.cend(); ++iter) {
+  std::map<std::string, Query>::iterator iter;
+
+  for (iter=val.begin(); iter!=val.end(); ++iter) {
     Query key(iter->first);
     sub_query.push_back(key);
     sub_query.push_back(iter->second);
