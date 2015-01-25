@@ -18,6 +18,8 @@ limitations under the License.
  * @copyright Apache
  */
 
+#include <cstddef>
+#include <cstdint>
 #include <string>
 
 namespace ReQL {
