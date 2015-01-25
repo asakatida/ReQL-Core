@@ -74,12 +74,13 @@ TEST_CASE("decode values", "[c][decode]") {
 
   SECTION("number") {
     const uint32_t size = 6;
-    uint8_t src[size] = "1234 ";
+    uint8_t src[size] = "12345";
 
     _ReQL_Obj_t *obj = _reql_decode(src, size);
 
     REQUIRE(obj != NULL);
     REQUIRE(_reql_datum_type(obj) == _REQL_R_NUM);
+    REQUIRE(_reql_to_number(obj) == 12345);
 
     _reql_json_destroy(obj);
   }

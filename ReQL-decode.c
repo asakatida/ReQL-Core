@@ -406,9 +406,23 @@ _reql_decode_(_ReQL_Obj_t *stack, uint8_t *json, uint32_t size) {
       case _REQL_R_REQL: return NULL;
     }
   }
-
-  if (state != _REQL_R_JSON || _reql_merge_stack(stack) != _REQL_R_JSON) {
-    return NULL;
+  switch (state) {
+    case _REQL_R_NUM: {
+      double num;
+      if (_reql_number_decode(i - str_start, &json[str_start], &num) == 0) {
+        _ReQL_Obj_t *obj = malloc(sizeof(_ReQL_Obj_t));
+        _reql_number_init(obj, num);
+        _reql_array_append(stack, obj);
+        state = _reql_merge_stack(stack);
+      }
+    }
+    case _REQL_R_JSON: break;
+    case _REQL_R_ARRAY:
+    case _REQL_R_BOOL:
+    case _REQL_R_NULL:
+    case _REQL_R_OBJECT:
+    case _REQL_R_REQL:
+    case _REQL_R_STR: return NULL;
   }
 
   _ReQL_Obj_t *res = _reql_array_pop(stack);
