@@ -113,6 +113,18 @@ TEST_CASE("decode values", "[c][decode]") {
 
     _reql_json_destroy(obj);
   }
+
+  SECTION("object") {
+    const uint32_t size = 7;
+    uint8_t src[size] = "{\"\":0}";
+
+    _ReQL_Obj_t *obj = _reql_decode(src, size);
+
+    REQUIRE(obj != NULL);
+    REQUIRE(_reql_datum_type(obj) == _REQL_R_STR);
+
+    _reql_json_destroy(obj);
+  }
 }
 
 TEST_CASE("Expr array", "[c][expr][array]") {
