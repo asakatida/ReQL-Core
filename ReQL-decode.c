@@ -291,7 +291,7 @@ _reql_decode_(_ReQL_Obj_t *stack, uint8_t *json, uint32_t size) {
               _reql_bool_init(obj, 1);
               _reql_array_append(stack, obj);
               state = _reql_merge_stack(stack);
-              i += 4;
+              i += 3;
               break;
             }
             return NULL;
@@ -302,7 +302,7 @@ _reql_decode_(_ReQL_Obj_t *stack, uint8_t *json, uint32_t size) {
               _reql_bool_init(obj, 1);
               _reql_array_append(stack, obj);
               state = _reql_merge_stack(stack);
-              i += 5;
+              i += 4;
               break;
             }
             return NULL;
@@ -313,7 +313,7 @@ _reql_decode_(_ReQL_Obj_t *stack, uint8_t *json, uint32_t size) {
               _reql_null_init(obj);
               _reql_array_append(stack, obj);
               state = _reql_merge_stack(stack);
-              i += 4;
+              i += 3;
               break;
             }
             return NULL;
