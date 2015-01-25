@@ -264,7 +264,7 @@ _reql_to_number(_ReQL_Obj_t *obj);
 
 extern void
 _reql_string_init(_ReQL_Obj_t *obj, uint8_t *buf, uint32_t alloc_size);
-extern size_t
+extern uint32_t
 _reql_string_append(_ReQL_Obj_t *obj, const uint8_t *ext, const uint32_t size);
 extern uint8_t *
 _reql_string_buf(_ReQL_Obj_t *obj);
@@ -275,11 +275,11 @@ extern void
 _reql_array_init(_ReQL_Obj_t *obj, _ReQL_Obj_t **arr, uint32_t alloc_size);
 extern uint32_t
 _reql_array_size(_ReQL_Obj_t *obj);
-extern size_t
+extern uint32_t
 _reql_array_insert(_ReQL_Obj_t *obj, _ReQL_Obj_t *val, uint32_t idx);
 extern _ReQL_Obj_t *
 _reql_array_index(_ReQL_Obj_t *obj, uint32_t idx);
-extern size_t
+extern uint32_t
 _reql_array_append(_ReQL_Obj_t *arr, _ReQL_Obj_t *val);
 extern _ReQL_Obj_t *
 _reql_array_pop(_ReQL_Obj_t *obj);
@@ -293,7 +293,7 @@ _reql_iter_next(_ReQL_Iter_t *arr);
 
 extern void
 _reql_object_init(_ReQL_Obj_t *obj, _ReQL_Pair_t *pair, uint32_t alloc_size);
-extern size_t
+extern uint32_t
 _reql_object_add(_ReQL_Obj_t *obj, _ReQL_Obj_t *key, _ReQL_Obj_t *val);
 extern _ReQL_Obj_t *
 _reql_object_get(_ReQL_Obj_t *obj, _ReQL_Obj_t *key);

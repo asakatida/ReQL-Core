@@ -120,16 +120,12 @@ _reql_obj_size(_ReQL_Obj_t *obj) {
   return obj->obj.datum.json.size;
 }
 
-static size_t
-_reql_obj_ensure_space(_ReQL_Obj_t *obj, uint32_t size, size_t elem_size) {
+static uint32_t
+_reql_obj_ensure_space(_ReQL_Obj_t *obj, uint32_t size) {
   size += _reql_obj_size(obj);
 
   if (_reql_obj_alloc_size(obj) < size) {
-    size *= 1.1;
-
-    elem_size *= size;
-
-    return elem_size;
+    return size * 1.1;
   }
 
   return 0;
@@ -174,9 +170,9 @@ _reql_string_buf(_ReQL_Obj_t *obj) {
   return obj->obj.datum.json.str;
 }
 
-extern size_t
+extern uint32_t
 _reql_string_append(_ReQL_Obj_t *obj, const uint8_t *ext, uint32_t size) {
-  size_t new_alloc = _reql_obj_ensure_space(obj, size, sizeof(uint8_t));
+  uint32_t new_alloc = _reql_obj_ensure_space(obj, size);
 
   if (new_alloc != 0) {
     return new_alloc;
@@ -251,11 +247,11 @@ _reql_array_size(_ReQL_Obj_t *obj) {
   return _reql_obj_size(obj);
 }
 
-extern size_t
+extern uint32_t
 _reql_array_insert(_ReQL_Obj_t *obj, _ReQL_Obj_t *val, uint32_t idx) {
   uint32_t size = _reql_obj_size(obj);
   if (idx >= size) {
-    size_t new_alloc = _reql_obj_ensure_space(obj, idx - size + 1, sizeof(_ReQL_Obj_t*));
+    uint32_t new_alloc = _reql_obj_ensure_space(obj, idx - size + 1);
 
     if (new_alloc != 0) {
       return new_alloc;
@@ -280,7 +276,7 @@ _reql_array_index(_ReQL_Obj_t *obj, uint32_t idx) {
   return _reql_obj_array(obj)[idx];
 }
 
-extern size_t
+extern uint32_t
 _reql_array_append(_ReQL_Obj_t *obj, _ReQL_Obj_t *val) {
   return _reql_array_insert(obj, val, _reql_array_size(obj));
 }
@@ -433,7 +429,7 @@ _reql_object_find(_ReQL_Obj_t *obj, _ReQL_Pair_t *key) {
   return bsearch(key, _reql_obj_pair(obj), _reql_obj_size(obj), sizeof(_ReQL_Pair_t), _reql_key_sort);
 }
 
-extern size_t
+extern uint32_t
 _reql_object_add(_ReQL_Obj_t *obj, _ReQL_Obj_t *key, _ReQL_Obj_t *val) {
   _ReQL_Pair_t test = {key, NULL};
   _ReQL_Pair_t *pair = _reql_object_find(obj, &test);
@@ -445,7 +441,7 @@ _reql_object_add(_ReQL_Obj_t *obj, _ReQL_Obj_t *key, _ReQL_Obj_t *val) {
     if (pair[size].key != NULL) {
       size += 1;
 
-      size_t new_alloc = _reql_obj_ensure_space(obj, size, sizeof(_ReQL_Pair_t));
+      uint32_t new_alloc = _reql_obj_ensure_space(obj, size);
 
       if (new_alloc != 0) {
         return new_alloc;
