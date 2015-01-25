@@ -339,6 +339,9 @@ _reql_decode_(_ReQL_Obj_t *stack, uint8_t *json, uint32_t size) {
             break;
           }
           case 't': {
+            if (size - i < 4) {
+              return NULL;
+            }
             if (memcmp(&json[i], json_true, 4) == 0) {
               _ReQL_Obj_t *obj = malloc(sizeof(_ReQL_Obj_t));
               _reql_bool_init(obj, 1);
@@ -350,6 +353,9 @@ _reql_decode_(_ReQL_Obj_t *stack, uint8_t *json, uint32_t size) {
             return NULL;
           }
           case 'f': {
+            if (size - i < 5) {
+              return NULL;
+            }
             if (memcmp(&json[i], json_false, 5) == 0) {
               _ReQL_Obj_t *obj = malloc(sizeof(_ReQL_Obj_t));
               _reql_bool_init(obj, 0);
@@ -361,6 +367,9 @@ _reql_decode_(_ReQL_Obj_t *stack, uint8_t *json, uint32_t size) {
             return NULL;
           }
           case 'n': {
+            if (size - i < 4) {
+              return NULL;
+            }
             if (memcmp(&json[i], json_null, 4) == 0) {
               _ReQL_Obj_t *obj = malloc(sizeof(_ReQL_Obj_t));
               _reql_null_init(obj);
