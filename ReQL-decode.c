@@ -352,7 +352,7 @@ _reql_decode_(_ReQL_Obj_t *stack, uint8_t *json, uint32_t size) {
           case 'f': {
             if (memcmp(&json[i], json_false, 5) == 0) {
               _ReQL_Obj_t *obj = malloc(sizeof(_ReQL_Obj_t));
-              _reql_bool_init(obj, 1);
+              _reql_bool_init(obj, 0);
               _reql_array_append(stack, obj);
               state = _reql_merge_stack(stack);
               i += 4;
