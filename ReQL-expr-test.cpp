@@ -93,6 +93,11 @@ TEST_CASE("decode values", "[c][decode]") {
 
     REQUIRE(obj != NULL);
     REQUIRE(_reql_datum_type(obj) == _REQL_R_STR);
+    REQUIRE(3 == _reql_string_size(obj));
+
+    std::string orig("hi!");
+
+    REQUIRE(orig.compare(0, 3, (char *)_reql_string_buf(obj), _reql_string_size(obj)) == 0);
 
     _reql_json_destroy(obj);
   }
