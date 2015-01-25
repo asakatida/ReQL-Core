@@ -439,7 +439,7 @@ _reql_decode_(_ReQL_Obj_t *stack, uint8_t *json, uint32_t size) {
 
   _ReQL_Obj_t *res = _reql_array_pop(stack);
 
-  if (_reql_array_last(stack)) {
+  if (_reql_array_last(stack) != NULL) {
     _reql_json_destroy(res); res = NULL;
   }
 
