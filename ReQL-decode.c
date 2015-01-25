@@ -201,16 +201,20 @@ _reql_string_decode(uint32_t size, uint8_t *json) {
     str[j++] = res;
   }
 
-  str = realloc(str, sizeof(uint8_t) * j);
-
   _ReQL_Obj_t *out = malloc(sizeof(_ReQL_Obj_t));
 
-  if (out == NULL) {
-    free(str);
-    return NULL;
+  if (out != NULL) {
+    uint8_t *buf = malloc(sizeof(uint8_t) * j);
+
+    if (buf == NULL) {
+      free(out); out = NULL;
+    } else {
+      _reql_string_init(out, buf, j);
+      _reql_string_append(out, str, j);
+    }
   }
 
-  _reql_string_init(out, str, j);
+  free(str);
 
   return out;
 }
