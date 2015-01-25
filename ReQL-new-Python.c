@@ -62,7 +62,7 @@ _reql_py_alloc_arr(size_t size) {
   return _reql_py_mem_check(obj);
 }
 
-static _ReQL_Pair
+static _ReQL_Pair_t *
 _reql_py_alloc_pair(size_t size) {
   PyGILState_STATE gil = PyGILState_Ensure();
   _ReQL_Pair_t *obj = PyMem_New(_ReQL_Pair_t, size);
