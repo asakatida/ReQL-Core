@@ -41,6 +41,7 @@ struct _ReQL_Cur_s {
   _ReQL_Obj_t *response;
   struct _ReQL_Cur_s *next;
   struct _ReQL_Cur_s *prev;
+  void *mutex;
 };
 typedef struct _ReQL_Cur_s _ReQL_Cur_t;
 typedef _ReQL_Cur_t* _ReQL_Cur;
