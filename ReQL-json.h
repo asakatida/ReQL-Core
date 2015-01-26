@@ -24,7 +24,10 @@ limitations under the License.
 #ifndef _REQL_JSON_H
 #define _REQL_JSON_H
 
-typedef enum {
+/**
+ * @brief JSON types.
+ */
+enum _ReQL_Datum_e {
   _REQL_R_REQL,
   _REQL_R_ARRAY = 5,
   _REQL_R_BOOL = 2,
@@ -33,9 +36,13 @@ typedef enum {
   _REQL_R_NUM = 3,
   _REQL_R_OBJECT = 6,
   _REQL_R_STR = 4
-} _ReQL_Datum_t;
+};
+typedef enum _ReQL_Datum_e _ReQL_Datum_t;
 
-typedef enum {
+/**
+ * @brief ReQL Terms.
+ */
+enum _ReQL_Term_e {
   _REQL_ADD = 24,
   _REQL_ALL = 67,
   _REQL_ANY = 66,
@@ -205,18 +212,32 @@ typedef enum {
   _REQL_WITH_FIELDS = 96,
   _REQL_YEAR = 128,
   _REQL_ZIP = 72
-} _ReQL_Term_t;
+};
+typedef enum _ReQL_Term_e _ReQL_Term_t;
 
-typedef struct {
+/**
+ * @brief A single key and associated value for objects.
+ */
+struct _ReQL_Pair_s {
   struct _ReQL_Obj_s *key;
   struct _ReQL_Obj_s *val;
-} _ReQL_Pair_t;
+};
+typedef struct _ReQL_Pair_s _ReQL_Pair_t;
 
-typedef struct {
+/**
+ * @brief Iterator for easy enumeration.
+ *
+ * Supports objects and arrays.
+ */
+struct _ReQL_Iter_s {
   uint32_t idx;
   struct _ReQL_Obj_s *obj;
-} _ReQL_Iter_t;
+};
+typedef struct _ReQL_Iter_s _ReQL_Iter_t;
 
+/**
+ * @brief Represents a single node in a query tree.
+ */
 struct _ReQL_Obj_s {
   _ReQL_Term_t tt;
   union {
@@ -244,60 +265,235 @@ struct _ReQL_Obj_s {
 };
 typedef struct _ReQL_Obj_s _ReQL_Obj_t;
 
+/**
+ * @brief get raw JSON datum type.
+ *
+ * _REQL_R_REQL indicates an error such as the object is not a datum.
+ * _REQL_R_JSON is reserved for future expansion.
+ * all other types corespond to a concrete JSON type.
+ *
+ * @param obj ReQL object that should be a raw datum.
+ * @return datum type.
+ */
 extern _ReQL_Datum_t
 _reql_datum_type(_ReQL_Obj_t *obj);
+
+/**
+ * @brief get ReQL term type.
+ *
+ * _REQL_DATUM indicates that the object is raw JSON.
+ * The object will then have a datum sub type.
+ *
+ * @param obj any initialized ReQL object.
+ * @return term type.
+ */
 extern _ReQL_Term_t
 _reql_term_type(_ReQL_Obj_t *obj);
 
+/**
+ * @brief initialize an allocated ReQL object as a JSON bool.
+ * @param obj allocated ReQL object.
+ * @param val 0 for a false bool, true bool otherwise.
+ */
 extern void
 _reql_bool_init(_ReQL_Obj_t *obj, char val);
+
+/**
+ * @brief get c value from a JSON bool.
+ * @param obj ReQL bool datum.
+ * @return 1 if bool contains true, 0 if false.
+ */
 extern char
 _reql_to_bool(_ReQL_Obj_t *obj);
 
+/**
+ * @brief initialize an allocated ReQL object as a JSON null.
+ * @param obj allocated ReQL object.
+ */
 extern void
 _reql_null_init(_ReQL_Obj_t *obj);
 
+/**
+ * @brief initialize an allocated ReQL object as a JSON number.
+ * @param obj allocated ReQL object.
+ * @param val stored as the JSON value.
+ */
 extern void
 _reql_number_init(_ReQL_Obj_t *obj, double val);
+
+/**
+ * @brief get c value from a JSON number.
+ * @param obj ReQL number datum.
+ * @return value stored in ReQL object.
+ */
 extern double
 _reql_to_number(_ReQL_Obj_t *obj);
 
+/**
+ * @brief initialize an allocated ReQL object as a JSON string.
+ * @param obj allocated ReQL object.
+ * @param buf uninitialized buffer.
+ * @param alloc_size number of bytes in buffer.
+ */
 extern void
 _reql_string_init(_ReQL_Obj_t *obj, uint8_t *buf, uint32_t alloc_size);
+
+/**
+ * @brief append c string to JSON string.
+ * @param obj ReQL string datum.
+ * @param ext buffer with null bytes permited.
+ * @param size number of bytes in ext buffer.
+ * @return 0 if successful. Otherwise the new internal buffer size requested to allow appending ext.
+ */
 extern uint32_t
 _reql_string_append(_ReQL_Obj_t *obj, const uint8_t *ext, const uint32_t size);
+
+/**
+ * @brief get byte array from a JSON string.
+ *
+ * Byte array may be longer than size given by _reql_string_size.
+ * Array may contain null bytes, and will not be null terminated.
+ *
+ * @param obj ReQL string datum.
+ * @return byte array with contents of JSON string.
+ */
 extern uint8_t *
 _reql_string_buf(_ReQL_Obj_t *obj);
+
+/**
+ * @brief get number of valid bytes from a JSON string.
+ * @param obj ReQL string datum.
+ * @return number of bytes from _reql_string_buf return that are valid.
+ */
 extern uint32_t
 _reql_string_size(_ReQL_Obj_t *obj);
 
+/**
+ * @brief initialize an allocated ReQL object as a JSON array.
+ *
+ * Internal c array will be initialized to NULL pointers.
+ *
+ * @param obj allocated ReQL object.
+ * @param arr uninitialized c array of ReQL objects.
+ * @param alloc_size number of objects in arr.
+ */
 extern void
 _reql_array_init(_ReQL_Obj_t *obj, _ReQL_Obj_t **arr, uint32_t alloc_size);
+
+/**
+ * @brief get number of objects in ReQL array.
+ *
+ * A sparse array filled by using _reql_array_insert will have undefineds represented as c NULL.
+ * This may make iteration over the array tricky.
+ *
+ * @param obj ReQL array datum.
+ * @return last index considered valid plus 1.
+ */
 extern uint32_t
 _reql_array_size(_ReQL_Obj_t *obj);
+
+/**
+ * @brief replace object at index with value.
+ * @param obj ReQL array datum.
+ * @param val new element for array.
+ * @param idx index to replace with value.
+ * @return 0 if successful. Otherwise the new internal array size requested to allow inserting at idx.
+ */
 extern uint32_t
 _reql_array_insert(_ReQL_Obj_t *obj, _ReQL_Obj_t *val, uint32_t idx);
+
+/**
+ * @brief object at c index of JSON array.
+ * @param obj ReQL array datum.
+ * @param idx index to pull value from.
+ * @return index object or NULL.
+ */
 extern _ReQL_Obj_t *
 _reql_array_index(_ReQL_Obj_t *obj, uint32_t idx);
+
+/**
+ * @brief push object onto end of array.
+ * @param arr ReQL array datum.
+ * @param val new element for array.
+ * @return 0 if successful. Otherwise the new internal array size requested to allow inserting at idx.
+ */
 extern uint32_t
 _reql_array_append(_ReQL_Obj_t *arr, _ReQL_Obj_t *val);
+
+/**
+ * @brief remove and return last object in array.
+ * @param obj ReQL array datum.
+ * @return last object or NULL.
+ */
 extern _ReQL_Obj_t *
 _reql_array_pop(_ReQL_Obj_t *obj);
+
+/**
+ * @brief last object in array.
+ * @param obj ReQL array datum.
+ * @return last object or NULL.
+ */
 extern _ReQL_Obj_t *
 _reql_array_last(_ReQL_Obj_t *obj);
 
+/**
+ * @brief create object iterator initialized at object start
+ *
+ * JSON objects with iterate over keys, arrays iterate elements.
+ * Iterator results are undefined if the loop modifies the object being iterated.
+ *
+ * @param obj ReQL array or object datum.
+ * @return new iterator.
+ */
 extern _ReQL_Iter_t
 _reql_new_iter(_ReQL_Obj_t *obj);
+
+/**
+ * @brief get next element and step iterator.
+ * @param arr reference to iterator.
+ * @return next object or NULL for end of iteration.
+ */
 extern _ReQL_Obj_t *
 _reql_iter_next(_ReQL_Iter_t *arr);
 
+/**
+ * @brief initialize an allocated ReQL object as a JSON object.
+ *
+ * Internal c pairs array will be initialized to NULL pointers.
+ *
+ * @param obj allocated ReQL object.
+ * @param pair uninitialized c array of pairs.
+ * @param alloc_size number of objects in pair.
+ */
 extern void
 _reql_object_init(_ReQL_Obj_t *obj, _ReQL_Pair_t *pair, uint32_t alloc_size);
+
+/**
+ * @brief set key to value, updating if key already exists.
+ * @param obj ReQL object datum.
+ * @param key ReQL string datum.
+ * @param val new object for key.
+ * @return 0 if successful. Otherwise the new internal array size requested to allow adding key.
+ */
 extern uint32_t
 _reql_object_add(_ReQL_Obj_t *obj, _ReQL_Obj_t *key, _ReQL_Obj_t *val);
+
+/**
+ * @brief get value of key in object.
+ * @param obj ReQL object datum.
+ * @param key ReQL string datum.
+ * @return value in object or NULL if key does not exist.
+ */
 extern _ReQL_Obj_t *
 _reql_object_get(_ReQL_Obj_t *obj, _ReQL_Obj_t *key);
 
+/**
+ * @brief recursive free of all nodes in a query tree.
+ *
+ * This is used to reclaim memory after a query response is used.
+ *
+ * @param json ReQL object.
+ */
 extern void
 _reql_json_destroy(_ReQL_Obj_t *json);
 
