@@ -96,12 +96,15 @@ _reql_connection_init(_ReQL_Conn_t *conn) {
   pthread_mutexattr_init(attrs);
   pthread_mutexattr_settype(attrs, PTHREAD_MUTEX_ERRORCHECK);
 
+  conn->mutex = malloc(sizeof(pthread_mutex_t));
+
   pthread_mutex_init(conn->mutex, attrs);
 
   pthread_mutexattr_destroy(attrs);
 
   free(attrs);
 
+  pthread_mutex_lock(conn->mutex);
   conn->socket = -1;
   conn->done = 0;
   conn->max_token = 0;
@@ -111,6 +114,7 @@ _reql_connection_init(_ReQL_Conn_t *conn) {
   conn->auth = NULL;
   conn->port = "28015";
   conn->addr = NULL;
+  pthread_mutex_unlock(conn->mutex);
 }
 
 extern void
@@ -337,6 +341,8 @@ _reql_ensure_conn_close(_ReQL_Conn_t *conn) {
   while (_reql_conn_socket(conn) > 0) {
     sleep(1);
   }
+  pthread_mutex_destroy(conn->mutex);
+  free(conn->mutex);
 }
 
 extern char
