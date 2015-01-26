@@ -25,6 +25,7 @@ before_install:
   - rethinkdb --daemon
 
 install:
+  - curl -o catch.h https://raw.githubusercontent.com/philsquared/Catch/master/single_include/catch.hpp
   - bash $BUILD
 
 script:
