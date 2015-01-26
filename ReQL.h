@@ -37,6 +37,8 @@ struct _ReQL_Conn_s {
 
   char *auth;
   _ReQL_Cur_t *cursors;
+
+  void *mutex;
 };
 typedef struct _ReQL_Conn_s _ReQL_Conn_t;
 typedef _ReQL_Conn_t* _ReQL_Conn;

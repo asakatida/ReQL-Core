@@ -33,8 +33,6 @@ limitations under the License.
 #include <sys/uio.h>
 #include <unistd.h>
 
-static pthread_mutex_t conn_lock = PTHREAD_MUTEX_INITIALIZER;
-static pthread_once_t init_lock = PTHREAD_ONCE_INIT;
 static const uint32_t _REQL_VERSION = 0x5f75e83e;
 static const uint32_t _REQL_PROTOCOL = 0x7e6970c7;
 
@@ -68,36 +66,41 @@ _reql_make_64_token(uint8_t *buf, const uint64_t magic) {
 }
 
 static uint32_t
-_reql_get_32_le(char *buf) {
+_reql_get_32_le(uint8_t *buf) {
   _ReQL_LE32 _magic = {0};
   memcpy(_magic.buf, buf, 4);
   return le32toh(_magic.num);
 }
 
 static int64_t
-_reql_get_64_token(char *buf) {
+_reql_get_64_token(uint8_t *buf) {
   _ReQL_LE64 _magic = {0};
   memcpy(_magic.buf, buf, 8);
   return le64toh(_magic.num);
 }
 
-static void
-_reql_init_conn(void) {
+static int
+_reql_conn_lock(_ReQL_Conn_t *conn) {
+  return pthread_mutex_lock(conn->mutex);
+}
+
+static int
+_reql_conn_unlock(_ReQL_Conn_t *conn) {
+  return pthread_mutex_unlock(conn->mutex);
+}
+
+extern void
+_reql_connection_init(_ReQL_Conn_t *conn) {
   pthread_mutexattr_t *attrs = malloc(sizeof(pthread_mutexattr_t));
 
   pthread_mutexattr_init(attrs);
   pthread_mutexattr_settype(attrs, PTHREAD_MUTEX_ERRORCHECK);
 
-  pthread_mutex_init(&conn_lock, attrs);
+  pthread_mutex_init(conn->mutex, attrs);
 
   pthread_mutexattr_destroy(attrs);
 
   free(attrs);
-}
-
-extern void
-_reql_connection_init(_ReQL_Conn conn) {
-  pthread_once(&init_lock, _reql_init_conn);
 
   conn->socket = -1;
   conn->done = 0;
@@ -112,39 +115,47 @@ _reql_connection_init(_ReQL_Conn conn) {
 
 extern void
 _reql_conn_set_auth(_ReQL_Conn_t *conn, uint32_t size, char *auth) {
+  _reql_conn_lock(conn);
   conn->auth_size = size;
   conn->auth = auth;
+  _reql_conn_unlock(conn);
 }
 
 extern void
 _reql_conn_set_addr(_ReQL_Conn_t *conn, char *addr) {
+  _reql_conn_lock(conn);
   conn->addr = addr;
+  _reql_conn_unlock(conn);
 }
 
 extern void
 _reql_conn_set_port(_ReQL_Conn_t *conn, char *port) {
+  _reql_conn_lock(conn);
   conn->port = port;
+  _reql_conn_unlock(conn);
 }
 
 extern void
 _reql_conn_set_timeout(_ReQL_Conn_t *conn, unsigned long timeout) {
+  _reql_conn_lock(conn);
   conn->timeout = timeout;
+  _reql_conn_unlock(conn);
 }
 
 static int
 _reql_conn_socket(_ReQL_Conn_t *conn) {
-  pthread_mutex_lock(&conn_lock);
+  _reql_conn_lock(conn);
   int sock = conn->socket;
-  pthread_mutex_unlock(&conn_lock);
+  _reql_conn_unlock(conn);
   return sock;
 }
 
 static void
 _reql_conn_close_socket(_ReQL_Conn_t *conn) {
-  pthread_mutex_lock(&conn_lock);
+  _reql_conn_lock(conn);
   close(conn->socket);
   conn->socket = -1;
-  pthread_mutex_unlock(&conn_lock);
+  _reql_conn_unlock(conn);
 }
 
 static void
@@ -165,14 +176,14 @@ _reql_set_cur_res(_ReQL_Conn_t *conn, _ReQL_Obj_t *res, unsigned long long token
 
 static char
 _reql_conn_done(_ReQL_Conn_t *conn) {
-  pthread_mutex_lock(&conn_lock);
+  _reql_conn_lock(conn);
   char res = conn->done;
-  pthread_mutex_unlock(&conn_lock);
+  _reql_conn_unlock(conn);
   return res;
 }
 
 static uint32_t
-_reql_conn_read(_ReQL_Conn conn, uint8_t *buf, const uint32_t size) {
+_reql_conn_read(_ReQL_Conn_t *conn, uint8_t *buf, const uint32_t size) {
   const ssize_t rcv_size = recvfrom(_reql_conn_socket(conn), buf, size, 0, NULL, NULL);
 
   if (rcv_size != size) {
@@ -183,23 +194,23 @@ _reql_conn_read(_ReQL_Conn conn, uint8_t *buf, const uint32_t size) {
 
 static void *
 _reql_conn_loop(void *conn) {
-  char msg_header[12];
+  uint8_t msg_header[12];
   uint8_t *response = NULL;
   uint64_t token = 0;
   uint32_t pos = 0, size = 12;
 
   while (!_reql_conn_done(conn)) {
-    pos += _reql_conn_read(conn, &response[pos], size);
     if (response) {
+      pos += _reql_conn_read(conn, &response[pos], size);
       if (pos == size) {
         _reql_set_cur_res(conn, _reql_decode(response, size), token);
 
         pos = 0;
-        size = 12;
 
         free(response); response = NULL;
       }
     } else {
+      pos += _reql_conn_read(conn, msg_header, 12);
       if (pos == 12) {
         pos = 0;
         token = _reql_get_64_token(&msg_header[0]);
@@ -315,9 +326,9 @@ _reql_connect(_ReQL_Conn_t *conn, uint8_t *buf, uint32_t size) {
 
 extern void
 _reql_close_conn(_ReQL_Conn_t *conn) {
-  pthread_mutex_lock(&conn_lock);
+  _reql_conn_lock(conn);
   conn->done = 1;
-  pthread_mutex_unlock(&conn_lock);
+  _reql_conn_unlock(conn);
 }
 
 extern void
@@ -329,12 +340,12 @@ _reql_ensure_conn_close(_ReQL_Conn_t *conn) {
 }
 
 extern char
-_reql_conn_open(_ReQL_Conn conn) {
+_reql_conn_open(_ReQL_Conn_t *conn) {
   return _reql_conn_socket(conn) > 0 && !_reql_conn_done(conn);
 }
 
 extern int
-_reql_run(_ReQL_Cur cur, _ReQL_Obj_t *query, _ReQL_Conn conn, _ReQL_Obj_t *kwargs) {
+_reql_run(_ReQL_Cur_t *cur, _ReQL_Obj_t *query, _ReQL_Conn_t *conn, _ReQL_Obj_t *kwargs) {
   _ReQL_Obj_t start;
 
   _ReQL_Obj_t array;
@@ -352,10 +363,10 @@ _reql_run(_ReQL_Cur cur, _ReQL_Obj_t *query, _ReQL_Conn conn, _ReQL_Obj_t *kwarg
     return -1;
   }
 
-  pthread_mutex_lock(&conn_lock);
+  _reql_conn_lock(conn);
 
   if (conn->socket < 0) {
-    pthread_mutex_unlock(&conn_lock);
+    _reql_conn_unlock(conn);
     return -1;
   }
 
@@ -390,6 +401,6 @@ _reql_run(_ReQL_Cur cur, _ReQL_Obj_t *query, _ReQL_Conn conn, _ReQL_Obj_t *kwarg
 
   writev(conn->socket, magic, 3);
 
-  pthread_mutex_unlock(&conn_lock);
+  _reql_conn_unlock(conn);
   return 0;
 }
