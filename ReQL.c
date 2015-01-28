@@ -102,7 +102,7 @@ _reql_connection_init(_ReQL_Conn_t *conn) {
 
   pthread_mutexattr_destroy(attrs);
 
-  free(attrs);
+  free(attrs); attrs = NULL;
 
   pthread_mutex_lock(conn->mutex);
   conn->socket = -1;
