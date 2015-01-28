@@ -3,6 +3,9 @@ all: libReQL.a
 test: libReQLtest
 	./libReQLtest
 
+clean:
+	rm *.o *.obj
+
 check: test
 
 OBJS = ReQL.obj \
