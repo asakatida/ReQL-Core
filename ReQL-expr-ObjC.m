@@ -30,7 +30,7 @@ limitations under the License.
   if (self = [super init]) {
     self->conn = malloc(sizeof(_ReQL_Conn_t));
 
-    char buf[500];
+    uint8_t buf[500];
 
     _reql_connect(self->conn, buf, 500);
 
