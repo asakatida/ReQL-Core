@@ -40,9 +40,15 @@ _reql_cursor_init(_ReQL_Cur_t *cur) {
   pthread_mutexattr_init(attrs);
   pthread_mutexattr_settype(attrs, PTHREAD_MUTEX_ERRORCHECK);
 
+  pthread_mutex_t *mutex = malloc(sizeof(pthread_mutex_t));
+
+  pthread_mutex_init(mutex, attrs);
+
+  cur->mutex = mutex;
+
   pthread_mutexattr_destroy(attrs);
 
-  free(attrs);
+  free(attrs); attrs = NULL;
 
   cur->token = 0;
   cur->done = 0;
