@@ -23,7 +23,7 @@ limitations under the License.
 #ifndef _REQL_CURSOR_H
 #define _REQL_CURSOR_H
 
-typedef enum {
+enum _ReQL_Response_e {
   _REQL_CLIENT_ERROR = 16,
   _REQL_COMPILE_ERROR = 17,
   _REQL_RUNTIME_ERROR = 18,
@@ -32,7 +32,8 @@ typedef enum {
   _REQL_SUCCESS_PARTIAL = 3,
   _REQL_SUCCESS_SEQUENCE = 2,
   _REQL_WAIT_COMPLETE = 4
-} _ReQL_Response_t;
+};
+typedef enum _ReQL_Response_e _ReQL_Response_t;
 
 struct _ReQL_Cur_s {
   char done;
@@ -44,17 +45,16 @@ struct _ReQL_Cur_s {
   void *mutex;
 };
 typedef struct _ReQL_Cur_s _ReQL_Cur_t;
-typedef _ReQL_Cur_t* _ReQL_Cur;
 
 extern void
-_reql_cursor_init(_ReQL_Cur cur);
+_reql_cursor_init(_ReQL_Cur_t *cur);
 extern void
 _reql_set_cur_response(_ReQL_Cur_t *cur, _ReQL_Obj_t *res);
 extern _ReQL_Obj_t *
 _reql_get_cur_res(_ReQL_Cur_t *cur);
 extern void
-_reql_cursor_next(_ReQL_Cur cur);
+_reql_cursor_next(_ReQL_Cur_t *cur);
 extern void
-_reql_close_cur(_ReQL_Cur cur);
+_reql_close_cur(_ReQL_Cur_t *cur);
 
 #endif
