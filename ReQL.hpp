@@ -25,18 +25,18 @@ limitations under the License.
 
 namespace ReQL {
 
-  class Cursor {
-  public:
-    _ReQL_Cur cur;
+class Cursor {
+public:
+  _ReQL_Cur_t *cur;
 
-    Cursor();
+  Cursor();
 
-    ~Cursor();
+  ~Cursor();
 
-    bool isOpen();
+  bool isOpen();
 
-    int close();
-  };
+  int close();
+};
 
 class Connection {
 public:
