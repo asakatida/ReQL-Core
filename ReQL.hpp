@@ -40,7 +40,7 @@ namespace ReQL {
 
 class Connection {
 public:
-  _ReQL_Conn conn;
+  _ReQL_Conn_t *conn;
 
   Connection();
   Connection(std::string);

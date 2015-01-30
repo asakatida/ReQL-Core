@@ -23,6 +23,9 @@ limitations under the License.
 #ifndef _REQL_H
 #define _REQL_H
 
+/**
+ * @brief connection object
+ */
 struct _ReQL_Conn_s {
   char done;
   int socket;
@@ -41,28 +44,88 @@ struct _ReQL_Conn_s {
   void *mutex;
 };
 typedef struct _ReQL_Conn_s _ReQL_Conn_t;
-typedef _ReQL_Conn_t* _ReQL_Conn;
 
+/**
+ * @brief initialize connection to prepare for opening.
+ * @param conn allocated connection object.
+ */
 extern void
-_reql_connection_init(_ReQL_Conn conn);
+_reql_connection_init(_ReQL_Conn_t *conn);
+
+/**
+ * @brief assign an authentication key before opening a connection.
+ * @param conn connection object.
+ * @param size number of bytes in key.
+ * @param auth byte array key.
+ */
 extern void
-_reql_conn_set_auth(_ReQL_Conn conn, uint32_t size, char *auth);
+_reql_conn_set_auth(_ReQL_Conn_t *conn, uint32_t size, char *auth);
+
+/**
+ * @brief assign an address before opening a connection.
+ * @param conn connection object.
+ * @param addr address for connection.
+ */
 extern void
-_reql_conn_set_addr(_ReQL_Conn conn, char *addr);
+_reql_conn_set_addr(_ReQL_Conn_t *conn, char *addr);
+
+/**
+ * @brief assign a port before opening a connection.
+ * @param conn connection object.
+ * @param port port for connection.
+ */
 extern void
-_reql_conn_set_port(_ReQL_Conn conn, char *port);
+_reql_conn_set_port(_ReQL_Conn_t *conn, char *port);
+
+/**
+ * @brief assign a timeout to a connection.
+ * @param conn connection object.
+ * @param timeout timout in seconds.
+ */
 extern void
-_reql_conn_set_timeout(_ReQL_Conn conn, unsigned long timeout);
+_reql_conn_set_timeout(_ReQL_Conn_t *conn, unsigned long timeout);
+
+/**
+ * @brief _reql_connect
+ * @param conn connection object.
+ * @param buf allocated buffer that will be filled with an error message or `SUCCESS\0`
+ * @param size number of bytes in buffer.
+ * @return 0 on success. non zero on error.
+ */
 extern int
-_reql_connect(_ReQL_Conn conn, uint8_t *buf, uint32_t size);
+_reql_connect(_ReQL_Conn_t *conn, uint8_t *buf, uint32_t size);
+
+/**
+ * @brief Declare a connection ready to be closed.
+ * @param conn connection object.
+ */
 extern void
-_reql_close_conn(_ReQL_Conn conn);
+_reql_close_conn(_ReQL_Conn_t *conn);
+
+/**
+ * @brief Ensure a connection object is cleaned up and ready to be deallocated.
+ * @param conn connection object.
+ */
 extern void
 _reql_ensure_conn_close(_ReQL_Conn_t *conn);
-extern char
-_reql_conn_open(_ReQL_Conn conn);
 
+/**
+ * @brief Check if a connection object is connected.
+ * @param conn connection object.
+ * @return 0 if closed or closing. non zero otherwise.
+ */
+extern char
+_reql_conn_open(_ReQL_Conn_t *conn);
+
+/**
+ * @brief Prepare and send a query to the server for evaluation. Set up cur to receive responces.
+ * @param cur initalized cursor object or NULL.
+ * @param query term object.
+ * @param conn connection object.
+ * @param kwargs global options or NULL.
+ * @return 0 on success. Non zero otherwise.
+ */
 extern int
-_reql_run(_ReQL_Cur cur, _ReQL_Obj_t *query, _ReQL_Conn conn, _ReQL_Obj_t *kwargs);
+_reql_run(_ReQL_Cur_t *cur, _ReQL_Obj_t *query, _ReQL_Conn_t *conn, _ReQL_Obj_t *kwargs);
 
 #endif
