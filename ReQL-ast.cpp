@@ -25,19 +25,7 @@ limitations under the License.
 namespace ReQL {
 
 Query init(_ReQL_AST_Function f, std::vector<Query> args, std::map<std::string, Query> kwargs) {
-  Query term(new _ReQL_Obj_t());
-
-  Query _args(args);
-
-  term.sub_query.push_back(_args);
-
-  Query _kwargs(kwargs);
-
-  term.sub_query.push_back(_kwargs);
-
-  f(term.query, _args.query, _kwargs.query);
-
-  return term;
+  return Query(f, args, kwargs);
 }
 
 Query init(_ReQL_AST_Function f, AST *term, std::vector<Query> args, std::map<std::string, Query> kwargs) {

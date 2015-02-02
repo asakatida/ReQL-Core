@@ -31,11 +31,9 @@ namespace ReQL {
 class Query;
 
 class Expr {
-public:
-  _ReQL_Obj_t *query;
-  std::vector<Query> sub_query;
-
+protected:
   Expr();
+  Expr(_ReQL_AST_Function f, std::vector<Query> args, std::map<std::string, Query> kwargs);
   explicit Expr(_ReQL_Obj_t *val);
   explicit Expr(std::string);
   explicit Expr(double);
@@ -44,6 +42,10 @@ public:
   explicit Expr(std::map<std::string, Query>);
 
   ~Expr();
+
+private:
+  _ReQL_Obj_t *query;
+  std::vector<Query> sub_query;
 };
 
 Query

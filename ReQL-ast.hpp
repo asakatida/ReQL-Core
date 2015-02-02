@@ -29,6 +29,7 @@ class AST : public Expr {
 public:
 
   AST() : Expr() {};
+  AST(_ReQL_AST_Function f, std::vector<Query> args, std::map<std::string, Query> kwargs) : Expr(f, args, kwargs) {};
   explicit AST(_ReQL_Obj_t *val) : Expr(val) {};
   explicit AST(std::string val) : Expr(val) {};
   explicit AST(double val) : Expr(val) {};

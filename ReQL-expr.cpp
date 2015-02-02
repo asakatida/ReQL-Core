@@ -32,6 +32,20 @@ Expr::Expr() {
   query = _reql_new_datum(_val.query);
 }
 
+  Expr::Expr(_ReQL_AST_Function f, std::vector<Query> args, std::map<std::string, Query> kwargs) {
+    query = new _ReQL_Obj_t();
+
+    Query _args(args);
+
+    sub_query.push_back(_args);
+
+    Query _kwargs(kwargs);
+
+    sub_query.push_back(_kwargs);
+
+    f(query, _args.query, _kwargs.query);
+  }
+
 Expr::Expr(_ReQL_Obj_t *val) {
   query = val;
 }

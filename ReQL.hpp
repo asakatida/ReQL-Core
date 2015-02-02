@@ -62,6 +62,7 @@ Connection connect(std::string, std::uint16_t, std::string);
 class Query : public AST {
 public:
   Query() : AST() {};
+  Query(_ReQL_AST_Function f, std::vector<Query> args, std::map<std::string, Query> kwargs) : AST(f, args, kwargs) {};
   explicit Query(_ReQL_Obj_t *val) : AST(val) {};
   explicit Query(std::string val) : AST(val) {};
   explicit Query(double val) : AST(val) {};
