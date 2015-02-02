@@ -24,7 +24,7 @@ limitations under the License.
 #include <stdlib.h>
 #include <string.h>
 
-static void
+extern void
 _reql_obj_set_term_type(_ReQL_Obj_t *obj, const _ReQL_Term_t type) {
   obj->tt = type;
 }
@@ -34,22 +34,22 @@ _reql_obj_term_type(_ReQL_Obj_t *obj) {
   return obj->tt;
 }
 
-static void
+extern void
 _reql_obj_set_args(_ReQL_Obj_t *obj, _ReQL_Obj_t *args) {
   obj->obj.args.args = args;
 }
 
-static _ReQL_Obj_t *
+extern _ReQL_Obj_t *
 _reql_obj_args(_ReQL_Obj_t *obj) {
   return obj->obj.args.args;
 }
 
-static void
+extern void
 _reql_obj_set_kwargs(_ReQL_Obj_t *obj, _ReQL_Obj_t *kwargs) {
   obj->obj.args.kwargs = kwargs;
 }
 
-static _ReQL_Obj_t *
+extern _ReQL_Obj_t *
 _reql_obj_kwargs(_ReQL_Obj_t *obj) {
   return obj->obj.args.kwargs;
 }

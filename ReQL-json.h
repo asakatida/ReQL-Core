@@ -278,6 +278,9 @@ typedef struct _ReQL_Obj_s _ReQL_Obj_t;
 extern _ReQL_Datum_t
 _reql_datum_type(_ReQL_Obj_t *obj);
 
+extern void
+_reql_obj_set_term_type(_ReQL_Obj_t *obj, const _ReQL_Term_t type);
+
 /**
  * @brief get ReQL term type.
  *
@@ -289,6 +292,18 @@ _reql_datum_type(_ReQL_Obj_t *obj);
  */
 extern _ReQL_Term_t
 _reql_term_type(_ReQL_Obj_t *obj);
+
+extern void
+_reql_obj_set_args(_ReQL_Obj_t *obj, _ReQL_Obj_t *args);
+
+extern _ReQL_Obj_t *
+_reql_obj_args(_ReQL_Obj_t *obj);
+
+extern void
+_reql_obj_set_kwargs(_ReQL_Obj_t *obj, _ReQL_Obj_t *kwargs);
+
+extern _ReQL_Obj_t *
+_reql_obj_kwargs(_ReQL_Obj_t *obj);
 
 /**
  * @brief initialize an allocated ReQL object as a JSON bool.

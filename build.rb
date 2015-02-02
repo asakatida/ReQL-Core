@@ -553,9 +553,9 @@ def term_imp(name)
   "
 extern void
 #{c_ast_name name}(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  term->tt = _REQL_#{name};
-  term->obj.args.args = args;
-  term->obj.args.kwargs = kwargs;
+  _reql_obj_set_term_type(term, _REQL_#{name});
+  _reql_obj_set_args(term, args);
+  _reql_obj_set_kwargs(term, kwargs);
 }"
 end
 
