@@ -22,7 +22,7 @@ OBJS = ReQL.obj \
 	ReQL-json.o
 
 LDFLAGS += -pthread
-CXXFLAGS += -fPIC -std=c++0x
+CXXFLAGS += -fPIC -std=c++11
 CCFLAGS += -fPIC
 
 TESTOBJS = ReQL-test.obj ReQL-ast-test.obj ReQL-expr-test.obj

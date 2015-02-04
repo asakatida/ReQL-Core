@@ -1,1 +1,1 @@
-make test
+CC=clang CXX=clang++ make test
