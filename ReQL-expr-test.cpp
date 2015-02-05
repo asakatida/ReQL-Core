@@ -127,13 +127,23 @@ TEST_CASE("decode values", "[c][decode]") {
   }
 
   SECTION("object") {
-    const uint32_t size = 7;
-    uint8_t src[size] = "{\"\":0}";
+    const uint32_t size = 10;
+    uint8_t src[size] = "{\"key\":0}";
 
     _ReQL_Obj_t *obj = _reql_decode(src, size);
 
     REQUIRE(obj != NULL);
-    REQUIRE(_reql_datum_type(obj) == _REQL_R_STR);
+    REQUIRE(_reql_datum_type(obj) == _REQL_R_OBJECT);
+
+    const uint32_t key_size = 3;
+    uint8_t key_buf[4];
+
+    _ReQL_Obj_t key;
+    _reql_string_init(&key, key_buf, key_size);
+    _reql_string_append(&key, (uint8_t *)"key", key_size);
+
+    REQUIRE(_reql_object_get(obj, &key) != NULL);
+    REQUIRE(_reql_datum_type(_reql_object_get(obj, &key)) == _REQL_R_NUM);
 
     _reql_json_destroy(obj);
   }
