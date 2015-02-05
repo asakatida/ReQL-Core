@@ -70,6 +70,9 @@ static _ReQL_Datum_t
 _reql_bad_pair(_ReQL_Obj_t *stack, _ReQL_Obj_t *key, _ReQL_Obj_t *val) {
   _reql_update_array(stack, key);
   _reql_update_array(stack, val);
+  if (_reql_datum_type(key) == _REQL_R_OBJECT) {
+    return _REQL_R_OBJECT;
+  }
   return _REQL_R_JSON;
 }
 
