@@ -19,14 +19,14 @@ TEST_CASE("decode errors", "[c][decode]") {
 
     CHECK(_reql_decode(src, size) == NULL);
   }
-  
+
   SECTION("unterminated null") {
     const uint32_t size = 4;
     uint8_t src[size] = "nul";
 
     CHECK(_reql_decode(src, size) == NULL);
   }
-  
+
   SECTION("unterminated object") {
     const uint32_t size = 2;
     uint8_t src[size] = "{";
