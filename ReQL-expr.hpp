@@ -48,20 +48,5 @@ protected:
   ReQL query;
 };
 
-Query
-expr();
-Query
-expr(_ReQL_Obj_t *);
-Query
-expr(std::string);
-Query
-expr(double);
-Query
-expr(bool);
-Query
-expr(std::vector<Query>);
-Query
-expr(std::map<std::string, Query>);
-
 }
 #endif

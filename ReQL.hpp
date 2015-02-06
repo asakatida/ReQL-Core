@@ -63,7 +63,6 @@ class Query : public AST {
 public:
   Query() : AST() {};
   Query(_ReQL_AST_Function f, std::vector<Query> args, std::map<std::string, Query> kwargs) : AST(f, args, kwargs) {};
-  explicit Query(_ReQL_Obj_t *val) : AST(val) {};
   Query(std::string val) : AST(val) {};
   Query(double val) : AST(val) {};
   Query(bool val) : AST(val) {};

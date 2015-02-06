@@ -60,39 +60,4 @@ Expr::Expr(const Expr &&other) {
   query = std::move(other.query);
 }
   
-Query
-expr() {
-  return Query();
-}
-
-Query
-expr(_ReQL_Obj_t *val) {
-  return Query(val);
-}
-
-Query
-expr(std::string val) {
-  return Query(val);
-}
-
-Query
-expr(double val) {
-  return Query(val);
-}
-
-Query
-expr(bool val) {
-  return Query(val);
-}
-
-Query
-expr(std::vector<Query> val) {
-  return Query(val);
-}
-
-Query
-expr(std::map<std::string, Query> val) {
-  return Query(val);
-}
-
 }
