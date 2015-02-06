@@ -70,6 +70,9 @@ public:
   explicit Query(std::vector<Query> val) : AST(val) {};
   explicit Query(std::map<std::string, Query> val) : AST(val) {};
 
+  Query(const Query &other) : AST(other) {};
+  Query(const Query &&other) : AST(other) {};
+
   Cursor run(Connection);
 };
 

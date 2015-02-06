@@ -41,9 +41,11 @@ protected:
   explicit Expr(std::vector<Query>);
   explicit Expr(std::map<std::string, Query>);
 
+  Expr(const Expr &other);
+  Expr(const Expr &&other);
+
   ~Expr();
 
-private:
   _ReQL_Obj_t *query;
   std::vector<Query> sub_query;
 };

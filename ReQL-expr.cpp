@@ -109,6 +109,16 @@ Expr::Expr(std::map<std::string, Query> val) {
   query = _reql_new_make_obj(_val.query);
 }
 
+Expr::Expr(const Expr &other) {
+  query = other.query;
+  sub_query.insert(sub_query.cend(), other.sub_query.cbegin(), other.sub_query.cend());
+}
+
+Expr::Expr(const Expr &&other) {
+  query = other.query;
+  sub_query = std::move(other.sub_query);
+}
+  
 Expr::~Expr() {
   switch (_reql_datum_type(query)) {
     case _REQL_R_ARRAY: {

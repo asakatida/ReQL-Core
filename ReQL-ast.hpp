@@ -26,7 +26,7 @@ limitations under the License.
 namespace ReQL {
 
 class AST : public Expr {
-public:
+protected:
 
   AST() : Expr() {};
   AST(_ReQL_AST_Function f, std::vector<Query> args, std::map<std::string, Query> kwargs) : Expr(f, args, kwargs) {};
@@ -37,6 +37,10 @@ public:
   explicit AST(std::vector<Query> val) : Expr(val) {};
   explicit AST(std::map<std::string, Query> val) : Expr(val) {};
 
+  AST(const AST &other) : Expr(other) {};
+  AST(const AST &&other) : Expr(other) {};
+
+public:
   /**
    */
   Query
