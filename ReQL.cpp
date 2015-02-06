@@ -131,4 +131,14 @@ Cursor Query::run(Connection conn) {
   return Cursor();
 }
 
+Query &Query::operator=(const Query &other) {
+  query = other.query;
+  return *this;
+}
+
+Query &Query::operator=(const Query &&other) {
+  query = std::move(other.query);
+  return *this;
+}
+
 }

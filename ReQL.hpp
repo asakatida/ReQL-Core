@@ -73,6 +73,9 @@ public:
   Query(const Query &other) : AST(other) {};
   Query(const Query &&other) : AST(other) {};
 
+  Query &operator=(const Query &other);
+  Query &operator=(const Query &&other);
+
   Cursor run(Connection);
 };
 

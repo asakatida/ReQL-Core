@@ -22,119 +22,44 @@ limitations under the License.
 
 #include "ReQL.hpp"
 
-#include <limits>
-
 namespace ReQL {
 
-Expr::Expr() {
-  Query _val = expr(_reql_new_null());
-  sub_query.push_back(_val);
-  query = _reql_new_datum(_val.query);
-}
+Expr::Expr() {}
 
 Expr::Expr(_ReQL_AST_Function f, std::vector<Query> args, std::map<std::string, Query> kwargs) {
-  query = new _ReQL_Obj_t();
-
-  Query _args(args);
-
-  sub_query.push_back(_args);
-
-  Query _kwargs(kwargs);
-
-  sub_query.push_back(_kwargs);
-
-  f(query, _args.query, _kwargs.query);
+  query = ReQL();
 }
 
-Expr::Expr(_ReQL_Obj_t *val) {
-  query = val;
-}
+Expr::Expr(std::string val) : query(val) {}
 
-Expr::Expr(std::string val) {
-  Query _val = expr(_reql_new_string(val));
-  sub_query.push_back(_val);
-  query = _reql_new_datum(_val.query);
-}
+Expr::Expr(double val) : query(val) {}
 
-Expr::Expr(double val) {
-  Query _val = expr(_reql_new_number(val));
-  sub_query.push_back(_val);
-  query = _reql_new_datum(_val.query);
-}
-
-Expr::Expr(bool val) {
-  Query _val = expr(_reql_new_bool(val));
-  sub_query.push_back(_val);
-  query = _reql_new_datum(_val.query);
-}
+Expr::Expr(bool val) : query(val) {}
 
 Expr::Expr(std::vector<Query> val) {
-  if (val.size() > std::numeric_limits<std::uint32_t>::max()) {
-    throw;
+  std::vector<ReQL> array;
+
+  for (std::vector<Query>::const_iterator it=val.cbegin(); it!=val.cend(); ++it) {
+    array.insert(array.cend(), it->query);
   }
-
-  sub_query.assign(val.begin(), val.end());
-
-  Query _val = expr(_reql_new_array(static_cast<std::uint32_t>(val.size())));
-
-  sub_query.push_back(_val);
-
-  std::vector<Query>::iterator iter;
-
-  for (iter=val.begin(); iter!=val.end(); ++iter) {
-    _reql_array_append(_val.query, iter->query);
-  }
-
-  query = _reql_new_make_array(_val.query);
 }
 
 Expr::Expr(std::map<std::string, Query> val) {
-  if (val.size() > std::numeric_limits<std::uint32_t>::max()) {
-    throw;
+  std::map<std::string, ReQL> object;
+
+  for (std::map<std::string, Query>::const_iterator it=val.cbegin(); it!=val.cend(); ++it) {
+    object.insert(object.cend(), {it->first, it->second.query});
   }
-
-  Query _val = expr(_reql_new_object(static_cast<std::uint32_t>(val.size())));
-
-  sub_query.push_back(_val);
-
-  std::map<std::string, Query>::iterator iter;
-
-  for (iter=val.begin(); iter!=val.end(); ++iter) {
-    Query key(iter->first);
-    sub_query.push_back(key);
-    sub_query.push_back(iter->second);
-    _reql_object_add(_val.query, key.query, iter->second.query);
-  }
-
-  query = _reql_new_make_obj(_val.query);
 }
 
 Expr::Expr(const Expr &other) {
   query = other.query;
-  sub_query.insert(sub_query.cend(), other.sub_query.cbegin(), other.sub_query.cend());
 }
 
 Expr::Expr(const Expr &&other) {
-  query = other.query;
-  sub_query = std::move(other.sub_query);
+  query = std::move(other.query);
 }
   
-Expr::~Expr() {
-  switch (_reql_datum_type(query)) {
-    case _REQL_R_ARRAY: {
-      delete [] query->obj.datum.json.array;
-      break;
-    }
-    case _REQL_R_OBJECT: {
-      delete [] query->obj.datum.json.pair;
-      break;
-    }
-    default:
-      break;
-  }
-  delete query;
-}
-
 Query
 expr() {
   return Query();

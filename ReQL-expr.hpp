@@ -29,6 +29,7 @@ limitations under the License.
 namespace ReQL {
 
 class Query;
+class ReQL;
 
 class Expr {
 protected:
@@ -44,10 +45,7 @@ protected:
   Expr(const Expr &other);
   Expr(const Expr &&other);
 
-  ~Expr();
-
-  _ReQL_Obj_t *query;
-  std::vector<Query> sub_query;
+  ReQL query;
 };
 
 Query

@@ -20,6 +20,9 @@ limitations under the License.
 
 #include "ReQL-new.hpp"
 
+#include <cstddef>
+#include <cstdint>
+
 namespace ReQL {
 
 _ReQL_Obj_t **
@@ -114,4 +117,85 @@ _reql_new_string(std::string val) {
   return obj;
 }
 
+ReQL::ReQL() {
+  query = _reql_new_null();
+}
+
+ReQL::ReQL(_ReQL_AST_Function f, std::vector<ReQL> args, std::map<std::string, ReQL> kwargs) {
+  query = _reql_alloc_term();
+}
+
+ReQL::ReQL(std::string val) {
+}
+
+ReQL::ReQL(double val) {
+}
+
+ReQL::ReQL(bool val) {
+}
+
+ReQL::ReQL(std::vector<ReQL> val) {
+}
+
+ReQL::ReQL(std::map<std::string, ReQL> val) {
+}
+
+ReQL::ReQL(const ReQL &other) {
+  query = other.query;
+  array = other.array;
+  object = other.object;
+  args = other.args;
+  kwargs = other.kwargs;
+}
+
+ReQL::ReQL(const ReQL &&other) {
+  query = other.query;
+  array = other.array;
+  object = other.object;
+  args = other.args;
+  kwargs = other.kwargs;
+}
+
+ReQL &ReQL::operator=(const ReQL &other) {
+  if (this != &other) {
+    query = other.query;
+    array = other.array;
+    object = other.object;
+    args = other.args;
+    kwargs = other.kwargs;
+  }
+
+  return *this;
+}
+
+ReQL &ReQL::operator=(const ReQL &&other) {
+  if (this != &other) {
+    query = other.query;
+    array = other.array;
+    object = other.object;
+    args = other.args;
+    kwargs = other.kwargs;
+  }
+
+  return *this;
+}
+
+ReQL::~ReQL() {
+  if (query != nullptr) {
+    delete query;
+  }
+  if (array != nullptr) {
+    delete [] array;
+  }
+  if (object != nullptr) {
+    delete object;
+  }
+  if (args != nullptr) {
+    delete args;
+  }
+  if (kwargs != nullptr) {
+    delete kwargs;
+  }
+}
+  
 }

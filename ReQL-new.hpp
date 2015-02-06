@@ -18,9 +18,9 @@ limitations under the License.
  * @copyright Apache
  */
 
-#include <cstddef>
-#include <cstdint>
+#include <map>
 #include <string>
+#include <vector>
 
 namespace ReQL {
 extern "C" {
@@ -33,24 +33,31 @@ extern "C" {
 
 namespace ReQL {
 
-_ReQL_Obj_t *
-_reql_new_array(std::uint32_t size);
-_ReQL_Obj_t *
-_reql_new_bool(bool val);
-_ReQL_Obj_t *
-_reql_new_datum(_ReQL_Obj_t *val);
-_ReQL_Obj_t *
-_reql_new_make_array(_ReQL_Obj_t *val);
-_ReQL_Obj_t *
-_reql_new_make_obj(_ReQL_Obj_t *val);
-_ReQL_Obj_t *
-_reql_new_null();
-_ReQL_Obj_t *
-_reql_new_number(double val);
-_ReQL_Obj_t *
-_reql_new_object(uint32_t idx);
-_ReQL_Obj_t *
-_reql_new_string(std::string val);
+class ReQL {
+public:
+  ReQL();
+  ReQL(_ReQL_AST_Function f, std::vector<ReQL> args, std::map<std::string, ReQL> kwargs);
+  ReQL(std::string val);
+  ReQL(double val);
+  ReQL(bool val);
+  ReQL(std::vector<ReQL> val);
+  ReQL(std::map<std::string, ReQL> val);
+
+  ReQL(const ReQL &other);
+  ReQL(const ReQL &&other);
+
+  ReQL &operator=(const ReQL &other);
+  ReQL &operator=(const ReQL &&other);
+
+  ~ReQL();
+  
+private:
+  _ReQL_Pair_t *object;
+  _ReQL_Obj_t **array;
+  _ReQL_Obj_t *query;
+  _ReQL_Obj_t *args;
+  _ReQL_Obj_t *kwargs;
+};
 
 }
 
