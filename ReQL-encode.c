@@ -179,7 +179,7 @@ _reql_encode_(_ReQL_Obj_t *obj, _ReQL_String_t *json) {
     }
   }
 
-  return -1;
+  return 0;
 }
 
 extern _ReQL_String_t *
