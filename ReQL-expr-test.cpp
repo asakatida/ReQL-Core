@@ -160,6 +160,92 @@ TEST_CASE("decode term", "[c][decode]") {
   _reql_json_destroy(obj);
 }
 
+TEST_CASE("encode values", "[c][encode]") {
+  _ReQL_Obj_t val;
+
+  SECTION("null") {
+    _reql_null_init(&val);
+
+    _ReQL_String_t *str = _reql_encode(&val);
+
+    REQUIRE(str != NULL);
+
+    REQUIRE(str->size == 4);
+  }
+
+  SECTION("true") {
+    _reql_bool_init(&val, 1);
+
+    _ReQL_String_t *str = _reql_encode(&val);
+
+    REQUIRE(str != NULL);
+
+    REQUIRE(str->size == 4);
+  }
+
+  SECTION("false") {
+    _reql_bool_init(&val, 0);
+
+    _ReQL_String_t *str = _reql_encode(&val);
+
+    REQUIRE(str != NULL);
+
+    REQUIRE(str->size == 5);
+  }
+
+  SECTION("number") {
+    _reql_number_init(&val, 1.01);
+
+    _ReQL_String_t *str = _reql_encode(&val);
+
+    REQUIRE(str != NULL);
+
+    REQUIRE(str->size == 4);
+
+    std::string comp("1.01");
+
+    REQUIRE(comp.compare((char *)str->str) == 0);
+  }
+
+  SECTION("string") {
+    const uint32_t size = 11;
+
+    uint8_t *buf = new uint8_t[size];
+    const uint8_t hello[] = "Hello World";
+
+    _reql_string_init(&val, buf, size);
+    _reql_string_append(&val, hello, size);
+
+    _ReQL_String_t *str = _reql_encode(&val);
+
+    REQUIRE(str != NULL);
+
+    REQUIRE(str->size == size + 2);
+
+    delete [] buf;
+  }
+
+  SECTION("array") {
+    _reql_array_init(&val, NULL, 0);
+
+    _ReQL_String_t *str = _reql_encode(&val);
+
+    REQUIRE(str != NULL);
+
+    REQUIRE(str->size == 2);
+  }
+
+  SECTION("object") {
+    _reql_object_init(&val, NULL, 0);
+
+    _ReQL_String_t *str = _reql_encode(&val);
+
+    REQUIRE(str != NULL);
+
+    REQUIRE(str->size == 2);
+  }
+}
+
 TEST_CASE("Expr array", "[c][expr][array]") {
   _ReQL_Obj_t ary;
 
