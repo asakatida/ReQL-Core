@@ -121,15 +121,21 @@ _reql_encode_(_ReQL_Obj_t *obj, _ReQL_String_t *json) {
       return _reql_string_t_append(json, json_null, 4);
     }
     case _REQL_R_NUM: {
+      char *str = malloc(sizeof(char) * 30);
+
+      if (!str) {
+        return -1;
+      }
+
       double val = _reql_to_number(obj);
 
-      size_t size = sprintf(NULL, "%f", val);
+      size_t size = sprintf(str, "%g", val);
 
       if (size > UINT32_MAX) {
         return -1;
       }
 
-      uint8_t *str = malloc(sizeof(uint8_t) * size);
+      str = realloc(str, sizeof(char) * size);
 
       if (!str) {
         return -1;
@@ -137,8 +143,8 @@ _reql_encode_(_ReQL_Obj_t *obj, _ReQL_String_t *json) {
 
       int err = -1;
 
-      if (size == sprintf((char *)str, "%f", val)) {
-        err = _reql_string_t_append(json, str, (uint32_t)size);
+      if (size == sprintf(str, "%g", val)) {
+        err = _reql_string_t_append(json, (uint8_t *)str, (uint32_t)size);
       }
 
       free(str);
