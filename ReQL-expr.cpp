@@ -40,7 +40,7 @@ Expr::Expr(std::vector<Query> val) {
   std::vector<ReQL> array;
 
   for (std::vector<Query>::const_iterator it=val.cbegin(); it!=val.cend(); ++it) {
-    array.insert(array.cend(), it->query);
+    array.insert(array.end(), it->query);
   }
 }
 
@@ -48,7 +48,7 @@ Expr::Expr(std::map<std::string, Query> val) {
   std::map<std::string, ReQL> object;
 
   for (std::map<std::string, Query>::const_iterator it=val.cbegin(); it!=val.cend(); ++it) {
-    object.insert(object.cend(), {it->first, it->second.query});
+    object.insert(object.end(), {it->first, it->second.query});
   }
 }
 
@@ -59,5 +59,5 @@ Expr::Expr(const Expr &other) {
 Expr::Expr(const Expr &&other) {
   query = std::move(other.query);
 }
-  
+
 }
