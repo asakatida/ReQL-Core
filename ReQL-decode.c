@@ -126,6 +126,17 @@ _reql_merge_stack(_ReQL_Obj_t *stack) {
 
 static _ReQL_Obj_t *
 _reql_string_decode(uint32_t size, uint8_t *json) {
+  if (size == 0) {
+    _ReQL_Obj_t *obj = malloc(sizeof(_ReQL_Obj_t));
+
+    if (obj == NULL) {
+      return NULL;
+    }
+
+    _reql_string_init(obj, NULL, 0);
+    return obj;
+  }
+
   uint8_t res;
   uint8_t *str = malloc(sizeof(uint8_t) * size);
 
