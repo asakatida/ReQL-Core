@@ -204,7 +204,7 @@ TEST_CASE("encode values", "[c][encode]") {
 
     std::string comp("1.01");
 
-    REQUIRE(comp.compare((char *)str->str) == 0);
+    REQUIRE(comp.compare(0, 4, (char *)str->str) == 0);
   }
 
   SECTION("string") {
