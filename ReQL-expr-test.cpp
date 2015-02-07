@@ -149,6 +149,17 @@ TEST_CASE("decode values", "[c][decode]") {
   }
 }
 
+TEST_CASE("decode term", "[c][decode]") {
+  const uint32_t size = 95;
+  uint8_t src[size] = "[1, [[15, [[30], [17], [12, [13.7, 15.4, 16.8], {}]], {\"key\": \"value\", \"other\":  false}]], {}]";
+
+  _ReQL_Obj_t *obj = _reql_decode(src, size);
+
+  REQUIRE(obj != NULL);
+
+  _reql_json_destroy(obj);
+}
+
 TEST_CASE("Expr array", "[c][expr][array]") {
   _ReQL_Obj_t ary;
 
