@@ -4,9 +4,11 @@ test: libReQLtest
 	./libReQLtest
 
 clean:
-	rm *.o *.obj
+	rm -f *.o *.obj
 
 check: test
+
+rebuild: clean all test
 
 OBJS = ReQL.obj \
 	ReQL-ast.obj \
