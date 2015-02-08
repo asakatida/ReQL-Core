@@ -41,6 +41,7 @@ module RethinkDB
       SUCCESS_PARTIAL = 3
       SUCCESS_FEED = 5
       WAIT_COMPLETE = 4
+      SUCCESS_ATOM_FEED = 6
       CLIENT_ERROR = 16
       COMPILE_ERROR = 17
       RUNTIME_ERROR = 18
