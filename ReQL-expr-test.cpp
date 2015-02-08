@@ -194,17 +194,19 @@ TEST_CASE("encode values", "[c][encode]") {
   }
 
   SECTION("number") {
-    _reql_number_init(&val, 1.01);
+    _reql_number_init(&val, 1.125);
 
     _ReQL_String_t *str = _reql_encode(&val);
 
     REQUIRE(str != NULL);
 
-    REQUIRE(str->size == 4);
+    REQUIRE(str->size == 5);
 
-    std::string comp("1.01");
+    std::string comp("1.125");
 
-    REQUIRE(comp.compare(0, 4, (char *)str->str) == 0);
+    INFO(std::string((char *)str->str));
+
+    REQUIRE(comp.compare(0, 5, (char *)str->str) == 0);
   }
 
   SECTION("string") {
