@@ -303,7 +303,11 @@ _reql_connect(_ReQL_Conn_t *conn, uint8_t *buf, uint32_t size) {
   magic[3].iov_base = iov_base[2];
   magic[3].iov_len = 4;
 
-  writev(conn->socket, magic, 4);
+  if (writev(conn->socket, magic, 4) != (conn->auth_size + 12)) {
+    _reql_close_conn(conn);
+    _reql_conn_close_socket(conn);
+    return -1;
+  }
 
   _reql_conn_read(conn, buf, 8);
 
@@ -407,7 +411,10 @@ _reql_run(_ReQL_Cur_t *cur, _ReQL_Obj_t *query, _ReQL_Conn_t *conn, _ReQL_Obj_t 
   magic[2].iov_base = _query->str;
   magic[2].iov_len = _query->size;
 
-  writev(conn->socket, magic, 3);
+  if (writev(conn->socket, magic, 3) != (_query->size + 12)) {
+    _reql_conn_unlock(conn);
+    return -1;
+  }
 
   _reql_conn_unlock(conn);
   return 0;
