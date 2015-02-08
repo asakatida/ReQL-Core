@@ -36,28 +36,27 @@ namespace ReQL {
 class ReQL {
 public:
   ReQL();
-  ReQL(ReQL_AST_Function f, std::vector<ReQL> args, std::map<std::string, ReQL> kwargs);
+  ReQL(ReQL_AST_Function f, std::vector<ReQL> args, std::map<ReQL, ReQL> kwargs);
   ReQL(std::string val);
   ReQL(double val);
   ReQL(bool val);
   ReQL(std::vector<ReQL> val);
-  ReQL(std::map<std::string, ReQL> val);
+  ReQL(std::map<ReQL, ReQL> val);
 
   ReQL(const ReQL &other);
-  ReQL(const ReQL &&other);
+  ReQL(ReQL &&other);
 
   ReQL &operator=(const ReQL &other);
-  ReQL &operator=(const ReQL &&other);
+  ReQL &operator=(ReQL &&other);
+
   bool operator<(const ReQL &other) const;
 
   ~ReQL();
 
 private:
-  ReQL_Pair_t *object;
-  ReQL_Obj_t **array;
+  ReQL_Obj_t *object;
+  ReQL_Obj_t *array;
   ReQL_Obj_t *query;
-  ReQL_Obj_t *args;
-  ReQL_Obj_t *kwargs;
 };
 
 }

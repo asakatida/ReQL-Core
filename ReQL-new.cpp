@@ -20,27 +20,24 @@ limitations under the License.
 
 #include "ReQL-new.hpp"
 
-#include <cstddef>
-#include <cstdint>
-
 namespace ReQL {
 
-ReQL_Obj_t **
+static ReQL_Obj_t **
 reql_alloc_arr(size_t size) {
   return new ReQL_Obj_t *[size]();
 }
 
-ReQL_Pair_t *
+static ReQL_Pair_t *
 reql_alloc_pair(size_t size) {
   return new ReQL_Pair_t[size]();
 }
 
-ReQL_Obj_t *
+static ReQL_Obj_t *
 reql_alloc_term() {
   return new ReQL_Obj_t();
 }
 
-ReQL_Obj_t *
+static ReQL_Obj_t *
 reql_new_array(uint32_t size) {
   ReQL_Obj_t *obj = reql_alloc_term();
   ReQL_Obj_t **arr = reql_alloc_arr(size);
@@ -48,49 +45,42 @@ reql_new_array(uint32_t size) {
   return obj;
 }
 
-ReQL_Obj_t *
-reql_new_bool(bool val) {
+static ReQL_Obj_t *
+reql_new(bool val) {
   ReQL_Obj_t *obj = reql_alloc_term();
   reql_bool_init(obj, val);
   return obj;
 }
 
-ReQL_Obj_t *
-reql_new_datum(ReQL_Obj_t *arg) {
-  ReQL_Obj_t *obj = reql_alloc_term();
-  reql_ast_datum(obj, arg, NULL);
-  return obj;
-}
-
-ReQL_Obj_t *
+static ReQL_Obj_t *
 reql_new_make_array(ReQL_Obj_t *arg) {
   ReQL_Obj_t *obj = reql_alloc_term();
   reql_ast_make_array(obj, arg, NULL);
   return obj;
 }
 
-ReQL_Obj_t *
+static ReQL_Obj_t *
 reql_new_make_obj(ReQL_Obj_t *arg) {
   ReQL_Obj_t *obj = reql_alloc_term();
   reql_ast_make_obj(obj, NULL, arg);
   return obj;
 }
 
-ReQL_Obj_t *
-reql_new_null() {
+static ReQL_Obj_t *
+reql_new() {
   ReQL_Obj_t *obj = reql_alloc_term();
   reql_null_init(obj);
   return obj;
 }
 
-ReQL_Obj_t *
-reql_new_number(double val) {
+static ReQL_Obj_t *
+reql_new(double val) {
   ReQL_Obj_t *obj = reql_alloc_term();
   reql_number_init(obj, val);
   return obj;
 }
 
-ReQL_Obj_t *
+static ReQL_Obj_t *
 reql_new_object(uint32_t size) {
   ReQL_Obj_t *obj = reql_alloc_term();
   ReQL_Pair_t *pair = reql_alloc_pair(size);
@@ -98,8 +88,8 @@ reql_new_object(uint32_t size) {
   return obj;
 }
 
-ReQL_Obj_t *
-reql_new_string(std::string val) {
+static ReQL_Obj_t *
+reql_new(std::string val) {
   size_t size = val.size();
 
   if (size > UINT32_MAX) {
@@ -118,42 +108,65 @@ reql_new_string(std::string val) {
 }
 
 ReQL::ReQL() {
-  query = reql_new_null();
+  query = reql_new();
 }
 
-ReQL::ReQL(ReQL_AST_Function f, std::vector<ReQL> args, std::map<std::string, ReQL> kwargs) {
+ReQL::ReQL(ReQL_AST_Function f, std::vector<ReQL> args, std::map<ReQL, ReQL> kwargs) {
   query = reql_alloc_term();
 }
 
 ReQL::ReQL(std::string val) {
+  query = reql_new(val);
 }
 
 ReQL::ReQL(double val) {
+  query = reql_new(val);
 }
 
 ReQL::ReQL(bool val) {
+  query = reql_new(val);
 }
 
 ReQL::ReQL(std::vector<ReQL> val) {
+  std::size_t size = val.size();
+
+  if (size > std::numeric_limits<std::uint32_t>::max()) {
+    return;
+  }
+
+  array = reql_new_array(static_cast<std::uint32_t>(size));
+  query = reql_new_make_array(array);
+
+  for (auto q : val) {
+    reql_array_append(query, q.query);
+  }
 }
 
-ReQL::ReQL(std::map<std::string, ReQL> val) {
+ReQL::ReQL(std::map<ReQL, ReQL> val) {
+  std::size_t size = val.size();
+
+  if (size > std::numeric_limits<std::uint32_t>::max()) {
+    return;
+  }
+
+  object = reql_new_object(static_cast<std::uint32_t>(size));
+  query = reql_new_make_obj(object);
+
+  for (auto q : val) {
+    reql_object_add(query, q.first.query, q.second.query);
+  }
 }
 
 ReQL::ReQL(const ReQL &other) {
   query = other.query;
   array = other.array;
   object = other.object;
-  args = other.args;
-  kwargs = other.kwargs;
 }
 
-ReQL::ReQL(const ReQL &&other) {
-  query = other.query;
-  array = other.array;
-  object = other.object;
-  args = other.args;
-  kwargs = other.kwargs;
+ReQL::ReQL(ReQL &&other) {
+  query = other.query; other.query = nullptr;
+  array = other.array; other.array = nullptr;
+  object = other.object; other.object = nullptr;
 }
 
 ReQL &ReQL::operator=(const ReQL &other) {
@@ -161,20 +174,16 @@ ReQL &ReQL::operator=(const ReQL &other) {
     query = other.query;
     array = other.array;
     object = other.object;
-    args = other.args;
-    kwargs = other.kwargs;
   }
 
   return *this;
 }
 
-ReQL &ReQL::operator=(const ReQL &&other) {
+ReQL &ReQL::operator=(ReQL &&other) {
   if (this != &other) {
-    query = other.query;
-    array = other.array;
-    object = other.object;
-    args = other.args;
-    kwargs = other.kwargs;
+    query = other.query; other.query = nullptr;
+    array = other.array; other.array = nullptr;
+    object = other.object; other.object = nullptr;
   }
 
   return *this;
@@ -208,16 +217,12 @@ ReQL::~ReQL() {
     delete query;
   }
   if (array != nullptr) {
-    delete [] array;
+    delete [] array->obj.datum.json.array;
+    delete array;
   }
   if (object != nullptr) {
+    delete object->obj.datum.json.pair;
     delete object;
-  }
-  if (args != nullptr) {
-    delete args;
-  }
-  if (kwargs != nullptr) {
-    delete kwargs;
   }
 }
 

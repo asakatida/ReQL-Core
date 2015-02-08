@@ -46,7 +46,7 @@ protected:
 
   ReQL p_query;
   std::vector<Query> p_array;
-  std::map<std::string, Query> p_object;
+  std::map<Query, Query> p_object;
 };
 
 }

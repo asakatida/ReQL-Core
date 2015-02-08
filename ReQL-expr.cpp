@@ -26,17 +26,19 @@ namespace ReQL {
 
 Expr::Expr() {}
 
-Expr::Expr(ReQL_AST_Function f, std::vector<Query> args, std::map<std::string, Query> kwargs) : p_array(args), p_object(kwargs) {
+Expr::Expr(ReQL_AST_Function f, std::vector<Query> args, std::map<std::string, Query> kwargs) : p_array(args) {
   std::vector<ReQL> array;
 
   for (std::vector<Query>::const_iterator it=args.cbegin(); it!=args.cend(); ++it) {
     array.insert(array.end(), it->p_query);
   }
   
-  std::map<std::string, ReQL> object;
+  std::map<ReQL, ReQL> object;
 
   for (std::map<std::string, Query>::const_iterator it=kwargs.cbegin(); it!=kwargs.cend(); ++it) {
-    object.insert(object.end(), {it->first, it->second.p_query});
+    Query key(it->first);
+    p_object.insert(p_object.end(), {key, it->second});
+    object.insert(object.end(), {key.p_query, it->second.p_query});
   }
   
   p_query = std::move(ReQL(f, array, object));
@@ -58,11 +60,13 @@ Expr::Expr(std::vector<Query> val) : p_array(val) {
   p_query = std::move(ReQL(array));
 }
 
-Expr::Expr(std::map<std::string, Query> val) : p_object(val) {
-  std::map<std::string, ReQL> object;
+Expr::Expr(std::map<std::string, Query> val) {
+  std::map<ReQL, ReQL> object;
 
   for (std::map<std::string, Query>::const_iterator it=val.cbegin(); it!=val.cend(); ++it) {
-    object.insert(object.end(), {it->first, it->second.p_query});
+    Query key(it->first);
+    p_object.insert(p_object.end(), {key, it->second});
+    object.insert(object.end(), {key.p_query, it->second.p_query});
   }
 
   p_query = std::move(ReQL(object));
