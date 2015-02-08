@@ -171,6 +171,9 @@ TEST_CASE("encode values", "[c][encode]") {
     REQUIRE(str != NULL);
 
     REQUIRE(str->size == 4);
+
+    free(str->str);
+    free(str);
   }
 
   SECTION("true") {
@@ -181,6 +184,9 @@ TEST_CASE("encode values", "[c][encode]") {
     REQUIRE(str != NULL);
 
     REQUIRE(str->size == 4);
+
+    free(str->str);
+    free(str);
   }
 
   SECTION("false") {
@@ -191,6 +197,9 @@ TEST_CASE("encode values", "[c][encode]") {
     REQUIRE(str != NULL);
 
     REQUIRE(str->size == 5);
+
+    free(str->str);
+    free(str);
   }
 
   SECTION("number") {
@@ -210,6 +219,9 @@ TEST_CASE("encode values", "[c][encode]") {
     REQUIRE(comp.compare(0, 5, "1.125") == 0);
 
     REQUIRE(comp.compare(0, str->size, (char *)str->str) == 0);
+
+    free(str->str);
+    free(str);
   }
 
   SECTION("string") {
@@ -228,6 +240,9 @@ TEST_CASE("encode values", "[c][encode]") {
     REQUIRE(str->size == size + 2);
 
     delete [] buf;
+
+    free(str->str);
+    free(str);
   }
 
   SECTION("array") {
@@ -238,6 +253,9 @@ TEST_CASE("encode values", "[c][encode]") {
     REQUIRE(str != NULL);
 
     REQUIRE(str->size == 2);
+
+    free(str->str);
+    free(str);
   }
 
   SECTION("object") {
@@ -248,6 +266,9 @@ TEST_CASE("encode values", "[c][encode]") {
     REQUIRE(str != NULL);
 
     REQUIRE(str->size == 2);
+
+    free(str->str);
+    free(str);
   }
 }
 
