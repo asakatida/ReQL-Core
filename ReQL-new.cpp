@@ -20,6 +20,8 @@ limitations under the License.
 
 #include "ReQL-new.hpp"
 
+#include <limits>
+
 namespace ReQL {
 
 static ReQL_Obj_t **
