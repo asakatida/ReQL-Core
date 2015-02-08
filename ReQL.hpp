@@ -72,6 +72,8 @@ public:
   Query(const Query &other) : AST(other) {};
   Query(const Query &&other) : AST(other) {};
 
+  bool operator<(const Query &other) const;
+
   Query &operator=(const Query &other);
   Query &operator=(const Query &&other);
 

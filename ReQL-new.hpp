@@ -48,6 +48,7 @@ public:
 
   ReQL &operator=(const ReQL &other);
   ReQL &operator=(const ReQL &&other);
+  bool operator<(const ReQL &other) const;
 
   ~ReQL();
 

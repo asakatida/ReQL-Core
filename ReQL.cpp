@@ -137,4 +137,8 @@ Query &Query::operator=(const Query &&other) {
   return *this;
 }
 
+bool Query::operator<(const Query &other) const {
+  return p_query < other.p_query;
+}
+
 }

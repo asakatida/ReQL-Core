@@ -180,6 +180,29 @@ ReQL &ReQL::operator=(const ReQL &&other) {
   return *this;
 }
 
+bool ReQL::operator<(const ReQL &other) const {
+  ReQL_Datum_t ltype = reql_datum_type(query), rtype = reql_datum_type(other.query);
+  if (ltype == rtype) {
+    switch (ltype) {
+      case REQL_R_ARRAY:
+      case REQL_R_BOOL:
+      case REQL_R_JSON:
+      case REQL_R_NULL:
+      case REQL_R_NUM:
+      case REQL_R_OBJECT:
+      case REQL_R_REQL: {
+        return query < other.query;
+      }
+      case REQL_R_STR: {
+        std::string same((char *)reql_string_buf(query), reql_string_size(query));
+        std::string diff((char *)reql_string_buf(other.query), reql_string_size(other.query));
+        return same < diff;
+      }
+    }
+  }
+  return ltype < rtype;
+}
+
 ReQL::~ReQL() {
   if (query != nullptr) {
     delete query;
