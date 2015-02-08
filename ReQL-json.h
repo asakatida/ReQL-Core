@@ -28,7 +28,7 @@ limitations under the License.
  * @brief JSON types.
  */
 enum ReQL_Datum_e {
-  REQL_RREQL,
+  REQL_R_REQL,
   REQL_R_ARRAY = 5,
   REQL_R_BOOL = 2,
   REQL_R_JSON = 7,
@@ -268,7 +268,7 @@ typedef struct ReQL_Obj_s ReQL_Obj_t;
 /**
  * @brief get raw JSON datum type.
  *
- * REQL_RREQL indicates an error such as the object is not a datum.
+ * REQL_R_REQL indicates an error such as the object is not a datum.
  * REQL_R_JSON is reserved for future expansion.
  * all other types corespond to a concrete JSON type.
  *

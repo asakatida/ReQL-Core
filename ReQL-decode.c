@@ -118,7 +118,7 @@ reql_merge_stack(ReQL_Obj_t *stack) {
   ReQL_Obj_t *val = reql_array_pop(stack);
 
   if (val == NULL) {
-    return REQL_RREQL;
+    return REQL_R_REQL;
   }
 
   return reql_merge_stack_val(stack, val);

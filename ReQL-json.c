@@ -64,7 +64,7 @@ reql_obj_set_datum_type(ReQL_Obj_t *obj, const ReQL_Datum_t type) {
 extern ReQL_Datum_t
 reql_datum_type(ReQL_Obj_t *obj) {
   if (reql_obj_term_type(obj) != REQL_DATUM) {
-    return REQL_RREQL;
+    return REQL_R_REQL;
   }
 
   return obj->obj.datum.dt;
@@ -384,7 +384,7 @@ reql_op_eq(ReQL_Obj_t *l, ReQL_Obj_t *r) {
           }
           break;
         }
-        case REQL_RREQL:
+        case REQL_R_REQL:
         case REQL_R_JSON: break;
       }
     } else {
@@ -544,7 +544,7 @@ reql_json_destroy(ReQL_Obj_t *json) {
       reql_pair_destroy(reql_obj_pair(json), reql_obj_alloc_size(json));
       break;
     }
-    case REQL_RREQL: {
+    case REQL_R_REQL: {
       reql_json_destroy(reql_obj_args(json));
       reql_json_destroy(reql_obj_kwargs(json));
       break;

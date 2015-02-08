@@ -364,7 +364,7 @@ reql_to_lua(lua_State *L, ReQL_Obj_t *query) {
       lua_pushboolean(L, value);
       break;
     }
-    case REQL_RREQL:
+    case REQL_R_REQL:
     case REQL_R_JSON: {
       lua_pushnil(L);
       break;

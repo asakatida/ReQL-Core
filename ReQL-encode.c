@@ -115,7 +115,7 @@ reql_encode_(ReQL_Obj_t *obj, ReQL_String_t *json) {
         }
       }
     }
-    case REQL_RREQL:
+    case REQL_R_REQL:
     case REQL_R_JSON: break;
     case REQL_R_NULL: {
       return reql_string_t_append(json, json_null, 4);
