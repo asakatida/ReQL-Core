@@ -27,7 +27,6 @@ namespace ReQL {
 
 class AST : public Expr {
 protected:
-
   AST() : Expr() {};
   AST(ReQL_AST_Function f, std::vector<Query> args, std::map<std::string, Query> kwargs) : Expr(f, args, kwargs) {};
   explicit AST(ReQL_Obj_t *val) : Expr(val) {};

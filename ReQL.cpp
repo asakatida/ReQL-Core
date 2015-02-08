@@ -128,12 +128,12 @@ Cursor Query::run(Connection conn) {
 }
 
 Query &Query::operator=(const Query &other) {
-  query = other.query;
+  p_query = other.p_query;
   return *this;
 }
 
 Query &Query::operator=(const Query &&other) {
-  query = std::move(other.query);
+  p_query = std::move(other.p_query);
   return *this;
 }
 
