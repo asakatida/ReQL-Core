@@ -26,10 +26,10 @@ limitations under the License.
 static pthread_mutex_t error_lock = PTHREAD_MUTEX_INITIALIZER;
 static pthread_once_t init_lock = PTHREAD_ONCE_INIT;
 
-static _ReQL_Error_t _ReQL_Global_Error = {_REQL_E_NO, "", ""};
+static ReQL_Error_t ReQL_Global_Error = {REQL_E_NO, "", ""};
 
 static void
-_reql_init_err(void) {
+reql_init_err(void) {
   pthread_mutexattr_t *attrs = malloc(sizeof(pthread_mutexattr_t));
 
   pthread_mutexattr_init(attrs);
@@ -43,17 +43,17 @@ _reql_init_err(void) {
 }
 
 extern int
-_reql_error() {
-  return _reql_error_type() != _REQL_E_NO;
+reql_error() {
+  return reql_error_type() != REQL_E_NO;
 }
 
 extern char *
-_reql_error_msg() {
-  pthread_once(&init_lock, _reql_init_err);
+reql_error_msg() {
+  pthread_once(&init_lock, reql_init_err);
 
   pthread_mutex_lock(&error_lock);
 
-  char *res = _ReQL_Global_Error.msg;
+  char *res = ReQL_Global_Error.msg;
 
   pthread_mutex_unlock(&error_lock);
 
@@ -61,25 +61,25 @@ _reql_error_msg() {
 }
 
 extern char *
-_reql_error_trace() {
-  pthread_once(&init_lock, _reql_init_err);
+reql_error_trace() {
+  pthread_once(&init_lock, reql_init_err);
 
   pthread_mutex_lock(&error_lock);
 
-  char *res = _ReQL_Global_Error.trace;
+  char *res = ReQL_Global_Error.trace;
 
   pthread_mutex_unlock(&error_lock);
 
   return res;
 }
 
-extern _ReQL_Error_Type_t
-_reql_error_type() {
-  pthread_once(&init_lock, _reql_init_err);
+extern ReQL_Error_Type_t
+reql_error_type() {
+  pthread_once(&init_lock, reql_init_err);
 
   pthread_mutex_lock(&error_lock);
 
-  _ReQL_Error_Type_t res = _ReQL_Global_Error.err;
+  ReQL_Error_Type_t res = ReQL_Global_Error.err;
 
   pthread_mutex_unlock(&error_lock);
 
@@ -87,14 +87,14 @@ _reql_error_type() {
 }
 
 extern void
-_reql_error_init(_ReQL_Error_Type_t err, char *msg, char *trace) {
-  pthread_once(&init_lock, _reql_init_err);
+reql_error_init(ReQL_Error_Type_t err, char *msg, char *trace) {
+  pthread_once(&init_lock, reql_init_err);
 
   pthread_mutex_lock(&error_lock);
 
-  _ReQL_Global_Error.err = err;
-  _ReQL_Global_Error.msg = msg;
-  _ReQL_Global_Error.trace = trace;
+  ReQL_Global_Error.err = err;
+  ReQL_Global_Error.msg = msg;
+  ReQL_Global_Error.trace = trace;
 
   pthread_mutex_unlock(&error_lock);
 }

@@ -20,14 +20,14 @@ limitations under the License.
 
 #include "ReQL-new-Python.h"
 
-#ifndef _REQL_EXPR_PYTHON
-#define _REQL_EXPR_PYTHON
+#ifndef REQL_EXPR_PYTHON_H
+#define REQL_EXPR_PYTHON_H
 
 extern PyObject *
-_reql_py_expr(PyObject *self, PyObject *args);
-extern _ReQL_Obj_t *
-_reql_from_py(PyObject *query);
+reql_py_expr(PyObject *self, PyObject *args);
+extern ReQL_Obj_t *
+reql_from_py(PyObject *query);
 extern PyObject *
-_reql_to_py(_ReQL_Obj_t *query);
+reql_to_py(ReQL_Obj_t *query);
 
 #endif

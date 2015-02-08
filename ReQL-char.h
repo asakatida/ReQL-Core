@@ -20,8 +20,8 @@ limitations under the License.
 
 #include <stdint.h>
 
-#ifndef _REQL_CHAR_H
-#define _REQL_CHAR_H
+#ifndef REQL_CHAR_H
+#define REQL_CHAR_H
 
 enum {
   char_left_square_bracket = 0x5B,
@@ -48,9 +48,9 @@ static const uint8_t json_false[5] = {0x66, 0x61, 0x6C, 0x73, 0x65};
 static const uint8_t json_null[4] = {0x6E, 0x75, 0x6C, 0x6C};
 
 extern const uint8_t *
-_reql_json_string_esc(uint8_t chr);
+reql_json_string_esc(uint8_t chr);
 extern const uint32_t
-_reql_json_string_esc_size(uint8_t chr);
+reql_json_string_esc_size(uint8_t chr);
 
 static const uint8_t json_char_0x00[6] = {
   char_reverse_solidus, 0x75, 0x30, 0x30, 0x30, 0x30};

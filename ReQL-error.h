@@ -19,27 +19,27 @@ limitations under the License.
  */
 
 typedef enum {
-  _REQL_E_NO,
-  _REQL_E_JSON
-} _ReQL_Error_Type_t;
+  REQL_E_NO,
+  REQL_E_JSON
+} ReQL_Error_Type_t;
 
-struct _ReQL_Error_s {
-  _ReQL_Error_Type_t err;
+struct ReQL_Error_s {
+  ReQL_Error_Type_t err;
   char *msg;
   char *trace;
 };
 
-typedef struct _ReQL_Error_s _ReQL_Error_t;
+typedef struct ReQL_Error_s ReQL_Error_t;
 
 extern int
-_reql_error();
+reql_error();
 
 extern char *
-_reql_error_msg();
+reql_error_msg();
 extern char *
-_reql_error_trace();
-extern _ReQL_Error_Type_t
-_reql_error_type();
+reql_error_trace();
+extern ReQL_Error_Type_t
+reql_error_type();
 
 extern void
-_reql_error_init(_ReQL_Error_Type_t err, char *msg, char *trace);
+reql_error_init(ReQL_Error_Type_t err, char *msg, char *trace);

@@ -24,17 +24,17 @@ limitations under the License.
 #include <stdlib.h>
 
 static int
-_reql_cur_lock(_ReQL_Cur_t *cur) {
+reql_cur_lock(ReQL_Cur_t *cur) {
   return pthread_mutex_lock(cur->mutex);
 }
 
 static int
-_reql_cur_unlock(_ReQL_Cur_t *cur) {
+reql_cur_unlock(ReQL_Cur_t *cur) {
   return pthread_mutex_unlock(cur->mutex);
 }
 
 extern void
-_reql_cursor_init(_ReQL_Cur_t *cur) {
+reql_cursor_init(ReQL_Cur_t *cur) {
   pthread_mutexattr_t *attrs = malloc(sizeof(pthread_mutexattr_t));
 
   pthread_mutexattr_init(attrs);
@@ -58,25 +58,25 @@ _reql_cursor_init(_ReQL_Cur_t *cur) {
 }
 
 extern void
-_reql_set_cur_response(_ReQL_Cur_t *cur, _ReQL_Obj_t *res) {
-  _reql_cur_lock(cur);
+reql_set_cur_response(ReQL_Cur_t *cur, ReQL_Obj_t *res) {
+  reql_cur_lock(cur);
   cur->response = res;
-  _reql_cur_unlock(cur);
+  reql_cur_unlock(cur);
 }
 
-extern _ReQL_Obj_t *
-_reql_get_cur_res(_ReQL_Cur_t *cur) {
-  _ReQL_Obj_t *res = NULL;
+extern ReQL_Obj_t *
+reql_get_cur_res(ReQL_Cur_t *cur) {
+  ReQL_Obj_t *res = NULL;
 
   while (1) {
-    _reql_cur_lock(cur);
+    reql_cur_lock(cur);
     if (cur->response != NULL || cur->done == 1) {
       res = cur->response;
       cur->response = NULL;
-      _reql_cur_unlock(cur);
+      reql_cur_unlock(cur);
       break;
     }
-    _reql_cur_unlock(cur);
+    reql_cur_unlock(cur);
     //sleep(1);
   }
 
@@ -84,14 +84,14 @@ _reql_get_cur_res(_ReQL_Cur_t *cur) {
 }
 
 extern void
-_reql_cursor_next(_ReQL_Cur_t *cur) {
+reql_cursor_next(ReQL_Cur_t *cur) {
 }
 
-extern void _reql_close_cur(_ReQL_Cur_t *cur) {
-  _reql_cur_lock(cur);
-  _reql_json_destroy(cur->response); cur->response = NULL;
+extern void reql_close_cur(ReQL_Cur_t *cur) {
+  reql_cur_lock(cur);
+  reql_json_destroy(cur->response); cur->response = NULL;
   cur->done = 1;
-  _reql_cur_unlock(cur);
+  reql_cur_unlock(cur);
   cur->prev->next = cur->next == cur ? cur->prev : cur->next;
   cur->next->prev = cur->prev == cur ? cur->next : cur->prev;
 }

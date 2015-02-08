@@ -21,14 +21,14 @@ limitations under the License.
 #include "ReQL-expr-Ruby.h"
 
 extern VALUE
-_reql_rb_expr(int argn, VALUE *args, VALUE self) {
+reql_rb_expr(int argn, VALUE *args, VALUE self) {
   const long nesting_depth = 20;
 
-  return _reql_to_rb(_reql_from_rb(args[0], nesting_depth));
+  return reql_to_rb(reql_from_rb(args[0], nesting_depth));
 }
 
-extern _ReQL_Obj_t *
-_reql_from_rb(VALUE obj, long nesting_depth) {
+extern ReQL_Obj_t *
+reql_from_rb(VALUE obj, long nesting_depth) {
   if (nesting_depth <= 0) {
     return NULL;
   }
@@ -37,7 +37,7 @@ _reql_from_rb(VALUE obj, long nesting_depth) {
 }
 
 extern VALUE
-_reql_to_rb(_ReQL_Obj_t *query) {
+reql_to_rb(ReQL_Obj_t *query) {
   VALUE res;
   return res;
 }

@@ -1,5 +1,5 @@
 /*
-Copyright 2014 Adam Grandquist
+Copyright 2014-2015 Adam Grandquist
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,15 +28,15 @@ extern "C" {
 }
 }
 
-#ifndef _REQL_NEW_CPP
-#define _REQL_NEW_CPP
+#ifndef REQL_NEW_HPP
+#define REQL_NEW_HPP
 
 namespace ReQL {
 
 class ReQL {
 public:
   ReQL();
-  ReQL(_ReQL_AST_Function f, std::vector<ReQL> args, std::map<std::string, ReQL> kwargs);
+  ReQL(ReQL_AST_Function f, std::vector<ReQL> args, std::map<std::string, ReQL> kwargs);
   ReQL(std::string val);
   ReQL(double val);
   ReQL(bool val);
@@ -50,13 +50,13 @@ public:
   ReQL &operator=(const ReQL &&other);
 
   ~ReQL();
-  
+
 private:
-  _ReQL_Pair_t *object;
-  _ReQL_Obj_t **array;
-  _ReQL_Obj_t *query;
-  _ReQL_Obj_t *args;
-  _ReQL_Obj_t *kwargs;
+  ReQL_Pair_t *object;
+  ReQL_Obj_t **array;
+  ReQL_Obj_t *query;
+  ReQL_Obj_t *args;
+  ReQL_Obj_t *kwargs;
 };
 
 }

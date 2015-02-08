@@ -23,1184 +23,1184 @@ limitations under the License.
 #include <stdlib.h>
 
 extern void
-_reql_ast_add(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_ADD);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_add(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_ADD);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_all(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_ALL);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_all(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_ALL);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_any(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_ANY);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_any(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_ANY);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_append(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_APPEND);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_append(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_APPEND);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_april(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_APRIL);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_april(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_APRIL);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_args(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_ARGS);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_args(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_ARGS);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_asc(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_ASC);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_asc(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_ASC);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_august(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_AUGUST);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_august(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_AUGUST);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_avg(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_AVG);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_avg(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_AVG);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_between(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_BETWEEN);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_between(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_BETWEEN);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_binary(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_BINARY);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_binary(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_BINARY);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_bracket(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_BRACKET);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_bracket(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_BRACKET);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_branch(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_BRANCH);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_branch(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_BRANCH);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_changes(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_CHANGES);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_changes(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_CHANGES);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_change_at(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_CHANGE_AT);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_change_at(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_CHANGE_AT);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_circle(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_CIRCLE);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_circle(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_CIRCLE);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_coerce_to(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_COERCE_TO);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_coerce_to(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_COERCE_TO);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_concat_map(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_CONCAT_MAP);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_concat_map(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_CONCAT_MAP);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_config(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_CONFIG);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_config(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_CONFIG);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_contains(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_CONTAINS);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_contains(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_CONTAINS);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_count(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_COUNT);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_count(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_COUNT);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_date(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_DATE);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_date(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_DATE);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_datum(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_DATUM);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_datum(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_DATUM);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_day(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_DAY);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_day(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_DAY);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_day_of_week(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_DAY_OF_WEEK);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_day_of_week(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_DAY_OF_WEEK);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_day_of_year(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_DAY_OF_YEAR);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_day_of_year(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_DAY_OF_YEAR);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_db(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_DB);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_db(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_DB);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_db_create(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_DB_CREATE);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_db_create(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_DB_CREATE);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_db_drop(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_DB_DROP);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_db_drop(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_DB_DROP);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_db_list(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_DB_LIST);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_db_list(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_DB_LIST);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_december(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_DECEMBER);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_december(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_DECEMBER);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_default(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_DEFAULT);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_default(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_DEFAULT);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_delete(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_DELETE);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_delete(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_DELETE);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_delete_at(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_DELETE_AT);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_delete_at(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_DELETE_AT);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_desc(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_DESC);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_desc(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_DESC);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_difference(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_DIFFERENCE);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_difference(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_DIFFERENCE);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_distance(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_DISTANCE);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_distance(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_DISTANCE);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_distinct(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_DISTINCT);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_distinct(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_DISTINCT);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_div(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_DIV);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_div(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_DIV);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_downcase(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_DOWNCASE);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_downcase(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_DOWNCASE);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_during(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_DURING);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_during(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_DURING);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_epoch_time(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_EPOCH_TIME);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_epoch_time(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_EPOCH_TIME);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_eq(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_EQ);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_eq(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_EQ);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_eq_join(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_EQ_JOIN);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_eq_join(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_EQ_JOIN);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_error(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_ERROR);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_error(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_ERROR);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_february(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_FEBRUARY);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_february(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_FEBRUARY);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_fill(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_FILL);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_fill(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_FILL);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_filter(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_FILTER);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_filter(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_FILTER);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_for_each(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_FOR_EACH);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_for_each(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_FOR_EACH);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_friday(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_FRIDAY);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_friday(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_FRIDAY);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_func(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_FUNC);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_func(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_FUNC);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_funcall(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_FUNCALL);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_funcall(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_FUNCALL);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_ge(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_GE);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_ge(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_GE);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_geojson(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_GEOJSON);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_geojson(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_GEOJSON);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_get(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_GET);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_get(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_GET);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_get_all(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_GET_ALL);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_get_all(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_GET_ALL);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_get_field(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_GET_FIELD);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_get_field(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_GET_FIELD);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_get_intersecting(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_GET_INTERSECTING);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_get_intersecting(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_GET_INTERSECTING);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_get_nearest(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_GET_NEAREST);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_get_nearest(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_GET_NEAREST);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_group(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_GROUP);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_group(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_GROUP);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_gt(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_GT);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_gt(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_GT);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_has_fields(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_HAS_FIELDS);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_has_fields(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_HAS_FIELDS);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_hours(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_HOURS);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_hours(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_HOURS);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_http(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_HTTP);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_http(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_HTTP);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_implicit_var(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_IMPLICIT_VAR);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_implicit_var(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_IMPLICIT_VAR);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_includes(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_INCLUDES);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_includes(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_INCLUDES);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_indexes_of(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_INDEXES_OF);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_indexes_of(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_INDEXES_OF);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_index_create(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_INDEX_CREATE);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_index_create(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_INDEX_CREATE);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_index_drop(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_INDEX_DROP);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_index_drop(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_INDEX_DROP);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_index_list(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_INDEX_LIST);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_index_list(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_INDEX_LIST);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_index_rename(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_INDEX_RENAME);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_index_rename(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_INDEX_RENAME);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_index_status(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_INDEX_STATUS);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_index_status(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_INDEX_STATUS);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_index_wait(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_INDEX_WAIT);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_index_wait(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_INDEX_WAIT);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_info(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_INFO);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_info(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_INFO);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_inner_join(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_INNER_JOIN);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_inner_join(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_INNER_JOIN);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_insert(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_INSERT);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_insert(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_INSERT);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_insert_at(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_INSERT_AT);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_insert_at(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_INSERT_AT);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_intersects(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_INTERSECTS);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_intersects(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_INTERSECTS);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_in_timezone(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_IN_TIMEZONE);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_in_timezone(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_IN_TIMEZONE);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_iso8601(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_ISO8601);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_iso8601(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_ISO8601);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_is_empty(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_IS_EMPTY);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_is_empty(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_IS_EMPTY);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_january(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_JANUARY);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_january(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_JANUARY);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_javascript(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_JAVASCRIPT);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_javascript(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_JAVASCRIPT);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_json(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_JSON);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_json(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_JSON);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_july(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_JULY);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_july(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_JULY);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_june(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_JUNE);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_june(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_JUNE);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_keys(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_KEYS);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_keys(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_KEYS);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_le(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_LE);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_le(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_LE);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_limit(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_LIMIT);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_limit(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_LIMIT);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_line(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_LINE);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_line(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_LINE);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_literal(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_LITERAL);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_literal(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_LITERAL);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_lt(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_LT);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_lt(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_LT);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_make_array(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_MAKE_ARRAY);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_make_array(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_MAKE_ARRAY);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_make_obj(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_MAKE_OBJ);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_make_obj(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_MAKE_OBJ);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_map(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_MAP);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_map(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_MAP);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_march(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_MARCH);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_march(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_MARCH);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_match(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_MATCH);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_match(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_MATCH);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_max(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_MAX);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_max(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_MAX);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_may(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_MAY);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_may(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_MAY);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_merge(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_MERGE);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_merge(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_MERGE);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_min(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_MIN);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_min(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_MIN);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_minutes(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_MINUTES);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_minutes(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_MINUTES);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_mod(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_MOD);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_mod(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_MOD);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_monday(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_MONDAY);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_monday(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_MONDAY);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_month(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_MONTH);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_month(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_MONTH);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_mul(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_MUL);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_mul(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_MUL);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_ne(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_NE);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_ne(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_NE);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_not(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_NOT);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_not(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_NOT);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_november(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_NOVEMBER);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_november(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_NOVEMBER);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_now(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_NOW);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_now(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_NOW);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_nth(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_NTH);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_nth(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_NTH);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_object(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_OBJECT);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_object(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_OBJECT);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_october(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_OCTOBER);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_october(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_OCTOBER);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_order_by(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_ORDER_BY);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_order_by(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_ORDER_BY);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_outer_join(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_OUTER_JOIN);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_outer_join(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_OUTER_JOIN);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_pluck(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_PLUCK);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_pluck(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_PLUCK);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_point(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_POINT);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_point(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_POINT);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_polygon(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_POLYGON);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_polygon(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_POLYGON);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_polygon_sub(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_POLYGON_SUB);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_polygon_sub(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_POLYGON_SUB);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_prepend(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_PREPEND);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_prepend(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_PREPEND);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_random(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_RANDOM);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_random(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_RANDOM);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_range(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_RANGE);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_range(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_RANGE);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_rebalance(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_REBALANCE);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_rebalance(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_REBALANCE);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_reconfigure(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_RECONFIGURE);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_reconfigure(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_RECONFIGURE);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_reduce(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_REDUCE);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_reduce(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_REDUCE);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_replace(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_REPLACE);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_replace(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_REPLACE);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_sample(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_SAMPLE);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_sample(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_SAMPLE);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_saturday(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_SATURDAY);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_saturday(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_SATURDAY);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_seconds(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_SECONDS);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_seconds(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_SECONDS);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_september(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_SEPTEMBER);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_september(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_SEPTEMBER);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_set_difference(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_SET_DIFFERENCE);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_set_difference(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_SET_DIFFERENCE);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_set_insert(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_SET_INSERT);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_set_insert(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_SET_INSERT);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_set_intersection(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_SET_INTERSECTION);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_set_intersection(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_SET_INTERSECTION);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_set_union(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_SET_UNION);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_set_union(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_SET_UNION);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_skip(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_SKIP);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_skip(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_SKIP);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_slice(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_SLICE);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_slice(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_SLICE);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_splice_at(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_SPLICE_AT);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_splice_at(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_SPLICE_AT);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_split(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_SPLIT);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_split(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_SPLIT);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_status(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_STATUS);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_status(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_STATUS);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_sub(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_SUB);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_sub(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_SUB);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_sum(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_SUM);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_sum(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_SUM);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_sunday(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_SUNDAY);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_sunday(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_SUNDAY);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_sync(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_SYNC);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_sync(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_SYNC);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_table(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_TABLE);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_table(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_TABLE);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_table_create(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_TABLE_CREATE);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_table_create(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_TABLE_CREATE);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_table_drop(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_TABLE_DROP);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_table_drop(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_TABLE_DROP);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_table_list(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_TABLE_LIST);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_table_list(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_TABLE_LIST);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_thursday(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_THURSDAY);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_thursday(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_THURSDAY);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_time(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_TIME);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_time(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_TIME);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_timezone(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_TIMEZONE);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_timezone(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_TIMEZONE);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_time_of_day(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_TIME_OF_DAY);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_time_of_day(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_TIME_OF_DAY);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_to_epoch_time(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_TO_EPOCH_TIME);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_to_epoch_time(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_TO_EPOCH_TIME);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_to_geojson(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_TO_GEOJSON);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_to_geojson(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_TO_GEOJSON);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_to_iso8601(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_TO_ISO8601);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_to_iso8601(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_TO_ISO8601);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_to_json_string(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_TO_JSON_STRING);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_to_json_string(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_TO_JSON_STRING);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_tuesday(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_TUESDAY);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_tuesday(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_TUESDAY);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_type_of(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_TYPE_OF);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_type_of(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_TYPE_OF);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_ungroup(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_UNGROUP);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_ungroup(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_UNGROUP);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_union(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_UNION);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_union(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_UNION);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_upcase(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_UPCASE);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_upcase(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_UPCASE);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_update(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_UPDATE);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_update(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_UPDATE);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_uuid(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_UUID);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_uuid(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_UUID);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_var(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_VAR);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_var(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_VAR);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_wait(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_WAIT);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_wait(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_WAIT);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_wednesday(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_WEDNESDAY);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_wednesday(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_WEDNESDAY);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_without(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_WITHOUT);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_without(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_WITHOUT);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_with_fields(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_WITH_FIELDS);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_with_fields(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_WITH_FIELDS);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_year(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_YEAR);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_year(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_YEAR);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }
 
 extern void
-_reql_ast_zip(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_ZIP);
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+reql_ast_zip(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_ZIP);
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }

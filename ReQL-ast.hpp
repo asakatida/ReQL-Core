@@ -20,8 +20,8 @@ limitations under the License.
 
 #include "ReQL-expr.hpp"
 
-#ifndef _REQL_AST_CPP
-#define _REQL_AST_CPP
+#ifndef REQL_AST_HPP
+#define REQL_AST_HPP
 
 namespace ReQL {
 
@@ -29,8 +29,8 @@ class AST : public Expr {
 protected:
 
   AST() : Expr() {};
-  AST(_ReQL_AST_Function f, std::vector<Query> args, std::map<std::string, Query> kwargs) : Expr(f, args, kwargs) {};
-  explicit AST(_ReQL_Obj_t *val) : Expr(val) {};
+  AST(ReQL_AST_Function f, std::vector<Query> args, std::map<std::string, Query> kwargs) : Expr(f, args, kwargs) {};
+  explicit AST(ReQL_Obj_t *val) : Expr(val) {};
   explicit AST(std::string val) : Expr(val) {};
   explicit AST(double val) : Expr(val) {};
   explicit AST(bool val) : Expr(val) {};

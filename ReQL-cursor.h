@@ -20,41 +20,41 @@ limitations under the License.
 
 #include "ReQL-expr.h"
 
-#ifndef _REQL_CURSOR_H
-#define _REQL_CURSOR_H
+#ifndef REQL_CURSOR_H
+#define REQL_CURSOR_H
 
-enum _ReQL_Response_e {
-  _REQL_CLIENT_ERROR = 16,
-  _REQL_COMPILE_ERROR = 17,
-  _REQL_RUNTIME_ERROR = 18,
-  _REQL_SUCCESS_ATOM = 1,
-  _REQL_SUCCESS_FEED = 5,
-  _REQL_SUCCESS_PARTIAL = 3,
-  _REQL_SUCCESS_SEQUENCE = 2,
-  _REQL_WAIT_COMPLETE = 4
+enum ReQL_Response_e {
+  REQL_CLIENT_ERROR = 16,
+  REQL_COMPILE_ERROR = 17,
+  REQL_RUNTIME_ERROR = 18,
+  REQL_SUCCESS_ATOM = 1,
+  REQL_SUCCESS_FEED = 5,
+  REQL_SUCCESS_PARTIAL = 3,
+  REQL_SUCCESS_SEQUENCE = 2,
+  REQL_WAIT_COMPLETE = 4
 };
-typedef enum _ReQL_Response_e _ReQL_Response_t;
+typedef enum ReQL_Response_e ReQL_Response_t;
 
-struct _ReQL_Cur_s {
+struct ReQL_Cur_s {
   char done;
   uint64_t token;
-  struct _ReQL_Conn_s *conn;
-  _ReQL_Obj_t *response;
-  struct _ReQL_Cur_s *next;
-  struct _ReQL_Cur_s *prev;
+  struct ReQL_Conn_s *conn;
+  ReQL_Obj_t *response;
+  struct ReQL_Cur_s *next;
+  struct ReQL_Cur_s *prev;
   void *mutex;
 };
-typedef struct _ReQL_Cur_s _ReQL_Cur_t;
+typedef struct ReQL_Cur_s ReQL_Cur_t;
 
 extern void
-_reql_cursor_init(_ReQL_Cur_t *cur);
+reql_cursor_init(ReQL_Cur_t *cur);
 extern void
-_reql_set_cur_response(_ReQL_Cur_t *cur, _ReQL_Obj_t *res);
-extern _ReQL_Obj_t *
-_reql_get_cur_res(_ReQL_Cur_t *cur);
+reql_set_cur_response(ReQL_Cur_t *cur, ReQL_Obj_t *res);
+extern ReQL_Obj_t *
+reql_get_cur_res(ReQL_Cur_t *cur);
 extern void
-_reql_cursor_next(_ReQL_Cur_t *cur);
+reql_cursor_next(ReQL_Cur_t *cur);
 extern void
-_reql_close_cur(_ReQL_Cur_t *cur);
+reql_close_cur(ReQL_Cur_t *cur);
 
 #endif

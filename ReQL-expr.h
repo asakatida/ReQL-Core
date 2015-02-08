@@ -1,5 +1,5 @@
 /*
-Copyright 2014 Adam Grandquist
+Copyright 2014-2015 Adam Grandquist
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@ limitations under the License.
 
 #include "ReQL-ast.h"
 
-#ifndef _REQL_EXPR_H
-#define _REQL_EXPR_H
+#ifndef REQL_EXPR_H
+#define REQL_EXPR_H
 
 #endif

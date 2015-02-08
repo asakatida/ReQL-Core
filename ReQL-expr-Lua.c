@@ -23,18 +23,18 @@ limitations under the License.
 #include <string.h>
 
 extern int
-_reql_lua_expr(lua_State *L) {
+reql_lua_expr(lua_State *L) {
   lua_settop(L, 3);
 
   const long nesting_depth = luaL_optlong(L, 3, 20);
 
-  _reql_to_lua(L, _reql_from_lua(L, 2, nesting_depth));
+  reql_to_lua(L, reql_from_lua(L, 2, nesting_depth));
 
   return 1;
 }
 
 extern int
-_reql_lua_is_instance(lua_State *L) {
+reql_lua_is_instance(lua_State *L) {
   const int argn = lua_gettop(L);
   const int type_table = lua_istable(L, 1);
 
@@ -77,7 +77,7 @@ _reql_lua_is_instance(lua_State *L) {
 }
 
 extern int
-_reql_lua_intsp(lua_State *L) {
+reql_lua_intsp(lua_State *L) {
   lua_settop(L, 1);
 
   const unsigned int table_len = (unsigned int)lua_rawlen(L, 1);
@@ -96,7 +96,7 @@ _reql_lua_intsp(lua_State *L) {
 }
 
 extern int
-_reql_lua_kved(lua_State *L) {
+reql_lua_kved(lua_State *L) {
   lua_settop(L, 1);
 
   const unsigned int table_len = (unsigned int)lua_rawlen(L, 1);
@@ -120,7 +120,7 @@ _reql_lua_kved(lua_State *L) {
 
   lua_pushliteral(L, "}");
 
-  lua_pushcfunction(L, _reql_lua_intsp);
+  lua_pushcfunction(L, reql_lua_intsp);
   lua_pushvalue(L, 2);
   lua_call(L, 1, 1);
 
@@ -134,17 +134,17 @@ _reql_lua_kved(lua_State *L) {
 }
 
 extern int
-_reql_lua_intspallargs(lua_State *L) {
+reql_lua_intspallargs(lua_State *L) {
   lua_settop(L, 2);
 
-  lua_pushcfunction(L, _reql_lua_intsp);
+  lua_pushcfunction(L, reql_lua_intsp);
   lua_createtable(L, 2, 2);
 
-  lua_pushcfunction(L, _reql_lua_kved);
+  lua_pushcfunction(L, reql_lua_kved);
   lua_pushvalue(L, 2);
   lua_call(L, 1, 1);
 
-  lua_pushcfunction(L, _reql_lua_intsp);
+  lua_pushcfunction(L, reql_lua_intsp);
   lua_pushvalue(L, 1);
   lua_call(L, 1, 1);
 
@@ -157,7 +157,7 @@ _reql_lua_intspallargs(lua_State *L) {
 }
 
 extern int
-_reql_lua_reqlqueryprinter__init(lua_State *L) {
+reql_luareqlqueryprinter__init(lua_State *L) {
   lua_settop(L, 3);
   lua_setfield(L, 1, "frames");
   lua_setfield(L, 1, "term");
@@ -165,13 +165,13 @@ _reql_lua_reqlqueryprinter__init(lua_State *L) {
 }
 
 static int
-_reql_lua_print_query(lua_State *L) {
+reql_lua_print_query(lua_State *L) {
   lua_settop(L, 1);
   return 1;
 }
 
 static int
-_reql_lua_compose_term(lua_State *L) {
+reql_lua_compose_term(lua_State *L) {
   lua_settop(L, 2);
   if (!lua_istable(L, 2)) {
     lua_tostring(L, 2);
@@ -198,14 +198,14 @@ _reql_lua_compose_term(lua_State *L) {
 }
 
 extern int
-_reql_lua___call(lua_State *L) {
+reql_lua___call(lua_State *L) {
   lua_createtable(L, 0, 0);
   lua_createtable(L, 2, 2);
   return 1;
 }
 
 static int
-_reql_lua_join_tree(lua_State *L) {
+reql_lua_join_tree(lua_State *L) {
   lua_settop(L, 2);
 
   const unsigned int table_len = (unsigned int)lua_rawlen(L, 2);
@@ -219,12 +219,12 @@ _reql_lua_join_tree(lua_State *L) {
 }
 
 extern int
-_reql_lua_ast(lua_State *L) {
+reql_lua_ast(lua_State *L) {
   return 1;
 }
 
 extern int
-_reql_lua___index(lua_State *L) {
+reql_lua___index(lua_State *L) {
   lua_getfield(L, 1, "__base");
   lua_pushvalue(L, 2);
   lua_rawget(L, 2);
@@ -237,7 +237,7 @@ _reql_lua___index(lua_State *L) {
 }
 
 extern void
-_reql_lua_class(lua_State *L, const char *name, const int parent, const int base) {
+reql_lua_class(lua_State *L, const char *name, const int parent, const int base) {
   lua_createtable(L, 4, 0);
   lua_pushliteral(L, "__name");
   lua_pushlstring(L, name, 1);
@@ -252,8 +252,8 @@ _reql_lua_class(lua_State *L, const char *name, const int parent, const int base
   }
 }
 
-extern _ReQL_Obj_t *
-_reql_from_lua(lua_State *L, const int idx, long nesting_depth) {
+extern ReQL_Obj_t *
+reql_from_lua(lua_State *L, const int idx, long nesting_depth) {
   if (nesting_depth <= 0) {
     luaL_error(L, "Nesting depth limit exceeded");
     return NULL;
@@ -261,29 +261,29 @@ _reql_from_lua(lua_State *L, const int idx, long nesting_depth) {
 
   switch (lua_type(L, idx)) {
     case LUA_TBOOLEAN: {
-      return _reql_lua_new_datum(L, _reql_lua_new_bool(L, idx));
+      return reql_lua_new_datum(L, reql_lua_new_bool(L, idx));
     }
     case LUA_TFUNCTION: {
       return NULL;
     }
     case LUA_TNIL: {
-      return _reql_lua_new_datum(L, _reql_lua_new_null(L));
+      return reql_lua_new_datum(L, reql_lua_new_null(L));
     }
     case LUA_TNUMBER: {
-      return _reql_lua_new_datum(L, _reql_lua_new_number(L, idx));
+      return reql_lua_new_datum(L, reql_lua_new_number(L, idx));
     }
     case LUA_TSTRING: {
-      return _reql_lua_new_datum(L, _reql_lua_new_string(L, idx));
+      return reql_lua_new_datum(L, reql_lua_new_string(L, idx));
     }
     case LUA_TTABLE: {
       const int water_mark = lua_gettop(L);
-      lua_pushcfunction(L, _reql_lua_is_instance);
+      lua_pushcfunction(L, reql_lua_is_instance);
       lua_pushvalue(L, idx);
       lua_pushliteral(L, "ReQLOp");
       lua_call(L, 2, 1);
-      const int is_reql = lua_toboolean(L, water_mark + 1);
+      const int isreql = lua_toboolean(L, water_mark + 1);
       lua_pop(L, 1);
-      if (is_reql) {
+      if (isreql) {
         break;
       }
 
@@ -320,21 +320,21 @@ _reql_from_lua(lua_State *L, const int idx, long nesting_depth) {
       --nesting_depth;
 
       if (array) {
-        _ReQL_Obj_t *arr = _reql_lua_new_array(L, table_len);
+        ReQL_Obj_t *arr = reql_lua_new_array(L, table_len);
         int i;
         for (i=1; i<=table_len; ++i) {
           lua_rawgeti(L, 2, i);
-          _reql_array_insert(arr, _reql_from_lua(L, water_mark + 2, nesting_depth), i);
+          reql_array_insert(arr, reql_from_lua(L, water_mark + 2, nesting_depth), i);
           lua_pop(L, 1);
         }
-        return _reql_lua_new_make_array(L, arr);
+        return reql_lua_new_make_array(L, arr);
       }
-      _ReQL_Obj_t *obj = _reql_lua_new_object(L, table_len);
+      ReQL_Obj_t *obj = reql_lua_new_object(L, table_len);
       while (lua_next(L, idx)) {
-        _reql_object_add(obj, _reql_from_lua(L, water_mark + 1, nesting_depth), _reql_from_lua(L, water_mark + 2, nesting_depth));
+        reql_object_add(obj, reql_from_lua(L, water_mark + 1, nesting_depth), reql_from_lua(L, water_mark + 2, nesting_depth));
         lua_pop(L, 1);
       }
-      return _reql_lua_new_make_obj(L, obj);
+      return reql_lua_new_make_obj(L, obj);
     }
   }
   luaL_error(L, "Unknown Lua type %i", lua_type(L, idx));
@@ -342,10 +342,10 @@ _reql_from_lua(lua_State *L, const int idx, long nesting_depth) {
 }
 
 extern void
-_reql_to_lua(lua_State *L, _ReQL_Obj_t *query) {
-  switch (_reql_datum_type(query)) {
-    case _REQL_R_ARRAY: {
-      uint32_t size = _reql_array_size(query);
+reql_to_lua(lua_State *L, ReQL_Obj_t *query) {
+  switch (reql_datum_type(query)) {
+    case REQL_R_ARRAY: {
+      uint32_t size = reql_array_size(query);
 
       int trunc_size = (int)size;
       int i;
@@ -354,66 +354,66 @@ _reql_to_lua(lua_State *L, _ReQL_Obj_t *query) {
       int table_idx = lua_gettop(L);
 
       for (i=0; i<trunc_size; ++i) {
-        _reql_to_lua(L, _reql_array_index(query, i));
+        reql_to_lua(L, reql_array_index(query, i));
         lua_rawseti(L, table_idx, i);
       }
       break;
     }
-    case _REQL_R_BOOL: {
-      char value = _reql_to_bool(query);
+    case REQL_R_BOOL: {
+      char value = reql_to_bool(query);
       lua_pushboolean(L, value);
       break;
     }
-    case _REQL_R_REQL:
-    case _REQL_R_JSON: {
+    case REQL_RREQL:
+    case REQL_R_JSON: {
       lua_pushnil(L);
       break;
     }
-    case _REQL_R_NULL: {
+    case REQL_R_NULL: {
       lua_pushnil(L);
       break;
     }
-    case _REQL_R_NUM: {
-      double value = _reql_to_number(query);
+    case REQL_R_NUM: {
+      double value = reql_to_number(query);
       lua_pushnumber(L, value);
       break;
     }
-    case _REQL_R_OBJECT: {
-      _ReQL_Iter_t iter = _reql_new_iter(query);
+    case REQL_R_OBJECT: {
+      ReQL_Iter_t iter = reql_new_iter(query);
 
-      _ReQL_Obj_t *key;
+      ReQL_Obj_t *key;
 
       lua_newtable(L);
       int table_idx = lua_gettop(L);
 
-      while ((key = _reql_iter_next(&iter))) {
-        _reql_to_lua(L, key);
-        _reql_to_lua(L, _reql_object_get(query, key));
+      while ((key = reql_iter_next(&iter))) {
+        reql_to_lua(L, key);
+        reql_to_lua(L, reql_object_get(query, key));
         lua_settable(L, table_idx);
       }
       break;
     }
-    case _REQL_R_STR: {
-      lua_pushlstring(L, (char *)_reql_string_buf(query), _reql_string_size(query));
+    case REQL_R_STR: {
+      lua_pushlstring(L, (char *)reql_string_buf(query), reql_string_size(query));
       break;
     }
   }
 }
 
 extern int
-_reql_lua_connect(lua_State *L) {
+reql_lua_connect(lua_State *L) {
   lua_settop(L, 3);
 
-  _ReQL_Conn_t *conn = lua_newuserdata(L, sizeof(_ReQL_Conn_t));
+  ReQL_Conn_t *conn = lua_newuserdata(L, sizeof(ReQL_Conn_t));
 
-  _reql_connection_init(conn);
+  reql_connection_init(conn);
   char msg[500];
 
-  if (_reql_connect(conn, msg, 500)) {
+  if (reql_connect(conn, msg, 500)) {
     return 0;
   }
 
-  _reql_ensure_conn_close(conn);
+  reql_ensure_conn_close(conn);
 
   return 1;
 }

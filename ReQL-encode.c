@@ -27,7 +27,7 @@ limitations under the License.
 #include <string.h>
 
 static int
-_reql_string_t_append(_ReQL_String_t *obj, const uint8_t *ext, uint32_t size) {
+reql_string_t_append(ReQL_String_t *obj, const uint8_t *ext, uint32_t size) {
   if (obj->alloc_size <= (obj->size + size)) {
     obj->alloc_size += size;
     obj->alloc_size *= 1.1;
@@ -52,10 +52,10 @@ _reql_string_t_append(_ReQL_String_t *obj, const uint8_t *ext, uint32_t size) {
 }
 
 static int
-_reql_string_t_append_(_ReQL_String_t *json, const uint8_t ext) {
+reql_string_t_append_(ReQL_String_t *json, const uint8_t ext) {
   if (json->alloc_size <= (json->size + 1)) {
-    uint8_t _ext[1] = {ext};
-    return _reql_string_t_append(json, _ext, 1);
+    uint8_t buf[1] = {ext};
+    return reql_string_t_append(json, buf, 1);
   }
 
   json->str[json->size] = ext;
@@ -66,68 +66,68 @@ _reql_string_t_append_(_ReQL_String_t *json, const uint8_t ext) {
 }
 
 static int
-_reql_escape_string(_ReQL_String_t *json, const uint8_t *str, uint32_t size) {
-  if (_reql_string_t_append_(json, quotation)) {
+reql_escape_string(ReQL_String_t *json, const uint8_t *str, uint32_t size) {
+  if (reql_string_t_append_(json, quotation)) {
     return -1;
   }
   uint32_t i, ext_size;
   uint8_t chr;
   for (i=0; i<size; ++i) {
     chr = str[i];
-    if ((ext_size = _reql_json_string_esc_size(chr))) {
-      _reql_string_t_append(json, _reql_json_string_esc(chr), ext_size);
+    if ((ext_size = reql_json_string_esc_size(chr))) {
+      reql_string_t_append(json, reql_json_string_esc(chr), ext_size);
     } else {
-      _reql_string_t_append_(json, chr);
+      reql_string_t_append_(json, chr);
     }
   }
-  return _reql_string_t_append_(json, quotation);
+  return reql_string_t_append_(json, quotation);
 }
 
 static int
-_reql_encode_(_ReQL_Obj_t *obj, _ReQL_String_t *json) {
-  switch (_reql_datum_type(obj)) {
-    case _REQL_R_ARRAY: {
-      if (_reql_string_t_append_(json, left_square_bracket)) {
+reql_encode_(ReQL_Obj_t *obj, ReQL_String_t *json) {
+  switch (reql_datum_type(obj)) {
+    case REQL_R_ARRAY: {
+      if (reql_string_t_append_(json, left_square_bracket)) {
         return -1;
       }
-      uint32_t size = _reql_array_size(obj);
+      uint32_t size = reql_array_size(obj);
       uint32_t i;
       for (i=0; i<size; ++i) {
         if (i > 0) {
-          if (_reql_string_t_append_(json, comma)) {
+          if (reql_string_t_append_(json, comma)) {
             return -1;
           }
         }
-        if (_reql_encode_(_reql_array_index(obj, i), json)) {
+        if (reql_encode_(reql_array_index(obj, i), json)) {
           return -1;
         }
       }
-      return _reql_string_t_append_(json, right_square_bracket);
+      return reql_string_t_append_(json, right_square_bracket);
     }
-    case _REQL_R_BOOL: {
-      if (_reql_to_bool(obj)) {
-        if (_reql_string_t_append(json, json_true, 4)) {
+    case REQL_R_BOOL: {
+      if (reql_to_bool(obj)) {
+        if (reql_string_t_append(json, json_true, 4)) {
           return -1;
         }
       } else {
-        if (_reql_string_t_append(json, json_false, 5)) {
+        if (reql_string_t_append(json, json_false, 5)) {
           return -1;
         }
       }
     }
-    case _REQL_R_REQL:
-    case _REQL_R_JSON: break;
-    case _REQL_R_NULL: {
-      return _reql_string_t_append(json, json_null, 4);
+    case REQL_RREQL:
+    case REQL_R_JSON: break;
+    case REQL_R_NULL: {
+      return reql_string_t_append(json, json_null, 4);
     }
-    case _REQL_R_NUM: {
+    case REQL_R_NUM: {
       char *str = malloc(sizeof(char) * 1);
 
       if (!str) {
         return -1;
       }
 
-      double val = _reql_to_number(obj);
+      double val = reql_to_number(obj);
 
       ssize_t size = snprintf(str, 1, "%g", val);
 
@@ -145,60 +145,60 @@ _reql_encode_(_ReQL_Obj_t *obj, _ReQL_String_t *json) {
       int err = -1;
 
       if (size == sprintf(str, "%g", val)) {
-        err = _reql_string_t_append(json, (uint8_t *)str, (uint32_t)size);
+        err = reql_string_t_append(json, (uint8_t *)str, (uint32_t)size);
       }
 
       free(str);
 
       return err;
     }
-    case _REQL_R_OBJECT: {
-      if (_reql_string_t_append_(json, left_curly_bracket)) {
+    case REQL_R_OBJECT: {
+      if (reql_string_t_append_(json, left_curly_bracket)) {
         return -1;
       }
 
-      _ReQL_Iter_t iter = _reql_new_iter(obj);
+      ReQL_Iter_t iter = reql_new_iter(obj);
 
       char first = 1;
-      _ReQL_Obj_t *key = NULL;
+      ReQL_Obj_t *key = NULL;
 
-      while ((key = _reql_iter_next(&iter)) != NULL) {
+      while ((key = reql_iter_next(&iter)) != NULL) {
         if (!first) {
-          if (_reql_string_t_append_(json, comma)) {
+          if (reql_string_t_append_(json, comma)) {
             return -1;
           }
         }
-        if (_reql_encode_(key, json)) {
+        if (reql_encode_(key, json)) {
           return -1;
         }
-        if (_reql_string_t_append_(json, colon)) {
+        if (reql_string_t_append_(json, colon)) {
           return -1;
         }
-        if (_reql_encode_(_reql_object_get(obj, key), json)) {
+        if (reql_encode_(reql_object_get(obj, key), json)) {
           return -1;
         }
         first = 0;
       }
-      return _reql_string_t_append_(json, right_curly_bracket);
+      return reql_string_t_append_(json, right_curly_bracket);
     }
-    case _REQL_R_STR: {
-      return _reql_escape_string(json, _reql_string_buf(obj), _reql_string_size(obj));
+    case REQL_R_STR: {
+      return reql_escape_string(json, reql_string_buf(obj), reql_string_size(obj));
     }
   }
 
   return 0;
 }
 
-extern _ReQL_String_t *
-_reql_encode(_ReQL_Obj_t *val) {
-  _ReQL_String_t *json = malloc(sizeof(_ReQL_String_t));
+extern ReQL_String_t *
+reql_encode(ReQL_Obj_t *val) {
+  ReQL_String_t *json = malloc(sizeof(ReQL_String_t));
 
   json->str = malloc(sizeof(uint8_t) * 100);
 
   json->size = 0;
   json->alloc_size = 100;
 
-  if (_reql_encode_(val, json)) {
+  if (reql_encode_(val, json)) {
     if (json->str != NULL) {
       free(json->str);
     }

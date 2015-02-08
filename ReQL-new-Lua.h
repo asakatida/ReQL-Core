@@ -24,26 +24,26 @@ limitations under the License.
 
 #include "ReQL.h"
 
-#ifndef _REQL_NEW_LUA
-#define _REQL_NEW_LUA
+#ifndef REQL_NEW_LUA_H
+#define REQL_NEW_LUA_H
 
-extern _ReQL_Obj_t *
-_reql_lua_new_array(lua_State *L, uint32_t size);
-extern _ReQL_Obj_t *
-_reql_lua_new_bool(lua_State *L, const int idx);
-extern _ReQL_Obj_t *
-_reql_lua_new_datum(lua_State *L, _ReQL_Obj_t *arg);
-extern _ReQL_Obj_t *
-_reql_lua_new_make_array(lua_State *L, _ReQL_Obj_t *arg);
-extern _ReQL_Obj_t *
-_reql_lua_new_make_obj(lua_State *L, _ReQL_Obj_t *arg);
-extern _ReQL_Obj_t *
-_reql_lua_new_null(lua_State *L);
-extern _ReQL_Obj_t *
-_reql_lua_new_number(lua_State *L, const int idx);
-extern _ReQL_Obj_t *
-_reql_lua_new_object(lua_State *L, uint32_t idx);
-extern _ReQL_Obj_t *
-_reql_lua_new_string(lua_State *L, const int idx);
+extern ReQL_Obj_t *
+reql_lua_new_array(lua_State *L, uint32_t size);
+extern ReQL_Obj_t *
+reql_lua_new_bool(lua_State *L, const int idx);
+extern ReQL_Obj_t *
+reql_lua_new_datum(lua_State *L, ReQL_Obj_t *arg);
+extern ReQL_Obj_t *
+reql_lua_new_make_array(lua_State *L, ReQL_Obj_t *arg);
+extern ReQL_Obj_t *
+reql_lua_new_make_obj(lua_State *L, ReQL_Obj_t *arg);
+extern ReQL_Obj_t *
+reql_lua_new_null(lua_State *L);
+extern ReQL_Obj_t *
+reql_lua_new_number(lua_State *L, const int idx);
+extern ReQL_Obj_t *
+reql_lua_new_object(lua_State *L, uint32_t idx);
+extern ReQL_Obj_t *
+reql_lua_new_string(lua_State *L, const int idx);
 
 #endif

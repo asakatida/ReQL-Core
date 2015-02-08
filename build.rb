@@ -241,7 +241,7 @@ module RethinkDB
 end
 
 def ast_name(lang, name)
-  "_reql_#{lang}_#{name.downcase}"
+  "reql_#{lang}_#{name.downcase}"
 end
 
 def c_ast_name(name)
@@ -404,7 +404,7 @@ def lua_term_imp(name)
   "
 extern int
 #{lua_ast_name name}(lua_State *L) {
-  return _reql_lua_#{
+  return reql_lua_#{
     if opts? name
       'get_opts'
     else
@@ -552,10 +552,10 @@ end
 def term_imp(name)
   "
 extern void
-#{c_ast_name name}(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs) {
-  _reql_obj_set_term_type(term, _REQL_#{name});
-  _reql_obj_set_args(term, args);
-  _reql_obj_set_kwargs(term, kwargs);
+#{c_ast_name name}(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  reql_obj_set_term_type(term, REQL_#{name});
+  reql_obj_set_args(term, args);
+  reql_obj_set_kwargs(term, kwargs);
 }"
 end
 
@@ -568,7 +568,7 @@ def term_def(name)
 /**
  */
 extern void
-#{c_ast_name name}(_ReQL_Obj_t *term, _ReQL_Obj_t *args, _ReQL_Obj_t *kwargs);"
+#{c_ast_name name}(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs);"
 end
 
 build('ReQL-ast.h', :term_def) do |name|
@@ -576,7 +576,7 @@ build('ReQL-ast.h', :term_def) do |name|
 end
 
 def enum_def(name)
-  "_REQL_#{name} = #{RethinkDB::Term::TermType.const_get name}"
+  "REQL_#{name} = #{RethinkDB::Term::TermType.const_get name}"
 end
 
 build('ReQL-json.h', :enum_def, ",\n  ") do |name|

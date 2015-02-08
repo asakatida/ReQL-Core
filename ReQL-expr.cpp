@@ -26,7 +26,7 @@ namespace ReQL {
 
 Expr::Expr() {}
 
-Expr::Expr(_ReQL_AST_Function f, std::vector<Query> args, std::map<std::string, Query> kwargs) {
+Expr::Expr(ReQL_AST_Function f, std::vector<Query> args, std::map<std::string, Query> kwargs) {
   query = ReQL();
 }
 

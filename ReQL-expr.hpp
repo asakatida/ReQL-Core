@@ -23,8 +23,8 @@ limitations under the License.
 #include <map>
 #include <vector>
 
-#ifndef _REQL_EXPR_CPP
-#define _REQL_EXPR_CPP
+#ifndef REQL_EXPR_HPP
+#define REQL_EXPR_HPP
 
 namespace ReQL {
 
@@ -34,8 +34,8 @@ class ReQL;
 class Expr {
 protected:
   Expr();
-  Expr(_ReQL_AST_Function f, std::vector<Query> args, std::map<std::string, Query> kwargs);
-  explicit Expr(_ReQL_Obj_t *val);
+  Expr(ReQL_AST_Function f, std::vector<Query> args, std::map<std::string, Query> kwargs);
+  explicit Expr(ReQL_Obj_t *val);
   explicit Expr(std::string);
   explicit Expr(double);
   explicit Expr(bool);

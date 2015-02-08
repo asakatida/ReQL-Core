@@ -1,5 +1,5 @@
 /*
-Copyright 2014 Adam Grandquist
+Copyright 2014-2015 Adam Grandquist
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -20,14 +20,14 @@ limitations under the License.
 
 #include "ReQL-ast.hpp"
 
-#ifndef _REQL_HPP
-#define _REQL_HPP
+#ifndef REQL_HPP
+#define REQL_HPP
 
 namespace ReQL {
 
 class Cursor {
 public:
-  _ReQL_Cur_t *cur;
+  ReQL_Cur_t *cur;
 
   Cursor();
 
@@ -40,7 +40,7 @@ public:
 
 class Connection {
 public:
-  _ReQL_Conn_t *conn;
+  ReQL_Conn_t *conn;
 
   Connection();
   Connection(std::string);
@@ -62,7 +62,7 @@ Connection connect(std::string, std::uint16_t, std::string);
 class Query : public AST {
 public:
   Query() : AST() {};
-  Query(_ReQL_AST_Function f, std::vector<Query> args, std::map<std::string, Query> kwargs) : AST(f, args, kwargs) {};
+  Query(ReQL_AST_Function f, std::vector<Query> args, std::map<std::string, Query> kwargs) : AST(f, args, kwargs) {};
   Query(std::string val) : AST(val) {};
   Query(double val) : AST(val) {};
   Query(bool val) : AST(val) {};

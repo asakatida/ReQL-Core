@@ -20,47 +20,47 @@ limitations under the License.
 
 #include "ReQL-new-Lua.h"
 
-#ifndef _REQL_EXPR_LUA
-#define _REQL_EXPR_LUA
+#ifndef REQL_EXPR_LUA_H
+#define REQL_EXPR_LUA_H
 
 #if LUA_VERSION_NUM < 502
 #define lua_rawlen lua_objlen
 #endif
 
 extern int
-_reql_lua_expr(lua_State *L);
+reql_lua_expr(lua_State *L);
 extern int
-_reql_lua_is_instance(lua_State *L);
-extern _ReQL_Obj_t *
-_reql_from_lua(lua_State *L, const int idx, long nesting_depth);
+reql_lua_is_instance(lua_State *L);
+extern ReQL_Obj_t *
+reql_from_lua(lua_State *L, const int idx, long nesting_depth);
 extern void
-_reql_to_lua(lua_State *L, _ReQL_Obj_t *query);
+reql_to_lua(lua_State *L, ReQL_Obj_t *query);
 
 extern int
-_reql_lua_intsp(lua_State *L);
+reql_lua_intsp(lua_State *L);
 extern int
-_reql_lua_kved(lua_State *L);
+reql_lua_kved(lua_State *L);
 
 extern int
-_reql_lua_intspallargs(lua_State *L);
+reql_lua_intspallargs(lua_State *L);
 extern int
-_reql_lua_reqlqueryprinter__init(lua_State *L);
+reql_luareqlqueryprinter__init(lua_State *L);
 extern int
-_reql_lua_reqlqueryprinter_print_query(lua_State *L);
+reql_luareqlqueryprinter_print_query(lua_State *L);
 extern int
-_reql_lua_reqlqueryprinter_compose_term(lua_State *L);
+reql_luareqlqueryprinter_compose_term(lua_State *L);
 extern int
-_reql_lua_reqlqueryprinter_join_tree(lua_State *L);
+reql_luareqlqueryprinter_join_tree(lua_State *L);
 extern int
-_reql_lua_ast(lua_State *L);
+reql_lua_ast(lua_State *L);
 extern int
-_reql_lua___call(lua_State *L);
+reql_lua___call(lua_State *L);
 extern int
-_reql_lua___index(lua_State *L);
+reql_lua___index(lua_State *L);
 extern void
-_reql_lua_class(lua_State *L, const char *name, const int parent, const int base);
+reql_lua_class(lua_State *L, const char *name, const int parent, const int base);
 
 extern int
-_reql_lua_connect(lua_State *L);
+reql_lua_connect(lua_State *L);
 
 #endif

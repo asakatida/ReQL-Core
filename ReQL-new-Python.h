@@ -24,26 +24,26 @@ limitations under the License.
 
 #include "ReQL.h"
 
-#ifndef _REQL_NEW_PYTHON
-#define _REQL_NEW_PYTHON
+#ifndef REQL_NEW_PYTHON_H
+#define REQL_NEW_PYTHON_H
 
-extern _ReQL_Obj_t *
-_reql_py_new_array(uint32_t size);
-extern _ReQL_Obj_t *
-_reql_py_new_bool(PyObject *val);
-extern _ReQL_Obj_t *
-_reql_py_new_datum(_ReQL_Obj_t *val);
-extern _ReQL_Obj_t *
-_reql_py_new_make_array(_ReQL_Obj_t *val);
-extern _ReQL_Obj_t *
-_reql_py_new_make_obj(_ReQL_Obj_t *val);
-extern _ReQL_Obj_t *
-_reql_py_new_null();
-extern _ReQL_Obj_t *
-_reql_py_new_number(PyObject *val);
-extern _ReQL_Obj_t *
-_reql_py_new_object(uint32_t idx);
-extern _ReQL_Obj_t *
-_reql_py_new_string(PyObject *val);
+extern ReQL_Obj_t *
+reql_py_new_array(uint32_t size);
+extern ReQL_Obj_t *
+reql_py_new_bool(PyObject *val);
+extern ReQL_Obj_t *
+reql_py_new_datum(ReQL_Obj_t *val);
+extern ReQL_Obj_t *
+reql_py_new_make_array(ReQL_Obj_t *val);
+extern ReQL_Obj_t *
+reql_py_new_make_obj(ReQL_Obj_t *val);
+extern ReQL_Obj_t *
+reql_py_new_null();
+extern ReQL_Obj_t *
+reql_py_new_number(PyObject *val);
+extern ReQL_Obj_t *
+reql_py_new_object(uint32_t idx);
+extern ReQL_Obj_t *
+reql_py_new_string(PyObject *val);
 
 #endif

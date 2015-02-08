@@ -21,7 +21,7 @@ limitations under the License.
 #include "ReQL-expr-Python.h"
 
 extern PyObject *
-_reql_py_expr(PyObject *self, PyObject *args) {
+reql_py_expr(PyObject *self, PyObject *args) {
   PyObject *val;
   int nesting_depth = 20;
 
@@ -38,7 +38,7 @@ _reql_py_expr(PyObject *self, PyObject *args) {
   }
 
   if (PyUnicode_Check(val)) {
-    return _reql_to_py(_reql_py_new_datum(_reql_from_py(val)));
+    return reql_to_py(reql_py_new_datum(reql_from_py(val)));
   }
 
   if (PyBytes_Check(val)) {
@@ -68,7 +68,7 @@ _reql_py_expr(PyObject *self, PyObject *args) {
 
     PyObject *key;
     while ((key = PyIter_Next(iterator))) {
-      _reql_py_expr(self, Py_BuildValue("Oi", key, nesting_depth));
+      reql_py_expr(self, Py_BuildValue("Oi", key, nesting_depth));
       Py_DECREF(key);
     }
 
@@ -97,7 +97,7 @@ _reql_py_expr(PyObject *self, PyObject *args) {
 
     PyObject *item;
     while ((item = PyIter_Next(iterator))) {
-      _reql_py_expr(self, Py_BuildValue("Oi", item, nesting_depth));
+      reql_py_expr(self, Py_BuildValue("Oi", item, nesting_depth));
       Py_DECREF(item);
     }
 
@@ -110,15 +110,15 @@ _reql_py_expr(PyObject *self, PyObject *args) {
     return reql_val;
   }
 
-  return _reql_to_py(_reql_from_py(val));
+  return reql_to_py(reql_from_py(val));
 }
 
-extern _ReQL_Obj_t *
-_reql_from_py(PyObject *query) {
+extern ReQL_Obj_t *
+reql_from_py(PyObject *query) {
   return NULL;
 }
 
 extern PyObject *
-_reql_to_py(_ReQL_Obj_t *query) {
+reql_to_py(ReQL_Obj_t *query) {
   return NULL;
 }

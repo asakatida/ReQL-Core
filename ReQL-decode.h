@@ -20,5 +20,5 @@ limitations under the License.
 
 #include "ReQL-json.h"
 
-extern _ReQL_Obj_t *
-_reql_decode(uint8_t *json, uint32_t size);
+extern ReQL_Obj_t *
+reql_decode(uint8_t *json, uint32_t size);

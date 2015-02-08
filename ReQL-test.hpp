@@ -12,7 +12,7 @@ extern "C" {
 }
 }
 
-#ifndef _REQL_TEST
-#define _REQL_TEST
+#ifndef REQL_TEST_HPP
+#define REQL_TEST_HPP
 
 #endif

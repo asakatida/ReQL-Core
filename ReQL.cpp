@@ -1,5 +1,5 @@
 /*
-Copyright 2014 Adam Grandquist
+Copyright 2014-2015 Adam Grandquist
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -23,8 +23,8 @@ limitations under the License.
 namespace ReQL {
 
 Cursor::Cursor() {
-  cur = new _ReQL_Cur_t();
-  _reql_cursor_init(cur);
+  cur = new ReQL_Cur_t();
+  reql_cursor_init(cur);
 }
 
 Cursor::~Cursor() {
@@ -40,75 +40,71 @@ int Cursor::close() {
 }
 
 Connection::Connection() {
-  conn = new _ReQL_Conn_t();
-  _reql_connection_init(conn);
+  conn = new ReQL_Conn_t();
+  reql_connection_init(conn);
 
   std::uint8_t buf[500];
 
-  if (_reql_connect(conn, buf, 500)) {
+  if (reql_connect(conn, buf, 500)) {
   }
 }
 
 Connection::Connection(std::string host) {
-  conn = new _ReQL_Conn_t();
-  _reql_connection_init(conn);
+  conn = new ReQL_Conn_t();
+  reql_connection_init(conn);
 
-  _reql_conn_set_addr(conn, (char *)host.c_str());
+  reql_conn_set_addr(conn, (char *)host.c_str());
 
   std::uint8_t buf[500];
 
-  if (_reql_connect(conn, buf, 500)) {
+  if (reql_connect(conn, buf, 500)) {
   }
 }
 
 Connection::Connection(std::string host, std::uint16_t port) {
-  conn = new _ReQL_Conn_t();
-  _reql_connection_init(conn);
+  conn = new ReQL_Conn_t();
+  reql_connection_init(conn);
 
-  std::string _port = std::to_string(port);
-
-  _reql_conn_set_addr(conn, (char *)host.c_str());
-  _reql_conn_set_port(conn, (char *)_port.c_str());
+  reql_conn_set_addr(conn, (char *)host.c_str());
+  reql_conn_set_port(conn, (char *)std::to_string(port).c_str());
 
   std::uint8_t buf[500];
 
-  if (_reql_connect(conn, buf, 500)) {
+  if (reql_connect(conn, buf, 500)) {
   }
 }
 
 Connection::Connection(std::string host, std::uint16_t port, std::string key) {
-  conn = new _ReQL_Conn_t();
-  _reql_connection_init(conn);
+  conn = new ReQL_Conn_t();
+  reql_connection_init(conn);
 
   if (key.size() > UINT32_MAX) {
   }
 
   std::uint32_t key_len = (std::uint32_t)key.size();
 
-  std::string _port = std::to_string(port);
-
-  _reql_conn_set_addr(conn, (char *)host.c_str());
-  _reql_conn_set_port(conn, (char *)_port.c_str());
-  _reql_conn_set_auth(conn, key_len, (char *)key.c_str());
+  reql_conn_set_addr(conn, (char *)host.c_str());
+  reql_conn_set_port(conn, (char *)std::to_string(port).c_str());
+  reql_conn_set_auth(conn, key_len, (char *)key.c_str());
 
   std::uint8_t buf[500];
 
-  if (_reql_connect(conn, buf, 500)) {
+  if (reql_connect(conn, buf, 500)) {
   }
 }
 
 Connection::~Connection() {
-  _reql_ensure_conn_close(conn);
+  reql_ensure_conn_close(conn);
   delete conn;
 }
 
 int Connection::close() {
-  _reql_close_conn(conn);
+  reql_close_conn(conn);
   return 0;
 }
 
 bool Connection::isOpen() {
-  return _reql_conn_open(conn);
+  return reql_conn_open(conn);
 }
 
 Connection connect() {
