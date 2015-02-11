@@ -203,23 +203,23 @@ reql_conn_loop(void *conn) {
   uint8_t msg_header[12];
   uint8_t *response = NULL;
   uint64_t token = 0;
-  uint32_t pos = 0, size = 12;
+  uint32_t pos = 0, size = 0;
 
   while (!reql_conn_done(conn)) {
     if (response) {
-      pos += reql_conn_read(conn, &response[pos], size);
-      if (pos == size) {
+      pos += reql_conn_read(conn, &response[pos], size - pos);
+      if (pos >= size) {
         reql_set_cur_res(conn, reql_decode(response, size), token);
 
-        pos = 0;
+        pos -= size;
 
         free(response); response = NULL;
       }
     } else {
-      pos += reql_conn_read(conn, msg_header, 12);
-      if (pos == 12) {
-        pos = 0;
-        token = reql_get_64_token(&msg_header[0]);
+      pos += reql_conn_read(conn, msg_header, 12 - pos);
+      if (pos >= 12) {
+        pos -= 12;
+        token = reql_get_64_token(msg_header);
         size = reql_get_32_le(&msg_header[8]);
         response = malloc(sizeof(uint8_t) * size);
         if (response == NULL) {
