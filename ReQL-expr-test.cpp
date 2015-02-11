@@ -213,11 +213,6 @@ TEST_CASE("encode values", "[c][encode]") {
 
     std::string comp("1.125", 0, str->size);
 
-    INFO(std::string((char *)str->str));
-
-    REQUIRE(comp.size() == 5);
-    REQUIRE(comp.compare(0, 5, "1.125") == 0);
-
     REQUIRE(comp.compare(0, str->size, (char *)str->str) == 0);
 
     free(str->str);
