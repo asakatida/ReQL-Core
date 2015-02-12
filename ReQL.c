@@ -382,19 +382,23 @@ reql_run(ReQL_Cur_t *cur, ReQL_Obj_t *query, ReQL_Conn_t *conn, ReQL_Obj_t *kwar
     return -1;
   }
 
-  if (conn->cursors) {
-    cur->next = conn->cursors;
-    cur->next->prev = cur;
+  uint64_t token = conn->max_token++;
+
+  if (cur != NULL) {
+    if (conn->cursors) {
+      cur->next = conn->cursors;
+      cur->next->prev = cur;
+    }
+
+    conn->cursors = cur;
+
+    cur->conn = conn;
+    cur->token = token;
   }
 
-  conn->cursors = cur;
+  uint8_t token_bytes[8];
 
-  cur->conn = conn;
-  cur->token = conn->max_token++;
-
-  uint8_t token[8];
-
-  reql_make_64_token(token, cur->token);
+  reql_make_64_token(token_bytes, token);
 
   uint8_t size[4];
 
@@ -402,7 +406,7 @@ reql_run(ReQL_Cur_t *cur, ReQL_Obj_t *query, ReQL_Conn_t *conn, ReQL_Obj_t *kwar
 
   struct iovec magic[3];
 
-  magic[0].iov_base = token;
+  magic[0].iov_base = token_bytes;
   magic[0].iov_len = 8;
 
   magic[1].iov_base = size;
