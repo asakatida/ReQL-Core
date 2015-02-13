@@ -125,7 +125,7 @@ reql_obj_ensure_space(ReQL_Obj_t *obj, uint32_t size) {
   size += reql_obj_size(obj);
 
   if (reql_obj_alloc_size(obj) < size) {
-    return size * 1.1;
+    return (uint32_t)((double)size * 1.1);
   }
 
   return 0;
@@ -495,12 +495,12 @@ reql_to_bool(ReQL_Obj_t *obj) {
 }
 
 static void
-reql_arr_destroy(ReQL_Obj_t **arr, int32_t size) {
+reql_arr_destroy(ReQL_Obj_t **arr, uint32_t size) {
   if (arr == NULL) {
     return;
   }
 
-  int32_t i;
+  uint32_t i;
 
   for (i=0; i<size; ++i) {
     reql_json_destroy(arr[i]);

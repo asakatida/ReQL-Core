@@ -180,7 +180,7 @@ reql_string_decode(uint32_t size, uint8_t *json) {
           if ((i + 4) < size) {
             char valid = 1;
             uint8_t hex;
-            int n;
+            uint8_t n;
             for (n=1; n<=4; ++n) {
               hex = json[i + n];
               if (!((hex >= '0' && hex <= '9') ||

@@ -72,7 +72,7 @@ reql_get_32_le(uint8_t *buf) {
   return le32toh(convert.num);
 }
 
-static int64_t
+static uint64_t
 reql_get_64_token(uint8_t *buf) {
   ReQL_LE64 convert = {0};
   memcpy(convert.buf, buf, 8);
@@ -268,7 +268,7 @@ reql_connect(ReQL_Conn_t *conn, uint8_t *buf, uint32_t size) {
 
   struct timeval timeout;
 
-  timeout.tv_sec = conn->timeout;
+  timeout.tv_sec = (long)conn->timeout;
   timeout.tv_usec = 0;
 
   if (setsockopt(conn->socket, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout))) {
