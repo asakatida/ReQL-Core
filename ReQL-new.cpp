@@ -114,7 +114,33 @@ ReQL::ReQL() {
 }
 
 ReQL::ReQL(ReQL_AST_Function f, std::vector<ReQL> args, std::map<ReQL, ReQL> kwargs) {
+  const std::size_t args_size = args.size();
+
+  if (args_size > std::numeric_limits<std::uint32_t>::max()) {
+    return;
+  }
+
+  const std::size_t kwargs_size = kwargs.size();
+
+  if (kwargs_size > std::numeric_limits<std::uint32_t>::max()) {
+    return;
+  }
+
+  array = reql_new_array(static_cast<std::uint32_t>(args_size));
+
+  for (auto q : args) {
+    reql_array_append(array, q.query);
+  }
+
+  object = reql_new_object(static_cast<std::uint32_t>(kwargs_size));
+
+  for (auto q : kwargs) {
+    reql_object_add(object, q.first.query, q.second.query);
+  }
+
   query = reql_alloc_term();
+
+  f(query, array, object);
 }
 
 ReQL::ReQL(std::string val) {
@@ -130,7 +156,7 @@ ReQL::ReQL(bool val) {
 }
 
 ReQL::ReQL(std::vector<ReQL> val) {
-  std::size_t size = val.size();
+  const std::size_t size = val.size();
 
   if (size > std::numeric_limits<std::uint32_t>::max()) {
     return;
