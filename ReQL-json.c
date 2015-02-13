@@ -72,22 +72,22 @@ reql_datum_type(ReQL_Obj_t *obj) {
 
 static void
 reql_obj_set_alloc_size(ReQL_Obj_t *obj, uint32_t alloc_size) {
-  obj->obj.datum.json.alloc_size = alloc_size;
+  obj->obj.datum.json.var.alloc_size = alloc_size;
 }
 
 static uint32_t
 reql_obj_alloc_size(ReQL_Obj_t *obj) {
-  return obj->obj.datum.json.alloc_size;
+  return obj->obj.datum.json.var.alloc_size;
 }
 
 static void
 reql_obj_set_array(ReQL_Obj_t *obj, ReQL_Obj_t **array) {
-  obj->obj.datum.json.array = array;
+  obj->obj.datum.json.var.data.array = array;
 }
 
 static ReQL_Obj_t **
 reql_obj_array(ReQL_Obj_t *obj) {
-  return obj->obj.datum.json.array;
+  return obj->obj.datum.json.var.data.array;
 }
 
 static void
@@ -102,22 +102,22 @@ reql_obj_set_number(ReQL_Obj_t *obj, double number) {
 
 static void
 reql_obj_set_pair(ReQL_Obj_t *obj, ReQL_Pair_t *pair) {
-  obj->obj.datum.json.pair = pair;
+  obj->obj.datum.json.var.data.pair = pair;
 }
 
 static ReQL_Pair_t *
 reql_obj_pair(ReQL_Obj_t *obj) {
-  return obj->obj.datum.json.pair;
+  return obj->obj.datum.json.var.data.pair;
 }
 
 static void
 reql_obj_set_size(ReQL_Obj_t *obj, uint32_t size) {
-  obj->obj.datum.json.size = size;
+  obj->obj.datum.json.var.size = size;
 }
 
 static uint32_t
 reql_obj_size(ReQL_Obj_t *obj) {
-  return obj->obj.datum.json.size;
+  return obj->obj.datum.json.var.size;
 }
 
 static uint32_t
@@ -142,7 +142,7 @@ reql_var_obj_init(ReQL_Obj_t *obj, ReQL_Datum_t dt, uint32_t alloc_size) {
 
 static void
 reql_obj_set_str(ReQL_Obj_t *obj, uint8_t *str) {
-  obj->obj.datum.json.str = str;
+  obj->obj.datum.json.var.data.str = str;
 }
 
 extern void
@@ -167,7 +167,7 @@ reql_string_init(ReQL_Obj_t *obj, uint8_t *str, uint32_t alloc_size) {
 
 extern uint8_t *
 reql_string_buf(ReQL_Obj_t *obj) {
-  return obj->obj.datum.json.str;
+  return obj->obj.datum.json.var.data.str;
 }
 
 extern uint32_t
@@ -207,7 +207,7 @@ reql_object_index(ReQL_Obj_t *obj, uint32_t idx) {
     return NULL;
   }
 
-  return &obj->obj.datum.json.pair[idx];
+  return &obj->obj.datum.json.var.data.pair[idx];
 }
 
 extern ReQL_Obj_t *

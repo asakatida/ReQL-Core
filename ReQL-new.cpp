@@ -219,11 +219,11 @@ ReQL::~ReQL() {
     delete query;
   }
   if (array != nullptr) {
-    delete [] array->obj.datum.json.array;
+    delete [] array->obj.datum.json.var.data.array;
     delete array;
   }
   if (object != nullptr) {
-    delete object->obj.datum.json.pair;
+    delete object->obj.datum.json.var.data.pair;
     delete object;
   }
 }

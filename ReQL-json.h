@@ -251,8 +251,8 @@ struct ReQL_Obj_s {
             uint8_t *str;
             struct ReQL_Obj_s **array;
             ReQL_Pair_t *pair;
-          };
-        };
+          } data;
+        } var;
         double number;
         char boolean;
       } json;

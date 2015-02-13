@@ -31,16 +31,16 @@ reql_update_array(ReQL_Obj_t *array, ReQL_Obj_t *elem) {
   uint32_t new_alloc = reql_array_append(array, elem);
 
   if (new_alloc != 0) {
-    ReQL_Obj_t **arr = array->obj.datum.json.array;
+    ReQL_Obj_t **arr = array->obj.datum.json.var.data.array;
 
     arr = realloc(arr, sizeof(ReQL_Obj_t*) * new_alloc);
 
     if (arr == NULL) {
-      array->obj.datum.json.size = array->obj.datum.json.alloc_size = 0;
-      free(array->obj.datum.json.array); array->obj.datum.json.array = NULL;
+      array->obj.datum.json.var.size = array->obj.datum.json.var.alloc_size = 0;
+      free(array->obj.datum.json.var.data.array); array->obj.datum.json.var.data.array = NULL;
     } else {
-      array->obj.datum.json.alloc_size = new_alloc;
-      array->obj.datum.json.array = arr;
+      array->obj.datum.json.var.alloc_size = new_alloc;
+      array->obj.datum.json.var.data.array = arr;
       reql_array_append(array, elem);
     }
   }
@@ -51,16 +51,16 @@ reql_update_object(ReQL_Obj_t *obj, ReQL_Obj_t *key, ReQL_Obj_t *val) {
   uint32_t new_alloc = reql_object_add(obj, key, val);
 
   if (new_alloc != 0) {
-    ReQL_Pair_t *pair = obj->obj.datum.json.pair;
+    ReQL_Pair_t *pair = obj->obj.datum.json.var.data.pair;
 
     pair = realloc(pair, sizeof(ReQL_Pair_t) * new_alloc);
 
     if (pair == NULL) {
-      obj->obj.datum.json.size = obj->obj.datum.json.alloc_size = 0;
-      free(obj->obj.datum.json.pair); obj->obj.datum.json.pair = NULL;
+      obj->obj.datum.json.var.size = obj->obj.datum.json.var.alloc_size = 0;
+      free(obj->obj.datum.json.var.data.pair); obj->obj.datum.json.var.data.pair = NULL;
     } else {
-      obj->obj.datum.json.alloc_size = new_alloc;
-      obj->obj.datum.json.pair = pair;
+      obj->obj.datum.json.var.alloc_size = new_alloc;
+      obj->obj.datum.json.var.data.pair = pair;
       reql_object_add(obj, key, val);
     }
   }
