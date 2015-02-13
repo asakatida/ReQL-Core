@@ -65,7 +65,7 @@ reql_set_cur_response(ReQL_Cur_t *cur, ReQL_Obj_t *res) {
 }
 
 extern ReQL_Obj_t *
-reql_get_cur_res(ReQL_Cur_t *cur) {
+reql_cursor_next(ReQL_Cur_t *cur) {
   ReQL_Obj_t *res = NULL;
 
   while (1) {
@@ -81,10 +81,6 @@ reql_get_cur_res(ReQL_Cur_t *cur) {
   }
 
   return res;
-}
-
-extern void
-reql_cursor_next(ReQL_Cur_t *cur) {
 }
 
 extern void reql_close_cur(ReQL_Cur_t *cur) {
