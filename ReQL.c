@@ -168,15 +168,15 @@ static void
 reql_set_cur_res(ReQL_Conn_t *conn, ReQL_Obj_t *res, unsigned long long token) {
   ReQL_Cur_t *cur = conn->cursors;
 
-  if (cur->token == token) {
-    return reql_set_cur_response(cur, res);
-  }
-
-  while (cur->next != cur) {
-    cur = cur->next;
+  while (1) {
     if (cur->token == token) {
-      return reql_set_cur_response(cur, res);
+      reql_set_cur_response(cur, res);
+      break;
     }
+    if (cur == cur->next) {
+      break;
+    }
+    cur = cur->next;
   }
 }
 
