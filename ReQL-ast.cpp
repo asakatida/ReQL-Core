@@ -24,21 +24,25 @@ limitations under the License.
 
 namespace ReQL {
 
-Query init(ReQL_AST_Function f, std::vector<Query> args, std::map<std::string, Query> kwargs) {
+static Query
+init(ReQL_AST_Function f, std::vector<Query> args, std::map<std::string, Query> kwargs) {
   return Query(f, args, kwargs);
 }
 
-Query init(ReQL_AST_Function f, AST *term, std::vector<Query> args, std::map<std::string, Query> kwargs) {
+static Query
+init(ReQL_AST_Function f, AST *term, std::vector<Query> args, std::map<std::string, Query> kwargs) {
   args.insert(args.begin(), static_cast<Query>(term));
   return init(f, args, kwargs);
 }
 
-Query init(ReQL_AST_Function f, std::vector<Query> args) {
+static Query
+init(ReQL_AST_Function f, std::vector<Query> args) {
   std::map<std::string, Query> kwargs;
   return init(f, args, kwargs);
 }
 
-Query init(ReQL_AST_Function f, AST *term, std::vector<Query> args) {
+static Query
+init(ReQL_AST_Function f, AST *term, std::vector<Query> args) {
   std::map<std::string, Query> kwargs;
   return init(f, term, args, kwargs);
 }
