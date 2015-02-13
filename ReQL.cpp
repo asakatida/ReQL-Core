@@ -124,6 +124,8 @@ Connection connect(std::string host, std::uint16_t port, std::string key) {
 }
 
 Cursor Query::run(Connection conn) {
+  if (!conn.isOpen()) {
+  }
   return Cursor();
 }
 
