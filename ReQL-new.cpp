@@ -25,18 +25,18 @@ limitations under the License.
 namespace ReQL {
 
 static ReQL_Obj_t **
-reql_alloc_arr(size_t size) {
-  return new ReQL_Obj_t *[size]();
+reql_alloc_arr(uint32_t size) {
+  return new ReQL_Obj_t *[size];
 }
 
 static ReQL_Pair_t *
-reql_alloc_pair(size_t size) {
-  return new ReQL_Pair_t[size]();
+reql_alloc_pair(uint32_t size) {
+  return new ReQL_Pair_t[size];
 }
 
 static ReQL_Obj_t *
 reql_alloc_term() {
-  return new ReQL_Obj_t();
+  return new ReQL_Obj_t;
 }
 
 static ReQL_Obj_t *
@@ -185,10 +185,29 @@ ReQL::ReQL(std::map<ReQL, ReQL> val) {
   }
 }
 
-ReQL::ReQL(const ReQL &other) {
-  query = other.query;
-  array = other.array;
-  object = other.object;
+ReQL::ReQL(const ReQL &other)
+  :
+  query(reql_alloc_term()),
+  array(reql_new_array(reql_array_size(other.array))),
+  object(reql_new_object(reql_array_size(other.object))) {
+
+  std::memcpy(query, other.query, sizeof(ReQL_Obj_t));
+
+  ReQL_Iter_t it = reql_new_iter(other.array);
+
+  ReQL_Obj_t *elem;
+
+  while ((elem = reql_iter_next(&it)) != NULL) {
+    reql_array_append(array, elem);
+  }
+
+  it = reql_new_iter(other.object);
+
+  ReQL_Obj_t *key;
+
+  while ((key = reql_iter_next(&it)) != NULL) {
+    reql_object_add(object, key, reql_object_get(other.object, key));
+  }
 }
 
 ReQL::ReQL(ReQL &&other) {
@@ -197,18 +216,59 @@ ReQL::ReQL(ReQL &&other) {
   object = other.object; other.object = nullptr;
 }
 
-ReQL &ReQL::operator=(const ReQL &other) {
+ReQL &
+ReQL::operator=(const ReQL &other) {
   if (this != &other) {
-    query = other.query;
-    array = other.array;
-    object = other.object;
+    std::memcpy(query, other.query, sizeof(ReQL_Obj_t));
+
+    if (array != nullptr) {
+      delete [] array->obj.datum.json.var.data.array;
+      delete array;
+    }
+
+    array = reql_new_array(reql_array_size(other.array));
+
+    ReQL_Iter_t it = reql_new_iter(other.array);
+
+    ReQL_Obj_t *elem;
+
+    while ((elem = reql_iter_next(&it)) != NULL) {
+      reql_array_append(array, elem);
+    }
+
+    if (object != nullptr) {
+      delete object->obj.datum.json.var.data.pair;
+      delete object;
+    }
+
+    object = reql_new_object(reql_array_size(other.object));
+
+    it = reql_new_iter(other.object);
+
+    ReQL_Obj_t *key;
+
+    while ((key = reql_iter_next(&it)) != NULL) {
+      reql_object_add(object, key, reql_object_get(other.object, key));
+    }
   }
 
   return *this;
 }
 
-ReQL &ReQL::operator=(ReQL &&other) {
+ReQL &
+ReQL::operator=(ReQL &&other) {
   if (this != &other) {
+    if (query != nullptr) {
+      delete query;
+    }
+    if (array != nullptr) {
+      delete [] array->obj.datum.json.var.data.array;
+      delete array;
+    }
+    if (object != nullptr) {
+      delete object->obj.datum.json.var.data.pair;
+      delete object;
+    }
     query = other.query; other.query = nullptr;
     array = other.array; other.array = nullptr;
     object = other.object; other.object = nullptr;
@@ -217,7 +277,8 @@ ReQL &ReQL::operator=(ReQL &&other) {
   return *this;
 }
 
-bool ReQL::operator<(const ReQL &other) const {
+bool
+ReQL::operator<(const ReQL &other) const {
   ReQL_Datum_t ltype = reql_datum_type(query), rtype = reql_datum_type(other.query);
   if (ltype == rtype) {
     switch (ltype) {

@@ -135,13 +135,6 @@
 			remoteGlobalIDString = 1E9D4B761A03011100201983;
 			remoteInfo = libReQL;
 		};
-		8773F1C81A6A0597001F14C5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 1E9D4B6F1A03011100201983 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 1E0915DE1A1A7385007952FE;
-			remoteInfo = "libReQL-CPP";
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -518,7 +511,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				8773F1C91A6A0597001F14C5 /* PBXTargetDependency */,
 			);
 			name = "libReQL-CPP-test";
 			productName = "libReQL-CPP-test";
@@ -699,11 +691,6 @@
 			isa = PBXTargetDependency;
 			target = 1E9D4B761A03011100201983 /* libReQL */;
 			targetProxy = 1E9D4B841A03011100201983 /* PBXContainerItemProxy */;
-		};
-		8773F1C91A6A0597001F14C5 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 1E0915DE1A1A7385007952FE /* libReQL-CPP */;
-			targetProxy = 8773F1C81A6A0597001F14C5 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1042,6 +1029,7 @@
 				8773F1C61A6A058D001F14C5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
