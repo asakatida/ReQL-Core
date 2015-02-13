@@ -291,7 +291,7 @@ reql_obj_set_term_type(ReQL_Obj_t *obj, const ReQL_Term_t type);
  * @return term type.
  */
 extern ReQL_Term_t
-reql_term_type(ReQL_Obj_t *obj);
+reql_obj_term_type(ReQL_Obj_t *obj);
 
 extern void
 reql_obj_set_args(ReQL_Obj_t *obj, ReQL_Obj_t *args);
@@ -501,6 +501,12 @@ reql_object_add(ReQL_Obj_t *obj, ReQL_Obj_t *key, ReQL_Obj_t *val);
  */
 extern ReQL_Obj_t *
 reql_object_get(ReQL_Obj_t *obj, ReQL_Obj_t *key);
+
+extern ReQL_Pair_t *
+reql_object_index(ReQL_Obj_t *obj, uint32_t idx);
+
+extern char
+reql_op_eq(ReQL_Obj_t *l, ReQL_Obj_t *r);
 
 /**
  * @brief recursive free of all nodes in a query tree.
