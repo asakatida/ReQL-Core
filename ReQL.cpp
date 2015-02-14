@@ -35,6 +35,11 @@ bool Cursor::isOpen() {
   return false;
 }
 
+ReQL_Cur_t *
+Cursor::data() const {
+  return cur;
+}
+
 int Cursor::close() {
   return -1;
 }
@@ -107,6 +112,11 @@ bool Connection::isOpen() {
   return reql_conn_open(conn);
 }
 
+ReQL_Conn_t *
+Connection::data() const {
+  return conn;
+}
+
 Connection connect() {
   return Connection();
 }
@@ -126,7 +136,14 @@ Connection connect(std::string host, std::uint16_t port, std::string key) {
 Cursor Query::run(Connection conn) {
   if (!conn.isOpen()) {
   }
-  return Cursor();
+
+  Cursor cur;
+
+  ReQL kwargs;
+
+  reql_run(cur.data(), p_query.data(), conn.data(), kwargs.data());
+
+  return cur;
 }
 
 Query &Query::operator=(const Query &other) {

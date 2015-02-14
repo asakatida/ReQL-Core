@@ -356,6 +356,80 @@ reql_conn_open(ReQL_Conn_t *conn) {
   return reql_conn_socket(conn) > 0 && !reql_conn_done(conn);
 }
 
+static ReQL_Obj_t *
+reql_build(ReQL_Obj_t *query) {
+  ReQL_Obj_t *obj = malloc(sizeof(ReQL_Obj_t));
+
+  switch (reql_datum_type(query)) {
+    case REQL_R_ARRAY: {
+      uint32_t size = reql_array_size(query);
+      ReQL_Obj_t **arrray = malloc(sizeof(ReQL_Obj_t*) * size);
+      reql_array_init(obj, arrray, size);
+      ReQL_Iter_t it = reql_new_iter(query);
+      ReQL_Obj_t *elem;
+      while ((elem = reql_iter_next(&it)) != NULL) {
+        reql_array_append(obj, reql_build(elem));
+      }
+      break;
+    }
+    case REQL_R_BOOL: {
+      reql_bool_init(obj, reql_to_bool(query));
+      break;
+    }
+    case REQL_R_JSON: {
+      free(obj);
+      return NULL;
+    }
+    case REQL_R_NULL: {
+      reql_null_init(obj);
+      break;
+    }
+    case REQL_R_NUM: {
+      reql_number_init(obj, reql_to_number(query));
+      break;
+    }
+    case REQL_R_OBJECT: {
+      uint32_t size = reql_array_size(query);
+      ReQL_Pair_t *pairs = malloc(sizeof(ReQL_Pair_t) * size);
+      reql_object_init(obj, pairs, size);
+      ReQL_Iter_t it = reql_new_iter(query);
+      ReQL_Obj_t *key;
+      while ((key = reql_iter_next(&it)) != NULL) {
+        reql_object_add(obj, reql_build(key), reql_build(reql_object_get(query, key)));
+      }
+      break;
+    }
+    case REQL_R_REQL: {
+      ReQL_Obj_t **arrray = malloc(sizeof(ReQL_Obj_t*) * 3);
+      reql_array_init(obj, arrray, 3);
+
+      ReQL_Obj_t *term = malloc(sizeof(ReQL_Obj_t));
+
+      reql_number_init(term, (double)reql_obj_term_type(query));
+
+      reql_array_append(obj, term);
+
+      if (query->obj.args.args != NULL) {
+        reql_array_append(obj, reql_build(query->obj.args.args));
+      }
+
+      if (query->obj.args.kwargs != NULL) {
+        reql_array_append(obj, reql_build(query->obj.args.kwargs));
+      }
+      break;
+    }
+    case REQL_R_STR: {
+      uint32_t size = reql_string_size(query);
+      uint8_t *buf = malloc(sizeof(uint8_t) * size);
+      reql_string_init(obj, buf, size);
+      reql_string_append(obj, reql_string_buf(query), size);
+      break;
+    }
+  }
+
+  return obj;
+}
+
 extern int
 reql_run(ReQL_Cur_t *cur, ReQL_Obj_t *query, ReQL_Conn_t *conn, ReQL_Obj_t *kwargs) {
   ReQL_Obj_t start;
@@ -366,10 +440,16 @@ reql_run(ReQL_Cur_t *cur, ReQL_Obj_t *query, ReQL_Conn_t *conn, ReQL_Obj_t *kwar
   reql_number_init(&start, REQL_START);
   reql_array_init(&array, arr, 3);
   reql_array_insert(&array, &start, 0);
-  reql_array_insert(&array, query, 1);
+
+  ReQL_Obj_t *build = reql_build(query);
+
+  reql_array_insert(&array, build, 1);
+
   reql_array_insert(&array, kwargs, 2);
 
   ReQL_String_t *wire_query = reql_encode(&array);
+
+  reql_json_destroy(build);
 
   if (wire_query == NULL) {
     return -1;

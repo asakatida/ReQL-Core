@@ -27,21 +27,21 @@ namespace ReQL {
 
 class Cursor {
 public:
-  ReQL_Cur_t *cur;
-
   Cursor();
 
   ~Cursor();
 
   bool isOpen();
 
+  ReQL_Cur_t *data() const;
+
   int close();
+private:
+  ReQL_Cur_t *cur;
 };
 
 class Connection {
 public:
-  ReQL_Conn_t *conn;
-
   Connection();
   Connection(std::string);
   Connection(std::string, std::uint16_t);
@@ -51,7 +51,11 @@ public:
 
   bool isOpen();
 
+  ReQL_Conn_t *data() const;
+
   int close();
+private:
+  ReQL_Conn_t *conn;
 };
 
 Connection connect();

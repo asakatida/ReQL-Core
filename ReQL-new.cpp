@@ -301,6 +301,11 @@ ReQL::operator<(const ReQL &other) const {
   return ltype < rtype;
 }
 
+ReQL_Obj_t *
+ReQL::data() const {
+  return query;
+}
+
 ReQL::~ReQL() {
   if (query != nullptr) {
     delete query;

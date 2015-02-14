@@ -51,6 +51,8 @@ public:
 
   bool operator<(const ReQL &other) const;
 
+  ReQL_Obj_t *data() const;
+
   ~ReQL();
 
 private:
