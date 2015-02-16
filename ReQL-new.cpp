@@ -109,8 +109,7 @@ reql_new(std::string val) {
   return obj;
 }
 
-ReQL::ReQL() {
-  query = reql_new();
+ReQL::ReQL() : query(reql_new()), array(nullptr), object(nullptr) {
 }
 
 ReQL::ReQL(ReQL_AST_Function f, std::vector<ReQL> args, std::map<ReQL, ReQL> kwargs) {
@@ -143,16 +142,13 @@ ReQL::ReQL(ReQL_AST_Function f, std::vector<ReQL> args, std::map<ReQL, ReQL> kwa
   f(query, array, object);
 }
 
-ReQL::ReQL(std::string val) {
-  query = reql_new(val);
+ReQL::ReQL(std::string val) : query(reql_new(val)), array(nullptr), object(nullptr) {
 }
 
-ReQL::ReQL(double val) {
-  query = reql_new(val);
+ReQL::ReQL(double val) : query(reql_new(val)), array(nullptr), object(nullptr) {
 }
 
-ReQL::ReQL(bool val) {
-  query = reql_new(val);
+ReQL::ReQL(bool val) : query(reql_new(val)), array(nullptr), object(nullptr) {
 }
 
 ReQL::ReQL(std::vector<ReQL> val) {
