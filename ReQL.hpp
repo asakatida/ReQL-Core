@@ -29,6 +29,12 @@ class Cursor {
 public:
   Cursor();
 
+  Cursor(const Cursor &other);
+  Cursor(const Cursor &&other);
+
+  Cursor &operator=(const Cursor &other);
+  Cursor &operator=(const Cursor &&other);
+  
   ~Cursor();
 
   bool isOpen();
@@ -47,6 +53,12 @@ public:
   Connection(std::string, std::uint16_t);
   Connection(std::string, std::uint16_t, std::string);
 
+  Connection(const Connection &other);
+  Connection(Connection &&other);
+
+  Connection &operator=(const Connection &other);
+  Connection &operator=(Connection &&other);
+
   ~Connection();
 
   bool isOpen();
@@ -57,11 +69,6 @@ public:
 private:
   ReQL_Conn_t *conn;
 };
-
-Connection connect();
-Connection connect(std::string);
-Connection connect(std::string, std::uint16_t);
-Connection connect(std::string, std::uint16_t, std::string);
 
 class Query : public AST {
 public:
@@ -74,14 +81,14 @@ public:
   Query(std::map<std::string, Query> val) : AST(val) {};
 
   Query(const Query &other) : AST(other) {};
-  Query(const Query &&other) : AST(other) {};
+  Query(Query &&other) : AST(other) {};
 
   bool operator<(const Query &other) const;
 
   Query &operator=(const Query &other);
   Query &operator=(const Query &&other);
 
-  Cursor run(Connection);
+  Cursor run(Connection &conn);
 };
 
 }

@@ -45,7 +45,7 @@ int Cursor::close() {
 }
 
 Connection::Connection() {
-  conn = new ReQL_Conn_t();
+  conn = new ReQL_Conn_t;
   reql_connection_init(conn);
 
   std::uint8_t buf[500];
@@ -55,7 +55,7 @@ Connection::Connection() {
 }
 
 Connection::Connection(std::string host) {
-  conn = new ReQL_Conn_t();
+  conn = new ReQL_Conn_t;
   reql_connection_init(conn);
 
   reql_conn_set_addr(conn, (char *)host.c_str());
@@ -67,7 +67,7 @@ Connection::Connection(std::string host) {
 }
 
 Connection::Connection(std::string host, std::uint16_t port) {
-  conn = new ReQL_Conn_t();
+  conn = new ReQL_Conn_t;
   reql_connection_init(conn);
 
   reql_conn_set_addr(conn, (char *)host.c_str());
@@ -80,7 +80,7 @@ Connection::Connection(std::string host, std::uint16_t port) {
 }
 
 Connection::Connection(std::string host, std::uint16_t port, std::string key) {
-  conn = new ReQL_Conn_t();
+  conn = new ReQL_Conn_t;
   reql_connection_init(conn);
 
   if (key.size() > UINT32_MAX) {
@@ -98,9 +98,28 @@ Connection::Connection(std::string host, std::uint16_t port, std::string key) {
   }
 }
 
+Connection::Connection(const Connection &other) {
+  conn = new ReQL_Conn_t;
+  conn = other.conn;
+}
+
+Connection::Connection(Connection &&other) {
+  conn = other.conn; other.conn = nullptr;
+}
+
 Connection::~Connection() {
   reql_ensure_conn_close(conn);
   delete conn;
+}
+
+Connection &Connection::operator=(const Connection &other) {
+  conn = other.conn;
+  return *this;
+}
+
+Connection &Connection::operator=(Connection &&other) {
+  conn = other.conn; other.conn = nullptr;
+  return *this;
 }
 
 int Connection::close() {
@@ -117,23 +136,7 @@ Connection::data() const {
   return conn;
 }
 
-Connection connect() {
-  return Connection();
-}
-
-Connection connect(std::string host) {
-  return Connection(host);
-}
-
-Connection connect(std::string host, std::uint16_t port) {
-  return Connection(host, port);
-}
-
-Connection connect(std::string host, std::uint16_t port, std::string key) {
-  return Connection(host, port, key);
-}
-
-Cursor Query::run(Connection conn) {
+Cursor Query::run(Connection &conn) {
   if (!conn.isOpen()) {
   }
 

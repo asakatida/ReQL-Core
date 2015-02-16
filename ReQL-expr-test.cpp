@@ -7,7 +7,7 @@
 using namespace ReQL;
 
 TEST_CASE("Connection", "[c++][connect]") {
-  Connection conn = connect();
+  Connection conn;
 
   REQUIRE(conn.isOpen());
 }
