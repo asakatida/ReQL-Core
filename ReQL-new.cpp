@@ -181,28 +181,34 @@ ReQL::ReQL(std::map<ReQL, ReQL> val) {
   }
 }
 
-ReQL::ReQL(const ReQL &other)
-  :
-  query(reql_alloc_term()),
-  array(reql_new_array(reql_array_size(other.array))),
-  object(reql_new_object(reql_array_size(other.object))) {
+ReQL::ReQL(const ReQL &other) : query(reql_alloc_term()) {
+  query->tt = other.query->tt;
+  query->obj = other.query->obj;
 
-  std::memcpy(query, other.query, sizeof(ReQL_Obj_t));
+  if (other.array == nullptr) {
+    array = nullptr;
+  } else {
+    array = reql_new_array(reql_array_size(other.array));
+    ReQL_Iter_t it = reql_new_iter(other.array);
 
-  ReQL_Iter_t it = reql_new_iter(other.array);
+    ReQL_Obj_t *elem;
 
-  ReQL_Obj_t *elem;
-
-  while ((elem = reql_iter_next(&it)) != NULL) {
-    reql_array_append(array, elem);
+    while ((elem = reql_iter_next(&it)) != NULL) {
+      reql_array_append(array, elem);
+    }
   }
 
-  it = reql_new_iter(other.object);
+  if (other.object == nullptr) {
+    object = nullptr;
+  } else {
+    object = (reql_new_object(reql_array_size(other.object)));
+    ReQL_Iter_t it = reql_new_iter(other.object);
 
-  ReQL_Obj_t *key;
+    ReQL_Obj_t *key;
 
-  while ((key = reql_iter_next(&it)) != NULL) {
-    reql_object_add(object, key, reql_object_get(other.object, key));
+    while ((key = reql_iter_next(&it)) != NULL) {
+      reql_object_add(object, key, reql_object_get(other.object, key));
+    }
   }
 }
 
@@ -215,21 +221,24 @@ ReQL::ReQL(ReQL &&other) {
 ReQL &
 ReQL::operator=(const ReQL &other) {
   if (this != &other) {
-    std::memcpy(query, other.query, sizeof(ReQL_Obj_t));
+    query->tt = other.query->tt;
+    query->obj = other.query->obj;
 
     if (array != nullptr) {
       delete [] array->obj.datum.json.var.data.array;
       delete array;
     }
 
-    array = reql_new_array(reql_array_size(other.array));
+    if (other.array != nullptr) {
+      array = reql_new_array(reql_array_size(other.array));
 
-    ReQL_Iter_t it = reql_new_iter(other.array);
+      ReQL_Iter_t it = reql_new_iter(other.array);
 
-    ReQL_Obj_t *elem;
+      ReQL_Obj_t *elem;
 
-    while ((elem = reql_iter_next(&it)) != NULL) {
-      reql_array_append(array, elem);
+      while ((elem = reql_iter_next(&it)) != NULL) {
+        reql_array_append(array, elem);
+      }
     }
 
     if (object != nullptr) {
@@ -237,14 +246,16 @@ ReQL::operator=(const ReQL &other) {
       delete object;
     }
 
-    object = reql_new_object(reql_array_size(other.object));
+    if (other.object != nullptr) {
+      object = reql_new_object(reql_array_size(other.object));
 
-    it = reql_new_iter(other.object);
+      ReQL_Iter_t it = reql_new_iter(other.object);
 
-    ReQL_Obj_t *key;
+      ReQL_Obj_t *key;
 
-    while ((key = reql_iter_next(&it)) != NULL) {
-      reql_object_add(object, key, reql_object_get(other.object, key));
+      while ((key = reql_iter_next(&it)) != NULL) {
+        reql_object_add(object, key, reql_object_get(other.object, key));
+      }
     }
   }
 
