@@ -10,6 +10,10 @@ TEST_CASE("Connection", "[c++][connect]") {
   Connection conn;
 
   REQUIRE(conn.isOpen());
+
+  Cursor cur = db_create({"libReQL"}).run(conn);
+
+  REQUIRE(cur.isOpen());
 }
 
 TEST_CASE("decode errors", "[c][decode]") {
