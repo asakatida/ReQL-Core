@@ -31,6 +31,15 @@ namespace ReQL {
 class Query;
 
 class Expr {
+public:
+  bool operator<(const Expr &other) const;
+
+  Expr(const Expr &other);
+  Expr(const Expr &&other);
+
+  Expr &operator=(const Expr &other);
+  Expr &operator=(Expr &&other);
+
 protected:
   Expr();
   Expr(ReQL_AST_Function f, std::vector<Query> args, std::map<std::string, Query> kwargs);
@@ -41,12 +50,10 @@ protected:
   explicit Expr(std::vector<Query>);
   explicit Expr(std::map<std::string, Query>);
 
-  Expr(const Expr &other);
-  Expr(const Expr &&other);
-
   ReQL p_query;
-  std::vector<Query> p_array;
-  std::map<Query, Query> p_object;
+private:
+  std::vector<Expr> p_array;
+  std::map<Expr, Expr> p_object;
 };
 
 }

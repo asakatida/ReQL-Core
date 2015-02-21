@@ -24,60 +24,96 @@ limitations under the License.
 
 namespace ReQL {
 
-Expr::Expr() {}
+Expr::Expr() : p_query(ReQL_Datum()) {}
 
-Expr::Expr(ReQL_AST_Function f, std::vector<Query> args, std::map<std::string, Query> kwargs) : p_array(args) {
-  std::vector<ReQL> array;
+Expr::Expr(ReQL_AST_Function f, std::vector<Query> args, std::map<std::string, Query> kwargs) {
+  std::size_t args_size = args.size();
 
-  for (std::vector<Query>::const_iterator it=args.cbegin(); it!=args.cend(); ++it) {
-    array.insert(array.end(), it->p_query);
+  if (args_size > std::numeric_limits<std::uint32_t>::max()) {
+    return;
   }
-  
-  std::map<ReQL, ReQL> object;
 
-  for (std::map<std::string, Query>::const_iterator it=kwargs.cbegin(); it!=kwargs.cend(); ++it) {
-    Query key(it->first);
-    p_object.insert(p_object.end(), {key, it->second});
-    object.insert(object.end(), {key.p_query, it->second.p_query});
+  std::size_t kwargs_size = args.size();
+
+  if (kwargs_size > std::numeric_limits<std::uint32_t>::max()) {
+    return;
   }
-  
-  p_query = std::move(ReQL(f, array, object));
+
+  ReQL_Term query(static_cast<std::uint32_t>(args_size), static_cast<std::uint32_t>(kwargs_size));
+
+  for (auto it=args.cbegin(); it!=args.cend(); ++it) {
+    p_array.insert(p_array.cend(), *it);
+    query.add_arg(it->p_query);
+  }
+
+  for (auto it=kwargs.cbegin(); it!=kwargs.cend(); ++it) {
+    Expr key(it->first);
+    p_object.insert(p_object.cend(), {key, it->second});
+    query.add_kwarg(key.p_query, it->second.p_query);
+  }
+
+  query.finalize(f);
+
+  p_query = std::move(query);
 }
 
-Expr::Expr(std::string val) : p_query(val) {}
+Expr::Expr(std::string val) : p_query(std::move(ReQL_String(val))) {}
 
-Expr::Expr(double val) : p_query(val) {}
+Expr::Expr(double val) : p_query(std::move(ReQL_Datum(val))) {}
 
-Expr::Expr(bool val) : p_query(val) {}
+Expr::Expr(bool val) : p_query(std::move(ReQL_Datum(val))) {}
 
-Expr::Expr(std::vector<Query> val) : p_array(val) {
-  std::vector<ReQL> array;
+Expr::Expr(std::vector<Query> val) {
+  std::size_t size = val.size();
 
-  for (std::vector<Query>::const_iterator it=val.cbegin(); it!=val.cend(); ++it) {
-    array.insert(array.end(), it->p_query);
+  if (size > std::numeric_limits<std::uint32_t>::max()) {
+    return;
+  }
+  
+  ReQL_Array query(static_cast<std::uint32_t>(size));
+
+  for (auto it=val.cbegin(); it!=val.cend(); ++it) {
+    p_array.insert(p_array.cend(), *it);
+    query.add_elem(it->p_query);
   }
 
-  p_query = std::move(ReQL(array));
+  p_query = std::move(query);
 }
 
 Expr::Expr(std::map<std::string, Query> val) {
-  std::map<ReQL, ReQL> object;
+  std::size_t size = val.size();
 
-  for (std::map<std::string, Query>::const_iterator it=val.cbegin(); it!=val.cend(); ++it) {
-    Query key(it->first);
-    p_object.insert(p_object.end(), {key, it->second});
-    object.insert(object.end(), {key.p_query, it->second.p_query});
+  if (size > std::numeric_limits<std::uint32_t>::max()) {
+    return;
+  }
+  
+  ReQL_Object query(static_cast<std::uint32_t>(size));
+
+  for (auto it=val.cbegin(); it!=val.cend(); ++it) {
+    Expr key(it->first);
+    p_object.insert(p_object.cend(), {key, it->second});
+    query.add_key(key.p_query, it->second.p_query);
   }
 
-  p_query = std::move(ReQL(object));
+  p_query = std::move(query);
+}
+
+bool Expr::operator<(const Expr &other) const {
+  return p_query < other.p_query;
 }
 
 Expr::Expr(const Expr &other) {
-  p_query = other.p_query;
 }
 
 Expr::Expr(const Expr &&other) {
-  p_query = std::move(other.p_query);
 }
 
+Expr &Expr::operator=(const Expr &other) {
+  return *this;
+}
+
+Expr &Expr::operator=(Expr &&other) {
+  return *this;
+}
+  
 }

@@ -36,29 +36,96 @@ namespace ReQL {
 class ReQL {
 public:
   ReQL();
-  ReQL(ReQL_AST_Function f, std::vector<ReQL> args, std::map<ReQL, ReQL> kwargs);
-  ReQL(std::string val);
-  ReQL(double val);
-  ReQL(bool val);
-  ReQL(std::vector<ReQL> val);
-  ReQL(std::map<ReQL, ReQL> val);
-
-  ReQL(const ReQL &other);
   ReQL(ReQL &&other);
 
-  ReQL &operator=(const ReQL &other);
+  ReQL_Obj_t *data() const;
+
   ReQL &operator=(ReQL &&other);
 
   bool operator<(const ReQL &other) const;
 
-  ReQL_Obj_t *data() const;
-
-  ~ReQL();
+  virtual ReQL &move(ReQL &&other);
 
 private:
-  ReQL_Obj_t *object;
-  ReQL_Obj_t *array;
-  ReQL_Obj_t *query;
+  std::unique_ptr<ReQL_Obj_t> p_query;
+};
+
+class ReQL_Datum : public ReQL {
+public:
+  ReQL_Datum();
+  ReQL_Datum(double val);
+  ReQL_Datum(bool val);
+
+  ReQL_Datum(ReQL_Datum &&other);
+
+  ReQL_Datum &operator=(ReQL_Datum &&other);
+};
+
+class ReQL_Array : public ReQL {
+public:
+  ReQL_Array(std::uint32_t size);
+
+  ReQL_Array(ReQL_Array &&other);
+
+  ReQL_Array &operator=(ReQL_Array &&other);
+
+  ReQL_Array &move(ReQL_Array &&other);
+
+  void add_elem(const ReQL &elem);
+
+private:
+  std::unique_ptr<ReQL_Obj_t*> p_array;
+};
+
+class ReQL_Object : public ReQL {
+public:
+  ReQL_Object(std::uint32_t size);
+
+  ReQL_Object(ReQL_Object &&other);
+
+  ReQL_Object &operator=(ReQL_Object &&other);
+
+  ReQL_Object &move(ReQL_Object &&other);
+
+  void add_key(const ReQL &key, const ReQL &value);
+
+private:
+  std::unique_ptr<ReQL_Pair_t> p_object;
+};
+
+class ReQL_String : public ReQL {
+public:
+  ReQL_String(std::string val);
+
+  ReQL_String(ReQL_String &&other);
+
+  ReQL_String &operator=(ReQL_String &&other);
+
+  ReQL_String &move(ReQL_String &&other);
+
+private:
+  std::unique_ptr<uint8_t> p_buf;
+};
+
+class ReQL_Term : public ReQL {
+public:
+  ReQL_Term(std::uint32_t args_size, std::uint32_t kwargs_size);
+
+  ReQL_Term(ReQL_Term &&other);
+
+  ReQL_Term &operator=(ReQL_Term &&other);
+
+  ReQL_Term &move(ReQL_Term &&other);
+
+  void add_arg(const ReQL &arg);
+  void add_kwarg(const ReQL &key, const ReQL &value);
+  void finalize(ReQL_AST_Function f);
+
+private:
+  std::unique_ptr<ReQL_Obj_t> p_args;
+  std::unique_ptr<ReQL_Obj_t*> p_array;
+  std::unique_ptr<ReQL_Obj_t> p_kwargs;
+  std::unique_ptr<ReQL_Pair_t> p_object;
 };
 
 }

@@ -150,17 +150,17 @@ Cursor Query::run(Connection &conn) {
 }
 
 Query &Query::operator=(const Query &other) {
-  p_query = other.p_query;
+  Expr::operator=(other);
   return *this;
 }
 
 Query &Query::operator=(const Query &&other) {
-  p_query = std::move(other.p_query);
+  Expr::operator=(std::move(other));
   return *this;
 }
 
 bool Query::operator<(const Query &other) const {
-  return p_query < other.p_query;
+  return Expr::operator<(other);
 }
 
 }

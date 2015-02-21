@@ -34,7 +34,7 @@ public:
 
   Cursor &operator=(const Cursor &other);
   Cursor &operator=(const Cursor &&other);
-  
+
   ~Cursor();
 
   bool isOpen();
@@ -42,6 +42,7 @@ public:
   ReQL_Cur_t *data() const;
 
   int close();
+
 private:
   ReQL_Cur_t *cur;
 };
@@ -66,6 +67,7 @@ public:
   ReQL_Conn_t *data() const;
 
   int close();
+
 private:
   ReQL_Conn_t *conn;
 };
