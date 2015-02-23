@@ -25,1714 +25,1716 @@ limitations under the License.
 namespace ReQL {
 
 static Query
-init(ReQL_AST_Function f, std::vector<Query> &args, std::map<std::string, Query> &kwargs) {
+init(const ReQL_AST_Function &f, const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
   return Query(f, args, kwargs);
 }
 
 static Query
-init(ReQL_AST_Function f, AST *term, std::vector<Query> &args, std::map<std::string, Query> &kwargs) {
-  args.insert(args.begin(), dynamic_cast<Expr*>(term));
+init(const ReQL_AST_Function &f, const AST *term, const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
+  std::vector<Query> new_args;
+  new_args.insert(new_args.begin(), term);
+  new_args.insert(new_args.begin(), args.cbegin(), args.cend());
+  return init(f, new_args, kwargs);
+}
+
+static Query
+init(const ReQL_AST_Function &f, const std::vector<Query> &args) {
+  const std::map<std::string, Query> kwargs;
   return init(f, args, kwargs);
 }
 
 static Query
-init(ReQL_AST_Function f, std::vector<Query> &args) {
-  std::map<std::string, Query> kwargs;
-  return init(f, args, kwargs);
-}
-
-static Query
-init(ReQL_AST_Function f, AST *term, std::vector<Query> &args) {
-  std::map<std::string, Query> kwargs;
+init(const ReQL_AST_Function &f, const AST *term, const std::vector<Query> &args) {
+  const std::map<std::string, Query> kwargs;
   return init(f, term, args, kwargs);
 }
 
 Query
-AST::add(std::vector<Query> args) {
+AST::add(const std::vector<Query> &args) const {
   return init(reql_ast_add, this, args);
 }
 Query
-add(std::vector<Query> args) {
+add(const std::vector<Query> &args) {
   return init(reql_ast_add, args);
 }
 
 Query
-AST::all(std::vector<Query> args) {
+AST::all(const std::vector<Query> &args) const {
   return init(reql_ast_all, this, args);
 }
 Query
-all(std::vector<Query> args) {
+all(const std::vector<Query> &args) {
   return init(reql_ast_all, args);
 }
 
 Query
-AST::any(std::vector<Query> args) {
+AST::any(const std::vector<Query> &args) const {
   return init(reql_ast_any, this, args);
 }
 Query
-any(std::vector<Query> args) {
+any(const std::vector<Query> &args) {
   return init(reql_ast_any, args);
 }
 
 Query
-AST::append(std::vector<Query> args) {
+AST::append(const std::vector<Query> &args) const {
   return init(reql_ast_append, this, args);
 }
 Query
-append(std::vector<Query> args) {
+append(const std::vector<Query> &args) {
   return init(reql_ast_append, args);
 }
 
 Query
-AST::april(std::vector<Query> args) {
+AST::april(const std::vector<Query> &args) const {
   return init(reql_ast_april, this, args);
 }
 Query
-april(std::vector<Query> args) {
+april(const std::vector<Query> &args) {
   return init(reql_ast_april, args);
 }
 
 Query
-AST::args(std::vector<Query> args) {
+AST::args(const std::vector<Query> &args) const {
   return init(reql_ast_args, this, args);
 }
 Query
-args(std::vector<Query> args) {
+args(const std::vector<Query> &args) {
   return init(reql_ast_args, args);
 }
 
 Query
-AST::asc(std::vector<Query> args) {
+AST::asc(const std::vector<Query> &args) const {
   return init(reql_ast_asc, this, args);
 }
 Query
-asc(std::vector<Query> args) {
+asc(const std::vector<Query> &args) {
   return init(reql_ast_asc, args);
 }
 
 Query
-AST::august(std::vector<Query> args) {
+AST::august(const std::vector<Query> &args) const {
   return init(reql_ast_august, this, args);
 }
 Query
-august(std::vector<Query> args) {
+august(const std::vector<Query> &args) {
   return init(reql_ast_august, args);
 }
 
 Query
-AST::avg(std::vector<Query> args) {
+AST::avg(const std::vector<Query> &args) const {
   return init(reql_ast_avg, this, args);
 }
 Query
-avg(std::vector<Query> args) {
+avg(const std::vector<Query> &args) {
   return init(reql_ast_avg, args);
 }
 
 Query
-AST::between(std::vector<Query> args) {
+AST::between(const std::vector<Query> &args) const {
   return init(reql_ast_between, this, args);
 }
 Query
-between(std::vector<Query> args) {
+between(const std::vector<Query> &args) {
   return init(reql_ast_between, args);
 }
 
 Query
-AST::binary(std::vector<Query> args) {
+AST::binary(const std::vector<Query> &args) const {
   return init(reql_ast_binary, this, args);
 }
 Query
-binary(std::vector<Query> args) {
+binary(const std::vector<Query> &args) {
   return init(reql_ast_binary, args);
 }
 
 Query
-AST::bracket(std::vector<Query> args) {
+AST::bracket(const std::vector<Query> &args) const {
   return init(reql_ast_bracket, this, args);
 }
 Query
-bracket(std::vector<Query> args) {
+bracket(const std::vector<Query> &args) {
   return init(reql_ast_bracket, args);
 }
 
 Query
-AST::branch(std::vector<Query> args) {
+AST::branch(const std::vector<Query> &args) const {
   return init(reql_ast_branch, this, args);
 }
 Query
-branch(std::vector<Query> args) {
+branch(const std::vector<Query> &args) {
   return init(reql_ast_branch, args);
 }
 
 Query
-AST::changes(std::vector<Query> args) {
+AST::changes(const std::vector<Query> &args) const {
   return init(reql_ast_changes, this, args);
 }
 Query
-changes(std::vector<Query> args) {
+changes(const std::vector<Query> &args) {
   return init(reql_ast_changes, args);
 }
 
 Query
-AST::change_at(std::vector<Query> args) {
+AST::change_at(const std::vector<Query> &args) const {
   return init(reql_ast_change_at, this, args);
 }
 Query
-change_at(std::vector<Query> args) {
+change_at(const std::vector<Query> &args) {
   return init(reql_ast_change_at, args);
 }
 
 Query
-AST::circle(std::vector<Query> args, std::map<std::string, Query> kwargs) {
+AST::circle(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
   return init(reql_ast_circle, this, args, kwargs);
 }
 Query
-circle(std::vector<Query> args, std::map<std::string, Query> kwargs) {
+circle(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
   return init(reql_ast_circle, args, kwargs);
 }
 Query
-AST::circle(std::vector<Query> args) {
+AST::circle(const std::vector<Query> &args) const {
   return init(reql_ast_circle, this, args);
 }
 Query
-circle(std::vector<Query> args) {
+circle(const std::vector<Query> &args) {
   return init(reql_ast_circle, args);
 }
 
 Query
-AST::coerce_to(std::vector<Query> args) {
+AST::coerce_to(const std::vector<Query> &args) const {
   return init(reql_ast_coerce_to, this, args);
 }
 Query
-coerce_to(std::vector<Query> args) {
+coerce_to(const std::vector<Query> &args) {
   return init(reql_ast_coerce_to, args);
 }
 
 Query
-AST::concat_map(std::vector<Query> args) {
+AST::concat_map(const std::vector<Query> &args) const {
   return init(reql_ast_concat_map, this, args);
 }
 Query
-concat_map(std::vector<Query> args) {
+concat_map(const std::vector<Query> &args) {
   return init(reql_ast_concat_map, args);
 }
 
 Query
-AST::config(std::vector<Query> args) {
+AST::config(const std::vector<Query> &args) const {
   return init(reql_ast_config, this, args);
 }
 Query
-config(std::vector<Query> args) {
+config(const std::vector<Query> &args) {
   return init(reql_ast_config, args);
 }
 
 Query
-AST::contains(std::vector<Query> args) {
+AST::contains(const std::vector<Query> &args) const {
   return init(reql_ast_contains, this, args);
 }
 Query
-contains(std::vector<Query> args) {
+contains(const std::vector<Query> &args) {
   return init(reql_ast_contains, args);
 }
 
 Query
-AST::count(std::vector<Query> args) {
+AST::count(const std::vector<Query> &args) const {
   return init(reql_ast_count, this, args);
 }
 Query
-count(std::vector<Query> args) {
+count(const std::vector<Query> &args) {
   return init(reql_ast_count, args);
 }
 
 Query
-AST::date(std::vector<Query> args) {
+AST::date(const std::vector<Query> &args) const {
   return init(reql_ast_date, this, args);
 }
 Query
-date(std::vector<Query> args) {
+date(const std::vector<Query> &args) {
   return init(reql_ast_date, args);
 }
 
 Query
-AST::datum(std::vector<Query> args) {
+AST::datum(const std::vector<Query> &args) const {
   return init(reql_ast_datum, this, args);
 }
 Query
-datum(std::vector<Query> args) {
+datum(const std::vector<Query> &args) {
   return init(reql_ast_datum, args);
 }
 
 Query
-AST::day(std::vector<Query> args) {
+AST::day(const std::vector<Query> &args) const {
   return init(reql_ast_day, this, args);
 }
 Query
-day(std::vector<Query> args) {
+day(const std::vector<Query> &args) {
   return init(reql_ast_day, args);
 }
 
 Query
-AST::day_of_week(std::vector<Query> args) {
+AST::day_of_week(const std::vector<Query> &args) const {
   return init(reql_ast_day_of_week, this, args);
 }
 Query
-day_of_week(std::vector<Query> args) {
+day_of_week(const std::vector<Query> &args) {
   return init(reql_ast_day_of_week, args);
 }
 
 Query
-AST::day_of_year(std::vector<Query> args) {
+AST::day_of_year(const std::vector<Query> &args) const {
   return init(reql_ast_day_of_year, this, args);
 }
 Query
-day_of_year(std::vector<Query> args) {
+day_of_year(const std::vector<Query> &args) {
   return init(reql_ast_day_of_year, args);
 }
 
 Query
-AST::db(std::vector<Query> args) {
+AST::db(const std::vector<Query> &args) const {
   return init(reql_ast_db, this, args);
 }
 Query
-db(std::vector<Query> args) {
+db(const std::vector<Query> &args) {
   return init(reql_ast_db, args);
 }
 
 Query
-AST::db_create(std::vector<Query> args) {
+AST::db_create(const std::vector<Query> &args) const {
   return init(reql_ast_db_create, this, args);
 }
 Query
-db_create(std::vector<Query> args) {
+db_create(const std::vector<Query> &args) {
   return init(reql_ast_db_create, args);
 }
 
 Query
-AST::db_drop(std::vector<Query> args) {
+AST::db_drop(const std::vector<Query> &args) const {
   return init(reql_ast_db_drop, this, args);
 }
 Query
-db_drop(std::vector<Query> args) {
+db_drop(const std::vector<Query> &args) {
   return init(reql_ast_db_drop, args);
 }
 
 Query
-AST::db_list(std::vector<Query> args) {
+AST::db_list(const std::vector<Query> &args) const {
   return init(reql_ast_db_list, this, args);
 }
 Query
-db_list(std::vector<Query> args) {
+db_list(const std::vector<Query> &args) {
   return init(reql_ast_db_list, args);
 }
 
 Query
-AST::december(std::vector<Query> args) {
+AST::december(const std::vector<Query> &args) const {
   return init(reql_ast_december, this, args);
 }
 Query
-december(std::vector<Query> args) {
+december(const std::vector<Query> &args) {
   return init(reql_ast_december, args);
 }
 
 Query
-AST::default_(std::vector<Query> args) {
+AST::default_(const std::vector<Query> &args) const {
   return init(reql_ast_default, this, args);
 }
 Query
-default_(std::vector<Query> args) {
+default_(const std::vector<Query> &args) {
   return init(reql_ast_default, args);
 }
 
 Query
-AST::delete_(std::vector<Query> args, std::map<std::string, Query> kwargs) {
+AST::delete_(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
   return init(reql_ast_delete, this, args, kwargs);
 }
 Query
-delete_(std::vector<Query> args, std::map<std::string, Query> kwargs) {
+delete_(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
   return init(reql_ast_delete, args, kwargs);
 }
 Query
-AST::delete_(std::vector<Query> args) {
+AST::delete_(const std::vector<Query> &args) const {
   return init(reql_ast_delete, this, args);
 }
 Query
-delete_(std::vector<Query> args) {
+delete_(const std::vector<Query> &args) {
   return init(reql_ast_delete, args);
 }
 
 Query
-AST::delete_at(std::vector<Query> args) {
+AST::delete_at(const std::vector<Query> &args) const {
   return init(reql_ast_delete_at, this, args);
 }
 Query
-delete_at(std::vector<Query> args) {
+delete_at(const std::vector<Query> &args) {
   return init(reql_ast_delete_at, args);
 }
 
 Query
-AST::desc(std::vector<Query> args) {
+AST::desc(const std::vector<Query> &args) const {
   return init(reql_ast_desc, this, args);
 }
 Query
-desc(std::vector<Query> args) {
+desc(const std::vector<Query> &args) {
   return init(reql_ast_desc, args);
 }
 
 Query
-AST::difference(std::vector<Query> args) {
+AST::difference(const std::vector<Query> &args) const {
   return init(reql_ast_difference, this, args);
 }
 Query
-difference(std::vector<Query> args) {
+difference(const std::vector<Query> &args) {
   return init(reql_ast_difference, args);
 }
 
 Query
-AST::distance(std::vector<Query> args) {
+AST::distance(const std::vector<Query> &args) const {
   return init(reql_ast_distance, this, args);
 }
 Query
-distance(std::vector<Query> args) {
+distance(const std::vector<Query> &args) {
   return init(reql_ast_distance, args);
 }
 
 Query
-AST::distinct(std::vector<Query> args, std::map<std::string, Query> kwargs) {
+AST::distinct(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
   return init(reql_ast_distinct, this, args, kwargs);
 }
 Query
-distinct(std::vector<Query> args, std::map<std::string, Query> kwargs) {
+distinct(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
   return init(reql_ast_distinct, args, kwargs);
 }
 Query
-AST::distinct(std::vector<Query> args) {
+AST::distinct(const std::vector<Query> &args) const {
   return init(reql_ast_distinct, this, args);
 }
 Query
-distinct(std::vector<Query> args) {
+distinct(const std::vector<Query> &args) {
   return init(reql_ast_distinct, args);
 }
 
 Query
-AST::div(std::vector<Query> args) {
+AST::div(const std::vector<Query> &args) const {
   return init(reql_ast_div, this, args);
 }
 Query
-div(std::vector<Query> args) {
+div(const std::vector<Query> &args) {
   return init(reql_ast_div, args);
 }
 
 Query
-AST::downcase(std::vector<Query> args) {
+AST::downcase(const std::vector<Query> &args) const {
   return init(reql_ast_downcase, this, args);
 }
 Query
-downcase(std::vector<Query> args) {
+downcase(const std::vector<Query> &args) {
   return init(reql_ast_downcase, args);
 }
 
 Query
-AST::during(std::vector<Query> args) {
+AST::during(const std::vector<Query> &args) const {
   return init(reql_ast_during, this, args);
 }
 Query
-during(std::vector<Query> args) {
+during(const std::vector<Query> &args) {
   return init(reql_ast_during, args);
 }
 
 Query
-AST::epoch_time(std::vector<Query> args) {
+AST::epoch_time(const std::vector<Query> &args) const {
   return init(reql_ast_epoch_time, this, args);
 }
 Query
-epoch_time(std::vector<Query> args) {
+epoch_time(const std::vector<Query> &args) {
   return init(reql_ast_epoch_time, args);
 }
 
 Query
-AST::eq(std::vector<Query> args) {
+AST::eq(const std::vector<Query> &args) const {
   return init(reql_ast_eq, this, args);
 }
 Query
-eq(std::vector<Query> args) {
+eq(const std::vector<Query> &args) {
   return init(reql_ast_eq, args);
 }
 
 Query
-AST::eq_join(std::vector<Query> args, std::map<std::string, Query> kwargs) {
+AST::eq_join(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
   return init(reql_ast_eq_join, this, args, kwargs);
 }
 Query
-eq_join(std::vector<Query> args, std::map<std::string, Query> kwargs) {
+eq_join(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
   return init(reql_ast_eq_join, args, kwargs);
 }
 Query
-AST::eq_join(std::vector<Query> args) {
+AST::eq_join(const std::vector<Query> &args) const {
   return init(reql_ast_eq_join, this, args);
 }
 Query
-eq_join(std::vector<Query> args) {
+eq_join(const std::vector<Query> &args) {
   return init(reql_ast_eq_join, args);
 }
 
 Query
-AST::error(std::vector<Query> args) {
+AST::error(const std::vector<Query> &args) const {
   return init(reql_ast_error, this, args);
 }
 Query
-error(std::vector<Query> args) {
+error(const std::vector<Query> &args) {
   return init(reql_ast_error, args);
 }
 
 Query
-AST::february(std::vector<Query> args) {
+AST::february(const std::vector<Query> &args) const {
   return init(reql_ast_february, this, args);
 }
 Query
-february(std::vector<Query> args) {
+february(const std::vector<Query> &args) {
   return init(reql_ast_february, args);
 }
 
 Query
-AST::fill(std::vector<Query> args) {
+AST::fill(const std::vector<Query> &args) const {
   return init(reql_ast_fill, this, args);
 }
 Query
-fill(std::vector<Query> args) {
+fill(const std::vector<Query> &args) {
   return init(reql_ast_fill, args);
 }
 
 Query
-AST::filter(std::vector<Query> args, std::map<std::string, Query> kwargs) {
+AST::filter(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
   return init(reql_ast_filter, this, args, kwargs);
 }
 Query
-filter(std::vector<Query> args, std::map<std::string, Query> kwargs) {
+filter(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
   return init(reql_ast_filter, args, kwargs);
 }
 Query
-AST::filter(std::vector<Query> args) {
+AST::filter(const std::vector<Query> &args) const {
   return init(reql_ast_filter, this, args);
 }
 Query
-filter(std::vector<Query> args) {
+filter(const std::vector<Query> &args) {
   return init(reql_ast_filter, args);
 }
 
 Query
-AST::for_each(std::vector<Query> args) {
+AST::for_each(const std::vector<Query> &args) const {
   return init(reql_ast_for_each, this, args);
 }
 Query
-for_each(std::vector<Query> args) {
+for_each(const std::vector<Query> &args) {
   return init(reql_ast_for_each, args);
 }
 
 Query
-AST::friday(std::vector<Query> args) {
+AST::friday(const std::vector<Query> &args) const {
   return init(reql_ast_friday, this, args);
 }
 Query
-friday(std::vector<Query> args) {
+friday(const std::vector<Query> &args) {
   return init(reql_ast_friday, args);
 }
 
 Query
-AST::func(std::vector<Query> args) {
+AST::func(const std::vector<Query> &args) const {
   return init(reql_ast_func, this, args);
 }
 Query
-func(std::vector<Query> args) {
+func(const std::vector<Query> &args) {
   return init(reql_ast_func, args);
 }
 
 Query
-AST::funcall(std::vector<Query> args) {
+AST::funcall(const std::vector<Query> &args) const {
   return init(reql_ast_funcall, this, args);
 }
 Query
-funcall(std::vector<Query> args) {
+funcall(const std::vector<Query> &args) {
   return init(reql_ast_funcall, args);
 }
 
 Query
-AST::ge(std::vector<Query> args) {
+AST::ge(const std::vector<Query> &args) const {
   return init(reql_ast_ge, this, args);
 }
 Query
-ge(std::vector<Query> args) {
+ge(const std::vector<Query> &args) {
   return init(reql_ast_ge, args);
 }
 
 Query
-AST::geojson(std::vector<Query> args) {
+AST::geojson(const std::vector<Query> &args) const {
   return init(reql_ast_geojson, this, args);
 }
 Query
-geojson(std::vector<Query> args) {
+geojson(const std::vector<Query> &args) {
   return init(reql_ast_geojson, args);
 }
 
 Query
-AST::get(std::vector<Query> args) {
+AST::get(const std::vector<Query> &args) const {
   return init(reql_ast_get, this, args);
 }
 Query
-get(std::vector<Query> args) {
+get(const std::vector<Query> &args) {
   return init(reql_ast_get, args);
 }
 
 Query
-AST::get_all(std::vector<Query> args, std::map<std::string, Query> kwargs) {
+AST::get_all(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
   return init(reql_ast_get_all, this, args, kwargs);
 }
 Query
-get_all(std::vector<Query> args, std::map<std::string, Query> kwargs) {
+get_all(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
   return init(reql_ast_get_all, args, kwargs);
 }
 Query
-AST::get_all(std::vector<Query> args) {
+AST::get_all(const std::vector<Query> &args) const {
   return init(reql_ast_get_all, this, args);
 }
 Query
-get_all(std::vector<Query> args) {
+get_all(const std::vector<Query> &args) {
   return init(reql_ast_get_all, args);
 }
 
 Query
-AST::get_field(std::vector<Query> args) {
+AST::get_field(const std::vector<Query> &args) const {
   return init(reql_ast_get_field, this, args);
 }
 Query
-get_field(std::vector<Query> args) {
+get_field(const std::vector<Query> &args) {
   return init(reql_ast_get_field, args);
 }
 
 Query
-AST::get_intersecting(std::vector<Query> args, std::map<std::string, Query> kwargs) {
+AST::get_intersecting(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
   return init(reql_ast_get_intersecting, this, args, kwargs);
 }
 Query
-get_intersecting(std::vector<Query> args, std::map<std::string, Query> kwargs) {
+get_intersecting(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
   return init(reql_ast_get_intersecting, args, kwargs);
 }
 Query
-AST::get_intersecting(std::vector<Query> args) {
+AST::get_intersecting(const std::vector<Query> &args) const {
   return init(reql_ast_get_intersecting, this, args);
 }
 Query
-get_intersecting(std::vector<Query> args) {
+get_intersecting(const std::vector<Query> &args) {
   return init(reql_ast_get_intersecting, args);
 }
 
 Query
-AST::get_nearest(std::vector<Query> args, std::map<std::string, Query> kwargs) {
+AST::get_nearest(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
   return init(reql_ast_get_nearest, this, args, kwargs);
 }
 Query
-get_nearest(std::vector<Query> args, std::map<std::string, Query> kwargs) {
+get_nearest(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
   return init(reql_ast_get_nearest, args, kwargs);
 }
 Query
-AST::get_nearest(std::vector<Query> args) {
+AST::get_nearest(const std::vector<Query> &args) const {
   return init(reql_ast_get_nearest, this, args);
 }
 Query
-get_nearest(std::vector<Query> args) {
+get_nearest(const std::vector<Query> &args) {
   return init(reql_ast_get_nearest, args);
 }
 
 Query
-AST::group(std::vector<Query> args, std::map<std::string, Query> kwargs) {
+AST::group(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
   return init(reql_ast_group, this, args, kwargs);
 }
 Query
-group(std::vector<Query> args, std::map<std::string, Query> kwargs) {
+group(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
   return init(reql_ast_group, args, kwargs);
 }
 Query
-AST::group(std::vector<Query> args) {
+AST::group(const std::vector<Query> &args) const {
   return init(reql_ast_group, this, args);
 }
 Query
-group(std::vector<Query> args) {
+group(const std::vector<Query> &args) {
   return init(reql_ast_group, args);
 }
 
 Query
-AST::gt(std::vector<Query> args) {
+AST::gt(const std::vector<Query> &args) const {
   return init(reql_ast_gt, this, args);
 }
 Query
-gt(std::vector<Query> args) {
+gt(const std::vector<Query> &args) {
   return init(reql_ast_gt, args);
 }
 
 Query
-AST::has_fields(std::vector<Query> args) {
+AST::has_fields(const std::vector<Query> &args) const {
   return init(reql_ast_has_fields, this, args);
 }
 Query
-has_fields(std::vector<Query> args) {
+has_fields(const std::vector<Query> &args) {
   return init(reql_ast_has_fields, args);
 }
 
 Query
-AST::hours(std::vector<Query> args) {
+AST::hours(const std::vector<Query> &args) const {
   return init(reql_ast_hours, this, args);
 }
 Query
-hours(std::vector<Query> args) {
+hours(const std::vector<Query> &args) {
   return init(reql_ast_hours, args);
 }
 
 Query
-AST::http(std::vector<Query> args, std::map<std::string, Query> kwargs) {
+AST::http(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
   return init(reql_ast_http, this, args, kwargs);
 }
 Query
-http(std::vector<Query> args, std::map<std::string, Query> kwargs) {
+http(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
   return init(reql_ast_http, args, kwargs);
 }
 Query
-AST::http(std::vector<Query> args) {
+AST::http(const std::vector<Query> &args) const {
   return init(reql_ast_http, this, args);
 }
 Query
-http(std::vector<Query> args) {
+http(const std::vector<Query> &args) {
   return init(reql_ast_http, args);
 }
 
 Query
-AST::implicit_var(std::vector<Query> args) {
+AST::implicit_var(const std::vector<Query> &args) const {
   return init(reql_ast_implicit_var, this, args);
 }
 Query
-implicit_var(std::vector<Query> args) {
+implicit_var(const std::vector<Query> &args) {
   return init(reql_ast_implicit_var, args);
 }
 
 Query
-AST::includes(std::vector<Query> args) {
+AST::includes(const std::vector<Query> &args) const {
   return init(reql_ast_includes, this, args);
 }
 Query
-includes(std::vector<Query> args) {
+includes(const std::vector<Query> &args) {
   return init(reql_ast_includes, args);
 }
 
 Query
-AST::indexes_of(std::vector<Query> args) {
+AST::indexes_of(const std::vector<Query> &args) const {
   return init(reql_ast_indexes_of, this, args);
 }
 Query
-indexes_of(std::vector<Query> args) {
+indexes_of(const std::vector<Query> &args) {
   return init(reql_ast_indexes_of, args);
 }
 
 Query
-AST::index_create(std::vector<Query> args, std::map<std::string, Query> kwargs) {
+AST::index_create(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
   return init(reql_ast_index_create, this, args, kwargs);
 }
 Query
-index_create(std::vector<Query> args, std::map<std::string, Query> kwargs) {
+index_create(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
   return init(reql_ast_index_create, args, kwargs);
 }
 Query
-AST::index_create(std::vector<Query> args) {
+AST::index_create(const std::vector<Query> &args) const {
   return init(reql_ast_index_create, this, args);
 }
 Query
-index_create(std::vector<Query> args) {
+index_create(const std::vector<Query> &args) {
   return init(reql_ast_index_create, args);
 }
 
 Query
-AST::index_drop(std::vector<Query> args) {
+AST::index_drop(const std::vector<Query> &args) const {
   return init(reql_ast_index_drop, this, args);
 }
 Query
-index_drop(std::vector<Query> args) {
+index_drop(const std::vector<Query> &args) {
   return init(reql_ast_index_drop, args);
 }
 
 Query
-AST::index_list(std::vector<Query> args) {
+AST::index_list(const std::vector<Query> &args) const {
   return init(reql_ast_index_list, this, args);
 }
 Query
-index_list(std::vector<Query> args) {
+index_list(const std::vector<Query> &args) {
   return init(reql_ast_index_list, args);
 }
 
 Query
-AST::index_rename(std::vector<Query> args, std::map<std::string, Query> kwargs) {
+AST::index_rename(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
   return init(reql_ast_index_rename, this, args, kwargs);
 }
 Query
-index_rename(std::vector<Query> args, std::map<std::string, Query> kwargs) {
+index_rename(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
   return init(reql_ast_index_rename, args, kwargs);
 }
 Query
-AST::index_rename(std::vector<Query> args) {
+AST::index_rename(const std::vector<Query> &args) const {
   return init(reql_ast_index_rename, this, args);
 }
 Query
-index_rename(std::vector<Query> args) {
+index_rename(const std::vector<Query> &args) {
   return init(reql_ast_index_rename, args);
 }
 
 Query
-AST::index_status(std::vector<Query> args) {
+AST::index_status(const std::vector<Query> &args) const {
   return init(reql_ast_index_status, this, args);
 }
 Query
-index_status(std::vector<Query> args) {
+index_status(const std::vector<Query> &args) {
   return init(reql_ast_index_status, args);
 }
 
 Query
-AST::index_wait(std::vector<Query> args) {
+AST::index_wait(const std::vector<Query> &args) const {
   return init(reql_ast_index_wait, this, args);
 }
 Query
-index_wait(std::vector<Query> args) {
+index_wait(const std::vector<Query> &args) {
   return init(reql_ast_index_wait, args);
 }
 
 Query
-AST::info(std::vector<Query> args) {
+AST::info(const std::vector<Query> &args) const {
   return init(reql_ast_info, this, args);
 }
 Query
-info(std::vector<Query> args) {
+info(const std::vector<Query> &args) {
   return init(reql_ast_info, args);
 }
 
 Query
-AST::inner_join(std::vector<Query> args) {
+AST::inner_join(const std::vector<Query> &args) const {
   return init(reql_ast_inner_join, this, args);
 }
 Query
-inner_join(std::vector<Query> args) {
+inner_join(const std::vector<Query> &args) {
   return init(reql_ast_inner_join, args);
 }
 
 Query
-AST::insert(std::vector<Query> args) {
+AST::insert(const std::vector<Query> &args) const {
   return init(reql_ast_insert, this, args);
 }
 Query
-insert(std::vector<Query> args) {
+insert(const std::vector<Query> &args) {
   return init(reql_ast_insert, args);
 }
 
 Query
-AST::insert_at(std::vector<Query> args) {
+AST::insert_at(const std::vector<Query> &args) const {
   return init(reql_ast_insert_at, this, args);
 }
 Query
-insert_at(std::vector<Query> args) {
+insert_at(const std::vector<Query> &args) {
   return init(reql_ast_insert_at, args);
 }
 
 Query
-AST::intersects(std::vector<Query> args) {
+AST::intersects(const std::vector<Query> &args) const {
   return init(reql_ast_intersects, this, args);
 }
 Query
-intersects(std::vector<Query> args) {
+intersects(const std::vector<Query> &args) {
   return init(reql_ast_intersects, args);
 }
 
 Query
-AST::in_timezone(std::vector<Query> args) {
+AST::in_timezone(const std::vector<Query> &args) const {
   return init(reql_ast_in_timezone, this, args);
 }
 Query
-in_timezone(std::vector<Query> args) {
+in_timezone(const std::vector<Query> &args) {
   return init(reql_ast_in_timezone, args);
 }
 
 Query
-AST::iso8601(std::vector<Query> args, std::map<std::string, Query> kwargs) {
+AST::iso8601(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
   return init(reql_ast_iso8601, this, args, kwargs);
 }
 Query
-iso8601(std::vector<Query> args, std::map<std::string, Query> kwargs) {
+iso8601(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
   return init(reql_ast_iso8601, args, kwargs);
 }
 Query
-AST::iso8601(std::vector<Query> args) {
+AST::iso8601(const std::vector<Query> &args) const {
   return init(reql_ast_iso8601, this, args);
 }
 Query
-iso8601(std::vector<Query> args) {
+iso8601(const std::vector<Query> &args) {
   return init(reql_ast_iso8601, args);
 }
 
 Query
-AST::is_empty(std::vector<Query> args) {
+AST::is_empty(const std::vector<Query> &args) const {
   return init(reql_ast_is_empty, this, args);
 }
 Query
-is_empty(std::vector<Query> args) {
+is_empty(const std::vector<Query> &args) {
   return init(reql_ast_is_empty, args);
 }
 
 Query
-AST::january(std::vector<Query> args) {
+AST::january(const std::vector<Query> &args) const {
   return init(reql_ast_january, this, args);
 }
 Query
-january(std::vector<Query> args) {
+january(const std::vector<Query> &args) {
   return init(reql_ast_january, args);
 }
 
 Query
-AST::javascript(std::vector<Query> args, std::map<std::string, Query> kwargs) {
+AST::javascript(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
   return init(reql_ast_javascript, this, args, kwargs);
 }
 Query
-javascript(std::vector<Query> args, std::map<std::string, Query> kwargs) {
+javascript(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
   return init(reql_ast_javascript, args, kwargs);
 }
 Query
-AST::javascript(std::vector<Query> args) {
+AST::javascript(const std::vector<Query> &args) const {
   return init(reql_ast_javascript, this, args);
 }
 Query
-javascript(std::vector<Query> args) {
+javascript(const std::vector<Query> &args) {
   return init(reql_ast_javascript, args);
 }
 
 Query
-AST::json(std::vector<Query> args) {
+AST::json(const std::vector<Query> &args) const {
   return init(reql_ast_json, this, args);
 }
 Query
-json(std::vector<Query> args) {
+json(const std::vector<Query> &args) {
   return init(reql_ast_json, args);
 }
 
 Query
-AST::july(std::vector<Query> args) {
+AST::july(const std::vector<Query> &args) const {
   return init(reql_ast_july, this, args);
 }
 Query
-july(std::vector<Query> args) {
+july(const std::vector<Query> &args) {
   return init(reql_ast_july, args);
 }
 
 Query
-AST::june(std::vector<Query> args) {
+AST::june(const std::vector<Query> &args) const {
   return init(reql_ast_june, this, args);
 }
 Query
-june(std::vector<Query> args) {
+june(const std::vector<Query> &args) {
   return init(reql_ast_june, args);
 }
 
 Query
-AST::keys(std::vector<Query> args) {
+AST::keys(const std::vector<Query> &args) const {
   return init(reql_ast_keys, this, args);
 }
 Query
-keys(std::vector<Query> args) {
+keys(const std::vector<Query> &args) {
   return init(reql_ast_keys, args);
 }
 
 Query
-AST::le(std::vector<Query> args) {
+AST::le(const std::vector<Query> &args) const {
   return init(reql_ast_le, this, args);
 }
 Query
-le(std::vector<Query> args) {
+le(const std::vector<Query> &args) {
   return init(reql_ast_le, args);
 }
 
 Query
-AST::limit(std::vector<Query> args) {
+AST::limit(const std::vector<Query> &args) const {
   return init(reql_ast_limit, this, args);
 }
 Query
-limit(std::vector<Query> args) {
+limit(const std::vector<Query> &args) {
   return init(reql_ast_limit, args);
 }
 
 Query
-AST::line(std::vector<Query> args) {
+AST::line(const std::vector<Query> &args) const {
   return init(reql_ast_line, this, args);
 }
 Query
-line(std::vector<Query> args) {
+line(const std::vector<Query> &args) {
   return init(reql_ast_line, args);
 }
 
 Query
-AST::literal(std::vector<Query> args) {
+AST::literal(const std::vector<Query> &args) const {
   return init(reql_ast_literal, this, args);
 }
 Query
-literal(std::vector<Query> args) {
+literal(const std::vector<Query> &args) {
   return init(reql_ast_literal, args);
 }
 
 Query
-AST::lt(std::vector<Query> args) {
+AST::lt(const std::vector<Query> &args) const {
   return init(reql_ast_lt, this, args);
 }
 Query
-lt(std::vector<Query> args) {
+lt(const std::vector<Query> &args) {
   return init(reql_ast_lt, args);
 }
 
 Query
-AST::make_array(std::vector<Query> args) {
+AST::make_array(const std::vector<Query> &args) const {
   return init(reql_ast_make_array, this, args);
 }
 Query
-make_array(std::vector<Query> args) {
+make_array(const std::vector<Query> &args) {
   return init(reql_ast_make_array, args);
 }
 
 Query
-AST::make_obj(std::vector<Query> args) {
+AST::make_obj(const std::vector<Query> &args) const {
   return init(reql_ast_make_obj, this, args);
 }
 Query
-make_obj(std::vector<Query> args) {
+make_obj(const std::vector<Query> &args) {
   return init(reql_ast_make_obj, args);
 }
 
 Query
-AST::map(std::vector<Query> args) {
+AST::map(const std::vector<Query> &args) const {
   return init(reql_ast_map, this, args);
 }
 Query
-map(std::vector<Query> args) {
+map(const std::vector<Query> &args) {
   return init(reql_ast_map, args);
 }
 
 Query
-AST::march(std::vector<Query> args) {
+AST::march(const std::vector<Query> &args) const {
   return init(reql_ast_march, this, args);
 }
 Query
-march(std::vector<Query> args) {
+march(const std::vector<Query> &args) {
   return init(reql_ast_march, args);
 }
 
 Query
-AST::match(std::vector<Query> args) {
+AST::match(const std::vector<Query> &args) const {
   return init(reql_ast_match, this, args);
 }
 Query
-match(std::vector<Query> args) {
+match(const std::vector<Query> &args) {
   return init(reql_ast_match, args);
 }
 
 Query
-AST::max(std::vector<Query> args) {
+AST::max(const std::vector<Query> &args) const {
   return init(reql_ast_max, this, args);
 }
 Query
-max(std::vector<Query> args) {
+max(const std::vector<Query> &args) {
   return init(reql_ast_max, args);
 }
 
 Query
-AST::may(std::vector<Query> args) {
+AST::may(const std::vector<Query> &args) const {
   return init(reql_ast_may, this, args);
 }
 Query
-may(std::vector<Query> args) {
+may(const std::vector<Query> &args) {
   return init(reql_ast_may, args);
 }
 
 Query
-AST::merge(std::vector<Query> args) {
+AST::merge(const std::vector<Query> &args) const {
   return init(reql_ast_merge, this, args);
 }
 Query
-merge(std::vector<Query> args) {
+merge(const std::vector<Query> &args) {
   return init(reql_ast_merge, args);
 }
 
 Query
-AST::min(std::vector<Query> args) {
+AST::min(const std::vector<Query> &args) const {
   return init(reql_ast_min, this, args);
 }
 Query
-min(std::vector<Query> args) {
+min(const std::vector<Query> &args) {
   return init(reql_ast_min, args);
 }
 
 Query
-AST::minutes(std::vector<Query> args) {
+AST::minutes(const std::vector<Query> &args) const {
   return init(reql_ast_minutes, this, args);
 }
 Query
-minutes(std::vector<Query> args) {
+minutes(const std::vector<Query> &args) {
   return init(reql_ast_minutes, args);
 }
 
 Query
-AST::mod(std::vector<Query> args) {
+AST::mod(const std::vector<Query> &args) const {
   return init(reql_ast_mod, this, args);
 }
 Query
-mod(std::vector<Query> args) {
+mod(const std::vector<Query> &args) {
   return init(reql_ast_mod, args);
 }
 
 Query
-AST::monday(std::vector<Query> args) {
+AST::monday(const std::vector<Query> &args) const {
   return init(reql_ast_monday, this, args);
 }
 Query
-monday(std::vector<Query> args) {
+monday(const std::vector<Query> &args) {
   return init(reql_ast_monday, args);
 }
 
 Query
-AST::month(std::vector<Query> args) {
+AST::month(const std::vector<Query> &args) const {
   return init(reql_ast_month, this, args);
 }
 Query
-month(std::vector<Query> args) {
+month(const std::vector<Query> &args) {
   return init(reql_ast_month, args);
 }
 
 Query
-AST::mul(std::vector<Query> args) {
+AST::mul(const std::vector<Query> &args) const {
   return init(reql_ast_mul, this, args);
 }
 Query
-mul(std::vector<Query> args) {
+mul(const std::vector<Query> &args) {
   return init(reql_ast_mul, args);
 }
 
 Query
-AST::ne(std::vector<Query> args) {
+AST::ne(const std::vector<Query> &args) const {
   return init(reql_ast_ne, this, args);
 }
 Query
-ne(std::vector<Query> args) {
+ne(const std::vector<Query> &args) {
   return init(reql_ast_ne, args);
 }
 
 Query
-AST::not_(std::vector<Query> args) {
+AST::not_(const std::vector<Query> &args) const {
   return init(reql_ast_not, this, args);
 }
 Query
-not_(std::vector<Query> args) {
+not_(const std::vector<Query> &args) {
   return init(reql_ast_not, args);
 }
 
 Query
-AST::november(std::vector<Query> args) {
+AST::november(const std::vector<Query> &args) const {
   return init(reql_ast_november, this, args);
 }
 Query
-november(std::vector<Query> args) {
+november(const std::vector<Query> &args) {
   return init(reql_ast_november, args);
 }
 
 Query
-AST::now(std::vector<Query> args) {
+AST::now(const std::vector<Query> &args) const {
   return init(reql_ast_now, this, args);
 }
 Query
-now(std::vector<Query> args) {
+now(const std::vector<Query> &args) {
   return init(reql_ast_now, args);
 }
 
 Query
-AST::nth(std::vector<Query> args) {
+AST::nth(const std::vector<Query> &args) const {
   return init(reql_ast_nth, this, args);
 }
 Query
-nth(std::vector<Query> args) {
+nth(const std::vector<Query> &args) {
   return init(reql_ast_nth, args);
 }
 
 Query
-AST::object(std::vector<Query> args) {
+AST::object(const std::vector<Query> &args) const {
   return init(reql_ast_object, this, args);
 }
 Query
-object(std::vector<Query> args) {
+object(const std::vector<Query> &args) {
   return init(reql_ast_object, args);
 }
 
 Query
-AST::october(std::vector<Query> args) {
+AST::october(const std::vector<Query> &args) const {
   return init(reql_ast_october, this, args);
 }
 Query
-october(std::vector<Query> args) {
+october(const std::vector<Query> &args) {
   return init(reql_ast_october, args);
 }
 
 Query
-AST::order_by(std::vector<Query> args, std::map<std::string, Query> kwargs) {
+AST::order_by(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
   return init(reql_ast_order_by, this, args, kwargs);
 }
 Query
-order_by(std::vector<Query> args, std::map<std::string, Query> kwargs) {
+order_by(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
   return init(reql_ast_order_by, args, kwargs);
 }
 Query
-AST::order_by(std::vector<Query> args) {
+AST::order_by(const std::vector<Query> &args) const {
   return init(reql_ast_order_by, this, args);
 }
 Query
-order_by(std::vector<Query> args) {
+order_by(const std::vector<Query> &args) {
   return init(reql_ast_order_by, args);
 }
 
 Query
-AST::outer_join(std::vector<Query> args) {
+AST::outer_join(const std::vector<Query> &args) const {
   return init(reql_ast_outer_join, this, args);
 }
 Query
-outer_join(std::vector<Query> args) {
+outer_join(const std::vector<Query> &args) {
   return init(reql_ast_outer_join, args);
 }
 
 Query
-AST::pluck(std::vector<Query> args) {
+AST::pluck(const std::vector<Query> &args) const {
   return init(reql_ast_pluck, this, args);
 }
 Query
-pluck(std::vector<Query> args) {
+pluck(const std::vector<Query> &args) {
   return init(reql_ast_pluck, args);
 }
 
 Query
-AST::point(std::vector<Query> args) {
+AST::point(const std::vector<Query> &args) const {
   return init(reql_ast_point, this, args);
 }
 Query
-point(std::vector<Query> args) {
+point(const std::vector<Query> &args) {
   return init(reql_ast_point, args);
 }
 
 Query
-AST::polygon(std::vector<Query> args) {
+AST::polygon(const std::vector<Query> &args) const {
   return init(reql_ast_polygon, this, args);
 }
 Query
-polygon(std::vector<Query> args) {
+polygon(const std::vector<Query> &args) {
   return init(reql_ast_polygon, args);
 }
 
 Query
-AST::polygon_sub(std::vector<Query> args) {
+AST::polygon_sub(const std::vector<Query> &args) const {
   return init(reql_ast_polygon_sub, this, args);
 }
 Query
-polygon_sub(std::vector<Query> args) {
+polygon_sub(const std::vector<Query> &args) {
   return init(reql_ast_polygon_sub, args);
 }
 
 Query
-AST::prepend(std::vector<Query> args) {
+AST::prepend(const std::vector<Query> &args) const {
   return init(reql_ast_prepend, this, args);
 }
 Query
-prepend(std::vector<Query> args) {
+prepend(const std::vector<Query> &args) {
   return init(reql_ast_prepend, args);
 }
 
 Query
-AST::random(std::vector<Query> args, std::map<std::string, Query> kwargs) {
+AST::random(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
   return init(reql_ast_random, this, args, kwargs);
 }
 Query
-random(std::vector<Query> args, std::map<std::string, Query> kwargs) {
+random(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
   return init(reql_ast_random, args, kwargs);
 }
 Query
-AST::random(std::vector<Query> args) {
+AST::random(const std::vector<Query> &args) const {
   return init(reql_ast_random, this, args);
 }
 Query
-random(std::vector<Query> args) {
+random(const std::vector<Query> &args) {
   return init(reql_ast_random, args);
 }
 
 Query
-AST::range(std::vector<Query> args) {
+AST::range(const std::vector<Query> &args) const {
   return init(reql_ast_range, this, args);
 }
 Query
-range(std::vector<Query> args) {
+range(const std::vector<Query> &args) {
   return init(reql_ast_range, args);
 }
 
 Query
-AST::rebalance(std::vector<Query> args) {
+AST::rebalance(const std::vector<Query> &args) const {
   return init(reql_ast_rebalance, this, args);
 }
 Query
-rebalance(std::vector<Query> args) {
+rebalance(const std::vector<Query> &args) {
   return init(reql_ast_rebalance, args);
 }
 
 Query
-AST::reconfigure(std::vector<Query> args) {
+AST::reconfigure(const std::vector<Query> &args) const {
   return init(reql_ast_reconfigure, this, args);
 }
 Query
-reconfigure(std::vector<Query> args) {
+reconfigure(const std::vector<Query> &args) {
   return init(reql_ast_reconfigure, args);
 }
 
 Query
-AST::reduce(std::vector<Query> args) {
+AST::reduce(const std::vector<Query> &args) const {
   return init(reql_ast_reduce, this, args);
 }
 Query
-reduce(std::vector<Query> args) {
+reduce(const std::vector<Query> &args) {
   return init(reql_ast_reduce, args);
 }
 
 Query
-AST::replace(std::vector<Query> args, std::map<std::string, Query> kwargs) {
+AST::replace(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
   return init(reql_ast_replace, this, args, kwargs);
 }
 Query
-replace(std::vector<Query> args, std::map<std::string, Query> kwargs) {
+replace(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
   return init(reql_ast_replace, args, kwargs);
 }
 Query
-AST::replace(std::vector<Query> args) {
+AST::replace(const std::vector<Query> &args) const {
   return init(reql_ast_replace, this, args);
 }
 Query
-replace(std::vector<Query> args) {
+replace(const std::vector<Query> &args) {
   return init(reql_ast_replace, args);
 }
 
 Query
-AST::sample(std::vector<Query> args) {
+AST::sample(const std::vector<Query> &args) const {
   return init(reql_ast_sample, this, args);
 }
 Query
-sample(std::vector<Query> args) {
+sample(const std::vector<Query> &args) {
   return init(reql_ast_sample, args);
 }
 
 Query
-AST::saturday(std::vector<Query> args) {
+AST::saturday(const std::vector<Query> &args) const {
   return init(reql_ast_saturday, this, args);
 }
 Query
-saturday(std::vector<Query> args) {
+saturday(const std::vector<Query> &args) {
   return init(reql_ast_saturday, args);
 }
 
 Query
-AST::seconds(std::vector<Query> args) {
+AST::seconds(const std::vector<Query> &args) const {
   return init(reql_ast_seconds, this, args);
 }
 Query
-seconds(std::vector<Query> args) {
+seconds(const std::vector<Query> &args) {
   return init(reql_ast_seconds, args);
 }
 
 Query
-AST::september(std::vector<Query> args) {
+AST::september(const std::vector<Query> &args) const {
   return init(reql_ast_september, this, args);
 }
 Query
-september(std::vector<Query> args) {
+september(const std::vector<Query> &args) {
   return init(reql_ast_september, args);
 }
 
 Query
-AST::set_difference(std::vector<Query> args) {
+AST::set_difference(const std::vector<Query> &args) const {
   return init(reql_ast_set_difference, this, args);
 }
 Query
-set_difference(std::vector<Query> args) {
+set_difference(const std::vector<Query> &args) {
   return init(reql_ast_set_difference, args);
 }
 
 Query
-AST::set_insert(std::vector<Query> args) {
+AST::set_insert(const std::vector<Query> &args) const {
   return init(reql_ast_set_insert, this, args);
 }
 Query
-set_insert(std::vector<Query> args) {
+set_insert(const std::vector<Query> &args) {
   return init(reql_ast_set_insert, args);
 }
 
 Query
-AST::set_intersection(std::vector<Query> args) {
+AST::set_intersection(const std::vector<Query> &args) const {
   return init(reql_ast_set_intersection, this, args);
 }
 Query
-set_intersection(std::vector<Query> args) {
+set_intersection(const std::vector<Query> &args) {
   return init(reql_ast_set_intersection, args);
 }
 
 Query
-AST::set_union(std::vector<Query> args) {
+AST::set_union(const std::vector<Query> &args) const {
   return init(reql_ast_set_union, this, args);
 }
 Query
-set_union(std::vector<Query> args) {
+set_union(const std::vector<Query> &args) {
   return init(reql_ast_set_union, args);
 }
 
 Query
-AST::skip(std::vector<Query> args) {
+AST::skip(const std::vector<Query> &args) const {
   return init(reql_ast_skip, this, args);
 }
 Query
-skip(std::vector<Query> args) {
+skip(const std::vector<Query> &args) {
   return init(reql_ast_skip, args);
 }
 
 Query
-AST::slice(std::vector<Query> args, std::map<std::string, Query> kwargs) {
+AST::slice(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
   return init(reql_ast_slice, this, args, kwargs);
 }
 Query
-slice(std::vector<Query> args, std::map<std::string, Query> kwargs) {
+slice(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
   return init(reql_ast_slice, args, kwargs);
 }
 Query
-AST::slice(std::vector<Query> args) {
+AST::slice(const std::vector<Query> &args) const {
   return init(reql_ast_slice, this, args);
 }
 Query
-slice(std::vector<Query> args) {
+slice(const std::vector<Query> &args) {
   return init(reql_ast_slice, args);
 }
 
 Query
-AST::splice_at(std::vector<Query> args) {
+AST::splice_at(const std::vector<Query> &args) const {
   return init(reql_ast_splice_at, this, args);
 }
 Query
-splice_at(std::vector<Query> args) {
+splice_at(const std::vector<Query> &args) {
   return init(reql_ast_splice_at, args);
 }
 
 Query
-AST::split(std::vector<Query> args) {
+AST::split(const std::vector<Query> &args) const {
   return init(reql_ast_split, this, args);
 }
 Query
-split(std::vector<Query> args) {
+split(const std::vector<Query> &args) {
   return init(reql_ast_split, args);
 }
 
 Query
-AST::status(std::vector<Query> args) {
+AST::status(const std::vector<Query> &args) const {
   return init(reql_ast_status, this, args);
 }
 Query
-status(std::vector<Query> args) {
+status(const std::vector<Query> &args) {
   return init(reql_ast_status, args);
 }
 
 Query
-AST::sub(std::vector<Query> args) {
+AST::sub(const std::vector<Query> &args) const {
   return init(reql_ast_sub, this, args);
 }
 Query
-sub(std::vector<Query> args) {
+sub(const std::vector<Query> &args) {
   return init(reql_ast_sub, args);
 }
 
 Query
-AST::sum(std::vector<Query> args) {
+AST::sum(const std::vector<Query> &args) const {
   return init(reql_ast_sum, this, args);
 }
 Query
-sum(std::vector<Query> args) {
+sum(const std::vector<Query> &args) {
   return init(reql_ast_sum, args);
 }
 
 Query
-AST::sunday(std::vector<Query> args) {
+AST::sunday(const std::vector<Query> &args) const {
   return init(reql_ast_sunday, this, args);
 }
 Query
-sunday(std::vector<Query> args) {
+sunday(const std::vector<Query> &args) {
   return init(reql_ast_sunday, args);
 }
 
 Query
-AST::sync(std::vector<Query> args) {
+AST::sync(const std::vector<Query> &args) const {
   return init(reql_ast_sync, this, args);
 }
 Query
-sync(std::vector<Query> args) {
+sync(const std::vector<Query> &args) {
   return init(reql_ast_sync, args);
 }
 
 Query
-AST::table(std::vector<Query> args, std::map<std::string, Query> kwargs) {
+AST::table(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
   return init(reql_ast_table, this, args, kwargs);
 }
 Query
-table(std::vector<Query> args, std::map<std::string, Query> kwargs) {
+table(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
   return init(reql_ast_table, args, kwargs);
 }
 Query
-AST::table(std::vector<Query> args) {
+AST::table(const std::vector<Query> &args) const {
   return init(reql_ast_table, this, args);
 }
 Query
-table(std::vector<Query> args) {
+table(const std::vector<Query> &args) {
   return init(reql_ast_table, args);
 }
 
 Query
-AST::table_create(std::vector<Query> args, std::map<std::string, Query> kwargs) {
+AST::table_create(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
   return init(reql_ast_table_create, this, args, kwargs);
 }
 Query
-table_create(std::vector<Query> args, std::map<std::string, Query> kwargs) {
+table_create(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
   return init(reql_ast_table_create, args, kwargs);
 }
 Query
-AST::table_create(std::vector<Query> args) {
+AST::table_create(const std::vector<Query> &args) const {
   return init(reql_ast_table_create, this, args);
 }
 Query
-table_create(std::vector<Query> args) {
+table_create(const std::vector<Query> &args) {
   return init(reql_ast_table_create, args);
 }
 
 Query
-AST::table_drop(std::vector<Query> args) {
+AST::table_drop(const std::vector<Query> &args) const {
   return init(reql_ast_table_drop, this, args);
 }
 Query
-table_drop(std::vector<Query> args) {
+table_drop(const std::vector<Query> &args) {
   return init(reql_ast_table_drop, args);
 }
 
 Query
-AST::table_list(std::vector<Query> args) {
+AST::table_list(const std::vector<Query> &args) const {
   return init(reql_ast_table_list, this, args);
 }
 Query
-table_list(std::vector<Query> args) {
+table_list(const std::vector<Query> &args) {
   return init(reql_ast_table_list, args);
 }
 
 Query
-AST::thursday(std::vector<Query> args) {
+AST::thursday(const std::vector<Query> &args) const {
   return init(reql_ast_thursday, this, args);
 }
 Query
-thursday(std::vector<Query> args) {
+thursday(const std::vector<Query> &args) {
   return init(reql_ast_thursday, args);
 }
 
 Query
-AST::time(std::vector<Query> args) {
+AST::time(const std::vector<Query> &args) const {
   return init(reql_ast_time, this, args);
 }
 Query
-time(std::vector<Query> args) {
+time(const std::vector<Query> &args) {
   return init(reql_ast_time, args);
 }
 
 Query
-AST::timezone_(std::vector<Query> args) {
+AST::timezone_(const std::vector<Query> &args) const {
   return init(reql_ast_timezone, this, args);
 }
 Query
-timezone_(std::vector<Query> args) {
+timezone_(const std::vector<Query> &args) {
   return init(reql_ast_timezone, args);
 }
 
 Query
-AST::time_of_day(std::vector<Query> args) {
+AST::time_of_day(const std::vector<Query> &args) const {
   return init(reql_ast_time_of_day, this, args);
 }
 Query
-time_of_day(std::vector<Query> args) {
+time_of_day(const std::vector<Query> &args) {
   return init(reql_ast_time_of_day, args);
 }
 
 Query
-AST::to_epoch_time(std::vector<Query> args) {
+AST::to_epoch_time(const std::vector<Query> &args) const {
   return init(reql_ast_to_epoch_time, this, args);
 }
 Query
-to_epoch_time(std::vector<Query> args) {
+to_epoch_time(const std::vector<Query> &args) {
   return init(reql_ast_to_epoch_time, args);
 }
 
 Query
-AST::to_geojson(std::vector<Query> args) {
+AST::to_geojson(const std::vector<Query> &args) const {
   return init(reql_ast_to_geojson, this, args);
 }
 Query
-to_geojson(std::vector<Query> args) {
+to_geojson(const std::vector<Query> &args) {
   return init(reql_ast_to_geojson, args);
 }
 
 Query
-AST::to_iso8601(std::vector<Query> args) {
+AST::to_iso8601(const std::vector<Query> &args) const {
   return init(reql_ast_to_iso8601, this, args);
 }
 Query
-to_iso8601(std::vector<Query> args) {
+to_iso8601(const std::vector<Query> &args) {
   return init(reql_ast_to_iso8601, args);
 }
 
 Query
-AST::to_json_string(std::vector<Query> args) {
+AST::to_json_string(const std::vector<Query> &args) const {
   return init(reql_ast_to_json_string, this, args);
 }
 Query
-to_json_string(std::vector<Query> args) {
+to_json_string(const std::vector<Query> &args) {
   return init(reql_ast_to_json_string, args);
 }
 
 Query
-AST::tuesday(std::vector<Query> args) {
+AST::tuesday(const std::vector<Query> &args) const {
   return init(reql_ast_tuesday, this, args);
 }
 Query
-tuesday(std::vector<Query> args) {
+tuesday(const std::vector<Query> &args) {
   return init(reql_ast_tuesday, args);
 }
 
 Query
-AST::type_of(std::vector<Query> args) {
+AST::type_of(const std::vector<Query> &args) const {
   return init(reql_ast_type_of, this, args);
 }
 Query
-type_of(std::vector<Query> args) {
+type_of(const std::vector<Query> &args) {
   return init(reql_ast_type_of, args);
 }
 
 Query
-AST::ungroup(std::vector<Query> args) {
+AST::ungroup(const std::vector<Query> &args) const {
   return init(reql_ast_ungroup, this, args);
 }
 Query
-ungroup(std::vector<Query> args) {
+ungroup(const std::vector<Query> &args) {
   return init(reql_ast_ungroup, args);
 }
 
 Query
-AST::union_(std::vector<Query> args) {
+AST::union_(const std::vector<Query> &args) const {
   return init(reql_ast_union, this, args);
 }
 Query
-union_(std::vector<Query> args) {
+union_(const std::vector<Query> &args) {
   return init(reql_ast_union, args);
 }
 
 Query
-AST::upcase(std::vector<Query> args) {
+AST::upcase(const std::vector<Query> &args) const {
   return init(reql_ast_upcase, this, args);
 }
 Query
-upcase(std::vector<Query> args) {
+upcase(const std::vector<Query> &args) {
   return init(reql_ast_upcase, args);
 }
 
 Query
-AST::update(std::vector<Query> args, std::map<std::string, Query> kwargs) {
+AST::update(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
   return init(reql_ast_update, this, args, kwargs);
 }
 Query
-update(std::vector<Query> args, std::map<std::string, Query> kwargs) {
+update(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
   return init(reql_ast_update, args, kwargs);
 }
 Query
-AST::update(std::vector<Query> args) {
+AST::update(const std::vector<Query> &args) const {
   return init(reql_ast_update, this, args);
 }
 Query
-update(std::vector<Query> args) {
+update(const std::vector<Query> &args) {
   return init(reql_ast_update, args);
 }
 
 Query
-AST::uuid(std::vector<Query> args) {
+AST::uuid(const std::vector<Query> &args) const {
   return init(reql_ast_uuid, this, args);
 }
 Query
-uuid(std::vector<Query> args) {
+uuid(const std::vector<Query> &args) {
   return init(reql_ast_uuid, args);
 }
 
 Query
-AST::var(std::vector<Query> args) {
+AST::var(const std::vector<Query> &args) const {
   return init(reql_ast_var, this, args);
 }
 Query
-var(std::vector<Query> args) {
+var(const std::vector<Query> &args) {
   return init(reql_ast_var, args);
 }
 
 Query
-AST::wait(std::vector<Query> args) {
+AST::wait(const std::vector<Query> &args) const {
   return init(reql_ast_wait, this, args);
 }
 Query
-wait(std::vector<Query> args) {
+wait(const std::vector<Query> &args) {
   return init(reql_ast_wait, args);
 }
 
 Query
-AST::wednesday(std::vector<Query> args) {
+AST::wednesday(const std::vector<Query> &args) const {
   return init(reql_ast_wednesday, this, args);
 }
 Query
-wednesday(std::vector<Query> args) {
+wednesday(const std::vector<Query> &args) {
   return init(reql_ast_wednesday, args);
 }
 
 Query
-AST::without(std::vector<Query> args) {
+AST::without(const std::vector<Query> &args) const {
   return init(reql_ast_without, this, args);
 }
 Query
-without(std::vector<Query> args) {
+without(const std::vector<Query> &args) {
   return init(reql_ast_without, args);
 }
 
 Query
-AST::with_fields(std::vector<Query> args) {
+AST::with_fields(const std::vector<Query> &args) const {
   return init(reql_ast_with_fields, this, args);
 }
 Query
-with_fields(std::vector<Query> args) {
+with_fields(const std::vector<Query> &args) {
   return init(reql_ast_with_fields, args);
 }
 
 Query
-AST::year(std::vector<Query> args) {
+AST::year(const std::vector<Query> &args) const {
   return init(reql_ast_year, this, args);
 }
 Query
-year(std::vector<Query> args) {
+year(const std::vector<Query> &args) {
   return init(reql_ast_year, args);
 }
 
 Query
-AST::zip(std::vector<Query> args) {
+AST::zip(const std::vector<Query> &args) const {
   return init(reql_ast_zip, this, args);
 }
 Query
-zip(std::vector<Query> args) {
+zip(const std::vector<Query> &args) {
   return init(reql_ast_zip, args);
 }
 
