@@ -48,7 +48,7 @@ public:
   virtual ReQL &move(ReQL &&other);
 
 private:
-  std::auto_ptr<ReQL_Obj_t> p_query;
+  std::unique_ptr<ReQL_Obj_t> p_query;
 };
 
 class ReQL_Datum : public ReQL {
@@ -75,7 +75,7 @@ public:
   void add_elem(const ReQL &elem);
 
 private:
-  std::auto_ptr<ReQL_Obj_t*> p_array;
+  std::unique_ptr<ReQL_Obj_t*> p_array;
 };
 
 class ReQL_Object : public ReQL {
@@ -91,7 +91,7 @@ public:
   void add_key(const ReQL &key, const ReQL &value);
 
 private:
-  std::auto_ptr<ReQL_Pair_t> p_object;
+  std::unique_ptr<ReQL_Pair_t> p_object;
 };
 
 class ReQL_String : public ReQL {
@@ -105,7 +105,7 @@ public:
   ReQL_String &move(ReQL_String &&other);
 
 private:
-  std::auto_ptr<uint8_t> p_buf;
+  std::unique_ptr<uint8_t> p_buf;
 };
 
 class ReQL_Term : public ReQL {
@@ -123,10 +123,10 @@ public:
   void finalize(ReQL_AST_Function f);
 
 private:
-  std::auto_ptr<ReQL_Obj_t> p_args;
-  std::auto_ptr<ReQL_Obj_t*> p_array;
-  std::auto_ptr<ReQL_Obj_t> p_kwargs;
-  std::auto_ptr<ReQL_Pair_t> p_object;
+  std::unique_ptr<ReQL_Obj_t> p_args;
+  std::unique_ptr<ReQL_Obj_t*> p_array;
+  std::unique_ptr<ReQL_Obj_t> p_kwargs;
+  std::unique_ptr<ReQL_Pair_t> p_object;
 };
 
 }
