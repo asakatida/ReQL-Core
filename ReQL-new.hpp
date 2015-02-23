@@ -39,6 +39,7 @@ public:
   ReQL(ReQL &&other);
 
   ReQL_Obj_t *data() const;
+  ReQL_Datum_t type() const;
 
   ReQL &operator=(ReQL &&other);
 

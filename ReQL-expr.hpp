@@ -34,15 +34,15 @@ class Expr {
 public:
   bool operator<(const Expr &other) const;
 
-  Expr(const Expr &other);
-  Expr(const Expr &&other);
+  explicit Expr(const Expr &other);
+  explicit Expr(Expr &&other);
 
   Expr &operator=(const Expr &other);
   Expr &operator=(Expr &&other);
 
 protected:
-  Expr();
-  Expr(ReQL_AST_Function f, std::vector<Query> args, std::map<std::string, Query> kwargs);
+  explicit Expr();
+  explicit Expr(ReQL_AST_Function f, std::vector<Query> args, std::map<std::string, Query> kwargs);
   explicit Expr(ReQL_Obj_t *val);
   explicit Expr(std::string);
   explicit Expr(double);
@@ -52,6 +52,9 @@ protected:
 
   ReQL p_query;
 private:
+  void copy(const Expr &other);
+
+  ReQL_AST_Function p_func;
   std::vector<Expr> p_array;
   std::map<Expr, Expr> p_object;
 };

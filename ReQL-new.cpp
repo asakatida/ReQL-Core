@@ -24,13 +24,18 @@ limitations under the License.
 
 namespace ReQL {
 
-ReQL::ReQL() {}
+ReQL::ReQL() : p_query(new ReQL_Obj_t) {}
 
 ReQL::ReQL(ReQL &&other) { move(std::move(other)); }
 
 ReQL_Obj_t *
 ReQL::data() const {
   return p_query.get();
+}
+
+ReQL_Datum_t
+ReQL::type() const {
+  return reql_datum_type(data());
 }
 
 ReQL &
@@ -48,7 +53,7 @@ ReQL::operator<(const ReQL &other) const {
       case REQL_R_NUM:
       case REQL_R_OBJECT:
       case REQL_R_REQL: {
-        return p_query < other.p_query;
+        return data() < other.data();
       }
       case REQL_R_STR: {
         std::string same((char *)reql_string_buf(data()), reql_string_size(data()));
@@ -65,23 +70,23 @@ ReQL::move(ReQL &&other) {
   if (&other != this) {
     p_query = std::move(other.p_query);
   }
+
   return *this;
 }
 
-ReQL_Datum::ReQL_Datum() {
+ReQL_Datum::ReQL_Datum() : ReQL() {
   reql_null_init(data());
 }
 
-ReQL_Datum::ReQL_Datum(double val) {
+ReQL_Datum::ReQL_Datum(double val) : ReQL() {
   reql_number_init(data(), val);
 }
 
-ReQL_Datum::ReQL_Datum(bool val) {
+ReQL_Datum::ReQL_Datum(bool val) : ReQL() {
   reql_bool_init(data(), val);
 }
 
-ReQL_Array::ReQL_Array(std::uint32_t size) {
-  p_array.reset(new ReQL_Obj_t*[size]);
+ReQL_Array::ReQL_Array(std::uint32_t size) : ReQL(), p_array(new ReQL_Obj_t*[size]) {
   reql_array_init(data(), p_array.get(), static_cast<std::uint32_t>(size));
 }
 
@@ -99,8 +104,7 @@ ReQL_Array::move(ReQL_Array &&other) {
   return *this;
 }
 
-ReQL_Object::ReQL_Object(std::uint32_t size) {
-  p_object.reset(new ReQL_Pair_t[size]);
+ReQL_Object::ReQL_Object(std::uint32_t size) : ReQL(), p_object(new ReQL_Pair_t[size]) {
   reql_object_init(data(), p_object.get(), static_cast<std::uint32_t>(size));
 }
 
@@ -118,14 +122,12 @@ ReQL_Object::move(ReQL_Object &&other) {
   return *this;
 }
 
-ReQL_String::ReQL_String(std::string val) {
-  const size_t size = val.size();
+ReQL_String::ReQL_String(std::string val) : ReQL(), p_buf(new uint8_t[val.size()]) {
+  std::uint32_t size = static_cast<std::uint32_t>(val.size());
+  std::uint8_t *buf = (std::uint8_t*)val.c_str();
 
-  if (size > std::numeric_limits<std::uint32_t>::max()) {
-    return;
-  }
-
-  p_buf.reset(new uint8_t[size]);
+  reql_string_init(data(), p_buf.get(), size);
+  reql_string_append(data(), buf, size);
 }
 
 ReQL_String &

@@ -26,7 +26,7 @@ namespace ReQL {
 
 Expr::Expr() : p_query(ReQL_Datum()) {}
 
-Expr::Expr(ReQL_AST_Function f, std::vector<Query> args, std::map<std::string, Query> kwargs) {
+Expr::Expr(ReQL_AST_Function f, std::vector<Query> args, std::map<std::string, Query> kwargs) : p_func(f) {
   std::size_t args_size = args.size();
 
   if (args_size > std::numeric_limits<std::uint32_t>::max()) {
@@ -52,7 +52,7 @@ Expr::Expr(ReQL_AST_Function f, std::vector<Query> args, std::map<std::string, Q
     query.add_kwarg(key.p_query, it->second.p_query);
   }
 
-  query.finalize(f);
+  query.finalize(p_func);
 
   p_query = std::move(query);
 }
@@ -102,17 +102,97 @@ bool Expr::operator<(const Expr &other) const {
   return p_query < other.p_query;
 }
 
-Expr::Expr(const Expr &other) {
+Expr::Expr(const Expr &other) : p_array(other.p_array), p_func(other.p_func), p_object(other.p_object) {
+  copy(other);
 }
 
-Expr::Expr(const Expr &&other) {
+Expr::Expr(Expr &&other) {
+  p_array = std::move(other.p_array);
+  p_func = std::move(other.p_func);
+  p_object = std::move(other.p_object);
+  p_query = std::move(other.p_query);
 }
 
 Expr &Expr::operator=(const Expr &other) {
+  if (this != &other) {
+    p_array = other.p_array;
+    p_func = other.p_func;
+    p_object = other.p_object;
+
+    copy(other);
+  }
+
   return *this;
 }
 
+void
+Expr::copy(const Expr &other) {
+  switch (other.p_query.type()) {
+    case REQL_R_ARRAY: {
+      ReQL_Array query(static_cast<std::uint32_t>(p_array.size()));
+
+      for (auto it=p_array.cbegin(); it!=p_array.cend(); ++it) {
+        query.add_elem(it->p_query);
+      }
+
+      p_query = std::move(query);
+      break;
+    }
+    case REQL_R_BOOL: {
+      p_query = std::move(ReQL_Datum(reql_to_bool(other.p_query.data()) ? true : false));
+      break;
+    }
+    case REQL_R_NULL: {
+      p_query = std::move(ReQL_Datum());
+      break;
+    }
+    case REQL_R_NUM: {
+      p_query = std::move(ReQL_Datum(reql_to_number(other.p_query.data())));
+      break;
+    }
+    case REQL_R_OBJECT: {
+      ReQL_Object query(static_cast<std::uint32_t>(p_object.size()));
+
+      for (auto it=p_object.cbegin(); it!=p_object.cend(); ++it) {
+        query.add_key(it->first.p_query, it->second.p_query);
+      }
+      
+      p_query = std::move(query);
+      break;
+    }
+    case REQL_R_STR: {
+      std::string str((char*)reql_string_buf(other.p_query.data()), static_cast<std::size_t>(reql_string_size(other.p_query.data())));
+      p_query = std::move(ReQL_String(str));
+      break;
+    }
+    case REQL_R_JSON: throw;
+    case REQL_R_REQL: {
+      ReQL_Term query(static_cast<std::uint32_t>(p_array.size()), static_cast<std::uint32_t>(p_object.size()));
+
+      for (auto it=p_array.cbegin(); it!=p_array.cend(); ++it) {
+        query.add_arg(it->p_query);
+      }
+
+      for (auto it=p_object.cbegin(); it!=p_object.cend(); ++it) {
+        query.add_kwarg(it->first.p_query, it->second.p_query);
+      }
+
+      query.finalize(p_func);
+
+      p_query = std::move(query);
+      break;
+    }
+  }
+}
+
 Expr &Expr::operator=(Expr &&other) {
+  if (this != &other) {
+    p_array = std::move(other.p_array);
+    p_func = std::move(other.p_func);
+    p_object = std::move(other.p_object);
+    p_query = std::move(other.p_query);
+  }
+
   return *this;
 }
   
