@@ -26,7 +26,7 @@ namespace ReQL {
 
 Expr::Expr() : p_query(ReQL_Datum()) {}
 
-Expr::Expr(ReQL_AST_Function f, std::vector<Query> args, std::map<std::string, Query> kwargs) : p_func(f) {
+Expr::Expr(const ReQL_AST_Function &f, const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) : p_func(f) {
   std::size_t args_size = args.size();
 
   if (args_size > std::numeric_limits<std::uint32_t>::max()) {
@@ -57,13 +57,13 @@ Expr::Expr(ReQL_AST_Function f, std::vector<Query> args, std::map<std::string, Q
   p_query = std::move(query);
 }
 
-Expr::Expr(std::string val) : p_query(std::move(ReQL_String(val))) {}
+Expr::Expr(const std::string &val) : p_query(std::move(ReQL_String(val))) {}
 
-Expr::Expr(double val) : p_query(std::move(ReQL_Datum(val))) {}
+Expr::Expr(const double &val) : p_query(std::move(ReQL_Datum(val))) {}
 
-Expr::Expr(bool val) : p_query(std::move(ReQL_Datum(val))) {}
+Expr::Expr(const bool &val) : p_query(std::move(ReQL_Datum(val))) {}
 
-Expr::Expr(std::vector<Query> val) {
+Expr::Expr(const std::vector<Query> &val) {
   std::size_t size = val.size();
 
   if (size > std::numeric_limits<std::uint32_t>::max()) {
@@ -80,7 +80,7 @@ Expr::Expr(std::vector<Query> val) {
   p_query = std::move(query);
 }
 
-Expr::Expr(std::map<std::string, Query> val) {
+Expr::Expr(const std::map<std::string, Query> &val) {
   std::size_t size = val.size();
 
   if (size > std::numeric_limits<std::uint32_t>::max()) {

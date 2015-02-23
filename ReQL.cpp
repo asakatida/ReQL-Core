@@ -22,121 +22,112 @@ limitations under the License.
 
 namespace ReQL {
 
-Cursor::Cursor() {
-  cur = new ReQL_Cur_t();
-  reql_cursor_init(cur);
+Cursor::Cursor() : cur(new ReQL_Cur_t) {
+  reql_cursor_init(data());
 }
 
 Cursor::~Cursor() {
-  delete cur;
 }
 
-bool Cursor::isOpen() {
+bool Cursor::isOpen() const {
   return false;
 }
 
 ReQL_Cur_t *
 Cursor::data() const {
-  return cur;
+  return cur.get();
 }
 
-int Cursor::close() {
-  return -1;
+void
+Cursor::close() {
 }
 
-Connection::Connection() {
-  conn = new ReQL_Conn_t;
-  reql_connection_init(conn);
+Connection::Connection() : conn(new ReQL_Conn_t) {
+  reql_connection_init(data());
 
   std::uint8_t buf[500];
 
-  if (reql_connect(conn, buf, 500)) {
+  if (reql_connect(data(), buf, 500)) {
   }
 }
 
-Connection::Connection(std::string host) {
-  conn = new ReQL_Conn_t;
-  reql_connection_init(conn);
+Connection::Connection(const std::string &host) : conn(new ReQL_Conn_t) {
+  reql_connection_init(data());
 
-  reql_conn_set_addr(conn, (char *)host.c_str());
+  reql_conn_set_addr(data(), (char *)host.c_str());
 
   std::uint8_t buf[500];
 
-  if (reql_connect(conn, buf, 500)) {
+  if (reql_connect(data(), buf, 500)) {
   }
 }
 
-Connection::Connection(std::string host, std::uint16_t port) {
-  conn = new ReQL_Conn_t;
-  reql_connection_init(conn);
+Connection::Connection(const std::string &host, const std::uint16_t &port) : conn(new ReQL_Conn_t) {
+  reql_connection_init(data());
 
-  reql_conn_set_addr(conn, (char *)host.c_str());
-  reql_conn_set_port(conn, (char *)std::to_string(port).c_str());
+  reql_conn_set_addr(data(), (char *)host.c_str());
+  reql_conn_set_port(data(), (char *)std::to_string(port).c_str());
 
   std::uint8_t buf[500];
 
-  if (reql_connect(conn, buf, 500)) {
+  if (reql_connect(data(), buf, 500)) {
   }
 }
 
-Connection::Connection(std::string host, std::uint16_t port, std::string key) {
-  conn = new ReQL_Conn_t;
-  reql_connection_init(conn);
+Connection::Connection(const std::string &host, const std::uint16_t &port, const std::string &key) : conn(new ReQL_Conn_t) {
+  reql_connection_init(data());
 
   if (key.size() > UINT32_MAX) {
   }
 
   std::uint32_t key_len = (std::uint32_t)key.size();
 
-  reql_conn_set_addr(conn, (char *)host.c_str());
-  reql_conn_set_port(conn, (char *)std::to_string(port).c_str());
-  reql_conn_set_auth(conn, key_len, (char *)key.c_str());
+  reql_conn_set_addr(data(), (char *)host.c_str());
+  reql_conn_set_port(data(), (char *)std::to_string(port).c_str());
+  reql_conn_set_auth(data(), key_len, (char *)key.c_str());
 
   std::uint8_t buf[500];
 
-  if (reql_connect(conn, buf, 500)) {
+  if (reql_connect(data(), buf, 500)) {
   }
 }
 
 Connection::Connection(const Connection &other) {
-  conn = new ReQL_Conn_t;
-  conn = other.conn;
 }
 
 Connection::Connection(Connection &&other) {
-  conn = other.conn; other.conn = nullptr;
+  conn = std::move(other.conn);
 }
 
 Connection::~Connection() {
-  reql_ensure_conn_close(conn);
-  delete conn;
+  reql_ensure_conn_close(data());
 }
 
 Connection &Connection::operator=(const Connection &other) {
-  conn = other.conn;
   return *this;
 }
 
 Connection &Connection::operator=(Connection &&other) {
-  conn = other.conn; other.conn = nullptr;
+  conn = std::move(other.conn);
   return *this;
 }
 
-int Connection::close() {
-  reql_close_conn(conn);
-  return 0;
+void
+Connection::close() {
+  reql_close_conn(data());
 }
 
-bool Connection::isOpen() {
-  return reql_conn_open(conn);
+bool
+Connection::isOpen() const {
+  return reql_conn_open(data());
 }
 
 ReQL_Conn_t *
 Connection::data() const {
-  return conn;
+  return conn.get();
 }
 
-Cursor Query::run(Connection &conn) {
+Cursor Query::run(const Connection &conn) const {
   if (!conn.isOpen()) {
   }
 
@@ -154,7 +145,7 @@ Query &Query::operator=(const Query &other) {
   return *this;
 }
 
-Query &Query::operator=(const Query &&other) {
+Query &Query::operator=(Query &&other) {
   Expr::operator=(std::move(other));
   return *this;
 }

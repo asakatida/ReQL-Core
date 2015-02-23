@@ -43,13 +43,12 @@ public:
 
 protected:
   explicit Expr();
-  explicit Expr(ReQL_AST_Function f, std::vector<Query> args, std::map<std::string, Query> kwargs);
-  explicit Expr(ReQL_Obj_t *val);
-  explicit Expr(std::string);
-  explicit Expr(double);
-  explicit Expr(bool);
-  explicit Expr(std::vector<Query>);
-  explicit Expr(std::map<std::string, Query>);
+  explicit Expr(const ReQL_AST_Function &f, const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);
+  explicit Expr(const std::string &val);
+  explicit Expr(const double &val);
+  explicit Expr(const bool &val);
+  explicit Expr(const std::vector<Query> &val);
+  explicit Expr(const std::map<std::string, Query> &val);
 
   ReQL p_query;
 private:

@@ -30,29 +30,29 @@ public:
   Cursor();
 
   Cursor(const Cursor &other);
-  Cursor(const Cursor &&other);
+  Cursor(Cursor &&other);
 
   Cursor &operator=(const Cursor &other);
-  Cursor &operator=(const Cursor &&other);
+  Cursor &operator=(Cursor &&other);
 
   ~Cursor();
 
-  bool isOpen();
+  bool isOpen() const;
 
   ReQL_Cur_t *data() const;
 
-  int close();
+  void close();
 
 private:
-  ReQL_Cur_t *cur;
+  std::unique_ptr<ReQL_Cur_t> cur;
 };
 
 class Connection {
 public:
   Connection();
-  Connection(std::string);
-  Connection(std::string, std::uint16_t);
-  Connection(std::string, std::uint16_t, std::string);
+  Connection(const std::string &host);
+  Connection(const std::string &host, const std::uint16_t &port);
+  Connection(const std::string &host, const std::uint16_t &port, const std::string &key);
 
   Connection(const Connection &other);
   Connection(Connection &&other);
@@ -62,35 +62,35 @@ public:
 
   ~Connection();
 
-  bool isOpen();
+  bool isOpen() const;
 
   ReQL_Conn_t *data() const;
 
-  int close();
+  void close();
 
 private:
-  ReQL_Conn_t *conn;
+  std::unique_ptr<ReQL_Conn_t> conn;
 };
 
 class Query : public AST {
 public:
   Query() : AST() {};
-  Query(ReQL_AST_Function f, std::vector<Query> args, std::map<std::string, Query> kwargs) : AST(f, args, kwargs) {};
-  Query(std::string val) : AST(val) {};
-  Query(double val) : AST(val) {};
-  Query(bool val) : AST(val) {};
-  Query(std::vector<Query> val) : AST(val) {};
-  Query(std::map<std::string, Query> val) : AST(val) {};
+  Query(const ReQL_AST_Function &f, const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) : AST(f, args, kwargs) {};
+  Query(const std::string &val) : AST(val) {};
+  Query(const double &val) : AST(val) {};
+  Query(const bool &val) : AST(val) {};
+  Query(const std::vector<Query> &val) : AST(val) {};
+  Query(const std::map<std::string, Query> &val) : AST(val) {};
 
   Query(const Query &other) : AST(other) {};
-  Query(Query &&other) : AST(other) {};
+  Query(Query &&other) : AST(std::move(other)) {};
 
   bool operator<(const Query &other) const;
 
   Query &operator=(const Query &other);
-  Query &operator=(const Query &&other);
+  Query &operator=(Query &&other);
 
-  Cursor run(Connection &conn);
+  Cursor run(const Connection &conn) const;
 };
 
 }
