@@ -20,8 +20,6 @@ limitations under the License.
 
 #include "ReQL-new.hpp"
 
-#include <limits>
-
 namespace ReQL {
 
 ReQL::ReQL() : p_query(new ReQL_Obj_t) {}

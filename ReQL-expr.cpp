@@ -22,6 +22,8 @@ limitations under the License.
 
 #include "ReQL.hpp"
 
+#include <limits>
+
 namespace ReQL {
 
 Expr::Expr() : p_query(ReQL_Datum()) {}
