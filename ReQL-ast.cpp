@@ -31,7 +31,7 @@ init(ReQL_AST_Function f, std::vector<Query> &args, std::map<std::string, Query>
 
 static Query
 init(ReQL_AST_Function f, AST *term, std::vector<Query> &args, std::map<std::string, Query> &kwargs) {
-  args.insert(args.cbegin(), dynamic_cast<Expr*>(term));
+  args.insert(args.begin(), dynamic_cast<Expr*>(term));
   return init(f, args, kwargs);
 }
 
