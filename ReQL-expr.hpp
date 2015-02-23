@@ -20,10 +20,6 @@ limitations under the License.
 
 #include "ReQL-new.hpp"
 
-#include <map>
-#include <memory>
-#include <vector>
-
 #ifndef REQL_EXPR_HPP
 #define REQL_EXPR_HPP
 
