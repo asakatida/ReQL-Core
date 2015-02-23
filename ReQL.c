@@ -33,7 +33,7 @@ limitations under the License.
 #include <sys/uio.h>
 #include <unistd.h>
 
-static const uint32_t REQL_VERSION = 0x5f75e83e;
+static const uint32_t REQL_VERSION = 0x400c2d20;
 static const uint32_t REQL_PROTOCOL = 0x7e6970c7;
 
 enum {

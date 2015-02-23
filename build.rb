@@ -4,6 +4,7 @@ module RethinkDB
       V0_1 = 1063369270
       V0_2 = 1915781601
       V0_3 = 1601562686
+      V0_4 = 1074539808
     end
 
     module Protocol
@@ -343,20 +344,20 @@ def cpp_term_imp(name)
   "#{
 "
 Query
-AST::#{mangle_cpp_const name}(std::vector<Query> args, std::map<std::string, Query> kwargs) {
+AST::#{mangle_cpp_const name}(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
   return init(#{c_ast_name name}, this, args, kwargs);
 }
 Query
-#{mangle_cpp_const name}(std::vector<Query> args, std::map<std::string, Query> kwargs) {
+#{mangle_cpp_const name}(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
   return init(#{c_ast_name name}, args, kwargs);
 }" if opts? name
 }
 Query
-AST::#{mangle_cpp_const name}(std::vector<Query> args) {
+AST::#{mangle_cpp_const name}(const std::vector<Query> &args) const {
   return init(#{c_ast_name name}, this, args);
 }
 Query
-#{mangle_cpp_const name}(std::vector<Query> args) {
+#{mangle_cpp_const name}(const std::vector<Query> &args) {
   return init(#{c_ast_name name}, args);
 }"
 end
@@ -373,10 +374,10 @@ def cpp_term_class(name)
   Query
   #{
     mangle_cpp_const name
-  }(std::vector<Query>, std::map<std::string, Query>);" if opts? name
+  }(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const;" if opts? name
   }
   Query
-  #{mangle_cpp_const name}(std::vector<Query>);"
+  #{mangle_cpp_const name}(const std::vector<Query> &args) const;"
 end
 
 build('ReQL-ast.hpp', :cpp_term_class) do |name|
@@ -391,10 +392,10 @@ def cpp_term_def(name)
 Query
 #{
   mangle_cpp_const name
-}(std::vector<Query>, std::map<std::string, Query>);" if opts? name
+}(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);" if opts? name
 }
 Query
-#{mangle_cpp_const name}(std::vector<Query>);"
+#{mangle_cpp_const name}(const std::vector<Query> &args);"
 end
 
 build('ReQL-ast.hpp', :cpp_term_def) do |name|
