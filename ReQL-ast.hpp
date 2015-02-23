@@ -35,8 +35,8 @@ protected:
   explicit AST(const std::vector<Query> &val) : Expr(val) {};
   explicit AST(const std::map<std::string, Query> &val) : Expr(val) {};
 
-  explicit AST(const AST &other) : Expr(other) {};
-  explicit AST(AST &&other) : Expr(other) {};
+  AST(const AST &other) : Expr(other) {};
+  AST(AST &&other) : Expr(other) {};
 
 public:
   /**

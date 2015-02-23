@@ -31,8 +31,8 @@ class Expr {
 public:
   bool operator<(const Expr &other) const;
 
-  explicit Expr(const Expr &other);
-  explicit Expr(Expr &&other);
+  Expr(const Expr &other);
+  Expr(Expr &&other);
 
   Expr &operator=(const Expr &other);
   Expr &operator=(Expr &&other);
