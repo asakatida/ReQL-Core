@@ -1,1 +1,1 @@
-CC=clang CXX=clang++ make test
+CC=gcc-4.8 CXX=g++-4.8 make test
