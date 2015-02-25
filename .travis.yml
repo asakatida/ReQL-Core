@@ -8,6 +8,8 @@ cache:
 
 language: cpp
 
+compiler: clang
+
 env:
   - |
     BUILD=build-c++.sh
