@@ -95,12 +95,14 @@ reql_cur_open(ReQL_Cur_t *cur) {
 
 extern void
 reql_close_cur(ReQL_Cur_t *cur) {
+  if (!reql_cur_open(cur)) {
+    return;
+  }
   reql_cur_lock(cur);
   reql_json_destroy(cur->response); cur->response = NULL;
   cur->done = 1;
   ReQL_Cur_t *prev = cur->prev;
   ReQL_Cur_t *next = cur->next;
-  reql_cur_unlock(cur);
   if (next == cur && prev == cur) {
     cur->conn->cursors = NULL;
   } else { // TODO this has deadlock/access issues
@@ -111,4 +113,6 @@ reql_close_cur(ReQL_Cur_t *cur) {
     next->prev = prev == cur ? next : prev;
     reql_cur_unlock(next);
   }
+  cur->conn = NULL;
+  reql_cur_unlock(cur);
 }
