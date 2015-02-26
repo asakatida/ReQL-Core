@@ -137,13 +137,17 @@ ReQL_String::move(ReQL_String &&other) {
   return *this;
 }
 
-ReQL_Term::ReQL_Term(std::uint32_t args_size, std::uint32_t kwargs_size) :
-  ReQL(), p_args(new ReQL_Obj_t), p_kwargs(new ReQL_Obj_t),
-  p_array(new ReQL_Obj_t*[args_size]), p_object(new ReQL_Pair_t[kwargs_size]) {
-
-  reql_array_init(p_args.get(), p_array.get(), static_cast<std::uint32_t>(args_size));
-
-  reql_object_init(p_kwargs.get(), p_object.get(), static_cast<std::uint32_t>(kwargs_size));
+ReQL_Term::ReQL_Term(std::uint32_t args_size, std::uint32_t kwargs_size) : ReQL() {
+  if (args_size > 0) {
+    p_args.reset(new ReQL_Obj_t);
+    p_array.reset(new ReQL_Obj_t*[args_size]);
+    reql_array_init(p_args.get(), p_array.get(), args_size);
+  }
+  if (kwargs_size > 0) {
+    p_kwargs.reset(new ReQL_Obj_t);
+    p_object.reset(new ReQL_Pair_t[kwargs_size]);
+    reql_object_init(p_kwargs.get(), p_object.get(), kwargs_size);
+  }
 }
 
 void
