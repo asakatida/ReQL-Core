@@ -32,7 +32,7 @@ before_install:
   - cd rethinkdb
   - ./configure --allow-fetch
   - make src/all -j2
-  - ./build/release/rethinkdb --daemon
+  - ./build/release_clang/rethinkdb --daemon
   - cd ..
 
 install:
