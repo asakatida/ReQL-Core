@@ -20,6 +20,8 @@ limitations under the License.
 
 #include "ReQL-cursor.h"
 
+#include "ReQL.h"
+
 #include <pthread.h>
 #include <stdlib.h>
 
@@ -83,11 +85,22 @@ reql_cursor_next(ReQL_Cur_t *cur) {
   return res;
 }
 
-extern void reql_close_cur(ReQL_Cur_t *cur) {
+extern void
+reql_close_cur(ReQL_Cur_t *cur) {
   reql_cur_lock(cur);
   reql_json_destroy(cur->response); cur->response = NULL;
   cur->done = 1;
+  ReQL_Cur_t *prev = cur->prev;
+  ReQL_Cur_t *next = cur->next;
   reql_cur_unlock(cur);
-  cur->prev->next = cur->next == cur ? cur->prev : cur->next;
-  cur->next->prev = cur->prev == cur ? cur->next : cur->prev;
+  if (next == cur && prev == cur) {
+    cur->conn->cursors = NULL;
+  } else { // TODO this has deadlock/access issues
+    reql_cur_lock(prev);
+    prev->next = next == cur ? prev : next;
+    reql_cur_unlock(prev);
+    reql_cur_lock(next);
+    next->prev = prev == cur ? next : prev;
+    reql_cur_unlock(next);
+  }
 }
