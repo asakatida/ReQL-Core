@@ -85,6 +85,14 @@ reql_cursor_next(ReQL_Cur_t *cur) {
   return res;
 }
 
+extern char
+reql_cur_open(ReQL_Cur_t *cur) {
+  reql_cur_lock(cur);
+  const char done = cur->done;
+  reql_cur_unlock(cur);
+  return !done;
+}
+
 extern void
 reql_close_cur(ReQL_Cur_t *cur) {
   reql_cur_lock(cur);

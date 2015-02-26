@@ -52,6 +52,8 @@ extern void
 reql_set_cur_response(ReQL_Cur_t *cur, ReQL_Obj_t *res);
 extern ReQL_Obj_t *
 reql_cursor_next(ReQL_Cur_t *cur);
+extern char
+reql_cur_open(ReQL_Cur_t *cur);
 extern void
 reql_close_cur(ReQL_Cur_t *cur);
 
