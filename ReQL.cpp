@@ -30,7 +30,7 @@ Cursor::~Cursor() {
 }
 
 bool Cursor::isOpen() const {
-  return false;
+  return reql_cur_open(data());
 }
 
 ReQL_Cur_t *
