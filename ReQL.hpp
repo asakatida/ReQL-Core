@@ -25,6 +25,16 @@ limitations under the License.
 
 namespace ReQL {
 
+class Result {
+private:
+  ReQL_Datum_t type;
+  bool boolean;
+  double num;
+  std::map<std::string, Result> object;
+  std::string string;
+  std::vector<Result> array;
+};
+
 class Cursor {
 public:
   Cursor();
@@ -38,6 +48,9 @@ public:
   ~Cursor();
 
   bool isOpen() const;
+
+  Result next();
+  std::vector<Result> toVector();
 
   ReQL_Cur_t *data() const;
 
