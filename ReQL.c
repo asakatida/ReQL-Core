@@ -355,10 +355,14 @@ reql_conn_open(const ReQL_Conn_t *conn) {
 
 static ReQL_Obj_t *
 reql_build(const ReQL_Obj_t *query) {
-  ReQL_Obj_t *obj = malloc(sizeof(ReQL_Obj_t));
+  ReQL_Obj_t *obj = NULL;
 
   switch (reql_datum_type(query)) {
     case REQL_R_ARRAY: {
+      obj = malloc(sizeof(ReQL_Obj_t));
+      if (obj == NULL) {
+        break;
+      }
       uint32_t size = reql_size(query);
       ReQL_Obj_t **arrray = malloc(sizeof(ReQL_Obj_t*) * size);
       reql_array_init(obj, arrray, size);
@@ -370,22 +374,35 @@ reql_build(const ReQL_Obj_t *query) {
       break;
     }
     case REQL_R_BOOL: {
+      obj = malloc(sizeof(ReQL_Obj_t));
+      if (obj == NULL) {
+        break;
+      }
       reql_bool_init(obj, reql_to_bool(query));
       break;
     }
-    case REQL_R_JSON: {
-      free(obj);
-      return NULL;
-    }
+    case REQL_R_JSON: break;
     case REQL_R_NULL: {
+      obj = malloc(sizeof(ReQL_Obj_t));
+      if (obj == NULL) {
+        break;
+      }
       reql_null_init(obj);
       break;
     }
     case REQL_R_NUM: {
+      obj = malloc(sizeof(ReQL_Obj_t));
+      if (obj == NULL) {
+        break;
+      }
       reql_number_init(obj, reql_to_number(query));
       break;
     }
     case REQL_R_OBJECT: {
+      obj = malloc(sizeof(ReQL_Obj_t));
+      if (obj == NULL) {
+        break;
+      }
       uint32_t size = reql_size(query);
       ReQL_Pair_t *pairs = malloc(sizeof(ReQL_Pair_t) * size);
       reql_object_init(obj, pairs, size);
@@ -397,6 +414,10 @@ reql_build(const ReQL_Obj_t *query) {
       break;
     }
     case REQL_R_REQL: {
+      obj = malloc(sizeof(ReQL_Obj_t));
+      if (obj == NULL) {
+        break;
+      }
       ReQL_Obj_t **array = malloc(sizeof(ReQL_Obj_t*) * 3);
       reql_array_init(obj, array, 3);
 
@@ -416,6 +437,10 @@ reql_build(const ReQL_Obj_t *query) {
       break;
     }
     case REQL_R_STR: {
+      obj = malloc(sizeof(ReQL_Obj_t));
+      if (obj == NULL) {
+        break;
+      }
       uint32_t size = reql_size(query);
       uint8_t *buf = malloc(sizeof(uint8_t) * size);
       reql_string_init(obj, buf, size);
