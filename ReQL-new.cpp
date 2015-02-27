@@ -54,8 +54,8 @@ ReQL::operator<(const ReQL &other) const {
         return data() < other.data();
       }
       case REQL_R_STR: {
-        std::string same((char *)reql_string_buf(data()), reql_string_size(data()));
-        std::string diff((char *)reql_string_buf(other.data()), reql_string_size(other.data()));
+        std::string same((char *)reql_string_buf(data()), reql_size(data()));
+        std::string diff((char *)reql_string_buf(other.data()), reql_size(other.data()));
         return same < diff;
       }
     }

@@ -90,7 +90,7 @@ reql_encode_(ReQL_Obj_t *obj, ReQL_String_t *json) {
       if (reql_string_t_append_(json, left_square_bracket)) {
         return -1;
       }
-      uint32_t size = reql_array_size(obj);
+      uint32_t size = reql_size(obj);
       uint32_t i;
       for (i=0; i<size; ++i) {
         if (i > 0) {
@@ -182,7 +182,7 @@ reql_encode_(ReQL_Obj_t *obj, ReQL_String_t *json) {
       return reql_string_t_append_(json, right_curly_bracket);
     }
     case REQL_R_STR: {
-      return reql_escape_string(json, reql_string_buf(obj), reql_string_size(obj));
+      return reql_escape_string(json, reql_string_buf(obj), reql_size(obj));
     }
   }
 

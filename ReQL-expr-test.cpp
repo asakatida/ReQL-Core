@@ -104,11 +104,11 @@ TEST_CASE("decode values", "[c][decode]") {
 
     REQUIRE(obj != NULL);
     REQUIRE(reql_datum_type(obj) == REQL_R_STR);
-    REQUIRE(3 == reql_string_size(obj));
+    REQUIRE(3 == reql_size(obj));
 
     std::string orig("hi!");
 
-    REQUIRE(orig.compare(0, 3, (char *)reql_string_buf(obj), reql_string_size(obj)) == 0);
+    REQUIRE(orig.compare(0, 3, (char *)reql_string_buf(obj), reql_size(obj)) == 0);
 
     reql_json_destroy(obj);
   }
@@ -282,7 +282,7 @@ TEST_CASE("Expr array", "[c][expr][array]") {
 
   CHECK(reql_datum_type(&ary) == REQL_R_ARRAY);
 
-  CHECK(reql_array_size(&ary) == 0);
+  CHECK(reql_size(&ary) == 0);
 
   SECTION("over fill array") {
     uint32_t i;
@@ -454,7 +454,7 @@ TEST_CASE("Expr", "[c][expr]") {
     CHECK(reql_datum_type(&val) == REQL_R_STR);
 
     CHECK(orig.compare(0, size, (char *)reql_string_buf(&val), size) == 0);
-    CHECK(size == reql_string_size(&val));
+    CHECK(size == reql_size(&val));
 
     delete [] buf;
   }

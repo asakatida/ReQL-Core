@@ -163,7 +163,7 @@ Expr::copy(const Expr &other) {
       break;
     }
     case REQL_R_STR: {
-      std::string str((char*)reql_string_buf(other.p_query.data()), static_cast<std::size_t>(reql_string_size(other.p_query.data())));
+      std::string str((char*)reql_string_buf(other.p_query.data()), static_cast<std::size_t>(reql_size(other.p_query.data())));
       p_query = std::move(ReQL_String(str));
       break;
     }

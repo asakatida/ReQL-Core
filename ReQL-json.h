@@ -231,7 +231,7 @@ typedef struct ReQL_Pair_s ReQL_Pair_t;
  */
 struct ReQL_Iter_s {
   uint32_t idx;
-  struct ReQL_Obj_s *obj;
+  const struct ReQL_Obj_s *obj;
 };
 typedef struct ReQL_Iter_s ReQL_Iter_t;
 
@@ -276,7 +276,7 @@ typedef struct ReQL_Obj_s ReQL_Obj_t;
  * @return datum type.
  */
 extern ReQL_Datum_t
-reql_datum_type(ReQL_Obj_t *obj);
+reql_datum_type(const ReQL_Obj_t *obj);
 
 extern void
 reql_obj_set_term_type(ReQL_Obj_t *obj, const ReQL_Term_t type);
@@ -291,19 +291,19 @@ reql_obj_set_term_type(ReQL_Obj_t *obj, const ReQL_Term_t type);
  * @return term type.
  */
 extern ReQL_Term_t
-reql_obj_term_type(ReQL_Obj_t *obj);
+reql_obj_term_type(const ReQL_Obj_t *obj);
 
 extern void
 reql_obj_set_args(ReQL_Obj_t *obj, ReQL_Obj_t *args);
 
 extern ReQL_Obj_t *
-reql_obj_args(ReQL_Obj_t *obj);
+reql_obj_args(const ReQL_Obj_t *obj);
 
 extern void
 reql_obj_set_kwargs(ReQL_Obj_t *obj, ReQL_Obj_t *kwargs);
 
 extern ReQL_Obj_t *
-reql_obj_kwargs(ReQL_Obj_t *obj);
+reql_obj_kwargs(const ReQL_Obj_t *obj);
 
 /**
  * @brief initialize an allocated ReQL object as a JSON bool.
@@ -319,7 +319,7 @@ reql_bool_init(ReQL_Obj_t *obj, char val);
  * @return 1 if bool contains true, 0 if false.
  */
 extern char
-reql_to_bool(ReQL_Obj_t *obj);
+reql_to_bool(const ReQL_Obj_t *obj);
 
 /**
  * @brief initialize an allocated ReQL object as a JSON null.
@@ -342,7 +342,7 @@ reql_number_init(ReQL_Obj_t *obj, double val);
  * @return value stored in ReQL object.
  */
 extern double
-reql_to_number(ReQL_Obj_t *obj);
+reql_to_number(const ReQL_Obj_t *obj);
 
 /**
  * @brief initialize an allocated ReQL object as a JSON string.
@@ -366,22 +366,22 @@ reql_string_append(ReQL_Obj_t *obj, const uint8_t *ext, const uint32_t size);
 /**
  * @brief get byte array from a JSON string.
  *
- * Byte array may be longer than size given by reql_string_size.
+ * Byte array may be longer than size given by reql_size.
  * Array may contain null bytes, and will not be null terminated.
  *
  * @param obj ReQL string datum.
  * @return byte array with contents of JSON string.
  */
 extern uint8_t *
-reql_string_buf(ReQL_Obj_t *obj);
+reql_string_buf(const ReQL_Obj_t *obj);
 
 /**
- * @brief get number of valid bytes from a JSON string.
- * @param obj ReQL string datum.
- * @return number of bytes from reql_string_buf return that are valid.
+ * @brief get number of elements from a variable size JSON value.
+ * @param obj ReQL string, array or object datum.
+ * @return number of elements from variable size JSON value.
  */
 extern uint32_t
-reql_string_size(ReQL_Obj_t *obj);
+reql_size(const ReQL_Obj_t *obj);
 
 /**
  * @brief initialize an allocated ReQL object as a JSON array.
@@ -396,18 +396,6 @@ extern void
 reql_array_init(ReQL_Obj_t *obj, ReQL_Obj_t **arr, uint32_t alloc_size);
 
 /**
- * @brief get number of objects in ReQL array.
- *
- * A sparse array filled by using reql_array_insert will have undefineds represented as c NULL.
- * This may make iteration over the array tricky.
- *
- * @param obj ReQL array datum.
- * @return last index considered valid plus 1.
- */
-extern uint32_t
-reql_array_size(ReQL_Obj_t *obj);
-
-/**
  * @brief replace object at index with value.
  * @param obj ReQL array datum.
  * @param val new element for array.
@@ -415,7 +403,7 @@ reql_array_size(ReQL_Obj_t *obj);
  * @return 0 if successful. Otherwise the new internal array size requested to allow inserting at idx.
  */
 extern uint32_t
-reql_array_insert(ReQL_Obj_t *obj, ReQL_Obj_t *val, uint32_t idx);
+reql_array_insert(ReQL_Obj_t *obj, ReQL_Obj_t *val, const uint32_t idx);
 
 /**
  * @brief object at c index of JSON array.
@@ -424,7 +412,7 @@ reql_array_insert(ReQL_Obj_t *obj, ReQL_Obj_t *val, uint32_t idx);
  * @return index object or NULL.
  */
 extern ReQL_Obj_t *
-reql_array_index(ReQL_Obj_t *obj, uint32_t idx);
+reql_array_index(const ReQL_Obj_t *obj, const uint32_t idx);
 
 /**
  * @brief push object onto end of array.
@@ -449,7 +437,7 @@ reql_array_pop(ReQL_Obj_t *obj);
  * @return last object or NULL.
  */
 extern ReQL_Obj_t *
-reql_array_last(ReQL_Obj_t *obj);
+reql_array_last(const ReQL_Obj_t *obj);
 
 /**
  * @brief create object iterator initialized at object start
@@ -461,7 +449,7 @@ reql_array_last(ReQL_Obj_t *obj);
  * @return new iterator.
  */
 extern ReQL_Iter_t
-reql_new_iter(ReQL_Obj_t *obj);
+reql_new_iter(const ReQL_Obj_t *obj);
 
 /**
  * @brief get next element and step iterator.
@@ -481,7 +469,7 @@ reql_iter_next(ReQL_Iter_t *arr);
  * @param alloc_size number of objects in pair.
  */
 extern void
-reql_object_init(ReQL_Obj_t *obj, ReQL_Pair_t *pair, uint32_t alloc_size);
+reql_object_init(ReQL_Obj_t *obj, ReQL_Pair_t *pair, const uint32_t alloc_size);
 
 /**
  * @brief set key to value, updating if key already exists.
@@ -500,13 +488,10 @@ reql_object_add(ReQL_Obj_t *obj, ReQL_Obj_t *key, ReQL_Obj_t *val);
  * @return value in object or NULL if key does not exist.
  */
 extern ReQL_Obj_t *
-reql_object_get(ReQL_Obj_t *obj, ReQL_Obj_t *key);
-
-extern ReQL_Pair_t *
-reql_object_index(ReQL_Obj_t *obj, uint32_t idx);
+reql_object_get(const ReQL_Obj_t *obj, ReQL_Obj_t *key);
 
 extern char
-reql_op_eq(ReQL_Obj_t *l, ReQL_Obj_t *r);
+reql_op_eq(const ReQL_Obj_t *l, const ReQL_Obj_t *r);
 
 /**
  * @brief recursive free of all nodes in a query tree.

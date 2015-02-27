@@ -362,7 +362,7 @@ reql_build(ReQL_Obj_t *query) {
 
   switch (reql_datum_type(query)) {
     case REQL_R_ARRAY: {
-      uint32_t size = reql_array_size(query);
+      uint32_t size = reql_size(query);
       ReQL_Obj_t **arrray = malloc(sizeof(ReQL_Obj_t*) * size);
       reql_array_init(obj, arrray, size);
       ReQL_Iter_t it = reql_new_iter(query);
@@ -389,7 +389,7 @@ reql_build(ReQL_Obj_t *query) {
       break;
     }
     case REQL_R_OBJECT: {
-      uint32_t size = reql_array_size(query);
+      uint32_t size = reql_size(query);
       ReQL_Pair_t *pairs = malloc(sizeof(ReQL_Pair_t) * size);
       reql_object_init(obj, pairs, size);
       ReQL_Iter_t it = reql_new_iter(query);
@@ -419,7 +419,7 @@ reql_build(ReQL_Obj_t *query) {
       break;
     }
     case REQL_R_STR: {
-      uint32_t size = reql_string_size(query);
+      uint32_t size = reql_size(query);
       uint8_t *buf = malloc(sizeof(uint8_t) * size);
       reql_string_init(obj, buf, size);
       reql_string_append(obj, reql_string_buf(query), size);
