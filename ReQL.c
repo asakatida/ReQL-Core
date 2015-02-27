@@ -236,10 +236,15 @@ reql_conn_loop(void *conn) {
 
 extern int
 reql_connect(ReQL_Conn_t *conn, uint8_t *buf, const uint32_t size) {
-  const struct addrinfo hints = {AF_UNSPEC, SOCK_STREAM, 0, IPPROTO_TCP};
+  struct addrinfo hints;
   struct addrinfo *result, *rp;
 
-  if (getaddrinfo(conn->addr, conn->port, &hints, &result)) {
+  hints.ai_family = AF_UNSPEC;
+  hints.ai_socktype = SOCK_STREAM;
+  hints.ai_flags = 0;
+  hints.ai_protocol = IPPROTO_TCP;
+
+  if (getaddrinfo(conn->addr, conn->port, &hints, &result) != 0) {
     return -1;
   }
 
