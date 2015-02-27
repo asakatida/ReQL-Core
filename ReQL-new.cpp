@@ -137,7 +137,7 @@ ReQL_String::move(ReQL_String &&other) {
   return *this;
 }
 
-ReQL_Term::ReQL_Term(std::uint32_t args_size, std::uint32_t kwargs_size) : ReQL() {
+ReQL_Term::ReQL_Term(std::uint32_t args_size, std::uint32_t kwargs_size) : ReQL(), p_args(nullptr), p_kwargs(nullptr) {
   if (args_size > 0) {
     p_args.reset(new ReQL_Obj_t);
     p_array.reset(new ReQL_Obj_t*[args_size]);
