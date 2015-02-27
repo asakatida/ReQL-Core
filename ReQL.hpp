@@ -27,12 +27,27 @@ namespace ReQL {
 
 class Result {
 public:
+  Result();
+  Result(const Result &other);
+  Result(Result &&other);
+  ~Result();
+
   ReQL_Datum_t type;
-  bool boolean;
-  double num;
-  std::map<std::string, Result> object;
-  std::string string;
-  std::vector<Result> array;
+  union JSON_Value {
+    JSON_Value();
+
+    void copy(const JSON_Value &other, ReQL_Datum_t type);
+    void move(JSON_Value &&other, ReQL_Datum_t type);
+    void release(ReQL_Datum_t type);
+
+    ~JSON_Value();
+
+    bool boolean;
+    double num;
+    std::map<std::string, Result> object;
+    std::string string;
+    std::vector<Result> array;
+  } value;
 };
 
 class Cursor {
