@@ -50,6 +50,27 @@ public:
   } value;
 };
 
+class Parser {
+public:
+  void parse(ReQL_Obj_t *val);
+
+  virtual void startObject() = 0;
+  virtual void addKey(std::string key) = 0;
+  virtual void addKeyValue(std::string key) = 0;
+  virtual void addKeyValue(std::string key, bool value) = 0;
+  virtual void addKeyValue(std::string key, double value) = 0;
+  virtual void addKeyValue(std::string key, std::string value) = 0;
+  virtual void endObject() = 0;
+
+  virtual void startArray() = 0;
+  virtual void addElement() = 0;
+  virtual void addElement(bool value) = 0;
+  virtual void addElement(double value) = 0;
+  virtual void addElement(std::string value) = 0;
+  virtual void addNull() = 0;
+  virtual void endArray() = 0;
+};
+
 class Cursor {
 public:
   Cursor();
@@ -65,7 +86,9 @@ public:
   bool isOpen() const;
 
   Result next();
+  void next(Parser &p);
   std::vector<Result> toVector();
+  void toVector(Parser &p);
 
   ReQL_Cur_t *data() const;
 
