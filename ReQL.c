@@ -397,8 +397,8 @@ reql_build(const ReQL_Obj_t *query) {
       break;
     }
     case REQL_R_REQL: {
-      ReQL_Obj_t **arrray = malloc(sizeof(ReQL_Obj_t*) * 3);
-      reql_array_init(obj, arrray, 3);
+      ReQL_Obj_t **array = malloc(sizeof(ReQL_Obj_t*) * 3);
+      reql_array_init(obj, array, 3);
 
       ReQL_Obj_t *term = malloc(sizeof(ReQL_Obj_t));
 
