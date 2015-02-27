@@ -32,6 +32,9 @@ public:
   Result(Result &&other);
   ~Result();
 
+  Result &operator=(const Result &other);
+  Result &operator=(Result &&other);
+
   ReQL_Datum_t type;
   union JSON_Value {
     JSON_Value();
@@ -67,7 +70,6 @@ public:
   virtual void addElement(bool value) = 0;
   virtual void addElement(double value) = 0;
   virtual void addElement(std::string value) = 0;
-  virtual void addNull() = 0;
   virtual void endArray() = 0;
 };
 

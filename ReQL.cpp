@@ -22,6 +22,314 @@ limitations under the License.
 
 namespace ReQL {
 
+Result::Result() : type(REQL_R_JSON) {}
+
+Result::Result(const Result &other) {
+  value.copy(other.value, type);
+}
+
+Result::Result(Result &&other) {
+  value.move(std::move(other.value), type);
+}
+
+Result::~Result() {
+  value.release(type);
+}
+
+Result &
+Result::operator=(const Result &other) {
+  if (this != &other) {
+    value.copy(other.value, type);
+  }
+  return *this;
+}
+
+Result &
+Result::operator=(Result &&other) {
+  if (this != &other) {
+    value.move(std::move(other.value), type);
+  }
+  return *this;
+}
+  
+Result::JSON_Value::JSON_Value() {
+  std::memset(this, 0, sizeof(Result::JSON_Value));
+}
+
+void
+Result::JSON_Value::copy(const Result::JSON_Value &other, ReQL_Datum_t type) {
+  switch (type) {
+    case REQL_R_ARRAY: {
+      array = other.array;
+      break;
+    }
+    case REQL_R_BOOL: {
+      boolean = other.boolean;
+      break;
+    }
+    case REQL_R_NUM: {
+      num = other.num;
+      break;
+    }
+    case REQL_R_OBJECT: {
+      object = other.object;
+      break;
+    }
+    case REQL_R_STR: {
+      string = other.string;
+      break;
+    }
+    case REQL_R_NULL:
+    case REQL_R_JSON:
+    case REQL_R_REQL: break;
+  }
+}
+
+void
+Result::JSON_Value::move(Result::JSON_Value &&other, ReQL_Datum_t type) {
+  switch (type) {
+    case REQL_R_ARRAY: {
+      array = std::move(other.array);
+      break;
+    }
+    case REQL_R_BOOL: {
+      boolean = std::move(other.boolean);
+      break;
+    }
+    case REQL_R_NUM: {
+      num = std::move(other.num);
+      break;
+    }
+    case REQL_R_OBJECT: {
+      object = std::move(other.object);
+      break;
+    }
+    case REQL_R_STR: {
+      string = std::move(other.string);
+      break;
+    }
+    case REQL_R_NULL:
+    case REQL_R_JSON:
+    case REQL_R_REQL: break;
+  }
+}
+
+void
+Result::JSON_Value::release(ReQL_Datum_t type) {
+  switch (type) {
+    case REQL_R_ARRAY: {
+      array.~vector();
+      break;
+    }
+    case REQL_R_OBJECT: {
+      object.~map();
+      break;
+    }
+    case REQL_R_STR: {
+      string.~basic_string();
+      break;
+    }
+    case REQL_R_BOOL:
+    case REQL_R_JSON:
+    case REQL_R_NULL:
+    case REQL_R_NUM:
+    case REQL_R_REQL: break;
+  }
+}
+
+Result::JSON_Value::~JSON_Value() {
+  std::memset(this, 0, sizeof(Result::JSON_Value));
+}
+  
+void
+Parser::parse(ReQL_Obj_t *val) {
+  switch (reql_datum_type(val)) {
+    case REQL_R_ARRAY: {
+      startArray();
+
+      ReQL_Iter_t it = reql_new_iter(val);
+      ReQL_Obj_t *elem = NULL;
+
+      while ((elem = reql_iter_next(&it)) != NULL) {
+        parse(elem);
+      }
+
+      endArray();
+      break;
+    }
+    case REQL_R_BOOL: {
+      addElement(static_cast<bool>(reql_to_bool(val)));
+      break;
+    }
+    case REQL_R_JSON:
+    case REQL_R_REQL: break;
+    case REQL_R_NULL: {
+      addElement();
+      break;
+    }
+    case REQL_R_NUM: {
+      addElement(reql_to_number(val));
+      break;
+    }
+    case REQL_R_OBJECT: {
+      startObject();
+
+      ReQL_Iter_t it = reql_new_iter(val);
+      ReQL_Obj_t *key = NULL;
+      ReQL_Obj_t *value = NULL;
+
+      while ((key = reql_iter_next(&it)) != NULL) {
+        value = reql_object_get(val, key);
+        std::string key_string((char *)reql_string_buf(key), reql_size(key));
+
+        switch (reql_datum_type(value)) {
+          case REQL_R_BOOL: {
+            addKeyValue(key_string, static_cast<bool>(reql_to_bool(val)));
+            break;
+          }
+          case REQL_R_ARRAY:
+          case REQL_R_OBJECT: {
+            addKey(key_string);
+            parse(value);
+            break;
+          }
+          case REQL_R_NULL: {
+            addKeyValue(key_string);
+            break;
+          }
+          case REQL_R_NUM: {
+            addKeyValue(key_string, reql_to_number(value));
+            break;
+          }
+          case REQL_R_JSON:
+          case REQL_R_REQL: break;
+          case REQL_R_STR: {
+            addKeyValue(key_string, std::string((char *)reql_string_buf(value), reql_size(value)));
+            break;
+          }
+        }
+      }
+      
+      endObject();
+      break;
+    }
+    case REQL_R_STR: {
+      addElement(std::string((char *)reql_string_buf(val), reql_size(val)));
+      break;
+    }
+  }
+}
+
+class ResultBuilder : public Parser {
+public:
+  Result result() { return p_result; }
+
+private:
+  void startObject() {
+    p_stack.push_back(Result());
+    p_stack.end()->type = REQL_R_OBJECT;
+    p_stack.end()->value.object = std::map<std::string, Result>();
+  }
+
+  void addKey(std::string key) {
+    p_keys.push_back(key);
+  }
+
+  void addKeyValue(std::string key) {
+    Result res;
+    res.type = REQL_R_NULL;
+    p_stack.end()->value.object.insert({key, res});
+  }
+
+  void addKeyValue(std::string key, bool value) {
+    Result res;
+    res.type = REQL_R_BOOL;
+    res.value.boolean = value;
+    p_stack.end()->value.object.insert({key, res});
+  }
+
+  void addKeyValue(std::string key, double value) {
+    Result res;
+    res.type = REQL_R_NUM;
+    res.value.num = value;
+    p_stack.end()->value.object.insert({key, res});
+  }
+
+  void addKeyValue(std::string key, std::string value) {
+    Result res;
+    res.type = REQL_R_NULL;
+    p_stack.end()->value.object.insert({key, res});
+  }
+
+  void endObject() {
+    end();
+  }
+
+  void startArray() {
+    p_stack.push_back(Result());
+    p_stack.end()->type = REQL_R_ARRAY;
+    p_stack.end()->value.array = std::vector<Result>();
+  }
+
+  void addElement() {
+    Result res;
+    res.type = REQL_R_NULL;
+    addElement(std::move(res));
+  }
+
+  void addElement(bool value) {
+    Result res;
+    res.type = REQL_R_BOOL;
+    res.value.boolean = value;
+    addElement(std::move(res));
+  }
+
+  void addElement(double value) {
+    Result res;
+    res.type = REQL_R_NUM;
+    res.value.num = value;
+    addElement(std::move(res));
+  }
+
+  void addElement(std::string value) {
+    Result res;
+    res.type = REQL_R_STR;
+    res.value.string = value;
+    addElement(std::move(res));
+  }
+
+  void endArray() {
+    end();
+  }
+
+  void addElement(Result &&val) {
+    if (p_stack.empty()) {
+      p_result = std::move(val);
+    } else {
+      std::vector<Result> *array = &p_stack.end()->value.array;
+      array->insert(array->end(), std::move(val));
+    }
+  }
+
+  void end() {
+    Result last = *p_stack.end();
+    p_stack.pop_back();
+    if (p_stack.empty()) {
+      p_result = last;
+    } else if (p_stack.end()->type == REQL_R_OBJECT) {
+      std::string key = *p_keys.end();
+      p_keys.pop_back();
+      p_stack.end()->value.object.insert({key, last});
+    } else {
+      addElement(std::move(last));
+    }
+  }
+
+  std::vector<Result> p_stack;
+  std::vector<std::string> p_keys;
+  Result p_result;
+};
+
 Cursor::Cursor() : cur(new ReQL_Cur_t) {
   reql_cursor_init(data());
 }
@@ -31,6 +339,18 @@ Cursor::~Cursor() {
 
 bool Cursor::isOpen() const {
   return reql_cur_open(data());
+}
+
+Result
+Cursor::next() {
+  ResultBuilder builder;
+  next(builder);
+  return builder.result();
+}
+
+void
+Cursor::next(Parser &p) {
+  p.parse(reql_cursor_next(data()));
 }
 
 ReQL_Cur_t *
