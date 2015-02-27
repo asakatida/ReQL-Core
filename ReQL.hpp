@@ -26,7 +26,7 @@ limitations under the License.
 namespace ReQL {
 
 class Result {
-private:
+public:
   ReQL_Datum_t type;
   bool boolean;
   double num;
