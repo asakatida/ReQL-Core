@@ -115,7 +115,7 @@ reql_ensure_conn_close(ReQL_Conn_t *conn);
  * @return 0 if closed or closing. non zero otherwise.
  */
 extern char
-reql_conn_open(ReQL_Conn_t *conn);
+reql_conn_open(const ReQL_Conn_t *conn);
 
 /**
  * @brief Prepare and send a query to the server for evaluation. Set up cur to receive responces.
@@ -126,6 +126,6 @@ reql_conn_open(ReQL_Conn_t *conn);
  * @return 0 on success. Non zero otherwise.
  */
 extern int
-reql_run(ReQL_Cur_t *cur, ReQL_Obj_t *query, ReQL_Conn_t *conn, ReQL_Obj_t *kwargs);
+reql_run(ReQL_Cur_t *cur, const ReQL_Obj_t *query, ReQL_Conn_t *conn, ReQL_Obj_t *kwargs);
 
 #endif
