@@ -34,18 +34,18 @@ enum {
   char_reverse_solidus = 0x5C,
 };
 
-const uint8_t left_square_bracket = char_left_square_bracket;
-const uint8_t right_square_bracket = char_right_square_bracket;
-const uint8_t left_curly_bracket = char_left_curly_bracket;
-const uint8_t right_curly_bracket = char_right_curly_bracket;
-const uint8_t colon = char_colon;
-const uint8_t comma = char_comma;
-const uint8_t quotation = char_quotation;
-const uint8_t reverse_solidus = char_reverse_solidus;
+static const uint8_t left_square_bracket = char_left_square_bracket;
+static const uint8_t right_square_bracket = char_right_square_bracket;
+static const uint8_t left_curly_bracket = char_left_curly_bracket;
+static const uint8_t right_curly_bracket = char_right_curly_bracket;
+static const uint8_t colon = char_colon;
+static const uint8_t comma = char_comma;
+static const uint8_t quotation = char_quotation;
+static const uint8_t reverse_solidus = char_reverse_solidus;
 
-const uint8_t json_true[4] = {0x74, 0x72, 0x75, 0x65};
-const uint8_t json_false[5] = {0x66, 0x61, 0x6C, 0x73, 0x65};
-const uint8_t json_null[4] = {0x6E, 0x75, 0x6C, 0x6C};
+static const uint8_t json_true[4] = {0x74, 0x72, 0x75, 0x65};
+static const uint8_t json_false[5] = {0x66, 0x61, 0x6C, 0x73, 0x65};
+static const uint8_t json_null[4] = {0x6E, 0x75, 0x6C, 0x6C};
 
 extern const uint8_t *
 reql_json_string_esc(const uint8_t chr);
