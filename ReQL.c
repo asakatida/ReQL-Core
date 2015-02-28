@@ -215,6 +215,9 @@ reql_conn_loop(void *conn) {
         size = 0;
 
         response = realloc(response, sizeof(uint8_t) * 12);
+        if (response == NULL) {
+          break;
+        }
       }
     } else {
       if (pos >= 12) {
@@ -223,11 +226,16 @@ reql_conn_loop(void *conn) {
         size = reql_get_32_le(&response[8]);
         response = realloc(response, sizeof(uint8_t) * size);
         if (response == NULL) {
+          break;
+        }
+        if (response == NULL) {
           reql_close_conn(conn);
         }
       }
     }
   }
+
+  free(response);
 
   reql_conn_close_socket(conn);
 
