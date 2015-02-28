@@ -11,7 +11,7 @@ TEST_CASE("Connection", "[c++][connect]") {
 
   REQUIRE(conn.isOpen());
 
-  Cursor cur = db_create({"libReQL"}).run(conn);
+  Cursor cur = db_create({std::string("libReQL")}).run(conn);
 
   REQUIRE(cur.isOpen());
 
