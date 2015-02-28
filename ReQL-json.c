@@ -209,7 +209,7 @@ extern ReQL_Obj_t *
 reql_iter_next(ReQL_Iter_t *obj) {
   ReQL_Obj_t *next = NULL;
 
-  if (reql_size(obj->obj) < obj->idx) {
+  if (reql_size(obj->obj) > obj->idx) {
     if (reql_datum_type(obj->obj) == REQL_R_ARRAY) {
       next = reql_array_index(obj->obj, obj->idx);
     } else {

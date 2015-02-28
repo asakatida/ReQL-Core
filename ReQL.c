@@ -205,7 +205,7 @@ reql_conn_loop(void *conn) {
   uint64_t token = 0;
   uint32_t pos = 0, size = 0;
 
-  while (!reql_conn_done(conn)) {
+  while (reql_conn_done(conn) == 0) {
     pos += reql_conn_read(conn, &response[pos], (size > 0 ? size : 12) - pos);
     if (size > 0) {
       if (pos >= size) {
