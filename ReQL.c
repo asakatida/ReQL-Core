@@ -192,7 +192,8 @@ static uint32_t
 reql_conn_read(const ReQL_Conn_t *conn, uint8_t *buf, const uint32_t size) {
   const ssize_t rcv_size = recvfrom(reql_conn_socket(conn), buf, size, 0, NULL, NULL);
 
-  if (rcv_size != size) {
+  if (rcv_size < 0) {
+    return 0;
   }
 
   return (uint32_t)rcv_size;
