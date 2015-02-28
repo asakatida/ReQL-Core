@@ -20,6 +20,8 @@ limitations under the License.
 
 #include "ReQL.hpp"
 
+#include <cstring>
+
 namespace ReQL {
 
 Result::Result() : type(REQL_R_JSON) {}
