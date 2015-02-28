@@ -200,28 +200,27 @@ reql_conn_read(const ReQL_Conn_t *conn, uint8_t *buf, const uint32_t size) {
 
 static void *
 reql_conn_loop(void *conn) {
-  uint8_t msg_header[12];
-  uint8_t *response = NULL;
+  uint8_t *response = malloc(sizeof(uint8_t) * 12);
   uint64_t token = 0;
   uint32_t pos = 0, size = 0;
 
   while (!reql_conn_done(conn)) {
-    if (response) {
-      pos += reql_conn_read(conn, &response[pos], size - pos);
+    pos += reql_conn_read(conn, &response[pos], (size > 0 ? size : 12) - pos);
+    if (size > 0) {
       if (pos >= size) {
         reql_set_cur_res(conn, reql_decode(response, size), token);
 
         pos -= size;
+        size = 0;
 
-        free(response); response = NULL;
+        response = realloc(response, sizeof(uint8_t) * 12);
       }
     } else {
-      pos += reql_conn_read(conn, msg_header, 12 - pos);
       if (pos >= 12) {
         pos -= 12;
-        token = reql_get_64_token(msg_header);
-        size = reql_get_32_le(&msg_header[8]);
-        response = malloc(sizeof(uint8_t) * size);
+        token = reql_get_64_token(response);
+        size = reql_get_32_le(&response[8]);
+        response = realloc(response, sizeof(uint8_t) * size);
         if (response == NULL) {
           reql_close_conn(conn);
         }
