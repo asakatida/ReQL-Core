@@ -455,9 +455,7 @@ Cursor Query::run(const Connection &conn) const {
 
   Cursor cur;
 
-  ReQL kwargs;
-
-  reql_run(cur.data(), p_query.data(), conn.data(), kwargs.data());
+  reql_run(cur.data(), p_query.data(), conn.data(), nullptr);
 
   return cur;
 }
