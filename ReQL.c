@@ -423,7 +423,7 @@ reql_build(const ReQL_Obj_t *query) {
 
       ReQL_Obj_t *term = malloc(sizeof(ReQL_Obj_t));
 
-      reql_number_init(term, (double)reql_obj_term_type(query));
+      reql_number_init(term, (double)reql_term_type(query));
 
       reql_array_append(obj, term);
 

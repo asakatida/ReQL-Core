@@ -279,7 +279,7 @@ extern ReQL_Datum_t
 reql_datum_type(const ReQL_Obj_t *obj);
 
 extern void
-reql_obj_set_term_type(ReQL_Obj_t *obj, const ReQL_Term_t type);
+reql_set_term_type(ReQL_Obj_t *obj, const ReQL_Term_t type);
 
 /**
  * @brief get ReQL term type.
@@ -291,19 +291,19 @@ reql_obj_set_term_type(ReQL_Obj_t *obj, const ReQL_Term_t type);
  * @return term type.
  */
 extern ReQL_Term_t
-reql_obj_term_type(const ReQL_Obj_t *obj);
+reql_term_type(const ReQL_Obj_t *obj);
 
 extern void
-reql_obj_set_args(ReQL_Obj_t *obj, ReQL_Obj_t *args);
+reql_set_args(ReQL_Obj_t *obj, ReQL_Obj_t *args);
 
 extern ReQL_Obj_t *
-reql_obj_args(const ReQL_Obj_t *obj);
+reql_args(const ReQL_Obj_t *obj);
 
 extern void
-reql_obj_set_kwargs(ReQL_Obj_t *obj, ReQL_Obj_t *kwargs);
+reql_set_kwargs(ReQL_Obj_t *obj, ReQL_Obj_t *kwargs);
 
 extern ReQL_Obj_t *
-reql_obj_kwargs(const ReQL_Obj_t *obj);
+reql_kwargs(const ReQL_Obj_t *obj);
 
 /**
  * @brief initialize an allocated ReQL object as a JSON bool.
