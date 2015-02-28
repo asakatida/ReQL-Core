@@ -35,7 +35,7 @@ Expr::Expr(const ReQL_AST_Function &f, const std::vector<Query> &args, const std
     return;
   }
 
-  std::size_t kwargs_size = args.size();
+  std::size_t kwargs_size = kwargs.size();
 
   if (kwargs_size > std::numeric_limits<std::uint32_t>::max()) {
     return;
