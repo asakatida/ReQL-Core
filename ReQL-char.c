@@ -22,8 +22,77 @@ limitations under the License.
 
 #include <stdlib.h>
 
+static const uint8_t json_char_0x00[6] = {
+  char_reverse_solidus, 0x75, 0x30, 0x30, 0x30, 0x30};
+static const uint8_t json_char_0x01[6] = {
+  char_reverse_solidus, 0x75, 0x30, 0x30, 0x30, 0x31};
+static const uint8_t json_char_0x02[6] = {
+  char_reverse_solidus, 0x75, 0x30, 0x30, 0x30, 0x32};
+static const uint8_t json_char_0x03[6] = {
+  char_reverse_solidus, 0x75, 0x30, 0x30, 0x30, 0x33};
+static const uint8_t json_char_0x04[6] = {
+  char_reverse_solidus, 0x75, 0x30, 0x30, 0x30, 0x34};
+static const uint8_t json_char_0x05[6] = {
+  char_reverse_solidus, 0x75, 0x30, 0x30, 0x30, 0x35};
+static const uint8_t json_char_0x06[6] = {
+  char_reverse_solidus, 0x75, 0x30, 0x30, 0x30, 0x36};
+static const uint8_t json_char_0x07[6] = {
+  char_reverse_solidus, 0x75, 0x30, 0x30, 0x30, 0x37};
+static const uint8_t json_char_backspace[2] = {
+  char_reverse_solidus, 0x62};
+static const uint8_t json_char_tab[2] = {
+  char_reverse_solidus, 0x74};
+static const uint8_t json_char_linefeed[2] = {
+  char_reverse_solidus, 0x6E};
+static const uint8_t json_char_0x0B[6] = {
+  char_reverse_solidus, 0x75, 0x30, 0x30, 0x30, 0x42};
+static const uint8_t json_char_formfeed[2] = {
+  char_reverse_solidus, 0x66};
+static const uint8_t json_char_carriage_return[2] = {
+  char_reverse_solidus, 0x72};
+static const uint8_t json_char_0x0E[6] = {
+  char_reverse_solidus, 0x75, 0x30, 0x30, 0x30, 0x45};
+static const uint8_t json_char_0x0F[6] = {
+  char_reverse_solidus, 0x75, 0x30, 0x30, 0x30, 0x46};
+static const uint8_t json_char_0x10[6] = {
+  char_reverse_solidus, 0x75, 0x30, 0x30, 0x31, 0x30};
+static const uint8_t json_char_0x11[6] = {
+  char_reverse_solidus, 0x75, 0x30, 0x30, 0x31, 0x31};
+static const uint8_t json_char_0x12[6] = {
+  char_reverse_solidus, 0x75, 0x30, 0x30, 0x31, 0x32};
+static const uint8_t json_char_0x13[6] = {
+  char_reverse_solidus, 0x75, 0x30, 0x30, 0x31, 0x33};
+static const uint8_t json_char_0x14[6] = {
+  char_reverse_solidus, 0x75, 0x30, 0x30, 0x31, 0x34};
+static const uint8_t json_char_0x15[6] = {
+  char_reverse_solidus, 0x75, 0x30, 0x30, 0x31, 0x35};
+static const uint8_t json_char_0x16[6] = {
+  char_reverse_solidus, 0x75, 0x30, 0x30, 0x31, 0x36};
+static const uint8_t json_char_0x17[6] = {
+  char_reverse_solidus, 0x75, 0x30, 0x30, 0x31, 0x37};
+static const uint8_t json_char_0x18[6] = {
+  char_reverse_solidus, 0x75, 0x30, 0x30, 0x31, 0x38};
+static const uint8_t json_char_0x19[6] = {
+  char_reverse_solidus, 0x75, 0x30, 0x30, 0x31, 0x39};
+static const uint8_t json_char_0x1A[6] = {
+  char_reverse_solidus, 0x75, 0x30, 0x30, 0x31, 0x41};
+static const uint8_t json_char_0x1B[6] = {
+  char_reverse_solidus, 0x75, 0x30, 0x30, 0x31, 0x42};
+static const uint8_t json_char_0x1C[6] = {
+  char_reverse_solidus, 0x75, 0x30, 0x30, 0x31, 0x43};
+static const uint8_t json_char_0x1D[6] = {
+  char_reverse_solidus, 0x75, 0x30, 0x30, 0x31, 0x44};
+static const uint8_t json_char_0x1E[6] = {
+  char_reverse_solidus, 0x75, 0x30, 0x30, 0x31, 0x45};
+static const uint8_t json_char_0x1F[6] = {
+  char_reverse_solidus, 0x75, 0x30, 0x30, 0x31, 0x46};
+static const uint8_t json_char_quotation[2] = {
+  char_reverse_solidus, char_quotation};
+static const uint8_t json_char_reverse_solidus[2] = {
+  char_reverse_solidus, char_reverse_solidus};
+
 extern const uint8_t *
-reql_json_string_esc(uint8_t chr) {
+reql_json_string_esc(const uint8_t chr) {
   switch (chr) {
     case 0x00: return json_char_0x00;
     case 0x01: return json_char_0x01;
@@ -64,7 +133,7 @@ reql_json_string_esc(uint8_t chr) {
 }
 
 extern const uint32_t
-reql_json_string_esc_size(uint8_t chr) {
+reql_json_string_esc_size(const uint8_t chr) {
   switch (chr) {
     case 0x00: return 6;
     case 0x01: return 6;
