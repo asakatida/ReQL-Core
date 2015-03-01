@@ -62,25 +62,26 @@ Result::JSON_Value::JSON_Value() {
 
 void
 Result::JSON_Value::copy(const Result::JSON_Value &other, ReQL_Datum_t type) {
+  release(type);
   switch (type) {
     case REQL_R_ARRAY: {
-      array = other.array;
+      array = new std::vector<Result>(*other.array);
       break;
     }
     case REQL_R_BOOL: {
-      boolean = other.boolean;
+      boolean = new bool(*other.boolean);
       break;
     }
     case REQL_R_NUM: {
-      num = other.num;
+      num = new double(*other.num);
       break;
     }
     case REQL_R_OBJECT: {
-      object = other.object;
+      object = new std::map<std::string, Result>(*other.object);
       break;
     }
     case REQL_R_STR: {
-      string = other.string;
+      string = new std::string(*other.string);
       break;
     }
     case REQL_R_NULL:
@@ -91,6 +92,7 @@ Result::JSON_Value::copy(const Result::JSON_Value &other, ReQL_Datum_t type) {
 
 void
 Result::JSON_Value::move(Result::JSON_Value &&other, ReQL_Datum_t type) {
+  release(type);
   switch (type) {
     case REQL_R_ARRAY: {
       array = std::move(other.array);
@@ -122,21 +124,37 @@ void
 Result::JSON_Value::release(ReQL_Datum_t type) {
   switch (type) {
     case REQL_R_ARRAY: {
-      array.~vector();
+      if (array != nullptr) {
+        delete array;
+      }
       break;
     }
     case REQL_R_OBJECT: {
-      object.~map();
+      if (object != nullptr) {
+        delete object;
+      }
       break;
     }
     case REQL_R_STR: {
-      string.~basic_string();
+      if (string != nullptr) {
+        delete string;
+      }
       break;
     }
-    case REQL_R_BOOL:
+    case REQL_R_BOOL: {
+      if (boolean != nullptr) {
+        delete boolean;
+      }
+      break;
+    }
+    case REQL_R_NUM: {
+      if (num != nullptr) {
+        delete num;
+      }
+      break;
+    }
     case REQL_R_JSON:
     case REQL_R_NULL:
-    case REQL_R_NUM:
     case REQL_R_REQL: break;
   }
 }
@@ -232,7 +250,6 @@ private:
   void startObject() {
     p_stack.push_back(Result());
     p_stack.end()->type = REQL_R_OBJECT;
-    p_stack.end()->value.object = std::map<std::string, Result>();
   }
 
   void addKey(std::string key) {
@@ -242,27 +259,27 @@ private:
   void addKeyValue(std::string key) {
     Result res;
     res.type = REQL_R_NULL;
-    p_stack.end()->value.object.insert({key, res});
+    p_stack.end()->value.object->insert({key, res});
   }
 
   void addKeyValue(std::string key, bool value) {
     Result res;
     res.type = REQL_R_BOOL;
-    res.value.boolean = value;
-    p_stack.end()->value.object.insert({key, res});
+    res.value.boolean = new bool(value);
+    p_stack.end()->value.object->insert({key, res});
   }
 
   void addKeyValue(std::string key, double value) {
     Result res;
     res.type = REQL_R_NUM;
-    res.value.num = value;
-    p_stack.end()->value.object.insert({key, res});
+    res.value.num = new double(value);
+    p_stack.end()->value.object->insert({key, res});
   }
 
   void addKeyValue(std::string key, std::string value) {
     Result res;
     res.type = REQL_R_NULL;
-    p_stack.end()->value.object.insert({key, res});
+    p_stack.end()->value.object->insert({key, res});
   }
 
   void endObject() {
@@ -272,7 +289,7 @@ private:
   void startArray() {
     p_stack.push_back(Result());
     p_stack.end()->type = REQL_R_ARRAY;
-    p_stack.end()->value.array = std::vector<Result>();
+    p_stack.end()->value.array = new std::vector<Result>;
   }
 
   void addElement() {
@@ -284,21 +301,21 @@ private:
   void addElement(bool value) {
     Result res;
     res.type = REQL_R_BOOL;
-    res.value.boolean = value;
+    res.value.boolean = new bool(value);
     addElement(std::move(res));
   }
 
   void addElement(double value) {
     Result res;
     res.type = REQL_R_NUM;
-    res.value.num = value;
+    res.value.num = new double(value);
     addElement(std::move(res));
   }
 
   void addElement(std::string value) {
     Result res;
     res.type = REQL_R_STR;
-    res.value.string = value;
+    res.value.string = new std::string(value);
     addElement(std::move(res));
   }
 
@@ -309,23 +326,25 @@ private:
   void addElement(Result &&val) {
     if (p_stack.empty()) {
       p_result = std::move(val);
-    } else {
-      std::vector<Result> *array = &p_stack.end()->value.array;
+    } else if (p_stack.end()->type == REQL_R_ARRAY) {
+      std::vector<Result> *array = p_stack.end()->value.array;
       array->insert(array->end(), std::move(val));
+    } else {
     }
   }
 
   void end() {
-    Result last = *p_stack.end();
+    Result last = *p_stack.end().base();
     p_stack.pop_back();
     if (p_stack.empty()) {
       p_result = last;
     } else if (p_stack.end()->type == REQL_R_OBJECT) {
       std::string key = *p_keys.end();
       p_keys.pop_back();
-      p_stack.end()->value.object.insert({key, last});
-    } else {
+      p_stack.end()->value.object->insert({key, last});
+    } else if (p_stack.end()->type == REQL_R_ARRAY) {
       addElement(std::move(last));
+    } else {
     }
   }
 

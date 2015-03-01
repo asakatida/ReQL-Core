@@ -45,11 +45,11 @@ public:
 
     ~JSON_Value();
 
-    bool boolean;
-    double num;
-    std::map<std::string, Result> object;
-    std::string string;
-    std::vector<Result> array;
+    bool *boolean;
+    double *num;
+    std::map<std::string, Result> *object;
+    std::string *string;
+    std::vector<Result> *array;
   } value;
 };
 
