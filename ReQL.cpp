@@ -41,6 +41,7 @@ Result::~Result() {
 Result &
 Result::operator=(const Result &other) {
   if (this != &other) {
+    type = other.type;
     value.copy(other.value, type);
   }
   return *this;
@@ -49,6 +50,7 @@ Result::operator=(const Result &other) {
 Result &
 Result::operator=(Result &&other) {
   if (this != &other) {
+    type = std::move(other.type);
     value.move(std::move(other.value), type);
   }
   return *this;
