@@ -181,7 +181,7 @@ reql_string_decode(uint32_t size, uint8_t *json) {
             char valid = 1;
             int8_t n;
             for (n=1; n<=4; ++n) {
-              res = json[i + n];
+              res = json[i + (uint8_t)n];
               if (!((res >= '0' && res <= '9') ||
                     (res >= 'a' && res <= 'f') ||
                     (res >= 'A' && res <= 'F'))) {

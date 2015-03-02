@@ -128,7 +128,7 @@ reql_encode_(ReQL_Obj_t *obj, ReQL_String_t *json) {
         return -1;
       }
 
-      str = realloc(str, sizeof(char) * size);
+      str = realloc(str, sizeof(char) * (size_t)size);
 
       if (!str) {
         return -1;
