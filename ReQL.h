@@ -33,7 +33,7 @@ struct ReQL_Conn_s {
   uint64_t max_token;
   uint32_t auth_size;
 
-  unsigned long timeout;
+  long timeout;
 
   char *port;
   char *addr;
@@ -83,7 +83,7 @@ reql_conn_set_port(ReQL_Conn_t *conn, char *port);
  * @param timeout timout in seconds.
  */
 extern void
-reql_conn_set_timeout(ReQL_Conn_t *conn, unsigned long timeout);
+reql_conn_set_timeout(ReQL_Conn_t *conn, const long timeout);
 
 /**
  * @brief reql_connect

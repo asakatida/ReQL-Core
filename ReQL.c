@@ -142,7 +142,7 @@ reql_conn_set_port(ReQL_Conn_t *conn, char *port) {
 }
 
 extern void
-reql_conn_set_timeout(ReQL_Conn_t *conn, const unsigned long timeout) {
+reql_conn_set_timeout(ReQL_Conn_t *conn, const long timeout) {
   reql_conn_lock(conn);
   conn->timeout = timeout;
   reql_conn_unlock(conn);
