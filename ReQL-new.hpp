@@ -39,6 +39,7 @@ class ReQL_Datum;
 class ReQL {
 public:
   ReQL();
+  virtual ~ReQL();
 
   ReQL_Obj_t *data() const;
   ReQL_Datum_t type() const;
@@ -55,6 +56,7 @@ public:
   ReQL_Datum();
   ReQL_Datum(double val);
   ReQL_Datum(bool val);
+  ~ReQL_Datum();
 
   ReQL_Datum &operator=(ReQL_Datum &&other);
 

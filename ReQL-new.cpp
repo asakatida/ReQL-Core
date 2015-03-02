@@ -24,6 +24,10 @@ namespace ReQL {
 
 ReQL::ReQL() : p_query(new ReQL_Obj_t) {}
 
+ReQL::~ReQL() {
+  p_query.release();
+}
+
 ReQL_Obj_t *
 ReQL::data() const {
   return p_query.get();
@@ -68,6 +72,9 @@ ReQL_Datum::ReQL_Datum(double val) : ReQL() {
 
 ReQL_Datum::ReQL_Datum(bool val) : ReQL() {
   reql_bool_init(data(), val);
+}
+
+ReQL_Datum::~ReQL_Datum() {
 }
 
 ReQL_Datum::ReQL_Datum(ReQL_Datum &&other) {
