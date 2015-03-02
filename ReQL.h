@@ -93,7 +93,7 @@ reql_conn_set_timeout(ReQL_Conn_t *conn, const long timeout);
  * @return 0 on success. non zero on error.
  */
 extern int
-reql_connect(ReQL_Conn_t *conn, uint8_t *buf, uint32_t size);
+reql_connect(ReQL_Conn_t *conn, uint8_t *buf, const uint32_t size);
 
 /**
  * @brief Declare a connection ready to be closed.
