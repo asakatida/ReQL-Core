@@ -27,16 +27,16 @@ namespace ReQL {
 
 class AST : public Expr {
 protected:
-  explicit AST() : Expr() {};
-  explicit AST(const ReQL_AST_Function &f, const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) : Expr(f, args, kwargs) {};
-  explicit AST(const std::string &val) : Expr(val) {};
-  explicit AST(const double &val) : Expr(val) {};
-  explicit AST(const bool &val) : Expr(val) {};
-  explicit AST(const std::vector<Query> &val) : Expr(val) {};
-  explicit AST(const std::map<std::string, Query> &val) : Expr(val) {};
+  explicit AST() : Expr() {}
+  explicit AST(const ReQL_AST_Function &f, const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) : Expr(f, args, kwargs) {}
+  explicit AST(const std::string &val) : Expr(val) {}
+  explicit AST(const double &val) : Expr(val) {}
+  explicit AST(const bool &val) : Expr(val) {}
+  explicit AST(const std::vector<Query> &val) : Expr(val) {}
+  explicit AST(const std::map<std::string, Query> &val) : Expr(val) {}
 
-  AST(const AST &other) : Expr(other) {};
-  AST(AST &&other) : Expr(other) {};
+  AST(const AST &other) : Expr(other) {}
+  AST(AST &&other) : Expr(other) {}
 
 public:
   /**
