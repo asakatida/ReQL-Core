@@ -132,7 +132,7 @@ reql_json_string_esc(const uint8_t chr) {
   }
 }
 
-extern const uint32_t
+extern uint32_t
 reql_json_string_esc_size(const uint8_t chr) {
   switch (chr) {
     case 0x00: return 6;

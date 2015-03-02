@@ -49,7 +49,7 @@ static const uint8_t json_null[4] = {0x6E, 0x75, 0x6C, 0x6C};
 
 extern const uint8_t *
 reql_json_string_esc(const uint8_t chr);
-extern const uint32_t
+extern uint32_t
 reql_json_string_esc_size(const uint8_t chr);
 
 #endif
