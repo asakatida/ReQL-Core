@@ -28,6 +28,11 @@ namespace ReQL {
 class Result {
 public:
   Result();
+  Result(const bool &val);
+  Result(const double &val);
+  Result(const std::string &val);
+  Result(const std::map<std::string, Result> &val);
+  Result(const std::vector<Result> &val);
   Result(const Result &other);
   Result(Result &&other);
   ~Result();
@@ -35,22 +40,38 @@ public:
   Result &operator=(const Result &other);
   Result &operator=(Result &&other);
 
-  ReQL_Datum_t type;
+  void insert(Result &&elem);
+  void insert(std::string &key, Result &&value);
+
+  ReQL_Datum_t type() const;
+  bool boolean() const;
+  double number() const;
+  std::map<std::string, Result> object() const;
+  std::string string() const;
+  std::vector<Result> array() const;
+
+private:
+  ReQL_Datum_t p_type;
   union JSON_Value {
     JSON_Value();
+    JSON_Value(const bool &val);
+    JSON_Value(const double &val);
+    JSON_Value(const std::string &val);
+    JSON_Value(const std::map<std::string, Result> &val);
+    JSON_Value(const std::vector<Result> &val);
 
-    void copy(const JSON_Value &other, ReQL_Datum_t type);
-    void move(JSON_Value &&other, ReQL_Datum_t type);
-    void release(ReQL_Datum_t type);
+    void copy(const JSON_Value &other, const ReQL_Datum_t &type);
+    void move(JSON_Value &&other, const ReQL_Datum_t &type);
+    void release(const ReQL_Datum_t &type);
 
     ~JSON_Value();
 
-    bool *boolean;
-    double *num;
-    std::map<std::string, Result> *object;
-    std::string *string;
-    std::vector<Result> *array;
-  } value;
+    bool *p_boolean;
+    double *p_num;
+    std::map<std::string, Result> *p_object;
+    std::string *p_string;
+    std::vector<Result> *p_array;
+  } p_value;
 };
 
 class Parser {

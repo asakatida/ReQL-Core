@@ -17,7 +17,7 @@ TEST_CASE("Connection", "[c++][connect]") {
 
   Result res = cur.next();
 
-  REQUIRE(res.type == REQL_R_OBJECT);
+  REQUIRE(res.type() == REQL_R_OBJECT);
 }
 
 TEST_CASE("decode errors", "[c][decode]") {

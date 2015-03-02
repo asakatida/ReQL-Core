@@ -25,25 +25,35 @@ limitations under the License.
 
 namespace ReQL {
 
-Result::Result() : type(REQL_R_JSON) {}
+Result::Result() : p_type(REQL_R_NULL), p_value() {}
+
+Result::Result(const bool &val) : p_type(REQL_R_BOOL), p_value(val) {}
+
+Result::Result(const double &val) : p_type(REQL_R_NUM), p_value(val) {}
+
+Result::Result(const std::string &val) : p_type(REQL_R_STR), p_value(val) {}
+
+Result::Result(const std::map<std::string, Result> &val) : p_type(REQL_R_OBJECT), p_value(val) {}
+
+Result::Result(const std::vector<Result> &val) : p_type(REQL_R_ARRAY), p_value(val) {}
 
 Result::Result(const Result &other) {
-  value.copy(other.value, type);
+  p_value.copy(other.p_value, p_type);
 }
 
 Result::Result(Result &&other) {
-  value.move(std::move(other.value), type);
+  p_value.move(std::move(other.p_value), p_type);
 }
 
 Result::~Result() {
-  value.release(type);
+  p_value.release(p_type);
 }
 
 Result &
 Result::operator=(const Result &other) {
   if (this != &other) {
-    type = other.type;
-    value.copy(other.value, type);
+    p_type = other.p_type;
+    p_value.copy(other.p_value, p_type);
   }
   return *this;
 }
@@ -51,38 +61,109 @@ Result::operator=(const Result &other) {
 Result &
 Result::operator=(Result &&other) {
   if (this != &other) {
-    type = std::move(other.type);
-    value.move(std::move(other.value), type);
+    p_type = std::move(other.p_type);
+    p_value.move(std::move(other.p_value), p_type);
   }
   return *this;
+}
+
+void
+Result::insert(Result &&elem) {
+  if (p_type != REQL_R_ARRAY) {
+    throw;
+  }
+  p_value.p_array->push_back(std::move(elem));
+}
+
+void
+Result::insert(std::string &key, Result &&value) {
+  if (p_type != REQL_R_OBJECT) {
+    throw;
+  }
+  p_value.p_object->insert({key, std::move(value)});
+}
+
+ReQL_Datum_t
+Result::type() const {
+  return p_type;
+}
+
+bool
+Result::boolean() const {
+  if (p_type != REQL_R_BOOL) {
+    throw;
+  }
+  return *p_value.p_boolean;
+}
+
+double
+Result::number() const {
+  if (p_type != REQL_R_NUM) {
+    throw;
+  }
+  return *p_value.p_num;
+}
+
+std::map<std::string, Result>
+Result::object() const {
+  if (p_type != REQL_R_OBJECT) {
+    throw;
+  }
+  return *p_value.p_object;
+}
+
+std::string
+Result::string() const {
+  if (p_type != REQL_R_STR) {
+    throw;
+  }
+  return *p_value.p_string;
+}
+
+std::vector<Result>
+Result::array() const {
+  if (p_type != REQL_R_ARRAY) {
+    throw;
+  }
+  return *p_value.p_array;
 }
 
 Result::JSON_Value::JSON_Value() {
   std::memset(this, 0, sizeof(Result::JSON_Value));
 }
 
+Result::JSON_Value::JSON_Value(const bool &val) : p_boolean(new bool(val)) {}
+
+Result::JSON_Value::JSON_Value(const double &val) : p_num(new double(val)) {}
+
+Result::JSON_Value::JSON_Value(const std::string &val) : p_string(new std::string(val)) {}
+
+Result::JSON_Value::JSON_Value(const std::map<std::string, Result> &val) : p_object(new std::map<std::string, Result>(val)) {}
+
+Result::JSON_Value::JSON_Value(const std::vector<Result> &val) : p_array(new std::vector<Result>(val)) {}
+
 void
-Result::JSON_Value::copy(const Result::JSON_Value &other, ReQL_Datum_t a_type) {
-  release(a_type);
-  switch (a_type) {
+Result::JSON_Value::copy(const Result::JSON_Value &other, const ReQL_Datum_t &type) {
+  release(type);
+  switch (type) {
     case REQL_R_ARRAY: {
-      array = new std::vector<Result>(*other.array);
+      p_array = new std::vector<Result>(*other.p_array);
       break;
     }
     case REQL_R_BOOL: {
-      boolean = new bool(*other.boolean);
+      p_boolean = new bool(*other.p_boolean);
       break;
     }
     case REQL_R_NUM: {
-      num = new double(*other.num);
+      p_num = new double(*other.p_num);
       break;
     }
     case REQL_R_OBJECT: {
-      object = new std::map<std::string, Result>(*other.object);
+      p_object = new std::map<std::string, Result>(*other.p_object);
       break;
     }
     case REQL_R_STR: {
-      string = new std::string(*other.string);
+      p_string = new std::string(*other.p_string);
       break;
     }
     case REQL_R_NULL:
@@ -92,27 +173,27 @@ Result::JSON_Value::copy(const Result::JSON_Value &other, ReQL_Datum_t a_type) {
 }
 
 void
-Result::JSON_Value::move(Result::JSON_Value &&other, ReQL_Datum_t a_type) {
-  release(a_type);
-  switch (a_type) {
+Result::JSON_Value::move(Result::JSON_Value &&other, const ReQL_Datum_t &type) {
+  release(type);
+  switch (type) {
     case REQL_R_ARRAY: {
-      array = std::move(other.array);
+      p_array = std::move(other.p_array);
       break;
     }
     case REQL_R_BOOL: {
-      boolean = std::move(other.boolean);
+      p_boolean = std::move(other.p_boolean);
       break;
     }
     case REQL_R_NUM: {
-      num = std::move(other.num);
+      p_num = std::move(other.p_num);
       break;
     }
     case REQL_R_OBJECT: {
-      object = std::move(other.object);
+      p_object = std::move(other.p_object);
       break;
     }
     case REQL_R_STR: {
-      string = std::move(other.string);
+      p_string = std::move(other.p_string);
       break;
     }
     case REQL_R_NULL:
@@ -122,35 +203,35 @@ Result::JSON_Value::move(Result::JSON_Value &&other, ReQL_Datum_t a_type) {
 }
 
 void
-Result::JSON_Value::release(ReQL_Datum_t a_type) {
-  switch (a_type) {
+Result::JSON_Value::release(const ReQL_Datum_t &type) {
+  switch (type) {
     case REQL_R_ARRAY: {
-      if (array != nullptr) {
-        delete array;
+      if (p_array != nullptr) {
+        delete p_array; p_array = nullptr;
       }
       break;
     }
     case REQL_R_OBJECT: {
-      if (object != nullptr) {
-        delete object;
+      if (p_object != nullptr) {
+        delete p_object; p_object = nullptr;
       }
       break;
     }
     case REQL_R_STR: {
-      if (string != nullptr) {
-        delete string;
+      if (p_string != nullptr) {
+        delete p_string; p_string = nullptr;
       }
       break;
     }
     case REQL_R_BOOL: {
-      if (boolean != nullptr) {
-        delete boolean;
+      if (p_boolean != nullptr) {
+        delete p_boolean; p_boolean = nullptr;
       }
       break;
     }
     case REQL_R_NUM: {
-      if (num != nullptr) {
-        delete num;
+      if (p_num != nullptr) {
+        delete p_num; p_num = nullptr;
       }
       break;
     }
@@ -249,8 +330,7 @@ public:
 
 private:
   void startObject() {
-    p_stack.push_back(Result());
-    p_stack.end()->type = REQL_R_OBJECT;
+    p_stack.push_back(std::move(Result(std::map<std::string, Result>())));
   }
 
   void addKey(std::string key) {
@@ -258,30 +338,19 @@ private:
   }
 
   void addKeyValue(std::string key) {
-    Result res;
-    res.type = REQL_R_NULL;
-    p_stack.end()->value.object->insert({key, res});
+    p_stack.end()->insert(key, std::move(Result()));
   }
 
   void addKeyValue(std::string key, bool value) {
-    Result res;
-    res.type = REQL_R_BOOL;
-    res.value.boolean = new bool(value);
-    p_stack.end()->value.object->insert({key, res});
+    p_stack.end()->insert(key, std::move(Result(value)));
   }
 
   void addKeyValue(std::string key, double value) {
-    Result res;
-    res.type = REQL_R_NUM;
-    res.value.num = new double(value);
-    p_stack.end()->value.object->insert({key, res});
+    p_stack.end()->insert(key, std::move(Result(value)));
   }
 
   void addKeyValue(std::string key, std::string value) {
-    Result res;
-    res.type = REQL_R_STR;
-    res.value.string = new std::string(value);
-    p_stack.end()->value.object->insert({key, res});
+    p_stack.end()->insert(key, std::move(Result(value)));
   }
 
   void endObject() {
@@ -289,36 +358,23 @@ private:
   }
 
   void startArray() {
-    p_stack.push_back(Result());
-    p_stack.end()->type = REQL_R_ARRAY;
-    p_stack.end()->value.array = new std::vector<Result>;
+    p_stack.push_back(Result(std::vector<Result>()));
   }
 
   void addElement() {
-    Result res;
-    res.type = REQL_R_NULL;
-    addElement(std::move(res));
+    addElement(std::move(Result()));
   }
 
   void addElement(bool value) {
-    Result res;
-    res.type = REQL_R_BOOL;
-    res.value.boolean = new bool(value);
-    addElement(std::move(res));
+    addElement(std::move(Result(value)));
   }
 
   void addElement(double value) {
-    Result res;
-    res.type = REQL_R_NUM;
-    res.value.num = new double(value);
-    addElement(std::move(res));
+    addElement(std::move(Result(value)));
   }
 
   void addElement(std::string value) {
-    Result res;
-    res.type = REQL_R_STR;
-    res.value.string = new std::string(value);
-    addElement(std::move(res));
+    addElement(std::move(Result(value)));
   }
 
   void endArray() {
@@ -328,10 +384,10 @@ private:
   void addElement(Result &&val) {
     if (p_stack.empty()) {
       p_result = std::move(val);
-    } else if (p_stack.end()->type == REQL_R_ARRAY) {
-      std::vector<Result> *array = p_stack.end()->value.array;
-      array->insert(array->end(), std::move(val));
+    } else if (p_stack.end()->type() == REQL_R_ARRAY) {
+      p_stack.end()->insert(std::move(val));
     } else {
+      throw;
     }
   }
 
@@ -340,13 +396,13 @@ private:
     p_stack.pop_back();
     if (p_stack.empty()) {
       p_result = last;
-    } else if (p_stack.end()->type == REQL_R_OBJECT) {
-      std::string key = *p_keys.end();
+    } else if (p_stack.end()->type() == REQL_R_OBJECT) {
+      p_stack.end()->insert(*p_keys.end(), std::move(last));
       p_keys.pop_back();
-      p_stack.end()->value.object->insert({key, last});
-    } else if (p_stack.end()->type == REQL_R_ARRAY) {
+    } else if (p_stack.end()->type() == REQL_R_ARRAY) {
       addElement(std::move(last));
     } else {
+      throw;
     }
   }
 
