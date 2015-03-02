@@ -348,7 +348,12 @@ reql_decode_(ReQL_Obj_t *stack, uint8_t *json, uint32_t size) {
         }
         break;
       }
-      default: {
+      case REQL_R_ARRAY:
+      case REQL_R_BOOL:
+      case REQL_R_JSON:
+      case REQL_R_NULL:
+      case REQL_R_OBJECT:
+      case REQL_R_REQL: {
         switch (json[i]) {
           case '\t':
           case '\n':
@@ -358,12 +363,17 @@ reql_decode_(ReQL_Obj_t *stack, uint8_t *json, uint32_t size) {
           }
           case ',': {
             switch (state) {
-              case REQL_R_OBJECT:
-              case REQL_R_ARRAY: {
+              case REQL_R_ARRAY:
+              case REQL_R_OBJECT: {
                 state = REQL_R_JSON;
                 break;
               }
-              default: return NULL;
+              case REQL_R_BOOL:
+              case REQL_R_JSON:
+              case REQL_R_NULL:
+              case REQL_R_NUM:
+              case REQL_R_REQL:
+              case REQL_R_STR: return NULL;
             }
             break;
           }
@@ -373,7 +383,13 @@ reql_decode_(ReQL_Obj_t *stack, uint8_t *json, uint32_t size) {
                 state = REQL_R_JSON;
                 break;
               }
-              default: return NULL;
+              case REQL_R_ARRAY:
+              case REQL_R_BOOL:
+              case REQL_R_JSON:
+              case REQL_R_NULL:
+              case REQL_R_NUM:
+              case REQL_R_REQL:
+              case REQL_R_STR: return NULL;
             }
             break;
           }
@@ -387,7 +403,13 @@ reql_decode_(ReQL_Obj_t *stack, uint8_t *json, uint32_t size) {
                 ++arr_open;
                 break;
               }
-              default: return NULL;
+              case REQL_R_ARRAY:
+              case REQL_R_BOOL:
+              case REQL_R_NULL:
+              case REQL_R_NUM:
+              case REQL_R_OBJECT:
+              case REQL_R_REQL:
+              case REQL_R_STR: return NULL;
             }
             break;
           }
@@ -401,7 +423,13 @@ reql_decode_(ReQL_Obj_t *stack, uint8_t *json, uint32_t size) {
                 ++obj_open;
                 break;
               }
-              default: return NULL;
+              case REQL_R_ARRAY:
+              case REQL_R_BOOL:
+              case REQL_R_NULL:
+              case REQL_R_NUM:
+              case REQL_R_OBJECT:
+              case REQL_R_REQL:
+              case REQL_R_STR: return NULL;
             }
             break;
           }
@@ -412,7 +440,13 @@ reql_decode_(ReQL_Obj_t *stack, uint8_t *json, uint32_t size) {
                 str_start = i + 1;
                 break;
               }
-              default: return NULL;
+              case REQL_R_ARRAY:
+              case REQL_R_BOOL:
+              case REQL_R_NULL:
+              case REQL_R_NUM:
+              case REQL_R_OBJECT:
+              case REQL_R_REQL:
+              case REQL_R_STR: return NULL;
             }
             break;
           }
@@ -433,19 +467,20 @@ reql_decode_(ReQL_Obj_t *stack, uint8_t *json, uint32_t size) {
                 str_start = i;
                 break;
               }
-              default: return NULL;
+              case REQL_R_ARRAY:
+              case REQL_R_BOOL:
+              case REQL_R_NULL:
+              case REQL_R_NUM:
+              case REQL_R_OBJECT:
+              case REQL_R_REQL:
+              case REQL_R_STR: return NULL;
             }
             break;
           }
           case '.':
           case '+':
           case 'e':
-          case 'E': {
-            switch (state) {
-              default: return NULL;
-            }
-            break;
-          }
+          case 'E': return NULL;
           case 't': {
             switch (state) {
               case REQL_R_JSON: {
@@ -460,9 +495,14 @@ reql_decode_(ReQL_Obj_t *stack, uint8_t *json, uint32_t size) {
                   i += 3;
                   break;
                 }
-                return NULL;
               }
-              default: return NULL;
+              case REQL_R_ARRAY:
+              case REQL_R_BOOL:
+              case REQL_R_NULL:
+              case REQL_R_NUM:
+              case REQL_R_OBJECT:
+              case REQL_R_REQL:
+              case REQL_R_STR: return NULL;
             }
             break;
           }
@@ -480,9 +520,14 @@ reql_decode_(ReQL_Obj_t *stack, uint8_t *json, uint32_t size) {
                   i += 4;
                   break;
                 }
-                return NULL;
               }
-              default: return NULL;
+              case REQL_R_ARRAY:
+              case REQL_R_BOOL:
+              case REQL_R_NULL:
+              case REQL_R_NUM:
+              case REQL_R_OBJECT:
+              case REQL_R_REQL:
+              case REQL_R_STR: return NULL;
             }
             break;
           }
@@ -500,9 +545,14 @@ reql_decode_(ReQL_Obj_t *stack, uint8_t *json, uint32_t size) {
                   i += 3;
                   break;
                 }
-                return NULL;
               }
-              default: return NULL;
+              case REQL_R_ARRAY:
+              case REQL_R_BOOL:
+              case REQL_R_NULL:
+              case REQL_R_NUM:
+              case REQL_R_OBJECT:
+              case REQL_R_REQL:
+              case REQL_R_STR: return NULL;
             }
             break;
           }
@@ -521,7 +571,12 @@ reql_decode_(ReQL_Obj_t *stack, uint8_t *json, uint32_t size) {
                 --arr_open;
                 break;
               }
-              default: return NULL;
+              case REQL_R_BOOL:
+              case REQL_R_NULL:
+              case REQL_R_NUM:
+              case REQL_R_OBJECT:
+              case REQL_R_REQL:
+              case REQL_R_STR: return NULL;
             }
             break;
           }
@@ -540,7 +595,12 @@ reql_decode_(ReQL_Obj_t *stack, uint8_t *json, uint32_t size) {
                 --obj_open;
                 break;
               }
-              default: return NULL;
+              case REQL_R_ARRAY:
+              case REQL_R_BOOL:
+              case REQL_R_NULL:
+              case REQL_R_NUM:
+              case REQL_R_REQL:
+              case REQL_R_STR: return NULL;
             }
             break;
           }
