@@ -421,10 +421,11 @@ Connection::Connection(const std::string &host, const std::uint16_t &port) : con
 Connection::Connection(const std::string &host, const std::uint16_t &port, const std::string &key) : conn(new ReQL_Conn_t) {
   reql_connection_init(data());
 
-  if (key.size() > UINT32_MAX) {
-  }
+  std::size_t auth_size = key.size();
 
-  std::uint32_t key_len = (std::uint32_t)key.size();
+  if (auth_size > std::numeric_limits<std::uint32_t>::max()) {
+    return;
+  }
 
   reql_conn_set_addr(data(), (char *)host.c_str());
   reql_conn_set_port(data(), (char *)std::to_string(port).c_str());
