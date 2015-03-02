@@ -214,9 +214,11 @@ reql_conn_loop(void *conn) {
         pos -= size;
         size = 0;
 
-        response = realloc(response, sizeof(uint8_t) * 12);
-        if (response == NULL) {
+        uint8_t *buf = realloc(response, sizeof(uint8_t) * 12);
+        if (buf == NULL) {
           reql_close_conn(conn);
+        } else {
+          response = buf;
         }
       }
     } else {
@@ -224,9 +226,11 @@ reql_conn_loop(void *conn) {
         pos -= 12;
         token = reql_get_64_token(response);
         size = reql_get_32_le(&response[8]);
-        response = realloc(response, sizeof(uint8_t) * size);
-        if (response == NULL) {
+        uint8_t *buf = realloc(response, sizeof(uint8_t) * size);
+        if (buf == NULL) {
           reql_close_conn(conn);
+        } else {
+          response = buf;
         }
       }
     }
