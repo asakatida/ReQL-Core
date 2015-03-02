@@ -104,7 +104,7 @@ bool Expr::operator<(const Expr &other) const {
   return p_query < other.p_query;
 }
 
-Expr::Expr(const Expr &other) : p_array(other.p_array), p_func(other.p_func), p_object(other.p_object) {
+Expr::Expr(const Expr &other) : p_func(other.p_func), p_array(other.p_array), p_object(other.p_object) {
   copy(other);
 }
 
