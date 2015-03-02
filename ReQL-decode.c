@@ -179,22 +179,22 @@ reql_string_decode(uint32_t size, uint8_t *json) {
           res = 'u';
           if ((i + 4) < size) {
             char valid = 1;
-            uint8_t hex;
-            uint8_t n;
+            int8_t n;
             for (n=1; n<=4; ++n) {
-              hex = json[i + n];
-              if (!((hex >= '0' && hex <= '9') ||
-                    (hex >= 'a' && hex <= 'f') ||
-                    (hex >= 'A' && hex <= 'F'))) {
+              res = json[i + n];
+              if (!((res >= '0' && res <= '9') ||
+                    (res >= 'a' && res <= 'f') ||
+                    (res >= 'A' && res <= 'F'))) {
                 valid = 0;
               }
             }
-            if (valid) {
+            if (valid != 0) {
               if (json[++i] != '0' || json[++i] != '0') {
                 free(str);
                 return NULL;
               }
               res = 0;
+              uint8_t hex;
               for (n=1; n>=0; --n) {
                 hex = json[++i];
                 if (hex >= '0' && hex <= '9') {
