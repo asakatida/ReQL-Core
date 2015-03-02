@@ -20,6 +20,7 @@ limitations under the License.
 
 #include "ReQL-json.h"
 
+#include <float.h>
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
@@ -336,7 +337,7 @@ reql_op_eq(const ReQL_Obj_t *l, const ReQL_Obj_t *r) {
         }
         case REQL_R_NULL: break;
         case REQL_R_NUM: {
-          res = reql_to_number(l) == reql_to_number(r);
+          res = fabsl((long double)reql_to_number(l) - reql_to_number(r)) <= LDBL_EPSILON;
           break;
         }
         case REQL_R_OBJECT: {
