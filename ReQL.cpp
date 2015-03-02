@@ -21,6 +21,7 @@ limitations under the License.
 #include "ReQL.hpp"
 
 #include <cstring>
+#include <limits>
 
 namespace ReQL {
 
