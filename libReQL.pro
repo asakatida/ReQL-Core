@@ -17,6 +17,16 @@ ReQL-test.cpp \
 ReQL.c \
 ReQL.cpp
 
+QMAKE_LFLAGS += -std=c++11
+
+QMAKE_CFLAGS += -std=c11
+QMAKE_CFLAGS += -pedantic
+QMAKE_CFLAGS += -pedantic-errors
+
+QMAKE_CXXFLAGS += -std=c++11
+QMAKE_CXXFLAGS += -pedantic
+QMAKE_CXXFLAGS += -pedantic-errors
+
 HEADERS += catch.h \
 portable_endian.h \
 ReQL-ast.h \

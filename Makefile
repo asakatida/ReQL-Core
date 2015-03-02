@@ -23,9 +23,9 @@ OBJS = ReQL.obj \
 	ReQL-expr.o \
 	ReQL-json.o
 
-LDFLAGS += -pthread
-CXXFLAGS += -fPIC -std=c++11
-CCFLAGS += -fPIC
+LDFLAGS += -pthread -std=c++11
+CXXFLAGS += -fPIC -std=c++11 -Weverything -Wall -Wextra -Werror -pedantic -pedantic-errors -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-exit-time-destructors -Wno-padded -Wno-non-virtual-dtor -Wno-weak-vtables
+CCFLAGS += -fPIC -std=c11 -Weverything -Wall -Wextra -Werror -pedantic -pedantic-errors -Wno-padded
 
 TESTOBJS = ReQL-test.obj ReQL-ast-test.obj ReQL-expr-test.obj
 
