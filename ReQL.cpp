@@ -435,7 +435,19 @@ Connection::Connection(const std::string &host, const std::uint16_t &port, const
   }
 }
 
-Connection::Connection(const Connection &other) {
+Connection::Connection(const Connection &other) : conn(new ReQL_Conn_t) {
+  reql_connection_init(data());
+
+  ReQL_Conn_t *o_conn = other.data();
+
+  reql_conn_set_addr(data(), o_conn->addr);
+  reql_conn_set_port(data(), o_conn->port);
+  reql_conn_set_auth(data(), o_conn->auth_size, o_conn->auth);
+
+  std::uint8_t buf[500];
+
+  if (reql_connect(data(), buf, 500)) {
+  }
 }
 
 Connection::Connection(Connection &&other) {
@@ -447,10 +459,26 @@ Connection::~Connection() {
 }
 
 Connection &Connection::operator=(const Connection &other) {
+  if (this != &other) {
+    reql_ensure_conn_close(data());
+    reql_connection_init(data());
+
+    ReQL_Conn_t *o_conn = other.data();
+
+    reql_conn_set_addr(data(), o_conn->addr);
+    reql_conn_set_port(data(), o_conn->port);
+    reql_conn_set_auth(data(), o_conn->auth_size, o_conn->auth);
+
+    std::uint8_t buf[500];
+
+    if (reql_connect(data(), buf, 500)) {
+    }
+  }
   return *this;
 }
 
 Connection &Connection::operator=(Connection &&other) {
+  reql_ensure_conn_close(data());
   conn = std::move(other.conn);
   return *this;
 }
