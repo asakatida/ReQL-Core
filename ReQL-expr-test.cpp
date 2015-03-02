@@ -95,7 +95,7 @@ TEST_CASE("decode values", "[c][decode]") {
 
     REQUIRE(obj != NULL);
     REQUIRE(reql_datum_type(obj) == REQL_R_NUM);
-    REQUIRE(reql_to_number(obj) == 12345);
+    REQUIRE(reql_to_number(obj) == Approx(12345));
 
     reql_json_destroy(obj);
   }
@@ -353,7 +353,7 @@ TEST_CASE("Expr object", "[c][expr][object]") {
     ReQL_Obj_t *res = reql_object_get(&obj, &key);
 
     CHECK(reql_datum_type(res) == REQL_R_NUM);
-    CHECK(reql_to_number(res) == num);
+    CHECK(reql_to_number(res) == Approx(num));
   }
 
   SECTION("duplicate key") {
@@ -433,7 +433,7 @@ TEST_CASE("Expr", "[c][expr]") {
 
     CHECK(reql_datum_type(&val) == REQL_R_NUM);
 
-    CHECK(num == reql_to_number(&val));
+    CHECK(num == Approx(reql_to_number(&val)));
   }
 
   SECTION("number edges") {
@@ -441,7 +441,7 @@ TEST_CASE("Expr", "[c][expr]") {
 
     reql_number_init(&val, num);
 
-    CHECK(num == reql_to_number(&val));
+    CHECK(num == Approx(reql_to_number(&val)));
   }
 
   SECTION("string") {
