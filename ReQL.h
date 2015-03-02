@@ -27,11 +27,12 @@ limitations under the License.
  * @brief connection object
  */
 struct ReQL_Conn_s {
-  char done;
+  uint32_t auth_size;
   int socket;
 
+  char done;
+
   uint64_t max_token;
-  uint32_t auth_size;
 
   long timeout;
 
