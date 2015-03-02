@@ -27,22 +27,22 @@ namespace ReQL {
 
 Result::Result() : p_type(REQL_R_NULL), p_value() {}
 
-Result::Result(const bool &val) : p_type(REQL_R_BOOL), p_value(val) {}
+Result::Result(const bool val) : p_type(REQL_R_BOOL), p_value(val) {}
 
-Result::Result(const double &val) : p_type(REQL_R_NUM), p_value(val) {}
+Result::Result(const double val) : p_type(REQL_R_NUM), p_value(val) {}
 
-Result::Result(const std::string &val) : p_type(REQL_R_STR), p_value(val) {}
+Result::Result(const std::string val) : p_type(REQL_R_STR), p_value(val) {}
 
-Result::Result(const std::map<std::string, Result> &val) : p_type(REQL_R_OBJECT), p_value(val) {}
+Result::Result(const std::map<std::string, Result> val) : p_type(REQL_R_OBJECT), p_value(val) {}
 
-Result::Result(const std::vector<Result> &val) : p_type(REQL_R_ARRAY), p_value(val) {}
+Result::Result(const std::vector<Result> val) : p_type(REQL_R_ARRAY), p_value(val) {}
 
-Result::Result(const Result &other) {
-  p_value.copy(other.p_value, p_type);
+Result::Result(const Result &other) : p_type(other.p_type) {
+  p_value.copy(other, p_type);
 }
 
-Result::Result(Result &&other) {
-  p_value.move(std::move(other.p_value), p_type);
+Result::Result(Result &&other) : p_type(std::move(other.p_type)) {
+  p_value.move(std::move(other), p_type);
 }
 
 Result::~Result() {
@@ -53,7 +53,7 @@ Result &
 Result::operator=(const Result &other) {
   if (this != &other) {
     p_type = other.p_type;
-    p_value.copy(other.p_value, p_type);
+    p_value.copy(other, p_type);
   }
   return *this;
 }
@@ -62,25 +62,25 @@ Result &
 Result::operator=(Result &&other) {
   if (this != &other) {
     p_type = std::move(other.p_type);
-    p_value.move(std::move(other.p_value), p_type);
+    p_value.move(std::move(other), p_type);
   }
   return *this;
 }
 
 void
-Result::insert(Result &&elem) {
+Result::insert(Result elem) {
   if (p_type != REQL_R_ARRAY) {
     throw;
   }
-  p_value.p_array->push_back(std::move(elem));
+  p_value.p_array->push_back(elem);
 }
 
 void
-Result::insert(std::string &key, Result &&value) {
+Result::insert(std::string key, Result value) {
   if (p_type != REQL_R_OBJECT) {
     throw;
   }
-  p_value.p_object->insert({key, std::move(value)});
+  p_value.p_object->insert({key, value});
 }
 
 ReQL_Datum_t
@@ -132,38 +132,38 @@ Result::JSON_Value::JSON_Value() {
   std::memset(this, 0, sizeof(Result::JSON_Value));
 }
 
-Result::JSON_Value::JSON_Value(const bool &val) : p_boolean(new bool(val)) {}
+Result::JSON_Value::JSON_Value(const bool val) : p_boolean(new bool(val)) {}
 
-Result::JSON_Value::JSON_Value(const double &val) : p_num(new double(val)) {}
+Result::JSON_Value::JSON_Value(const double val) : p_num(new double(val)) {}
 
-Result::JSON_Value::JSON_Value(const std::string &val) : p_string(new std::string(val)) {}
+Result::JSON_Value::JSON_Value(const std::string val) : p_string(new std::string(val)) {}
 
-Result::JSON_Value::JSON_Value(const std::map<std::string, Result> &val) : p_object(new std::map<std::string, Result>(val)) {}
+Result::JSON_Value::JSON_Value(const std::map<std::string, Result> val) : p_object(new std::map<std::string, Result>(val)) {}
 
-Result::JSON_Value::JSON_Value(const std::vector<Result> &val) : p_array(new std::vector<Result>(val)) {}
+Result::JSON_Value::JSON_Value(const std::vector<Result> val) : p_array(new std::vector<Result>(val)) {}
 
 void
-Result::JSON_Value::copy(const Result::JSON_Value &other, const ReQL_Datum_t &type) {
+Result::JSON_Value::copy(const Result &other, const ReQL_Datum_t type) {
   release(type);
   switch (type) {
     case REQL_R_ARRAY: {
-      p_array = new std::vector<Result>(*other.p_array);
+      p_array = new std::vector<Result>(other.array());
       break;
     }
     case REQL_R_BOOL: {
-      p_boolean = new bool(*other.p_boolean);
+      p_boolean = new bool(other.boolean());
       break;
     }
     case REQL_R_NUM: {
-      p_num = new double(*other.p_num);
+      p_num = new double(other.number());
       break;
     }
     case REQL_R_OBJECT: {
-      p_object = new std::map<std::string, Result>(*other.p_object);
+      p_object = new std::map<std::string, Result>(other.object());
       break;
     }
     case REQL_R_STR: {
-      p_string = new std::string(*other.p_string);
+      p_string = new std::string(other.string());
       break;
     }
     case REQL_R_NULL:
@@ -173,27 +173,27 @@ Result::JSON_Value::copy(const Result::JSON_Value &other, const ReQL_Datum_t &ty
 }
 
 void
-Result::JSON_Value::move(Result::JSON_Value &&other, const ReQL_Datum_t &type) {
+Result::JSON_Value::move(Result &&other, const ReQL_Datum_t type) {
   release(type);
   switch (type) {
     case REQL_R_ARRAY: {
-      p_array = std::move(other.p_array);
+      p_array = std::move(other.p_value.p_array);
       break;
     }
     case REQL_R_BOOL: {
-      p_boolean = std::move(other.p_boolean);
+      p_boolean = std::move(other.p_value.p_boolean);
       break;
     }
     case REQL_R_NUM: {
-      p_num = std::move(other.p_num);
+      p_num = std::move(other.p_value.p_num);
       break;
     }
     case REQL_R_OBJECT: {
-      p_object = std::move(other.p_object);
+      p_object = std::move(other.p_value.p_object);
       break;
     }
     case REQL_R_STR: {
-      p_string = std::move(other.p_string);
+      p_string = std::move(other.p_value.p_string);
       break;
     }
     case REQL_R_NULL:
@@ -203,7 +203,7 @@ Result::JSON_Value::move(Result::JSON_Value &&other, const ReQL_Datum_t &type) {
 }
 
 void
-Result::JSON_Value::release(const ReQL_Datum_t &type) {
+Result::JSON_Value::release(const ReQL_Datum_t type) {
   switch (type) {
     case REQL_R_ARRAY: {
       if (p_array != nullptr) {
@@ -243,6 +243,23 @@ Result::JSON_Value::release(const ReQL_Datum_t &type) {
 
 Result::JSON_Value::~JSON_Value() {
   std::memset(this, 0, sizeof(Result::JSON_Value));
+}
+
+Parser::Parser() : p_val(nullptr) {}
+
+Parser::~Parser() {}
+
+void
+Parser::assign(ReQL_Obj_t *val) {
+  p_val = val;
+}
+
+void
+Parser::parse() {
+  if (p_val == nullptr) {
+    throw;
+  }
+  parse(p_val);
 }
 
 void
@@ -329,89 +346,149 @@ public:
   Result result() { return p_result; }
 
 private:
-  void startObject() {
-    p_stack.push_back(std::move(Result(std::map<std::string, Result>())));
-  }
-
-  void addKey(std::string key) {
-    p_keys.push_back(key);
-  }
-
-  void addKeyValue(std::string key) {
-    p_stack.end()->insert(key, std::move(Result()));
-  }
-
-  void addKeyValue(std::string key, bool value) {
-    p_stack.end()->insert(key, std::move(Result(value)));
-  }
-
-  void addKeyValue(std::string key, double value) {
-    p_stack.end()->insert(key, std::move(Result(value)));
-  }
-
-  void addKeyValue(std::string key, std::string value) {
-    p_stack.end()->insert(key, std::move(Result(value)));
-  }
-
-  void endObject() {
-    end();
-  }
-
-  void startArray() {
-    p_stack.push_back(Result(std::vector<Result>()));
-  }
-
-  void addElement() {
-    addElement(std::move(Result()));
-  }
-
-  void addElement(bool value) {
-    addElement(std::move(Result(value)));
-  }
-
-  void addElement(double value) {
-    addElement(std::move(Result(value)));
-  }
-
-  void addElement(std::string value) {
-    addElement(std::move(Result(value)));
-  }
-
-  void endArray() {
-    end();
-  }
-
-  void addElement(Result &&val) {
-    if (p_stack.empty()) {
-      p_result = std::move(val);
-    } else if (p_stack.end()->type() == REQL_R_ARRAY) {
-      p_stack.end()->insert(std::move(val));
-    } else {
-      throw;
-    }
-  }
-
-  void end() {
-    Result last = *p_stack.end().base();
-    p_stack.pop_back();
-    if (p_stack.empty()) {
-      p_result = last;
-    } else if (p_stack.end()->type() == REQL_R_OBJECT) {
-      p_stack.end()->insert(*p_keys.end(), std::move(last));
-      p_keys.pop_back();
-    } else if (p_stack.end()->type() == REQL_R_ARRAY) {
-      addElement(std::move(last));
-    } else {
-      throw;
-    }
-  }
+  void startObject();
+  void addKey(std::string key);
+  void addKeyValue(std::string key);
+  void addKeyValue(std::string key, bool value);
+  void addKeyValue(std::string key, double value);
+  void addKeyValue(std::string key, std::string value);
+  void endObject();
+  void startArray();
+  void addElement();
+  void addElement(bool value);
+  void addElement(double value);
+  void addElement(std::string value);
+  void addElement(Result val);
+  void addElement(Result array, Result val);
+  void endArray();
+  void end();
 
   std::vector<Result> p_stack;
   std::vector<std::string> p_keys;
   Result p_result;
 };
 
-Cursor::Cursor() : cur(new ReQL_Cur_t) {
+void
+ResultBuilder::startObject() {
+  p_stack.push_back(Result(std::map<std::string, Result>()));
+}
+
+void
+ResultBuilder::addKey(std::string key) {
+  p_keys.push_back(key);
+}
+
+void
+ResultBuilder::addKeyValue(std::string key) {
+  Result object = p_stack.back();
+  p_stack.pop_back();
+  object.insert(key, Result());
+  p_stack.push_back(object);
+}
+
+void
+ResultBuilder::addKeyValue(std::string key, bool value) {
+  Result object = p_stack.back();
+  p_stack.pop_back();
+  object.insert(key, Result(value));
+  p_stack.push_back(object);
+}
+
+void
+ResultBuilder::addKeyValue(std::string key, double value) {
+  Result object = p_stack.back();
+  p_stack.pop_back();
+  object.insert(key, Result(value));
+  p_stack.push_back(object);
+}
+
+void
+ResultBuilder::addKeyValue(std::string key, std::string value) {
+  Result object = p_stack.back();
+  p_stack.pop_back();
+  object.insert(key, Result(value));
+  p_stack.push_back(object);
+}
+
+void
+ResultBuilder::endObject() {
+  end();
+}
+
+void
+ResultBuilder::startArray() {
+  p_stack.push_back(Result(std::vector<Result>()));
+}
+
+void
+ResultBuilder::addElement() {
+  addElement(Result());
+}
+
+void
+ResultBuilder::addElement(bool value) {
+  addElement(Result(value));
+}
+
+void
+ResultBuilder::addElement(double value) {
+  addElement(Result(value));
+}
+
+void
+ResultBuilder::addElement(std::string value) {
+  addElement(Result(value));
+}
+
+void
+ResultBuilder::endArray() {
+  end();
+}
+
+void
+ResultBuilder::addElement(Result val) {
+  if (p_stack.empty()) {
+    p_result = std::move(val);
+    return;
+  }
+  Result array = p_stack.back();
+  p_stack.pop_back();
+  return addElement(array, val);
+}
+
+void
+ResultBuilder::addElement(Result array, Result val) {
+  if (array.type() == REQL_R_ARRAY) {
+    array.insert(val);
+    p_stack.push_back(array);
+  } else {
+    throw;
+  }
+}
+
+void
+ResultBuilder::end() {
+  Result last = p_stack.back();
+  p_stack.pop_back();
+  if (p_stack.empty()) {
+    p_result = std::move(last);
+    return;
+  }
+  Result object = p_stack.back();
+  p_stack.pop_back();
+  if (object.type() == REQL_R_OBJECT) {
+    std::string key = p_keys.back();
+    p_keys.pop_back();
+    object.insert(key, last);
+    p_stack.push_back(object);
+  } else if (object.type() == REQL_R_ARRAY) {
+    addElement(object, last);
+  } else {
+    throw;
+  }
+}
+
+Cursor::Cursor() : p_cur(new ReQL_Cur_t) {
   reql_cursor_init(data());
 }
 
@@ -436,23 +513,24 @@ Cursor::next(Parser &p) {
 
 ReQL_Cur_t *
 Cursor::data() const {
-  return cur.get();
+  return p_cur.get();
 }
 
 void
 Cursor::close() {
 }
 
-Connection::Connection() : conn(new ReQL_Conn_t) {
+Connection::Connection() : p_conn(new ReQL_Conn_t) {
   reql_connection_init(data());
 
   std::uint8_t buf[500];
 
   if (reql_connect(data(), buf, 500)) {
+    throw;
   }
 }
 
-Connection::Connection(const std::string &host) : conn(new ReQL_Conn_t) {
+Connection::Connection(const std::string &host) : p_conn(new ReQL_Conn_t) {
   reql_connection_init(data());
 
   reql_conn_set_addr(data(), const_cast<char *>(host.c_str()));
@@ -460,10 +538,11 @@ Connection::Connection(const std::string &host) : conn(new ReQL_Conn_t) {
   std::uint8_t buf[500];
 
   if (reql_connect(data(), buf, 500)) {
-  }
+    throw;
+ }
 }
 
-Connection::Connection(const std::string &host, const std::uint16_t &port) : conn(new ReQL_Conn_t) {
+Connection::Connection(const std::string &host, const std::uint16_t &port) : p_conn(new ReQL_Conn_t) {
   reql_connection_init(data());
 
   reql_conn_set_addr(data(), const_cast<char *>(host.c_str()));
@@ -472,10 +551,11 @@ Connection::Connection(const std::string &host, const std::uint16_t &port) : con
   std::uint8_t buf[500];
 
   if (reql_connect(data(), buf, 500)) {
+    throw;
   }
 }
 
-Connection::Connection(const std::string &host, const std::uint16_t &port, const std::string &key) : conn(new ReQL_Conn_t) {
+Connection::Connection(const std::string &host, const std::uint16_t &port, const std::string &key) : p_conn(new ReQL_Conn_t) {
   reql_connection_init(data());
 
   std::size_t auth_size = key.size();
@@ -491,10 +571,11 @@ Connection::Connection(const std::string &host, const std::uint16_t &port, const
   std::uint8_t buf[500];
 
   if (reql_connect(data(), buf, 500)) {
+    throw;
   }
 }
 
-Connection::Connection(const Connection &other) : conn(new ReQL_Conn_t) {
+Connection::Connection(const Connection &other) : p_conn(new ReQL_Conn_t) {
   reql_connection_init(data());
 
   ReQL_Conn_t *o_conn = other.data();
@@ -506,11 +587,12 @@ Connection::Connection(const Connection &other) : conn(new ReQL_Conn_t) {
   std::uint8_t buf[500];
 
   if (reql_connect(data(), buf, 500)) {
+    throw;
   }
 }
 
 Connection::Connection(Connection &&other) {
-  conn = std::move(other.conn);
+  p_conn = std::move(other.p_conn);
 }
 
 Connection::~Connection() {
@@ -531,6 +613,7 @@ Connection &Connection::operator=(const Connection &other) {
     std::uint8_t buf[500];
 
     if (reql_connect(data(), buf, 500)) {
+      throw;
     }
   }
   return *this;
@@ -538,7 +621,7 @@ Connection &Connection::operator=(const Connection &other) {
 
 Connection &Connection::operator=(Connection &&other) {
   reql_ensure_conn_close(data());
-  conn = std::move(other.conn);
+  p_conn = std::move(other.p_conn);
   return *this;
 }
 
@@ -554,11 +637,12 @@ Connection::isOpen() const {
 
 ReQL_Conn_t *
 Connection::data() const {
-  return conn.get();
+  return p_conn.get();
 }
 
 Cursor Query::run(const Connection &conn) const {
   if (!conn.isOpen()) {
+    throw;
   }
 
   Cursor cur;

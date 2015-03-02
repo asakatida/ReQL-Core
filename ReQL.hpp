@@ -28,11 +28,11 @@ namespace ReQL {
 class Result {
 public:
   Result();
-  Result(const bool &val);
-  Result(const double &val);
-  Result(const std::string &val);
-  Result(const std::map<std::string, Result> &val);
-  Result(const std::vector<Result> &val);
+  Result(const bool val);
+  Result(const double val);
+  Result(const std::string val);
+  Result(const std::map<std::string, Result> val);
+  Result(const std::vector<Result> val);
   Result(const Result &other);
   Result(Result &&other);
   ~Result();
@@ -40,8 +40,8 @@ public:
   Result &operator=(const Result &other);
   Result &operator=(Result &&other);
 
-  void insert(Result &&elem);
-  void insert(std::string &key, Result &&value);
+  void insert(Result elem);
+  void insert(std::string key, Result value);
 
   ReQL_Datum_t type() const;
   bool boolean() const;
@@ -54,15 +54,15 @@ private:
   ReQL_Datum_t p_type;
   union JSON_Value {
     JSON_Value();
-    JSON_Value(const bool &val);
-    JSON_Value(const double &val);
-    JSON_Value(const std::string &val);
-    JSON_Value(const std::map<std::string, Result> &val);
-    JSON_Value(const std::vector<Result> &val);
+    JSON_Value(const bool val);
+    JSON_Value(const double val);
+    JSON_Value(const std::string val);
+    JSON_Value(const std::map<std::string, Result> val);
+    JSON_Value(const std::vector<Result> val);
 
-    void copy(const JSON_Value &other, const ReQL_Datum_t &type);
-    void move(JSON_Value &&other, const ReQL_Datum_t &type);
-    void release(const ReQL_Datum_t &type);
+    void copy(const Result &other, const ReQL_Datum_t type);
+    void move(Result &&other, const ReQL_Datum_t type);
+    void release(const ReQL_Datum_t type);
 
     ~JSON_Value();
 
@@ -76,7 +76,13 @@ private:
 
 class Parser {
 public:
+  Parser();
+  virtual ~Parser();
+
   void parse(ReQL_Obj_t *val);
+  void parse();
+
+  virtual void assign(ReQL_Obj_t *val);
 
   virtual void startObject() = 0;
   virtual void addKey(std::string key) = 0;
@@ -92,6 +98,9 @@ public:
   virtual void addElement(double value) = 0;
   virtual void addElement(std::string value) = 0;
   virtual void endArray() = 0;
+
+private:
+  ReQL_Obj_t *p_val;
 };
 
 class Cursor {
@@ -118,7 +127,7 @@ public:
   void close();
 
 private:
-  std::unique_ptr<ReQL_Cur_t> cur;
+  std::unique_ptr<ReQL_Cur_t> p_cur;
 };
 
 class Connection {
@@ -143,7 +152,7 @@ public:
   void close();
 
 private:
-  std::unique_ptr<ReQL_Conn_t> conn;
+  std::unique_ptr<ReQL_Conn_t> p_conn;
 };
 
 class Query : public AST {
