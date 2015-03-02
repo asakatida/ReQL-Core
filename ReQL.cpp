@@ -278,7 +278,8 @@ private:
 
   void addKeyValue(std::string key, std::string value) {
     Result res;
-    res.type = REQL_R_NULL;
+    res.type = REQL_R_STR;
+    res.value.string = new std::string(value);
     p_stack.end()->value.object->insert({key, res});
   }
 
