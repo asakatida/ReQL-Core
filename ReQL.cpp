@@ -61,9 +61,9 @@ Result::JSON_Value::JSON_Value() {
 }
 
 void
-Result::JSON_Value::copy(const Result::JSON_Value &other, ReQL_Datum_t type) {
-  release(type);
-  switch (type) {
+Result::JSON_Value::copy(const Result::JSON_Value &other, ReQL_Datum_t a_type) {
+  release(a_type);
+  switch (a_type) {
     case REQL_R_ARRAY: {
       array = new std::vector<Result>(*other.array);
       break;
@@ -91,9 +91,9 @@ Result::JSON_Value::copy(const Result::JSON_Value &other, ReQL_Datum_t type) {
 }
 
 void
-Result::JSON_Value::move(Result::JSON_Value &&other, ReQL_Datum_t type) {
-  release(type);
-  switch (type) {
+Result::JSON_Value::move(Result::JSON_Value &&other, ReQL_Datum_t a_type) {
+  release(a_type);
+  switch (a_type) {
     case REQL_R_ARRAY: {
       array = std::move(other.array);
       break;
@@ -121,8 +121,8 @@ Result::JSON_Value::move(Result::JSON_Value &&other, ReQL_Datum_t type) {
 }
 
 void
-Result::JSON_Value::release(ReQL_Datum_t type) {
-  switch (type) {
+Result::JSON_Value::release(ReQL_Datum_t a_type) {
+  switch (a_type) {
     case REQL_R_ARRAY: {
       if (array != nullptr) {
         delete array;
