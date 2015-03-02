@@ -112,7 +112,7 @@ TEST_CASE("decode values", "[c][decode]") {
 
     std::string orig("hi!");
 
-    REQUIRE(orig.compare(0, 3, (char *)reql_string_buf(obj), reql_size(obj)) == 0);
+    REQUIRE(orig.compare(0, 3, reinterpret_cast<char*>(reql_string_buf(obj)), reql_size(obj)) == 0);
 
     reql_json_destroy(obj);
   }
@@ -148,7 +148,7 @@ TEST_CASE("decode values", "[c][decode]") {
 
     ReQL_Obj_t key;
     reql_string_init(&key, key_buf, key_size);
-    reql_string_append(&key, (uint8_t *)"key", key_size);
+    reql_string_append(&key, reinterpret_cast<std::uint8_t*>(const_cast<char*>("key")), key_size);
 
     REQUIRE(reql_object_get(obj, &key) != NULL);
     REQUIRE(reql_datum_type(reql_object_get(obj, &key)) == REQL_R_NUM);
@@ -221,7 +221,7 @@ TEST_CASE("encode values", "[c][encode]") {
 
     std::string comp("1.125", 0, str->size);
 
-    REQUIRE(comp.compare(0, str->size, (char *)str->str) == 0);
+    REQUIRE(comp.compare(0, str->size, reinterpret_cast<char*>(str->str)) == 0);
 
     free(str->str);
     free(str);
@@ -445,19 +445,19 @@ TEST_CASE("Expr", "[c][expr]") {
   }
 
   SECTION("string") {
-    const uint32_t size = 12;
+    const std::uint32_t size = 12;
 
-    uint8_t *buf = new uint8_t[size];
-    const uint8_t hello[] = "Hello World";
+    std::uint8_t *buf = new std::uint8_t[size];
+    const std::uint8_t hello[] = "Hello World";
 
-    std::string orig = std::string((char *)hello, size);
+    std::string orig = std::string(reinterpret_cast<char*>(const_cast<std::uint8_t*>(hello)), size);
 
     reql_string_init(&val, buf, size);
     reql_string_append(&val, hello, size);
 
     CHECK(reql_datum_type(&val) == REQL_R_STR);
 
-    CHECK(orig.compare(0, size, (char *)reql_string_buf(&val), size) == 0);
+    CHECK(orig.compare(0, size, reinterpret_cast<char*>(reql_string_buf(&val)), size) == 0);
     CHECK(size == reql_size(&val));
 
     delete [] buf;

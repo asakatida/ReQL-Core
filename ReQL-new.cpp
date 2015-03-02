@@ -49,12 +49,10 @@ ReQL::operator<(const ReQL &other) const {
       case REQL_R_NULL:
       case REQL_R_NUM:
       case REQL_R_OBJECT:
-      case REQL_R_REQL: {
-        return data() < other.data();
-      }
+      case REQL_R_REQL: return data() < other.data();
       case REQL_R_STR: {
-        std::string same((char *)reql_string_buf(data()), reql_size(data()));
-        std::string diff((char *)reql_string_buf(other.data()), reql_size(other.data()));
+        std::string same(reinterpret_cast<char*>(reql_string_buf(data())), reql_size(data()));
+        std::string diff(reinterpret_cast<char*>(reql_string_buf(other.data())), reql_size(other.data()));
         return same < diff;
       }
     }
@@ -132,7 +130,7 @@ ReQL_Object::move(ReQL_Datum &&other) {
 
 ReQL_String::ReQL_String(std::string val) : ReQL_Datum(), p_buf(new uint8_t[val.size()]) {
   std::uint32_t size = static_cast<std::uint32_t>(val.size());
-  std::uint8_t *buf = (std::uint8_t*)val.c_str();
+  std::uint8_t *buf = reinterpret_cast<std::uint8_t*>(const_cast<char*>(val.c_str()));
 
   reql_string_init(data(), p_buf.get(), size);
   reql_string_append(data(), buf, size);

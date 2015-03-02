@@ -202,7 +202,7 @@ Parser::parse(ReQL_Obj_t *val) {
 
       while ((key = reql_iter_next(&it)) != NULL) {
         value = reql_object_get(val, key);
-        std::string key_string((char *)reql_string_buf(key), reql_size(key));
+        std::string key_string(reinterpret_cast<char*>(reql_string_buf(key)), reql_size(key));
 
         switch (reql_datum_type(value)) {
           case REQL_R_BOOL: {
@@ -226,7 +226,7 @@ Parser::parse(ReQL_Obj_t *val) {
           case REQL_R_JSON:
           case REQL_R_REQL: break;
           case REQL_R_STR: {
-            addKeyValue(key_string, std::string((char *)reql_string_buf(value), reql_size(value)));
+            addKeyValue(key_string, std::string(reinterpret_cast<char*>(reql_string_buf(value)), reql_size(value)));
             break;
           }
         }
@@ -236,7 +236,7 @@ Parser::parse(ReQL_Obj_t *val) {
       break;
     }
     case REQL_R_STR: {
-      addElement(std::string((char *)reql_string_buf(val), reql_size(val)));
+      addElement(std::string(reinterpret_cast<char*>(reql_string_buf(val)), reql_size(val)));
       break;
     }
   }
@@ -398,7 +398,7 @@ Connection::Connection() : conn(new ReQL_Conn_t) {
 Connection::Connection(const std::string &host) : conn(new ReQL_Conn_t) {
   reql_connection_init(data());
 
-  reql_conn_set_addr(data(), (char *)host.c_str());
+  reql_conn_set_addr(data(), const_cast<char *>(host.c_str()));
 
   std::uint8_t buf[500];
 
@@ -409,8 +409,8 @@ Connection::Connection(const std::string &host) : conn(new ReQL_Conn_t) {
 Connection::Connection(const std::string &host, const std::uint16_t &port) : conn(new ReQL_Conn_t) {
   reql_connection_init(data());
 
-  reql_conn_set_addr(data(), (char *)host.c_str());
-  reql_conn_set_port(data(), (char *)std::to_string(port).c_str());
+  reql_conn_set_addr(data(), const_cast<char *>(host.c_str()));
+  reql_conn_set_port(data(), const_cast<char *>(std::to_string(port).c_str()));
 
   std::uint8_t buf[500];
 
@@ -427,9 +427,9 @@ Connection::Connection(const std::string &host, const std::uint16_t &port, const
     return;
   }
 
-  reql_conn_set_addr(data(), (char *)host.c_str());
-  reql_conn_set_port(data(), (char *)std::to_string(port).c_str());
-  reql_conn_set_auth(data(), key_len, (char *)key.c_str());
+  reql_conn_set_addr(data(), const_cast<char *>(host.c_str()));
+  reql_conn_set_port(data(), const_cast<char *>(std::to_string(port).c_str()));
+  reql_conn_set_auth(data(), static_cast<std::uint32_t>(auth_size), const_cast<char *>(key.c_str()));
 
   std::uint8_t buf[500];
 
