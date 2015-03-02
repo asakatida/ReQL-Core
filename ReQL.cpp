@@ -55,7 +55,7 @@ Result::operator=(Result &&other) {
   }
   return *this;
 }
-  
+
 Result::JSON_Value::JSON_Value() {
   std::memset(this, 0, sizeof(Result::JSON_Value));
 }
@@ -162,7 +162,7 @@ Result::JSON_Value::release(ReQL_Datum_t a_type) {
 Result::JSON_Value::~JSON_Value() {
   std::memset(this, 0, sizeof(Result::JSON_Value));
 }
-  
+
 void
 Parser::parse(ReQL_Obj_t *val) {
   switch (reql_datum_type(val)) {
@@ -231,7 +231,7 @@ Parser::parse(ReQL_Obj_t *val) {
           }
         }
       }
-      
+
       endObject();
       break;
     }

@@ -80,12 +80,12 @@ ReQL_Datum::~ReQL_Datum() {
 ReQL_Datum::ReQL_Datum(ReQL_Datum &&other) {
   move(std::move(other));
 }
-  
+
 ReQL_Datum &
 ReQL_Datum::operator=(ReQL_Datum &&other) {
   return move(std::move(other));
 }
-  
+
 ReQL_Datum &
 ReQL_Datum::move(ReQL_Datum &&other) {
   if (&other != this) {
@@ -93,7 +93,7 @@ ReQL_Datum::move(ReQL_Datum &&other) {
   }
   return *this;
 }
-  
+
 ReQL_Array::ReQL_Array(std::uint32_t size) : ReQL_Datum(), p_array(new ReQL_Obj_t*[size]) {
   reql_array_init(data(), p_array.get(), static_cast<std::uint32_t>(size));
 }
@@ -174,7 +174,7 @@ void
 ReQL_Term::finalize(ReQL_AST_Function f) {
   f(data(), p_args.get(), p_kwargs.get());
 }
-  
+
 ReQL_Datum &
 ReQL_Term::move(ReQL_Datum &&other) {
   if (&other != this) {
