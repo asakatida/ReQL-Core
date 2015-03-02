@@ -121,14 +121,14 @@ reql_encode_(ReQL_Obj_t *obj, ReQL_String_t *json) {
 
       double val = reql_to_number(obj);
 
-      ssize_t size = snprintf(str, 1, "%g", val);
+      int size = snprintf(str, 1, "%g", val);
 
-      if (size > UINT32_MAX || size < 0) {
+      if ((unsigned int)size > UINT32_MAX || size < 0) {
         free(str);
         return -1;
       }
 
-      str = realloc(str, sizeof(char) * (size_t)size);
+      str = realloc(str, sizeof(char) * size);
 
       if (!str) {
         return -1;
