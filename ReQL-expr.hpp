@@ -37,6 +37,8 @@ public:
   Expr &operator=(const Expr &other);
   Expr &operator=(Expr &&other);
 
+  ReQL_Obj_t *data() const;
+
 protected:
   explicit Expr();
   explicit Expr(const ReQL_AST_Function &f, const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);

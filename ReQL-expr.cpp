@@ -100,7 +100,8 @@ Expr::Expr(const std::map<std::string, Query> &val) {
   p_query = std::move(query);
 }
 
-bool Expr::operator<(const Expr &other) const {
+bool
+Expr::operator<(const Expr &other) const {
   return p_query < other.p_query;
 }
 
@@ -115,7 +116,8 @@ Expr::Expr(Expr &&other) {
   p_query = std::move(other.p_query);
 }
 
-Expr &Expr::operator=(const Expr &other) {
+Expr &
+Expr::operator=(const Expr &other) {
   if (this != &other) {
     p_array = other.p_array;
     p_func = other.p_func;
@@ -186,7 +188,8 @@ Expr::copy(const Expr &other) {
   }
 }
 
-Expr &Expr::operator=(Expr &&other) {
+Expr &
+Expr::operator=(Expr &&other) {
   if (this != &other) {
     p_array = std::move(other.p_array);
     p_func = std::move(other.p_func);
@@ -195,6 +198,11 @@ Expr &Expr::operator=(Expr &&other) {
   }
 
   return *this;
+}
+
+ReQL_Obj_t *
+Expr::data() const {
+  return p_query.data();
 }
 
 }
