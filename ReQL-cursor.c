@@ -21,8 +21,8 @@ limitations under the License.
 #include "ReQL-cursor.h"
 
 #include "ReQL.h"
+#include "ReQL-util.h"
 
-#include <pthread.h>
 #include <stdlib.h>
 
 static int

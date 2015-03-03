@@ -20,16 +20,17 @@ limitations under the License.
 
 #include "ReQL.h"
 
-#include "ReQL-util.h"
 #include "ReQL-encode.h"
 #include "ReQL-decode.h"
+#include "ReQL-util.h"
 
 #include <netdb.h>
 #include <netinet/in.h>
-#include <pthread.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/select.h>
+#include <sys/socket.h>
+#include <sys/types.h>
 #include <sys/uio.h>
 #include <unistd.h>
 

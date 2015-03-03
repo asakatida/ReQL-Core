@@ -36,6 +36,10 @@
 		1E3F9A1E1A35253F0065A82F /* ReQL-Python.c in Sources */ = {isa = PBXBuildFile; fileRef = 1E3F9A191A35253F0065A82F /* ReQL-Python.c */; };
 		1E4660091A5A183900735BD7 /* ReQL-new-Lua.c in Sources */ = {isa = PBXBuildFile; fileRef = 1E4660071A5A183900735BD7 /* ReQL-new-Lua.c */; };
 		1E46600A1A5A183900735BD7 /* ReQL-new-Lua.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E4660081A5A183900735BD7 /* ReQL-new-Lua.h */; };
+		1E5C78201AA50FBE00DC277D /* portable_pthread.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E5C781F1AA50FBE00DC277D /* portable_pthread.h */; };
+		1E5C78211AA50FBE00DC277D /* portable_pthread.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E5C781F1AA50FBE00DC277D /* portable_pthread.h */; };
+		1E5C78221AA50FBE00DC277D /* portable_pthread.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E5C781F1AA50FBE00DC277D /* portable_pthread.h */; };
+		1E5C78231AA50FBE00DC277D /* portable_pthread.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E5C781F1AA50FBE00DC277D /* portable_pthread.h */; };
 		1E7318451A5DB939001AE5C8 /* portable_endian.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E7318441A5DB939001AE5C8 /* portable_endian.h */; };
 		1E7318461A5DB93C001AE5C8 /* portable_endian.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E7318441A5DB939001AE5C8 /* portable_endian.h */; };
 		1E7318471A5DB93D001AE5C8 /* portable_endian.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E7318441A5DB939001AE5C8 /* portable_endian.h */; };
@@ -158,6 +162,7 @@
 		1E3F9A191A35253F0065A82F /* ReQL-Python.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "ReQL-Python.c"; sourceTree = SOURCE_ROOT; };
 		1E4660071A5A183900735BD7 /* ReQL-new-Lua.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "ReQL-new-Lua.c"; sourceTree = "<group>"; };
 		1E4660081A5A183900735BD7 /* ReQL-new-Lua.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ReQL-new-Lua.h"; sourceTree = "<group>"; };
+		1E5C781F1AA50FBE00DC277D /* portable_pthread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = portable_pthread.h; sourceTree = "<group>"; };
 		1E7318441A5DB939001AE5C8 /* portable_endian.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = portable_endian.h; sourceTree = "<group>"; };
 		1E7318491A5DB963001AE5C8 /* ReQL-util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ReQL-util.h"; sourceTree = "<group>"; };
 		1E8435621A17193D008167E6 /* liblibReQL-Lua.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "liblibReQL-Lua.dylib"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -253,6 +258,7 @@
 				1E9D4B781A03011100201983 /* Products */,
 				1ED0307B1A678BC400E087F1 /* catch.h */,
 				1E7318441A5DB939001AE5C8 /* portable_endian.h */,
+				1E5C781F1AA50FBE00DC277D /* portable_pthread.h */,
 				1E0915F01A1A73D3007952FE /* ReQL-ast.cpp */,
 				1E0915F11A1A73D3007952FE /* ReQL-ast.hpp */,
 				1E8435661A171A0F008167E6 /* ReQL-ast-Lua.c */,
@@ -345,6 +351,7 @@
 				1E7318471A5DB93D001AE5C8 /* portable_endian.h in Headers */,
 				1E0915EB1A1A73A9007952FE /* ReQL-ast.h in Headers */,
 				1E0915F71A1A73D3007952FE /* ReQL-ast.hpp in Headers */,
+				1E5C78221AA50FBE00DC277D /* portable_pthread.h in Headers */,
 				1EAC78EF1A6191FD00710286 /* ReQL-char.h in Headers */,
 				1E0915FB1A1A73D3007952FE /* ReQL-expr.hpp in Headers */,
 				1E73184C1A5DB963001AE5C8 /* ReQL-util.h in Headers */,
@@ -360,6 +367,7 @@
 				1E3F9A141A35250F0065A82F /* ReQL.h in Headers */,
 				1E3F9A101A35250F0065A82F /* ReQL-ast.h in Headers */,
 				87E33B681A54DE7800F3C411 /* ReQL-encode.h in Headers */,
+				1E5C78231AA50FBE00DC277D /* portable_pthread.h in Headers */,
 				1EAC78F01A6191FD00710286 /* ReQL-char.h in Headers */,
 				1E3F9A121A35250F0065A82F /* ReQL-expr.h in Headers */,
 				1E3F9A1B1A35253F0065A82F /* ReQL-ast-Python.h in Headers */,
@@ -380,6 +388,7 @@
 				1E8435751A171A3F008167E6 /* ReQL.h in Headers */,
 				1E84356E1A171A0F008167E6 /* ReQL-expr-Lua.h in Headers */,
 				87E33B661A54DE7800F3C411 /* ReQL-encode.h in Headers */,
+				1E5C78211AA50FBE00DC277D /* portable_pthread.h in Headers */,
 				1EAC78EE1A6191FD00710286 /* ReQL-char.h in Headers */,
 				1E8435731A171A24008167E6 /* ReQL-expr.h in Headers */,
 				1E46600A1A5A183900735BD7 /* ReQL-new-Lua.h in Headers */,
@@ -400,6 +409,7 @@
 				87E33B5D1A54DE7800F3C411 /* ReQL-decode.h in Headers */,
 				1ED0666C1A030AE8005225FD /* ReQL.h in Headers */,
 				87E33B651A54DE7800F3C411 /* ReQL-encode.h in Headers */,
+				1E5C78201AA50FBE00DC277D /* portable_pthread.h in Headers */,
 				1EAC78ED1A6191FD00710286 /* ReQL-char.h in Headers */,
 				8760588C1A47AF0F00FEA3E9 /* ReQL-json.h in Headers */,
 				1ED066771A046AC1005225FD /* ReQL-expr.h in Headers */,

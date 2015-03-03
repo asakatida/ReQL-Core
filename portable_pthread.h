@@ -1,5 +1,5 @@
 /*
-Copyright 2014-2015 Adam Grandquist
+Copyright 2015 Adam Grandquist
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -18,5 +18,15 @@ limitations under the License.
  * @copyright Apache
  */
 
-#include "portable_endian.h"
-#include "portable_pthread.h"
+#include <pthread.h>
+
+#ifndef REQL_PORTABLE_PTHREAD_H
+#define REQL_PORTABLE_PTHREAD_H
+
+#ifndef PTHREAD_MUTEX_ERRORCHECK
+#ifdef PTHREAD_MUTEX_ERRORCHECK_NP
+#define PTHREAD_MUTEX_ERRORCHECK PTHREAD_MUTEX_ERRORCHECK_NP
+#endif
+#endif
+
+#endif
