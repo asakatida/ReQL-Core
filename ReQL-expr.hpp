@@ -48,7 +48,7 @@ protected:
   explicit Expr(const std::vector<Query> &val);
   explicit Expr(const std::map<std::string, Query> &val);
 
-  ReQL_Datum p_query;
+  ReQL p_query;
 private:
   void copy(const Expr &other);
 

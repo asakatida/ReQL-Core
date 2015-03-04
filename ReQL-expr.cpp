@@ -26,7 +26,7 @@ limitations under the License.
 
 namespace ReQL {
 
-Expr::Expr() : p_query(ReQL_Datum()) {}
+Expr::Expr() {}
 
 Expr::Expr(const ReQL_AST_Function &f, const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) : p_func(f) {
   std::size_t args_size = args.size();
@@ -59,11 +59,13 @@ Expr::Expr(const ReQL_AST_Function &f, const std::vector<Query> &args, const std
   p_query = std::move(query);
 }
 
-Expr::Expr(const std::string &val) : p_query(std::move(ReQL_String(val))) {}
+Expr::Expr(const std::string &val) {
+  p_query = std::move(ReQL_String(val));
+}
 
-Expr::Expr(const double &val) : p_query(std::move(ReQL_Datum(val))) {}
+Expr::Expr(const double &val) : p_query(val) {}
 
-Expr::Expr(const bool &val) : p_query(std::move(ReQL_Datum(val))) {}
+Expr::Expr(const bool &val) : p_query(val) {}
 
 Expr::Expr(const std::vector<Query> &val) {
   std::size_t size = val.size();
@@ -143,15 +145,15 @@ Expr::copy(const Expr &other) {
       break;
     }
     case REQL_R_BOOL: {
-      p_query = std::move(ReQL_Datum(reql_to_bool(other.p_query.data()) ? true : false));
+      p_query = std::move(ReQL(reql_to_bool(other.data()) ? true : false));
       break;
     }
     case REQL_R_NULL: {
-      p_query = std::move(ReQL_Datum());
+      p_query = std::move(ReQL());
       break;
     }
     case REQL_R_NUM: {
-      p_query = std::move(ReQL_Datum(reql_to_number(other.p_query.data())));
+      p_query = std::move(ReQL(reql_to_number(other.data())));
       break;
     }
     case REQL_R_OBJECT: {
@@ -165,7 +167,7 @@ Expr::copy(const Expr &other) {
       break;
     }
     case REQL_R_STR: {
-      p_query = std::move(ReQL_String(std::string(reinterpret_cast<char*>(reql_string_buf(other.p_query.data())), static_cast<std::size_t>(reql_size(other.p_query.data())))));
+      p_query = std::move(ReQL_String(std::string(reinterpret_cast<char*>(reql_string_buf(other.data())), static_cast<std::size_t>(reql_size(other.data())))));
       break;
     }
     case REQL_R_JSON: throw;
