@@ -525,7 +525,7 @@ Connection::Connection() : p_conn(new ReQL_Conn_t) {
 
   std::uint8_t buf[500];
 
-  if (reql_connect(data(), buf, 500)) {
+  if (reql_connect(data(), buf, 500) != 0) {
     throw;
   }
 }
@@ -537,7 +537,7 @@ Connection::Connection(const std::string &host) : p_conn(new ReQL_Conn_t) {
 
   std::uint8_t buf[500];
 
-  if (reql_connect(data(), buf, 500)) {
+  if (reql_connect(data(), buf, 500) != 0) {
     throw;
  }
 }
@@ -550,7 +550,7 @@ Connection::Connection(const std::string &host, const std::uint16_t &port) : p_c
 
   std::uint8_t buf[500];
 
-  if (reql_connect(data(), buf, 500)) {
+  if (reql_connect(data(), buf, 500) != 0) {
     throw;
   }
 }
@@ -570,7 +570,7 @@ Connection::Connection(const std::string &host, const std::uint16_t &port, const
 
   std::uint8_t buf[500];
 
-  if (reql_connect(data(), buf, 500)) {
+  if (reql_connect(data(), buf, 500) != 0) {
     throw;
   }
 }
@@ -586,7 +586,7 @@ Connection::Connection(const Connection &other) : p_conn(new ReQL_Conn_t) {
 
   std::uint8_t buf[500];
 
-  if (reql_connect(data(), buf, 500)) {
+  if (reql_connect(data(), buf, 500) != 0) {
     throw;
   }
 }
