@@ -3,6 +3,10 @@
 #define CATCH_CONFIG_MAIN
 #include "catch.h"
 
+std::string inspect(ReQL::Query query) {
+  return inspect(query.data());
+}
+
 std::string inspect(ReQL::ReQL_Obj_t *query) {
   if (query == nullptr) {
     return "unknown";
