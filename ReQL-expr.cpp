@@ -32,13 +32,13 @@ Expr::Expr(const ReQL_AST_Function &f, const std::vector<Query> &args, const std
   std::size_t args_size = args.size();
 
   if (args_size > std::numeric_limits<std::uint32_t>::max()) {
-    return;
+    throw;
   }
 
   std::size_t kwargs_size = kwargs.size();
 
   if (kwargs_size > std::numeric_limits<std::uint32_t>::max()) {
-    return;
+    throw;
   }
 
   ReQL_Term query(static_cast<std::uint32_t>(args_size), static_cast<std::uint32_t>(kwargs_size));
@@ -71,7 +71,7 @@ Expr::Expr(const std::vector<Query> &val) {
   std::size_t size = val.size();
 
   if (size > std::numeric_limits<std::uint32_t>::max()) {
-    return;
+    throw;
   }
 
   ReQL_Array query(static_cast<std::uint32_t>(size));
@@ -88,7 +88,7 @@ Expr::Expr(const std::map<std::string, Query> &val) {
   std::size_t size = val.size();
 
   if (size > std::numeric_limits<std::uint32_t>::max()) {
-    return;
+    throw;
   }
 
   ReQL_Object query(static_cast<std::uint32_t>(size));
