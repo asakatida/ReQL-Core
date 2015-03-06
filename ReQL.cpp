@@ -495,6 +495,14 @@ Cursor::Cursor() : p_cur(new ReQL_Cur_t) {
 Cursor::~Cursor() {
 }
 
+Cursor &
+Cursor::operator=(Cursor &&other) {
+  if (this != &other) {
+    p_cur = std::move(other.p_cur);
+  }
+  return *this;
+}
+
 bool Cursor::isOpen() const {
   return reql_cur_open(data());
 }
