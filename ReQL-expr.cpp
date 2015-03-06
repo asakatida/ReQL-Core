@@ -41,27 +41,25 @@ Expr::Expr(const ReQL_AST_Function &f, const std::vector<Query> &args, const std
     throw;
   }
 
-  ReQL_Term query(static_cast<std::uint32_t>(args_size), static_cast<std::uint32_t>(kwargs_size));
+  std::vector<ReQL> r_args;
 
   for (auto it=args.cbegin(); it!=args.cend(); ++it) {
-    p_array.insert(p_array.end(), *it);
-    query.add_arg(it->p_query);
+    p_array.push_back(*it);
+    r_args.push_back(it->p_query);
   }
+
+  std::map<ReQL, ReQL> r_kwargs;
 
   for (auto it=kwargs.cbegin(); it!=kwargs.cend(); ++it) {
     Expr key(it->first);
     p_object.insert(p_object.end(), {key, it->second});
-    query.add_kwarg(key.p_query, it->second.p_query);
+    r_kwargs.insert(r_kwargs.end(), {key.p_query, it->second.p_query});
   }
 
-  query.finalize(p_func);
-
-  p_query = std::move(query);
+  p_query = ReQL(p_func, r_args, r_kwargs);
 }
 
-Expr::Expr(const std::string &val) {
-  p_query = std::move(ReQL_String(val));
-}
+Expr::Expr(const std::string &val) : p_query(val) {}
 
 Expr::Expr(const double &val) : p_query(val) {}
 
@@ -74,14 +72,14 @@ Expr::Expr(const std::vector<Query> &val) {
     throw;
   }
 
-  ReQL_Array query(static_cast<std::uint32_t>(size));
+  std::vector<ReQL> r_array;
 
   for (auto it=val.cbegin(); it!=val.cend(); ++it) {
-    p_array.insert(p_array.end(), *it);
-    query.add_elem(it->p_query);
+    p_array.push_back(*it);
+    r_array.push_back(it->p_query);
   }
 
-  p_query = std::move(query);
+  p_query = ReQL(r_array);
 }
 
 Expr::Expr(const std::map<std::string, Query> &val) {
@@ -91,15 +89,15 @@ Expr::Expr(const std::map<std::string, Query> &val) {
     throw;
   }
 
-  ReQL_Object query(static_cast<std::uint32_t>(size));
+  std::map<ReQL, ReQL> r_object;
 
   for (auto it=val.cbegin(); it!=val.cend(); ++it) {
     Expr key(it->first);
     p_object.insert(p_object.end(), {key, it->second});
-    query.add_key(key.p_query, it->second.p_query);
+    r_object.insert(r_object.end(), {key.p_query, it->second.p_query});
   }
 
-  p_query = std::move(query);
+  p_query = ReQL(r_object);
 }
 
 bool
@@ -112,19 +110,12 @@ Expr::Expr(const Expr &other) : p_func(other.p_func), p_array(other.p_array), p_
 }
 
 Expr::Expr(Expr &&other) {
-  p_array = std::move(other.p_array);
-  p_func = std::move(other.p_func);
-  p_object = std::move(other.p_object);
-  p_query = std::move(other.p_query);
+  move(std::move(other));
 }
 
 Expr &
 Expr::operator=(const Expr &other) {
   if (this != &other) {
-    p_array = other.p_array;
-    p_func = other.p_func;
-    p_object = other.p_object;
-
     copy(other);
   }
 
@@ -133,70 +124,24 @@ Expr::operator=(const Expr &other) {
 
 void
 Expr::copy(const Expr &other) {
-  switch (other.p_query.type()) {
-    case REQL_R_ARRAY: {
-      ReQL_Array query(static_cast<std::uint32_t>(p_array.size()));
+  p_array = other.p_array;
+  p_func = other.p_func;
+  p_object = other.p_object;
+  p_query = other.p_query;
+}
 
-      for (auto it=p_array.cbegin(); it!=p_array.cend(); ++it) {
-        query.add_elem(it->p_query);
-      }
-
-      p_query = std::move(query);
-      break;
-    }
-    case REQL_R_BOOL: {
-      p_query = std::move(ReQL(reql_to_bool(other.data()) ? true : false));
-      break;
-    }
-    case REQL_R_NULL: {
-      p_query = std::move(ReQL());
-      break;
-    }
-    case REQL_R_NUM: {
-      p_query = std::move(ReQL(reql_to_number(other.data())));
-      break;
-    }
-    case REQL_R_OBJECT: {
-      ReQL_Object query(static_cast<std::uint32_t>(p_object.size()));
-
-      for (auto it=p_object.cbegin(); it!=p_object.cend(); ++it) {
-        query.add_key(it->first.p_query, it->second.p_query);
-      }
-
-      p_query = std::move(query);
-      break;
-    }
-    case REQL_R_STR: {
-      p_query = std::move(ReQL_String(std::string(reinterpret_cast<char*>(reql_string_buf(other.data())), static_cast<std::size_t>(reql_size(other.data())))));
-      break;
-    }
-    case REQL_R_JSON: throw;
-    case REQL_R_REQL: {
-      ReQL_Term query(static_cast<std::uint32_t>(p_array.size()), static_cast<std::uint32_t>(p_object.size()));
-
-      for (auto it=p_array.cbegin(); it!=p_array.cend(); ++it) {
-        query.add_arg(it->p_query);
-      }
-
-      for (auto it=p_object.cbegin(); it!=p_object.cend(); ++it) {
-        query.add_kwarg(it->first.p_query, it->second.p_query);
-      }
-
-      query.finalize(p_func);
-
-      p_query = std::move(query);
-      break;
-    }
-  }
+void
+Expr::move(Expr &&other) {
+  p_array = std::move(other.p_array);
+  p_func = std::move(other.p_func);
+  p_object = std::move(other.p_object);
+  p_query = std::move(other.p_query);
 }
 
 Expr &
 Expr::operator=(Expr &&other) {
   if (this != &other) {
-    p_array = std::move(other.p_array);
-    p_func = std::move(other.p_func);
-    p_object = std::move(other.p_object);
-    p_query = std::move(other.p_query);
+    move(std::move(other));
   }
 
   return *this;

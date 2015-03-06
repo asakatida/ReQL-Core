@@ -37,69 +37,35 @@ namespace ReQL {
 class ReQL {
 public:
   ReQL();
-  ReQL(double val);
-  ReQL(bool val);
+  ReQL(const double &val);
+  ReQL(const bool &val);
+  ReQL(const std::string &val);
+  ReQL(const std::vector<ReQL> &array);
+  ReQL(const std::map<ReQL, ReQL> &object);
+  ReQL(const ReQL_AST_Function &f, const std::vector<ReQL> &args, const std::map<ReQL, ReQL> &kwargs);
+  ReQL(const ReQL &other);
 
+  ReQL &operator=(const ReQL &other);
   ReQL &operator=(ReQL &&other);
 
   ReQL_Obj_t *data() const;
-  ReQL_Datum_t type() const;
 
   bool operator<(const ReQL &other) const;
 
 private:
-  std::unique_ptr<ReQL_Obj_t> p_query;
-};
+  ReQL_Datum_t type() const;
+  void copy(const ReQL &other);
 
-class ReQL_Array : public ReQL {
-public:
-  ReQL_Array(std::uint32_t size);
-
-  ReQL_Array &operator=(ReQL_Array &&other);
-
-  void add_elem(const ReQL &elem);
-
-private:
-  std::unique_ptr<ReQL_Obj_t*> p_array;
-};
-
-class ReQL_String : public ReQL {
-public:
-  ReQL_String(std::string val);
-
-  ReQL_String &operator=(ReQL_String &&other);
-
-private:
-  std::unique_ptr<uint8_t> p_buf;
-};
-  
-class ReQL_Object : public ReQL {
-public:
-  ReQL_Object(std::uint32_t size);
-
-  ReQL_Object &operator=(ReQL_Object &&other);
-  
-  void add_key(const ReQL &key, const ReQL &value);
-
-private:
-  std::unique_ptr<ReQL_Pair_t> p_object;
-};
-
-class ReQL_Term : public ReQL {
-public:
-  ReQL_Term(std::uint32_t args_size, std::uint32_t kwargs_size);
-
-  ReQL_Term &operator=(ReQL_Term &&other);
-  
-  void add_arg(const ReQL &arg);
-  void add_kwarg(const ReQL &key, const ReQL &value);
-  void finalize(ReQL_AST_Function f);
-
-private:
+  ReQL_AST_Function p_func;
+  std::vector<ReQL> p_r_array;
+  std::map<ReQL, ReQL> p_r_object;
+  std::string p_str;
   std::unique_ptr<ReQL_Obj_t> p_args;
   std::unique_ptr<ReQL_Obj_t*> p_array;
+  std::unique_ptr<uint8_t> p_buf;
   std::unique_ptr<ReQL_Obj_t> p_kwargs;
   std::unique_ptr<ReQL_Pair_t> p_object;
+  std::unique_ptr<ReQL_Obj_t> p_query;
 };
 
 }

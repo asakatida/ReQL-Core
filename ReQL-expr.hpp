@@ -47,11 +47,11 @@ protected:
   explicit Expr(const bool &val);
   explicit Expr(const std::vector<Query> &val);
   explicit Expr(const std::map<std::string, Query> &val);
-
-  ReQL p_query;
-private:
   void copy(const Expr &other);
+  void move(Expr &&other);
 
+private:
+  ReQL p_query;
   ReQL_AST_Function p_func;
   std::vector<Expr> p_array;
   std::map<Expr, Expr> p_object;

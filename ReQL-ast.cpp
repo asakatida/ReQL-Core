@@ -32,22 +32,38 @@ init(const ReQL_AST_Function &f, const std::vector<Query> &args, const std::map<
 static Query
 init(const ReQL_AST_Function &f, const AST *term, const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
   std::vector<Query> new_args;
-  new_args.insert(new_args.begin(), term);
-  new_args.insert(new_args.begin(), args.cbegin(), args.cend());
+  new_args.push_back(term);
+  new_args.insert(new_args.cend(), args.cbegin(), args.cend());
   return init(f, new_args, kwargs);
 }
 
 static Query
 init(const ReQL_AST_Function &f, const std::vector<Query> &args) {
-  const std::map<std::string, Query> kwargs;
-  return init(f, args, kwargs);
+  return init(f, args, std::map<std::string, Query>());
 }
 
 static Query
 init(const ReQL_AST_Function &f, const AST *term, const std::vector<Query> &args) {
-  const std::map<std::string, Query> kwargs;
-  return init(f, term, args, kwargs);
+  return init(f, term, args, std::map<std::string, Query>());
 }
+
+AST::AST() : Expr() {}
+
+AST::AST(const ReQL_AST_Function &f, const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) : Expr(f, args, kwargs) {}
+
+AST::AST(const std::string &val) : Expr(val) {}
+
+AST::AST(const double &val) : Expr(val) {}
+
+AST::AST(const bool &val) : Expr(val) {}
+
+AST::AST(const std::vector<Query> &val) : Expr(val) {}
+
+AST::AST(const std::map<std::string, Query> &val) : Expr(val) {}
+
+AST::AST(const AST &other) : Expr(other) {}
+
+AST::AST(AST &&other) : Expr(std::move(other)) {}
 
 Query
 AST::add(const std::vector<Query> &args) const {

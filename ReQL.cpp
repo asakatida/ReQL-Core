@@ -640,6 +640,24 @@ Connection::data() const {
   return p_conn.get();
 }
 
+Query::Query() : AST() {}
+
+Query::Query(const ReQL_AST_Function &f, const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) : AST(f, args, kwargs) {}
+
+Query::Query(const std::string &val) : AST(val) {}
+
+Query::Query(const double &val) : AST(val) {}
+
+Query::Query(const bool &val) : AST(val) {}
+
+Query::Query(const std::vector<Query> &val) : AST(val) {}
+
+Query::Query(const std::map<std::string, Query> &val) : AST(val) {}
+
+Query::Query(const Query &other) : AST(other) {}
+
+Query::Query(Query &&other) : AST(std::move(other)) {}
+
 Cursor Query::run(const Connection &conn) const {
   if (!conn.isOpen()) {
     throw;
@@ -647,18 +665,22 @@ Cursor Query::run(const Connection &conn) const {
 
   Cursor cur;
 
-  reql_run(cur.data(), p_query.data(), conn.data(), nullptr);
+  reql_run(cur.data(), data(), conn.data(), nullptr);
 
   return cur;
 }
 
 Query &Query::operator=(const Query &other) {
-  Expr::operator=(other);
+  if (this != &other) {
+    copy(other);
+  }
   return *this;
 }
 
 Query &Query::operator=(Query &&other) {
-  Expr::operator=(std::move(other));
+  if (this != &other) {
+    move(std::move(other));
+  }
   return *this;
 }
 

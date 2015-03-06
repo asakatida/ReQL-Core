@@ -157,16 +157,16 @@ private:
 
 class Query : public AST {
 public:
-  Query() : AST() {}
-  Query(const ReQL_AST_Function &f, const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) : AST(f, args, kwargs) {}
-  Query(const std::string &val) : AST(val) {}
-  Query(const double &val) : AST(val) {}
-  Query(const bool &val) : AST(val) {}
-  Query(const std::vector<Query> &val) : AST(val) {}
-  Query(const std::map<std::string, Query> &val) : AST(val) {}
+  Query();
+  Query(const ReQL_AST_Function &f, const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);
+  Query(const std::string &val);
+  Query(const double &val);
+  Query(const bool &val);
+  Query(const std::vector<Query> &val);
+  Query(const std::map<std::string, Query> &val);
 
-  Query(const Query &other) : AST(other) {}
-  Query(Query &&other) : AST(std::move(other)) {}
+  Query(const Query &other);
+  Query(Query &&other);
 
   bool operator<(const Query &other) const;
 
