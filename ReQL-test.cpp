@@ -65,13 +65,13 @@ std::string inspect(ReQL::ReQL_Obj_t *query) {
       std::stringstream buf;
 
       buf << "(";
-      buf << ReQL::reql_datum_type(query);
-      ReQL::ReQL_Obj_t *args = ReQL::reql_args(query);
+      buf << ReQL::reql_term_type(query);
+      const ReQL::ReQL_Obj_t *args = ReQL::reql_args(query);
       if (args != nullptr) {
         buf << ",";
         buf << inspect(args);
       }
-      ReQL::ReQL_Obj_t *kwargs = ReQL::reql_args(query);
+      const ReQL::ReQL_Obj_t *kwargs = ReQL::reql_kwargs(query);
       if (kwargs != nullptr) {
         buf << ",";
         buf << inspect(kwargs);
