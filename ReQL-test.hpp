@@ -14,7 +14,7 @@ extern "C" {
 #ifndef REQL_TEST_HPP
 #define REQL_TEST_HPP
 
-std::string inspect(ReQL::Query query);
-std::string inspect(ReQL::ReQL_Obj_t *query);
+std::string inspect(const ReQL::Query &query);
+std::string inspect(const ReQL::ReQL_Obj_t *query);
 
 #endif
