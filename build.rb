@@ -35,7 +35,7 @@ def c_keyword?(name)
 end
 
 def cpp_keyword?(name)
-  /\A(DELETE|UNION|NOT|DEFAULT|TIMEZONE)\Z/x =~ name
+  /\A(AND|DEFAULT|DELETE|NOT|OR|TIMEZONE|UNION)\Z/x =~ name
 end
 
 def objc_keyword?(name)

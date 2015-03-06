@@ -47,7 +47,7 @@ public:
   /**
    */
   Query
-  and(const std::vector<Query> &args) const;
+  and_(const std::vector<Query> &args) const;
 
   /**
    */
@@ -645,7 +645,7 @@ public:
   /**
    */
   Query
-  or(const std::vector<Query> &args) const;
+  or_(const std::vector<Query> &args) const;
 
   /**
    */
@@ -951,7 +951,7 @@ add(const std::vector<Query> &args);
 /**
  */
 Query
-and(const std::vector<Query> &args);
+and_(const std::vector<Query> &args);
 
 /**
  */
@@ -1549,7 +1549,7 @@ offsets_of(const std::vector<Query> &args);
 /**
  */
 Query
-or(const std::vector<Query> &args);
+or_(const std::vector<Query> &args);
 
 /**
  */

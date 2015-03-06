@@ -75,11 +75,11 @@ add(const std::vector<Query> &args) {
 }
 
 Query
-AST::and(const std::vector<Query> &args) const {
+AST::and_(const std::vector<Query> &args) const {
   return init(reql_ast_and, this, args);
 }
 Query
-and(const std::vector<Query> &args) {
+and_(const std::vector<Query> &args) {
   return init(reql_ast_and, args);
 }
 
@@ -1213,11 +1213,11 @@ offsets_of(const std::vector<Query> &args) {
 }
 
 Query
-AST::or(const std::vector<Query> &args) const {
+AST::or_(const std::vector<Query> &args) const {
   return init(reql_ast_or, this, args);
 }
 Query
-or(const std::vector<Query> &args) {
+or_(const std::vector<Query> &args) {
   return init(reql_ast_or, args);
 }
 
