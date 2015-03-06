@@ -235,7 +235,7 @@ Result::JSON_Value::release(const ReQL_Datum_t type) {
       }
       break;
     }
-    case REQL_R_JSON:
+    case REQL_R_JSON: throw;
     case REQL_R_NULL:
     case REQL_R_REQL: break;
   }
