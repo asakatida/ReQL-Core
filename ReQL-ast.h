@@ -33,12 +33,7 @@ reql_ast_add(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs);
 /**
  */
 extern void
-reql_ast_all(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs);
-
-/**
- */
-extern void
-reql_ast_any(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs);
+reql_ast_and(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs);
 
 /**
  */
@@ -74,6 +69,11 @@ reql_ast_avg(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs);
  */
 extern void
 reql_ast_between(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs);
+
+/**
+ */
+extern void
+reql_ast_between_deprecated(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs);
 
 /**
  */
@@ -358,11 +358,6 @@ reql_ast_includes(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs);
 /**
  */
 extern void
-reql_ast_indexes_of(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs);
-
-/**
- */
-extern void
 reql_ast_index_create(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs);
 
 /**
@@ -518,6 +513,11 @@ reql_ast_max(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs);
 /**
  */
 extern void
+reql_ast_maxval(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs);
+
+/**
+ */
+extern void
 reql_ast_may(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs);
 
 /**
@@ -534,6 +534,11 @@ reql_ast_min(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs);
  */
 extern void
 reql_ast_minutes(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs);
+
+/**
+ */
+extern void
+reql_ast_minval(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs);
 
 /**
  */
@@ -589,6 +594,16 @@ reql_ast_object(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs);
  */
 extern void
 reql_ast_october(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs);
+
+/**
+ */
+extern void
+reql_ast_offsets_of(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs);
+
+/**
+ */
+extern void
+reql_ast_or(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs);
 
 /**
  */

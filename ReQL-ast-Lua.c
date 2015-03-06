@@ -65,13 +65,8 @@ reql_lua_add(lua_State *L) {
 }
 
 extern int
-reql_lua_all(lua_State *L) {
-  return reql_lua_ast_class(L, reql_ast_all, NULL);
-}
-
-extern int
-reql_lua_any(lua_State *L) {
-  return reql_lua_ast_class(L, reql_ast_any, NULL);
+reql_lua_and(lua_State *L) {
+  return reql_lua_ast_class(L, reql_ast_and, NULL);
 }
 
 extern int
@@ -107,6 +102,11 @@ reql_lua_avg(lua_State *L) {
 extern int
 reql_lua_between(lua_State *L) {
   return reql_lua_ast_class(L, reql_ast_between, NULL);
+}
+
+extern int
+reql_lua_between_deprecated(lua_State *L) {
+  return reql_lua_ast_class(L, reql_ast_between_deprecated, NULL);
 }
 
 extern int
@@ -390,11 +390,6 @@ reql_lua_includes(lua_State *L) {
 }
 
 extern int
-reql_lua_indexes_of(lua_State *L) {
-  return reql_lua_ast_class(L, reql_ast_indexes_of, NULL);
-}
-
-extern int
 reql_lua_index_create(lua_State *L) {
   return reql_lua_get_opts(L, reql_ast_index_create);
 }
@@ -550,6 +545,11 @@ reql_lua_max(lua_State *L) {
 }
 
 extern int
+reql_lua_maxval(lua_State *L) {
+  return reql_lua_ast_class(L, reql_ast_maxval, NULL);
+}
+
+extern int
 reql_lua_may(lua_State *L) {
   return reql_lua_ast_class(L, reql_ast_may, NULL);
 }
@@ -567,6 +567,11 @@ reql_lua_min(lua_State *L) {
 extern int
 reql_lua_minutes(lua_State *L) {
   return reql_lua_ast_class(L, reql_ast_minutes, NULL);
+}
+
+extern int
+reql_lua_minval(lua_State *L) {
+  return reql_lua_ast_class(L, reql_ast_minval, NULL);
 }
 
 extern int
@@ -622,6 +627,16 @@ reql_lua_object(lua_State *L) {
 extern int
 reql_lua_october(lua_State *L) {
   return reql_lua_ast_class(L, reql_ast_october, NULL);
+}
+
+extern int
+reql_lua_offsets_of(lua_State *L) {
+  return reql_lua_ast_class(L, reql_ast_offsets_of, NULL);
+}
+
+extern int
+reql_lua_or(lua_State *L) {
+  return reql_lua_ast_class(L, reql_ast_or, NULL);
 }
 
 extern int

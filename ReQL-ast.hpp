@@ -47,12 +47,7 @@ public:
   /**
    */
   Query
-  all(const std::vector<Query> &args) const;
-
-  /**
-   */
-  Query
-  any(const std::vector<Query> &args) const;
+  and(const std::vector<Query> &args) const;
 
   /**
    */
@@ -88,6 +83,11 @@ public:
    */
   Query
   between(const std::vector<Query> &args) const;
+
+  /**
+   */
+  Query
+  between_deprecated(const std::vector<Query> &args) const;
 
   /**
    */
@@ -392,11 +392,6 @@ public:
   /**
    */
   Query
-  indexes_of(const std::vector<Query> &args) const;
-
-  /**
-   */
-  Query
   index_create(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const;
   Query
   index_create(const std::vector<Query> &args) const;
@@ -560,6 +555,11 @@ public:
   /**
    */
   Query
+  maxval(const std::vector<Query> &args) const;
+
+  /**
+   */
+  Query
   may(const std::vector<Query> &args) const;
 
   /**
@@ -576,6 +576,11 @@ public:
    */
   Query
   minutes(const std::vector<Query> &args) const;
+
+  /**
+   */
+  Query
+  minval(const std::vector<Query> &args) const;
 
   /**
    */
@@ -631,6 +636,16 @@ public:
    */
   Query
   october(const std::vector<Query> &args) const;
+
+  /**
+   */
+  Query
+  offsets_of(const std::vector<Query> &args) const;
+
+  /**
+   */
+  Query
+  or(const std::vector<Query> &args) const;
 
   /**
    */
@@ -936,12 +951,7 @@ add(const std::vector<Query> &args);
 /**
  */
 Query
-all(const std::vector<Query> &args);
-
-/**
- */
-Query
-any(const std::vector<Query> &args);
+and(const std::vector<Query> &args);
 
 /**
  */
@@ -977,6 +987,11 @@ avg(const std::vector<Query> &args);
  */
 Query
 between(const std::vector<Query> &args);
+
+/**
+ */
+Query
+between_deprecated(const std::vector<Query> &args);
 
 /**
  */
@@ -1281,11 +1296,6 @@ includes(const std::vector<Query> &args);
 /**
  */
 Query
-indexes_of(const std::vector<Query> &args);
-
-/**
- */
-Query
 index_create(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);
 Query
 index_create(const std::vector<Query> &args);
@@ -1449,6 +1459,11 @@ max(const std::vector<Query> &args);
 /**
  */
 Query
+maxval(const std::vector<Query> &args);
+
+/**
+ */
+Query
 may(const std::vector<Query> &args);
 
 /**
@@ -1465,6 +1480,11 @@ min(const std::vector<Query> &args);
  */
 Query
 minutes(const std::vector<Query> &args);
+
+/**
+ */
+Query
+minval(const std::vector<Query> &args);
 
 /**
  */
@@ -1520,6 +1540,16 @@ object(const std::vector<Query> &args);
  */
 Query
 october(const std::vector<Query> &args);
+
+/**
+ */
+Query
+offsets_of(const std::vector<Query> &args);
+
+/**
+ */
+Query
+or(const std::vector<Query> &args);
 
 /**
  */

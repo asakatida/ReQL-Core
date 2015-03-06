@@ -31,12 +31,7 @@ reql_rb_add(int argn, VALUE *args, VALUE self);
 /**
  */
 extern VALUE
-reql_rb_all(int argn, VALUE *args, VALUE self);
-
-/**
- */
-extern VALUE
-reql_rb_any(int argn, VALUE *args, VALUE self);
+reql_rb_and(int argn, VALUE *args, VALUE self);
 
 /**
  */
@@ -72,6 +67,11 @@ reql_rb_avg(int argn, VALUE *args, VALUE self);
  */
 extern VALUE
 reql_rb_between(int argn, VALUE *args, VALUE self);
+
+/**
+ */
+extern VALUE
+reql_rb_between_deprecated(int argn, VALUE *args, VALUE self);
 
 /**
  */
@@ -356,11 +356,6 @@ reql_rb_includes(int argn, VALUE *args, VALUE self);
 /**
  */
 extern VALUE
-reql_rb_indexes_of(int argn, VALUE *args, VALUE self);
-
-/**
- */
-extern VALUE
 reql_rb_index_create(int argn, VALUE *args, VALUE self);
 
 /**
@@ -516,6 +511,11 @@ reql_rb_max(int argn, VALUE *args, VALUE self);
 /**
  */
 extern VALUE
+reql_rb_maxval(int argn, VALUE *args, VALUE self);
+
+/**
+ */
+extern VALUE
 reql_rb_may(int argn, VALUE *args, VALUE self);
 
 /**
@@ -532,6 +532,11 @@ reql_rb_min(int argn, VALUE *args, VALUE self);
  */
 extern VALUE
 reql_rb_minutes(int argn, VALUE *args, VALUE self);
+
+/**
+ */
+extern VALUE
+reql_rb_minval(int argn, VALUE *args, VALUE self);
 
 /**
  */
@@ -587,6 +592,16 @@ reql_rb_object(int argn, VALUE *args, VALUE self);
  */
 extern VALUE
 reql_rb_october(int argn, VALUE *args, VALUE self);
+
+/**
+ */
+extern VALUE
+reql_rb_offsets_of(int argn, VALUE *args, VALUE self);
+
+/**
+ */
+extern VALUE
+reql_rb_or(int argn, VALUE *args, VALUE self);
 
 /**
  */

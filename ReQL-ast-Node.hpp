@@ -31,12 +31,7 @@ reql_node_add(const v8::Arguments& args);
 /**
  */
 v8::Handle<v8::Value>
-reql_node_all(const v8::Arguments& args);
-
-/**
- */
-v8::Handle<v8::Value>
-reql_node_any(const v8::Arguments& args);
+reql_node_and(const v8::Arguments& args);
 
 /**
  */
@@ -72,6 +67,11 @@ reql_node_avg(const v8::Arguments& args);
  */
 v8::Handle<v8::Value>
 reql_node_between(const v8::Arguments& args);
+
+/**
+ */
+v8::Handle<v8::Value>
+reql_node_between_deprecated(const v8::Arguments& args);
 
 /**
  */
@@ -356,11 +356,6 @@ reql_node_includes(const v8::Arguments& args);
 /**
  */
 v8::Handle<v8::Value>
-reql_node_indexes_of(const v8::Arguments& args);
-
-/**
- */
-v8::Handle<v8::Value>
 reql_node_index_create(const v8::Arguments& args);
 
 /**
@@ -516,6 +511,11 @@ reql_node_max(const v8::Arguments& args);
 /**
  */
 v8::Handle<v8::Value>
+reql_node_maxval(const v8::Arguments& args);
+
+/**
+ */
+v8::Handle<v8::Value>
 reql_node_may(const v8::Arguments& args);
 
 /**
@@ -532,6 +532,11 @@ reql_node_min(const v8::Arguments& args);
  */
 v8::Handle<v8::Value>
 reql_node_minutes(const v8::Arguments& args);
+
+/**
+ */
+v8::Handle<v8::Value>
+reql_node_minval(const v8::Arguments& args);
 
 /**
  */
@@ -587,6 +592,16 @@ reql_node_object(const v8::Arguments& args);
  */
 v8::Handle<v8::Value>
 reql_node_october(const v8::Arguments& args);
+
+/**
+ */
+v8::Handle<v8::Value>
+reql_node_offsets_of(const v8::Arguments& args);
+
+/**
+ */
+v8::Handle<v8::Value>
+reql_node_or(const v8::Arguments& args);
 
 /**
  */

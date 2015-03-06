@@ -75,21 +75,12 @@ add(const std::vector<Query> &args) {
 }
 
 Query
-AST::all(const std::vector<Query> &args) const {
-  return init(reql_ast_all, this, args);
+AST::and(const std::vector<Query> &args) const {
+  return init(reql_ast_and, this, args);
 }
 Query
-all(const std::vector<Query> &args) {
-  return init(reql_ast_all, args);
-}
-
-Query
-AST::any(const std::vector<Query> &args) const {
-  return init(reql_ast_any, this, args);
-}
-Query
-any(const std::vector<Query> &args) {
-  return init(reql_ast_any, args);
+and(const std::vector<Query> &args) {
+  return init(reql_ast_and, args);
 }
 
 Query
@@ -153,6 +144,15 @@ AST::between(const std::vector<Query> &args) const {
 Query
 between(const std::vector<Query> &args) {
   return init(reql_ast_between, args);
+}
+
+Query
+AST::between_deprecated(const std::vector<Query> &args) const {
+  return init(reql_ast_between_deprecated, this, args);
+}
+Query
+between_deprecated(const std::vector<Query> &args) {
+  return init(reql_ast_between_deprecated, args);
 }
 
 Query
@@ -740,15 +740,6 @@ includes(const std::vector<Query> &args) {
 }
 
 Query
-AST::indexes_of(const std::vector<Query> &args) const {
-  return init(reql_ast_indexes_of, this, args);
-}
-Query
-indexes_of(const std::vector<Query> &args) {
-  return init(reql_ast_indexes_of, args);
-}
-
-Query
 AST::index_create(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
   return init(reql_ast_index_create, this, args, kwargs);
 }
@@ -1060,6 +1051,15 @@ max(const std::vector<Query> &args) {
 }
 
 Query
+AST::maxval(const std::vector<Query> &args) const {
+  return init(reql_ast_maxval, this, args);
+}
+Query
+maxval(const std::vector<Query> &args) {
+  return init(reql_ast_maxval, args);
+}
+
+Query
 AST::may(const std::vector<Query> &args) const {
   return init(reql_ast_may, this, args);
 }
@@ -1093,6 +1093,15 @@ AST::minutes(const std::vector<Query> &args) const {
 Query
 minutes(const std::vector<Query> &args) {
   return init(reql_ast_minutes, args);
+}
+
+Query
+AST::minval(const std::vector<Query> &args) const {
+  return init(reql_ast_minval, this, args);
+}
+Query
+minval(const std::vector<Query> &args) {
+  return init(reql_ast_minval, args);
 }
 
 Query
@@ -1192,6 +1201,24 @@ AST::october(const std::vector<Query> &args) const {
 Query
 october(const std::vector<Query> &args) {
   return init(reql_ast_october, args);
+}
+
+Query
+AST::offsets_of(const std::vector<Query> &args) const {
+  return init(reql_ast_offsets_of, this, args);
+}
+Query
+offsets_of(const std::vector<Query> &args) {
+  return init(reql_ast_offsets_of, args);
+}
+
+Query
+AST::or(const std::vector<Query> &args) const {
+  return init(reql_ast_or, this, args);
+}
+Query
+or(const std::vector<Query> &args) {
+  return init(reql_ast_or, args);
 }
 
 Query

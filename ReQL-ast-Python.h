@@ -31,12 +31,7 @@ reql_py_add(PyObject *self, PyObject *args, PyObject *kwargs);
 /**
  */
 extern PyObject *
-reql_py_all(PyObject *self, PyObject *args, PyObject *kwargs);
-
-/**
- */
-extern PyObject *
-reql_py_any(PyObject *self, PyObject *args, PyObject *kwargs);
+reql_py_and(PyObject *self, PyObject *args, PyObject *kwargs);
 
 /**
  */
@@ -72,6 +67,11 @@ reql_py_avg(PyObject *self, PyObject *args, PyObject *kwargs);
  */
 extern PyObject *
 reql_py_between(PyObject *self, PyObject *args, PyObject *kwargs);
+
+/**
+ */
+extern PyObject *
+reql_py_between_deprecated(PyObject *self, PyObject *args, PyObject *kwargs);
 
 /**
  */
@@ -356,11 +356,6 @@ reql_py_includes(PyObject *self, PyObject *args, PyObject *kwargs);
 /**
  */
 extern PyObject *
-reql_py_indexes_of(PyObject *self, PyObject *args, PyObject *kwargs);
-
-/**
- */
-extern PyObject *
 reql_py_index_create(PyObject *self, PyObject *args, PyObject *kwargs);
 
 /**
@@ -516,6 +511,11 @@ reql_py_max(PyObject *self, PyObject *args, PyObject *kwargs);
 /**
  */
 extern PyObject *
+reql_py_maxval(PyObject *self, PyObject *args, PyObject *kwargs);
+
+/**
+ */
+extern PyObject *
 reql_py_may(PyObject *self, PyObject *args, PyObject *kwargs);
 
 /**
@@ -532,6 +532,11 @@ reql_py_min(PyObject *self, PyObject *args, PyObject *kwargs);
  */
 extern PyObject *
 reql_py_minutes(PyObject *self, PyObject *args, PyObject *kwargs);
+
+/**
+ */
+extern PyObject *
+reql_py_minval(PyObject *self, PyObject *args, PyObject *kwargs);
 
 /**
  */
@@ -587,6 +592,16 @@ reql_py_object(PyObject *self, PyObject *args, PyObject *kwargs);
  */
 extern PyObject *
 reql_py_october(PyObject *self, PyObject *args, PyObject *kwargs);
+
+/**
+ */
+extern PyObject *
+reql_py_offsets_of(PyObject *self, PyObject *args, PyObject *kwargs);
+
+/**
+ */
+extern PyObject *
+reql_py_or(PyObject *self, PyObject *args, PyObject *kwargs);
 
 /**
  */

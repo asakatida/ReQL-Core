@@ -36,25 +36,12 @@ reql_py_add(PyObject *self, PyObject *args, PyObject *kwargs) {
 }
 
 extern PyObject *
-reql_py_all(PyObject *self, PyObject *args, PyObject *kwargs) {
+reql_py_and(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
   static char *kwlist[] = {NULL};
 
-  if (!PyArg_ParseTupleAndKeywords(args, kwargs, "o:r.all", kwlist, &val)) {
-    return self;
-  }
-
-  return val;
-}
-
-extern PyObject *
-reql_py_any(PyObject *self, PyObject *args, PyObject *kwargs) {
-  PyObject *val;
-
-  static char *kwlist[] = {NULL};
-
-  if (!PyArg_ParseTupleAndKeywords(args, kwargs, "o:r.any", kwlist, &val)) {
+  if (!PyArg_ParseTupleAndKeywords(args, kwargs, "o:r.and", kwlist, &val)) {
     return self;
   }
 
@@ -146,6 +133,19 @@ reql_py_between(PyObject *self, PyObject *args, PyObject *kwargs) {
   static char *kwlist[] = {NULL};
 
   if (!PyArg_ParseTupleAndKeywords(args, kwargs, "o:r.between", kwlist, &val)) {
+    return self;
+  }
+
+  return val;
+}
+
+extern PyObject *
+reql_py_between_deprecated(PyObject *self, PyObject *args, PyObject *kwargs) {
+  PyObject *val;
+
+  static char *kwlist[] = {NULL};
+
+  if (!PyArg_ParseTupleAndKeywords(args, kwargs, "o:r.between_deprecated", kwlist, &val)) {
     return self;
   }
 
@@ -881,19 +881,6 @@ reql_py_includes(PyObject *self, PyObject *args, PyObject *kwargs) {
 }
 
 extern PyObject *
-reql_py_indexes_of(PyObject *self, PyObject *args, PyObject *kwargs) {
-  PyObject *val;
-
-  static char *kwlist[] = {NULL};
-
-  if (!PyArg_ParseTupleAndKeywords(args, kwargs, "o:r.indexes_of", kwlist, &val)) {
-    return self;
-  }
-
-  return val;
-}
-
-extern PyObject *
 reql_py_index_create(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -1297,6 +1284,19 @@ reql_py_max(PyObject *self, PyObject *args, PyObject *kwargs) {
 }
 
 extern PyObject *
+reql_py_maxval(PyObject *self, PyObject *args, PyObject *kwargs) {
+  PyObject *val;
+
+  static char *kwlist[] = {NULL};
+
+  if (!PyArg_ParseTupleAndKeywords(args, kwargs, "o:r.maxval", kwlist, &val)) {
+    return self;
+  }
+
+  return val;
+}
+
+extern PyObject *
 reql_py_may(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -1342,6 +1342,19 @@ reql_py_minutes(PyObject *self, PyObject *args, PyObject *kwargs) {
   static char *kwlist[] = {NULL};
 
   if (!PyArg_ParseTupleAndKeywords(args, kwargs, "o:r.minutes", kwlist, &val)) {
+    return self;
+  }
+
+  return val;
+}
+
+extern PyObject *
+reql_py_minval(PyObject *self, PyObject *args, PyObject *kwargs) {
+  PyObject *val;
+
+  static char *kwlist[] = {NULL};
+
+  if (!PyArg_ParseTupleAndKeywords(args, kwargs, "o:r.minval", kwlist, &val)) {
     return self;
   }
 
@@ -1485,6 +1498,32 @@ reql_py_october(PyObject *self, PyObject *args, PyObject *kwargs) {
   static char *kwlist[] = {NULL};
 
   if (!PyArg_ParseTupleAndKeywords(args, kwargs, "o:r.october", kwlist, &val)) {
+    return self;
+  }
+
+  return val;
+}
+
+extern PyObject *
+reql_py_offsets_of(PyObject *self, PyObject *args, PyObject *kwargs) {
+  PyObject *val;
+
+  static char *kwlist[] = {NULL};
+
+  if (!PyArg_ParseTupleAndKeywords(args, kwargs, "o:r.offsets_of", kwlist, &val)) {
+    return self;
+  }
+
+  return val;
+}
+
+extern PyObject *
+reql_py_or(PyObject *self, PyObject *args, PyObject *kwargs) {
+  PyObject *val;
+
+  static char *kwlist[] = {NULL};
+
+  if (!PyArg_ParseTupleAndKeywords(args, kwargs, "o:r.or", kwlist, &val)) {
     return self;
   }
 

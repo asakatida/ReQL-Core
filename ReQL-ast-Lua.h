@@ -31,12 +31,7 @@ reql_lua_add(lua_State *L);
 /**
  */
 extern int
-reql_lua_all(lua_State *L);
-
-/**
- */
-extern int
-reql_lua_any(lua_State *L);
+reql_lua_and(lua_State *L);
 
 /**
  */
@@ -72,6 +67,11 @@ reql_lua_avg(lua_State *L);
  */
 extern int
 reql_lua_between(lua_State *L);
+
+/**
+ */
+extern int
+reql_lua_between_deprecated(lua_State *L);
 
 /**
  */
@@ -356,11 +356,6 @@ reql_lua_includes(lua_State *L);
 /**
  */
 extern int
-reql_lua_indexes_of(lua_State *L);
-
-/**
- */
-extern int
 reql_lua_index_create(lua_State *L);
 
 /**
@@ -516,6 +511,11 @@ reql_lua_max(lua_State *L);
 /**
  */
 extern int
+reql_lua_maxval(lua_State *L);
+
+/**
+ */
+extern int
 reql_lua_may(lua_State *L);
 
 /**
@@ -532,6 +532,11 @@ reql_lua_min(lua_State *L);
  */
 extern int
 reql_lua_minutes(lua_State *L);
+
+/**
+ */
+extern int
+reql_lua_minval(lua_State *L);
 
 /**
  */
@@ -587,6 +592,16 @@ reql_lua_object(lua_State *L);
  */
 extern int
 reql_lua_october(lua_State *L);
+
+/**
+ */
+extern int
+reql_lua_offsets_of(lua_State *L);
+
+/**
+ */
+extern int
+reql_lua_or(lua_State *L);
 
 /**
  */

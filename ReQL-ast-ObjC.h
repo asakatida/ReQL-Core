@@ -30,12 +30,7 @@ add;
 /**
  */
 -(instancetype)
-all;
-
-/**
- */
--(instancetype)
-any;
+and;
 
 /**
  */
@@ -71,6 +66,11 @@ avg;
  */
 -(instancetype)
 between;
+
+/**
+ */
+-(instancetype)
+between_deprecated;
 
 /**
  */
@@ -355,11 +355,6 @@ includes;
 /**
  */
 -(instancetype)
-indexes_of;
-
-/**
- */
--(instancetype)
 index_create;
 
 /**
@@ -515,6 +510,11 @@ max;
 /**
  */
 -(instancetype)
+maxval;
+
+/**
+ */
+-(instancetype)
 may;
 
 /**
@@ -531,6 +531,11 @@ min;
  */
 -(instancetype)
 minutes;
+
+/**
+ */
+-(instancetype)
+minval;
 
 /**
  */
@@ -586,6 +591,16 @@ object;
  */
 -(instancetype)
 october;
+
+/**
+ */
+-(instancetype)
+offsets_of;
+
+/**
+ */
+-(instancetype)
+or;
 
 /**
  */

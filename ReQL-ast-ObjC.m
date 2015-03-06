@@ -30,12 +30,7 @@ add {
 }
 
 -(instancetype)
-all {
-  return self;
-}
-
--(instancetype)
-any {
+and {
   return self;
 }
 
@@ -71,6 +66,11 @@ avg {
 
 -(instancetype)
 between {
+  return self;
+}
+
+-(instancetype)
+between_deprecated {
   return self;
 }
 
@@ -355,11 +355,6 @@ includes {
 }
 
 -(instancetype)
-indexes_of {
-  return self;
-}
-
--(instancetype)
 index_create {
   return self;
 }
@@ -515,6 +510,11 @@ max {
 }
 
 -(instancetype)
+maxval {
+  return self;
+}
+
+-(instancetype)
 may {
   return self;
 }
@@ -531,6 +531,11 @@ min {
 
 -(instancetype)
 minutes {
+  return self;
+}
+
+-(instancetype)
+minval {
   return self;
 }
 
@@ -586,6 +591,16 @@ object {
 
 -(instancetype)
 october {
+  return self;
+}
+
+-(instancetype)
+offsets_of {
+  return self;
+}
+
+-(instancetype)
+or {
   return self;
 }
 
