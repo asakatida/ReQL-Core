@@ -33,7 +33,7 @@ static Query
 init(const ReQL_AST_Function &f, const AST *term, const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
   std::vector<Query> new_args;
   new_args.push_back(term);
-  new_args.insert(new_args.cend(), args.cbegin(), args.cend());
+  new_args.insert(new_args.end(), args.cbegin(), args.cend());
   return init(f, new_args, kwargs);
 }
 
