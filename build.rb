@@ -35,15 +35,15 @@ def c_keyword?(name)
 end
 
 def cpp_keyword?(name)
-  /\A(AND|DEFAULT|DELETE|NOT|OR|TIMEZONE|UNION)\Z/x =~ name
+  /\A(AND|DEFAULT|DELETE|NOT|OR|TIMEZONE|UNION)\Z/x =~ name or c_keyword? name
 end
 
 def objc_keyword?(name)
-  /\A()\Z/x =~ name
+  /\A(AND|OR)\Z/x =~ name
 end
 
 def lua_keyword?(name)
-  /\A(ERROR|NOT)\Z/x =~ name
+  /\A(AND|ERROR|NOT|OR)\Z/x =~ name
 end
 
 def const_args_w_opts?(name)

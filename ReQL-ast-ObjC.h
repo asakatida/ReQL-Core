@@ -30,7 +30,7 @@ add;
 /**
  */
 -(instancetype)
-and;
+and_;
 
 /**
  */
@@ -600,7 +600,7 @@ offsets_of;
 /**
  */
 -(instancetype)
-or;
+or_;
 
 /**
  */
