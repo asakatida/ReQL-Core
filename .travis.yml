@@ -1,34 +1,11 @@
 sudo: false
 
-cache:
-  - apt: true
-  - directories:
-    - rethinkdb
-    - rethinkdb/build
-
 language: cpp
 
 compiler: clang
 
-env:
-  - |
-    BUILD=build-c++.sh
-    TEST=test-c++.sh
-#  - |
-#    BUILD=build-py.sh
-#    TEST=test-py.sh
-#  - |
-#    BUILD=build-lua.sh
-#    TEST=test-lua.sh
-#  - |
-#    BUILD=build-node.sh
-#    TEST=test-node.sh
-#  - |
-#    BUILD=build-rb.sh
-#    TEST=test-rb.sh
-
 before_install:
-  - curl -o catch.h https://raw.githubusercontent.com/philsquared/Catch/master/single_include/catch.hpp
+  - curl -o test/catch.hpp https://raw.githubusercontent.com/philsquared/Catch/master/single_include/catch.hpp
   - cd rethinkdb
   - ./configure --allow-fetch
   - make src/all -j2
@@ -36,7 +13,8 @@ before_install:
   - cd ..
 
 install:
-  - bash $BUILD
+  - make
+  - make libReQLtest
 
 script:
-  - bash $TEST
+  - make test

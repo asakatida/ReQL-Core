@@ -45,7 +45,7 @@ __pycache__/
 # Precompiled Headers
 *.gch
 *.pch
-catch.h
+catch.hpp
 
 # Compiled Dynamic libraries
 *.so
