@@ -44,6 +44,7 @@ struct ReQL_Cur_s {
   ReQL_Obj_t *response;
   struct ReQL_Cur_s *next;
   struct ReQL_Cur_s *prev;
+  ReQL_Each_Function cb;
 };
 typedef struct ReQL_Cur_s ReQL_Cur_t;
 

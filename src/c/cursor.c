@@ -53,9 +53,18 @@ reql_cursor_response(ReQL_Cur_t *cur) {
 
 extern void
 reql_cursor_init(ReQL_Cur_t *cur) {
+  cur->cb = NULL;
   cur->done = 0;
   cur->next = cur->prev = cur;
   cur->response = NULL;
+}
+
+extern void
+reql_cur_drain(ReQL_Cur_t *cur) {
+  if (cur->cb == NULL) {
+    cur->cb = ^(ReQL_Obj_t *res) { return res == NULL; };
+  }
+  reql_cursor_next(cur);
 }
 
 extern void
@@ -69,7 +78,12 @@ reql_set_cur_response(ReQL_Cur_t *cur, ReQL_Obj_t *res) {
     reql_json_destroy(cur->response);
     cur->response = NULL;
   }
-  cur->response = res;
+  if (cur->cb != NULL) {
+    cur->cb(res);
+    reql_json_destroy(res);
+  } else {
+    cur->response = res;
+  }
   reql_cursor_unlock(cur);
 }
 
