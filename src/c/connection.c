@@ -22,7 +22,7 @@ limitations under the License.
 
 #include "./c/encode.h"
 #include "./c/decode.h"
-#include "./c/util.h"
+#include "./c/util/util.h"
 
 #include <netdb.h>
 #include <netinet/in.h>
@@ -529,12 +529,12 @@ reql_run(ReQL_Cur_t *cur, const ReQL_Obj_t *query, ReQL_Conn_t *conn, ReQL_Obj_t
 
   magic[2].iov_base = wire_query->str;
   magic[2].iov_len = wire_query->size;
-  
+
   if (writev(conn->socket, magic, 3) != (wire_query->size + 12)) {
     reql_conn_unlock(conn);
     return -1;
   }
-  
+
   reql_conn_unlock(conn);
   return 0;
 }
