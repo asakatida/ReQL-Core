@@ -36,17 +36,23 @@ CXXFLAGS += -fPIC -std=c++11 -Wall -Wextra -Werror -pedantic -pedantic-errors -I
 
 CCFLAGS += -fPIC -std=c11 -Wall -Wextra -Werror -pedantic -pedantic-errors -Isrc
 
-ReQL.obj:
-	$(CXX) $(CXXFLAGS) -o $@ -c src/ReQL.cpp
+ReQL-ast.o:
+	$(CC) $(CCFLAGS) -o $@ -c src/c/ast.c
 
 ReQL-ast.obj:
 	$(CXX) $(CXXFLAGS) -o $@ -c src/cpp/ast.cpp
 
-ReQL-expr.obj:
-	$(CXX) $(CXXFLAGS) -o $@ -c src/cpp/expr.cpp
+ReQL-char.o:
+	$(CC) $(CCFLAGS) -o $@ -c src/c/char.c
 
-ReQL-new.obj:
-	$(CXX) $(CXXFLAGS) -o $@ -c src/cpp/new.cpp
+ReQL-connection.o:
+	$(CC) $(CCFLAGS) -o $@ -c src/c/connection.c
+
+ReQL-connection.obj:
+	$(CXX) $(CXXFLAGS) -o $@ -c src/cpp/connection.cpp
+
+ReQL-cursor.o:
+	$(CC) $(CCFLAGS) -o $@ -c src/c/cursor.c
 
 ReQL-decode.o:
 	$(CC) $(CCFLAGS) -o $@ -c src/c/decode.c
@@ -54,23 +60,26 @@ ReQL-decode.o:
 ReQL-encode.o:
 	$(CC) $(CCFLAGS) -o $@ -c src/c/encode.c
 
-ReQL.o:
-	$(CC) $(CCFLAGS) -o $@ -c src/ReQL.c
-
-ReQL-ast.o:
-	$(CC) $(CCFLAGS) -o $@ -c src/c/ast.c
-
-ReQL-char.o:
-	$(CC) $(CCFLAGS) -o $@ -c src/c/char.c
-
-ReQL-cursor.o:
-	$(CC) $(CCFLAGS) -o $@ -c src/c/cursor.c
+ReQL-error.o:
+	$(CC) $(CCFLAGS) -o $@ -c src/c/error.c
 
 ReQL-expr.o:
 	$(CC) $(CCFLAGS) -o $@ -c src/c/expr.c
 
+ReQL-expr.obj:
+	$(CXX) $(CXXFLAGS) -o $@ -c src/cpp/expr.cpp
+
 ReQL-json.o:
 	$(CC) $(CCFLAGS) -o $@ -c src/c/json.c
+
+ReQL-new.obj:
+	$(CXX) $(CXXFLAGS) -o $@ -c src/cpp/new.cpp
+
+ReQL.o:
+	$(CC) $(CCFLAGS) -o $@ -c src/ReQL.c
+
+ReQL.obj:
+	$(CXX) $(CXXFLAGS) -o $@ -c src/ReQL.cpp
 
 ReQL-test.obj:
 	$(CXX) $(CXXFLAGS) -Itest -o $@ -c test/test.cpp
