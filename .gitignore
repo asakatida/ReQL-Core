@@ -9,6 +9,13 @@ dist
 pkg/
 tmp/
 
+# CMake
+CMakeCache.txt
+CMakeFiles
+Makefile
+cmake_install.cmake
+install_manifest.txt
+
 # Xcode
 #
 build/

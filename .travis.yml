@@ -6,6 +6,7 @@ compiler: clang
 
 before_install:
   - curl -o test/catch.hpp https://raw.githubusercontent.com/philsquared/Catch/master/single_include/catch.hpp
+  - cmake ./
   - cd rethinkdb
   - ./configure --allow-fetch
   - make src/all -j2
@@ -14,7 +15,6 @@ before_install:
 
 install:
   - make
-  - make libReQLtest
 
 script:
-  - make test
+  - ./libReQLtest
