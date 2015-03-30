@@ -54,8 +54,7 @@ reql_string_t_append(ReQL_String_t *obj, const uint8_t *ext, const uint32_t size
 
 static int
 reql_string_t_append_(ReQL_String_t *json, const uint8_t ext) {
-  const uint8_t buf[1] = {ext};
-  return reql_string_t_append(json, buf, 1);
+  return reql_string_t_append(json, &ext, 1);
 }
 
 static int
