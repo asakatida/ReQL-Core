@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1E2FA66C1ABCDBCF00134CFA /* connection.c in Sources */ = {isa = PBXBuildFile; fileRef = 1E2FA66A1ABCDBCF00134CFA /* connection.c */; };
-		1E2FA66F1ABCDE7C00134CFA /* connection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1E2FA66D1ABCDE7C00134CFA /* connection.cpp */; };
 		1ECDD7821AB53D80004CD31E /* ast.c in Sources */ = {isa = PBXBuildFile; fileRef = 1ECDD7341AB53D80004CD31E /* ast.c */; };
 		1ECDD7831AB53D80004CD31E /* char.c in Sources */ = {isa = PBXBuildFile; fileRef = 1ECDD7361AB53D80004CD31E /* char.c */; };
 		1ECDD7841AB53D80004CD31E /* cursor.c in Sources */ = {isa = PBXBuildFile; fileRef = 1ECDD7381AB53D80004CD31E /* cursor.c */; };
@@ -29,6 +27,8 @@
 		1ECDD7A51AB53D80004CD31E /* expr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1ECDD77E1AB53D80004CD31E /* expr.cpp */; };
 		1ECDD7A61AB53D80004CD31E /* test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1ECDD7801AB53D80004CD31E /* test.cpp */; };
 		1ECDD7A71AB53F84004CD31E /* connect_test.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ECDD77C1AB53D80004CD31E /* connect_test.m */; };
+		8769EF2B1AC8CBBC003B7CEC /* connection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1E2FA66D1ABCDE7C00134CFA /* connection.cpp */; };
+		8769EF2C1AC8CBF1003B7CEC /* connection.c in Sources */ = {isa = PBXBuildFile; fileRef = 1E2FA66A1ABCDBCF00134CFA /* connection.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -299,8 +299,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1ECDD7A71AB53F84004CD31E /* connect_test.m in Sources */,
-				1E2FA66C1ABCDBCF00134CFA /* connection.c in Sources */,
-				1E2FA66F1ABCDE7C00134CFA /* connection.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -318,7 +316,9 @@
 				1ECDD79B1AB53D80004CD31E /* ReQL.c in Sources */,
 				1ECDD7851AB53D80004CD31E /* decode.c in Sources */,
 				1ECDD7831AB53D80004CD31E /* char.c in Sources */,
+				8769EF2C1AC8CBF1003B7CEC /* connection.c in Sources */,
 				1ECDD7A51AB53D80004CD31E /* expr.cpp in Sources */,
+				8769EF2B1AC8CBBC003B7CEC /* connection.cpp in Sources */,
 				1ECDD7861AB53D80004CD31E /* encode.c in Sources */,
 				1ECDD78C1AB53D80004CD31E /* new.cpp in Sources */,
 				1ECDD7881AB53D80004CD31E /* expr.c in Sources */,
