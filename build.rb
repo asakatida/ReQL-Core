@@ -120,7 +120,7 @@ Query
 }"
 end
 
-build('ReQL-ast.cpp', :cpp_term_imp) do |name|
+build('src/cpp/ast.cpp', :cpp_term_imp) do |name|
   cpp_term_imp name
 end
 
@@ -138,7 +138,7 @@ def cpp_term_class(name)
   #{mangle_cpp_const name}(const std::vector<Query> &args) const;"
 end
 
-build('ReQL-ast.hpp', :cpp_term_class) do |name|
+build('src/cpp/ast.hpp', :cpp_term_class) do |name|
   cpp_term_class name
 end
 
@@ -156,7 +156,7 @@ Query
 #{mangle_cpp_const name}(const std::vector<Query> &args);"
 end
 
-build('ReQL-ast.hpp', :cpp_term_def) do |name|
+build('src/cpp/ast.hpp', :cpp_term_def) do |name|
   cpp_term_def name
 end
 
@@ -180,7 +180,7 @@ extern int
 }"
 end
 
-build('ReQL-ast-Lua.c', :lua_term_imp) do |name|
+build('src/Lua/ast.c', :lua_term_imp) do |name|
   lua_term_imp name
 end
 
@@ -192,7 +192,7 @@ extern int
 #{lua_ast_name name}(lua_State *L);"
 end
 
-build('ReQL-ast-Lua.h', :lua_term_def) do |name|
+build('src/Lua/ast.h', :lua_term_def) do |name|
   lua_term_def name
 end
 
@@ -211,7 +211,7 @@ v8::Handle<v8::Value>
 }"
 end
 
-build('ReQL-ast-Node.cpp', :node_term_imp) do |name|
+build('src/Node/ast.cpp', :node_term_imp) do |name|
   node_term_imp name
 end
 
@@ -223,7 +223,7 @@ v8::Handle<v8::Value>
 #{node_ast_name name}(const v8::Arguments& args);"
 end
 
-build('ReQL-ast-Node.hpp', :node_term_def) do |name|
+build('src/Node/ast.hpp', :node_term_def) do |name|
   node_term_def name
 end
 
@@ -235,7 +235,7 @@ def objc_term_def(name)
 #{mangle_objc_const name};"
 end
 
-build('ReQL-ast-ObjC.h', :objc_term_def) do |name|
+build('src/ObjC/ast.h', :objc_term_def) do |name|
   objc_term_def name
 end
 
@@ -247,7 +247,7 @@ def objc_term_imp(name)
 }"
 end
 
-build('ReQL-ast-ObjC.m', :objc_term_imp) do |name|
+build('src/ObjC/ast.m', :objc_term_imp) do |name|
   objc_term_imp name
 end
 
@@ -269,7 +269,7 @@ extern PyObject *
 }"
 end
 
-build('ReQL-ast-Python.c', :py_term_imp) do |name|
+build('src/Python/ast.c', :py_term_imp) do |name|
   py_term_imp name
 end
 
@@ -281,7 +281,7 @@ extern PyObject *
 #{py_ast_name name}(PyObject *self, PyObject *args, PyObject *kwargs);"
 end
 
-build('ReQL-ast-Python.h', :py_term_def) do |name|
+build('src/Python/ast.h', :py_term_def) do |name|
   py_term_def name
 end
 
@@ -293,7 +293,7 @@ extern VALUE
 }"
 end
 
-build('ReQL-ast-Ruby.c', :rb_term_imp) do |name|
+build('src/Ruby/ast.c', :rb_term_imp) do |name|
   rb_term_imp name
 end
 
@@ -305,7 +305,7 @@ extern VALUE
 #{rb_ast_name name}(int argn, VALUE *args, VALUE self);"
 end
 
-build('ReQL-ast-Ruby.h', :rb_term_def) do |name|
+build('src/Ruby/ast.h', :rb_term_def) do |name|
   rb_term_def name
 end
 
@@ -331,7 +331,7 @@ extern void
 #{c_ast_name name}(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs);"
 end
 
-build('ReQL-ast.h', :term_def) do |name|
+build('src/c/ast.h', :term_def) do |name|
   term_def name
 end
 
@@ -339,7 +339,7 @@ def enum_def(name)
   "REQL_#{name} = #{RethinkDB::Term::TermType.const_get name}"
 end
 
-build('ReQL-json.h', :enum_def, ",\n  ") do |name|
+build('src/c/json.h', :enum_def, ",\n  ") do |name|
   enum_def name
 end
 
@@ -347,6 +347,6 @@ def lua_lib(name)
   "{\"#{mangle_lua_const name}\", #{lua_ast_name name}},"
 end
 
-build('ReQL-Lua.c', :lua_lib, "\n  ") do |name|
+build('src/Lua/ReQL.c', :lua_lib, "\n  ") do |name|
   lua_lib name
 end
