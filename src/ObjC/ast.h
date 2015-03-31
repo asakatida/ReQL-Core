@@ -93,6 +93,11 @@ branch;
 /**
  */
 -(instancetype)
+ceil;
+
+/**
+ */
+-(instancetype)
 changes;
 
 /**
@@ -264,6 +269,11 @@ fill;
  */
 -(instancetype)
 filter;
+
+/**
+ */
+-(instancetype)
+floor;
 
 /**
  */
@@ -669,6 +679,11 @@ reduce;
  */
 -(instancetype)
 replace;
+
+/**
+ */
+-(instancetype)
+round;
 
 /**
  */

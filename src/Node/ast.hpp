@@ -91,6 +91,11 @@ reql_node_branch(const v8::Arguments& args);
 /**
  */
 v8::Handle<v8::Value>
+reql_node_ceil(const v8::Arguments& args);
+
+/**
+ */
+v8::Handle<v8::Value>
 reql_node_changes(const v8::Arguments& args);
 
 /**
@@ -262,6 +267,11 @@ reql_node_fill(const v8::Arguments& args);
  */
 v8::Handle<v8::Value>
 reql_node_filter(const v8::Arguments& args);
+
+/**
+ */
+v8::Handle<v8::Value>
+reql_node_floor(const v8::Arguments& args);
 
 /**
  */
@@ -667,6 +677,11 @@ reql_node_reduce(const v8::Arguments& args);
  */
 v8::Handle<v8::Value>
 reql_node_replace(const v8::Arguments& args);
+
+/**
+ */
+v8::Handle<v8::Value>
+reql_node_round(const v8::Arguments& args);
 
 /**
  */

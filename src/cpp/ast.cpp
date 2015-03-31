@@ -188,6 +188,15 @@ branch(const std::vector<Query> &args) {
 }
 
 Query
+AST::ceil(const std::vector<Query> &args) const {
+  return init(reql_ast_ceil, this, args);
+}
+Query
+ceil(const std::vector<Query> &args) {
+  return init(reql_ast_ceil, args);
+}
+
+Query
 AST::changes(const std::vector<Query> &args) const {
   return init(reql_ast_changes, this, args);
 }
@@ -540,6 +549,15 @@ AST::filter(const std::vector<Query> &args) const {
 Query
 filter(const std::vector<Query> &args) {
   return init(reql_ast_filter, args);
+}
+
+Query
+AST::floor(const std::vector<Query> &args) const {
+  return init(reql_ast_floor, this, args);
+}
+Query
+floor(const std::vector<Query> &args) {
+  return init(reql_ast_floor, args);
 }
 
 Query
@@ -1365,6 +1383,15 @@ AST::replace(const std::vector<Query> &args) const {
 Query
 replace(const std::vector<Query> &args) {
   return init(reql_ast_replace, args);
+}
+
+Query
+AST::round(const std::vector<Query> &args) const {
+  return init(reql_ast_round, this, args);
+}
+Query
+round(const std::vector<Query> &args) {
+  return init(reql_ast_round, args);
 }
 
 Query

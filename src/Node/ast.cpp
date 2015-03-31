@@ -181,6 +181,18 @@ reql_node_branch(const v8::Arguments& args) {
 }
 
 v8::Handle<v8::Value>
+reql_node_ceil(const v8::Arguments& args) {
+  v8::HandleScope scope;
+
+  v8::Local<v8::Object> obj = v8::Object::New();
+
+  if (!args[0]->IsUndefined()) {
+  }
+
+  return scope.Close(obj);
+}
+
+v8::Handle<v8::Value>
 reql_node_changes(const v8::Arguments& args) {
   v8::HandleScope scope;
 
@@ -590,6 +602,18 @@ reql_node_fill(const v8::Arguments& args) {
 
 v8::Handle<v8::Value>
 reql_node_filter(const v8::Arguments& args) {
+  v8::HandleScope scope;
+
+  v8::Local<v8::Object> obj = v8::Object::New();
+
+  if (!args[0]->IsUndefined()) {
+  }
+
+  return scope.Close(obj);
+}
+
+v8::Handle<v8::Value>
+reql_node_floor(const v8::Arguments& args) {
   v8::HandleScope scope;
 
   v8::Local<v8::Object> obj = v8::Object::New();
@@ -1562,6 +1586,18 @@ reql_node_reduce(const v8::Arguments& args) {
 
 v8::Handle<v8::Value>
 reql_node_replace(const v8::Arguments& args) {
+  v8::HandleScope scope;
+
+  v8::Local<v8::Object> obj = v8::Object::New();
+
+  if (!args[0]->IsUndefined()) {
+  }
+
+  return scope.Close(obj);
+}
+
+v8::Handle<v8::Value>
+reql_node_round(const v8::Arguments& args) {
   v8::HandleScope scope;
 
   v8::Local<v8::Object> obj = v8::Object::New();

@@ -86,6 +86,11 @@ reql_rb_branch(int argn, VALUE *args, VALUE self) {
 }
 
 extern VALUE
+reql_rb_ceil(int argn, VALUE *args, VALUE self) {
+  return self;
+}
+
+extern VALUE
 reql_rb_changes(int argn, VALUE *args, VALUE self) {
   return self;
 }
@@ -257,6 +262,11 @@ reql_rb_fill(int argn, VALUE *args, VALUE self) {
 
 extern VALUE
 reql_rb_filter(int argn, VALUE *args, VALUE self) {
+  return self;
+}
+
+extern VALUE
+reql_rb_floor(int argn, VALUE *args, VALUE self) {
   return self;
 }
 
@@ -662,6 +672,11 @@ reql_rb_reduce(int argn, VALUE *args, VALUE self) {
 
 extern VALUE
 reql_rb_replace(int argn, VALUE *args, VALUE self) {
+  return self;
+}
+
+extern VALUE
+reql_rb_round(int argn, VALUE *args, VALUE self) {
   return self;
 }
 

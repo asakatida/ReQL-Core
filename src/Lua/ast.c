@@ -125,6 +125,11 @@ reql_lua_branch(lua_State *L) {
 }
 
 extern int
+reql_lua_ceil(lua_State *L) {
+  return reql_lua_ast_class(L, reql_ast_ceil, NULL);
+}
+
+extern int
 reql_lua_changes(lua_State *L) {
   return reql_lua_ast_class(L, reql_ast_changes, NULL);
 }
@@ -297,6 +302,11 @@ reql_lua_fill(lua_State *L) {
 extern int
 reql_lua_filter(lua_State *L) {
   return reql_lua_get_opts(L, reql_ast_filter);
+}
+
+extern int
+reql_lua_floor(lua_State *L) {
+  return reql_lua_ast_class(L, reql_ast_floor, NULL);
 }
 
 extern int
@@ -702,6 +712,11 @@ reql_lua_reduce(lua_State *L) {
 extern int
 reql_lua_replace(lua_State *L) {
   return reql_lua_get_opts(L, reql_ast_replace);
+}
+
+extern int
+reql_lua_round(lua_State *L) {
+  return reql_lua_ast_class(L, reql_ast_round, NULL);
 }
 
 extern int

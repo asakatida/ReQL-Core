@@ -312,14 +312,14 @@ end
 def term_imp(name)
   "
 extern void
-#{c_ast_name name}(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
-  reql_set_term_type(term, REQL_#{name});
-  reql_set_args(term, args);
-  reql_set_kwargs(term, kwargs);
+#{c_ast_name name}(ReQL_Obj_t *t, ReQL_Obj_t *a, ReQL_Obj_t *k) {
+  reql_set_term_type(t, REQL_#{name});
+  reql_set_args(t, a);
+  reql_set_kwargs(t, k);
 }"
 end
 
-build('ReQL-ast.c', :term_imp) do |name|
+build('src/c/ast.c', :term_imp) do |name|
   term_imp name
 end
 
@@ -328,7 +328,7 @@ def term_def(name)
 /**
  */
 extern void
-#{c_ast_name name}(ReQL_Obj_t *term, ReQL_Obj_t *args, ReQL_Obj_t *kwargs);"
+#{c_ast_name name}(ReQL_Obj_t *t, ReQL_Obj_t *a, ReQL_Obj_t *k);"
 end
 
 build('src/c/ast.h', :term_def) do |name|

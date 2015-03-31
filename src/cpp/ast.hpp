@@ -112,6 +112,11 @@ public:
   /**
    */
   Query
+  ceil(const std::vector<Query> &args) const;
+
+  /**
+   */
+  Query
   changes(const std::vector<Query> &args) const;
 
   /**
@@ -293,6 +298,11 @@ public:
   filter(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const;
   Query
   filter(const std::vector<Query> &args) const;
+
+  /**
+   */
+  Query
+  floor(const std::vector<Query> &args) const;
 
   /**
    */
@@ -726,6 +736,11 @@ public:
   /**
    */
   Query
+  round(const std::vector<Query> &args) const;
+
+  /**
+   */
+  Query
   sample(const std::vector<Query> &args) const;
 
   /**
@@ -1016,6 +1031,11 @@ branch(const std::vector<Query> &args);
 /**
  */
 Query
+ceil(const std::vector<Query> &args);
+
+/**
+ */
+Query
 changes(const std::vector<Query> &args);
 
 /**
@@ -1197,6 +1217,11 @@ Query
 filter(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);
 Query
 filter(const std::vector<Query> &args);
+
+/**
+ */
+Query
+floor(const std::vector<Query> &args);
 
 /**
  */
@@ -1626,6 +1651,11 @@ Query
 replace(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);
 Query
 replace(const std::vector<Query> &args);
+
+/**
+ */
+Query
+round(const std::vector<Query> &args);
 
 /**
  */

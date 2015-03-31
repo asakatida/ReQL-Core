@@ -91,6 +91,11 @@ reql_lua_branch(lua_State *L);
 /**
  */
 extern int
+reql_lua_ceil(lua_State *L);
+
+/**
+ */
+extern int
 reql_lua_changes(lua_State *L);
 
 /**
@@ -262,6 +267,11 @@ reql_lua_fill(lua_State *L);
  */
 extern int
 reql_lua_filter(lua_State *L);
+
+/**
+ */
+extern int
+reql_lua_floor(lua_State *L);
 
 /**
  */
@@ -667,6 +677,11 @@ reql_lua_reduce(lua_State *L);
  */
 extern int
 reql_lua_replace(lua_State *L);
+
+/**
+ */
+extern int
+reql_lua_round(lua_State *L);
 
 /**
  */

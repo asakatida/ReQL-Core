@@ -192,6 +192,19 @@ reql_py_branch(PyObject *self, PyObject *args, PyObject *kwargs) {
 }
 
 extern PyObject *
+reql_py_ceil(PyObject *self, PyObject *args, PyObject *kwargs) {
+  PyObject *val;
+
+  static char *kwlist[] = {NULL};
+
+  if (!PyArg_ParseTupleAndKeywords(args, kwargs, "o:r.ceil", kwlist, &val)) {
+    return self;
+  }
+
+  return val;
+}
+
+extern PyObject *
 reql_py_changes(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -640,6 +653,19 @@ reql_py_filter(PyObject *self, PyObject *args, PyObject *kwargs) {
   static char *kwlist[] = {NULL};
 
   if (!PyArg_ParseTupleAndKeywords(args, kwargs, "o:r.filter", kwlist, &val)) {
+    return self;
+  }
+
+  return val;
+}
+
+extern PyObject *
+reql_py_floor(PyObject *self, PyObject *args, PyObject *kwargs) {
+  PyObject *val;
+
+  static char *kwlist[] = {NULL};
+
+  if (!PyArg_ParseTupleAndKeywords(args, kwargs, "o:r.floor", kwlist, &val)) {
     return self;
   }
 
@@ -1693,6 +1719,19 @@ reql_py_replace(PyObject *self, PyObject *args, PyObject *kwargs) {
   static char *kwlist[] = {NULL};
 
   if (!PyArg_ParseTupleAndKeywords(args, kwargs, "o:r.replace", kwlist, &val)) {
+    return self;
+  }
+
+  return val;
+}
+
+extern PyObject *
+reql_py_round(PyObject *self, PyObject *args, PyObject *kwargs) {
+  PyObject *val;
+
+  static char *kwlist[] = {NULL};
+
+  if (!PyArg_ParseTupleAndKeywords(args, kwargs, "o:r.round", kwlist, &val)) {
     return self;
   }
 

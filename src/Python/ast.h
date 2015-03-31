@@ -91,6 +91,11 @@ reql_py_branch(PyObject *self, PyObject *args, PyObject *kwargs);
 /**
  */
 extern PyObject *
+reql_py_ceil(PyObject *self, PyObject *args, PyObject *kwargs);
+
+/**
+ */
+extern PyObject *
 reql_py_changes(PyObject *self, PyObject *args, PyObject *kwargs);
 
 /**
@@ -262,6 +267,11 @@ reql_py_fill(PyObject *self, PyObject *args, PyObject *kwargs);
  */
 extern PyObject *
 reql_py_filter(PyObject *self, PyObject *args, PyObject *kwargs);
+
+/**
+ */
+extern PyObject *
+reql_py_floor(PyObject *self, PyObject *args, PyObject *kwargs);
 
 /**
  */
@@ -667,6 +677,11 @@ reql_py_reduce(PyObject *self, PyObject *args, PyObject *kwargs);
  */
 extern PyObject *
 reql_py_replace(PyObject *self, PyObject *args, PyObject *kwargs);
+
+/**
+ */
+extern PyObject *
+reql_py_round(PyObject *self, PyObject *args, PyObject *kwargs);
 
 /**
  */

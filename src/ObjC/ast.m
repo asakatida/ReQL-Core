@@ -90,6 +90,11 @@ branch {
 }
 
 -(instancetype)
+ceil {
+  return self;
+}
+
+-(instancetype)
 changes {
   return self;
 }
@@ -261,6 +266,11 @@ fill {
 
 -(instancetype)
 filter {
+  return self;
+}
+
+-(instancetype)
+floor {
   return self;
 }
 
@@ -666,6 +676,11 @@ reduce {
 
 -(instancetype)
 replace {
+  return self;
+}
+
+-(instancetype)
+round {
   return self;
 }
 
