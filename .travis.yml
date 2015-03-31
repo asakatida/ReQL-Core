@@ -5,7 +5,9 @@ language: cpp
 compiler: clang
 
 before_install:
+  - curl --version
   - curl -o test/catch.hpp https://raw.githubusercontent.com/philsquared/Catch/master/single_include/catch.hpp
+  - cmake --version
   - cmake ./
   - cd rethinkdb
   - ./configure --allow-fetch
