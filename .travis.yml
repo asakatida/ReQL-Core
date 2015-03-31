@@ -16,7 +16,7 @@ before_install:
   - cd ..
 
 install:
-  - make
+  - make libReQLtest
 
 script:
   - ./libReQLtest
