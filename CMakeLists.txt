@@ -51,13 +51,5 @@ set(MOC_HEADERS
 aux_source_directory(./src SRC_LIST)
 add_executable(${PROJECT_NAME} ${SOURCES} ${MOC_SRCS})
 
-target_compile_features(${PROJECT_NAME} PRIVATE
-  c_function_prototypes
-  cxx_nullptr
-  cxx_rvalue_references
-)
-
-target_include_directories(${PROJECT_NAME} PRIVATE
-  test
-  src
-)
+list(APPEND CMAKE_C_FLAGS "-std=c11 -Isrc ${CMAKE_C_FLAGS}")
+list(APPEND CMAKE_CXX_FLAGS "-std=c++11 -Isrc -Itest ${CMAKE_CXX_FLAGS}")
