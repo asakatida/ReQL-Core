@@ -109,12 +109,9 @@ reql_encode_(ReQL_Obj_t *obj, ReQL_String_t *json) {
     }
     case REQL_R_REQL:
     case REQL_R_JSON: return -1;
-    case REQL_R_NULL: {
-      return reql_string_t_append(json, json_null, 4);
-    }
+    case REQL_R_NULL: return reql_string_t_append(json, json_null, 4);
     case REQL_R_NUM: {
-      int size = 1;
-      char *str = malloc(sizeof(char) * (size_t)size);
+      char *str = malloc(sizeof(char));
 
       if (str == NULL) {
         return -1;
@@ -122,22 +119,23 @@ reql_encode_(ReQL_Obj_t *obj, ReQL_String_t *json) {
 
       const double val = reql_to_number(obj);
 
-      size = snprintf(str, size, "%g", val);
+      const int size = snprintf(str, 0, "%g", val);
+      const int size_w_null = size + 1;
 
-      if ((size_t)size > UINT32_MAX || size < 0) {
+      if ((size_t)size_w_null > UINT32_MAX || size_w_null < 0) {
         free(str);
         return -1;
       }
 
-      str = realloc(str, sizeof(char) * (size_t)size);
+      str = realloc(str, sizeof(char) * (size_t)size_w_null);
 
-      if (!str) {
+      if (str == NULL) {
         return -1;
       }
 
       int err = -1;
 
-      if (size == snprintf(str, size, "%g", val)) {
+      if (size == snprintf(str, size_w_null, "%g", val)) {
         err = reql_string_t_append(json, (uint8_t *)str, (uint32_t)size);
       }
 
@@ -174,9 +172,7 @@ reql_encode_(ReQL_Obj_t *obj, ReQL_String_t *json) {
       }
       return reql_string_t_append_(json, right_curly_bracket);
     }
-    case REQL_R_STR: {
-      return reql_escape_string(json, reql_string_buf(obj), reql_size(obj));
-    }
+    case REQL_R_STR: return reql_escape_string(json, reql_string_buf(obj), reql_size(obj));
   }
 
   return -1;
