@@ -126,7 +126,7 @@ TEST_CASE("Expr object", "[c][expr][object]") {
 
     reql_number_init(&new_val, num);
 
-    CHECK(reql_object_add(&obj, &new_key, &new_val) != 0);
+    CHECK(reql_object_add(&obj, &new_key, &new_val) > 1);
     CHECK(reql_object_get(&obj, &new_key) == NULL);
 
     ReQL_Obj_t *res = reql_object_get(&obj, &key);
