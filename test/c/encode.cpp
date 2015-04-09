@@ -16,12 +16,12 @@ extern "C" {
 using namespace ReQL;
 
 TEST_CASE("encode values", "[c][encode]") {
-  ReQL_Obj_t val;
+  std::unique_ptr<ReQL_Obj_t> val(new ReQL_Obj_t);
 
   SECTION("null") {
-    reql_null_init(&val);
+    reql_null_init(val.get());
 
-    ReQL_String_t *str = reql_encode(&val);
+    ReQL_String_t *str = reql_encode(val.get());
 
     REQUIRE(str != NULL);
 
@@ -32,9 +32,9 @@ TEST_CASE("encode values", "[c][encode]") {
   }
 
   SECTION("true") {
-    reql_bool_init(&val, 1);
+    reql_bool_init(val.get(), 1 == 1);
 
-    ReQL_String_t *str = reql_encode(&val);
+    ReQL_String_t *str = reql_encode(val.get());
 
     REQUIRE(str != NULL);
 
@@ -45,9 +45,9 @@ TEST_CASE("encode values", "[c][encode]") {
   }
 
   SECTION("false") {
-    reql_bool_init(&val, 0);
+    reql_bool_init(val.get(), 0 == 1);
 
-    ReQL_String_t *str = reql_encode(&val);
+    ReQL_String_t *str = reql_encode(val.get());
 
     REQUIRE(str != NULL);
 
@@ -58,9 +58,9 @@ TEST_CASE("encode values", "[c][encode]") {
   }
 
   SECTION("number") {
-    reql_number_init(&val, 1.125);
+    reql_number_init(val.get(), 1.125);
 
-    ReQL_String_t *str = reql_encode(&val);
+    ReQL_String_t *str = reql_encode(val.get());
 
     REQUIRE(str != NULL);
 
@@ -80,10 +80,10 @@ TEST_CASE("encode values", "[c][encode]") {
     uint8_t *buf = new uint8_t[size];
     const uint8_t hello[] = "Hello World";
 
-    reql_string_init(&val, buf, size);
-    reql_string_append(&val, hello, size);
+    reql_string_init(val.get(), buf, size);
+    reql_string_append(val.get(), hello, size);
 
-    ReQL_String_t *str = reql_encode(&val);
+    ReQL_String_t *str = reql_encode(val.get());
 
     REQUIRE(str != NULL);
 
@@ -96,9 +96,9 @@ TEST_CASE("encode values", "[c][encode]") {
   }
 
   SECTION("array") {
-    reql_array_init(&val, NULL, 0);
+    reql_array_init(val.get(), NULL, 0);
 
-    ReQL_String_t *str = reql_encode(&val);
+    ReQL_String_t *str = reql_encode(val.get());
 
     REQUIRE(str != NULL);
 
@@ -109,9 +109,9 @@ TEST_CASE("encode values", "[c][encode]") {
   }
 
   SECTION("object") {
-    reql_object_init(&val, NULL, 0);
+    reql_object_init(val.get(), NULL, 0);
 
-    ReQL_String_t *str = reql_encode(&val);
+    ReQL_String_t *str = reql_encode(val.get());
 
     REQUIRE(str != NULL);
 
