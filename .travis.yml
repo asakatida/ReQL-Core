@@ -9,11 +9,11 @@ before_install:
   - curl -o test/catch.hpp https://raw.githubusercontent.com/philsquared/Catch/master/single_include/catch.hpp
   - cmake --version
   - cmake ./
-  - cd rethinkdb
-  - ./configure --allow-fetch
-  - make src/all -j2
-  - ./build/release_clang/rethinkdb --daemon
-  - cd ..
+#  - cd rethinkdb
+#  - ./configure --allow-fetch
+#  - make src/all -j2
+#  - ./build/release_clang/rethinkdb --daemon
+#  - cd ..
 
 install:
   - make libReQLtest
