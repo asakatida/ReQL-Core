@@ -24,9 +24,7 @@ limitations under the License.
 #include <pthread.h>
 
 #ifndef PTHREAD_MUTEX_ERRORCHECK
-#ifdef PTHREAD_MUTEX_ERRORCHECK_NP
 #define PTHREAD_MUTEX_ERRORCHECK PTHREAD_MUTEX_ERRORCHECK_NP
-#endif
 #endif
 
 #endif
