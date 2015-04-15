@@ -18,7 +18,8 @@ limitations under the License.
  * @copyright Apache
  */
 
-#include "./c/ast.h"
+#include "./c/dev/ast.h"
+#include "./c/dev/json.h"
 
 #include <stdlib.h>
 

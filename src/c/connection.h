@@ -18,10 +18,8 @@ limitations under the License.
  * @copyright Apache
  */
 
-#ifndef REQL_CONNECTION_H_
-#define REQL_CONNECTION_H_
-
-#include "./c/cursor.h"
+#ifndef REQL_C_CONNECTION_H_
+#define REQL_C_CONNECTION_H_
 
 /**
  * @brief connection object
@@ -45,12 +43,6 @@ struct ReQL_Conn_s {
   void *mutex;
 };
 typedef struct ReQL_Conn_s ReQL_Conn_t;
-
-extern void
-reql_conn_lock(const ReQL_Conn_t *conn);
-
-extern void
-reql_conn_unlock(const ReQL_Conn_t *conn);
 
 /**
  * @brief initialize connection to prepare for opening.
@@ -135,4 +127,4 @@ reql_conn_open(const ReQL_Conn_t *conn);
 extern int
 reql_run(ReQL_Cur_t *cur, const ReQL_Obj_t *query, ReQL_Conn_t *conn, ReQL_Obj_t *kwargs);
 
-#endif  // REQL_CONNECTION_H_
+#endif  // REQL_C_CONNECTION_H_

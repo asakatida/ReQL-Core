@@ -4,7 +4,7 @@
 
 namespace ReQL {
 extern "C" {
-#include "./c/encode.h"
+#include "./c/dev/encode.h"
 }
 }
 

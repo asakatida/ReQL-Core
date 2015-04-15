@@ -21,6 +21,10 @@ limitations under the License.
 #ifndef REQL_H_
 #define REQL_H_
 
+#include "./c/json.h"
+#include "./c/expr.h"
+#include "./c/ast.h"
+#include "./c/cursor.h"
 #include "./c/connection.h"
 
 #endif  // REQL_H_

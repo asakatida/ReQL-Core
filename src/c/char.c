@@ -18,7 +18,7 @@ limitations under the License.
  * @copyright Apache
  */
 
-#include "./c/char.h"
+#include "./c/dev/char.h"
 
 #include <stdlib.h>
 

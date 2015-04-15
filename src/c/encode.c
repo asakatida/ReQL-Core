@@ -18,9 +18,9 @@ limitations under the License.
  * @copyright Apache
  */
 
-#include "./c/encode.h"
+#include "./c/dev/encode.h"
 
-#include "./c/char.h"
+#include "./c/dev/char.h"
 
 #include <stdio.h>
 #include <stdlib.h>

@@ -18,8 +18,8 @@ limitations under the License.
  * @copyright Apache
  */
 
-#ifndef REQL_CHAR_H_
-#define REQL_CHAR_H_
+#ifndef REQL_C_DEV_CHAR_H_
+#define REQL_C_DEV_CHAR_H_
 
 #include <stdint.h>
 
@@ -49,7 +49,8 @@ static const uint8_t json_null[4] = {0x6E, 0x75, 0x6C, 0x6C};
 
 extern const uint8_t *
 reql_json_string_esc(const uint8_t chr);
+
 extern uint32_t
 reql_json_string_esc_size(const uint8_t chr);
 
-#endif  // REQL_CHAR_H_
+#endif  // REQL_C_DEV_CHAR_H_

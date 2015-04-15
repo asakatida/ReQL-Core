@@ -30,6 +30,7 @@ namespace ReQL {
 extern "C" {
 
 #include "./ReQL.h"
+#include "./c/dev/ast.h"
 
 }
 

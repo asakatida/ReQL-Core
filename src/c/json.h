@@ -18,8 +18,8 @@ limitations under the License.
  * @copyright Apache
  */
 
-#ifndef REQL_JSON_H_
-#define REQL_JSON_H_
+#ifndef REQL_C_JSON_H_
+#define REQL_C_JSON_H_
 
 #include <stdint.h>
 
@@ -283,9 +283,6 @@ typedef struct ReQL_Obj_s ReQL_Obj_t;
 extern ReQL_Datum_t
 reql_datum_type(const ReQL_Obj_t *obj);
 
-extern void
-reql_set_term_type(ReQL_Obj_t *obj, const ReQL_Term_t type);
-
 /**
  * @brief get ReQL term type.
  *
@@ -297,18 +294,6 @@ reql_set_term_type(ReQL_Obj_t *obj, const ReQL_Term_t type);
  */
 extern ReQL_Term_t
 reql_term_type(const ReQL_Obj_t *obj);
-
-extern void
-reql_set_args(ReQL_Obj_t *obj, ReQL_Obj_t *args);
-
-extern ReQL_Obj_t *
-reql_args(const ReQL_Obj_t *obj);
-
-extern void
-reql_set_kwargs(ReQL_Obj_t *obj, ReQL_Obj_t *kwargs);
-
-extern ReQL_Obj_t *
-reql_kwargs(const ReQL_Obj_t *obj);
 
 /**
  * @brief initialize an allocated ReQL object as a JSON bool.
@@ -495,9 +480,6 @@ reql_object_add(ReQL_Obj_t *obj, ReQL_Obj_t *key, ReQL_Obj_t *val);
 extern ReQL_Obj_t *
 reql_object_get(const ReQL_Obj_t *obj, ReQL_Obj_t *key);
 
-extern char
-reql_op_eq(const ReQL_Obj_t *l, const ReQL_Obj_t *r);
-
 /**
  * @brief recursive free of all nodes in a query tree.
  *
@@ -508,4 +490,4 @@ reql_op_eq(const ReQL_Obj_t *l, const ReQL_Obj_t *r);
 extern void
 reql_json_destroy(ReQL_Obj_t *json);
 
-#endif  // REQL_JSON_H_
+#endif  // REQL_C_JSON_H_

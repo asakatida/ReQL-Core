@@ -18,12 +18,21 @@ limitations under the License.
  * @copyright Apache
  */
 
-#ifndef REQL_DECODE_H_
-#define REQL_DECODE_H_
+#ifndef REQL_C_DEV_ENCODE_H_
+#define REQL_C_DEV_ENCODE_H_
 
 #include "./c/json.h"
 
-extern ReQL_Obj_t *
-reql_decode(uint8_t *json, uint32_t size);
+#include <stdint.h>
 
-#endif  // REQL_DECODE_H_
+struct ReQL_String_s {
+  uint32_t size;
+  uint32_t alloc_size;
+  uint8_t *str;
+};
+typedef struct ReQL_String_s ReQL_String_t;
+
+extern ReQL_String_t *
+reql_encode(ReQL_Obj_t *val);
+
+#endif  // REQL_C_DEV_ENCODE_H_

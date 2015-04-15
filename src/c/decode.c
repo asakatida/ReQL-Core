@@ -18,9 +18,9 @@ limitations under the License.
  * @copyright Apache
  */
 
-#include "./c/decode.h"
+#include "./c/dev/decode.h"
 
-#include "./c/char.h"
+#include "./c/dev/char.h"
 
 #include <math.h>
 #include <stdlib.h>

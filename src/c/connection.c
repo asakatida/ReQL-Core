@@ -18,10 +18,10 @@ limitations under the License.
  * @copyright Apache
  */
 
-#include "./ReQL.h"
+#include "./c/dev/connection.h"
 
-#include "./c/encode.h"
-#include "./c/decode.h"
+#include "./c/dev/encode.h"
+#include "./c/dev/decode.h"
 #include "./c/util/util.h"
 
 #include <netdb.h>

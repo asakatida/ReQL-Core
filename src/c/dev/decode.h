@@ -18,30 +18,14 @@ limitations under the License.
  * @copyright Apache
  */
 
-#include "./c/dev/error.h"
+#ifndef REQL_C_DEV_DECODE_H_
+#define REQL_C_DEV_DECODE_H_
 
-static ReQL_Error_Type_t p_err = REQL_E_NO;
-static char *p_msg = "";
-static char *p_trace = "";
+#include "./c/json.h"
 
-extern char *
-reql_error_msg() {
-  return p_msg;
-}
+#include <stdint.h>
 
-extern char *
-reql_error_trace() {
-  return p_trace;
-}
+extern ReQL_Obj_t *
+reql_decode(uint8_t *json, uint32_t size);
 
-extern ReQL_Error_Type_t
-reql_error_type() {
-  return p_err;
-}
-
-extern void
-reql_error_init(ReQL_Error_Type_t err, char *msg, char *trace) {
-  p_err = err;
-  p_msg = msg;
-  p_trace = trace;
-}
+#endif  // REQL_C_DEV_DECODE_H_

@@ -18,9 +18,9 @@ limitations under the License.
  * @copyright Apache
  */
 
-#include "./c/cursor.h"
+#include "./c/dev/cursor.h"
 
-#include "./c/connection.h"
+#include "./c/dev/connection.h"
 #include "./c/util/util.h"
 
 #include <stdlib.h>

@@ -1,5 +1,5 @@
 /*
-Copyright 2014-2015 Adam Grandquist
+Copyright 2015 Adam Grandquist
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -18,19 +18,13 @@ limitations under the License.
  * @copyright Apache
  */
 
-#ifndef REQL_ENCODE_H_
-#define REQL_ENCODE_H_
+#ifndef REQL_C_DEV_CURSOR_H_
+#define REQL_C_DEV_CURSOR_H_
 
-#include "./c/json.h"
+#include "./c/dev/expr.h"
+#include "./c/cursor.h"
 
-struct ReQL_String_s {
-  uint32_t size;
-  uint32_t alloc_size;
-  uint8_t *str;
-};
-typedef struct ReQL_String_s ReQL_String_t;
+extern void
+reql_set_cur_response(ReQL_Cur_t *cur, ReQL_Obj_t *res);
 
-extern ReQL_String_t *
-reql_encode(ReQL_Obj_t *val);
-
-#endif  // REQL_ENCODE_H_
+#endif  // REQL_C_DEV_CURSOR_H_

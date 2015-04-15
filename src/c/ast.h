@@ -18,12 +18,8 @@ limitations under the License.
  * @copyright Apache
  */
 
-#ifndef REQL_AST_H_
-#define REQL_AST_H_
-
-#include "./c/json.h"
-
-typedef void (*ReQL_AST_Function) (ReQL_Obj_t *, ReQL_Obj_t *, ReQL_Obj_t *);
+#ifndef REQL_C_AST_H_
+#define REQL_C_AST_H_
 
 /**
  */
@@ -900,4 +896,4 @@ reql_ast_year(ReQL_Obj_t *t, ReQL_Obj_t *a, ReQL_Obj_t *k);
 extern void
 reql_ast_zip(ReQL_Obj_t *t, ReQL_Obj_t *a, ReQL_Obj_t *k);
 
-#endif  // REQL_AST_H_
+#endif  // REQL_C_AST_H_

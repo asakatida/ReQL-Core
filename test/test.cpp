@@ -2,6 +2,14 @@
 
 #include "./test.hpp"
 
+namespace ReQL {
+extern "C" {
+
+#include "./c/dev/json.h"
+
+}
+}
+
 #include <string>
 
 #define CATCH_CONFIG_MAIN

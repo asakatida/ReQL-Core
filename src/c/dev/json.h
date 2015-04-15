@@ -18,24 +18,27 @@ limitations under the License.
  * @copyright Apache
  */
 
-#ifndef REQL_ERROR_H_
-#define REQL_ERROR_H_
+#ifndef REQL_C_DEV_JSON_H_
+#define REQL_C_DEV_JSON_H_
 
-typedef enum {
-  REQL_E_NO,
-  REQL_E_JSON
-} ReQL_Error_Type_t;
-
-extern char *
-reql_error_msg();
-
-extern char *
-reql_error_trace();
-
-extern ReQL_Error_Type_t
-reql_error_type();
+#include "./c/json.h"
 
 extern void
-reql_error_init(ReQL_Error_Type_t err, char *msg, char *trace);
+reql_set_term_type(ReQL_Obj_t *obj, const ReQL_Term_t type);
 
-#endif  // REQL_ERROR_H_
+extern void
+reql_set_args(ReQL_Obj_t *obj, ReQL_Obj_t *args);
+
+extern ReQL_Obj_t *
+reql_args(const ReQL_Obj_t *obj);
+
+extern void
+reql_set_kwargs(ReQL_Obj_t *obj, ReQL_Obj_t *kwargs);
+
+extern ReQL_Obj_t *
+reql_kwargs(const ReQL_Obj_t *obj);
+
+extern char
+reql_op_eq(const ReQL_Obj_t *l, const ReQL_Obj_t *r);
+
+#endif  // REQL_C_DEV_JSON_H_
