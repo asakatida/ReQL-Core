@@ -55,26 +55,15 @@ public:
   std::vector<Result> array() const;
 
 private:
+  void copy(const Result &other);
+  void move(Result &&other);
+
   ReQL_Datum_t p_type;
-  union JSON_Value {
-    JSON_Value();
-    explicit JSON_Value(const bool val);
-    explicit JSON_Value(const double val);
-    explicit JSON_Value(const std::string val);
-    explicit JSON_Value(const std::map<std::string, Result> val);
-    explicit JSON_Value(const std::vector<Result> val);
-
-    void copy(const Result &other, const ReQL_Datum_t type);
-    void move(Result &&other, const ReQL_Datum_t type);
-
-    ~JSON_Value();
-
-    std::unique_ptr<bool> p_boolean;
-    std::unique_ptr<double> p_num;
-    std::unique_ptr<std::map<std::string, Result>> p_object;
-    std::unique_ptr<std::string> p_string;
-    std::unique_ptr<std::vector<Result>> p_array;
-  } p_value;
+  bool p_boolean;
+  double p_num;
+  std::map<std::string, Result> p_object;
+  std::string p_string;
+  std::vector<Result> p_array;
 };
 
 class Parser {
