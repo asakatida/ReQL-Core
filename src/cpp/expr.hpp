@@ -52,8 +52,8 @@ protected:
   explicit Expr(const bool &val);
   explicit Expr(const std::vector<Query> &val);
   explicit Expr(const std::map<std::string, Query> &val);
-  virtual void copy(const Expr &other);
-  virtual void move(Expr &&other);
+  void copy(const Expr &other);
+  void move(Expr &&other);
 
 private:
   ReQL p_query;
