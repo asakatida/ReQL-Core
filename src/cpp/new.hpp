@@ -18,8 +18,8 @@ limitations under the License.
  * @copyright Apache
  */
 
-#ifndef REQL_NEW_HPP_
-#define REQL_NEW_HPP_
+#ifndef REQL_CPP_NEW_HPP_
+#define REQL_CPP_NEW_HPP_
 
 #include <map>
 #include <string>
@@ -69,4 +69,4 @@ private:
 
 }  // namespace ReQL
 
-#endif  // REQL_NEW_HPP_
+#endif  // REQL_CPP_NEW_HPP_

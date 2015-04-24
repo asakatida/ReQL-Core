@@ -18,8 +18,8 @@ limitations under the License.
  * @copyright Apache
  */
 
-#ifndef REQL_CONNECTION_HPP_
-#define REQL_CONNECTION_HPP_
+#ifndef REQL_CPP_CONNECTION_HPP_
+#define REQL_CPP_CONNECTION_HPP_
 
 #include <map>
 #include <string>
@@ -59,4 +59,4 @@ private:
 
 }  // namespace ReQL
 
-#endif  // REQL_CONNECTION_HPP_
+#endif  // REQL_CPP_CONNECTION_HPP_

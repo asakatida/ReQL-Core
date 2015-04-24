@@ -18,8 +18,8 @@ limitations under the License.
  * @copyright Apache
  */
 
-#ifndef REQL_AST_HPP_
-#define REQL_AST_HPP_
+#ifndef REQL_CPP_AST_HPP_
+#define REQL_CPP_AST_HPP_
 
 #include "./cpp/expr.hpp"
 
@@ -1881,4 +1881,4 @@ zip(const std::vector<Query> &args);
 
 }  // namespace ReQL
 
-#endif  // REQL_AST_HPP_
+#endif  // REQL_CPP_AST_HPP_
