@@ -30,13 +30,13 @@ def each_test(path, file, c_path, cpp_path):
         test_file = file.relative_to(path)
         c_file = (c_path / test_file).with_suffix('.cpp')
         if not c_file.exists():
-            mkdir(c_file)
+            mkdir(c_file.parent)
             c_file.touch()
         with c_file.open('w') as ostream:
             yaml.dump(test, ostream)
         cpp_file = (cpp_path / test_file).with_suffix('.cpp')
         if not cpp_file.exists():
-            mkdir(cpp_file)
+            mkdir(cpp_file.parent)
             cpp_file.touch()
         with cpp_file.open('w') as ostream:
             yaml.dump(test, ostream)
@@ -57,6 +57,7 @@ def main():
     mkdir(new_test_cpp_path)
     new_test_cpp_path = new_test_cpp_path.resolve()
 
-    test_loop(polyglot_path)
+    test_loop(polyglot_path, new_test_c_path, new_test_cpp_path)
 
-main()
+if __name__ == '__main__':
+    main()
