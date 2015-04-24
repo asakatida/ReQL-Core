@@ -13,8 +13,11 @@ set(SOURCES
  src/c/json.c
  src/cpp/ast.cpp
  src/cpp/connection.cpp
+ src/cpp/cursor.cpp
  src/cpp/expr.cpp
  src/cpp/new.cpp
+ src/cpp/query.cpp
+ src/cpp/result.cpp
  src/ReQL.c
  src/ReQL.cpp
  test/c/ast.cpp

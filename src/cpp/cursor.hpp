@@ -18,46 +18,44 @@ limitations under the License.
  * @copyright Apache
  */
 
-#ifndef REQL_CONNECTION_HPP_
-#define REQL_CONNECTION_HPP_
+#ifndef REQL_CPP_CURSOR_HPP_
+#define REQL_CPP_CURSOR_HPP_
 
-#include <algorithm>
 #include <map>
 #include <string>
 #include <vector>
 
+#include "./cpp/result.hpp"
+
 namespace ReQL {
-extern "C" {
 
-#include "./ReQL.h"
-
-}
-
-class Connection {
+class Cursor {
 public:
-  Connection();
-  explicit Connection(const std::string &host);
-  Connection(const std::string &host, const std::uint16_t &port);
-  Connection(const std::string &host, const std::uint16_t &port, const std::string &key);
+  Cursor();
 
-  explicit Connection(const Connection &other);
-  explicit Connection(Connection &&other);
+  Cursor(const Cursor &other);
+  Cursor(Cursor &&other);
 
-  Connection &operator=(const Connection &other);
-  Connection &operator=(Connection &&other);
+  Cursor &operator=(const Cursor &other);
+  Cursor &operator=(Cursor &&other);
 
-  ~Connection();
+  ~Cursor();
 
   bool isOpen() const;
 
-  ReQL_Conn_t *data() const;
+  Result next();
+  void next(Parser p);
+  std::vector<Result> toVector();
+  void toVector(Parser p);
+
+  ReQL_Cur_t *data() const;
 
   void close();
 
 private:
-  std::unique_ptr<ReQL_Conn_t> p_conn;
+  std::unique_ptr<ReQL_Cur_t> p_cur;
 };
 
 }  // namespace ReQL
 
-#endif  // REQL_CONNECTION_HPP_
+#endif  // REQL_CPP_CURSOR_HPP_

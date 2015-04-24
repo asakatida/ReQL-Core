@@ -20,7 +20,7 @@ limitations under the License.
 
 #include "./cpp/expr.hpp"
 
-#include "./cpp/connection.hpp"
+#include "./cpp/query.hpp"
 
 #include <algorithm>
 #include <limits>

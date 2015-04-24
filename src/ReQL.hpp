@@ -22,5 +22,7 @@ limitations under the License.
 #define REQL_HPP_
 
 #include "./cpp/connection.hpp"
+#include "./cpp/cursor.hpp"
+#include "./cpp/query.hpp"
 
 #endif
