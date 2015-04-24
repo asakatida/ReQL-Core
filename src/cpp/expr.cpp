@@ -22,7 +22,6 @@ limitations under the License.
 
 #include "./cpp/query.hpp"
 
-#include <algorithm>
 #include <limits>
 #include <map>
 #include <string>

@@ -20,7 +20,6 @@ limitations under the License.
 
 #include "./cpp/connection.hpp"
 
-#include <algorithm>
 #include <limits>
 #include <map>
 #include <string>

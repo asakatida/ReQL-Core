@@ -23,7 +23,6 @@ limitations under the License.
 
 #include "./cpp/new.hpp"
 
-#include <algorithm>
 #include <map>
 #include <string>
 #include <vector>

@@ -23,7 +23,6 @@ limitations under the License.
 
 #include "./cpp/expr.hpp"
 
-#include <algorithm>
 #include <map>
 #include <string>
 #include <vector>

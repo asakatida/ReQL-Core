@@ -21,7 +21,6 @@ limitations under the License.
 #ifndef REQL_CONNECTION_HPP_
 #define REQL_CONNECTION_HPP_
 
-#include <algorithm>
 #include <map>
 #include <string>
 #include <vector>
