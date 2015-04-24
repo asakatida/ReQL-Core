@@ -128,6 +128,22 @@ reql_conn_set_auth(ReQL_Conn_t *conn, const uint32_t size, char *auth) {
   reql_conn_unlock(conn);
 }
 
+extern char *
+reql_conn_auth_key(ReQL_Conn_t *conn) {
+  reql_conn_lock(conn);
+  char *auth = conn->auth;
+  reql_conn_unlock(conn);
+  return auth;
+}
+
+extern uint32_t
+reql_conn_auth_size(ReQL_Conn_t *conn) {
+  reql_conn_lock(conn);
+  const uint32_t size = conn->auth_size;
+  reql_conn_unlock(conn);
+  return size;
+}
+
 extern void
 reql_conn_set_addr(ReQL_Conn_t *conn, char *addr) {
   reql_conn_lock(conn);
@@ -135,11 +151,27 @@ reql_conn_set_addr(ReQL_Conn_t *conn, char *addr) {
   reql_conn_unlock(conn);
 }
 
+extern char *
+reql_conn_addr(ReQL_Conn_t *conn) {
+  reql_conn_lock(conn);
+  char *addr = conn->addr;
+  reql_conn_unlock(conn);
+  return addr;
+}
+
 extern void
 reql_conn_set_port(ReQL_Conn_t *conn, char *port) {
   reql_conn_lock(conn);
   conn->port = port;
   reql_conn_unlock(conn);
+}
+
+extern char *
+reql_conn_port(ReQL_Conn_t *conn) {
+  reql_conn_lock(conn);
+  char *port = conn->port;
+  reql_conn_unlock(conn);
+  return port;
 }
 
 extern void

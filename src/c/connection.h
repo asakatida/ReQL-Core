@@ -61,6 +61,22 @@ extern void
 reql_conn_set_auth(ReQL_Conn_t *conn, uint32_t size, char *auth);
 
 /**
+ * @brief get authentication key buffer used on connection.
+ * @param conn connection object.
+ * @return pointer to buffer holding key.
+ */
+extern char *
+reql_conn_auth_key(ReQL_Conn_t *conn);
+
+/**
+ * @brief get authentication key size used on connection.
+ * @param conn connection object.
+ * @return size of authentication key.
+ */
+extern uint32_t
+reql_conn_auth_size(ReQL_Conn_t *conn);
+
+/**
  * @brief assign an address before opening a connection.
  * @param conn connection object.
  * @param addr address for connection.
@@ -69,12 +85,28 @@ extern void
 reql_conn_set_addr(ReQL_Conn_t *conn, char *addr);
 
 /**
+ * @brief get address used on connection.
+ * @param conn connection object.
+ * @return pointer to address buffer.
+ */
+extern char *
+reql_conn_addr(ReQL_Conn_t *conn);
+
+/**
  * @brief assign a port before opening a connection.
  * @param conn connection object.
  * @param port port for connection.
  */
 extern void
 reql_conn_set_port(ReQL_Conn_t *conn, char *port);
+
+/**
+ * @brief get port used on connection.
+ * @param conn connection object.
+ * @return pointer to port buffer.
+ */
+extern char *
+reql_conn_port(ReQL_Conn_t *conn);
 
 /**
  * @brief assign a timeout to a connection.
