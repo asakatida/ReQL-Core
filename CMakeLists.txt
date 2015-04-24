@@ -21,6 +21,7 @@ set(SOURCES
  src/ReQL.c
  src/ReQL.cpp
  test/c/ast.cpp
+ test/c/connection.cpp
  test/c/decode.cpp
  test/c/encode.cpp
  test/c/expr.cpp
