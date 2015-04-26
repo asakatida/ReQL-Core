@@ -20,7 +20,6 @@ limitations under the License.
 
 #include "./cpp/result.hpp"
 
-#include <limits>
 #include <map>
 #include <string>
 #include <vector>

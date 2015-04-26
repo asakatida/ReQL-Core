@@ -10,9 +10,6 @@ extern "C" {
 
 #include "./catch.hpp"
 
-#include <limits>
-#include <string>
-
 using namespace ReQL;
 
 TEST_CASE("encode values", "[c][encode]") {

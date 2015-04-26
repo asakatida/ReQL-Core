@@ -1,11 +1,10 @@
 // Copyright 2015 Adam Grandquist
 
-#include <limits>
-#include <string>
-
 #include "./test.hpp"
 
 #include "./catch.hpp"
+
+#include <limits>
 
 using namespace ReQL;
 

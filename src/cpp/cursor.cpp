@@ -20,7 +20,6 @@ limitations under the License.
 
 #include "./cpp/cursor.hpp"
 
-#include <limits>
 #include <map>
 #include <string>
 #include <vector>
