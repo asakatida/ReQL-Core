@@ -20,12 +20,11 @@ set(SOURCES
  src/cpp/result.cpp
  src/ReQL.c
  src/ReQL.cpp
- test/c/ast.cpp
  test/c/connection.cpp
  test/c/decode.cpp
  test/c/encode.cpp
  test/c/expr.cpp
- test/cpp/expr.cpp
+ test/cpp/connection.cpp
  test/test.cpp
 )
 

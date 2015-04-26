@@ -14,7 +14,7 @@ extern "C" {
 
 using namespace ReQL;
 
-TEST_CASE("connection", "[c][connection]") {
+TEST_CASE("c connection", "[c][connection]") {
   SECTION("reql_connection_init") {
   }
 
