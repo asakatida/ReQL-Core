@@ -117,6 +117,14 @@ extern void
 reql_conn_set_timeout(ReQL_Conn_t *conn, const uint64_t timeout);
 
 /**
+ * @brief get timeout used on connection.
+ * @param conn connection object.
+ * @return timeout in seconds.
+ */
+extern uint64_t
+reql_conn_timeout(ReQL_Conn_t *conn);
+
+/**
  * @brief reql_connect
  * @param conn connection object.
  * @param buf allocated buffer that will be filled with an error message or `SUCCESS\0`

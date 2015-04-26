@@ -28,4 +28,8 @@ TEST_CASE("cpp connection", "[c++][connect]") {
   res = cur.next();
 
   REQUIRE(res.type() == REQL_R_OBJECT);
+
+  conn.close();
+
+  REQUIRE(!conn.isOpen());
 }

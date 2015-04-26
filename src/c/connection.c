@@ -181,6 +181,14 @@ reql_conn_set_timeout(ReQL_Conn_t *conn, const uint64_t timeout) {
   reql_conn_unlock(conn);
 }
 
+extern uint64_t
+reql_conn_timeout(ReQL_Conn_t *conn) {
+  reql_conn_lock(conn);
+  const uint64_t timeout = conn->timeout;
+  reql_conn_unlock(conn);
+  return timeout;
+}
+
 static int
 reql_conn_socket(const ReQL_Conn_t *conn) {
   reql_conn_lock(conn);
