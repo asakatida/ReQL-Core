@@ -127,8 +127,9 @@ Connection &Connection::operator=(const Connection &other) {
 }
 
 Connection &Connection::operator=(Connection &&other) {
-  reql_ensure_conn_close(data());
-  p_conn = std::move(other.p_conn);
+  if (this != &other) {
+    p_conn = std::move(other.p_conn);
+  }
   return *this;
 }
 
