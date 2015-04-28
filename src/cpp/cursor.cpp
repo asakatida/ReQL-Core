@@ -31,6 +31,7 @@ namespace ReQL {
 class ResultBuilder : public Parser {
 public:
   ResultBuilder() : Parser(), p_stack(), p_keys(), p_result() {}
+  ~ResultBuilder();
 
   Result result() { return p_result; }
 
@@ -146,6 +147,8 @@ private:
   Result p_result;
 };
 
+ResultBuilder::~ResultBuilder() {}
+
 Cursor::Cursor() : p_cur(new ReQL_Cur_t) {
   reql_cursor_init(data());
 }
@@ -173,7 +176,7 @@ Cursor::next() {
 }
 
 void
-Cursor::next(Parser p) {
+Cursor::next(Parser &p) {
   p.parse(Wrapper(reql_cursor_next(data())));
 }
 

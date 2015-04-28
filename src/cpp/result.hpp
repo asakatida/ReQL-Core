@@ -68,15 +68,12 @@ private:
   std::vector<Result> p_array;
 };
 
+class Wrapper;
+
 class Parser {
 public:
-  Parser();
   virtual ~Parser();
-
-  void parse(ReQL_Obj_t *val);
-  void parse();
-
-  virtual void assign(ReQL_Obj_t *val);
+  void parse(Wrapper val);
 
   virtual void startObject() = 0;
   virtual void addKey(std::string key) = 0;
@@ -93,8 +90,7 @@ public:
   virtual void addElement(std::string value) = 0;
   virtual void endArray() = 0;
 
-private:
-  ReQL_Obj_t *p_val;
+  void parse_c(ReQL_Obj_t *val);
 };
 
 }  // namespace ReQL

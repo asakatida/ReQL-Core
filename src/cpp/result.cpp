@@ -22,19 +22,16 @@ limitations under the License.
 
 #include "./cpp/wrapper.hpp"
 
+#include <map>
+#include <string>
+#include <vector>
+
 namespace ReQL {
 extern "C" {
 
 #include "./c/dev/json.h"
 
 }
-}
-
-#include <map>
-#include <string>
-#include <vector>
-
-namespace ReQL {
 
 Result::Result() : p_type(REQL_R_NULL) {}
 
@@ -197,22 +194,10 @@ Result::move(Result &&other) {
   }
 }
 
-Parser::Parser() : p_val(nullptr) {}
-
-Parser::Parser(const Parser &other) {
-  p_val = std::move(Wrapper(reql_obj_copy(other.p_val.get())));
-}
-
-Parser::Parser(Parser &&other) {
-  p_val = std::move(other.p_val);
-}
-
-Parser::~Parser() {
-  p_val.release();
-}
+Parser::~Parser() {}
 
 void
-Parser::parse(std::unique_ptr<ReQL_Obj_t> val) {
+Parser::parse(Wrapper val) {
   parse_c(val.get());
 }
 

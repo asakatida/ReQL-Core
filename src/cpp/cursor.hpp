@@ -44,7 +44,7 @@ public:
   bool isOpen() const;
 
   Result next();
-  void next(Parser p);
+  void next(Parser &p);
   std::vector<Result> toVector();
   void toVector(Parser p);
 
