@@ -72,12 +72,15 @@ TEST_CASE("c connection", "[c][connection]") {
     CHECK(reql_conn_open(c.get()) != 0);
 
     if (reql_conn_open(c.get()) != 0) {
-      std::unique_ptr<ReQL_Cur_t> cur(new ReQL_Cur_t);
       std::unique_ptr<ReQL_Obj_t> q(new ReQL_Obj_t);
 
       reql_number_init(q.get(), 2.72);
 
+      std::unique_ptr<ReQL_Cur_t> cur(new ReQL_Cur_t);
+
       reql_run(cur.get(), q.get(), c.get(), nullptr);
+
+      q.release();
 
       CHECK(reql_cur_open(cur.get()) != 0);
 
@@ -91,6 +94,7 @@ TEST_CASE("c connection", "[c][connection]") {
 
       cur.release();
     }
+
     reql_close_conn(c.get());
 
     REQUIRE(reql_conn_open(c.get()) == 0);
