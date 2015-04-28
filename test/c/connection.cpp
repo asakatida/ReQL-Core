@@ -24,7 +24,7 @@ TEST_CASE("c connection", "[c][connection]") {
     REQUIRE(reql_conn_auth_key(c.get()) == nullptr);
     REQUIRE(reql_conn_auth_size(c.get()) == 0);
     REQUIRE(std::strncmp(reql_conn_port(c.get()), "28015", 5) == 0);
-    REQUIRE(reql_conn_timeout(c.get()) == 20);
+    REQUIRE(reql_conn_timeout(c.get()) == uint64_t(20));
   }
 
   reql_connection_init(c.get());
@@ -57,7 +57,7 @@ TEST_CASE("c connection", "[c][connection]") {
   SECTION("reql_conn_set_timeout") {
     reql_conn_set_timeout(c.get(), 15);
 
-    REQUIRE(reql_conn_timeout(c.get()) == 15);
+    REQUIRE(reql_conn_timeout(c.get()) == uint64_t(15));
   }
 
   SECTION("reql_connect") {
