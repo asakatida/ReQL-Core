@@ -49,6 +49,9 @@ typedef struct ReQL_Cur_s ReQL_Cur_t;
 extern void
 reql_cursor_init(ReQL_Cur_t *cur);
 
+extern void
+reql_cur_drain(ReQL_Cur_t *cur);
+
 extern ReQL_Obj_t *
 reql_cursor_next(ReQL_Cur_t *cur);
 
