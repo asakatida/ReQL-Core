@@ -20,6 +20,8 @@ limitations under the License.
 
 #include "./cpp/cursor.hpp"
 
+#include "./cpp/wrapper.hpp"
+
 #include <map>
 #include <string>
 #include <vector>
@@ -31,6 +33,8 @@ public:
   ResultBuilder() : Parser(), p_stack(), p_keys(), p_result() {}
 
   Result result() { return p_result; }
+
+  void parse(Wrapper val) { parse_c(val.get()); }
 
 private:
   void startObject() {
@@ -170,7 +174,7 @@ Cursor::next() {
 
 void
 Cursor::next(Parser p) {
-  p.parse(reql_cursor_next(data()));
+  p.parse(Wrapper(reql_cursor_next(data())));
 }
 
 ReQL_Cur_t *

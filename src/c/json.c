@@ -318,68 +318,189 @@ extern char
 reql_op_eq(const ReQL_Obj_t *l, const ReQL_Obj_t *r) {
   char res = reql_type_eq(l, r);
   if (res) {
-    if (reql_term_type(l) == REQL_DATUM) {
-      switch (reql_datum_type(l)) {
-        case REQL_R_ARRAY: {
-          const uint32_t size = reql_size(l);
-          res = size == reql_size(r);
-          if (res) {
-            uint32_t i;
-            for (i=0; i < size; ++i) {
-              res &= reql_op_eq(reql_array_index(l, i), reql_array_index(r, i));
-            }
+    switch (reql_datum_type(l)) {
+      case REQL_R_ARRAY: {
+        const uint32_t size = reql_size(l);
+        res = size == reql_size(r);
+        if (res) {
+          uint32_t i;
+          for (i=0; i < size; ++i) {
+            res &= reql_op_eq(reql_array_index(l, i), reql_array_index(r, i));
           }
-          break;
         }
-        case REQL_R_BOOL: {
-          res = reql_to_bool(l) == reql_to_bool(r);
-          break;
-        }
-        case REQL_R_NULL: break;
-        case REQL_R_NUM: {
-          res = fabsl((long double)reql_to_number(l) - reql_to_number(r)) <= LDBL_EPSILON;
-          break;
-        }
-        case REQL_R_OBJECT: {
-          res = reql_size(l) == reql_size(r);
-          if (res) {
-            ReQL_Iter_t i = reql_new_iter(l);
-
-            ReQL_Obj_t *key = NULL;
-
-            while ((key = reql_iter_next(&i)) != NULL) {
-              res &= reql_op_eq(reql_object_get(l, key), reql_object_get(r, key));
-            }
-
-            i = reql_new_iter(r);
-
-            while ((key = reql_iter_next(&i))) {
-              res &= reql_op_eq(reql_object_get(l, key), reql_object_get(r, key));
-            }
-          }
-          break;
-        }
-        case REQL_R_STR: {
-          const uint32_t size = reql_size(l);
-
-          res = size == reql_size(r);
-          if (res) {
-            res = memcmp(reql_string_buf(l), reql_string_buf(r), size) == 0;
-          }
-
-          break;
-        }
-        case REQL_R_REQL:
-        case REQL_R_JSON: break;
+        break;
       }
-    } else {
-      res = reql_op_eq(reql_args(l), reql_args(r));
-      if (res) {
-        res = reql_op_eq(reql_kwargs(l), reql_kwargs(r));
+      case REQL_R_BOOL: {
+        res = reql_to_bool(l) == reql_to_bool(r);
+        break;
       }
+      case REQL_R_NULL: break;
+      case REQL_R_NUM: {
+        res = fabsl((long double)reql_to_number(l) - reql_to_number(r)) <= LDBL_EPSILON;
+        break;
+      }
+      case REQL_R_OBJECT: {
+        res = reql_size(l) == reql_size(r);
+        if (res) {
+          ReQL_Iter_t i = reql_new_iter(l);
+
+          ReQL_Obj_t *key = NULL;
+
+          while ((key = reql_iter_next(&i)) != NULL) {
+            res &= reql_op_eq(reql_object_get(l, key), reql_object_get(r, key));
+          }
+
+          i = reql_new_iter(r);
+
+          while ((key = reql_iter_next(&i))) {
+            res &= reql_op_eq(reql_object_get(l, key), reql_object_get(r, key));
+          }
+        }
+        break;
+      }
+      case REQL_R_STR: {
+        const uint32_t size = reql_size(l);
+
+        res = size == reql_size(r);
+        if (res) {
+          res = memcmp(reql_string_buf(l), reql_string_buf(r), size) == 0;
+        }
+
+        break;
+      }
+      case REQL_R_REQL: {
+        res = reql_op_eq(reql_args(l), reql_args(r));
+        if (res) {
+          res = reql_op_eq(reql_kwargs(l), reql_kwargs(r));
+        }
+        break;
+      }
+      case REQL_R_JSON: break;
     }
   }
   return res;
+}
+
+extern ReQL_Obj_t *
+reql_obj_copy(const ReQL_Obj_t *other) {
+  ReQL_Obj_t *self = malloc(sizeof(ReQL_Obj_t));
+
+  if (self == NULL) {
+    return NULL;
+  }
+
+  switch (reql_datum_type(other)) {
+    case REQL_R_ARRAY: {
+      const uint32_t size = reql_size(other);
+
+      ReQL_Obj_t **array = malloc(size * sizeof(ReQL_Obj_t*));
+
+      if (array == NULL) {
+        free(self); self = NULL;
+        return NULL;
+      }
+
+      reql_array_init(self, array, size);
+
+      uint32_t i;
+      for (i=0; i < size; ++i) {
+        ReQL_Obj_t *elem = reql_array_index(other, i);
+        if (elem != NULL) {
+          elem = reql_obj_copy(elem);
+          if (elem == NULL) {
+            reql_json_destroy(self); self = NULL;
+            return NULL;
+          }
+        }
+        if (reql_array_insert(self, elem, i) != 0) {
+          reql_json_destroy(self); self = NULL;
+          return NULL;
+        }
+      }
+      break;
+    }
+    case REQL_R_BOOL: {
+      reql_bool_init(self, reql_to_bool(other));
+      break;
+    }
+    case REQL_R_NULL: {
+      reql_null_init(self);
+      break;
+    }
+    case REQL_R_NUM: {
+      reql_number_init(self, reql_to_number(other));
+      break;
+    }
+    case REQL_R_OBJECT: {
+      const uint32_t size = reql_size(other);
+
+      ReQL_Pair_t *pairs = malloc(size * sizeof(ReQL_Pair_t));
+
+      if (pairs == NULL) {
+        free(self); self = NULL;
+        return NULL;
+      }
+
+      reql_object_init(self, pairs, size);
+
+      ReQL_Iter_t i = reql_new_iter(other);
+
+      ReQL_Obj_t *key = NULL;
+      ReQL_Obj_t *value = NULL;
+
+      while ((key = reql_iter_next(&i)) != NULL) {
+        key = reql_obj_copy(key);
+        if (key == NULL) {
+          reql_json_destroy(self); self = NULL;
+          return NULL;
+        }
+        value = reql_object_get(other, key);
+        if (value != NULL) {
+          value = reql_obj_copy(value);
+          if (value == NULL) {
+            reql_json_destroy(self); self = NULL;
+            return NULL;
+          }
+        }
+        if (reql_object_add(self, key, value) != 0) {
+          reql_json_destroy(self); self = NULL;
+          return NULL;
+        }
+      }
+      break;
+    }
+    case REQL_R_STR: {
+      const uint32_t size = reql_size(other);
+
+      uint8_t *buf = malloc(size * sizeof(uint8_t));
+
+      if (buf == NULL) {
+        free(self); self = NULL;
+        return NULL;
+      }
+
+      reql_string_init(self, buf, size);
+      if (reql_string_append(self, reql_string_buf(other), size) != 0) {
+        free(self); self = NULL;
+        free(buf); buf = NULL;
+        return NULL;
+      }
+
+      break;
+    }
+    case REQL_R_REQL: {
+      reql_set_term_type(self, reql_term_type(other));
+      reql_set_args(self, reql_args(other));
+      reql_set_kwargs(self, reql_kwargs(other));
+      break;
+    }
+    case REQL_R_JSON: {
+      free(self); self = NULL;
+      return NULL;
+    }
+  }
+
+  return self;
 }
 
 static int

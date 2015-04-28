@@ -1,5 +1,5 @@
 /*
-Copyright 2014-2015 Adam Grandquist
+Copyright 2015 Adam Grandquist
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -18,30 +18,35 @@ limitations under the License.
  * @copyright Apache
  */
 
-#ifndef REQL_C_DEV_JSON_H_
-#define REQL_C_DEV_JSON_H_
+#include "./cpp/wrapper.hpp"
 
-#include "./c/json.h"
+using namespace ReQL;
 
-extern void
-reql_set_term_type(ReQL_Obj_t *obj, const ReQL_Term_t type);
+Wrapper::Wrapper(ReQL_Obj_t *obj) : std::unique_ptr<ReQL_Obj_t>(obj) {
+  switch (reql_datum_type(obj)) {
+    case REQL_R_ARRAY: {
+      break;
+    }
+    case REQL_R_BOOL: {
+      break;
+    }
+    case REQL_R_JSON: throw;
+    case REQL_R_NULL: {
+      break;
+    }
+    case REQL_R_NUM: {
+      break;
+    }
+    case REQL_R_OBJECT: {
+      break;
+    }
+    case REQL_R_REQL: {
+      break;
+    }
+    case REQL_R_STR: {
+      break;
+    }
+  }
+}
 
-extern void
-reql_set_args(ReQL_Obj_t *obj, ReQL_Obj_t *args);
-
-extern ReQL_Obj_t *
-reql_args(const ReQL_Obj_t *obj);
-
-extern void
-reql_set_kwargs(ReQL_Obj_t *obj, ReQL_Obj_t *kwargs);
-
-extern ReQL_Obj_t *
-reql_kwargs(const ReQL_Obj_t *obj);
-
-extern char
-reql_op_eq(const ReQL_Obj_t *l, const ReQL_Obj_t *r);
-
-extern ReQL_Obj_t *
-reql_obj_copy(const ReQL_Obj_t *other);
-
-#endif  // REQL_C_DEV_JSON_H_
+Wrapper::~Wrapper() {}

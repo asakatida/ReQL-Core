@@ -20,6 +20,16 @@ limitations under the License.
 
 #include "./cpp/result.hpp"
 
+#include "./cpp/wrapper.hpp"
+
+namespace ReQL {
+extern "C" {
+
+#include "./c/dev/json.h"
+
+}
+}
+
 #include <map>
 #include <string>
 #include <vector>
@@ -189,23 +199,25 @@ Result::move(Result &&other) {
 
 Parser::Parser() : p_val(nullptr) {}
 
-Parser::~Parser() {}
+Parser::Parser(const Parser &other) {
+  p_val = std::move(Wrapper(reql_obj_copy(other.p_val.get())));
+}
 
-void
-Parser::assign(ReQL_Obj_t *val) {
-  p_val = val;
+Parser::Parser(Parser &&other) {
+  p_val = std::move(other.p_val);
+}
+
+Parser::~Parser() {
+  p_val.release();
 }
 
 void
-Parser::parse() {
-  if (p_val == nullptr) {
-    throw;
-  }
-  parse(p_val);
+Parser::parse(std::unique_ptr<ReQL_Obj_t> val) {
+  parse_c(val.get());
 }
 
 void
-Parser::parse(ReQL_Obj_t *val) {
+Parser::parse_c(ReQL_Obj_t *val) {
   switch (reql_datum_type(val)) {
     case REQL_R_ARRAY: {
       startArray();
@@ -214,7 +226,7 @@ Parser::parse(ReQL_Obj_t *val) {
       ReQL_Obj_t *elem = NULL;
 
       while ((elem = reql_iter_next(&it)) != NULL) {
-        parse(elem);
+        parse_c(elem);
       }
 
       endArray();
@@ -253,7 +265,7 @@ Parser::parse(ReQL_Obj_t *val) {
           case REQL_R_ARRAY:
           case REQL_R_OBJECT: {
             addKey(key_string);
-            parse(value);
+            parse_c(value);
             break;
           }
           case REQL_R_NULL: {

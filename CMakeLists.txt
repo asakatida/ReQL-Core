@@ -18,6 +18,7 @@ set(SOURCES
  src/cpp/new.cpp
  src/cpp/query.cpp
  src/cpp/result.cpp
+ src/cpp/wrapper.cpp
  src/ReQL.c
  src/ReQL.cpp
  test/c/connection.cpp
@@ -45,6 +46,9 @@ set(MOC_HEADERS
  src/cpp/connection.hpp
  src/cpp/expr.hpp
  src/cpp/new.hpp
+ src/cpp/query.hpp
+ src/cpp/result.hpp
+ src/cpp/wrapper.hpp
  src/ReQL.h
  src/ReQL.hpp
  test/catch.hpp
