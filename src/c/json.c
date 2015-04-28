@@ -463,6 +463,8 @@ reql_obj_copy(const ReQL_Obj_t *other) {
           }
         }
         if (reql_object_add(self, key, value) != 0) {
+          reql_json_destroy(key); key = NULL;
+          reql_json_destroy(value); value = NULL;
           reql_json_destroy(self); self = NULL;
           return NULL;
         }
