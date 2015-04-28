@@ -20,7 +20,7 @@ limitations under the License.
 
 #include "./cpp/wrapper.hpp"
 
-using namespace ReQL;
+namespace ReQL {
 
 Wrapper::Wrapper(ReQL_Obj_t *obj) : std::unique_ptr<ReQL_Obj_t>(obj) {
   switch (reql_datum_type(obj)) {
@@ -50,3 +50,5 @@ Wrapper::Wrapper(ReQL_Obj_t *obj) : std::unique_ptr<ReQL_Obj_t>(obj) {
 }
 
 Wrapper::~Wrapper() {}
+
+}
