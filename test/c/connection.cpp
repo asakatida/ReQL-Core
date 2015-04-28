@@ -61,11 +61,13 @@ TEST_CASE("c connection", "[c][connection]") {
   }
 
   SECTION("reql_connect") {
-    std::unique_ptr<std::uint8_t> buf(new std::uint8_t[100]);
-
     REQUIRE(reql_conn_open(c.get()) == 0);
 
-    reql_connect(c.get(), buf.get(), 100);
+    std::unique_ptr<std::uint8_t> buf(new std::uint8_t[100]);
+
+    REQUIRE(reql_connect(c.get(), buf.get(), 100) == 0);
+
+    buf.release();
 
     CHECK(reql_conn_open(c.get()) != 0);
 
@@ -86,12 +88,15 @@ TEST_CASE("c connection", "[c][connection]") {
 
         reql_json_destroy(result);
       }
-    }
 
+      cur.release();
+    }
     reql_close_conn(c.get());
 
     REQUIRE(reql_conn_open(c.get()) == 0);
 
     reql_ensure_conn_close(c.get());
+
+    c.release();
   }
 }
