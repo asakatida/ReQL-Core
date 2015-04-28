@@ -312,10 +312,10 @@ end
 def term_imp(name)
   "
 extern void
-#{c_ast_name name}(ReQL_Obj_t *t, ReQL_Obj_t *a, ReQL_Obj_t *k) {
+#{c_ast_name name}(ReQL_Obj_t *t, ReQL_Obj_t *a#{', ReQL_Obj_t *k' if opts? name}) {
   reql_set_term_type(t, REQL_#{name});
   reql_set_args(t, a);
-  reql_set_kwargs(t, k);
+  reql_set_kwargs(t, #{if opts? name then 'k' else 'NULL' end});
 }"
 end
 
@@ -328,7 +328,7 @@ def term_def(name)
 /**
  */
 extern void
-#{c_ast_name name}(ReQL_Obj_t *t, ReQL_Obj_t *a, ReQL_Obj_t *k);"
+#{c_ast_name name}(ReQL_Obj_t *t, ReQL_Obj_t *a#{', ReQL_Obj_t *k' if opts? name});"
 end
 
 build('src/c/ast.h', :term_def) do |name|

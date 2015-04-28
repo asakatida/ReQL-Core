@@ -34,7 +34,8 @@ namespace ReQL {
 class Query : public AST {
 public:
   Query();
-  Query(const ReQL_AST_Function &f, const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);
+  Query(const ReQL_AST_Function &f, const std::vector<Query> &args);
+  Query(const ReQL_AST_Function_Kwargs &f, const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);
   explicit Query(const std::string &val);
   explicit Query(const double &val);
   explicit Query(const bool &val);

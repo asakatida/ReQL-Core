@@ -26,7 +26,7 @@ limitations under the License.
 
 namespace ReQL {
 
-ReQL::ReQL() : p_func(nullptr), p_args(nullptr), p_array(nullptr), p_buf(nullptr), p_kwargs(nullptr), p_object(nullptr), p_query(new ReQL_Obj_t) {
+ReQL::ReQL() : p_func(nullptr), p_func_kwargs(nullptr), p_args(nullptr), p_array(nullptr), p_buf(nullptr), p_kwargs(nullptr), p_object(nullptr), p_query(new ReQL_Obj_t) {
   reql_null_init(data());
 }
 
@@ -74,8 +74,25 @@ ReQL::ReQL(const std::map<ReQL, ReQL> &object) : ReQL() {
   }
 }
 
-ReQL::ReQL(const ReQL_AST_Function &f, const std::vector<ReQL> &args, const std::map<ReQL, ReQL> &kwargs) : ReQL() {
+ReQL::ReQL(const ReQL_AST_Function &f, const std::vector<ReQL> &args) : ReQL() {
   p_func = f;
+  p_func_kwargs = nullptr;
+  p_r_array = args;
+  std::size_t args_size = p_r_array.size();
+  if (args_size > 0) {
+    p_args.reset(new ReQL_Obj_t);
+    p_array.reset(new ReQL_Obj_t*[args_size]);
+    reql_array_init(p_args.get(), p_array.get(), static_cast<std::uint32_t>(args_size));
+    for (auto it=p_r_array.cbegin(); it != p_r_array.cend(); ++it) {
+      reql_array_append(p_args.get(), it->data());
+    }
+  }
+  f(data(), p_args.get());
+}
+
+ReQL::ReQL(const ReQL_AST_Function_Kwargs &f, const std::vector<ReQL> &args, const std::map<ReQL, ReQL> &kwargs) : ReQL() {
+  p_func = nullptr;
+  p_func_kwargs = f;
   p_r_array = args;
   std::size_t args_size = p_r_array.size();
   if (args_size > 0) {
@@ -97,7 +114,7 @@ ReQL::ReQL(const ReQL_AST_Function &f, const std::vector<ReQL> &args, const std:
       reql_object_add(p_kwargs.get(), it->first.data(), it->second.data());
     }
   }
-  p_func(data(), p_args.get(), p_kwargs.get());
+  f(data(), p_args.get(), p_kwargs.get());
 }
 
 ReQL::ReQL(const ReQL &other) : ReQL() {
@@ -108,6 +125,7 @@ void
 ReQL::copy(const ReQL &other) {
   p_str = other.p_str;
   p_func = other.p_func;
+  p_func_kwargs = other.p_func_kwargs;
   p_r_array = other.p_r_array;
   p_r_object = other.p_r_object;
   switch (other.type()) {
@@ -154,17 +172,23 @@ ReQL::copy(const ReQL &other) {
           reql_array_append(p_args.get(), it->data());
         }
       }
-      std::size_t kwargs_size = p_r_object.size();
-      if (kwargs_size > 0) {
-        p_kwargs.reset(new ReQL_Obj_t);
-        p_object.reset(new ReQL_Pair_t[kwargs_size]);
-        reql_object_init(p_kwargs.get(), p_object.get(), static_cast<std::uint32_t>(kwargs_size));
-        for (auto it=p_r_object.cbegin(); it != p_r_object.cend(); ++it) {
-          if (it->first.type() != REQL_R_STR) throw;
-          reql_object_add(p_kwargs.get(), it->first.data(), it->second.data());
+      if (p_func == nullptr) {
+        std::size_t kwargs_size = p_r_object.size();
+        if (kwargs_size > 0) {
+          p_kwargs.reset(new ReQL_Obj_t);
+          p_object.reset(new ReQL_Pair_t[kwargs_size]);
+          reql_object_init(p_kwargs.get(), p_object.get(), static_cast<std::uint32_t>(kwargs_size));
+          for (auto it=p_r_object.cbegin(); it != p_r_object.cend(); ++it) {
+            if (it->first.type() != REQL_R_STR) throw;
+            reql_object_add(p_kwargs.get(), it->first.data(), it->second.data());
+          }
         }
+        p_func_kwargs(data(), p_args.get(), p_kwargs.get());
+      } else if (p_func_kwargs == nullptr) {
+        p_func(data(), p_args.get());
+      } else {
+        throw;
       }
-      p_func(data(), p_args.get(), p_kwargs.get());
       break;
     }
     case REQL_R_STR: {
@@ -235,6 +259,7 @@ ReQL::operator=(ReQL &&other) {
     p_buf = std::move(other.p_buf);
     p_array = std::move(other.p_array);
     p_func = std::move(other.p_func);
+    p_func_kwargs = std::move(other.p_func_kwargs);
     p_r_array = std::move(other.p_r_array);
     p_r_object = std::move(other.p_r_object);
     p_kwargs = std::move(other.p_kwargs);

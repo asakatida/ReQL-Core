@@ -30,16 +30,12 @@ namespace ReQL {
 
 Expr::Expr() {}
 
-Expr::Expr(const ReQL_AST_Function &f, const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) : p_func(f) {
-  std::size_t args_size = args.size();
-
-  if (args_size > std::numeric_limits<std::uint32_t>::max()) {
+Expr::Expr(const ReQL_AST_Function_Kwargs &f, const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) : p_func(nullptr), p_func_kwargs(f) {
+  if (args.size() > std::numeric_limits<std::uint32_t>::max()) {
     throw;
   }
 
-  std::size_t kwargs_size = kwargs.size();
-
-  if (kwargs_size > std::numeric_limits<std::uint32_t>::max()) {
+  if (kwargs.size() > std::numeric_limits<std::uint32_t>::max()) {
     throw;
   }
 
@@ -58,7 +54,22 @@ Expr::Expr(const ReQL_AST_Function &f, const std::vector<Query> &args, const std
     r_kwargs.insert(r_kwargs.end(), {key.p_query, it->second.p_query});
   }
 
-  p_query = ReQL(p_func, r_args, r_kwargs);
+  p_query = ReQL(f, r_args, r_kwargs);
+}
+
+Expr::Expr(const ReQL_AST_Function &f, const std::vector<Query> &args) : p_func(f), p_func_kwargs(nullptr) {
+  if (args.size() > std::numeric_limits<std::uint32_t>::max()) {
+    throw;
+  }
+
+  std::vector<ReQL> r_args;
+
+  for (auto it=args.cbegin(); it != args.cend(); ++it) {
+    p_array.push_back(*it);
+    r_args.push_back(it->p_query);
+  }
+
+  p_query = ReQL(f, r_args);
 }
 
 Expr::Expr(const std::string &val) : p_query(val) {}
@@ -68,9 +79,7 @@ Expr::Expr(const double &val) : p_query(val) {}
 Expr::Expr(const bool &val) : p_query(val) {}
 
 Expr::Expr(const std::vector<Query> &val) {
-  std::size_t size = val.size();
-
-  if (size > std::numeric_limits<std::uint32_t>::max()) {
+  if (val.size() > std::numeric_limits<std::uint32_t>::max()) {
     throw;
   }
 
@@ -85,9 +94,7 @@ Expr::Expr(const std::vector<Query> &val) {
 }
 
 Expr::Expr(const std::map<std::string, Query> &val) {
-  std::size_t size = val.size();
-
-  if (size > std::numeric_limits<std::uint32_t>::max()) {
+  if (val.size() > std::numeric_limits<std::uint32_t>::max()) {
     throw;
   }
 
@@ -107,7 +114,7 @@ Expr::operator<(const Expr &other) const {
   return p_query < other.p_query;
 }
 
-Expr::Expr(const Expr &other) : p_func(other.p_func), p_array(other.p_array), p_object(other.p_object) {
+Expr::Expr(const Expr &other) : p_func(other.p_func), p_func_kwargs(other.p_func_kwargs), p_array(other.p_array), p_object(other.p_object) {
   copy(other);
 }
 
@@ -128,6 +135,7 @@ void
 Expr::copy(const Expr &other) {
   p_array = other.p_array;
   p_func = other.p_func;
+  p_func_kwargs = other.p_func_kwargs;
   p_object = other.p_object;
   p_query = other.p_query;
 }
@@ -136,6 +144,7 @@ void
 Expr::move(Expr &&other) {
   p_array = std::move(other.p_array);
   p_func = std::move(other.p_func);
+  p_func_kwargs = std::move(other.p_func_kwargs);
   p_object = std::move(other.p_object);
   p_query = std::move(other.p_query);
 }

@@ -24,6 +24,7 @@ limitations under the License.
 #include "./c/json.h"
 #include "./c/ast.h"
 
-typedef void (*ReQL_AST_Function) (ReQL_Obj_t *, ReQL_Obj_t *, ReQL_Obj_t *);
+typedef void (*ReQL_AST_Function_Kwargs) (ReQL_Obj_t *, ReQL_Obj_t *, ReQL_Obj_t *);
+typedef void (*ReQL_AST_Function) (ReQL_Obj_t *, ReQL_Obj_t *);
 
 #endif  // REQL_C_DEV_AST_H_

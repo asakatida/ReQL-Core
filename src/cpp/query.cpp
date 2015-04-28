@@ -28,8 +28,10 @@ namespace ReQL {
 
 Query::Query() : AST() {}
 
-Query::Query(const ReQL_AST_Function &f, const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) : AST(f, args, kwargs) {}
+Query::Query(const ReQL_AST_Function &f, const std::vector<Query> &args) : AST(f, args) {}
 
+Query::Query(const ReQL_AST_Function_Kwargs &f, const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) : AST(f, args, kwargs) {}
+  
 Query::Query(const std::string &val) : AST(val) {}
 
 Query::Query(const double &val) : AST(val) {}

@@ -41,7 +41,8 @@ public:
   explicit ReQL(const std::string &val);
   explicit ReQL(const std::vector<ReQL> &array);
   explicit ReQL(const std::map<ReQL, ReQL> &object);
-  ReQL(const ReQL_AST_Function &f, const std::vector<ReQL> &args, const std::map<ReQL, ReQL> &kwargs);
+  ReQL(const ReQL_AST_Function &f, const std::vector<ReQL> &args);
+  ReQL(const ReQL_AST_Function_Kwargs &f, const std::vector<ReQL> &args, const std::map<ReQL, ReQL> &kwargs);
   explicit ReQL(const ReQL &other);
 
   ReQL &operator=(const ReQL &other);
@@ -56,6 +57,7 @@ private:
   void copy(const ReQL &other);
 
   ReQL_AST_Function p_func;
+  ReQL_AST_Function_Kwargs p_func_kwargs;
   std::vector<ReQL> p_r_array;
   std::map<ReQL, ReQL> p_r_object;
   std::string p_str;

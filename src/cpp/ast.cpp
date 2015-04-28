@@ -29,12 +29,25 @@ limitations under the License.
 namespace ReQL {
 
 static Query
-init(const ReQL_AST_Function &f, const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
+init(const ReQL_AST_Function &f, const std::vector<Query> &args) {
+  return Query(f, args);
+}
+
+static Query
+init(const ReQL_AST_Function &f, const AST *term, const std::vector<Query> &args) {
+  std::vector<Query> new_args;
+  new_args.push_back(*term);
+  new_args.insert(new_args.end(), args.cbegin(), args.cend());
+  return init(f, new_args);
+}
+
+static Query
+init(const ReQL_AST_Function_Kwargs &f, const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
   return Query(f, args, kwargs);
 }
 
 static Query
-init(const ReQL_AST_Function &f, const AST *term, const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
+init(const ReQL_AST_Function_Kwargs &f, const AST *term, const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
   std::vector<Query> new_args;
   new_args.push_back(*term);
   new_args.insert(new_args.end(), args.cbegin(), args.cend());
@@ -42,19 +55,21 @@ init(const ReQL_AST_Function &f, const AST *term, const std::vector<Query> &args
 }
 
 static Query
-init(const ReQL_AST_Function &f, const std::vector<Query> &args) {
+init(const ReQL_AST_Function_Kwargs &f, const std::vector<Query> &args) {
   return init(f, args, std::map<std::string, Query>());
 }
 
 static Query
-init(const ReQL_AST_Function &f, const AST *term, const std::vector<Query> &args) {
+init(const ReQL_AST_Function_Kwargs &f, const AST *term, const std::vector<Query> &args) {
   return init(f, term, args, std::map<std::string, Query>());
 }
-
+  
 AST::AST() : Expr() {}
 
-AST::AST(const ReQL_AST_Function &f, const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) : Expr(f, args, kwargs) {}
+AST::AST(const ReQL_AST_Function &f, const std::vector<Query> &args) : Expr(f, args) {}
 
+AST::AST(const ReQL_AST_Function_Kwargs &f, const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) : Expr(f, args, kwargs) {}
+  
 AST::AST(const std::string &val) : Expr(val) {}
 
 AST::AST(const double &val) : Expr(val) {}
