@@ -458,6 +458,7 @@ reql_obj_copy(const ReQL_Obj_t *other) {
         if (value != NULL) {
           value = reql_obj_copy(value);
           if (value == NULL) {
+            reql_json_destroy(key); key = NULL;
             reql_json_destroy(self); self = NULL;
             return NULL;
           }
