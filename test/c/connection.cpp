@@ -101,6 +101,8 @@ TEST_CASE("c connection", "[c][connection]") {
 
     reql_ensure_conn_close(c.get());
 
+    REQUIRE(reql_conn_open(c.get()) == 0);
+
     c.release();
   }
 }

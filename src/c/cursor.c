@@ -26,21 +26,29 @@ limitations under the License.
 #include <stdlib.h>
 
 static void
-reql_cursor_lock(ReQL_Cur_t *cur) {
+reql_cursor_lock(const ReQL_Cur_t *cur) {
   reql_conn_lock(cur->conn);
 }
 
 static void
-reql_cursor_unlock(ReQL_Cur_t *cur) {
+reql_cursor_unlock(const ReQL_Cur_t *cur) {
   reql_conn_unlock(cur->conn);
 }
 
 static char
-reql_cursor_done(ReQL_Cur_t *cur) {
+reql_cursor_done(const ReQL_Cur_t *cur) {
   reql_cursor_lock(cur);
   const char done = cur->done;
   reql_cursor_unlock(cur);
   return done;
+}
+
+static ReQL_Conn_t *
+reql_cursor_conn(const ReQL_Cur_t *cur) {
+  reql_cursor_lock(cur);
+  ReQL_Conn_t *conn = cur->conn;
+  reql_cursor_unlock(cur);
+  return conn;
 }
 
 static ReQL_Obj_t *
@@ -65,26 +73,6 @@ reql_cur_drain(ReQL_Cur_t *cur) {
     cur->cb = ^(ReQL_Obj_t *res) { return res == NULL; };
   }
   reql_cursor_next(cur);
-}
-
-extern void
-reql_set_cur_response(ReQL_Cur_t *cur, ReQL_Obj_t *res) {
-  if (reql_cursor_done(cur) == 1) {
-    reql_json_destroy(res);
-    return;
-  }
-  reql_cursor_lock(cur);
-  if (cur->response != NULL) {
-    reql_json_destroy(cur->response);
-    cur->response = NULL;
-  }
-  if (cur->cb != NULL) {
-    cur->cb(res);
-    reql_json_destroy(res);
-  } else {
-    cur->response = res;
-  }
-  reql_cursor_unlock(cur);
 }
 
 extern ReQL_Obj_t *
@@ -116,13 +104,13 @@ reql_cursor_to_array(ReQL_Cur_t *cur) {
 }
 
 extern char
-reql_cur_open(ReQL_Cur_t *cur) {
-  return !reql_cursor_done(cur);
+reql_cur_open(const ReQL_Cur_t *cur) {
+  return reql_cursor_done(cur) == 0 && reql_cursor_conn(cur) != NULL;
 }
 
 extern void
 reql_close_cur(ReQL_Cur_t *cur) {
-  if (reql_cur_open(cur)) {
+  if (reql_cur_open(cur) != 0) {
     reql_cursor_lock(cur);
     if (cur->response != NULL) {
       reql_json_destroy(cur->response);
@@ -132,11 +120,14 @@ reql_close_cur(ReQL_Cur_t *cur) {
     ReQL_Cur_t *prev = cur->prev;
     ReQL_Cur_t *next = cur->next;
     if (next == cur && prev == cur) {
-      cur->conn->cursors = NULL;
+      if (cur->conn != NULL) {
+        cur->conn->cursors = NULL;
+      }
     } else {
       prev->next = next == cur ? prev : next;
       next->prev = prev == cur ? next : prev;
     }
+    cur->conn = NULL;
     reql_cursor_unlock(cur);
   }
 }

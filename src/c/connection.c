@@ -82,11 +82,17 @@ reql_get_64_token(uint8_t *buf) {
 
 extern void
 reql_conn_lock(const ReQL_Conn_t *conn) {
+  if (conn->mutex == NULL) {
+    return;
+  }
   pthread_mutex_lock(conn->mutex);
 }
 
 extern void
 reql_conn_unlock(const ReQL_Conn_t *conn) {
+  if (conn->mutex == NULL) {
+    return;
+  }
   pthread_mutex_unlock(conn->mutex);
 }
 
@@ -206,22 +212,36 @@ reql_conn_close_socket(ReQL_Conn_t *conn) {
 }
 
 static void
-reql_set_cur_res(const ReQL_Conn_t *conn, ReQL_Obj_t *res, const uint64_t token) {
+reql_conn_set_res(const ReQL_Conn_t *conn, ReQL_Obj_t *res, const uint64_t token) {
   reql_conn_lock(conn);
+
   ReQL_Cur_t *cur = conn->cursors;
 
   while (1) {
     if (cur->token == token) {
-      reql_conn_unlock(conn);
-      reql_set_cur_response(cur, res);
+      if (reql_cur_open(cur) == 0) {
+        reql_json_destroy(res);
+        return;
+      }
+      if (cur->response != NULL) {
+        reql_json_destroy(cur->response);
+        cur->response = NULL;
+      }
+      if (cur->cb != NULL) {
+        cur->cb(res);
+        reql_json_destroy(res);
+      } else {
+        cur->response = res;
+      }
       break;
     }
-    if (cur == cur->next) {
-      reql_conn_unlock(conn);
+    if (cur->next == cur) {
       break;
     }
     cur = cur->next;
   }
+
+  reql_conn_unlock(conn);
 }
 
 static char
@@ -253,7 +273,7 @@ reql_conn_loop(void *conn) {
     pos += reql_conn_read(conn, &response[pos], (size > 0 ? size : 12) - pos);
     if (size > 0) {
       if (pos >= size) {
-        reql_set_cur_res(conn, reql_decode(response, size), token);
+        reql_conn_set_res(conn, reql_decode(response, size), token);
 
         pos -= size;
         size = 0;

@@ -24,7 +24,4 @@ limitations under the License.
 #include "./c/dev/expr.h"
 #include "./c/cursor.h"
 
-extern void
-reql_set_cur_response(ReQL_Cur_t *cur, ReQL_Obj_t *res);
-
 #endif  // REQL_C_DEV_CURSOR_H_

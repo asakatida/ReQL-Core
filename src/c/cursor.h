@@ -62,7 +62,7 @@ extern ReQL_Obj_t *
 reql_cursor_to_array(ReQL_Cur_t *cur);
 
 extern char
-reql_cur_open(ReQL_Cur_t *cur);
+reql_cur_open(const ReQL_Cur_t *cur);
 
 extern void
 reql_close_cur(ReQL_Cur_t *cur);
