@@ -274,7 +274,7 @@ reql_array_pop(ReQL_Obj_t *obj) {
   ReQL_Obj_t *res = reql_array_last(obj);
 
   if (res != NULL) {
-    uint32_t size = reql_size(obj) - 1;
+    const uint32_t size = reql_size(obj) - 1;
     reql_array_insert(obj, NULL, size);
     reql_set_size(obj, size);
   }
