@@ -21,7 +21,6 @@ limitations under the License.
 #include "./c/dev/cursor.h"
 
 #include "./c/dev/connection.h"
-#include "./c/util/util.h"
 
 #include <stdlib.h>
 
@@ -60,11 +59,12 @@ reql_cursor_response(ReQL_Cur_t *cur) {
 }
 
 extern void
-reql_cursor_init(ReQL_Cur_t *cur) {
+reql_cursor_init(ReQL_Cur_t *cur, uint64_t token) {
   cur->cb = NULL;
   cur->done = 0;
   cur->next = cur->prev = cur;
   cur->response = NULL;
+  cur->token = token;
 }
 
 extern void

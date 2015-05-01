@@ -18,10 +18,10 @@ limitations under the License.
  * @copyright Apache
  */
 
-#ifndef REQL_UTIL_H_
-#define REQL_UTIL_H_
+#ifndef REQL_UTIL_UTIL_H_
+#define REQL_UTIL_UTIL_H_
 
 #include "./c/util/portable_endian.h"
 #include "./c/util/portable_pthread.h"
 
-#endif  // REQL_UTIL_H_
+#endif  // REQL_UTIL_UTIL_H_

@@ -149,12 +149,9 @@ private:
 
 ResultBuilder::~ResultBuilder() {}
 
-Cursor::Cursor() : p_cur(new ReQL_Cur_t) {
-  reql_cursor_init(data());
-}
+Cursor::Cursor() : p_cur(new ReQL_Cur_t) {}
 
-Cursor::~Cursor() {
-}
+Cursor::~Cursor() {}
 
 Cursor &
 Cursor::operator=(Cursor &&other) {

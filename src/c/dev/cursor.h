@@ -24,4 +24,7 @@ limitations under the License.
 #include "./c/dev/expr.h"
 #include "./c/cursor.h"
 
+extern void
+reql_cursor_init(ReQL_Cur_t *cur, uint64_t token);
+
 #endif  // REQL_C_DEV_CURSOR_H_

@@ -20,6 +20,7 @@ limitations under the License.
 
 #include "./c/dev/connection.h"
 
+#include "./c/dev/cursor.h"
 #include "./c/dev/encode.h"
 #include "./c/dev/decode.h"
 #include "./c/util/util.h"
@@ -560,6 +561,7 @@ reql_run(ReQL_Cur_t *cur, const ReQL_Obj_t *query, ReQL_Conn_t *conn, ReQL_Obj_t
   const uint64_t token = conn->max_token++;
 
   if (cur != NULL) {
+    reql_cursor_init(cur, token);
     if (conn->cursors) {
       cur->next = conn->cursors;
       cur->next->prev = cur;
@@ -568,7 +570,6 @@ reql_run(ReQL_Cur_t *cur, const ReQL_Obj_t *query, ReQL_Conn_t *conn, ReQL_Obj_t
     conn->cursors = cur;
 
     cur->conn = conn;
-    cur->token = token;
   }
 
   uint8_t token_bytes[8];

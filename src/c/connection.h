@@ -21,6 +21,8 @@ limitations under the License.
 #ifndef REQL_C_CONNECTION_H_
 #define REQL_C_CONNECTION_H_
 
+#include "./c/dev/cursor.h"
+
 /**
  * @brief connection object
  */

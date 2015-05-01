@@ -18,8 +18,8 @@ limitations under the License.
  * @copyright Apache
  */
 
-#ifndef REQL_PORTABLE_PTHREAD_H_
-#define REQL_PORTABLE_PTHREAD_H_
+#ifndef REQL_C_UTIL_PORTABLE_PTHREAD_H_
+#define REQL_C_UTIL_PORTABLE_PTHREAD_H_
 
 #include <pthread.h>
 
@@ -27,4 +27,4 @@ limitations under the License.
 #define PTHREAD_MUTEX_ERRORCHECK PTHREAD_MUTEX_ERRORCHECK_NP
 #endif
 
-#endif
+#endif  // REQL_C_UTIL_PORTABLE_PTHREAD_H_
