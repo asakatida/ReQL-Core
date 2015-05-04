@@ -40,8 +40,6 @@ set(MOC_HEADERS
  src/c/expr.h
  src/c/json.h
  src/c/util/portable_endian.h
- src/c/util/portable_pthread.h
- src/c/util/util.h
  src/cpp/ast.hpp
  src/cpp/connection.hpp
  src/cpp/expr.hpp

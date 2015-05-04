@@ -72,8 +72,6 @@
 		1ECDD7421AB53D80004CD31E /* json.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = json.c; sourceTree = "<group>"; };
 		1ECDD7431AB53D80004CD31E /* json.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = json.h; sourceTree = "<group>"; };
 		1ECDD7451AB53D80004CD31E /* portable_endian.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = portable_endian.h; sourceTree = "<group>"; };
-		1ECDD7461AB53D80004CD31E /* portable_pthread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = portable_pthread.h; sourceTree = "<group>"; };
-		1ECDD7471AB53D80004CD31E /* util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = util.h; sourceTree = "<group>"; };
 		1ECDD7491AB53D80004CD31E /* ast.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ast.cpp; sourceTree = "<group>"; };
 		1ECDD74A1AB53D80004CD31E /* ast.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ast.hpp; sourceTree = "<group>"; };
 		1ECDD74B1AB53D80004CD31E /* expr.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = expr.cpp; sourceTree = "<group>"; };
@@ -188,8 +186,6 @@
 			isa = PBXGroup;
 			children = (
 				1ECDD7451AB53D80004CD31E /* portable_endian.h */,
-				1ECDD7461AB53D80004CD31E /* portable_pthread.h */,
-				1ECDD7471AB53D80004CD31E /* util.h */,
 			);
 			path = util;
 			sourceTree = "<group>";

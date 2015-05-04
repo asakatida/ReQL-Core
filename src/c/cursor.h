@@ -21,6 +21,8 @@ limitations under the License.
 #ifndef REQL_C_CURSOR_H_
 #define REQL_C_CURSOR_H_
 
+#include <pthread.h>
+
 typedef int(^ReQL_Each_Function)(ReQL_Obj_t *);
 
 enum ReQL_Response_e {
@@ -36,6 +38,11 @@ enum ReQL_Response_e {
 typedef enum ReQL_Response_e ReQL_Response_t;
 
 struct ReQL_Cur_s {
+  struct {
+    pthread_cond_t *next;
+    pthread_cond_t *done;
+    pthread_mutex_t *mutex;
+  } condition;
   char done;
   uint64_t token;
   struct ReQL_Conn_s *conn;

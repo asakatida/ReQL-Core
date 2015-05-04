@@ -21,6 +21,7 @@ limitations under the License.
 #ifndef REQL_C_CONNECTION_H_
 #define REQL_C_CONNECTION_H_
 
+#include <pthread.h>
 #include "./c/dev/cursor.h"
 
 /**
@@ -42,7 +43,7 @@ struct ReQL_Conn_s {
   char *auth;
   ReQL_Cur_t *cursors;
 
-  void *mutex;
+  pthread_mutex_t *mutex;
 };
 typedef struct ReQL_Conn_s ReQL_Conn_t;
 

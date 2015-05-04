@@ -23,7 +23,7 @@ limitations under the License.
 #include "./c/dev/cursor.h"
 #include "./c/dev/encode.h"
 #include "./c/dev/decode.h"
-#include "./c/util/util.h"
+#include "./c/util/portable_endian.h"
 
 #include <netdb.h>
 #include <netinet/in.h>
