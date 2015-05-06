@@ -2,8 +2,6 @@
 
 #include "./test.hpp"
 
-#include "./catch.hpp"
-
 #include <limits>
 
 using namespace ReQL;

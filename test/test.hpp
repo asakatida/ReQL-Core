@@ -3,6 +3,8 @@
 #ifndef REQL_TEST_HPP_
 #define REQL_TEST_HPP_
 
+#include "./catch.hpp"
+
 #include "./ReQL.hpp"
 
 #include <string>

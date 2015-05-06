@@ -2,8 +2,6 @@
 
 #include "./test.hpp"
 
-#include "./catch.hpp"
-
 using namespace ReQL;
 
 TEST_CASE("cpp connection", "[c++][connect]") {

@@ -8,8 +8,6 @@ extern "C" {
 }
 }
 
-#include "./catch.hpp"
-
 #include <string>
 
 using namespace ReQL;

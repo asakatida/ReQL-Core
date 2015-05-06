@@ -8,8 +8,6 @@ extern "C" {
 }
 }
 
-#include "./catch.hpp"
-
 using namespace ReQL;
 
 TEST_CASE("encode values", "[c][encode]") {

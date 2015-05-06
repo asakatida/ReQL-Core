@@ -1,5 +1,6 @@
 // Copyright 2015 Adam Grandquist
 
+#define CATCH_CONFIG_MAIN
 #include "./test.hpp"
 
 namespace ReQL {
@@ -11,9 +12,6 @@ extern "C" {
 }
 
 #include <string>
-
-#define CATCH_CONFIG_MAIN
-#include "./catch.hpp"
 
 namespace ReQL {
 
