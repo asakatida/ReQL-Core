@@ -26,12 +26,18 @@ limitations under the License.
 
 static void
 reql_cursor_lock(const ReQL_Cur_t *cur) {
-  reql_conn_lock(cur->conn);
+  if (cur->condition.mutex == NULL) {
+    return;
+  }
+  pthread_mutex_lock(cur->condition.mutex);
 }
 
 static void
 reql_cursor_unlock(const ReQL_Cur_t *cur) {
-  reql_conn_unlock(cur->conn);
+  if (cur->condition.mutex == NULL) {
+    return;
+  }
+  pthread_mutex_unlock(cur->condition.mutex);
 }
 
 static char

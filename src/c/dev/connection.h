@@ -21,13 +21,6 @@ limitations under the License.
 #ifndef REQL_C_DEV_CONNECTION_H_
 #define REQL_C_DEV_CONNECTION_H_
 
-#include "./c/dev/cursor.h"
 #include "./c/connection.h"
-
-extern void
-reql_conn_lock(const ReQL_Conn_t *conn);
-
-extern void
-reql_conn_unlock(const ReQL_Conn_t *conn);
 
 #endif  // REQL_C_DEV_CONNECTION_H_

@@ -81,7 +81,7 @@ reql_get_64_token(uint8_t *buf) {
   return le64toh(convert.num);
 }
 
-extern void
+static void
 reql_conn_lock(const ReQL_Conn_t *conn) {
   if (conn->mutex == NULL) {
     return;
@@ -89,7 +89,7 @@ reql_conn_lock(const ReQL_Conn_t *conn) {
   pthread_mutex_lock(conn->mutex);
 }
 
-extern void
+static void
 reql_conn_unlock(const ReQL_Conn_t *conn) {
   if (conn->mutex == NULL) {
     return;
