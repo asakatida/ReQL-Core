@@ -24,16 +24,10 @@ limitations under the License.
 #include "./c/json.h"
 
 extern void
-reql_set_term_type(ReQL_Obj_t *obj, const ReQL_Term_t type);
-
-extern void
-reql_set_args(ReQL_Obj_t *obj, ReQL_Obj_t *args);
+reql_term_init(ReQL_Obj_t *obj, const ReQL_Term_t tt, ReQL_Obj_t *args, ReQL_Obj_t *kwargs);
 
 extern ReQL_Obj_t *
 reql_args(const ReQL_Obj_t *obj);
-
-extern void
-reql_set_kwargs(ReQL_Obj_t *obj, ReQL_Obj_t *kwargs);
 
 extern ReQL_Obj_t *
 reql_kwargs(const ReQL_Obj_t *obj);

@@ -30,18 +30,14 @@ limitations under the License.
 static void
 reql_set_owner(ReQL_Obj_t *obj, ReQL_Obj_t *new_owner);
 
-extern void
-reql_set_term_type(ReQL_Obj_t *obj, const ReQL_Term_t type) {
-  obj->tt = type;
-}
-
 extern ReQL_Term_t
 reql_term_type(const ReQL_Obj_t *obj) {
   return obj->tt;
 }
 
-extern void
+static void
 reql_set_args(ReQL_Obj_t *obj, ReQL_Obj_t *args) {
+  reql_set_owner(obj->obj.args.args, NULL);
   obj->obj.args.args = args;
   reql_set_owner(args, obj);
 }
@@ -51,8 +47,9 @@ reql_args(const ReQL_Obj_t *obj) {
   return obj->obj.args.args;
 }
 
-extern void
+static void
 reql_set_kwargs(ReQL_Obj_t *obj, ReQL_Obj_t *kwargs) {
+  reql_set_owner(obj->obj.args.kwargs, NULL);
   obj->obj.args.kwargs = kwargs;
   reql_set_owner(kwargs, obj);
 }
@@ -62,19 +59,11 @@ reql_kwargs(const ReQL_Obj_t *obj) {
   return obj->obj.args.kwargs;
 }
 
-static void
-reql_set_datum_type(ReQL_Obj_t *obj, const ReQL_Datum_t type) {
-  if (reql_term_type(obj) == REQL_DATUM) {
-    obj->obj.datum.dt = type;
-  }
-}
-
 extern ReQL_Datum_t
 reql_datum_type(const ReQL_Obj_t *obj) {
   if (reql_term_type(obj) != REQL_DATUM) {
     return REQL_R_REQL;
   }
-
   return obj->obj.datum.dt;
 }
 
@@ -96,16 +85,6 @@ reql_set_array(ReQL_Obj_t *obj, ReQL_Obj_t **array) {
 static ReQL_Obj_t **
 reql_array(const ReQL_Obj_t *obj) {
   return obj->obj.datum.json.var.data.array;
-}
-
-static void
-reql_set_boolean(ReQL_Obj_t *obj, const char boolean) {
-  obj->obj.datum.json.boolean = boolean;
-}
-
-static void
-reql_set_number(ReQL_Obj_t *obj, const double number) {
-  obj->obj.datum.json.number = number;
 }
 
 static void
@@ -208,10 +187,22 @@ reql_ensure_space(const ReQL_Obj_t *obj, uint32_t size) {
 }
 
 static void
-reql_var_init(ReQL_Obj_t *obj, const ReQL_Datum_t dt, const uint32_t alloc_size) {
-  reql_null_init(obj);
+reql_json_init(ReQL_Obj_t *obj, const ReQL_Datum_t dt) {
+  reql_term_init(obj, REQL_DATUM, NULL, NULL);
+  obj->obj.datum.dt = dt;
+}
 
-  reql_set_datum_type(obj, dt);
+extern void
+reql_term_init(ReQL_Obj_t *obj, const ReQL_Term_t tt, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  obj->tt = tt;
+  reql_set_args(obj, args);
+  reql_set_kwargs(obj, kwargs);
+  obj->owner = NULL;
+}
+
+static void
+reql_var_json_init(ReQL_Obj_t *obj, const ReQL_Datum_t dt, const uint32_t alloc_size) {
+  reql_json_init(obj, dt);
   reql_set_alloc_size(obj, alloc_size);
   reql_set_size(obj, 0);
 }
@@ -223,10 +214,8 @@ reql_set_str(ReQL_Obj_t *obj, uint8_t *str) {
 
 extern void
 reql_number_init(ReQL_Obj_t *obj, const double num) {
-  reql_null_init(obj);
-
-  reql_set_datum_type(obj, REQL_R_NUM);
-  reql_set_number(obj, num);
+  reql_json_init(obj, REQL_R_NUM);
+  obj->obj.datum.json.number = num;
 }
 
 extern double
@@ -236,8 +225,7 @@ reql_to_number(const ReQL_Obj_t *obj) {
 
 extern void
 reql_string_init(ReQL_Obj_t *obj, uint8_t *str, const uint32_t alloc_size) {
-  reql_var_init(obj, REQL_R_STR, alloc_size);
-
+  reql_var_json_init(obj, REQL_R_STR, alloc_size);
   reql_set_str(obj, str);
 }
 
@@ -292,14 +280,8 @@ reql_iter_next(ReQL_Iter_t *obj) {
 
 extern void
 reql_array_init(ReQL_Obj_t *obj, ReQL_Obj_t **arr, const uint32_t alloc_size) {
-  uint32_t i;
-
-  for (i=0; i < alloc_size; ++i) {
-    arr[i] = NULL;
-  }
-
-  reql_var_init(obj, REQL_R_ARRAY, alloc_size);
-
+  memset(arr, NULL, sizeof(ReQL_Obj_t*) * alloc_size);
+  reql_var_json_init(obj, REQL_R_ARRAY, alloc_size);
   reql_set_array(obj, arr);
 }
 
@@ -360,15 +342,8 @@ reql_array_last(const ReQL_Obj_t *obj) {
 
 extern void
 reql_object_init(ReQL_Obj_t *obj, ReQL_Pair_t *pairs, const uint32_t alloc_size) {
-  uint32_t i;
-
-  for (i=0; i < alloc_size; ++i) {
-    pairs[i].key = NULL;
-    pairs[i].val = NULL;
-  }
-
-  reql_var_init(obj, REQL_R_OBJECT, alloc_size);
-
+  memset(pairs, NULL, sizeof(ReQL_Pair_t) * alloc_size);
+  reql_var_json_init(obj, REQL_R_OBJECT, alloc_size);
   reql_set_pair(obj, pairs);
 }
 
@@ -566,9 +541,7 @@ reql_obj_copy(const ReQL_Obj_t *other) {
       break;
     }
     case REQL_R_REQL: {
-      reql_set_term_type(self, reql_term_type(other));
-      reql_set_args(self, reql_args(other));
-      reql_set_kwargs(self, reql_kwargs(other));
+      reql_term_init(self, reql_term_type(other), reql_args(other), reql_kwargs(other));
       break;
     }
     case REQL_R_JSON: {
@@ -667,17 +640,13 @@ reql_object_get(const ReQL_Obj_t *obj, ReQL_Obj_t *key) {
 
 extern void
 reql_null_init(ReQL_Obj_t *obj) {
-  reql_set_term_type(obj, REQL_DATUM);
-  reql_set_datum_type(obj, REQL_R_NULL);
-  obj->owner = NULL;
+  reql_json_init(obj, REQL_R_NULL);
 }
 
 extern void
 reql_bool_init(ReQL_Obj_t *obj, char val) {
-  reql_null_init(obj);
-
-  reql_set_datum_type(obj, REQL_R_BOOL);
-  reql_set_boolean(obj, val ? 1 : 0);
+  reql_json_init(obj, REQL_R_BOOL);
+  obj->obj.datum.json.boolean = val ? 1 : 0;
 }
 
 extern char

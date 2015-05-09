@@ -313,9 +313,7 @@ def term_imp(name)
   "
 extern void
 #{c_ast_name name}(ReQL_Obj_t *t, ReQL_Obj_t *a#{', ReQL_Obj_t *k' if opts? name}) {
-  reql_set_term_type(t, REQL_#{name});
-  reql_set_args(t, a);
-  reql_set_kwargs(t, #{if opts? name then 'k' else 'NULL' end});
+  reql_term_init(t, REQL_#{name}, a, #{if opts? name then 'k' else 'NULL' end});
 }"
 end
 
