@@ -280,7 +280,7 @@ reql_iter_next(ReQL_Iter_t *obj) {
 
 extern void
 reql_array_init(ReQL_Obj_t *obj, ReQL_Obj_t **arr, const uint32_t alloc_size) {
-  memset(arr, NULL, sizeof(ReQL_Obj_t*) * alloc_size);
+  memset(arr, (int)NULL, sizeof(ReQL_Obj_t*) * alloc_size);
   reql_var_json_init(obj, REQL_R_ARRAY, alloc_size);
   reql_set_array(obj, arr);
 }
@@ -342,7 +342,7 @@ reql_array_last(const ReQL_Obj_t *obj) {
 
 extern void
 reql_object_init(ReQL_Obj_t *obj, ReQL_Pair_t *pairs, const uint32_t alloc_size) {
-  memset(pairs, NULL, sizeof(ReQL_Pair_t) * alloc_size);
+  memset(pairs, (int)NULL, sizeof(ReQL_Pair_t) * alloc_size);
   reql_var_json_init(obj, REQL_R_OBJECT, alloc_size);
   reql_set_pair(obj, pairs);
 }
