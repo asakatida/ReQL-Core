@@ -267,6 +267,7 @@ struct ReQL_Obj_s {
       struct ReQL_Obj_s *kwargs;
     } args;
   } obj;
+  struct ReQL_Obj_s *owner;
 };
 typedef struct ReQL_Obj_s ReQL_Obj_t;
 
