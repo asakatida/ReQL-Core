@@ -20,6 +20,7 @@ limitations under the License.
 
 #include "./cpp/result.hpp"
 
+#include "./cpp/error.hpp"
 #include "./cpp/wrapper.hpp"
 
 #include <map>
@@ -74,7 +75,7 @@ Result::operator=(Result &&other) {
 void
 Result::insert(Result elem) {
   if (p_type != REQL_R_ARRAY) {
-    throw;
+    throw ReQLDriverError();
   }
   p_array.push_back(elem);
 }
@@ -82,7 +83,7 @@ Result::insert(Result elem) {
 void
 Result::insert(std::string key, Result value) {
   if (p_type != REQL_R_OBJECT) {
-    throw;
+    throw ReQLDriverError();
   }
   p_object.insert({key, value});
 }
@@ -95,7 +96,7 @@ Result::type() const {
 bool
 Result::boolean() const {
   if (p_type != REQL_R_BOOL) {
-    throw;
+    throw ReQLDriverError();
   }
   return p_boolean;
 }
@@ -103,7 +104,7 @@ Result::boolean() const {
 double
 Result::number() const {
   if (p_type != REQL_R_NUM) {
-    throw;
+    throw ReQLDriverError();
   }
   return p_num;
 }
@@ -111,7 +112,7 @@ Result::number() const {
 std::map<std::string, Result>
 Result::object() const {
   if (p_type != REQL_R_OBJECT) {
-    throw;
+    throw ReQLDriverError();
   }
   return p_object;
 }
@@ -119,7 +120,7 @@ Result::object() const {
 std::string
 Result::string() const {
   if (p_type != REQL_R_STR) {
-    throw;
+    throw ReQLDriverError();
   }
   return p_string;
 }
@@ -127,7 +128,7 @@ Result::string() const {
 std::vector<Result>
 Result::array() const {
   if (p_type != REQL_R_ARRAY) {
-    throw;
+    throw ReQLDriverError();
   }
   return p_array;
 }
@@ -159,7 +160,7 @@ Result::copy(const Result &other) {
       break;
     }
     case REQL_R_REQL:
-    case REQL_R_JSON: throw;
+    case REQL_R_JSON: throw ReQLDriverError();
   }
 }
 
@@ -190,7 +191,7 @@ Result::move(Result &&other) {
       break;
     }
     case REQL_R_JSON:
-    case REQL_R_REQL: throw;
+    case REQL_R_REQL: throw ReQLDriverError();
   }
 }
 

@@ -20,6 +20,8 @@ limitations under the License.
 
 #include "./cpp/query.hpp"
 
+#include "./cpp/error.hpp"
+
 #include <map>
 #include <string>
 #include <vector>
@@ -50,7 +52,7 @@ Query::Query(Query &&other) : AST(std::move(other)) {}
 
 Cursor Query::run(const Connection &conn) const {
   if (!conn.isOpen()) {
-    throw;
+    throw ReQLDriverError();
   }
 
   Cursor cur;

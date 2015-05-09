@@ -20,6 +20,7 @@ limitations under the License.
 
 #include "./cpp/expr.hpp"
 
+#include "./cpp/error.hpp"
 #include "./cpp/query.hpp"
 
 #include <map>
@@ -32,11 +33,11 @@ Expr::Expr() {}
 
 Expr::Expr(const ReQL_AST_Function_Kwargs &f, const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) : p_func(nullptr), p_func_kwargs(f) {
   if (args.size() > std::numeric_limits<std::uint32_t>::max()) {
-    throw;
+    throw ReQLDriverError();
   }
 
   if (kwargs.size() > std::numeric_limits<std::uint32_t>::max()) {
-    throw;
+    throw ReQLDriverError();
   }
 
   std::vector<ReQL> r_args;
@@ -59,7 +60,7 @@ Expr::Expr(const ReQL_AST_Function_Kwargs &f, const std::vector<Query> &args, co
 
 Expr::Expr(const ReQL_AST_Function &f, const std::vector<Query> &args) : p_func(f), p_func_kwargs(nullptr) {
   if (args.size() > std::numeric_limits<std::uint32_t>::max()) {
-    throw;
+    throw ReQLDriverError();
   }
 
   std::vector<ReQL> r_args;
@@ -80,7 +81,7 @@ Expr::Expr(const bool &val) : p_query(val) {}
 
 Expr::Expr(const std::vector<Query> &val) {
   if (val.size() > std::numeric_limits<std::uint32_t>::max()) {
-    throw;
+    throw ReQLDriverError();
   }
 
   std::vector<ReQL> r_array;
@@ -95,7 +96,7 @@ Expr::Expr(const std::vector<Query> &val) {
 
 Expr::Expr(const std::map<std::string, Query> &val) {
   if (val.size() > std::numeric_limits<std::uint32_t>::max()) {
-    throw;
+    throw ReQLDriverError();
   }
 
   std::map<ReQL, ReQL> r_object;

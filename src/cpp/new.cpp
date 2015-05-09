@@ -20,6 +20,8 @@ limitations under the License.
 
 #include "./cpp/new.hpp"
 
+#include "./cpp/error.hpp"
+
 #include <map>
 #include <string>
 #include <vector>
@@ -69,7 +71,7 @@ ReQL::ReQL(const std::map<ReQL, ReQL> &object) : ReQL() {
   }
   reql_object_init(data(), p_object.get(), static_cast<std::uint32_t>(size));
   for (auto it=p_r_object.cbegin(); it != p_r_object.cend(); ++it) {
-    if (it->first.type() != REQL_R_STR) throw;
+    if (it->first.type() != REQL_R_STR) throw ReQLDriverError();
     reql_object_add(data(), it->first.data(), it->second.data());
   }
 }
@@ -110,7 +112,7 @@ ReQL::ReQL(const ReQL_AST_Function_Kwargs &f, const std::vector<ReQL> &args, con
     p_object.reset(new ReQL_Pair_t[kwargs_size]);
     reql_object_init(p_kwargs.get(), p_object.get(), static_cast<std::uint32_t>(kwargs_size));
     for (auto it=p_r_object.cbegin(); it != p_r_object.cend(); ++it) {
-      if (it->first.type() != REQL_R_STR) throw;
+      if (it->first.type() != REQL_R_STR) throw ReQLDriverError();
       reql_object_add(p_kwargs.get(), it->first.data(), it->second.data());
     }
   }
@@ -144,7 +146,7 @@ ReQL::copy(const ReQL &other) {
       reql_bool_init(data(), reql_to_bool(other.data()));
       break;
     }
-    case REQL_R_JSON: throw;
+    case REQL_R_JSON: throw ReQLDriverError();
     case REQL_R_NULL: break;
     case REQL_R_NUM: {
       reql_number_init(data(), reql_to_number(other.data()));
@@ -157,7 +159,7 @@ ReQL::copy(const ReQL &other) {
       }
       reql_object_init(data(), p_object.get(), static_cast<std::uint32_t>(size));
       for (auto it=p_r_object.cbegin(); it != p_r_object.cend(); ++it) {
-        if (it->first.type() != REQL_R_STR) throw;
+        if (it->first.type() != REQL_R_STR) throw ReQLDriverError();
         reql_object_add(data(), it->first.data(), it->second.data());
       }
       break;
@@ -179,7 +181,7 @@ ReQL::copy(const ReQL &other) {
           p_object.reset(new ReQL_Pair_t[kwargs_size]);
           reql_object_init(p_kwargs.get(), p_object.get(), static_cast<std::uint32_t>(kwargs_size));
           for (auto it=p_r_object.cbegin(); it != p_r_object.cend(); ++it) {
-            if (it->first.type() != REQL_R_STR) throw;
+            if (it->first.type() != REQL_R_STR) throw ReQLDriverError();
             reql_object_add(p_kwargs.get(), it->first.data(), it->second.data());
           }
         }
@@ -187,7 +189,7 @@ ReQL::copy(const ReQL &other) {
       } else if (p_func_kwargs == nullptr) {
         p_func(data(), p_args.get());
       } else {
-        throw;
+        throw ReQLDriverError();
       }
       break;
     }

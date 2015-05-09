@@ -20,6 +20,8 @@ limitations under the License.
 
 #include "./cpp/connection.hpp"
 
+#include "./cpp/error.hpp"
+
 #include <map>
 #include <string>
 #include <vector>
@@ -32,7 +34,7 @@ Connection::Connection() : p_conn(new ReQL_Conn_t) {
   std::uint8_t buf[500];
 
   if (reql_connect(data(), buf, 500) != 0) {
-    throw;
+    throw ReQLDriverError();
   }
 }
 
@@ -44,7 +46,7 @@ Connection::Connection(const std::string &host) : p_conn(new ReQL_Conn_t) {
   std::uint8_t buf[500];
 
   if (reql_connect(data(), buf, 500) != 0) {
-    throw;
+    throw ReQLDriverError();
   }
 }
 
@@ -57,7 +59,7 @@ Connection::Connection(const std::string &host, const std::uint16_t &port) : p_c
   std::uint8_t buf[500];
 
   if (reql_connect(data(), buf, 500) != 0) {
-    throw;
+    throw ReQLDriverError();
   }
 }
 
@@ -77,7 +79,7 @@ Connection::Connection(const std::string &host, const std::uint16_t &port, const
   std::uint8_t buf[500];
 
   if (reql_connect(data(), buf, 500) != 0) {
-    throw;
+    throw ReQLDriverError();
   }
 }
 
@@ -93,7 +95,7 @@ Connection::Connection(const Connection &other) : p_conn(new ReQL_Conn_t) {
   std::uint8_t buf[500];
 
   if (reql_connect(data(), buf, 500) != 0) {
-    throw;
+    throw ReQLDriverError();
   }
 }
 
@@ -119,7 +121,7 @@ Connection &Connection::operator=(const Connection &other) {
     std::uint8_t buf[500];
 
     if (reql_connect(data(), buf, 500)) {
-      throw;
+      throw ReQLDriverError();
     }
   }
   return *this;

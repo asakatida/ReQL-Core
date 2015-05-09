@@ -20,6 +20,7 @@ limitations under the License.
 
 #include "./cpp/cursor.hpp"
 
+#include "./cpp/error.hpp"
 #include "./cpp/wrapper.hpp"
 
 #include <map>
@@ -113,7 +114,7 @@ private:
       array.insert(val);
       p_stack.push_back(array);
     } else {
-      throw;
+      throw ReQLDriverError();
     }
   }
 
@@ -138,7 +139,7 @@ private:
     } else if (object.type() == REQL_R_ARRAY) {
       addElement(object, last);
     } else {
-      throw;
+      throw ReQLDriverError();
     }
   }
 

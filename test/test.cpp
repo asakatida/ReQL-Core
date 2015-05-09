@@ -95,7 +95,7 @@ std::string inspect(const ReQL_Obj_t *query) {
     case REQL_R_STR: return std::string(reinterpret_cast<char *>(reql_string_buf(query)), reql_size(query));
   }
 
-  throw;
+  throw std::exception();
 }
 
 }  // namespace ReQL

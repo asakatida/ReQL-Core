@@ -33,6 +33,7 @@
 		872E2D211AEC76FC0066525E /* connection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 872E2D201AEC76FC0066525E /* connection.cpp */; };
 		8769EF2B1AC8CBBC003B7CEC /* connection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1E2FA66D1ABCDE7C00134CFA /* connection.cpp */; };
 		8769EF2C1AC8CBF1003B7CEC /* connection.c in Sources */ = {isa = PBXBuildFile; fileRef = 1E2FA66A1ABCDBCF00134CFA /* connection.c */; };
+		878CDF891AFE6196008638B8 /* error.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 878CDF871AFE6196008638B8 /* error.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -92,6 +93,8 @@
 		1ECDD7811AB53D80004CD31E /* test.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = test.hpp; sourceTree = "<group>"; };
 		872E2D201AEC76FC0066525E /* connection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = connection.cpp; sourceTree = "<group>"; };
 		8773F1C11A6A058D001F14C5 /* libReQL-test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "libReQL-test"; sourceTree = BUILT_PRODUCTS_DIR; };
+		878CDF871AFE6196008638B8 /* error.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = error.cpp; sourceTree = "<group>"; };
+		878CDF881AFE6196008638B8 /* error.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = error.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -209,6 +212,8 @@
 				1E0F0CC11AEB2606001E31C2 /* result.hpp */,
 				1E3B90921AEEC0BA009AD8D7 /* wrapper.cpp */,
 				1E3B90941AEEC0F0009AD8D7 /* wrapper.hpp */,
+				878CDF871AFE6196008638B8 /* error.cpp */,
+				878CDF881AFE6196008638B8 /* error.hpp */,
 			);
 			path = cpp;
 			sourceTree = "<group>";
@@ -356,6 +361,7 @@
 				1ECDD7831AB53D80004CD31E /* char.c in Sources */,
 				8769EF2C1AC8CBF1003B7CEC /* connection.c in Sources */,
 				1ECDD7A51AB53D80004CD31E /* connection.cpp in Sources */,
+				878CDF891AFE6196008638B8 /* error.cpp in Sources */,
 				8769EF2B1AC8CBBC003B7CEC /* connection.cpp in Sources */,
 				1ECDD7861AB53D80004CD31E /* encode.c in Sources */,
 				1ECDD78C1AB53D80004CD31E /* new.cpp in Sources */,

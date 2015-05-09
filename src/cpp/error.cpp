@@ -18,39 +18,8 @@ limitations under the License.
  * @copyright Apache
  */
 
-#include "./cpp/wrapper.hpp"
-
 #include "./cpp/error.hpp"
 
 namespace ReQL {
-
-Wrapper::Wrapper(ReQL_Obj_t *obj) : std::unique_ptr<ReQL_Obj_t>(obj) {
-  switch (reql_datum_type(obj)) {
-    case REQL_R_ARRAY: {
-      break;
-    }
-    case REQL_R_BOOL: {
-      break;
-    }
-    case REQL_R_JSON: throw ReQLDriverError();
-    case REQL_R_NULL: {
-      break;
-    }
-    case REQL_R_NUM: {
-      break;
-    }
-    case REQL_R_OBJECT: {
-      break;
-    }
-    case REQL_R_REQL: {
-      break;
-    }
-    case REQL_R_STR: {
-      break;
-    }
-  }
-}
-
-Wrapper::~Wrapper() {}
 
 }
