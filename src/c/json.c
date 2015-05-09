@@ -298,12 +298,11 @@ reql_object_init(ReQL_Obj_t *obj, ReQL_Pair_t *pairs, const uint32_t alloc_size)
 
 static char
 reql_type_eq(const ReQL_Obj_t *l, const ReQL_Obj_t *r) {
-  char res = l == r;
-  if (!res) {
-    if ((l != NULL) && (r != NULL)) {
-      if (reql_term_type(l) == reql_term_type(r)) {
-        res = reql_datum_type(l) == reql_datum_type(r);
-      }
+  char res = (l != NULL) && (r != NULL);
+  if (res) {
+    res = reql_term_type(l) == reql_term_type(r);
+    if (res) {
+      res = reql_datum_type(l) == reql_datum_type(r);
     }
   }
   return res;
@@ -311,7 +310,11 @@ reql_type_eq(const ReQL_Obj_t *l, const ReQL_Obj_t *r) {
 
 extern char
 reql_op_eq(const ReQL_Obj_t *l, const ReQL_Obj_t *r) {
-  char res = reql_type_eq(l, r);
+  char res = l == r;
+  if (res) {
+    return res;
+  }
+  res = reql_type_eq(l, r);
   if (res) {
     switch (reql_datum_type(l)) {
       case REQL_R_ARRAY: {
