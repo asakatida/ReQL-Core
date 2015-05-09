@@ -25,25 +25,46 @@ limitations under the License.
 
 namespace ReQL {
 
-class ReQLError : std::exception {
+class ReQLError : public std::exception {
+public:
+  ReQLError();
+  virtual const char* what() const _NOEXCEPT;
 };
 
-class ReQLQueryError : ReQLError {
+class ReQLQueryError : public ReQLError {
+public:
+  ReQLQueryError();
+  virtual const char* what() const _NOEXCEPT;
 };
   
-class ReQLClientError : ReQLQueryError {
+class ReQLClientError : public ReQLQueryError {
+public:
+  ReQLClientError();
+  virtual const char* what() const _NOEXCEPT;
 };
   
-class ReQLCompileError : ReQLQueryError {
+class ReQLCompileError : public ReQLQueryError {
+public:
+  ReQLCompileError();
+  virtual const char* what() const _NOEXCEPT;
 };
   
-class ReQLRuntimeError : ReQLQueryError {
+class ReQLRuntimeError : public ReQLQueryError {
+public:
+  ReQLRuntimeError();
+  virtual const char* what() const _NOEXCEPT;
 };
   
-class ReQLCursorEmpty : ReQLQueryError {
+class ReQLCursorEmpty : public ReQLQueryError {
+public:
+  ReQLCursorEmpty();
+  virtual const char* what() const _NOEXCEPT;
 };
   
-class ReQLDriverError : ReQLError {
+class ReQLDriverError : public ReQLError {
+public:
+  ReQLDriverError();
+  virtual const char* what() const _NOEXCEPT;
 };
   
 }  // namespace ReQL
