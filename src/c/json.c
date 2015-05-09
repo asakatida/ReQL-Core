@@ -199,15 +199,6 @@ reql_new_iter(const ReQL_Obj_t *obj) {
   return iter;
 }
 
-static ReQL_Pair_t *
-reql_object_index(const ReQL_Obj_t *obj, const uint32_t idx) {
-  if (reql_alloc_size(obj) <= idx) {
-    return NULL;
-  }
-
-  return &obj->obj.datum.json.var.data.pair[idx];
-}
-
 extern ReQL_Obj_t *
 reql_iter_next(ReQL_Iter_t *obj) {
   ReQL_Obj_t *next = NULL;
@@ -215,8 +206,10 @@ reql_iter_next(ReQL_Iter_t *obj) {
   if (reql_size(obj->obj) > obj->idx) {
     if (reql_datum_type(obj->obj) == REQL_R_ARRAY) {
       next = reql_array_index(obj->obj, obj->idx);
+    } else if (reql_datum_type(obj->obj) == REQL_R_OBJECT) {
+      next = reql_pair(obj->obj)[obj->idx].key;
     } else {
-      next = reql_object_index(obj->obj, obj->idx)->key;
+      return NULL;
     }
     ++obj->idx;
   }
