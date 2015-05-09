@@ -14,6 +14,7 @@ set(SOURCES
  src/cpp/ast.cpp
  src/cpp/connection.cpp
  src/cpp/cursor.cpp
+ src/cpp/error.cpp
  src/cpp/expr.cpp
  src/cpp/new.cpp
  src/cpp/query.cpp
@@ -42,6 +43,8 @@ set(MOC_HEADERS
  src/c/util/portable_endian.h
  src/cpp/ast.hpp
  src/cpp/connection.hpp
+ src/cpp/cursor.hpp
+ src/cpp/error.hpp
  src/cpp/expr.hpp
  src/cpp/new.hpp
  src/cpp/query.hpp
