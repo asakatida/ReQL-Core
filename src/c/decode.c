@@ -21,6 +21,7 @@ limitations under the License.
 #include "./c/dev/decode.h"
 
 #include "./c/dev/char.h"
+#include "./c/dev/error.h"
 
 #include <math.h>
 #include <stdlib.h>

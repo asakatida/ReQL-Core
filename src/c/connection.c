@@ -22,6 +22,7 @@ limitations under the License.
 
 #include "./c/dev/cursor.h"
 #include "./c/dev/encode.h"
+#include "./c/dev/error.h"
 #include "./c/dev/decode.h"
 #include "./c/util/portable_endian.h"
 
@@ -79,6 +80,16 @@ reql_get_64_token(uint8_t *buf) {
   ReQL_LE64 convert = {0};
   memcpy(convert.buf, buf, 8);
   return le64toh(convert.num);
+}
+
+static void
+reql_connection_error(char *msg, char *trace) {
+  reql_error_init(REQL_E_CONNECTION, msg, trace);
+}
+
+static void
+reql_connection_memory_error(char *trace) {
+  reql_connection_error("Insufficient memory", trace);
 }
 
 static void

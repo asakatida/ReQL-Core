@@ -20,6 +20,8 @@ limitations under the License.
 
 #include "./c/dev/json.h"
 
+#include "./c/dev/error.h"
+
 #include <float.h>
 #include <math.h>
 #include <stdlib.h>

@@ -21,6 +21,7 @@ limitations under the License.
 #include "./c/dev/cursor.h"
 
 #include "./c/dev/connection.h"
+#include "./c/dev/error.h"
 
 #include <stdlib.h>
 

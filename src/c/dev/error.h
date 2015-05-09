@@ -23,6 +23,10 @@ limitations under the License.
 
 typedef enum {
   REQL_E_NO,
+  REQL_E_CONNECTION,
+  REQL_E_CURSOR,
+  REQL_E_DECODE,
+  REQL_E_ENCODE,
   REQL_E_JSON
 } ReQL_Error_Type_t;
 

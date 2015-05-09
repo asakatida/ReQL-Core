@@ -21,6 +21,7 @@ limitations under the License.
 #include "./c/dev/encode.h"
 
 #include "./c/dev/char.h"
+#include "./c/dev/error.h"
 
 #include <stdio.h>
 #include <stdlib.h>
