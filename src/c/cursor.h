@@ -22,6 +22,7 @@ limitations under the License.
 #define REQL_C_CURSOR_H_
 
 #include <pthread.h>
+#include "./c/json.h"
 
 typedef int(^ReQL_Each_Function)(ReQL_Obj_t *);
 

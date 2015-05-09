@@ -27,4 +27,7 @@ limitations under the License.
 extern void
 reql_cursor_init(ReQL_Cur_t *cur, uint64_t token);
 
+extern void
+reql_cursor_set_response(ReQL_Cur_t *cur, ReQL_Obj_t *res);
+
 #endif  // REQL_C_DEV_CURSOR_H_

@@ -22,7 +22,7 @@ limitations under the License.
 #define REQL_C_CONNECTION_H_
 
 #include <pthread.h>
-#include "./c/dev/cursor.h"
+#include "./c/cursor.h"
 
 /**
  * @brief connection object
@@ -43,7 +43,10 @@ struct ReQL_Conn_s {
   char *auth;
   ReQL_Cur_t *cursors;
 
-  pthread_mutex_t *mutex;
+  struct {
+    pthread_mutex_t *mutex;
+    pthread_cond_t *done;
+  } condition;
 };
 typedef struct ReQL_Conn_s ReQL_Conn_t;
 
@@ -157,7 +160,7 @@ reql_ensure_conn_close(ReQL_Conn_t *conn);
  * @return 0 if closed or closing. non zero otherwise.
  */
 extern char
-reql_conn_open(const ReQL_Conn_t *conn);
+reql_conn_open(ReQL_Conn_t *conn);
 
 /**
  * @brief Prepare and send a query to the server for evaluation. Set up cur to receive responces.

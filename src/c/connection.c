@@ -82,38 +82,58 @@ reql_get_64_token(uint8_t *buf) {
 }
 
 static void
-reql_conn_lock(const ReQL_Conn_t *conn) {
-  if (conn->mutex == NULL) {
-    return;
+reql_connection_mutex_init(ReQL_Conn_t *conn) {
+  if (conn->condition.mutex == NULL) {
+    pthread_mutexattr_t *attrs = malloc(sizeof(pthread_mutexattr_t));
+
+    pthread_mutexattr_init(attrs);
+    pthread_mutexattr_settype(attrs, PTHREAD_MUTEX_ERRORCHECK);
+
+    pthread_mutex_t *mutex = malloc(sizeof(pthread_mutex_t));
+
+    pthread_mutex_init(mutex, attrs);
+
+    conn->condition.mutex = mutex;
+
+    pthread_mutexattr_destroy(attrs);
+
+    free(attrs); attrs = NULL;
   }
-  pthread_mutex_lock(conn->mutex);
+
+  if (conn->condition.done == NULL) {
+    pthread_condattr_t *attrs = malloc(sizeof(pthread_condattr_t));
+
+    pthread_condattr_init(attrs);
+    pthread_condattr_setpshared(attrs, PTHREAD_PROCESS_PRIVATE);
+
+    pthread_cond_t *done = malloc(sizeof(pthread_cond_t));
+
+    pthread_cond_init(done, attrs);
+
+    conn->condition.done = done;
+
+    pthread_condattr_destroy(attrs);
+
+    free(attrs); attrs = NULL;
+  }
 }
 
 static void
-reql_conn_unlock(const ReQL_Conn_t *conn) {
-  if (conn->mutex == NULL) {
-    return;
-  }
-  pthread_mutex_unlock(conn->mutex);
+reql_conn_lock(ReQL_Conn_t *conn) {
+  reql_connection_mutex_init(conn);
+  pthread_mutex_lock(conn->condition.mutex);
+}
+
+static void
+reql_conn_unlock(ReQL_Conn_t *conn) {
+  reql_connection_mutex_init(conn);
+  pthread_mutex_unlock(conn->condition.mutex);
 }
 
 extern void
 reql_connection_init(ReQL_Conn_t *conn) {
-  pthread_mutexattr_t *attrs = malloc(sizeof(pthread_mutexattr_t));
-
-  pthread_mutexattr_init(attrs);
-  pthread_mutexattr_settype(attrs, PTHREAD_MUTEX_ERRORCHECK);
-
-  pthread_mutex_t *mutex = malloc(sizeof(pthread_mutex_t));
-
-  pthread_mutex_init(mutex, attrs);
-
-  conn->mutex = mutex;
-
-  pthread_mutexattr_destroy(attrs);
-
-  free(attrs); attrs = NULL;
-
+  conn->condition.mutex = NULL;
+  conn->condition.done = NULL;
   reql_conn_lock(conn);
   conn->socket = -1;
   conn->done = 0;
@@ -198,59 +218,38 @@ reql_conn_timeout(ReQL_Conn_t *conn) {
 
 static int
 reql_conn_socket(const ReQL_Conn_t *conn) {
-  reql_conn_lock(conn);
-  int sock = conn->socket;
-  reql_conn_unlock(conn);
-  return sock;
+  return conn->socket;
 }
 
 static void
 reql_conn_close_socket(ReQL_Conn_t *conn) {
-  reql_conn_lock(conn);
-  close(conn->socket);
+  if (reql_conn_socket(conn) >= 0) {
+    close(conn->socket);
+    pthread_cond_broadcast(conn->condition.done);
+  }
   conn->socket = -1;
-  reql_conn_unlock(conn);
 }
 
 static void
 reql_conn_set_res(const ReQL_Conn_t *conn, ReQL_Obj_t *res, const uint64_t token) {
-  reql_conn_lock(conn);
-
   ReQL_Cur_t *cur = conn->cursors;
 
   while (1) {
     if (cur->token == token) {
-      if (reql_cur_open(cur) == 0) {
-        reql_json_destroy(res);
-        return;
-      }
-      if (cur->response != NULL) {
-        reql_json_destroy(cur->response);
-        cur->response = NULL;
-      }
-      if (cur->cb != NULL) {
-        cur->cb(res);
-        reql_json_destroy(res);
-      } else {
-        cur->response = res;
-      }
+      reql_cursor_set_response(cur, res);
       break;
-    }
-    if (cur->next == cur) {
+    } else if (cur->next == cur) {
+      reql_json_destroy(res);
       break;
+    } else {
+      cur = cur->next;
     }
-    cur = cur->next;
   }
-
-  reql_conn_unlock(conn);
 }
 
 static char
 reql_conn_done(const ReQL_Conn_t *conn) {
-  reql_conn_lock(conn);
-  char res = conn->done;
-  reql_conn_unlock(conn);
-  return res;
+  return conn->done;
 }
 
 static uint32_t
@@ -270,11 +269,16 @@ reql_conn_loop(void *conn) {
   uint64_t token = 0;
   uint32_t pos = 0, size = 0;
 
+  reql_conn_lock(conn);
   while (reql_conn_done(conn) == 0) {
     pos += reql_conn_read(conn, &response[pos], (size > 0 ? size : 12) - pos);
+    reql_conn_unlock(conn);
     if (size > 0) {
       if (pos >= size) {
-        reql_conn_set_res(conn, reql_decode(response, size), token);
+        ReQL_Obj_t *res = reql_decode(response, size);
+        reql_conn_lock(conn);
+        reql_conn_set_res(conn, res, token);
+        reql_conn_unlock(conn);
 
         pos -= size;
         size = 0;
@@ -299,17 +303,19 @@ reql_conn_loop(void *conn) {
         }
       }
     }
+    reql_conn_lock(conn);
   }
 
-  free(response);
-
   reql_conn_close_socket(conn);
+  reql_conn_unlock(conn);
+
+  free(response);
 
   return NULL;
 }
 
-extern int
-reql_connect(ReQL_Conn_t *conn, uint8_t *buf, const uint32_t size) {
+static int
+reql_connect_(ReQL_Conn_t *conn, uint8_t *buf, const uint32_t size) {
   struct addrinfo hints;
   struct addrinfo *result, *rp;
 
@@ -343,14 +349,10 @@ reql_connect(ReQL_Conn_t *conn, uint8_t *buf, const uint32_t size) {
   const struct timeval timeout = {(int64_t)conn->timeout, 0};
 
   if (setsockopt(conn->socket, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(struct timeval))) {
-    reql_close_conn(conn);
-    reql_conn_close_socket(conn);
     return -1;
   }
 
   if (setsockopt(conn->socket, SOL_SOCKET, SO_SNDTIMEO, &timeout, sizeof(struct timeval))) {
-    reql_close_conn(conn);
-    reql_conn_close_socket(conn);
     return -1;
   }
 
@@ -375,8 +377,6 @@ reql_connect(ReQL_Conn_t *conn, uint8_t *buf, const uint32_t size) {
   magic[3].iov_len = 4;
 
   if (writev(conn->socket, magic, 4) != (conn->auth_size + 12)) {
-    reql_close_conn(conn);
-    reql_conn_close_socket(conn);
     return -1;
   }
 
@@ -384,47 +384,69 @@ reql_connect(ReQL_Conn_t *conn, uint8_t *buf, const uint32_t size) {
 
   if (memcmp(buf, "SUCCESS", 8) != 0) {
     reql_conn_read(conn, buf, size - 8);
-    reql_close_conn(conn);
-    reql_conn_close_socket(conn);
     return -1;
   }
 
   pthread_t thread;
 
   if (pthread_create(&thread, NULL, reql_conn_loop, conn) != 0) {
-    reql_close_conn(conn);
-    reql_conn_close_socket(conn);
     return -1;
   }
 
   if (pthread_detach(thread) != 0) {
-    reql_ensure_conn_close(conn);
     return -1;
   }
 
   return 0;
 }
 
+static void
+reql_close_conn_(ReQL_Conn_t *conn) {
+  conn->done = 1;
+}
+
+static void
+reql_ensure_conn_close_(ReQL_Conn_t *conn) {
+  reql_close_conn_(conn);
+  if (reql_conn_socket(conn) > 0) {
+    pthread_cond_wait(conn->condition.done, conn->condition.mutex);
+  }
+  reql_conn_unlock(conn);
+  pthread_mutex_destroy(conn->condition.mutex);
+  free(conn->condition.mutex); conn->condition.mutex = NULL;
+}
+
+extern int
+reql_connect(ReQL_Conn_t *conn, uint8_t *buf, const uint32_t size) {
+  reql_conn_lock(conn);
+  const int status = reql_connect_(conn, buf, size);
+  if (status != 0) {
+    reql_ensure_conn_close_(conn);
+  }
+  reql_conn_unlock(conn);
+  return status;
+}
+
 extern void
 reql_close_conn(ReQL_Conn_t *conn) {
   reql_conn_lock(conn);
-  conn->done = 1;
+  reql_close_conn_(conn);
   reql_conn_unlock(conn);
 }
 
 extern void
 reql_ensure_conn_close(ReQL_Conn_t *conn) {
-  reql_close_conn(conn);
-  while (reql_conn_socket(conn) > 0) {
-    sleep(1);
-  }
-  pthread_mutex_destroy(conn->mutex);
-  free(conn->mutex); conn->mutex = NULL;
+  reql_conn_lock(conn);
+  reql_ensure_conn_close_(conn);
+  reql_conn_unlock(conn);
 }
 
 extern char
-reql_conn_open(const ReQL_Conn_t *conn) {
-  return reql_conn_socket(conn) > 0 && !reql_conn_done(conn);
+reql_conn_open(ReQL_Conn_t *conn) {
+  reql_conn_lock(conn);
+  const char open = reql_conn_socket(conn) > 0 && !reql_conn_done(conn);
+  reql_conn_unlock(conn);
+  return open;
 }
 
 static ReQL_Obj_t *
@@ -526,8 +548,8 @@ reql_build(const ReQL_Obj_t *query) {
   return obj;
 }
 
-extern int
-reql_run(ReQL_Cur_t *cur, const ReQL_Obj_t *query, ReQL_Conn_t *conn, ReQL_Obj_t *kwargs) {
+static ReQL_String_t *
+reql_encode_query(const ReQL_Obj_t *query, ReQL_Obj_t *kwargs) {
   ReQL_Obj_t start;
 
   ReQL_Obj_t array;
@@ -546,15 +568,13 @@ reql_run(ReQL_Cur_t *cur, const ReQL_Obj_t *query, ReQL_Conn_t *conn, ReQL_Obj_t
   ReQL_String_t *wire_query = reql_encode(&array);
 
   reql_json_destroy(build);
+  
+  return wire_query;
+}
 
-  if (wire_query == NULL) {
-    return -1;
-  }
-
-  reql_conn_lock(conn);
-
+static int
+reql_run_(ReQL_Cur_t *cur, const ReQL_String_t *wire_query, ReQL_Conn_t *conn) {
   if (conn->socket < 0) {
-    reql_conn_unlock(conn);
     return -1;
   }
 
@@ -562,7 +582,7 @@ reql_run(ReQL_Cur_t *cur, const ReQL_Obj_t *query, ReQL_Conn_t *conn, ReQL_Obj_t
 
   if (cur != NULL) {
     reql_cursor_init(cur, token);
-    if (conn->cursors) {
+    if (conn->cursors != NULL) {
       cur->next = conn->cursors;
       cur->next->prev = cur;
     }
@@ -592,10 +612,26 @@ reql_run(ReQL_Cur_t *cur, const ReQL_Obj_t *query, ReQL_Conn_t *conn, ReQL_Obj_t
   magic[2].iov_len = wire_query->size;
 
   if (writev(conn->socket, magic, 3) != (wire_query->size + 12)) {
-    reql_conn_unlock(conn);
     return -1;
   }
-
-  reql_conn_unlock(conn);
+  
   return 0;
+}
+
+extern int
+reql_run(ReQL_Cur_t *cur, const ReQL_Obj_t *query, ReQL_Conn_t *conn, ReQL_Obj_t *kwargs) {
+  ReQL_String_t *wire_query = reql_encode_query(query, kwargs);
+
+  if (wire_query == NULL) {
+    return -1;
+  }
+  
+  reql_conn_lock(conn);
+  const int status = reql_run_(cur, wire_query, conn);
+  reql_conn_unlock(conn);
+
+  free(wire_query->str); wire_query->str = NULL;
+  free(wire_query); wire_query = NULL;
+
+  return status;
 }
