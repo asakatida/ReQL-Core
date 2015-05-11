@@ -252,6 +252,22 @@ reql_conn_close_socket(ReQL_Conn_t *conn) {
 }
 
 static void
+reql_close_conn_(ReQL_Conn_t *conn) {
+  conn->done = 1;
+}
+
+static void
+reql_ensure_conn_close_(ReQL_Conn_t *conn) {
+  reql_close_conn_(conn);
+  while (reql_conn_socket(conn) > 0) {
+    pthread_cond_wait(conn->condition.done, conn->condition.mutex);
+  }
+  reql_conn_unlock(conn);
+  pthread_mutex_destroy(conn->condition.mutex);
+  free(conn->condition.mutex); conn->condition.mutex = NULL;
+}
+
+static void
 reql_conn_set_res(const ReQL_Conn_t *conn, ReQL_Obj_t *res, const uint64_t token) {
   ReQL_Cur_t *cur = conn->cursors;
 
@@ -273,27 +289,27 @@ reql_conn_done(const ReQL_Conn_t *conn) {
   return conn->done;
 }
 
-static uint32_t
-reql_conn_read(const ReQL_Conn_t *conn, uint8_t *buf, const uint32_t size) {
-  const ssize_t rcv_size = recvfrom(reql_conn_socket(conn), buf, size, 0, NULL, NULL);
-
-  if (rcv_size < 0) {
-    return 0;
-  }
-
-  return (uint32_t)rcv_size;
-}
-
 static void *
 reql_conn_loop(void *conn) {
   uint8_t *response = malloc(sizeof(uint8_t) * 12);
   uint64_t token = 0;
   uint32_t pos = 0, size = 0;
+  ssize_t rcv_size;
+  size_t rcv_size_request;
 
   reql_conn_lock(conn);
   while (reql_conn_done(conn) == 0) {
-    pos += reql_conn_read(conn, &response[pos], (size > 0 ? size : 12) - pos);
+    rcv_size_request = (size > 0 ? size : 12) - pos;
+    rcv_size = recvfrom(reql_conn_socket(conn), &response[pos], rcv_size_request, 0, NULL, NULL);
     reql_conn_unlock(conn);
+
+    if (rcv_size < 0) {
+    } else if ((size_t)rcv_size == rcv_size_request) {
+      pos += rcv_size;
+    } else {
+      pos += rcv_size;
+    }
+
     if (size > 0) {
       if (pos >= size) {
         ReQL_Obj_t *res = reql_decode(response, size);
@@ -401,10 +417,14 @@ reql_connect_(ReQL_Conn_t *conn, uint8_t *buf, const uint32_t size) {
     return -1;
   }
 
-  reql_conn_read(conn, buf, 8);
+  const ssize_t rcv_size = recvfrom(reql_conn_socket(conn), buf, 8, 0, NULL, NULL);
 
-  if (memcmp(buf, "SUCCESS", 8) != 0) {
-    reql_conn_read(conn, buf, size - 8);
+  if (rcv_size < 0) {
+    return -1;
+  } else if (rcv_size != 8) {
+    return -1;
+  } else if (memcmp(buf, "SUCCESS", 8) != 0) {
+    recvfrom(reql_conn_socket(conn), &buf[8], size - 8, 0, NULL, NULL);
     return -1;
   }
 
@@ -415,26 +435,12 @@ reql_connect_(ReQL_Conn_t *conn, uint8_t *buf, const uint32_t size) {
   }
 
   if (pthread_detach(thread) != 0) {
+    reql_ensure_conn_close_(conn);
+    pthread_join(thread, NULL);
     return -1;
   }
 
   return 0;
-}
-
-static void
-reql_close_conn_(ReQL_Conn_t *conn) {
-  conn->done = 1;
-}
-
-static void
-reql_ensure_conn_close_(ReQL_Conn_t *conn) {
-  reql_close_conn_(conn);
-  if (reql_conn_socket(conn) > 0) {
-    pthread_cond_wait(conn->condition.done, conn->condition.mutex);
-  }
-  reql_conn_unlock(conn);
-  pthread_mutex_destroy(conn->condition.mutex);
-  free(conn->condition.mutex); conn->condition.mutex = NULL;
 }
 
 extern int
@@ -589,7 +595,7 @@ reql_encode_query(const ReQL_Obj_t *query, ReQL_Obj_t *kwargs) {
   ReQL_String_t *wire_query = reql_encode(&array);
 
   reql_json_destroy(build);
-  
+
   return wire_query;
 }
 
@@ -635,7 +641,7 @@ reql_run_(ReQL_Cur_t *cur, const ReQL_String_t *wire_query, ReQL_Conn_t *conn) {
   if (writev(conn->socket, magic, 3) != (wire_query->size + 12)) {
     return -1;
   }
-  
+
   return 0;
 }
 
@@ -646,7 +652,7 @@ reql_run(ReQL_Cur_t *cur, const ReQL_Obj_t *query, ReQL_Conn_t *conn, ReQL_Obj_t
   if (wire_query == NULL) {
     return -1;
   }
-  
+
   reql_conn_lock(conn);
   const int status = reql_run_(cur, wire_query, conn);
   reql_conn_unlock(conn);
