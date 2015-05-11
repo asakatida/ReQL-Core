@@ -67,11 +67,6 @@ reql_datum_type(const ReQL_Obj_t *obj) {
   return obj->obj.datum.dt;
 }
 
-static void
-reql_set_alloc_size(ReQL_Obj_t *obj, uint32_t alloc_size) {
-  obj->obj.datum.json.var.alloc_size = alloc_size;
-}
-
 static uint32_t
 reql_alloc_size(const ReQL_Obj_t *obj) {
   return obj->obj.datum.json.var.alloc_size;
@@ -114,6 +109,10 @@ reql_owner(ReQL_Obj_t *obj) {
 
 static void
 reql_set_owner(ReQL_Obj_t *obj, ReQL_Obj_t *new_owner) {
+  if (obj == NULL) {
+    return;
+  }
+
   ReQL_Obj_t *owner = reql_owner(obj);
 
   if (owner == new_owner) {
@@ -195,15 +194,23 @@ reql_json_init(ReQL_Obj_t *obj, const ReQL_Datum_t dt) {
 extern void
 reql_term_init(ReQL_Obj_t *obj, const ReQL_Term_t tt, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
   obj->tt = tt;
-  reql_set_args(obj, args);
-  reql_set_kwargs(obj, kwargs);
+  if (args == NULL) {
+    obj->obj.args.args = args;
+  } else {
+    reql_set_args(obj, args);
+  }
+  if (args == NULL) {
+    obj->obj.args.kwargs = kwargs;
+  } else {
+    reql_set_kwargs(obj, kwargs);
+  }
   obj->owner = NULL;
 }
 
 static void
 reql_var_json_init(ReQL_Obj_t *obj, const ReQL_Datum_t dt, const uint32_t alloc_size) {
   reql_json_init(obj, dt);
-  reql_set_alloc_size(obj, alloc_size);
+  obj->obj.datum.json.var.alloc_size = alloc_size;
   reql_set_size(obj, 0);
 }
 
