@@ -30,16 +30,16 @@ typedef enum {
   REQL_E_JSON
 } ReQL_Error_Type_t;
 
-extern char *
+extern const char *
 reql_error_msg(void);
 
-extern char *
+extern const char *
 reql_error_trace(void);
 
 extern ReQL_Error_Type_t
 reql_error_type(void);
 
 extern void
-reql_error_init(ReQL_Error_Type_t err, char *msg, char *trace);
+reql_error_init(ReQL_Error_Type_t err, const char *msg, const char *trace);
 
 #endif  // REQL_C_DEV_ERROR_H_

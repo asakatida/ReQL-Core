@@ -21,15 +21,15 @@ limitations under the License.
 #include "./c/dev/error.h"
 
 static ReQL_Error_Type_t p_err = REQL_E_NO;
-static char *p_msg = "";
-static char *p_trace = "";
+static const char *p_msg = "";
+static const char *p_trace = "";
 
-extern char *
+extern const char *
 reql_error_msg() {
   return p_msg;
 }
 
-extern char *
+extern const char *
 reql_error_trace() {
   return p_trace;
 }
@@ -40,7 +40,7 @@ reql_error_type() {
 }
 
 extern void
-reql_error_init(ReQL_Error_Type_t err, char *msg, char *trace) {
+reql_error_init(ReQL_Error_Type_t err, const char *msg, const char *trace) {
   p_err = err;
   p_msg = msg;
   p_trace = trace;

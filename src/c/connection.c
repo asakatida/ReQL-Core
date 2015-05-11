@@ -83,12 +83,12 @@ reql_get_64_token(uint8_t *buf) {
 }
 
 static void
-reql_connection_error(char *msg, char *trace) {
+reql_connection_error(const char *msg, const char *trace) {
   reql_error_init(REQL_E_CONNECTION, msg, trace);
 }
 
 static void
-reql_connection_memory_error(char *trace) {
+reql_connection_memory_error(const char *trace) {
   reql_connection_error("Insufficient memory", trace);
 }
 
@@ -96,6 +96,11 @@ static void
 reql_connection_mutex_init(ReQL_Conn_t *conn) {
   if (conn->condition.mutex == NULL) {
     pthread_mutexattr_t *attrs = malloc(sizeof(pthread_mutexattr_t));
+
+    if (attrs == NULL) {
+      reql_connection_memory_error(__func__);
+      return;
+    }
 
     pthread_mutexattr_init(attrs);
     pthread_mutexattr_settype(attrs, PTHREAD_MUTEX_ERRORCHECK);
@@ -113,6 +118,11 @@ reql_connection_mutex_init(ReQL_Conn_t *conn) {
 
   if (conn->condition.done == NULL) {
     pthread_condattr_t *attrs = malloc(sizeof(pthread_condattr_t));
+
+    if (attrs == NULL) {
+      reql_connection_memory_error(__func__);
+      return;
+    }
 
     pthread_condattr_init(attrs);
     pthread_condattr_setpshared(attrs, PTHREAD_PROCESS_PRIVATE);
