@@ -5,6 +5,9 @@ try:
 except:
     print('PyYAML not installed')
 
+import collections
+import numbers
+
 from pathlib import Path
 
 xrange = range
@@ -113,6 +116,46 @@ class TestTable:
 
 r = TestTable('r')
 
+def recurse_result(res):
+    if isinstance(res, str):
+        return res
+    elif isinstance(res, bytes):
+        return 'bytes(...)'
+    elif isinstance(res, collections.Mapping):
+        obj = ['dict(...)']
+        for k, v in res.items():
+            obj.append(recurse_result(k))
+            obj.append(recurse_result(v))
+        return '\n'.join(obj)
+    elif isinstance(res, collections.Iterable):
+        return '\n'.join(['array(...)'] + [recurse_result(v) for v in res])
+    elif isinstance(res, numbers.Number):
+        return str(res)
+    elif res == None:
+        return 'None'
+    else:
+        print(type(res))
+
+def eval_result(result):
+    err = lambda *args: 'err'
+    err_regex = lambda *args: 'err_regex'
+    partial = lambda *args: 'partial'
+    bag = lambda *args: 'bag'
+    arrlen = lambda *args: 'arrlen'
+    uuid = lambda *args: 'uuid'
+    if isinstance(result, str):
+#        result = result.replace('=>', ':')
+        result = result.replace('true', 'True')
+#        result = result.replace('false', 'False')
+        result = result.replace('null', 'None')
+        return recurse_result(eval(result))
+    elif isinstance(result, collections.Mapping):
+        return eval_result(result.get('js', result.get('cd', '0')))
+    elif isinstance(result, (collections.Iterable, numbers.Number)):
+        return recurse_result(result)
+    else:
+        print(type(result))
+
 def mkdir(path):
     try:
         path.mkdir(parents=True)
@@ -145,19 +188,17 @@ def convert_tests(tests, lang):
     tables = {table: TestTable(table) for table in get_tables(tests)}
     for i, test in enumerate(tests['tests']):
         lang_test = []
-        definitions = test.get('def')
-        if definitions:
-            lang_test.append(eval_section(definitions, tables))
         section = test.get('py', test.get('cd'))
         if section:
-            if isinstance(section, str):
-                lang_test.append(eval_section(section, tables))
-            elif isinstance(section, list):
-                lang_test.append('\n'.join([eval_section(s, tables) for s in section]))
-        result = test.get('ot')
-        if result:
-            lang_test.append(eval_section(result, tables))
-        lang_tests.append(section_shell.format(i, '\n'.join(lang_test)))
+#            definitions = test.get('def')
+#            if definitions:
+#                lang_test.append(eval_section(definitions, tables))
+#            if isinstance(section, str):
+#                lang_test.append(eval_section(section, tables))
+#            elif isinstance(section, list):
+#                lang_test.append('\n'.join([eval_section(s, tables) for s in section]))
+            lang_test.append(eval_result(test.get('ot', '0')))
+            lang_tests.append(section_shell.format(i, '\n'.join(lang_test)))
     return lang_tests
 
 def test_loop(path, c_path, cpp_path):
