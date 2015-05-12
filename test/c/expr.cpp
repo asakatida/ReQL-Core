@@ -15,9 +15,9 @@ TEST_CASE("c expr array", "[c][expr][array]") {
 
   reql_array_init(ary.get(), arr, size);
 
-  CHECK(reql_datum_type(ary.get()) == REQL_R_ARRAY);
+  REQUIRE(reql_datum_type(ary.get()) == REQL_R_ARRAY);
 
-  CHECK(reql_size(ary.get()) == 0);
+  REQUIRE(reql_size(ary.get()) == 0);
 
   SECTION("over fill array") {
     std::vector<std::unique_ptr<ReQL_Obj_t>> elements;
@@ -27,14 +27,14 @@ TEST_CASE("c expr array", "[c][expr][array]") {
       std::unique_ptr<ReQL_Obj_t> elem(new ReQL_Obj_t);
       elements.push_back(std::move(elem));
       reql_null_init(elements.back().get());
-      CHECK(reql_array_append(ary.get(), elements.back().get()) == 0);
+      REQUIRE(reql_array_append(ary.get(), elements.back().get()) == 0);
     }
 
     std::unique_ptr<ReQL_Obj_t> extra(new ReQL_Obj_t);
 
     reql_null_init(extra.get());
 
-    CHECK(reql_array_append(ary.get(), extra.get()) != 0);
+    REQUIRE(reql_array_append(ary.get(), extra.get()) != 0);
   }
 
   SECTION("grow and shrink") {
@@ -44,17 +44,17 @@ TEST_CASE("c expr array", "[c][expr][array]") {
 
     reql_array_append(ary.get(), elem.get());
 
-    CHECK(reql_array_pop(ary.get()) != NULL);
-    CHECK(reql_array_last(ary.get()) == NULL);
-    CHECK(reql_array_pop(ary.get()) == NULL);
+    REQUIRE(reql_array_pop(ary.get()) != NULL);
+    REQUIRE(reql_array_last(ary.get()) == NULL);
+    REQUIRE(reql_array_pop(ary.get()) == NULL);
   }
 
   SECTION("insert after end") {
     std::unique_ptr<ReQL_Obj_t> elem(new ReQL_Obj_t);
 
     reql_null_init(elem.get());
-    
-    CHECK(reql_array_insert(ary.get(), elem.get(), size * 2) != 0);
+
+    REQUIRE(reql_array_insert(ary.get(), elem.get(), size * 2) != 0);
   }
 }
 
@@ -67,7 +67,7 @@ TEST_CASE("c expr object", "[c][expr][object]") {
 
   reql_object_init(obj.get(), pair, 1);
 
-  CHECK(reql_datum_type(obj.get()) == REQL_R_OBJECT);
+  REQUIRE(reql_datum_type(obj.get()) == REQL_R_OBJECT);
 
   const uint32_t size = 4;
 
@@ -79,15 +79,15 @@ TEST_CASE("c expr object", "[c][expr][object]") {
 
   reql_null_init(val.get());
 
-  CHECK(reql_object_add(obj.get(), key.get(), val.get()) == 0);
+  REQUIRE(reql_object_add(obj.get(), key.get(), val.get()) == 0);
 
   SECTION("verify insert") {
-    CHECK(reql_object_get(obj.get(), key.get()) != NULL);
+    REQUIRE(reql_object_get(obj.get(), key.get()) != NULL);
 
     ReQL_Obj_t *res = reql_object_get(obj.get(), key.get());
 
-    CHECK(reql_datum_type(res) == REQL_R_NULL);
-    CHECK(res == val.get());
+    REQUIRE(reql_datum_type(res) == REQL_R_NULL);
+    REQUIRE(res == val.get());
   }
 
   SECTION("reuse key") {
@@ -97,14 +97,14 @@ TEST_CASE("c expr object", "[c][expr][object]") {
 
     reql_number_init(new_val.get(), num);
 
-    CHECK(reql_object_add(obj.get(), key.get(), new_val.get()) == 0);
-    CHECK(reql_object_get(obj.get(), key.get()) != NULL);
+    REQUIRE(reql_object_add(obj.get(), key.get(), new_val.get()) == 0);
+    REQUIRE(reql_object_get(obj.get(), key.get()) != NULL);
 
     ReQL_Obj_t *res = reql_object_get(obj.get(), key.get());
 
-    CHECK(reql_datum_type(res) == REQL_R_NUM);
-    CHECK(reql_to_number(res) == Approx(num));
-    CHECK(res == new_val.get());
+    REQUIRE(reql_datum_type(res) == REQL_R_NUM);
+    REQUIRE(reql_to_number(res) == Approx(num));
+    REQUIRE(res == new_val.get());
   }
 
   SECTION("duplicate key") {
@@ -121,13 +121,13 @@ TEST_CASE("c expr object", "[c][expr][object]") {
 
     reql_number_init(new_val.get(), num);
 
-    CHECK(reql_object_add(obj.get(), new_key.get(), new_val.get()) == 0);
-    CHECK(reql_object_get(obj.get(), new_key.get()) != NULL);
+    REQUIRE(reql_object_add(obj.get(), new_key.get(), new_val.get()) == 0);
+    REQUIRE(reql_object_get(obj.get(), new_key.get()) != NULL);
 
     ReQL_Obj_t *res = reql_object_get(obj.get(), new_key.get());
 
-    CHECK(reql_datum_type(res) == REQL_R_NUM);
-    CHECK(res == new_val.get());
+    REQUIRE(reql_datum_type(res) == REQL_R_NUM);
+    REQUIRE(res == new_val.get());
 
     new_buf.reset();
   }
@@ -146,13 +146,13 @@ TEST_CASE("c expr object", "[c][expr][object]") {
 
     reql_number_init(new_val.get(), num);
 
-    CHECK(reql_object_add(obj.get(), new_key.get(), new_val.get()) > 1);
-    CHECK(reql_object_get(obj.get(), new_key.get()) == NULL);
+    REQUIRE(reql_object_add(obj.get(), new_key.get(), new_val.get()) > 1);
+    REQUIRE(reql_object_get(obj.get(), new_key.get()) == NULL);
 
     ReQL_Obj_t *res = reql_object_get(obj.get(), key.get());
 
-    CHECK(reql_datum_type(res) == REQL_R_NULL);
-    CHECK(res == val.get());
+    REQUIRE(reql_datum_type(res) == REQL_R_NULL);
+    REQUIRE(res == val.get());
 
     new_buf.reset();
   }
@@ -166,19 +166,19 @@ TEST_CASE("c expr", "[c][expr]") {
   SECTION("bool") {
     reql_bool_init(val.get(), 10);
 
-    CHECK(reql_datum_type(val.get()) == REQL_R_BOOL);
+    REQUIRE(reql_datum_type(val.get()) == REQL_R_BOOL);
 
-    CHECK(reql_to_bool(val.get()) == true);
+    REQUIRE(reql_to_bool(val.get()) == true);
 
     reql_bool_init(val.get(), false);
 
-    CHECK(reql_to_bool(val.get()) == false);
+    REQUIRE(reql_to_bool(val.get()) == false);
   }
 
   SECTION("null") {
     reql_null_init(val.get());
 
-    CHECK(reql_datum_type(val.get()) == REQL_R_NULL);
+    REQUIRE(reql_datum_type(val.get()) == REQL_R_NULL);
   }
 
   SECTION("number") {
@@ -186,9 +186,9 @@ TEST_CASE("c expr", "[c][expr]") {
 
     reql_number_init(val.get(), num);
 
-    CHECK(reql_datum_type(val.get()) == REQL_R_NUM);
+    REQUIRE(reql_datum_type(val.get()) == REQL_R_NUM);
 
-    CHECK(num == Approx(reql_to_number(val.get())));
+    REQUIRE(num == Approx(reql_to_number(val.get())));
   }
 
   SECTION("number edges") {
@@ -196,7 +196,7 @@ TEST_CASE("c expr", "[c][expr]") {
 
     reql_number_init(val.get(), num);
 
-    CHECK(num == Approx(reql_to_number(val.get())));
+    REQUIRE(num == Approx(reql_to_number(val.get())));
   }
 
   SECTION("string") {
@@ -210,10 +210,10 @@ TEST_CASE("c expr", "[c][expr]") {
     reql_string_init(val.get(), buf.get(), size);
     reql_string_append(val.get(), hello, size);
 
-    CHECK(reql_datum_type(val.get()) == REQL_R_STR);
+    REQUIRE(reql_datum_type(val.get()) == REQL_R_STR);
 
-    CHECK(orig.compare(0, size, reinterpret_cast<char*>(reql_string_buf(val.get())), size) == 0);
-    CHECK(size == reql_size(val.get()));
+    REQUIRE(orig.compare(0, size, reinterpret_cast<char*>(reql_string_buf(val.get())), size) == 0);
+    REQUIRE(size == reql_size(val.get()));
 
     buf.reset();
   }

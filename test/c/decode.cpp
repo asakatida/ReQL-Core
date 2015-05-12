@@ -17,28 +17,28 @@ TEST_CASE("decode errors", "[c][decode]") {
     const uint32_t size = 1;
     uint8_t src[size] = "";
 
-    CHECK(reql_decode(src, size) == NULL);
+    REQUIRE(reql_decode(src, size) == NULL);
   }
 
   SECTION("unterminated null") {
     const uint32_t size = 4;
     uint8_t src[size] = "nul";
 
-    CHECK(reql_decode(src, size) == NULL);
+    REQUIRE(reql_decode(src, size) == NULL);
   }
 
   SECTION("unterminated object") {
     const uint32_t size = 2;
     uint8_t src[size] = "{";
 
-    CHECK(reql_decode(src, size) == NULL);
+    REQUIRE(reql_decode(src, size) == NULL);
   }
 
   SECTION("unterminated array") {
     const uint32_t size = 12;
     uint8_t src[size] = "[{}, [], 10";
 
-    CHECK(reql_decode(src, size) == NULL);
+    REQUIRE(reql_decode(src, size) == NULL);
   }
 }
 

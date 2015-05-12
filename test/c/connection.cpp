@@ -67,7 +67,7 @@ TEST_CASE("c connection", "[c][connection]") {
 
     buf.release();
 
-    CHECK(reql_conn_open(c.get()) != 0);
+    REQUIRE(reql_conn_open(c.get()) != 0);
 
     if (reql_conn_open(c.get()) != 0) {
       std::unique_ptr<ReQL_Obj_t> q(new ReQL_Obj_t);
@@ -80,12 +80,12 @@ TEST_CASE("c connection", "[c][connection]") {
 
       q.release();
 
-      CHECK(reql_cur_open(cur.get()) != 0);
+      REQUIRE(reql_cur_open(cur.get()) != 0);
 
       if (reql_cur_open(cur.get()) != 0) {
         ReQL_Obj_t *result = reql_cursor_to_array(cur.get());
 
-        CHECK(result != nullptr);
+        REQUIRE(result != nullptr);
 
         reql_json_destroy(result);
       }
