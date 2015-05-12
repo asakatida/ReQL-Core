@@ -269,11 +269,14 @@ extern ReQL_Obj_t *
 reql_array_pop(ReQL_Obj_t *obj) {
   ReQL_Obj_t *res = reql_array_last(obj);
 
-  const uint32_t size = reql_size(obj) - 1;
+  uint32_t size = reql_size(obj);
+
+  size = size > 0 ? size - 1 : 0;
+
+  reql_set_size(obj, size);
 
   if (res != NULL) {
     reql_array_insert(obj, NULL, size);
-    reql_set_size(obj, size);
     res->owner = NULL;
   } else if (size > 0) {
     return reql_array_pop(obj);
