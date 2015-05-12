@@ -20,17 +20,29 @@ TEST_CASE("c expr array", "[c][expr][array]") {
   CHECK(reql_size(ary.get()) == 0);
 
   SECTION("over fill array") {
+    std::vector<std::unique_ptr<ReQL_Obj_t>> elements;
     uint32_t i;
 
     for (i=0; i < size; ++i) {
-      CHECK(reql_array_append(ary.get(), ary.get()) == 0);
+      std::unique_ptr<ReQL_Obj_t> elem(new ReQL_Obj_t);
+      elements.push_back(std::move(elem));
+      reql_null_init(elements.back().get());
+      CHECK(reql_array_append(ary.get(), elements.back().get()) == 0);
     }
 
-    CHECK(reql_array_append(ary.get(), ary.get()) != 0);
+    std::unique_ptr<ReQL_Obj_t> extra(new ReQL_Obj_t);
+
+    reql_null_init(extra.get());
+
+    CHECK(reql_array_append(ary.get(), extra.get()) != 0);
   }
 
   SECTION("grow and shrink") {
-    reql_array_append(ary.get(), ary.get());
+    std::unique_ptr<ReQL_Obj_t> elem(new ReQL_Obj_t);
+
+    reql_null_init(elem.get());
+
+    reql_array_append(ary.get(), elem.get());
 
     CHECK(reql_array_pop(ary.get()) != NULL);
     CHECK(reql_array_last(ary.get()) == NULL);
@@ -38,7 +50,11 @@ TEST_CASE("c expr array", "[c][expr][array]") {
   }
 
   SECTION("insert after end") {
-    CHECK(reql_array_insert(ary.get(), ary.get(), size * 2) != 0);
+    std::unique_ptr<ReQL_Obj_t> elem(new ReQL_Obj_t);
+
+    reql_null_init(elem.get());
+    
+    CHECK(reql_array_insert(ary.get(), elem.get(), size * 2) != 0);
   }
 }
 

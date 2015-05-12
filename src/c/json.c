@@ -27,31 +27,14 @@ limitations under the License.
 #include <stdlib.h>
 #include <string.h>
 
-static void
-reql_set_owner(ReQL_Obj_t *obj, ReQL_Obj_t *new_owner);
-
 extern ReQL_Term_t
 reql_term_type(const ReQL_Obj_t *obj) {
   return obj->tt;
 }
 
-static void
-reql_set_args(ReQL_Obj_t *obj, ReQL_Obj_t *args) {
-  reql_set_owner(obj->obj.args.args, NULL);
-  obj->obj.args.args = args;
-  reql_set_owner(args, obj);
-}
-
 extern ReQL_Obj_t *
 reql_args(const ReQL_Obj_t *obj) {
   return obj->obj.args.args;
-}
-
-static void
-reql_set_kwargs(ReQL_Obj_t *obj, ReQL_Obj_t *kwargs) {
-  reql_set_owner(obj->obj.args.kwargs, NULL);
-  obj->obj.args.kwargs = kwargs;
-  reql_set_owner(kwargs, obj);
 }
 
 extern ReQL_Obj_t *
@@ -104,82 +87,22 @@ reql_size(const ReQL_Obj_t *obj) {
 
 static ReQL_Obj_t *
 reql_owner(ReQL_Obj_t *obj) {
-  return obj->owner;
-}
-
-static void
-reql_set_owner(ReQL_Obj_t *obj, ReQL_Obj_t *new_owner) {
   if (obj == NULL) {
-    return;
+    return NULL;
   }
-
-  ReQL_Obj_t *owner = reql_owner(obj);
-
-  if (owner == new_owner) {
-    return;
-  }
-
-  if (owner != NULL) {
-    switch (reql_datum_type(owner)) {
-      case REQL_R_ARRAY: {
-        uint32_t i;
-
-        const uint32_t size = reql_size(owner);
-        ReQL_Obj_t **array = reql_array(owner);
-
-        for (i=0; i < size; ++i) {
-          if (array[i] == obj) {
-            array[i] = NULL;
-            break;
-          }
-        }
-
-        break;
-      }
-      case REQL_R_BOOL:
-      case REQL_R_JSON:
-      case REQL_R_NULL:
-      case REQL_R_NUM: break;
-      case REQL_R_OBJECT: {
-        uint32_t i;
-
-        const uint32_t size = reql_size(owner);
-        ReQL_Pair_t *pair = reql_pair(owner);
-
-        for (i=0; i < size; ++i) {
-          if (pair[i].val == obj) {
-            pair[i].val = NULL;
-            break;
-          } else if (pair[i].key == obj) {
-            reql_json_destroy(pair[i].val); pair[i].val = NULL;
-            pair[i].key = NULL;
-            break;
-          }
-        }
-
-        break;
-      }
-      case REQL_R_REQL: {
-        if (reql_args(owner) == obj) {
-          reql_set_args(owner, NULL);
-        } else if (reql_kwargs(owner) == obj) {
-          reql_set_kwargs(owner, NULL);
-        }
-        break;
-      }
-      case REQL_R_STR: break;
-    }
-  }
-
-  obj->owner = new_owner;
+  return obj->owner;
 }
 
 static uint32_t
 reql_ensure_space(const ReQL_Obj_t *obj, uint32_t size) {
-  size += reql_size(obj);
-
   if (reql_alloc_size(obj) < size) {
-    return (uint32_t)((double)size * 1.1);
+    const uint32_t min_size = (uint32_t)((double)(reql_size(obj) + size) * 1.1);
+
+    if (min_size < size) {
+      return UINT32_MAX;
+    }
+    
+    return min_size;
   }
 
   return 0;
@@ -193,16 +116,25 @@ reql_json_init(ReQL_Obj_t *obj, const ReQL_Datum_t dt) {
 
 extern void
 reql_term_init(ReQL_Obj_t *obj, const ReQL_Term_t tt, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  memset(obj, (int)NULL, sizeof(ReQL_Obj_t));
   obj->tt = tt;
-  if (args == NULL) {
-    obj->obj.args.args = args;
-  } else {
-    reql_set_args(obj, args);
+  obj->obj.args.args = NULL;
+  if (args != NULL) {
+    if (reql_owner(args) == NULL) {
+      obj->obj.args.args = args;
+      args->owner = obj;
+    } else {
+      reql_error_init(REQL_E_JSON, "args array is already owned", __func__);
+    }
   }
-  if (args == NULL) {
-    obj->obj.args.kwargs = kwargs;
-  } else {
-    reql_set_kwargs(obj, kwargs);
+  obj->obj.args.kwargs = NULL;
+  if (kwargs != NULL) {
+    if (reql_owner(kwargs) == NULL) {
+      obj->obj.args.kwargs = kwargs;
+      kwargs->owner = obj;
+    } else {
+      reql_error_init(REQL_E_JSON, "kwargs object is already owned", __func__);
+    }
   }
   obj->owner = NULL;
 }
@@ -294,9 +226,13 @@ reql_array_init(ReQL_Obj_t *obj, ReQL_Obj_t **arr, const uint32_t alloc_size) {
 
 extern uint32_t
 reql_array_insert(ReQL_Obj_t *obj, ReQL_Obj_t *val, const uint32_t idx) {
-  const uint32_t size = reql_size(obj);
-  if (idx >= size) {
-    const uint32_t new_alloc = reql_ensure_space(obj, idx - size + 1);
+  if (reql_owner(val) != NULL) {
+    reql_error_init(REQL_E_JSON, "element already owned", __func__);
+    return UINT32_MAX;
+  }
+
+  if (idx >= reql_size(obj)) {
+    const uint32_t new_alloc = reql_ensure_space(obj, idx + 1);
 
     if (new_alloc != 0) {
       return new_alloc;
@@ -308,7 +244,9 @@ reql_array_insert(ReQL_Obj_t *obj, ReQL_Obj_t *val, const uint32_t idx) {
   ReQL_Obj_t **arr = reql_array(obj);
 
   arr[idx] = val;
-  reql_set_owner(val, obj);
+  if (val != NULL) {
+    val->owner = obj;
+  }
 
   return 0;
 }
@@ -331,13 +269,15 @@ extern ReQL_Obj_t *
 reql_array_pop(ReQL_Obj_t *obj) {
   ReQL_Obj_t *res = reql_array_last(obj);
 
+  const uint32_t size = reql_size(obj) - 1;
+
   if (res != NULL) {
-    const uint32_t size = reql_size(obj) - 1;
     reql_array_insert(obj, NULL, size);
     reql_set_size(obj, size);
+    res->owner = NULL;
+  } else if (size > 0) {
+    return reql_array_pop(obj);
   }
-
-  reql_set_owner(res, NULL);
 
   return res;
 }
@@ -597,6 +537,15 @@ reql_object_find(const ReQL_Obj_t *obj, const ReQL_Pair_t *key) {
 
 extern uint32_t
 reql_object_add(ReQL_Obj_t *obj, ReQL_Obj_t *key, ReQL_Obj_t *val) {
+  if (reql_owner(key) != NULL) {
+    reql_error_init(REQL_E_JSON, "key already owned", __func__);
+    return UINT32_MAX;
+  }
+  if (reql_owner(val) != NULL) {
+    reql_error_init(REQL_E_JSON, "element already owned", __func__);
+    return UINT32_MAX;
+  }
+
   ReQL_Pair_t test = {key, NULL};
   ReQL_Pair_t *pair = reql_object_find(obj, &test);
 
@@ -617,8 +566,8 @@ reql_object_add(ReQL_Obj_t *obj, ReQL_Obj_t *key, ReQL_Obj_t *val) {
     pair[size].key = key;
     pair[size].val = val;
 
-    reql_set_owner(key, obj);
-    reql_set_owner(val, obj);
+    key->owner = obj;
+    val->owner = obj;
 
     size += 1;
 
@@ -627,7 +576,7 @@ reql_object_add(ReQL_Obj_t *obj, ReQL_Obj_t *key, ReQL_Obj_t *val) {
     reql_set_size(obj, size);
   } else {
     pair->val = val;
-    reql_set_owner(val, obj);
+    val->owner = obj;
   }
 
   return 0;
@@ -698,7 +647,61 @@ reql_json_destroy(ReQL_Obj_t *json) {
     return;
   }
 
-  reql_set_owner(json, NULL);
+  ReQL_Obj_t *owner = reql_owner(json);
+
+  if (owner != NULL) {
+    switch (reql_datum_type(owner)) {
+      case REQL_R_ARRAY: {
+        const uint32_t size = reql_size(owner);
+        ReQL_Obj_t **array = reql_array(owner);
+
+        uint32_t i;
+
+        for (i=0; i < size; ++i) {
+          if (array[i] == json) {
+            array[i] = NULL;
+            break;
+          }
+        }
+
+        break;
+      }
+      case REQL_R_OBJECT: {
+        const uint32_t size = reql_size(owner);
+        ReQL_Pair_t *pair = reql_pair(owner);
+
+        uint32_t i;
+
+        for (i=0; i < size; ++i) {
+          if (pair[i].val == json) {
+            pair[i].val = NULL;
+            break;
+          } else if (pair[i].key == json) {
+            reql_json_destroy(pair[i].val); pair[i].val = NULL;
+            pair[i].key = NULL;
+            break;
+          }
+        }
+
+        break;
+      }
+      case REQL_R_REQL: {
+        if (reql_args(owner) == json) {
+          owner->obj.args.args = NULL;
+        } else if (reql_kwargs(owner) == json) {
+          owner->obj.args.kwargs = NULL;
+        }
+        break;
+      }
+      case REQL_R_BOOL:
+      case REQL_R_JSON:
+      case REQL_R_NULL:
+      case REQL_R_NUM:
+      case REQL_R_STR: break;
+    }
+  }
+  
+  json->owner = NULL;
 
   switch (reql_datum_type(json)) {
     case REQL_R_ARRAY: {
