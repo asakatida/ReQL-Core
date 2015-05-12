@@ -537,7 +537,7 @@ reql_object_find(const ReQL_Obj_t *obj, const ReQL_Pair_t *key) {
 
 extern uint32_t
 reql_object_add(ReQL_Obj_t *obj, ReQL_Obj_t *key, ReQL_Obj_t *val) {
-  if (reql_owner(key) != NULL) {
+  if (reql_owner(key) != NULL && reql_owner(key) != obj) {
     reql_error_init(REQL_E_JSON, "key already owned", __func__);
     return UINT32_MAX;
   }
