@@ -65,8 +65,6 @@ TEST_CASE("c connection", "[c][connection]") {
 
     REQUIRE(reql_connect(c.get(), buf.get(), 100) == 0);
 
-    buf.release();
-
     REQUIRE(reql_conn_open(c.get()) != 0);
 
     if (reql_conn_open(c.get()) != 0) {
@@ -78,8 +76,6 @@ TEST_CASE("c connection", "[c][connection]") {
 
       reql_run(cur.get(), q.get(), c.get(), nullptr);
 
-      q.release();
-
       REQUIRE(reql_cur_open(cur.get()) != 0);
 
       if (reql_cur_open(cur.get()) != 0) {
@@ -89,8 +85,6 @@ TEST_CASE("c connection", "[c][connection]") {
 
         reql_json_destroy(result);
       }
-
-      cur.release();
     }
 
     reql_close_conn(c.get());
@@ -100,7 +94,5 @@ TEST_CASE("c connection", "[c][connection]") {
     reql_ensure_conn_close(c.get());
 
     REQUIRE(reql_conn_open(c.get()) == 0);
-
-    c.release();
   }
 }
