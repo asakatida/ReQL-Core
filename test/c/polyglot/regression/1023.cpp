@@ -25,7 +25,7 @@ TEST_CASE("c Tests key sorting of all usable types in primary indexes", "[c][ast
 
   SECTION("test7") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr0(new ReQL_Obj_t*[3]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[3]);
     reql_array_init(var0.get(), arr0.get(), 3);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
@@ -46,7 +46,7 @@ TEST_CASE("c Tests key sorting of all usable types in primary indexes", "[c][ast
 
   SECTION("test8") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr0(new ReQL_Obj_t*[1]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[1]);
     reql_array_init(var0.get(), arr0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);

@@ -16,25 +16,25 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   SECTION("test2") {
     std::map<std::string, Result> map0;
 
-    std::string src1("type", 4);
+    std::string src1("id", 2);
     Result var1(src1);
 
-    std::string src2("DB", 2);
-    Result var2(src2);
+    Result var2;
 
     map0.insert({src1, var2});
 
-    std::string src3("id", 2);
+    std::string src3("name", 4);
     Result var3(src3);
 
-    Result var4;
+    std::string src4("rethinkdb", 9);
+    Result var4(src4);
 
     map0.insert({src3, var4});
 
-    std::string src5("name", 4);
+    std::string src5("type", 4);
     Result var5(src5);
 
-    std::string src6("rethinkdb", 9);
+    std::string src6("DB", 2);
     Result var6(src6);
 
     map0.insert({src5, var6});

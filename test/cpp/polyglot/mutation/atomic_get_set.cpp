@@ -32,29 +32,29 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
 
     std::map<std::string, Result> map3;
 
-    std::string src4("old_val", 7);
+    std::string src4("new_val", 7);
     Result var4(src4);
 
-    Result var5;
+    std::map<std::string, Result> map5;
+
+    std::string src6("id", 2);
+    Result var6(src6);
+
+    double num7(0);
+    Result var7(num7);
+
+    map5.insert({src6, var7});
+
+    Result var5(map5);
 
     map3.insert({src4, var5});
 
-    std::string src6("new_val", 7);
-    Result var6(src6);
-
-    std::map<std::string, Result> map7;
-
-    std::string src8("id", 2);
+    std::string src8("old_val", 7);
     Result var8(src8);
 
-    double num9(0);
-    Result var9(num9);
+    Result var9;
 
-    map7.insert({src8, var9});
-
-    Result var7(map7);
-
-    map3.insert({src6, var7});
+    map3.insert({src8, var9});
 
     Result var3(map3);
 
@@ -85,7 +85,7 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
 
     std::map<std::string, Result> map5;
 
-    std::string src6("old_val", 7);
+    std::string src6("new_val", 7);
     Result var6(src6);
 
     std::map<std::string, Result> map7;
@@ -102,7 +102,7 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
 
     map5.insert({src6, var7});
 
-    std::string src10("new_val", 7);
+    std::string src10("old_val", 7);
     Result var10(src10);
 
     std::map<std::string, Result> map11;
@@ -141,7 +141,7 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("unchanged", 9);
+    std::string src3("skipped", 7);
     Result var3(src3);
 
     double num4(0);
@@ -165,7 +165,7 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
 
     map0.insert({src7, var8});
 
-    std::string src9("replaced", 8);
+    std::string src9("unchanged", 9);
     Result var9(src9);
 
     double num10(0);
@@ -173,19 +173,20 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
 
     map0.insert({src9, var10});
 
-    std::string src11("changes", 7);
+    std::string src11("replaced", 8);
     Result var11(src11);
 
-    std::vector<Result> arr12(1);
+    double num12(0);
+    Result var12(num12);
 
-    std::map<std::string, Result> map13;
+    map0.insert({src11, var12});
 
-    std::string src14("old_val", 7);
-    Result var14(src14);
+    std::string src13("changes", 7);
+    Result var13(src13);
 
-    Result var15;
+    std::vector<Result> arr14(1);
 
-    map13.insert({src14, var15});
+    std::map<std::string, Result> map15;
 
     std::string src16("new_val", 7);
     Result var16(src16);
@@ -202,23 +203,22 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
 
     Result var17(map17);
 
-    map13.insert({src16, var17});
+    map15.insert({src16, var17});
 
-    Result var13(map13);
-
-    arr12.insert(arr12.end(), var13);
-
-    Result var12(arr12);
-
-    map0.insert({src11, var12});
-
-    std::string src20("skipped", 7);
+    std::string src20("old_val", 7);
     Result var20(src20);
 
-    double num21(0);
-    Result var21(num21);
+    Result var21;
 
-    map0.insert({src20, var21});
+    map15.insert({src20, var21});
+
+    Result var15(map15);
+
+    arr14.insert(arr14.end(), var15);
+
+    Result var14(arr14);
+
+    map0.insert({src13, var14});
 
     Result var0(map0);
   }
@@ -241,7 +241,7 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
 
     std::map<std::string, Result> map5;
 
-    std::string src6("old_val", 7);
+    std::string src6("new_val", 7);
     Result var6(src6);
 
     std::map<std::string, Result> map7;
@@ -258,7 +258,7 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
 
     map5.insert({src6, var7});
 
-    std::string src10("new_val", 7);
+    std::string src10("old_val", 7);
     Result var10(src10);
 
     std::map<std::string, Result> map11;
@@ -296,7 +296,7 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
 
     std::map<std::string, Result> map3;
 
-    std::string src4("old_val", 7);
+    std::string src4("new_val", 7);
     Result var4(src4);
 
     std::map<std::string, Result> map5;
@@ -309,22 +309,22 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
 
     map5.insert({src6, var7});
 
+    std::string src8("x", 1);
+    Result var8(src8);
+
+    double num9(1);
+    Result var9(num9);
+
+    map5.insert({src8, var9});
+
     Result var5(map5);
 
     map3.insert({src4, var5});
 
-    std::string src8("new_val", 7);
-    Result var8(src8);
-
-    std::map<std::string, Result> map9;
-
-    std::string src10("x", 1);
+    std::string src10("old_val", 7);
     Result var10(src10);
 
-    double num11(1);
-    Result var11(num11);
-
-    map9.insert({src10, var11});
+    std::map<std::string, Result> map11;
 
     std::string src12("id", 2);
     Result var12(src12);
@@ -332,11 +332,11 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
     double num13(0);
     Result var13(num13);
 
-    map9.insert({src12, var13});
+    map11.insert({src12, var13});
 
-    Result var9(map9);
+    Result var11(map11);
 
-    map3.insert({src8, var9});
+    map3.insert({src10, var11});
 
     Result var3(map3);
 
@@ -367,23 +367,23 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
 
     std::map<std::string, Result> map5;
 
-    std::string src6("old_val", 7);
+    std::string src6("new_val", 7);
     Result var6(src6);
 
     std::map<std::string, Result> map7;
 
-    std::string src8("x", 1);
+    std::string src8("id", 2);
     Result var8(src8);
 
-    double num9(1);
+    double num9(0);
     Result var9(num9);
 
     map7.insert({src8, var9});
 
-    std::string src10("id", 2);
+    std::string src10("x", 1);
     Result var10(src10);
 
-    double num11(0);
+    double num11(1);
     Result var11(num11);
 
     map7.insert({src10, var11});
@@ -392,23 +392,23 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
 
     map5.insert({src6, var7});
 
-    std::string src12("new_val", 7);
+    std::string src12("old_val", 7);
     Result var12(src12);
 
     std::map<std::string, Result> map13;
 
-    std::string src14("x", 1);
+    std::string src14("id", 2);
     Result var14(src14);
 
-    double num15(1);
+    double num15(0);
     Result var15(num15);
 
     map13.insert({src14, var15});
 
-    std::string src16("id", 2);
+    std::string src16("x", 1);
     Result var16(src16);
 
-    double num17(0);
+    double num17(1);
     Result var17(num17);
 
     map13.insert({src16, var17});
@@ -438,23 +438,23 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
 
     std::map<std::string, Result> map3;
 
-    std::string src4("old_val", 7);
+    std::string src4("new_val", 7);
     Result var4(src4);
 
     std::map<std::string, Result> map5;
 
-    std::string src6("x", 1);
+    std::string src6("id", 2);
     Result var6(src6);
 
-    double num7(1);
+    double num7(0);
     Result var7(num7);
 
     map5.insert({src6, var7});
 
-    std::string src8("id", 2);
+    std::string src8("x", 1);
     Result var8(src8);
 
-    double num9(0);
+    double num9(3);
     Result var9(num9);
 
     map5.insert({src8, var9});
@@ -463,23 +463,23 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
 
     map3.insert({src4, var5});
 
-    std::string src10("new_val", 7);
+    std::string src10("old_val", 7);
     Result var10(src10);
 
     std::map<std::string, Result> map11;
 
-    std::string src12("x", 1);
+    std::string src12("id", 2);
     Result var12(src12);
 
-    double num13(3);
+    double num13(0);
     Result var13(num13);
 
     map11.insert({src12, var13});
 
-    std::string src14("id", 2);
+    std::string src14("x", 1);
     Result var14(src14);
 
-    double num15(0);
+    double num15(1);
     Result var15(num15);
 
     map11.insert({src14, var15});
@@ -494,7 +494,7 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
 
     std::map<std::string, Result> map16;
 
-    std::string src17("old_val", 7);
+    std::string src17("new_val", 7);
     Result var17(src17);
 
     std::map<std::string, Result> map18;
@@ -507,22 +507,22 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
 
     map18.insert({src19, var20});
 
+    std::string src21("x", 1);
+    Result var21(src21);
+
+    double num22(3);
+    Result var22(num22);
+
+    map18.insert({src21, var22});
+
     Result var18(map18);
 
     map16.insert({src17, var18});
 
-    std::string src21("new_val", 7);
-    Result var21(src21);
-
-    std::map<std::string, Result> map22;
-
-    std::string src23("x", 1);
+    std::string src23("old_val", 7);
     Result var23(src23);
 
-    double num24(3);
-    Result var24(num24);
-
-    map22.insert({src23, var24});
+    std::map<std::string, Result> map24;
 
     std::string src25("id", 2);
     Result var25(src25);
@@ -530,11 +530,11 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
     double num26(1);
     Result var26(num26);
 
-    map22.insert({src25, var26});
+    map24.insert({src25, var26});
 
-    Result var22(map22);
+    Result var24(map24);
 
-    map16.insert({src21, var22});
+    map16.insert({src23, var24});
 
     Result var16(map16);
 
@@ -557,23 +557,23 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
 
     std::map<std::string, Result> map3;
 
-    std::string src4("old_val", 7);
+    std::string src4("new_val", 7);
     Result var4(src4);
 
     std::map<std::string, Result> map5;
 
-    std::string src6("x", 1);
+    std::string src6("id", 2);
     Result var6(src6);
 
-    double num7(3);
+    double num7(0);
     Result var7(num7);
 
     map5.insert({src6, var7});
 
-    std::string src8("id", 2);
+    std::string src8("x", 1);
     Result var8(src8);
 
-    double num9(0);
+    double num9(2);
     Result var9(num9);
 
     map5.insert({src8, var9});
@@ -582,23 +582,23 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
 
     map3.insert({src4, var5});
 
-    std::string src10("new_val", 7);
+    std::string src10("old_val", 7);
     Result var10(src10);
 
     std::map<std::string, Result> map11;
 
-    std::string src12("x", 1);
+    std::string src12("id", 2);
     Result var12(src12);
 
-    double num13(2);
+    double num13(0);
     Result var13(num13);
 
     map11.insert({src12, var13});
 
-    std::string src14("id", 2);
+    std::string src14("x", 1);
     Result var14(src14);
 
-    double num15(0);
+    double num15(3);
     Result var15(num15);
 
     map11.insert({src14, var15});
@@ -636,23 +636,23 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
 
     std::map<std::string, Result> map5;
 
-    std::string src6("old_val", 7);
+    std::string src6("new_val", 7);
     Result var6(src6);
 
     std::map<std::string, Result> map7;
 
-    std::string src8("x", 1);
+    std::string src8("id", 2);
     Result var8(src8);
 
-    double num9(2);
+    double num9(0);
     Result var9(num9);
 
     map7.insert({src8, var9});
 
-    std::string src10("id", 2);
+    std::string src10("x", 1);
     Result var10(src10);
 
-    double num11(0);
+    double num11(2);
     Result var11(num11);
 
     map7.insert({src10, var11});
@@ -661,23 +661,23 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
 
     map5.insert({src6, var7});
 
-    std::string src12("new_val", 7);
+    std::string src12("old_val", 7);
     Result var12(src12);
 
     std::map<std::string, Result> map13;
 
-    std::string src14("x", 1);
+    std::string src14("id", 2);
     Result var14(src14);
 
-    double num15(2);
+    double num15(0);
     Result var15(num15);
 
     map13.insert({src14, var15});
 
-    std::string src16("id", 2);
+    std::string src16("x", 1);
     Result var16(src16);
 
-    double num17(0);
+    double num17(2);
     Result var17(num17);
 
     map13.insert({src16, var17});
@@ -707,47 +707,47 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
 
     std::map<std::string, Result> map3;
 
-    std::string src4("old_val", 7);
+    std::string src4("new_val", 7);
     Result var4(src4);
 
     std::map<std::string, Result> map5;
 
-    std::string src6("x", 1);
+    std::string src6("id", 2);
     Result var6(src6);
 
-    double num7(2);
+    double num7(0);
     Result var7(num7);
 
     map5.insert({src6, var7});
-
-    std::string src8("id", 2);
-    Result var8(src8);
-
-    double num9(0);
-    Result var9(num9);
-
-    map5.insert({src8, var9});
 
     Result var5(map5);
 
     map3.insert({src4, var5});
 
-    std::string src10("new_val", 7);
+    std::string src8("old_val", 7);
+    Result var8(src8);
+
+    std::map<std::string, Result> map9;
+
+    std::string src10("id", 2);
     Result var10(src10);
 
-    std::map<std::string, Result> map11;
+    double num11(0);
+    Result var11(num11);
 
-    std::string src12("id", 2);
+    map9.insert({src10, var11});
+
+    std::string src12("x", 1);
     Result var12(src12);
 
-    double num13(0);
+    double num13(2);
     Result var13(num13);
 
-    map11.insert({src12, var13});
+    map9.insert({src12, var13});
 
-    Result var11(map11);
+    Result var9(map9);
 
-    map3.insert({src10, var11});
+    map3.insert({src8, var9});
 
     Result var3(map3);
 
@@ -755,47 +755,47 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
 
     std::map<std::string, Result> map14;
 
-    std::string src15("old_val", 7);
+    std::string src15("new_val", 7);
     Result var15(src15);
 
     std::map<std::string, Result> map16;
 
-    std::string src17("x", 1);
+    std::string src17("id", 2);
     Result var17(src17);
 
-    double num18(3);
+    double num18(1);
     Result var18(num18);
 
     map16.insert({src17, var18});
-
-    std::string src19("id", 2);
-    Result var19(src19);
-
-    double num20(1);
-    Result var20(num20);
-
-    map16.insert({src19, var20});
 
     Result var16(map16);
 
     map14.insert({src15, var16});
 
-    std::string src21("new_val", 7);
+    std::string src19("old_val", 7);
+    Result var19(src19);
+
+    std::map<std::string, Result> map20;
+
+    std::string src21("id", 2);
     Result var21(src21);
 
-    std::map<std::string, Result> map22;
+    double num22(1);
+    Result var22(num22);
 
-    std::string src23("id", 2);
+    map20.insert({src21, var22});
+
+    std::string src23("x", 1);
     Result var23(src23);
 
-    double num24(1);
+    double num24(3);
     Result var24(num24);
 
-    map22.insert({src23, var24});
+    map20.insert({src23, var24});
 
-    Result var22(map22);
+    Result var20(map20);
 
-    map14.insert({src21, var22});
+    map14.insert({src19, var20});
 
     Result var14(map14);
 
@@ -826,7 +826,7 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
 
     std::map<std::string, Result> map5;
 
-    std::string src6("old_val", 7);
+    std::string src6("new_val", 7);
     Result var6(src6);
 
     std::map<std::string, Result> map7;
@@ -843,7 +843,7 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
 
     map5.insert({src6, var7});
 
-    std::string src10("new_val", 7);
+    std::string src10("old_val", 7);
     Result var10(src10);
 
     std::map<std::string, Result> map11;
@@ -866,7 +866,7 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
 
     std::map<std::string, Result> map14;
 
-    std::string src15("old_val", 7);
+    std::string src15("new_val", 7);
     Result var15(src15);
 
     std::map<std::string, Result> map16;
@@ -883,7 +883,7 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
 
     map14.insert({src15, var16});
 
-    std::string src19("new_val", 7);
+    std::string src19("old_val", 7);
     Result var19(src19);
 
     std::map<std::string, Result> map20;
@@ -921,29 +921,29 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
 
     std::map<std::string, Result> map3;
 
-    std::string src4("old_val", 7);
+    std::string src4("new_val", 7);
     Result var4(src4);
 
-    std::map<std::string, Result> map5;
-
-    std::string src6("id", 2);
-    Result var6(src6);
-
-    double num7(0);
-    Result var7(num7);
-
-    map5.insert({src6, var7});
-
-    Result var5(map5);
+    Result var5;
 
     map3.insert({src4, var5});
 
-    std::string src8("new_val", 7);
+    std::string src6("old_val", 7);
+    Result var6(src6);
+
+    std::map<std::string, Result> map7;
+
+    std::string src8("id", 2);
     Result var8(src8);
 
-    Result var9;
+    double num9(0);
+    Result var9(num9);
 
-    map3.insert({src8, var9});
+    map7.insert({src8, var9});
+
+    Result var7(map7);
+
+    map3.insert({src6, var7});
 
     Result var3(map3);
 
@@ -967,7 +967,7 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("unchanged", 9);
+    std::string src3("skipped", 7);
     Result var3(src3);
 
     double num4(0);
@@ -975,10 +975,10 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
 
     map0.insert({src3, var4});
 
-    std::string src5("deleted", 7);
+    std::string src5("unchanged", 9);
     Result var5(src5);
 
-    double num6(1);
+    double num6(0);
     Result var6(num6);
 
     map0.insert({src5, var6});
@@ -991,60 +991,60 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
 
     map0.insert({src7, var8});
 
-    std::string src9("replaced", 8);
+    std::string src9("deleted", 7);
     Result var9(src9);
 
-    double num10(0);
+    double num10(1);
     Result var10(num10);
 
     map0.insert({src9, var10});
 
-    std::string src11("changes", 7);
+    std::string src11("replaced", 8);
     Result var11(src11);
 
-    std::vector<Result> arr12(1);
-
-    std::map<std::string, Result> map13;
-
-    std::string src14("old_val", 7);
-    Result var14(src14);
-
-    std::map<std::string, Result> map15;
-
-    std::string src16("id", 2);
-    Result var16(src16);
-
-    double num17(1);
-    Result var17(num17);
-
-    map15.insert({src16, var17});
-
-    Result var15(map15);
-
-    map13.insert({src14, var15});
-
-    std::string src18("new_val", 7);
-    Result var18(src18);
-
-    Result var19;
-
-    map13.insert({src18, var19});
-
-    Result var13(map13);
-
-    arr12.insert(arr12.end(), var13);
-
-    Result var12(arr12);
+    double num12(0);
+    Result var12(num12);
 
     map0.insert({src11, var12});
 
-    std::string src20("skipped", 7);
+    std::string src13("changes", 7);
+    Result var13(src13);
+
+    std::vector<Result> arr14(1);
+
+    std::map<std::string, Result> map15;
+
+    std::string src16("new_val", 7);
+    Result var16(src16);
+
+    Result var17;
+
+    map15.insert({src16, var17});
+
+    std::string src18("old_val", 7);
+    Result var18(src18);
+
+    std::map<std::string, Result> map19;
+
+    std::string src20("id", 2);
     Result var20(src20);
 
-    double num21(0);
+    double num21(1);
     Result var21(num21);
 
-    map0.insert({src20, var21});
+    map19.insert({src20, var21});
+
+    Result var19(map19);
+
+    map15.insert({src18, var19});
+
+    Result var15(map15);
+
+    arr14.insert(arr14.end(), var15);
+
+    Result var14(arr14);
+
+    map0.insert({src13, var14});
 
     Result var0(map0);
   }

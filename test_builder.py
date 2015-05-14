@@ -130,7 +130,7 @@ def recurse_result_c(res, obj_id):
         res = res.encode('unicode_escape').replace(b'"', b'\\"')
         return '''
     std::unique_ptr<ReQL_Obj_t> var{0}(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t> buf{0}(new uint8_t[{1}]);
+    std::unique_ptr<uint8_t[]> buf{0}(new uint8_t[{1}]);
     const uint8_t src{0}[] = "{2}";
     reql_string_init(var{0}.get(), buf{0}.get(), {1});
     reql_string_append(var{0}.get(), src{0}, {1});'''.format(obj_id, len(res), res.decode()), obj_id + 1
@@ -143,7 +143,7 @@ def recurse_result_c(res, obj_id):
     reql_object_init(var{0}.get(), nullptr, 0);'''.format(obj_id), obj_id + 1
         obj = ['''
     std::unique_ptr<ReQL_Obj_t> var{0}(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Pair_t> pair{0}(new ReQL_Pair_t[{1}]);
+    std::unique_ptr<ReQL_Pair_t[]> pair{0}(new ReQL_Pair_t[{1}]);
     reql_object_init(var{0}.get(), pair{0}.get(), {1});'''.format(obj_id, len(res))]
         orig_obj_id = obj_id
         obj_id += 1
@@ -166,7 +166,7 @@ def recurse_result_c(res, obj_id):
     reql_array_init(var{0}.get(), nullptr, 0);'''.format(obj_id), obj_id + 1
         obj = ['''
     std::unique_ptr<ReQL_Obj_t> var{0}(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr{0}(new ReQL_Obj_t*[{1}]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr{0}(new ReQL_Obj_t*[{1}]);
     reql_array_init(var{0}.get(), arr{0}.get(), {1});'''.format(obj_id, len(res))]
         orig_obj_id = obj_id
         obj_id += 1

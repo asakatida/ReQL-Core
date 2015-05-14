@@ -10,7 +10,7 @@ TEST_CASE("c Regression test for issue 2696, delete_at with end bounds.", "[c][a
 
   SECTION("test0") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr0(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[4]);
     reql_array_init(var0.get(), arr0.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);

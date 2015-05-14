@@ -44,29 +44,29 @@ TEST_CASE("cpp Test changefeed squashing", "[cpp][ast]") {
 
     std::map<std::string, Result> map1;
 
-    std::string src2("old_val", 7);
+    std::string src2("new_val", 7);
     Result var2(src2);
 
-    Result var3;
+    std::map<std::string, Result> map3;
+
+    std::string src4("id", 2);
+    Result var4(src4);
+
+    double num5(100);
+    Result var5(num5);
+
+    map3.insert({src4, var5});
+
+    Result var3(map3);
 
     map1.insert({src2, var3});
 
-    std::string src4("new_val", 7);
-    Result var4(src4);
-
-    std::map<std::string, Result> map5;
-
-    std::string src6("id", 2);
+    std::string src6("old_val", 7);
     Result var6(src6);
 
-    double num7(100);
-    Result var7(num7);
+    Result var7;
 
-    map5.insert({src6, var7});
-
-    Result var5(map5);
-
-    map1.insert({src4, var5});
+    map1.insert({src6, var7});
 
     Result var1(map1);
 
@@ -74,7 +74,7 @@ TEST_CASE("cpp Test changefeed squashing", "[cpp][ast]") {
 
     std::map<std::string, Result> map8;
 
-    std::string src9("old_val", 7);
+    std::string src9("new_val", 7);
     Result var9(src9);
 
     std::map<std::string, Result> map10;
@@ -87,22 +87,22 @@ TEST_CASE("cpp Test changefeed squashing", "[cpp][ast]") {
 
     map10.insert({src11, var12});
 
+    std::string src13("a", 1);
+    Result var13(src13);
+
+    double num14(1);
+    Result var14(num14);
+
+    map10.insert({src13, var14});
+
     Result var10(map10);
 
     map8.insert({src9, var10});
 
-    std::string src13("new_val", 7);
-    Result var13(src13);
-
-    std::map<std::string, Result> map14;
-
-    std::string src15("a", 1);
+    std::string src15("old_val", 7);
     Result var15(src15);
 
-    double num16(1);
-    Result var16(num16);
-
-    map14.insert({src15, var16});
+    std::map<std::string, Result> map16;
 
     std::string src17("id", 2);
     Result var17(src17);
@@ -110,11 +110,11 @@ TEST_CASE("cpp Test changefeed squashing", "[cpp][ast]") {
     double num18(100);
     Result var18(num18);
 
-    map14.insert({src17, var18});
+    map16.insert({src17, var18});
 
-    Result var14(map14);
+    Result var16(map16);
 
-    map8.insert({src13, var14});
+    map8.insert({src15, var16});
 
     Result var8(map8);
 
@@ -128,29 +128,29 @@ TEST_CASE("cpp Test changefeed squashing", "[cpp][ast]") {
 
     std::map<std::string, Result> map1;
 
-    std::string src2("old_val", 7);
+    std::string src2("new_val", 7);
     Result var2(src2);
 
-    Result var3;
+    std::map<std::string, Result> map3;
+
+    std::string src4("id", 2);
+    Result var4(src4);
+
+    double num5(100);
+    Result var5(num5);
+
+    map3.insert({src4, var5});
+
+    Result var3(map3);
 
     map1.insert({src2, var3});
 
-    std::string src4("new_val", 7);
-    Result var4(src4);
-
-    std::map<std::string, Result> map5;
-
-    std::string src6("id", 2);
+    std::string src6("old_val", 7);
     Result var6(src6);
 
-    double num7(100);
-    Result var7(num7);
+    Result var7;
 
-    map5.insert({src6, var7});
-
-    Result var5(map5);
-
-    map1.insert({src4, var5});
+    map1.insert({src6, var7});
 
     Result var1(map1);
 
@@ -158,7 +158,7 @@ TEST_CASE("cpp Test changefeed squashing", "[cpp][ast]") {
 
     std::map<std::string, Result> map8;
 
-    std::string src9("old_val", 7);
+    std::string src9("new_val", 7);
     Result var9(src9);
 
     std::map<std::string, Result> map10;
@@ -171,22 +171,22 @@ TEST_CASE("cpp Test changefeed squashing", "[cpp][ast]") {
 
     map10.insert({src11, var12});
 
+    std::string src13("a", 1);
+    Result var13(src13);
+
+    double num14(1);
+    Result var14(num14);
+
+    map10.insert({src13, var14});
+
     Result var10(map10);
 
     map8.insert({src9, var10});
 
-    std::string src13("new_val", 7);
-    Result var13(src13);
-
-    std::map<std::string, Result> map14;
-
-    std::string src15("a", 1);
+    std::string src15("old_val", 7);
     Result var15(src15);
 
-    double num16(1);
-    Result var16(num16);
-
-    map14.insert({src15, var16});
+    std::map<std::string, Result> map16;
 
     std::string src17("id", 2);
     Result var17(src17);
@@ -194,11 +194,11 @@ TEST_CASE("cpp Test changefeed squashing", "[cpp][ast]") {
     double num18(100);
     Result var18(num18);
 
-    map14.insert({src17, var18});
+    map16.insert({src17, var18});
 
-    Result var14(map14);
+    Result var16(map16);
 
-    map8.insert({src13, var14});
+    map8.insert({src15, var16});
 
     Result var8(map8);
 
@@ -212,17 +212,18 @@ TEST_CASE("cpp Test changefeed squashing", "[cpp][ast]") {
 
     std::map<std::string, Result> map1;
 
-    std::string src2("old_val", 7);
+    std::string src2("new_val", 7);
     Result var2(src2);
 
-    Result var3;
+    std::map<std::string, Result> map3;
 
-    map1.insert({src2, var3});
-
-    std::string src4("new_val", 7);
+    std::string src4("id", 2);
     Result var4(src4);
 
-    std::map<std::string, Result> map5;
+    double num5(100);
+    Result var5(num5);
+
+    map3.insert({src4, var5});
 
     std::string src6("a", 1);
     Result var6(src6);
@@ -230,19 +231,18 @@ TEST_CASE("cpp Test changefeed squashing", "[cpp][ast]") {
     double num7(1);
     Result var7(num7);
 
-    map5.insert({src6, var7});
+    map3.insert({src6, var7});
 
-    std::string src8("id", 2);
+    Result var3(map3);
+
+    map1.insert({src2, var3});
+
+    std::string src8("old_val", 7);
     Result var8(src8);
 
-    double num9(100);
-    Result var9(num9);
+    Result var9;
 
-    map5.insert({src8, var9});
-
-    Result var5(map5);
-
-    map1.insert({src4, var5});
+    map1.insert({src8, var9});
 
     Result var1(map1);
 
@@ -256,17 +256,18 @@ TEST_CASE("cpp Test changefeed squashing", "[cpp][ast]") {
 
     std::map<std::string, Result> map1;
 
-    std::string src2("old_val", 7);
+    std::string src2("new_val", 7);
     Result var2(src2);
 
-    Result var3;
+    std::map<std::string, Result> map3;
 
-    map1.insert({src2, var3});
-
-    std::string src4("new_val", 7);
+    std::string src4("id", 2);
     Result var4(src4);
 
-    std::map<std::string, Result> map5;
+    double num5(100);
+    Result var5(num5);
+
+    map3.insert({src4, var5});
 
     std::string src6("a", 1);
     Result var6(src6);
@@ -274,19 +275,18 @@ TEST_CASE("cpp Test changefeed squashing", "[cpp][ast]") {
     double num7(1);
     Result var7(num7);
 
-    map5.insert({src6, var7});
+    map3.insert({src6, var7});
 
-    std::string src8("id", 2);
+    Result var3(map3);
+
+    map1.insert({src2, var3});
+
+    std::string src8("old_val", 7);
     Result var8(src8);
 
-    double num9(100);
-    Result var9(num9);
+    Result var9;
 
-    map5.insert({src8, var9});
-
-    Result var5(map5);
-
-    map1.insert({src4, var5});
+    map1.insert({src8, var9});
 
     Result var1(map1);
 

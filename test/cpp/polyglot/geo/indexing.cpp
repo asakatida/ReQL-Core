@@ -19,7 +19,7 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("unchanged", 9);
+    std::string src3("skipped", 7);
     Result var3(src3);
 
     double num4(0);
@@ -27,7 +27,7 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
 
     map0.insert({src3, var4});
 
-    std::string src5("deleted", 7);
+    std::string src5("unchanged", 9);
     Result var5(src5);
 
     double num6(0);
@@ -43,7 +43,7 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
 
     map0.insert({src7, var8});
 
-    std::string src9("replaced", 8);
+    std::string src9("deleted", 7);
     Result var9(src9);
 
     double num10(0);
@@ -51,7 +51,7 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
 
     map0.insert({src9, var10});
 
-    std::string src11("skipped", 7);
+    std::string src11("replaced", 8);
     Result var11(src11);
 
     double num12(0);
@@ -351,30 +351,30 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
 
     std::map<std::string, Result> map1;
 
-    std::string src2("doc", 3);
+    std::string src2("dist", 4);
     Result var2(src2);
 
-    std::map<std::string, Result> map3;
-
-    std::string src4("id", 2);
-    Result var4(src4);
-
-    double num5(1);
-    Result var5(num5);
-
-    map3.insert({src4, var5});
-
-    Result var3(map3);
+    double num3(0);
+    Result var3(num3);
 
     map1.insert({src2, var3});
 
-    std::string src6("dist", 4);
+    std::string src4("doc", 3);
+    Result var4(src4);
+
+    std::map<std::string, Result> map5;
+
+    std::string src6("id", 2);
     Result var6(src6);
 
-    double num7(0);
+    double num7(1);
     Result var7(num7);
 
-    map1.insert({src6, var7});
+    map5.insert({src6, var7});
+
+    Result var5(map5);
+
+    map1.insert({src4, var5});
 
     Result var1(map1);
 
@@ -382,30 +382,30 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
 
     std::map<std::string, Result> map8;
 
-    std::string src9("doc", 3);
+    std::string src9("dist", 4);
     Result var9(src9);
 
-    std::map<std::string, Result> map10;
-
-    std::string src11("id", 2);
-    Result var11(src11);
-
-    double num12(2);
-    Result var12(num12);
-
-    map10.insert({src11, var12});
-
-    Result var10(map10);
+    double num10(0.055659745396754216);
+    Result var10(num10);
 
     map8.insert({src9, var10});
 
-    std::string src13("dist", 4);
+    std::string src11("doc", 3);
+    Result var11(src11);
+
+    std::map<std::string, Result> map12;
+
+    std::string src13("id", 2);
     Result var13(src13);
 
-    double num14(0.055659745396754216);
+    double num14(2);
     Result var14(num14);
 
-    map8.insert({src13, var14});
+    map12.insert({src13, var14});
+
+    Result var12(map12);
+
+    map8.insert({src11, var12});
 
     Result var8(map8);
 
@@ -419,30 +419,30 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
 
     std::map<std::string, Result> map1;
 
-    std::string src2("doc", 3);
+    std::string src2("dist", 4);
     Result var2(src2);
 
-    std::map<std::string, Result> map3;
-
-    std::string src4("id", 2);
-    Result var4(src4);
-
-    double num5(2);
-    Result var5(num5);
-
-    map3.insert({src4, var5});
-
-    Result var3(map3);
+    double num3(0);
+    Result var3(num3);
 
     map1.insert({src2, var3});
 
-    std::string src6("dist", 4);
+    std::string src4("doc", 3);
+    Result var4(src4);
+
+    std::map<std::string, Result> map5;
+
+    std::string src6("id", 2);
     Result var6(src6);
 
-    double num7(0);
+    double num7(2);
     Result var7(num7);
 
-    map1.insert({src6, var7});
+    map5.insert({src6, var7});
+
+    Result var5(map5);
+
+    map1.insert({src4, var5});
 
     Result var1(map1);
 
@@ -450,30 +450,30 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
 
     std::map<std::string, Result> map8;
 
-    std::string src9("doc", 3);
+    std::string src9("dist", 4);
     Result var9(src9);
 
-    std::map<std::string, Result> map10;
-
-    std::string src11("id", 2);
-    Result var11(src11);
-
-    double num12(1);
-    Result var12(num12);
-
-    map10.insert({src11, var12});
-
-    Result var10(map10);
+    double num10(0.11130264976984369);
+    Result var10(num10);
 
     map8.insert({src9, var10});
 
-    std::string src13("dist", 4);
+    std::string src11("doc", 3);
+    Result var11(src11);
+
+    std::map<std::string, Result> map12;
+
+    std::string src13("id", 2);
     Result var13(src13);
 
-    double num14(0.11130264976984369);
+    double num14(1);
     Result var14(num14);
 
-    map8.insert({src13, var14});
+    map12.insert({src13, var14});
+
+    Result var12(map12);
+
+    map8.insert({src11, var12});
 
     Result var8(map8);
 
@@ -487,30 +487,30 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
 
     std::map<std::string, Result> map1;
 
-    std::string src2("doc", 3);
+    std::string src2("dist", 4);
     Result var2(src2);
 
-    std::map<std::string, Result> map3;
-
-    std::string src4("id", 2);
-    Result var4(src4);
-
-    double num5(1);
-    Result var5(num5);
-
-    map3.insert({src4, var5});
-
-    Result var3(map3);
+    double num3(0);
+    Result var3(num3);
 
     map1.insert({src2, var3});
 
-    std::string src6("dist", 4);
+    std::string src4("doc", 3);
+    Result var4(src4);
+
+    std::map<std::string, Result> map5;
+
+    std::string src6("id", 2);
     Result var6(src6);
 
-    double num7(0);
+    double num7(1);
     Result var7(num7);
 
-    map1.insert({src6, var7});
+    map5.insert({src6, var7});
+
+    Result var5(map5);
+
+    map1.insert({src4, var5});
 
     Result var1(map1);
 
@@ -518,30 +518,30 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
 
     std::map<std::string, Result> map8;
 
-    std::string src9("doc", 3);
+    std::string src9("dist", 4);
     Result var9(src9);
 
-    std::map<std::string, Result> map10;
-
-    std::string src11("id", 2);
-    Result var11(src11);
-
-    double num12(2);
-    Result var12(num12);
-
-    map10.insert({src11, var12});
-
-    Result var10(map10);
+    double num10(0.055659745396754216);
+    Result var10(num10);
 
     map8.insert({src9, var10});
 
-    std::string src13("dist", 4);
+    std::string src11("doc", 3);
+    Result var11(src11);
+
+    std::map<std::string, Result> map12;
+
+    std::string src13("id", 2);
     Result var13(src13);
 
-    double num14(0.055659745396754216);
+    double num14(2);
     Result var14(num14);
 
-    map8.insert({src13, var14});
+    map12.insert({src13, var14});
+
+    Result var12(map12);
+
+    map8.insert({src11, var12});
 
     Result var8(map8);
 
@@ -549,30 +549,30 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
 
     std::map<std::string, Result> map15;
 
-    std::string src16("doc", 3);
+    std::string src16("dist", 4);
     Result var16(src16);
 
-    std::map<std::string, Result> map17;
-
-    std::string src18("id", 2);
-    Result var18(src18);
-
-    double num19(0);
-    Result var19(num19);
-
-    map17.insert({src18, var19});
-
-    Result var17(map17);
+    double num17(1565109.0992178896);
+    Result var17(num17);
 
     map15.insert({src16, var17});
 
-    std::string src20("dist", 4);
+    std::string src18("doc", 3);
+    Result var18(src18);
+
+    std::map<std::string, Result> map19;
+
+    std::string src20("id", 2);
     Result var20(src20);
 
-    double num21(1565109.0992178896);
+    double num21(0);
     Result var21(num21);
 
-    map15.insert({src20, var21});
+    map19.insert({src20, var21});
+
+    Result var19(map19);
+
+    map15.insert({src18, var19});
 
     Result var15(map15);
 
@@ -586,30 +586,30 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
 
     std::map<std::string, Result> map1;
 
-    std::string src2("doc", 3);
+    std::string src2("dist", 4);
     Result var2(src2);
 
-    std::map<std::string, Result> map3;
-
-    std::string src4("id", 2);
-    Result var4(src4);
-
-    double num5(1);
-    Result var5(num5);
-
-    map3.insert({src4, var5});
-
-    Result var3(map3);
+    double num3(0);
+    Result var3(num3);
 
     map1.insert({src2, var3});
 
-    std::string src6("dist", 4);
+    std::string src4("doc", 3);
+    Result var4(src4);
+
+    std::map<std::string, Result> map5;
+
+    std::string src6("id", 2);
     Result var6(src6);
 
-    double num7(0);
+    double num7(1);
     Result var7(num7);
 
-    map1.insert({src6, var7});
+    map5.insert({src6, var7});
+
+    Result var5(map5);
+
+    map1.insert({src4, var5});
 
     Result var1(map1);
 
@@ -617,30 +617,30 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
 
     std::map<std::string, Result> map8;
 
-    std::string src9("doc", 3);
+    std::string src9("dist", 4);
     Result var9(src9);
 
-    std::map<std::string, Result> map10;
-
-    std::string src11("id", 2);
-    Result var11(src11);
-
-    double num12(2);
-    Result var12(num12);
-
-    map10.insert({src11, var12});
-
-    Result var10(map10);
+    double num10(0.055659745396754216);
+    Result var10(num10);
 
     map8.insert({src9, var10});
 
-    std::string src13("dist", 4);
+    std::string src11("doc", 3);
+    Result var11(src11);
+
+    std::map<std::string, Result> map12;
+
+    std::string src13("id", 2);
     Result var13(src13);
 
-    double num14(0.055659745396754216);
+    double num14(2);
     Result var14(num14);
 
-    map8.insert({src13, var14});
+    map12.insert({src13, var14});
+
+    Result var12(map12);
+
+    map8.insert({src11, var12});
 
     Result var8(map8);
 
@@ -668,30 +668,30 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
 
     std::map<std::string, Result> map1;
 
-    std::string src2("doc", 3);
+    std::string src2("dist", 4);
     Result var2(src2);
 
-    std::map<std::string, Result> map3;
-
-    std::string src4("id", 2);
-    Result var4(src4);
-
-    double num5(1);
-    Result var5(num5);
-
-    map3.insert({src4, var5});
-
-    Result var3(map3);
+    double num3(0);
+    Result var3(num3);
 
     map1.insert({src2, var3});
 
-    std::string src6("dist", 4);
+    std::string src4("doc", 3);
+    Result var4(src4);
+
+    std::map<std::string, Result> map5;
+
+    std::string src6("id", 2);
     Result var6(src6);
 
-    double num7(0);
+    double num7(1);
     Result var7(num7);
 
-    map1.insert({src6, var7});
+    map5.insert({src6, var7});
+
+    Result var5(map5);
+
+    map1.insert({src4, var5});
 
     Result var1(map1);
 
@@ -699,30 +699,30 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
 
     std::map<std::string, Result> map8;
 
-    std::string src9("doc", 3);
+    std::string src9("dist", 4);
     Result var9(src9);
 
-    std::map<std::string, Result> map10;
-
-    std::string src11("id", 2);
-    Result var11(src11);
-
-    double num12(2);
-    Result var12(num12);
-
-    map10.insert({src11, var12});
-
-    Result var10(map10);
+    double num10(5.565974539675422e-05);
+    Result var10(num10);
 
     map8.insert({src9, var10});
 
-    std::string src13("dist", 4);
+    std::string src11("doc", 3);
+    Result var11(src11);
+
+    std::map<std::string, Result> map12;
+
+    std::string src13("id", 2);
     Result var13(src13);
 
-    double num14(5.565974539675422e-05);
+    double num14(2);
     Result var14(num14);
 
-    map8.insert({src13, var14});
+    map12.insert({src13, var14});
+
+    Result var12(map12);
+
+    map8.insert({src11, var12});
 
     Result var8(map8);
 
@@ -730,30 +730,30 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
 
     std::map<std::string, Result> map15;
 
-    std::string src16("doc", 3);
+    std::string src16("dist", 4);
     Result var16(src16);
 
-    std::map<std::string, Result> map17;
-
-    std::string src18("id", 2);
-    Result var18(src18);
-
-    double num19(0);
-    Result var19(num19);
-
-    map17.insert({src18, var19});
-
-    Result var17(map17);
+    double num17(1565.1090992178897);
+    Result var17(num17);
 
     map15.insert({src16, var17});
 
-    std::string src20("dist", 4);
+    std::string src18("doc", 3);
+    Result var18(src18);
+
+    std::map<std::string, Result> map19;
+
+    std::string src20("id", 2);
     Result var20(src20);
 
-    double num21(1565.1090992178897);
+    double num21(0);
     Result var21(num21);
 
-    map15.insert({src20, var21});
+    map19.insert({src20, var21});
+
+    Result var19(map19);
+
+    map15.insert({src18, var19});
 
     Result var15(map15);
 
@@ -767,30 +767,30 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
 
     std::map<std::string, Result> map1;
 
-    std::string src2("doc", 3);
+    std::string src2("dist", 4);
     Result var2(src2);
 
-    std::map<std::string, Result> map3;
-
-    std::string src4("id", 2);
-    Result var4(src4);
-
-    double num5(1);
-    Result var5(num5);
-
-    map3.insert({src4, var5});
-
-    Result var3(map3);
+    double num3(0);
+    Result var3(num3);
 
     map1.insert({src2, var3});
 
-    std::string src6("dist", 4);
+    std::string src4("doc", 3);
+    Result var4(src4);
+
+    std::map<std::string, Result> map5;
+
+    std::string src6("id", 2);
     Result var6(src6);
 
-    double num7(0);
+    double num7(1);
     Result var7(num7);
 
-    map1.insert({src6, var7});
+    map5.insert({src6, var7});
+
+    Result var5(map5);
+
+    map1.insert({src4, var5});
 
     Result var1(map1);
 
@@ -798,30 +798,30 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
 
     std::map<std::string, Result> map8;
 
-    std::string src9("doc", 3);
+    std::string src9("dist", 4);
     Result var9(src9);
 
-    std::map<std::string, Result> map10;
-
-    std::string src11("id", 2);
-    Result var11(src11);
-
-    double num12(2);
-    Result var12(num12);
-
-    map10.insert({src11, var12});
-
-    Result var10(map10);
+    double num10(8.726646259990191e-09);
+    Result var10(num10);
 
     map8.insert({src9, var10});
 
-    std::string src13("dist", 4);
+    std::string src11("doc", 3);
+    Result var11(src11);
+
+    std::map<std::string, Result> map12;
+
+    std::string src13("id", 2);
     Result var13(src13);
 
-    double num14(8.726646259990191e-09);
+    double num14(2);
     Result var14(num14);
 
-    map8.insert({src13, var14});
+    map12.insert({src13, var14});
+
+    Result var12(map12);
+
+    map8.insert({src11, var12});
 
     Result var8(map8);
 
@@ -829,30 +829,30 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
 
     std::map<std::string, Result> map15;
 
-    std::string src16("doc", 3);
+    std::string src16("dist", 4);
     Result var16(src16);
 
-    std::map<std::string, Result> map17;
-
-    std::string src18("id", 2);
-    Result var18(src18);
-
-    double num19(0);
-    Result var19(num19);
-
-    map17.insert({src18, var19});
-
-    Result var17(map17);
+    double num17(0.24619691677893205);
+    Result var17(num17);
 
     map15.insert({src16, var17});
 
-    std::string src20("dist", 4);
+    std::string src18("doc", 3);
+    Result var18(src18);
+
+    std::map<std::string, Result> map19;
+
+    std::string src20("id", 2);
     Result var20(src20);
 
-    double num21(0.24619691677893205);
+    double num21(0);
     Result var21(num21);
 
-    map15.insert({src20, var21});
+    map19.insert({src20, var21});
+
+    Result var19(map19);
+
+    map15.insert({src18, var19});
 
     Result var15(map15);
 

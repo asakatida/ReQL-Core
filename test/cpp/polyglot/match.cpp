@@ -11,48 +11,40 @@ TEST_CASE("cpp Tests for match", "[cpp][ast]") {
   SECTION("test0") {
     std::map<std::string, Result> map0;
 
-    std::string src1("groups", 6);
+    std::string src1("start", 5);
     Result var1(src1);
 
-    std::vector<Result> arr2(2);
-
-    Result var3;
-
-    arr2.insert(arr2.end(), var3);
-
-    std::map<std::string, Result> map4;
-
-    std::string src5("end", 3);
-    Result var5(src5);
-
-    double num6(5);
-    Result var6(num6);
-
-    map4.insert({src5, var6});
-
-    std::string src7("start", 5);
-    Result var7(src7);
-
-    double num8(2);
-    Result var8(num8);
-
-    map4.insert({src7, var8});
-
-    std::string src9("str", 3);
-    Result var9(src9);
-
-    std::string src10("cde", 3);
-    Result var10(src10);
-
-    map4.insert({src9, var10});
-
-    Result var4(map4);
-
-    arr2.insert(arr2.end(), var4);
-
-    Result var2(arr2);
+    double num2(1);
+    Result var2(num2);
 
     map0.insert({src1, var2});
+
+    std::string src3("end", 3);
+    Result var3(src3);
+
+    double num4(5);
+    Result var4(num4);
+
+    map0.insert({src3, var4});
+
+    std::string src5("groups", 6);
+    Result var5(src5);
+
+    std::vector<Result> arr6(2);
+
+    Result var7;
+
+    arr6.insert(arr6.end(), var7);
+
+    std::map<std::string, Result> map8;
+
+    std::string src9("start", 5);
+    Result var9(src9);
+
+    double num10(2);
+    Result var10(num10);
+
+    map8.insert({src9, var10});
 
     std::string src11("end", 3);
     Result var11(src11);
@@ -60,21 +52,29 @@ TEST_CASE("cpp Tests for match", "[cpp][ast]") {
     double num12(5);
     Result var12(num12);
 
-    map0.insert({src11, var12});
+    map8.insert({src11, var12});
 
     std::string src13("str", 3);
     Result var13(src13);
 
-    std::string src14("bcde", 4);
+    std::string src14("cde", 3);
     Result var14(src14);
 
-    map0.insert({src13, var14});
+    map8.insert({src13, var14});
 
-    std::string src15("start", 5);
+    Result var8(map8);
+
+    arr6.insert(arr6.end(), var8);
+
+    Result var6(arr6);
+
+    map0.insert({src5, var6});
+
+    std::string src15("str", 3);
     Result var15(src15);
 
-    double num16(1);
-    Result var16(num16);
+    std::string src16("bcde", 4);
+    Result var16(src16);
 
     map0.insert({src15, var16});
 
@@ -88,48 +88,40 @@ TEST_CASE("cpp Tests for match", "[cpp][ast]") {
   SECTION("test2") {
     std::map<std::string, Result> map0;
 
-    std::string src1("groups", 6);
+    std::string src1("start", 5);
     Result var1(src1);
 
-    std::vector<Result> arr2(2);
-
-    Result var3;
-
-    arr2.insert(arr2.end(), var3);
-
-    std::map<std::string, Result> map4;
-
-    std::string src5("end", 3);
-    Result var5(src5);
-
-    double num6(5);
-    Result var6(num6);
-
-    map4.insert({src5, var6});
-
-    std::string src7("start", 5);
-    Result var7(src7);
-
-    double num8(2);
-    Result var8(num8);
-
-    map4.insert({src7, var8});
-
-    std::string src9("str", 3);
-    Result var9(src9);
-
-    std::string src10("cde", 3);
-    Result var10(src10);
-
-    map4.insert({src9, var10});
-
-    Result var4(map4);
-
-    arr2.insert(arr2.end(), var4);
-
-    Result var2(arr2);
+    double num2(1);
+    Result var2(num2);
 
     map0.insert({src1, var2});
+
+    std::string src3("end", 3);
+    Result var3(src3);
+
+    double num4(5);
+    Result var4(num4);
+
+    map0.insert({src3, var4});
+
+    std::string src5("groups", 6);
+    Result var5(src5);
+
+    std::vector<Result> arr6(2);
+
+    Result var7;
+
+    arr6.insert(arr6.end(), var7);
+
+    std::map<std::string, Result> map8;
+
+    std::string src9("start", 5);
+    Result var9(src9);
+
+    double num10(2);
+    Result var10(num10);
+
+    map8.insert({src9, var10});
 
     std::string src11("end", 3);
     Result var11(src11);
@@ -137,21 +129,29 @@ TEST_CASE("cpp Tests for match", "[cpp][ast]") {
     double num12(5);
     Result var12(num12);
 
-    map0.insert({src11, var12});
+    map8.insert({src11, var12});
 
     std::string src13("str", 3);
     Result var13(src13);
 
-    std::string src14("bcde", 4);
+    std::string src14("cde", 3);
     Result var14(src14);
 
-    map0.insert({src13, var14});
+    map8.insert({src13, var14});
 
-    std::string src15("start", 5);
+    Result var8(map8);
+
+    arr6.insert(arr6.end(), var8);
+
+    Result var6(arr6);
+
+    map0.insert({src5, var6});
+
+    std::string src15("str", 3);
     Result var15(src15);
 
-    double num16(1);
-    Result var16(num16);
+    std::string src16("bcde", 4);
+    Result var16(src16);
 
     map0.insert({src15, var16});
 
@@ -185,7 +185,7 @@ TEST_CASE("cpp Tests for match", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("unchanged", 9);
+    std::string src3("skipped", 7);
     Result var3(src3);
 
     double num4(0.0);
@@ -209,7 +209,7 @@ TEST_CASE("cpp Tests for match", "[cpp][ast]") {
 
     map0.insert({src7, var8});
 
-    std::string src9("replaced", 8);
+    std::string src9("unchanged", 9);
     Result var9(src9);
 
     double num10(0.0);
@@ -217,7 +217,7 @@ TEST_CASE("cpp Tests for match", "[cpp][ast]") {
 
     map0.insert({src9, var10});
 
-    std::string src11("skipped", 7);
+    std::string src11("replaced", 8);
     Result var11(src11);
 
     double num12(0.0);
@@ -233,19 +233,19 @@ TEST_CASE("cpp Tests for match", "[cpp][ast]") {
 
     std::map<std::string, Result> map1;
 
-    std::string src2("a", 1);
+    std::string src2("id", 2);
     Result var2(src2);
 
-    std::string src3("abc", 3);
-    Result var3(src3);
+    double num3(0);
+    Result var3(num3);
 
     map1.insert({src2, var3});
 
-    std::string src4("id", 2);
+    std::string src4("a", 1);
     Result var4(src4);
 
-    double num5(0);
-    Result var5(num5);
+    std::string src5("abc", 3);
+    Result var5(src5);
 
     map1.insert({src4, var5});
 
@@ -255,19 +255,19 @@ TEST_CASE("cpp Tests for match", "[cpp][ast]") {
 
     std::map<std::string, Result> map6;
 
-    std::string src7("a", 1);
+    std::string src7("id", 2);
     Result var7(src7);
 
-    std::string src8("ab", 2);
-    Result var8(src8);
+    double num8(1);
+    Result var8(num8);
 
     map6.insert({src7, var8});
 
-    std::string src9("id", 2);
+    std::string src9("a", 1);
     Result var9(src9);
 
-    double num10(1);
-    Result var10(num10);
+    std::string src10("ab", 2);
+    Result var10(src10);
 
     map6.insert({src9, var10});
 
@@ -277,19 +277,19 @@ TEST_CASE("cpp Tests for match", "[cpp][ast]") {
 
     std::map<std::string, Result> map11;
 
-    std::string src12("a", 1);
+    std::string src12("id", 2);
     Result var12(src12);
 
-    std::string src13("bc", 2);
-    Result var13(src13);
+    double num13(2);
+    Result var13(num13);
 
     map11.insert({src12, var13});
 
-    std::string src14("id", 2);
+    std::string src14("a", 1);
     Result var14(src14);
 
-    double num15(2);
-    Result var15(num15);
+    std::string src15("bc", 2);
+    Result var15(src15);
 
     map11.insert({src14, var15});
 
@@ -305,19 +305,19 @@ TEST_CASE("cpp Tests for match", "[cpp][ast]") {
 
     std::map<std::string, Result> map1;
 
-    std::string src2("a", 1);
+    std::string src2("id", 2);
     Result var2(src2);
 
-    std::string src3("abc", 3);
-    Result var3(src3);
+    double num3(0);
+    Result var3(num3);
 
     map1.insert({src2, var3});
 
-    std::string src4("id", 2);
+    std::string src4("a", 1);
     Result var4(src4);
 
-    double num5(0);
-    Result var5(num5);
+    std::string src5("abc", 3);
+    Result var5(src5);
 
     map1.insert({src4, var5});
 
@@ -327,19 +327,19 @@ TEST_CASE("cpp Tests for match", "[cpp][ast]") {
 
     std::map<std::string, Result> map6;
 
-    std::string src7("a", 1);
+    std::string src7("id", 2);
     Result var7(src7);
 
-    std::string src8("ab", 2);
-    Result var8(src8);
+    double num8(1);
+    Result var8(num8);
 
     map6.insert({src7, var8});
 
-    std::string src9("id", 2);
+    std::string src9("a", 1);
     Result var9(src9);
 
-    double num10(1);
-    Result var10(num10);
+    std::string src10("ab", 2);
+    Result var10(src10);
 
     map6.insert({src9, var10});
 
@@ -355,19 +355,19 @@ TEST_CASE("cpp Tests for match", "[cpp][ast]") {
 
     std::map<std::string, Result> map1;
 
-    std::string src2("a", 1);
+    std::string src2("id", 2);
     Result var2(src2);
 
-    std::string src3("ab", 2);
-    Result var3(src3);
+    double num3(1);
+    Result var3(num3);
 
     map1.insert({src2, var3});
 
-    std::string src4("id", 2);
+    std::string src4("a", 1);
     Result var4(src4);
 
-    double num5(1);
-    Result var5(num5);
+    std::string src5("ab", 2);
+    Result var5(src5);
 
     map1.insert({src4, var5});
 

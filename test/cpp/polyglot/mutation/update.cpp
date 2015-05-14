@@ -33,7 +33,7 @@ TEST_CASE("cpp Tests updates of selections", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("unchanged", 9);
+    std::string src3("skipped", 7);
     Result var3(src3);
 
     double num4(0.0);
@@ -57,7 +57,7 @@ TEST_CASE("cpp Tests updates of selections", "[cpp][ast]") {
 
     map0.insert({src7, var8});
 
-    std::string src9("replaced", 8);
+    std::string src9("unchanged", 9);
     Result var9(src9);
 
     double num10(0.0);
@@ -65,7 +65,7 @@ TEST_CASE("cpp Tests updates of selections", "[cpp][ast]") {
 
     map0.insert({src9, var10});
 
-    std::string src11("skipped", 7);
+    std::string src11("replaced", 8);
     Result var11(src11);
 
     double num12(0.0);
@@ -92,7 +92,7 @@ TEST_CASE("cpp Tests updates of selections", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("unchanged", 9);
+    std::string src3("skipped", 7);
     Result var3(src3);
 
     double num4(0.0);
@@ -116,7 +116,7 @@ TEST_CASE("cpp Tests updates of selections", "[cpp][ast]") {
 
     map0.insert({src7, var8});
 
-    std::string src9("replaced", 8);
+    std::string src9("unchanged", 9);
     Result var9(src9);
 
     double num10(0.0);
@@ -124,7 +124,7 @@ TEST_CASE("cpp Tests updates of selections", "[cpp][ast]") {
 
     map0.insert({src9, var10});
 
-    std::string src11("skipped", 7);
+    std::string src11("replaced", 8);
     Result var11(src11);
 
     double num12(0.0);
@@ -151,10 +151,10 @@ TEST_CASE("cpp Tests updates of selections", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("unchanged", 9);
+    std::string src3("skipped", 7);
     Result var3(src3);
 
-    double num4(1);
+    double num4(0.0);
     Result var4(num4);
 
     map0.insert({src3, var4});
@@ -175,15 +175,15 @@ TEST_CASE("cpp Tests updates of selections", "[cpp][ast]") {
 
     map0.insert({src7, var8});
 
-    std::string src9("replaced", 8);
+    std::string src9("unchanged", 9);
     Result var9(src9);
 
-    double num10(0.0);
+    double num10(1);
     Result var10(num10);
 
     map0.insert({src9, var10});
 
-    std::string src11("skipped", 7);
+    std::string src11("replaced", 8);
     Result var11(src11);
 
     double num12(0.0);
@@ -205,7 +205,7 @@ TEST_CASE("cpp Tests updates of selections", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("unchanged", 9);
+    std::string src3("skipped", 7);
     Result var3(src3);
 
     double num4(0.0);
@@ -229,18 +229,18 @@ TEST_CASE("cpp Tests updates of selections", "[cpp][ast]") {
 
     map0.insert({src7, var8});
 
-    std::string src9("replaced", 8);
+    std::string src9("unchanged", 9);
     Result var9(src9);
 
-    double num10(1);
+    double num10(0.0);
     Result var10(num10);
 
     map0.insert({src9, var10});
 
-    std::string src11("skipped", 7);
+    std::string src11("replaced", 8);
     Result var11(src11);
 
-    double num12(0.0);
+    double num12(1);
     Result var12(num12);
 
     map0.insert({src11, var12});
@@ -251,18 +251,18 @@ TEST_CASE("cpp Tests updates of selections", "[cpp][ast]") {
   SECTION("test8") {
     std::map<std::string, Result> map0;
 
-    std::string src1("a", 1);
+    std::string src1("id", 2);
     Result var1(src1);
 
-    double num2(13);
+    double num2(12);
     Result var2(num2);
 
     map0.insert({src1, var2});
 
-    std::string src3("id", 2);
+    std::string src3("a", 1);
     Result var3(src3);
 
-    double num4(12);
+    double num4(13);
     Result var4(num4);
 
     map0.insert({src3, var4});
@@ -281,7 +281,7 @@ TEST_CASE("cpp Tests updates of selections", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("unchanged", 9);
+    std::string src3("skipped", 7);
     Result var3(src3);
 
     double num4(0.0);
@@ -305,18 +305,18 @@ TEST_CASE("cpp Tests updates of selections", "[cpp][ast]") {
 
     map0.insert({src7, var8});
 
-    std::string src9("replaced", 8);
+    std::string src9("unchanged", 9);
     Result var9(src9);
 
-    double num10(1);
+    double num10(0.0);
     Result var10(num10);
 
     map0.insert({src9, var10});
 
-    std::string src11("skipped", 7);
+    std::string src11("replaced", 8);
     Result var11(src11);
 
-    double num12(0.0);
+    double num12(1);
     Result var12(num12);
 
     map0.insert({src11, var12});
@@ -327,18 +327,18 @@ TEST_CASE("cpp Tests updates of selections", "[cpp][ast]") {
   SECTION("test10") {
     std::map<std::string, Result> map0;
 
-    std::string src1("a", 1);
+    std::string src1("id", 2);
     Result var1(src1);
 
-    double num2(14);
+    double num2(12);
     Result var2(num2);
 
     map0.insert({src1, var2});
 
-    std::string src3("id", 2);
+    std::string src3("a", 1);
     Result var3(src3);
 
-    double num4(12);
+    double num4(14);
     Result var4(num4);
 
     map0.insert({src3, var4});
@@ -363,18 +363,18 @@ TEST_CASE("cpp Tests updates of selections", "[cpp][ast]") {
   SECTION("test12") {
     std::map<std::string, Result> map0;
 
-    std::string src1("a", 1);
+    std::string src1("id", 2);
     Result var1(src1);
 
-    double num2(14);
+    double num2(12);
     Result var2(num2);
 
     map0.insert({src1, var2});
 
-    std::string src3("id", 2);
+    std::string src3("a", 1);
     Result var3(src3);
 
-    double num4(12);
+    double num4(14);
     Result var4(num4);
 
     map0.insert({src3, var4});
@@ -393,7 +393,7 @@ TEST_CASE("cpp Tests updates of selections", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("unchanged", 9);
+    std::string src3("skipped", 7);
     Result var3(src3);
 
     double num4(0.0);
@@ -417,18 +417,18 @@ TEST_CASE("cpp Tests updates of selections", "[cpp][ast]") {
 
     map0.insert({src7, var8});
 
-    std::string src9("replaced", 8);
+    std::string src9("unchanged", 9);
     Result var9(src9);
 
-    double num10(1);
+    double num10(0.0);
     Result var10(num10);
 
     map0.insert({src9, var10});
 
-    std::string src11("skipped", 7);
+    std::string src11("replaced", 8);
     Result var11(src11);
 
-    double num12(0.0);
+    double num12(1);
     Result var12(num12);
 
     map0.insert({src11, var12});
@@ -439,7 +439,7 @@ TEST_CASE("cpp Tests updates of selections", "[cpp][ast]") {
   SECTION("test14") {
     std::map<std::string, Result> map0;
 
-    std::string src1("a", 1);
+    std::string src1("id", 2);
     Result var1(src1);
 
     double num2(12);
@@ -447,7 +447,7 @@ TEST_CASE("cpp Tests updates of selections", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("id", 2);
+    std::string src3("a", 1);
     Result var3(src3);
 
     double num4(12);
@@ -469,7 +469,7 @@ TEST_CASE("cpp Tests updates of selections", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("unchanged", 9);
+    std::string src3("skipped", 7);
     Result var3(src3);
 
     double num4(0.0);
@@ -493,18 +493,18 @@ TEST_CASE("cpp Tests updates of selections", "[cpp][ast]") {
 
     map0.insert({src7, var8});
 
-    std::string src9("replaced", 8);
+    std::string src9("unchanged", 9);
     Result var9(src9);
 
-    double num10(1);
+    double num10(0.0);
     Result var10(num10);
 
     map0.insert({src9, var10});
 
-    std::string src11("skipped", 7);
+    std::string src11("replaced", 8);
     Result var11(src11);
 
-    double num12(0.0);
+    double num12(1);
     Result var12(num12);
 
     map0.insert({src11, var12});
@@ -523,10 +523,10 @@ TEST_CASE("cpp Tests updates of selections", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("unchanged", 9);
+    std::string src3("skipped", 7);
     Result var3(src3);
 
-    double num4(0);
+    double num4(0.0);
     Result var4(num4);
 
     map0.insert({src3, var4});
@@ -547,18 +547,18 @@ TEST_CASE("cpp Tests updates of selections", "[cpp][ast]") {
 
     map0.insert({src7, var8});
 
-    std::string src9("replaced", 8);
+    std::string src9("unchanged", 9);
     Result var9(src9);
 
-    double num10(10);
+    double num10(0);
     Result var10(num10);
 
     map0.insert({src9, var10});
 
-    std::string src11("skipped", 7);
+    std::string src11("replaced", 8);
     Result var11(src11);
 
-    double num12(0.0);
+    double num12(10);
     Result var12(num12);
 
     map0.insert({src11, var12});
@@ -577,10 +577,10 @@ TEST_CASE("cpp Tests updates of selections", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("unchanged", 9);
+    std::string src3("skipped", 7);
     Result var3(src3);
 
-    double num4(10);
+    double num4(0.0);
     Result var4(num4);
 
     map0.insert({src3, var4});
@@ -601,15 +601,15 @@ TEST_CASE("cpp Tests updates of selections", "[cpp][ast]") {
 
     map0.insert({src7, var8});
 
-    std::string src9("replaced", 8);
+    std::string src9("unchanged", 9);
     Result var9(src9);
 
-    double num10(0.0);
+    double num10(10);
     Result var10(num10);
 
     map0.insert({src9, var10});
 
-    std::string src11("skipped", 7);
+    std::string src11("replaced", 8);
     Result var11(src11);
 
     double num12(0.0);
@@ -631,7 +631,7 @@ TEST_CASE("cpp Tests updates of selections", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("unchanged", 9);
+    std::string src3("skipped", 7);
     Result var3(src3);
 
     double num4(0.0);
@@ -655,18 +655,18 @@ TEST_CASE("cpp Tests updates of selections", "[cpp][ast]") {
 
     map0.insert({src7, var8});
 
-    std::string src9("replaced", 8);
+    std::string src9("unchanged", 9);
     Result var9(src9);
 
-    double num10(10);
+    double num10(0.0);
     Result var10(num10);
 
     map0.insert({src9, var10});
 
-    std::string src11("skipped", 7);
+    std::string src11("replaced", 8);
     Result var11(src11);
 
-    double num12(0.0);
+    double num12(10);
     Result var12(num12);
 
     map0.insert({src11, var12});
@@ -685,10 +685,10 @@ TEST_CASE("cpp Tests updates of selections", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("unchanged", 9);
+    std::string src3("skipped", 7);
     Result var3(src3);
 
-    double num4(0);
+    double num4(0.0);
     Result var4(num4);
 
     map0.insert({src3, var4});
@@ -709,18 +709,18 @@ TEST_CASE("cpp Tests updates of selections", "[cpp][ast]") {
 
     map0.insert({src7, var8});
 
-    std::string src9("replaced", 8);
+    std::string src9("unchanged", 9);
     Result var9(src9);
 
-    double num10(10);
+    double num10(0);
     Result var10(num10);
 
     map0.insert({src9, var10});
 
-    std::string src11("skipped", 7);
+    std::string src11("replaced", 8);
     Result var11(src11);
 
-    double num12(0.0);
+    double num12(10);
     Result var12(num12);
 
     map0.insert({src11, var12});
@@ -739,15 +739,15 @@ TEST_CASE("cpp Tests updates of selections", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("inserted", 8);
+    std::string src3("first_error", 11);
     Result var3(src3);
 
-    double num4(0.0);
-    Result var4(num4);
+    std::string src4("Primary key `id` cannot be changed (`{\n\t\"id\":\t1\n}` -> `{\n\t\"d\":\t1,\n\t\"id\":\t2\n}`).", 96);
+    Result var4(src4);
 
     map0.insert({src3, var4});
 
-    std::string src5("unchanged", 9);
+    std::string src5("skipped", 7);
     Result var5(src5);
 
     double num6(0.0);
@@ -763,15 +763,15 @@ TEST_CASE("cpp Tests updates of selections", "[cpp][ast]") {
 
     map0.insert({src7, var8});
 
-    std::string src9("first_error", 11);
+    std::string src9("inserted", 8);
     Result var9(src9);
 
-    std::string src10("Primary key `id` cannot be changed (`{\n\t\"id\":\t1\n}` -> `{\n\t\"d\":\t1,\n\t\"id\":\t2\n}`).", 96);
-    Result var10(src10);
+    double num10(0.0);
+    Result var10(num10);
 
     map0.insert({src9, var10});
 
-    std::string src11("replaced", 8);
+    std::string src11("unchanged", 9);
     Result var11(src11);
 
     double num12(0.0);
@@ -779,7 +779,7 @@ TEST_CASE("cpp Tests updates of selections", "[cpp][ast]") {
 
     map0.insert({src11, var12});
 
-    std::string src13("skipped", 7);
+    std::string src13("replaced", 8);
     Result var13(src13);
 
     double num14(0.0);
@@ -801,7 +801,7 @@ TEST_CASE("cpp Tests updates of selections", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("unchanged", 9);
+    std::string src3("skipped", 7);
     Result var3(src3);
 
     double num4(0.0);
@@ -825,18 +825,18 @@ TEST_CASE("cpp Tests updates of selections", "[cpp][ast]") {
 
     map0.insert({src7, var8});
 
-    std::string src9("replaced", 8);
+    std::string src9("unchanged", 9);
     Result var9(src9);
 
-    double num10(1);
+    double num10(0.0);
     Result var10(num10);
 
     map0.insert({src9, var10});
 
-    std::string src11("skipped", 7);
+    std::string src11("replaced", 8);
     Result var11(src11);
 
-    double num12(0.0);
+    double num12(1);
     Result var12(num12);
 
     map0.insert({src11, var12});
@@ -855,10 +855,10 @@ TEST_CASE("cpp Tests updates of selections", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("unchanged", 9);
+    std::string src3("skipped", 7);
     Result var3(src3);
 
-    double num4(1);
+    double num4(0.0);
     Result var4(num4);
 
     map0.insert({src3, var4});
@@ -879,15 +879,15 @@ TEST_CASE("cpp Tests updates of selections", "[cpp][ast]") {
 
     map0.insert({src7, var8});
 
-    std::string src9("replaced", 8);
+    std::string src9("unchanged", 9);
     Result var9(src9);
 
-    double num10(0.0);
+    double num10(1);
     Result var10(num10);
 
     map0.insert({src9, var10});
 
-    std::string src11("skipped", 7);
+    std::string src11("replaced", 8);
     Result var11(src11);
 
     double num12(0.0);
@@ -937,7 +937,7 @@ TEST_CASE("cpp Tests updates of selections", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("unchanged", 9);
+    std::string src3("skipped", 7);
     Result var3(src3);
 
     double num4(0.0);
@@ -961,18 +961,18 @@ TEST_CASE("cpp Tests updates of selections", "[cpp][ast]") {
 
     map0.insert({src7, var8});
 
-    std::string src9("replaced", 8);
+    std::string src9("unchanged", 9);
     Result var9(src9);
 
-    double num10(1);
+    double num10(0.0);
     Result var10(num10);
 
     map0.insert({src9, var10});
 
-    std::string src11("skipped", 7);
+    std::string src11("replaced", 8);
     Result var11(src11);
 
-    double num12(0.0);
+    double num12(1);
     Result var12(num12);
 
     map0.insert({src11, var12});
@@ -991,10 +991,10 @@ TEST_CASE("cpp Tests updates of selections", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("unchanged", 9);
+    std::string src3("skipped", 7);
     Result var3(src3);
 
-    double num4(0);
+    double num4(0.0);
     Result var4(num4);
 
     map0.insert({src3, var4});
@@ -1015,18 +1015,18 @@ TEST_CASE("cpp Tests updates of selections", "[cpp][ast]") {
 
     map0.insert({src7, var8});
 
-    std::string src9("replaced", 8);
+    std::string src9("unchanged", 9);
     Result var9(src9);
 
-    double num10(100);
+    double num10(0);
     Result var10(num10);
 
     map0.insert({src9, var10});
 
-    std::string src11("skipped", 7);
+    std::string src11("replaced", 8);
     Result var11(src11);
 
-    double num12(0.0);
+    double num12(100);
     Result var12(num12);
 
     map0.insert({src11, var12});
@@ -1045,10 +1045,10 @@ TEST_CASE("cpp Tests updates of selections", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("unchanged", 9);
+    std::string src3("skipped", 7);
     Result var3(src3);
 
-    double num4(0);
+    double num4(0.0);
     Result var4(num4);
 
     map0.insert({src3, var4});
@@ -1069,18 +1069,18 @@ TEST_CASE("cpp Tests updates of selections", "[cpp][ast]") {
 
     map0.insert({src7, var8});
 
-    std::string src9("replaced", 8);
+    std::string src9("unchanged", 9);
     Result var9(src9);
 
-    double num10(100);
+    double num10(0);
     Result var10(num10);
 
     map0.insert({src9, var10});
 
-    std::string src11("skipped", 7);
+    std::string src11("replaced", 8);
     Result var11(src11);
 
-    double num12(0.0);
+    double num12(100);
     Result var12(num12);
 
     map0.insert({src11, var12});
@@ -1099,10 +1099,10 @@ TEST_CASE("cpp Tests updates of selections", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("unchanged", 9);
+    std::string src3("skipped", 7);
     Result var3(src3);
 
-    double num4(1);
+    double num4(0.0);
     Result var4(num4);
 
     map0.insert({src3, var4});
@@ -1123,18 +1123,18 @@ TEST_CASE("cpp Tests updates of selections", "[cpp][ast]") {
 
     map0.insert({src7, var8});
 
-    std::string src9("replaced", 8);
+    std::string src9("unchanged", 9);
     Result var9(src9);
 
-    double num10(99);
+    double num10(1);
     Result var10(num10);
 
     map0.insert({src9, var10});
 
-    std::string src11("skipped", 7);
+    std::string src11("replaced", 8);
     Result var11(src11);
 
-    double num12(0.0);
+    double num12(99);
     Result var12(num12);
 
     map0.insert({src11, var12});
@@ -1153,10 +1153,10 @@ TEST_CASE("cpp Tests updates of selections", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("unchanged", 9);
+    std::string src3("skipped", 7);
     Result var3(src3);
 
-    double num4(100);
+    double num4(0.0);
     Result var4(num4);
 
     map0.insert({src3, var4});
@@ -1177,18 +1177,18 @@ TEST_CASE("cpp Tests updates of selections", "[cpp][ast]") {
 
     map0.insert({src7, var8});
 
-    std::string src9("replaced", 8);
+    std::string src9("unchanged", 9);
     Result var9(src9);
 
-    double num10(0);
+    double num10(100);
     Result var10(num10);
 
     map0.insert({src9, var10});
 
-    std::string src11("skipped", 7);
+    std::string src11("replaced", 8);
     Result var11(src11);
 
-    double num12(0.0);
+    double num12(0);
     Result var12(num12);
 
     map0.insert({src11, var12});
@@ -1199,30 +1199,30 @@ TEST_CASE("cpp Tests updates of selections", "[cpp][ast]") {
   SECTION("test33") {
     std::map<std::string, Result> map0;
 
-    std::string src1("foo", 3);
+    std::string src1("id", 2);
     Result var1(src1);
 
-    std::map<std::string, Result> map2;
-
-    std::string src3("bar", 3);
-    Result var3(src3);
-
-    double num4(2);
-    Result var4(num4);
-
-    map2.insert({src3, var4});
-
-    Result var2(map2);
+    double num2(0);
+    Result var2(num2);
 
     map0.insert({src1, var2});
 
-    std::string src5("id", 2);
+    std::string src3("foo", 3);
+    Result var3(src3);
+
+    std::map<std::string, Result> map4;
+
+    std::string src5("bar", 3);
     Result var5(src5);
 
-    double num6(0);
+    double num6(2);
     Result var6(num6);
 
-    map0.insert({src5, var6});
+    map4.insert({src5, var6});
+
+    Result var4(map4);
+
+    map0.insert({src3, var4});
 
     Result var0(map0);
   }
@@ -1238,10 +1238,10 @@ TEST_CASE("cpp Tests updates of selections", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("unchanged", 9);
+    std::string src3("skipped", 7);
     Result var3(src3);
 
-    double num4(0);
+    double num4(0.0);
     Result var4(num4);
 
     map0.insert({src3, var4});
@@ -1262,18 +1262,18 @@ TEST_CASE("cpp Tests updates of selections", "[cpp][ast]") {
 
     map0.insert({src7, var8});
 
-    std::string src9("replaced", 8);
+    std::string src9("unchanged", 9);
     Result var9(src9);
 
-    double num10(100);
+    double num10(0);
     Result var10(num10);
 
     map0.insert({src9, var10});
 
-    std::string src11("skipped", 7);
+    std::string src11("replaced", 8);
     Result var11(src11);
 
-    double num12(0.0);
+    double num12(100);
     Result var12(num12);
 
     map0.insert({src11, var12});
@@ -1284,38 +1284,38 @@ TEST_CASE("cpp Tests updates of selections", "[cpp][ast]") {
   SECTION("test35") {
     std::map<std::string, Result> map0;
 
-    std::string src1("foo", 3);
+    std::string src1("id", 2);
     Result var1(src1);
 
-    std::map<std::string, Result> map2;
+    double num2(0);
+    Result var2(num2);
 
-    std::string src3("bar", 3);
+    map0.insert({src1, var2});
+
+    std::string src3("foo", 3);
     Result var3(src3);
 
-    double num4(2);
-    Result var4(num4);
+    std::map<std::string, Result> map4;
 
-    map2.insert({src3, var4});
-
-    std::string src5("buzz", 4);
+    std::string src5("bar", 3);
     Result var5(src5);
 
     double num6(2);
     Result var6(num6);
 
-    map2.insert({src5, var6});
+    map4.insert({src5, var6});
 
-    Result var2(map2);
-
-    map0.insert({src1, var2});
-
-    std::string src7("id", 2);
+    std::string src7("buzz", 4);
     Result var7(src7);
 
-    double num8(0);
+    double num8(2);
     Result var8(num8);
 
-    map0.insert({src7, var8});
+    map4.insert({src7, var8});
+
+    Result var4(map4);
+
+    map0.insert({src3, var4});
 
     Result var0(map0);
   }
@@ -1331,10 +1331,10 @@ TEST_CASE("cpp Tests updates of selections", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("unchanged", 9);
+    std::string src3("skipped", 7);
     Result var3(src3);
 
-    double num4(0);
+    double num4(0.0);
     Result var4(num4);
 
     map0.insert({src3, var4});
@@ -1355,18 +1355,18 @@ TEST_CASE("cpp Tests updates of selections", "[cpp][ast]") {
 
     map0.insert({src7, var8});
 
-    std::string src9("replaced", 8);
+    std::string src9("unchanged", 9);
     Result var9(src9);
 
-    double num10(100);
+    double num10(0);
     Result var10(num10);
 
     map0.insert({src9, var10});
 
-    std::string src11("skipped", 7);
+    std::string src11("replaced", 8);
     Result var11(src11);
 
-    double num12(0.0);
+    double num12(100);
     Result var12(num12);
 
     map0.insert({src11, var12});
@@ -1377,18 +1377,18 @@ TEST_CASE("cpp Tests updates of selections", "[cpp][ast]") {
   SECTION("test37") {
     std::map<std::string, Result> map0;
 
-    std::string src1("foo", 3);
+    std::string src1("id", 2);
     Result var1(src1);
 
-    double num2(1);
+    double num2(0);
     Result var2(num2);
 
     map0.insert({src1, var2});
 
-    std::string src3("id", 2);
+    std::string src3("foo", 3);
     Result var3(src3);
 
-    double num4(0);
+    double num4(1);
     Result var4(num4);
 
     map0.insert({src3, var4});

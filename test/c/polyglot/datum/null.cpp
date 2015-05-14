@@ -15,7 +15,7 @@ TEST_CASE("c Tests of conversion to and from the RQL null type", "[c][ast]") {
 
   SECTION("test1") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t> buf0(new uint8_t[4]);
+    std::unique_ptr<uint8_t[]> buf0(new uint8_t[4]);
     const uint8_t src0[] = "NULL";
     reql_string_init(var0.get(), buf0.get(), 4);
     reql_string_append(var0.get(), src0, 4);
@@ -23,7 +23,7 @@ TEST_CASE("c Tests of conversion to and from the RQL null type", "[c][ast]") {
 
   SECTION("test2") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t> buf0(new uint8_t[4]);
+    std::unique_ptr<uint8_t[]> buf0(new uint8_t[4]);
     const uint8_t src0[] = "None";
     reql_string_init(var0.get(), buf0.get(), 4);
     reql_string_append(var0.get(), src0, 4);

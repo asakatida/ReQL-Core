@@ -19,15 +19,15 @@ TEST_CASE("cpp 831 -- Empty batched_replaces_t constructed", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("inserted", 8);
+    std::string src3("first_error", 11);
     Result var3(src3);
 
-    double num4(0);
-    Result var4(num4);
+    std::string src4("Expected type OBJECT but found BOOL.", 36);
+    Result var4(src4);
 
     map0.insert({src3, var4});
 
-    std::string src5("unchanged", 9);
+    std::string src5("skipped", 7);
     Result var5(src5);
 
     double num6(0);
@@ -35,7 +35,7 @@ TEST_CASE("cpp 831 -- Empty batched_replaces_t constructed", "[cpp][ast]") {
 
     map0.insert({src5, var6});
 
-    std::string src7("deleted", 7);
+    std::string src7("unchanged", 9);
     Result var7(src7);
 
     double num8(0);
@@ -43,15 +43,15 @@ TEST_CASE("cpp 831 -- Empty batched_replaces_t constructed", "[cpp][ast]") {
 
     map0.insert({src7, var8});
 
-    std::string src9("first_error", 11);
+    std::string src9("inserted", 8);
     Result var9(src9);
 
-    std::string src10("Expected type OBJECT but found BOOL.", 36);
-    Result var10(src10);
+    double num10(0);
+    Result var10(num10);
 
     map0.insert({src9, var10});
 
-    std::string src11("replaced", 8);
+    std::string src11("deleted", 7);
     Result var11(src11);
 
     double num12(0);
@@ -59,7 +59,7 @@ TEST_CASE("cpp 831 -- Empty batched_replaces_t constructed", "[cpp][ast]") {
 
     map0.insert({src11, var12});
 
-    std::string src13("skipped", 7);
+    std::string src13("replaced", 8);
     Result var13(src13);
 
     double num14(0);

@@ -710,7 +710,7 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("unchanged", 9);
+    std::string src3("skipped", 7);
     Result var3(src3);
 
     double num4(0.0);
@@ -718,30 +718,30 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
 
     map0.insert({src3, var4});
 
-    std::string src5("generated_keys", 14);
+    std::string src5("deleted", 7);
     Result var5(src5);
 
-    std::map<std::string, Result> map6;
-
-    std::string src7("func", 4);
-    Result var7(src7);
-
-    std::string src8("arrlen", 6);
-    Result var8(src8);
-
-    map6.insert({src7, var8});
-
-    Result var6(map6);
+    double num6(0.0);
+    Result var6(num6);
 
     map0.insert({src5, var6});
 
-    std::string src9("deleted", 7);
+    std::string src7("generated_keys", 14);
+    Result var7(src7);
+
+    std::map<std::string, Result> map8;
+
+    std::string src9("func", 4);
     Result var9(src9);
 
-    double num10(0.0);
-    Result var10(num10);
+    std::string src10("arrlen", 6);
+    Result var10(src10);
 
-    map0.insert({src9, var10});
+    map8.insert({src9, var10});
+
+    Result var8(map8);
+
+    map0.insert({src7, var8});
 
     std::string src11("inserted", 8);
     Result var11(src11);
@@ -751,7 +751,7 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
 
     map0.insert({src11, var12});
 
-    std::string src13("replaced", 8);
+    std::string src13("unchanged", 9);
     Result var13(src13);
 
     double num14(0.0);
@@ -759,7 +759,7 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
 
     map0.insert({src13, var14});
 
-    std::string src15("skipped", 7);
+    std::string src15("replaced", 8);
     Result var15(src15);
 
     double num16(0.0);

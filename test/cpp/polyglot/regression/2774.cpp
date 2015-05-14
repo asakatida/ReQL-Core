@@ -32,18 +32,18 @@ TEST_CASE("cpp Tests key sorting of all usable types in secondary indexes", "[cp
 
     std::map<std::string, Result> map1;
 
-    std::string src2("index", 5);
+    std::string src2("ready", 5);
     Result var2(src2);
 
-    std::string src3("idx", 3);
-    Result var3(src3);
+    Result var3(true);
 
     map1.insert({src2, var3});
 
-    std::string src4("ready", 5);
+    std::string src4("index", 5);
     Result var4(src4);
 
-    Result var5(true);
+    std::string src5("idx", 3);
+    Result var5(src5);
 
     map1.insert({src4, var5});
 

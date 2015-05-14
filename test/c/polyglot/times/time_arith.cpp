@@ -40,21 +40,21 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
 
   SECTION("test16") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr0(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[4]);
     reql_array_init(var0.get(), arr0.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Pair_t> pair1(new ReQL_Pair_t[1]);
+    std::unique_ptr<ReQL_Pair_t[]> pair1(new ReQL_Pair_t[1]);
     reql_object_init(var1.get(), pair1.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t> buf2(new uint8_t[4]);
+    std::unique_ptr<uint8_t[]> buf2(new uint8_t[4]);
     const uint8_t src2[] = "func";
     reql_string_init(var2.get(), buf2.get(), 4);
     reql_string_append(var2.get(), src2, 4);
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t> buf3(new uint8_t[3]);
+    std::unique_ptr<uint8_t[]> buf3(new uint8_t[3]);
     const uint8_t src3[] = "rt1";
     reql_string_init(var3.get(), buf3.get(), 3);
     reql_string_append(var3.get(), src3, 3);
@@ -64,17 +64,17 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var0.get(), var1.get());
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Pair_t> pair4(new ReQL_Pair_t[1]);
+    std::unique_ptr<ReQL_Pair_t[]> pair4(new ReQL_Pair_t[1]);
     reql_object_init(var4.get(), pair4.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t> buf5(new uint8_t[4]);
+    std::unique_ptr<uint8_t[]> buf5(new uint8_t[4]);
     const uint8_t src5[] = "func";
     reql_string_init(var5.get(), buf5.get(), 4);
     reql_string_append(var5.get(), src5, 4);
 
     std::unique_ptr<ReQL_Obj_t> var6(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t> buf6(new uint8_t[3]);
+    std::unique_ptr<uint8_t[]> buf6(new uint8_t[3]);
     const uint8_t src6[] = "rt2";
     reql_string_init(var6.get(), buf6.get(), 3);
     reql_string_append(var6.get(), src6, 3);
@@ -84,17 +84,17 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var0.get(), var4.get());
 
     std::unique_ptr<ReQL_Obj_t> var7(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Pair_t> pair7(new ReQL_Pair_t[1]);
+    std::unique_ptr<ReQL_Pair_t[]> pair7(new ReQL_Pair_t[1]);
     reql_object_init(var7.get(), pair7.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var8(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t> buf8(new uint8_t[4]);
+    std::unique_ptr<uint8_t[]> buf8(new uint8_t[4]);
     const uint8_t src8[] = "func";
     reql_string_init(var8.get(), buf8.get(), 4);
     reql_string_append(var8.get(), src8, 4);
 
     std::unique_ptr<ReQL_Obj_t> var9(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t> buf9(new uint8_t[3]);
+    std::unique_ptr<uint8_t[]> buf9(new uint8_t[3]);
     const uint8_t src9[] = "rt3";
     reql_string_init(var9.get(), buf9.get(), 3);
     reql_string_append(var9.get(), src9, 3);
@@ -104,17 +104,17 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var0.get(), var7.get());
 
     std::unique_ptr<ReQL_Obj_t> var10(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Pair_t> pair10(new ReQL_Pair_t[1]);
+    std::unique_ptr<ReQL_Pair_t[]> pair10(new ReQL_Pair_t[1]);
     reql_object_init(var10.get(), pair10.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var11(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t> buf11(new uint8_t[4]);
+    std::unique_ptr<uint8_t[]> buf11(new uint8_t[4]);
     const uint8_t src11[] = "func";
     reql_string_init(var11.get(), buf11.get(), 4);
     reql_string_append(var11.get(), src11, 4);
 
     std::unique_ptr<ReQL_Obj_t> var12(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t> buf12(new uint8_t[3]);
+    std::unique_ptr<uint8_t[]> buf12(new uint8_t[3]);
     const uint8_t src12[] = "rt4";
     reql_string_init(var12.get(), buf12.get(), 3);
     reql_string_append(var12.get(), src12, 3);
@@ -126,17 +126,17 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
 
   SECTION("test17") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Pair_t> pair0(new ReQL_Pair_t[1]);
+    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t> buf1(new uint8_t[4]);
+    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
     const uint8_t src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t> buf2(new uint8_t[3]);
+    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
     const uint8_t src2[] = "err";
     reql_string_init(var2.get(), buf2.get(), 3);
     reql_string_append(var2.get(), src2, 3);
@@ -146,21 +146,21 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
 
   SECTION("test18") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr0(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[4]);
     reql_array_init(var0.get(), arr0.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Pair_t> pair1(new ReQL_Pair_t[1]);
+    std::unique_ptr<ReQL_Pair_t[]> pair1(new ReQL_Pair_t[1]);
     reql_object_init(var1.get(), pair1.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t> buf2(new uint8_t[4]);
+    std::unique_ptr<uint8_t[]> buf2(new uint8_t[4]);
     const uint8_t src2[] = "func";
     reql_string_init(var2.get(), buf2.get(), 4);
     reql_string_append(var2.get(), src2, 4);
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t> buf3(new uint8_t[3]);
+    std::unique_ptr<uint8_t[]> buf3(new uint8_t[3]);
     const uint8_t src3[] = "rt1";
     reql_string_init(var3.get(), buf3.get(), 3);
     reql_string_append(var3.get(), src3, 3);
@@ -170,17 +170,17 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var0.get(), var1.get());
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Pair_t> pair4(new ReQL_Pair_t[1]);
+    std::unique_ptr<ReQL_Pair_t[]> pair4(new ReQL_Pair_t[1]);
     reql_object_init(var4.get(), pair4.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t> buf5(new uint8_t[4]);
+    std::unique_ptr<uint8_t[]> buf5(new uint8_t[4]);
     const uint8_t src5[] = "func";
     reql_string_init(var5.get(), buf5.get(), 4);
     reql_string_append(var5.get(), src5, 4);
 
     std::unique_ptr<ReQL_Obj_t> var6(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t> buf6(new uint8_t[3]);
+    std::unique_ptr<uint8_t[]> buf6(new uint8_t[3]);
     const uint8_t src6[] = "rt2";
     reql_string_init(var6.get(), buf6.get(), 3);
     reql_string_append(var6.get(), src6, 3);
@@ -190,17 +190,17 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var0.get(), var4.get());
 
     std::unique_ptr<ReQL_Obj_t> var7(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Pair_t> pair7(new ReQL_Pair_t[1]);
+    std::unique_ptr<ReQL_Pair_t[]> pair7(new ReQL_Pair_t[1]);
     reql_object_init(var7.get(), pair7.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var8(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t> buf8(new uint8_t[4]);
+    std::unique_ptr<uint8_t[]> buf8(new uint8_t[4]);
     const uint8_t src8[] = "func";
     reql_string_init(var8.get(), buf8.get(), 4);
     reql_string_append(var8.get(), src8, 4);
 
     std::unique_ptr<ReQL_Obj_t> var9(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t> buf9(new uint8_t[3]);
+    std::unique_ptr<uint8_t[]> buf9(new uint8_t[3]);
     const uint8_t src9[] = "rt3";
     reql_string_init(var9.get(), buf9.get(), 3);
     reql_string_append(var9.get(), src9, 3);
@@ -210,17 +210,17 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var0.get(), var7.get());
 
     std::unique_ptr<ReQL_Obj_t> var10(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Pair_t> pair10(new ReQL_Pair_t[1]);
+    std::unique_ptr<ReQL_Pair_t[]> pair10(new ReQL_Pair_t[1]);
     reql_object_init(var10.get(), pair10.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var11(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t> buf11(new uint8_t[4]);
+    std::unique_ptr<uint8_t[]> buf11(new uint8_t[4]);
     const uint8_t src11[] = "func";
     reql_string_init(var11.get(), buf11.get(), 4);
     reql_string_append(var11.get(), src11, 4);
 
     std::unique_ptr<ReQL_Obj_t> var12(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t> buf12(new uint8_t[3]);
+    std::unique_ptr<uint8_t[]> buf12(new uint8_t[3]);
     const uint8_t src12[] = "rt4";
     reql_string_init(var12.get(), buf12.get(), 3);
     reql_string_append(var12.get(), src12, 3);
@@ -232,15 +232,15 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
 
   SECTION("test19") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr0(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[4]);
     reql_array_init(var0.get(), arr0.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr1(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr1(new ReQL_Obj_t*[4]);
     reql_array_init(var1.get(), arr1.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr2(new ReQL_Obj_t*[6]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr2(new ReQL_Obj_t*[6]);
     reql_array_init(var2.get(), arr2.get(), 6);
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
@@ -276,7 +276,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var1.get(), var2.get());
 
     std::unique_ptr<ReQL_Obj_t> var9(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr9(new ReQL_Obj_t*[6]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr9(new ReQL_Obj_t*[6]);
     reql_array_init(var9.get(), arr9.get(), 6);
 
     std::unique_ptr<ReQL_Obj_t> var10(new ReQL_Obj_t);
@@ -312,7 +312,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var1.get(), var9.get());
 
     std::unique_ptr<ReQL_Obj_t> var16(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr16(new ReQL_Obj_t*[6]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr16(new ReQL_Obj_t*[6]);
     reql_array_init(var16.get(), arr16.get(), 6);
 
     std::unique_ptr<ReQL_Obj_t> var17(new ReQL_Obj_t);
@@ -348,7 +348,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var1.get(), var16.get());
 
     std::unique_ptr<ReQL_Obj_t> var23(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr23(new ReQL_Obj_t*[6]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr23(new ReQL_Obj_t*[6]);
     reql_array_init(var23.get(), arr23.get(), 6);
 
     std::unique_ptr<ReQL_Obj_t> var24(new ReQL_Obj_t);
@@ -386,11 +386,11 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var0.get(), var1.get());
 
     std::unique_ptr<ReQL_Obj_t> var30(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr30(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr30(new ReQL_Obj_t*[4]);
     reql_array_init(var30.get(), arr30.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var31(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr31(new ReQL_Obj_t*[6]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr31(new ReQL_Obj_t*[6]);
     reql_array_init(var31.get(), arr31.get(), 6);
 
     std::unique_ptr<ReQL_Obj_t> var32(new ReQL_Obj_t);
@@ -426,7 +426,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var30.get(), var31.get());
 
     std::unique_ptr<ReQL_Obj_t> var38(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr38(new ReQL_Obj_t*[6]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr38(new ReQL_Obj_t*[6]);
     reql_array_init(var38.get(), arr38.get(), 6);
 
     std::unique_ptr<ReQL_Obj_t> var39(new ReQL_Obj_t);
@@ -462,7 +462,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var30.get(), var38.get());
 
     std::unique_ptr<ReQL_Obj_t> var45(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr45(new ReQL_Obj_t*[6]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr45(new ReQL_Obj_t*[6]);
     reql_array_init(var45.get(), arr45.get(), 6);
 
     std::unique_ptr<ReQL_Obj_t> var46(new ReQL_Obj_t);
@@ -498,7 +498,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var30.get(), var45.get());
 
     std::unique_ptr<ReQL_Obj_t> var52(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr52(new ReQL_Obj_t*[6]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr52(new ReQL_Obj_t*[6]);
     reql_array_init(var52.get(), arr52.get(), 6);
 
     std::unique_ptr<ReQL_Obj_t> var53(new ReQL_Obj_t);
@@ -536,11 +536,11 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var0.get(), var30.get());
 
     std::unique_ptr<ReQL_Obj_t> var59(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr59(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr59(new ReQL_Obj_t*[4]);
     reql_array_init(var59.get(), arr59.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var60(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr60(new ReQL_Obj_t*[6]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr60(new ReQL_Obj_t*[6]);
     reql_array_init(var60.get(), arr60.get(), 6);
 
     std::unique_ptr<ReQL_Obj_t> var61(new ReQL_Obj_t);
@@ -576,7 +576,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var59.get(), var60.get());
 
     std::unique_ptr<ReQL_Obj_t> var67(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr67(new ReQL_Obj_t*[6]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr67(new ReQL_Obj_t*[6]);
     reql_array_init(var67.get(), arr67.get(), 6);
 
     std::unique_ptr<ReQL_Obj_t> var68(new ReQL_Obj_t);
@@ -612,7 +612,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var59.get(), var67.get());
 
     std::unique_ptr<ReQL_Obj_t> var74(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr74(new ReQL_Obj_t*[6]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr74(new ReQL_Obj_t*[6]);
     reql_array_init(var74.get(), arr74.get(), 6);
 
     std::unique_ptr<ReQL_Obj_t> var75(new ReQL_Obj_t);
@@ -648,7 +648,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var59.get(), var74.get());
 
     std::unique_ptr<ReQL_Obj_t> var81(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr81(new ReQL_Obj_t*[6]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr81(new ReQL_Obj_t*[6]);
     reql_array_init(var81.get(), arr81.get(), 6);
 
     std::unique_ptr<ReQL_Obj_t> var82(new ReQL_Obj_t);
@@ -686,11 +686,11 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var0.get(), var59.get());
 
     std::unique_ptr<ReQL_Obj_t> var88(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr88(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr88(new ReQL_Obj_t*[4]);
     reql_array_init(var88.get(), arr88.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var89(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr89(new ReQL_Obj_t*[6]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr89(new ReQL_Obj_t*[6]);
     reql_array_init(var89.get(), arr89.get(), 6);
 
     std::unique_ptr<ReQL_Obj_t> var90(new ReQL_Obj_t);
@@ -726,7 +726,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var88.get(), var89.get());
 
     std::unique_ptr<ReQL_Obj_t> var96(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr96(new ReQL_Obj_t*[6]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr96(new ReQL_Obj_t*[6]);
     reql_array_init(var96.get(), arr96.get(), 6);
 
     std::unique_ptr<ReQL_Obj_t> var97(new ReQL_Obj_t);
@@ -762,7 +762,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var88.get(), var96.get());
 
     std::unique_ptr<ReQL_Obj_t> var103(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr103(new ReQL_Obj_t*[6]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr103(new ReQL_Obj_t*[6]);
     reql_array_init(var103.get(), arr103.get(), 6);
 
     std::unique_ptr<ReQL_Obj_t> var104(new ReQL_Obj_t);
@@ -798,7 +798,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var88.get(), var103.get());
 
     std::unique_ptr<ReQL_Obj_t> var110(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr110(new ReQL_Obj_t*[6]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr110(new ReQL_Obj_t*[6]);
     reql_array_init(var110.get(), arr110.get(), 6);
 
     std::unique_ptr<ReQL_Obj_t> var111(new ReQL_Obj_t);
@@ -838,15 +838,15 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
 
   SECTION("test21") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr0(new ReQL_Obj_t*[8]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[8]);
     reql_array_init(var0.get(), arr0.get(), 8);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr1(new ReQL_Obj_t*[2]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr1(new ReQL_Obj_t*[2]);
     reql_array_init(var1.get(), arr1.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr2(new ReQL_Obj_t*[6]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr2(new ReQL_Obj_t*[6]);
     reql_array_init(var2.get(), arr2.get(), 6);
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
@@ -882,7 +882,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var1.get(), var2.get());
 
     std::unique_ptr<ReQL_Obj_t> var9(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr9(new ReQL_Obj_t*[6]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr9(new ReQL_Obj_t*[6]);
     reql_array_init(var9.get(), arr9.get(), 6);
 
     std::unique_ptr<ReQL_Obj_t> var10(new ReQL_Obj_t);
@@ -920,11 +920,11 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var0.get(), var1.get());
 
     std::unique_ptr<ReQL_Obj_t> var16(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr16(new ReQL_Obj_t*[2]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr16(new ReQL_Obj_t*[2]);
     reql_array_init(var16.get(), arr16.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var17(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr17(new ReQL_Obj_t*[6]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr17(new ReQL_Obj_t*[6]);
     reql_array_init(var17.get(), arr17.get(), 6);
 
     std::unique_ptr<ReQL_Obj_t> var18(new ReQL_Obj_t);
@@ -960,7 +960,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var16.get(), var17.get());
 
     std::unique_ptr<ReQL_Obj_t> var24(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr24(new ReQL_Obj_t*[6]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr24(new ReQL_Obj_t*[6]);
     reql_array_init(var24.get(), arr24.get(), 6);
 
     std::unique_ptr<ReQL_Obj_t> var25(new ReQL_Obj_t);
@@ -998,11 +998,11 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var0.get(), var16.get());
 
     std::unique_ptr<ReQL_Obj_t> var31(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr31(new ReQL_Obj_t*[2]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr31(new ReQL_Obj_t*[2]);
     reql_array_init(var31.get(), arr31.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var32(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr32(new ReQL_Obj_t*[6]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr32(new ReQL_Obj_t*[6]);
     reql_array_init(var32.get(), arr32.get(), 6);
 
     std::unique_ptr<ReQL_Obj_t> var33(new ReQL_Obj_t);
@@ -1038,7 +1038,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var31.get(), var32.get());
 
     std::unique_ptr<ReQL_Obj_t> var39(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr39(new ReQL_Obj_t*[6]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr39(new ReQL_Obj_t*[6]);
     reql_array_init(var39.get(), arr39.get(), 6);
 
     std::unique_ptr<ReQL_Obj_t> var40(new ReQL_Obj_t);
@@ -1076,11 +1076,11 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var0.get(), var31.get());
 
     std::unique_ptr<ReQL_Obj_t> var46(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr46(new ReQL_Obj_t*[2]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr46(new ReQL_Obj_t*[2]);
     reql_array_init(var46.get(), arr46.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var47(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr47(new ReQL_Obj_t*[6]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr47(new ReQL_Obj_t*[6]);
     reql_array_init(var47.get(), arr47.get(), 6);
 
     std::unique_ptr<ReQL_Obj_t> var48(new ReQL_Obj_t);
@@ -1116,7 +1116,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var46.get(), var47.get());
 
     std::unique_ptr<ReQL_Obj_t> var54(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr54(new ReQL_Obj_t*[6]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr54(new ReQL_Obj_t*[6]);
     reql_array_init(var54.get(), arr54.get(), 6);
 
     std::unique_ptr<ReQL_Obj_t> var55(new ReQL_Obj_t);
@@ -1154,11 +1154,11 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var0.get(), var46.get());
 
     std::unique_ptr<ReQL_Obj_t> var61(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr61(new ReQL_Obj_t*[2]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr61(new ReQL_Obj_t*[2]);
     reql_array_init(var61.get(), arr61.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var62(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr62(new ReQL_Obj_t*[6]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr62(new ReQL_Obj_t*[6]);
     reql_array_init(var62.get(), arr62.get(), 6);
 
     std::unique_ptr<ReQL_Obj_t> var63(new ReQL_Obj_t);
@@ -1194,7 +1194,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var61.get(), var62.get());
 
     std::unique_ptr<ReQL_Obj_t> var69(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr69(new ReQL_Obj_t*[6]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr69(new ReQL_Obj_t*[6]);
     reql_array_init(var69.get(), arr69.get(), 6);
 
     std::unique_ptr<ReQL_Obj_t> var70(new ReQL_Obj_t);
@@ -1232,11 +1232,11 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var0.get(), var61.get());
 
     std::unique_ptr<ReQL_Obj_t> var76(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr76(new ReQL_Obj_t*[2]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr76(new ReQL_Obj_t*[2]);
     reql_array_init(var76.get(), arr76.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var77(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr77(new ReQL_Obj_t*[6]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr77(new ReQL_Obj_t*[6]);
     reql_array_init(var77.get(), arr77.get(), 6);
 
     std::unique_ptr<ReQL_Obj_t> var78(new ReQL_Obj_t);
@@ -1272,7 +1272,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var76.get(), var77.get());
 
     std::unique_ptr<ReQL_Obj_t> var84(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr84(new ReQL_Obj_t*[6]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr84(new ReQL_Obj_t*[6]);
     reql_array_init(var84.get(), arr84.get(), 6);
 
     std::unique_ptr<ReQL_Obj_t> var85(new ReQL_Obj_t);
@@ -1310,11 +1310,11 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var0.get(), var76.get());
 
     std::unique_ptr<ReQL_Obj_t> var91(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr91(new ReQL_Obj_t*[2]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr91(new ReQL_Obj_t*[2]);
     reql_array_init(var91.get(), arr91.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var92(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr92(new ReQL_Obj_t*[6]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr92(new ReQL_Obj_t*[6]);
     reql_array_init(var92.get(), arr92.get(), 6);
 
     std::unique_ptr<ReQL_Obj_t> var93(new ReQL_Obj_t);
@@ -1350,7 +1350,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var91.get(), var92.get());
 
     std::unique_ptr<ReQL_Obj_t> var99(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr99(new ReQL_Obj_t*[6]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr99(new ReQL_Obj_t*[6]);
     reql_array_init(var99.get(), arr99.get(), 6);
 
     std::unique_ptr<ReQL_Obj_t> var100(new ReQL_Obj_t);
@@ -1388,11 +1388,11 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var0.get(), var91.get());
 
     std::unique_ptr<ReQL_Obj_t> var106(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr106(new ReQL_Obj_t*[2]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr106(new ReQL_Obj_t*[2]);
     reql_array_init(var106.get(), arr106.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var107(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr107(new ReQL_Obj_t*[6]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr107(new ReQL_Obj_t*[6]);
     reql_array_init(var107.get(), arr107.get(), 6);
 
     std::unique_ptr<ReQL_Obj_t> var108(new ReQL_Obj_t);
@@ -1428,7 +1428,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var106.get(), var107.get());
 
     std::unique_ptr<ReQL_Obj_t> var114(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr114(new ReQL_Obj_t*[6]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr114(new ReQL_Obj_t*[6]);
     reql_array_init(var114.get(), arr114.get(), 6);
 
     std::unique_ptr<ReQL_Obj_t> var115(new ReQL_Obj_t);
@@ -1468,15 +1468,15 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
 
   SECTION("test22") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr0(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[4]);
     reql_array_init(var0.get(), arr0.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr1(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr1(new ReQL_Obj_t*[4]);
     reql_array_init(var1.get(), arr1.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr2(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr2(new ReQL_Obj_t*[4]);
     reql_array_init(var2.get(), arr2.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
@@ -1502,7 +1502,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var1.get(), var2.get());
 
     std::unique_ptr<ReQL_Obj_t> var7(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr7(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr7(new ReQL_Obj_t*[4]);
     reql_array_init(var7.get(), arr7.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var8(new ReQL_Obj_t);
@@ -1528,7 +1528,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var1.get(), var7.get());
 
     std::unique_ptr<ReQL_Obj_t> var12(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr12(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr12(new ReQL_Obj_t*[4]);
     reql_array_init(var12.get(), arr12.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var13(new ReQL_Obj_t);
@@ -1554,7 +1554,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var1.get(), var12.get());
 
     std::unique_ptr<ReQL_Obj_t> var17(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr17(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr17(new ReQL_Obj_t*[4]);
     reql_array_init(var17.get(), arr17.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var18(new ReQL_Obj_t);
@@ -1582,11 +1582,11 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var0.get(), var1.get());
 
     std::unique_ptr<ReQL_Obj_t> var22(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr22(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr22(new ReQL_Obj_t*[4]);
     reql_array_init(var22.get(), arr22.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var23(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr23(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr23(new ReQL_Obj_t*[4]);
     reql_array_init(var23.get(), arr23.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var24(new ReQL_Obj_t);
@@ -1612,7 +1612,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var22.get(), var23.get());
 
     std::unique_ptr<ReQL_Obj_t> var28(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr28(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr28(new ReQL_Obj_t*[4]);
     reql_array_init(var28.get(), arr28.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var29(new ReQL_Obj_t);
@@ -1638,7 +1638,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var22.get(), var28.get());
 
     std::unique_ptr<ReQL_Obj_t> var33(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr33(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr33(new ReQL_Obj_t*[4]);
     reql_array_init(var33.get(), arr33.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var34(new ReQL_Obj_t);
@@ -1664,7 +1664,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var22.get(), var33.get());
 
     std::unique_ptr<ReQL_Obj_t> var38(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr38(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr38(new ReQL_Obj_t*[4]);
     reql_array_init(var38.get(), arr38.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var39(new ReQL_Obj_t);
@@ -1692,11 +1692,11 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var0.get(), var22.get());
 
     std::unique_ptr<ReQL_Obj_t> var43(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr43(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr43(new ReQL_Obj_t*[4]);
     reql_array_init(var43.get(), arr43.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var44(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr44(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr44(new ReQL_Obj_t*[4]);
     reql_array_init(var44.get(), arr44.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var45(new ReQL_Obj_t);
@@ -1722,7 +1722,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var43.get(), var44.get());
 
     std::unique_ptr<ReQL_Obj_t> var49(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr49(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr49(new ReQL_Obj_t*[4]);
     reql_array_init(var49.get(), arr49.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var50(new ReQL_Obj_t);
@@ -1748,7 +1748,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var43.get(), var49.get());
 
     std::unique_ptr<ReQL_Obj_t> var54(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr54(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr54(new ReQL_Obj_t*[4]);
     reql_array_init(var54.get(), arr54.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var55(new ReQL_Obj_t);
@@ -1774,7 +1774,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var43.get(), var54.get());
 
     std::unique_ptr<ReQL_Obj_t> var59(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr59(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr59(new ReQL_Obj_t*[4]);
     reql_array_init(var59.get(), arr59.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var60(new ReQL_Obj_t);
@@ -1802,11 +1802,11 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var0.get(), var43.get());
 
     std::unique_ptr<ReQL_Obj_t> var64(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr64(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr64(new ReQL_Obj_t*[4]);
     reql_array_init(var64.get(), arr64.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var65(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr65(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr65(new ReQL_Obj_t*[4]);
     reql_array_init(var65.get(), arr65.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var66(new ReQL_Obj_t);
@@ -1832,7 +1832,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var64.get(), var65.get());
 
     std::unique_ptr<ReQL_Obj_t> var70(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr70(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr70(new ReQL_Obj_t*[4]);
     reql_array_init(var70.get(), arr70.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var71(new ReQL_Obj_t);
@@ -1858,7 +1858,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var64.get(), var70.get());
 
     std::unique_ptr<ReQL_Obj_t> var75(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr75(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr75(new ReQL_Obj_t*[4]);
     reql_array_init(var75.get(), arr75.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var76(new ReQL_Obj_t);
@@ -1884,7 +1884,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var64.get(), var75.get());
 
     std::unique_ptr<ReQL_Obj_t> var80(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr80(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr80(new ReQL_Obj_t*[4]);
     reql_array_init(var80.get(), arr80.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var81(new ReQL_Obj_t);
@@ -1914,15 +1914,15 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
 
   SECTION("test23") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr0(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[4]);
     reql_array_init(var0.get(), arr0.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr1(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr1(new ReQL_Obj_t*[4]);
     reql_array_init(var1.get(), arr1.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr2(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr2(new ReQL_Obj_t*[4]);
     reql_array_init(var2.get(), arr2.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
@@ -1948,7 +1948,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var1.get(), var2.get());
 
     std::unique_ptr<ReQL_Obj_t> var7(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr7(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr7(new ReQL_Obj_t*[4]);
     reql_array_init(var7.get(), arr7.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var8(new ReQL_Obj_t);
@@ -1974,7 +1974,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var1.get(), var7.get());
 
     std::unique_ptr<ReQL_Obj_t> var12(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr12(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr12(new ReQL_Obj_t*[4]);
     reql_array_init(var12.get(), arr12.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var13(new ReQL_Obj_t);
@@ -2000,7 +2000,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var1.get(), var12.get());
 
     std::unique_ptr<ReQL_Obj_t> var17(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr17(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr17(new ReQL_Obj_t*[4]);
     reql_array_init(var17.get(), arr17.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var18(new ReQL_Obj_t);
@@ -2028,11 +2028,11 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var0.get(), var1.get());
 
     std::unique_ptr<ReQL_Obj_t> var22(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr22(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr22(new ReQL_Obj_t*[4]);
     reql_array_init(var22.get(), arr22.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var23(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr23(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr23(new ReQL_Obj_t*[4]);
     reql_array_init(var23.get(), arr23.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var24(new ReQL_Obj_t);
@@ -2058,7 +2058,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var22.get(), var23.get());
 
     std::unique_ptr<ReQL_Obj_t> var28(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr28(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr28(new ReQL_Obj_t*[4]);
     reql_array_init(var28.get(), arr28.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var29(new ReQL_Obj_t);
@@ -2084,7 +2084,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var22.get(), var28.get());
 
     std::unique_ptr<ReQL_Obj_t> var33(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr33(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr33(new ReQL_Obj_t*[4]);
     reql_array_init(var33.get(), arr33.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var34(new ReQL_Obj_t);
@@ -2110,7 +2110,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var22.get(), var33.get());
 
     std::unique_ptr<ReQL_Obj_t> var38(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr38(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr38(new ReQL_Obj_t*[4]);
     reql_array_init(var38.get(), arr38.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var39(new ReQL_Obj_t);
@@ -2138,11 +2138,11 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var0.get(), var22.get());
 
     std::unique_ptr<ReQL_Obj_t> var43(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr43(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr43(new ReQL_Obj_t*[4]);
     reql_array_init(var43.get(), arr43.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var44(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr44(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr44(new ReQL_Obj_t*[4]);
     reql_array_init(var44.get(), arr44.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var45(new ReQL_Obj_t);
@@ -2168,7 +2168,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var43.get(), var44.get());
 
     std::unique_ptr<ReQL_Obj_t> var49(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr49(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr49(new ReQL_Obj_t*[4]);
     reql_array_init(var49.get(), arr49.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var50(new ReQL_Obj_t);
@@ -2194,7 +2194,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var43.get(), var49.get());
 
     std::unique_ptr<ReQL_Obj_t> var54(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr54(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr54(new ReQL_Obj_t*[4]);
     reql_array_init(var54.get(), arr54.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var55(new ReQL_Obj_t);
@@ -2220,7 +2220,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var43.get(), var54.get());
 
     std::unique_ptr<ReQL_Obj_t> var59(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr59(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr59(new ReQL_Obj_t*[4]);
     reql_array_init(var59.get(), arr59.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var60(new ReQL_Obj_t);
@@ -2248,11 +2248,11 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var0.get(), var43.get());
 
     std::unique_ptr<ReQL_Obj_t> var64(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr64(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr64(new ReQL_Obj_t*[4]);
     reql_array_init(var64.get(), arr64.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var65(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr65(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr65(new ReQL_Obj_t*[4]);
     reql_array_init(var65.get(), arr65.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var66(new ReQL_Obj_t);
@@ -2278,7 +2278,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var64.get(), var65.get());
 
     std::unique_ptr<ReQL_Obj_t> var70(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr70(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr70(new ReQL_Obj_t*[4]);
     reql_array_init(var70.get(), arr70.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var71(new ReQL_Obj_t);
@@ -2304,7 +2304,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var64.get(), var70.get());
 
     std::unique_ptr<ReQL_Obj_t> var75(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr75(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr75(new ReQL_Obj_t*[4]);
     reql_array_init(var75.get(), arr75.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var76(new ReQL_Obj_t);
@@ -2330,7 +2330,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var64.get(), var75.get());
 
     std::unique_ptr<ReQL_Obj_t> var80(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr80(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr80(new ReQL_Obj_t*[4]);
     reql_array_init(var80.get(), arr80.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var81(new ReQL_Obj_t);
@@ -2360,15 +2360,15 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
 
   SECTION("test24") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr0(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[4]);
     reql_array_init(var0.get(), arr0.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr1(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr1(new ReQL_Obj_t*[4]);
     reql_array_init(var1.get(), arr1.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr2(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr2(new ReQL_Obj_t*[4]);
     reql_array_init(var2.get(), arr2.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
@@ -2394,7 +2394,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var1.get(), var2.get());
 
     std::unique_ptr<ReQL_Obj_t> var7(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr7(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr7(new ReQL_Obj_t*[4]);
     reql_array_init(var7.get(), arr7.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var8(new ReQL_Obj_t);
@@ -2420,7 +2420,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var1.get(), var7.get());
 
     std::unique_ptr<ReQL_Obj_t> var12(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr12(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr12(new ReQL_Obj_t*[4]);
     reql_array_init(var12.get(), arr12.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var13(new ReQL_Obj_t);
@@ -2446,7 +2446,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var1.get(), var12.get());
 
     std::unique_ptr<ReQL_Obj_t> var17(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr17(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr17(new ReQL_Obj_t*[4]);
     reql_array_init(var17.get(), arr17.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var18(new ReQL_Obj_t);
@@ -2474,11 +2474,11 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var0.get(), var1.get());
 
     std::unique_ptr<ReQL_Obj_t> var22(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr22(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr22(new ReQL_Obj_t*[4]);
     reql_array_init(var22.get(), arr22.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var23(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr23(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr23(new ReQL_Obj_t*[4]);
     reql_array_init(var23.get(), arr23.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var24(new ReQL_Obj_t);
@@ -2504,7 +2504,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var22.get(), var23.get());
 
     std::unique_ptr<ReQL_Obj_t> var28(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr28(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr28(new ReQL_Obj_t*[4]);
     reql_array_init(var28.get(), arr28.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var29(new ReQL_Obj_t);
@@ -2530,7 +2530,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var22.get(), var28.get());
 
     std::unique_ptr<ReQL_Obj_t> var33(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr33(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr33(new ReQL_Obj_t*[4]);
     reql_array_init(var33.get(), arr33.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var34(new ReQL_Obj_t);
@@ -2556,7 +2556,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var22.get(), var33.get());
 
     std::unique_ptr<ReQL_Obj_t> var38(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr38(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr38(new ReQL_Obj_t*[4]);
     reql_array_init(var38.get(), arr38.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var39(new ReQL_Obj_t);
@@ -2584,11 +2584,11 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var0.get(), var22.get());
 
     std::unique_ptr<ReQL_Obj_t> var43(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr43(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr43(new ReQL_Obj_t*[4]);
     reql_array_init(var43.get(), arr43.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var44(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr44(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr44(new ReQL_Obj_t*[4]);
     reql_array_init(var44.get(), arr44.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var45(new ReQL_Obj_t);
@@ -2614,7 +2614,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var43.get(), var44.get());
 
     std::unique_ptr<ReQL_Obj_t> var49(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr49(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr49(new ReQL_Obj_t*[4]);
     reql_array_init(var49.get(), arr49.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var50(new ReQL_Obj_t);
@@ -2640,7 +2640,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var43.get(), var49.get());
 
     std::unique_ptr<ReQL_Obj_t> var54(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr54(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr54(new ReQL_Obj_t*[4]);
     reql_array_init(var54.get(), arr54.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var55(new ReQL_Obj_t);
@@ -2666,7 +2666,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var43.get(), var54.get());
 
     std::unique_ptr<ReQL_Obj_t> var59(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr59(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr59(new ReQL_Obj_t*[4]);
     reql_array_init(var59.get(), arr59.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var60(new ReQL_Obj_t);
@@ -2694,11 +2694,11 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var0.get(), var43.get());
 
     std::unique_ptr<ReQL_Obj_t> var64(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr64(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr64(new ReQL_Obj_t*[4]);
     reql_array_init(var64.get(), arr64.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var65(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr65(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr65(new ReQL_Obj_t*[4]);
     reql_array_init(var65.get(), arr65.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var66(new ReQL_Obj_t);
@@ -2724,7 +2724,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var64.get(), var65.get());
 
     std::unique_ptr<ReQL_Obj_t> var70(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr70(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr70(new ReQL_Obj_t*[4]);
     reql_array_init(var70.get(), arr70.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var71(new ReQL_Obj_t);
@@ -2750,7 +2750,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var64.get(), var70.get());
 
     std::unique_ptr<ReQL_Obj_t> var75(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr75(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr75(new ReQL_Obj_t*[4]);
     reql_array_init(var75.get(), arr75.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var76(new ReQL_Obj_t);
@@ -2776,7 +2776,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var64.get(), var75.get());
 
     std::unique_ptr<ReQL_Obj_t> var80(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr80(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr80(new ReQL_Obj_t*[4]);
     reql_array_init(var80.get(), arr80.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var81(new ReQL_Obj_t);
@@ -2806,15 +2806,15 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
 
   SECTION("test25") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr0(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[4]);
     reql_array_init(var0.get(), arr0.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr1(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr1(new ReQL_Obj_t*[4]);
     reql_array_init(var1.get(), arr1.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr2(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr2(new ReQL_Obj_t*[4]);
     reql_array_init(var2.get(), arr2.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
@@ -2840,7 +2840,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var1.get(), var2.get());
 
     std::unique_ptr<ReQL_Obj_t> var7(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr7(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr7(new ReQL_Obj_t*[4]);
     reql_array_init(var7.get(), arr7.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var8(new ReQL_Obj_t);
@@ -2866,7 +2866,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var1.get(), var7.get());
 
     std::unique_ptr<ReQL_Obj_t> var12(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr12(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr12(new ReQL_Obj_t*[4]);
     reql_array_init(var12.get(), arr12.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var13(new ReQL_Obj_t);
@@ -2892,7 +2892,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var1.get(), var12.get());
 
     std::unique_ptr<ReQL_Obj_t> var17(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr17(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr17(new ReQL_Obj_t*[4]);
     reql_array_init(var17.get(), arr17.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var18(new ReQL_Obj_t);
@@ -2920,11 +2920,11 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var0.get(), var1.get());
 
     std::unique_ptr<ReQL_Obj_t> var22(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr22(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr22(new ReQL_Obj_t*[4]);
     reql_array_init(var22.get(), arr22.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var23(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr23(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr23(new ReQL_Obj_t*[4]);
     reql_array_init(var23.get(), arr23.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var24(new ReQL_Obj_t);
@@ -2950,7 +2950,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var22.get(), var23.get());
 
     std::unique_ptr<ReQL_Obj_t> var28(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr28(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr28(new ReQL_Obj_t*[4]);
     reql_array_init(var28.get(), arr28.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var29(new ReQL_Obj_t);
@@ -2976,7 +2976,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var22.get(), var28.get());
 
     std::unique_ptr<ReQL_Obj_t> var33(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr33(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr33(new ReQL_Obj_t*[4]);
     reql_array_init(var33.get(), arr33.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var34(new ReQL_Obj_t);
@@ -3002,7 +3002,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var22.get(), var33.get());
 
     std::unique_ptr<ReQL_Obj_t> var38(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr38(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr38(new ReQL_Obj_t*[4]);
     reql_array_init(var38.get(), arr38.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var39(new ReQL_Obj_t);
@@ -3030,11 +3030,11 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var0.get(), var22.get());
 
     std::unique_ptr<ReQL_Obj_t> var43(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr43(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr43(new ReQL_Obj_t*[4]);
     reql_array_init(var43.get(), arr43.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var44(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr44(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr44(new ReQL_Obj_t*[4]);
     reql_array_init(var44.get(), arr44.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var45(new ReQL_Obj_t);
@@ -3060,7 +3060,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var43.get(), var44.get());
 
     std::unique_ptr<ReQL_Obj_t> var49(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr49(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr49(new ReQL_Obj_t*[4]);
     reql_array_init(var49.get(), arr49.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var50(new ReQL_Obj_t);
@@ -3086,7 +3086,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var43.get(), var49.get());
 
     std::unique_ptr<ReQL_Obj_t> var54(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr54(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr54(new ReQL_Obj_t*[4]);
     reql_array_init(var54.get(), arr54.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var55(new ReQL_Obj_t);
@@ -3112,7 +3112,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var43.get(), var54.get());
 
     std::unique_ptr<ReQL_Obj_t> var59(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr59(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr59(new ReQL_Obj_t*[4]);
     reql_array_init(var59.get(), arr59.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var60(new ReQL_Obj_t);
@@ -3140,11 +3140,11 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var0.get(), var43.get());
 
     std::unique_ptr<ReQL_Obj_t> var64(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr64(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr64(new ReQL_Obj_t*[4]);
     reql_array_init(var64.get(), arr64.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var65(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr65(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr65(new ReQL_Obj_t*[4]);
     reql_array_init(var65.get(), arr65.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var66(new ReQL_Obj_t);
@@ -3170,7 +3170,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var64.get(), var65.get());
 
     std::unique_ptr<ReQL_Obj_t> var70(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr70(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr70(new ReQL_Obj_t*[4]);
     reql_array_init(var70.get(), arr70.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var71(new ReQL_Obj_t);
@@ -3196,7 +3196,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var64.get(), var70.get());
 
     std::unique_ptr<ReQL_Obj_t> var75(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr75(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr75(new ReQL_Obj_t*[4]);
     reql_array_init(var75.get(), arr75.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var76(new ReQL_Obj_t);
@@ -3222,7 +3222,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
     reql_array_append(var64.get(), var75.get());
 
     std::unique_ptr<ReQL_Obj_t> var80(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr80(new ReQL_Obj_t*[4]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr80(new ReQL_Obj_t*[4]);
     reql_array_init(var80.get(), arr80.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var81(new ReQL_Obj_t);
@@ -3252,17 +3252,17 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
 
   SECTION("test26") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Pair_t> pair0(new ReQL_Pair_t[1]);
+    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t> buf1(new uint8_t[4]);
+    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
     const uint8_t src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t> buf2(new uint8_t[3]);
+    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
     const uint8_t src2[] = "rts";
     reql_string_init(var2.get(), buf2.get(), 3);
     reql_string_append(var2.get(), src2, 3);
@@ -3272,17 +3272,17 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
 
   SECTION("test27") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Pair_t> pair0(new ReQL_Pair_t[1]);
+    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t> buf1(new uint8_t[4]);
+    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
     const uint8_t src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t> buf2(new uint8_t[3]);
+    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
     const uint8_t src2[] = "rt1";
     reql_string_init(var2.get(), buf2.get(), 3);
     reql_string_append(var2.get(), src2, 3);
@@ -3292,7 +3292,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
 
   SECTION("test28") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t> buf0(new uint8_t[25]);
+    std::unique_ptr<uint8_t[]> buf0(new uint8_t[25]);
     const uint8_t src0[] = "2012-08-01T00:00:00+00:00";
     reql_string_init(var0.get(), buf0.get(), 25);
     reql_string_append(var0.get(), src0, 25);
@@ -3300,7 +3300,7 @@ TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
 
   SECTION("test29") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t> buf0(new uint8_t[25]);
+    std::unique_ptr<uint8_t[]> buf0(new uint8_t[25]);
     const uint8_t src0[] = "2012-08-01T00:00:00+00:00";
     reql_string_init(var0.get(), buf0.get(), 25);
     reql_string_append(var0.get(), src0, 25);

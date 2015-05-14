@@ -20,7 +20,7 @@ TEST_CASE("c Test that UUIDs work", "[c][ast]") {
 
   SECTION("test2") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t> buf0(new uint8_t[6]);
+    std::unique_ptr<uint8_t[]> buf0(new uint8_t[6]);
     const uint8_t src0[] = "STRING";
     reql_string_init(var0.get(), buf0.get(), 6);
     reql_string_append(var0.get(), src0, 6);

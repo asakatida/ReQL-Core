@@ -47,7 +47,7 @@ TEST_CASE("cpp Tests syncing tables", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("unchanged", 9);
+    std::string src3("skipped", 7);
     Result var3(src3);
 
     double num4(0);
@@ -71,18 +71,18 @@ TEST_CASE("cpp Tests syncing tables", "[cpp][ast]") {
 
     map0.insert({src7, var8});
 
-    std::string src9("replaced", 8);
+    std::string src9("unchanged", 9);
     Result var9(src9);
 
-    double num10(1);
+    double num10(0);
     Result var10(num10);
 
     map0.insert({src9, var10});
 
-    std::string src11("skipped", 7);
+    std::string src11("replaced", 8);
     Result var11(src11);
 
-    double num12(0);
+    double num12(1);
     Result var12(num12);
 
     map0.insert({src11, var12});
@@ -109,18 +109,18 @@ TEST_CASE("cpp Tests syncing tables", "[cpp][ast]") {
 
     std::map<std::string, Result> map1;
 
-    std::string src2("index", 5);
+    std::string src2("ready", 5);
     Result var2(src2);
 
-    std::string src3("x", 1);
-    Result var3(src3);
+    Result var3(true);
 
     map1.insert({src2, var3});
 
-    std::string src4("ready", 5);
+    std::string src4("index", 5);
     Result var4(src4);
 
-    Result var5(true);
+    std::string src5("x", 1);
+    Result var5(src5);
 
     map1.insert({src4, var5});
 

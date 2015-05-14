@@ -10,7 +10,7 @@ TEST_CASE("c Test cleanup of cursors on the server", "[c][ast]") {
 
   SECTION("test0") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr0(new ReQL_Obj_t*[1]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[1]);
     reql_array_init(var0.get(), arr0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
@@ -31,7 +31,7 @@ TEST_CASE("c Test cleanup of cursors on the server", "[c][ast]") {
 
   SECTION("test3") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*> arr0(new ReQL_Obj_t*[1]);
+    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[1]);
     reql_array_init(var0.get(), arr0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);

@@ -47,7 +47,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("unchanged", 9);
+    std::string src3("skipped", 7);
     Result var3(src3);
 
     double num4(0.0);
@@ -71,7 +71,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     map0.insert({src7, var8});
 
-    std::string src9("replaced", 8);
+    std::string src9("unchanged", 9);
     Result var9(src9);
 
     double num10(0.0);
@@ -79,7 +79,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     map0.insert({src9, var10});
 
-    std::string src11("skipped", 7);
+    std::string src11("replaced", 8);
     Result var11(src11);
 
     double num12(0.0);
@@ -101,7 +101,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("unchanged", 9);
+    std::string src3("skipped", 7);
     Result var3(src3);
 
     double num4(0.0);
@@ -125,7 +125,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     map0.insert({src7, var8});
 
-    std::string src9("replaced", 8);
+    std::string src9("unchanged", 9);
     Result var9(src9);
 
     double num10(0.0);
@@ -133,7 +133,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     map0.insert({src9, var10});
 
-    std::string src11("skipped", 7);
+    std::string src11("replaced", 8);
     Result var11(src11);
 
     double num12(0.0);
@@ -188,7 +188,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("unchanged", 9);
+    std::string src3("skipped", 7);
     Result var3(src3);
 
     double num4(0.0);
@@ -212,7 +212,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     map0.insert({src7, var8});
 
-    std::string src9("replaced", 8);
+    std::string src9("unchanged", 9);
     Result var9(src9);
 
     double num10(0.0);
@@ -220,7 +220,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     map0.insert({src9, var10});
 
-    std::string src11("skipped", 7);
+    std::string src11("replaced", 8);
     Result var11(src11);
 
     double num12(0.0);
@@ -280,18 +280,18 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   SECTION("test15") {
     std::map<std::string, Result> map0;
 
-    std::string src1("a", 1);
+    std::string src1("id", 2);
     Result var1(src1);
 
-    double num2(0);
+    double num2(20);
     Result var2(num2);
 
     map0.insert({src1, var2});
 
-    std::string src3("id", 2);
+    std::string src3("a", 1);
     Result var3(src3);
 
-    double num4(20);
+    double num4(0);
     Result var4(num4);
 
     map0.insert({src3, var4});
@@ -328,7 +328,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("unchanged", 9);
+    std::string src3("skipped", 7);
     Result var3(src3);
 
     double num4(0.0);
@@ -352,7 +352,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     map0.insert({src7, var8});
 
-    std::string src9("replaced", 8);
+    std::string src9("unchanged", 9);
     Result var9(src9);
 
     double num10(0.0);
@@ -360,7 +360,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     map0.insert({src9, var10});
 
-    std::string src11("skipped", 7);
+    std::string src11("replaced", 8);
     Result var11(src11);
 
     double num12(0.0);
@@ -374,7 +374,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   SECTION("test21") {
     std::map<std::string, Result> map0;
 
-    std::string src1("foo", 3);
+    std::string src1("a", 1);
     Result var1(src1);
 
     double num2(10);
@@ -382,7 +382,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("a", 1);
+    std::string src3("foo", 3);
     Result var3(src3);
 
     double num4(10);

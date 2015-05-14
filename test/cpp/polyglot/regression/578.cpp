@@ -27,18 +27,18 @@ TEST_CASE("cpp Catch obvious sindex creation/dropping errors (#578)", "[cpp][ast
 
     std::map<std::string, Result> map1;
 
-    std::string src2("index", 5);
+    std::string src2("ready", 5);
     Result var2(src2);
 
-    std::string src3("578", 3);
-    Result var3(src3);
+    Result var3(true);
 
     map1.insert({src2, var3});
 
-    std::string src4("ready", 5);
+    std::string src4("index", 5);
     Result var4(src4);
 
-    Result var5(true);
+    std::string src5("578", 3);
+    Result var5(src5);
 
     map1.insert({src4, var5});
 

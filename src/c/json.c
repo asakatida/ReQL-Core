@@ -570,7 +570,10 @@ reql_object_add(ReQL_Obj_t *obj, ReQL_Obj_t *key, ReQL_Obj_t *val) {
     pair[size].val = val;
 
     key->owner = obj;
-    val->owner = obj;
+
+    if (val != NULL) {
+      val->owner = obj;
+    }
 
     size += 1;
 
@@ -579,7 +582,10 @@ reql_object_add(ReQL_Obj_t *obj, ReQL_Obj_t *key, ReQL_Obj_t *val) {
     reql_set_size(obj, size);
   } else {
     pair->val = val;
-    val->owner = obj;
+
+    if (val != NULL) {
+      val->owner = obj;
+    }
   }
 
   return 0;

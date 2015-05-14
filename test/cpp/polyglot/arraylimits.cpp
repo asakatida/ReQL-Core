@@ -144,7 +144,7 @@ TEST_CASE("cpp Tests array limit variations", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("unchanged", 9);
+    std::string src3("skipped", 7);
     Result var3(src3);
 
     double num4(0.0);
@@ -168,7 +168,7 @@ TEST_CASE("cpp Tests array limit variations", "[cpp][ast]") {
 
     map0.insert({src7, var8});
 
-    std::string src9("replaced", 8);
+    std::string src9("unchanged", 9);
     Result var9(src9);
 
     double num10(0.0);
@@ -176,7 +176,7 @@ TEST_CASE("cpp Tests array limit variations", "[cpp][ast]") {
 
     map0.insert({src9, var10});
 
-    std::string src11("skipped", 7);
+    std::string src11("replaced", 8);
     Result var11(src11);
 
     double num12(0.0);

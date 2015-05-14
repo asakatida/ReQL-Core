@@ -25,30 +25,30 @@ TEST_CASE("cpp Tests meta operations in composite queries", "[cpp][ast]") {
   SECTION("test1") {
     std::map<std::string, Result> map0;
 
-    std::string src1("dbs_created", 11);
+    std::string src1("config_changes", 14);
     Result var1(src1);
 
-    double num2(3);
-    Result var2(num2);
+    std::map<std::string, Result> map2;
+
+    std::string src3("func", 4);
+    Result var3(src3);
+
+    std::string src4("arrlen", 6);
+    Result var4(src4);
+
+    map2.insert({src3, var4});
+
+    Result var2(map2);
 
     map0.insert({src1, var2});
 
-    std::string src3("config_changes", 14);
-    Result var3(src3);
-
-    std::map<std::string, Result> map4;
-
-    std::string src5("func", 4);
+    std::string src5("dbs_created", 11);
     Result var5(src5);
 
-    std::string src6("arrlen", 6);
-    Result var6(src6);
+    double num6(3);
+    Result var6(num6);
 
-    map4.insert({src5, var6});
-
-    Result var4(map4);
-
-    map0.insert({src3, var4});
+    map0.insert({src5, var6});
 
     Result var0(map0);
   }

@@ -59,7 +59,7 @@ TEST_CASE("cpp Test changefeeds on a table", "[cpp][ast]") {
 
     std::map<std::string, Result> map1;
 
-    std::string src2("old_val", 7);
+    std::string src2("new_val", 7);
     Result var2(src2);
 
     std::map<std::string, Result> map3;
@@ -72,22 +72,22 @@ TEST_CASE("cpp Test changefeeds on a table", "[cpp][ast]") {
 
     map3.insert({src4, var5});
 
+    std::string src6("version", 7);
+    Result var6(src6);
+
+    double num7(1);
+    Result var7(num7);
+
+    map3.insert({src6, var7});
+
     Result var3(map3);
 
     map1.insert({src2, var3});
 
-    std::string src6("new_val", 7);
-    Result var6(src6);
-
-    std::map<std::string, Result> map7;
-
-    std::string src8("version", 7);
+    std::string src8("old_val", 7);
     Result var8(src8);
 
-    double num9(1);
-    Result var9(num9);
-
-    map7.insert({src8, var9});
+    std::map<std::string, Result> map9;
 
     std::string src10("id", 2);
     Result var10(src10);
@@ -95,11 +95,11 @@ TEST_CASE("cpp Test changefeeds on a table", "[cpp][ast]") {
     double num11(1);
     Result var11(num11);
 
-    map7.insert({src10, var11});
+    map9.insert({src10, var11});
 
-    Result var7(map7);
+    Result var9(map9);
 
-    map1.insert({src6, var7});
+    map1.insert({src8, var9});
 
     Result var1(map1);
 
@@ -127,18 +127,17 @@ TEST_CASE("cpp Test changefeeds on a table", "[cpp][ast]") {
 
     std::map<std::string, Result> map1;
 
-    std::string src2("old_val", 7);
+    std::string src2("new_val", 7);
     Result var2(src2);
 
-    std::map<std::string, Result> map3;
+    Result var3;
 
-    std::string src4("version", 7);
+    map1.insert({src2, var3});
+
+    std::string src4("old_val", 7);
     Result var4(src4);
 
-    double num5(1);
-    Result var5(num5);
-
-    map3.insert({src4, var5});
+    std::map<std::string, Result> map5;
 
     std::string src6("id", 2);
     Result var6(src6);
@@ -146,18 +145,19 @@ TEST_CASE("cpp Test changefeeds on a table", "[cpp][ast]") {
     double num7(1);
     Result var7(num7);
 
-    map3.insert({src6, var7});
+    map5.insert({src6, var7});
 
-    Result var3(map3);
-
-    map1.insert({src2, var3});
-
-    std::string src8("new_val", 7);
+    std::string src8("version", 7);
     Result var8(src8);
 
-    Result var9;
+    double num9(1);
+    Result var9(num9);
 
-    map1.insert({src8, var9});
+    map5.insert({src8, var9});
+
+    Result var5(map5);
+
+    map1.insert({src4, var5});
 
     Result var1(map1);
 
@@ -278,7 +278,7 @@ TEST_CASE("cpp Test changefeeds on a table", "[cpp][ast]") {
 
     std::map<std::string, Result> map1;
 
-    std::string src2("old_val", 7);
+    std::string src2("new_val", 7);
     Result var2(src2);
 
     std::map<std::string, Result> map3;
@@ -291,22 +291,22 @@ TEST_CASE("cpp Test changefeeds on a table", "[cpp][ast]") {
 
     map3.insert({src4, var5});
 
+    std::string src6("version", 7);
+    Result var6(src6);
+
+    double num7(1);
+    Result var7(num7);
+
+    map3.insert({src6, var7});
+
     Result var3(map3);
 
     map1.insert({src2, var3});
 
-    std::string src6("new_val", 7);
-    Result var6(src6);
-
-    std::map<std::string, Result> map7;
-
-    std::string src8("version", 7);
+    std::string src8("old_val", 7);
     Result var8(src8);
 
-    double num9(1);
-    Result var9(num9);
-
-    map7.insert({src8, var9});
+    std::map<std::string, Result> map9;
 
     std::string src10("id", 2);
     Result var10(src10);
@@ -314,11 +314,11 @@ TEST_CASE("cpp Test changefeeds on a table", "[cpp][ast]") {
     double num11(1);
     Result var11(num11);
 
-    map7.insert({src10, var11});
+    map9.insert({src10, var11});
 
-    Result var7(map7);
+    Result var9(map9);
 
-    map1.insert({src6, var7});
+    map1.insert({src8, var9});
 
     Result var1(map1);
 
@@ -346,18 +346,17 @@ TEST_CASE("cpp Test changefeeds on a table", "[cpp][ast]") {
 
     std::map<std::string, Result> map1;
 
-    std::string src2("old_val", 7);
+    std::string src2("new_val", 7);
     Result var2(src2);
 
-    std::map<std::string, Result> map3;
+    Result var3;
 
-    std::string src4("version", 7);
+    map1.insert({src2, var3});
+
+    std::string src4("old_val", 7);
     Result var4(src4);
 
-    double num5(1);
-    Result var5(num5);
-
-    map3.insert({src4, var5});
+    std::map<std::string, Result> map5;
 
     std::string src6("id", 2);
     Result var6(src6);
@@ -365,18 +364,19 @@ TEST_CASE("cpp Test changefeeds on a table", "[cpp][ast]") {
     double num7(1);
     Result var7(num7);
 
-    map3.insert({src6, var7});
+    map5.insert({src6, var7});
 
-    Result var3(map3);
-
-    map1.insert({src2, var3});
-
-    std::string src8("new_val", 7);
+    std::string src8("version", 7);
     Result var8(src8);
 
-    Result var9;
+    double num9(1);
+    Result var9(num9);
 
-    map1.insert({src8, var9});
+    map5.insert({src8, var9});
+
+    Result var5(map5);
+
+    map1.insert({src4, var5});
 
     Result var1(map1);
 
