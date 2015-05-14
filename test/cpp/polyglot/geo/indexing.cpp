@@ -11,7 +11,7 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
   SECTION("test1") {
     std::map<std::string, Result> map0;
 
-    std::string src1("errors", 6);
+    std::string src1("deleted", 7);
     Result var1(src1);
 
     double num2(0);
@@ -19,7 +19,7 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("skipped", 7);
+    std::string src3("errors", 6);
     Result var3(src3);
 
     double num4(0);
@@ -27,23 +27,23 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
 
     map0.insert({src3, var4});
 
-    std::string src5("unchanged", 9);
+    std::string src5("inserted", 8);
     Result var5(src5);
 
-    double num6(0);
+    double num6(3);
     Result var6(num6);
 
     map0.insert({src5, var6});
 
-    std::string src7("inserted", 8);
+    std::string src7("replaced", 8);
     Result var7(src7);
 
-    double num8(3);
+    double num8(0);
     Result var8(num8);
 
     map0.insert({src7, var8});
 
-    std::string src9("deleted", 7);
+    std::string src9("skipped", 7);
     Result var9(src9);
 
     double num10(0);
@@ -51,7 +51,7 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
 
     map0.insert({src9, var10});
 
-    std::string src11("replaced", 8);
+    std::string src11("unchanged", 9);
     Result var11(src11);
 
     double num12(0);

@@ -106,24 +106,24 @@ TEST_CASE("c Test changefeed squashing", "[c][ast]") {
     reql_object_init(var10.get(), pair10.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var11(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf11(new uint8_t[2]);
-    const uint8_t src11[] = "id";
-    reql_string_init(var11.get(), buf11.get(), 2);
-    reql_string_append(var11.get(), src11, 2);
+    std::unique_ptr<uint8_t[]> buf11(new uint8_t[1]);
+    const uint8_t src11[] = "a";
+    reql_string_init(var11.get(), buf11.get(), 1);
+    reql_string_append(var11.get(), src11, 1);
 
     std::unique_ptr<ReQL_Obj_t> var12(new ReQL_Obj_t);
-    reql_number_init(var12.get(), 100);
+    reql_number_init(var12.get(), 1);
 
     reql_object_add(var10.get(), var11.get(), var12.get());
 
     std::unique_ptr<ReQL_Obj_t> var13(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf13(new uint8_t[1]);
-    const uint8_t src13[] = "a";
-    reql_string_init(var13.get(), buf13.get(), 1);
-    reql_string_append(var13.get(), src13, 1);
+    std::unique_ptr<uint8_t[]> buf13(new uint8_t[2]);
+    const uint8_t src13[] = "id";
+    reql_string_init(var13.get(), buf13.get(), 2);
+    reql_string_append(var13.get(), src13, 2);
 
     std::unique_ptr<ReQL_Obj_t> var14(new ReQL_Obj_t);
-    reql_number_init(var14.get(), 1);
+    reql_number_init(var14.get(), 100);
 
     reql_object_add(var10.get(), var13.get(), var14.get());
 
@@ -215,24 +215,24 @@ TEST_CASE("c Test changefeed squashing", "[c][ast]") {
     reql_object_init(var10.get(), pair10.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var11(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf11(new uint8_t[2]);
-    const uint8_t src11[] = "id";
-    reql_string_init(var11.get(), buf11.get(), 2);
-    reql_string_append(var11.get(), src11, 2);
+    std::unique_ptr<uint8_t[]> buf11(new uint8_t[1]);
+    const uint8_t src11[] = "a";
+    reql_string_init(var11.get(), buf11.get(), 1);
+    reql_string_append(var11.get(), src11, 1);
 
     std::unique_ptr<ReQL_Obj_t> var12(new ReQL_Obj_t);
-    reql_number_init(var12.get(), 100);
+    reql_number_init(var12.get(), 1);
 
     reql_object_add(var10.get(), var11.get(), var12.get());
 
     std::unique_ptr<ReQL_Obj_t> var13(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf13(new uint8_t[1]);
-    const uint8_t src13[] = "a";
-    reql_string_init(var13.get(), buf13.get(), 1);
-    reql_string_append(var13.get(), src13, 1);
+    std::unique_ptr<uint8_t[]> buf13(new uint8_t[2]);
+    const uint8_t src13[] = "id";
+    reql_string_init(var13.get(), buf13.get(), 2);
+    reql_string_append(var13.get(), src13, 2);
 
     std::unique_ptr<ReQL_Obj_t> var14(new ReQL_Obj_t);
-    reql_number_init(var14.get(), 1);
+    reql_number_init(var14.get(), 100);
 
     reql_object_add(var10.get(), var13.get(), var14.get());
 
@@ -284,24 +284,24 @@ TEST_CASE("c Test changefeed squashing", "[c][ast]") {
     reql_object_init(var3.get(), pair3.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf4(new uint8_t[2]);
-    const uint8_t src4[] = "id";
-    reql_string_init(var4.get(), buf4.get(), 2);
-    reql_string_append(var4.get(), src4, 2);
+    std::unique_ptr<uint8_t[]> buf4(new uint8_t[1]);
+    const uint8_t src4[] = "a";
+    reql_string_init(var4.get(), buf4.get(), 1);
+    reql_string_append(var4.get(), src4, 1);
 
     std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
-    reql_number_init(var5.get(), 100);
+    reql_number_init(var5.get(), 1);
 
     reql_object_add(var3.get(), var4.get(), var5.get());
 
     std::unique_ptr<ReQL_Obj_t> var6(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf6(new uint8_t[1]);
-    const uint8_t src6[] = "a";
-    reql_string_init(var6.get(), buf6.get(), 1);
-    reql_string_append(var6.get(), src6, 1);
+    std::unique_ptr<uint8_t[]> buf6(new uint8_t[2]);
+    const uint8_t src6[] = "id";
+    reql_string_init(var6.get(), buf6.get(), 2);
+    reql_string_append(var6.get(), src6, 2);
 
     std::unique_ptr<ReQL_Obj_t> var7(new ReQL_Obj_t);
-    reql_number_init(var7.get(), 1);
+    reql_number_init(var7.get(), 100);
 
     reql_object_add(var3.get(), var6.get(), var7.get());
 
@@ -341,24 +341,24 @@ TEST_CASE("c Test changefeed squashing", "[c][ast]") {
     reql_object_init(var3.get(), pair3.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf4(new uint8_t[2]);
-    const uint8_t src4[] = "id";
-    reql_string_init(var4.get(), buf4.get(), 2);
-    reql_string_append(var4.get(), src4, 2);
+    std::unique_ptr<uint8_t[]> buf4(new uint8_t[1]);
+    const uint8_t src4[] = "a";
+    reql_string_init(var4.get(), buf4.get(), 1);
+    reql_string_append(var4.get(), src4, 1);
 
     std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
-    reql_number_init(var5.get(), 100);
+    reql_number_init(var5.get(), 1);
 
     reql_object_add(var3.get(), var4.get(), var5.get());
 
     std::unique_ptr<ReQL_Obj_t> var6(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf6(new uint8_t[1]);
-    const uint8_t src6[] = "a";
-    reql_string_init(var6.get(), buf6.get(), 1);
-    reql_string_append(var6.get(), src6, 1);
+    std::unique_ptr<uint8_t[]> buf6(new uint8_t[2]);
+    const uint8_t src6[] = "id";
+    reql_string_init(var6.get(), buf6.get(), 2);
+    reql_string_append(var6.get(), src6, 2);
 
     std::unique_ptr<ReQL_Obj_t> var7(new ReQL_Obj_t);
-    reql_number_init(var7.get(), 1);
+    reql_number_init(var7.get(), 100);
 
     reql_object_add(var3.get(), var6.get(), var7.get());
 

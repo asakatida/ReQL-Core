@@ -6,7 +6,7 @@
 
 using namespace ReQL;
 
-TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
+TEST_CASE("cpp Tests that manipulation data in tables 27", "[cpp][ast]") {
 
   SECTION("test0") {
     std::map<std::string, Result> map0;
@@ -39,7 +39,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   SECTION("test2") {
     std::map<std::string, Result> map0;
 
-    std::string src1("errors", 6);
+    std::string src1("deleted", 7);
     Result var1(src1);
 
     double num2(0.0);
@@ -47,7 +47,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("skipped", 7);
+    std::string src3("errors", 6);
     Result var3(src3);
 
     double num4(0.0);
@@ -55,23 +55,23 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     map0.insert({src3, var4});
 
-    std::string src5("deleted", 7);
+    std::string src5("inserted", 8);
     Result var5(src5);
 
-    double num6(0.0);
+    double num6(100);
     Result var6(num6);
 
     map0.insert({src5, var6});
 
-    std::string src7("inserted", 8);
+    std::string src7("replaced", 8);
     Result var7(src7);
 
-    double num8(100);
+    double num8(0.0);
     Result var8(num8);
 
     map0.insert({src7, var8});
 
-    std::string src9("unchanged", 9);
+    std::string src9("skipped", 7);
     Result var9(src9);
 
     double num10(0.0);
@@ -79,7 +79,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     map0.insert({src9, var10});
 
-    std::string src11("replaced", 8);
+    std::string src11("unchanged", 9);
     Result var11(src11);
 
     double num12(0.0);
@@ -139,7 +139,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   SECTION("test7") {
     std::map<std::string, Result> map0;
 
-    std::string src1("errors", 6);
+    std::string src1("deleted", 7);
     Result var1(src1);
 
     double num2(0.0);
@@ -147,7 +147,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("skipped", 7);
+    std::string src3("errors", 6);
     Result var3(src3);
 
     double num4(0.0);
@@ -155,23 +155,23 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     map0.insert({src3, var4});
 
-    std::string src5("deleted", 7);
+    std::string src5("inserted", 8);
     Result var5(src5);
 
-    double num6(0.0);
+    double num6(100);
     Result var6(num6);
 
     map0.insert({src5, var6});
 
-    std::string src7("inserted", 8);
+    std::string src7("replaced", 8);
     Result var7(src7);
 
-    double num8(100);
+    double num8(0.0);
     Result var8(num8);
 
     map0.insert({src7, var8});
 
-    std::string src9("unchanged", 9);
+    std::string src9("skipped", 7);
     Result var9(src9);
 
     double num10(0.0);
@@ -179,7 +179,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     map0.insert({src9, var10});
 
-    std::string src11("replaced", 8);
+    std::string src11("unchanged", 9);
     Result var11(src11);
 
     double num12(0.0);
@@ -193,7 +193,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   SECTION("test8") {
     std::map<std::string, Result> map0;
 
-    std::string src1("errors", 6);
+    std::string src1("deleted", 7);
     Result var1(src1);
 
     double num2(0.0);
@@ -201,7 +201,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("skipped", 7);
+    std::string src3("errors", 6);
     Result var3(src3);
 
     double num4(0.0);
@@ -209,23 +209,23 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     map0.insert({src3, var4});
 
-    std::string src5("deleted", 7);
+    std::string src5("inserted", 8);
     Result var5(src5);
 
-    double num6(0.0);
+    double num6(100);
     Result var6(num6);
 
     map0.insert({src5, var6});
 
-    std::string src7("inserted", 8);
+    std::string src7("replaced", 8);
     Result var7(src7);
 
-    double num8(100);
+    double num8(0.0);
     Result var8(num8);
 
     map0.insert({src7, var8});
 
-    std::string src9("unchanged", 9);
+    std::string src9("skipped", 7);
     Result var9(src9);
 
     double num10(0.0);
@@ -233,7 +233,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     map0.insert({src9, var10});
 
-    std::string src11("replaced", 8);
+    std::string src11("unchanged", 9);
     Result var11(src11);
 
     double num12(0.0);
@@ -282,7 +282,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   SECTION("test17") {
     std::map<std::string, Result> map0;
 
-    std::string src1("id", 2);
+    std::string src1("a", 1);
     Result var1(src1);
 
     double num2(0);
@@ -290,7 +290,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("a", 1);
+    std::string src3("id", 2);
     Result var3(src3);
 
     double num4(0);
@@ -318,7 +318,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   SECTION("test19") {
     std::map<std::string, Result> map0;
 
-    std::string src1("id", 2);
+    std::string src1("a", 1);
     Result var1(src1);
 
     double num2(0);
@@ -326,7 +326,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("a", 1);
+    std::string src3("id", 2);
     Result var3(src3);
 
     double num4(0);
@@ -406,18 +406,18 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   SECTION("test26") {
     std::map<std::string, Result> map0;
 
-    std::string src1("id", 2);
+    std::string src1("a", 1);
     Result var1(src1);
 
-    double num2(5);
+    double num2(1);
     Result var2(num2);
 
     map0.insert({src1, var2});
 
-    std::string src3("a", 1);
+    std::string src3("id", 2);
     Result var3(src3);
 
-    double num4(1);
+    double num4(5);
     Result var4(num4);
 
     map0.insert({src3, var4});
@@ -442,7 +442,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   SECTION("test28") {
     std::map<std::string, Result> map0;
 
-    std::string src1("id", 2);
+    std::string src1("a", 1);
     Result var1(src1);
 
     double num2(0);
@@ -450,7 +450,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("a", 1);
+    std::string src3("id", 2);
     Result var3(src3);
 
     double num4(0);
@@ -464,7 +464,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   SECTION("test29") {
     std::map<std::string, Result> map0;
 
-    std::string src1("id", 2);
+    std::string src1("a", 1);
     Result var1(src1);
 
     double num2(0);
@@ -472,7 +472,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("a", 1);
+    std::string src3("id", 2);
     Result var3(src3);
 
     double num4(0);
@@ -486,7 +486,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   SECTION("test30") {
     std::map<std::string, Result> map0;
 
-    std::string src1("id", 2);
+    std::string src1("a", 1);
     Result var1(src1);
 
     double num2(0);
@@ -494,7 +494,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("a", 1);
+    std::string src3("id", 2);
     Result var3(src3);
 
     double num4(0);
@@ -508,7 +508,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   SECTION("test31") {
     std::map<std::string, Result> map0;
 
-    std::string src1("id", 2);
+    std::string src1("a", 1);
     Result var1(src1);
 
     double num2(0);
@@ -516,7 +516,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("a", 1);
+    std::string src3("id", 2);
     Result var3(src3);
 
     double num4(0);
@@ -530,7 +530,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   SECTION("test32") {
     std::map<std::string, Result> map0;
 
-    std::string src1("id", 2);
+    std::string src1("a", 1);
     Result var1(src1);
 
     double num2(3);
@@ -538,7 +538,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("a", 1);
+    std::string src3("id", 2);
     Result var3(src3);
 
     double num4(3);
@@ -552,7 +552,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   SECTION("test33") {
     std::map<std::string, Result> map0;
 
-    std::string src1("id", 2);
+    std::string src1("a", 1);
     Result var1(src1);
 
     double num2(0);
@@ -560,7 +560,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("a", 1);
+    std::string src3("id", 2);
     Result var3(src3);
 
     double num4(0);
@@ -574,7 +574,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   SECTION("test34") {
     std::map<std::string, Result> map0;
 
-    std::string src1("id", 2);
+    std::string src1("a", 1);
     Result var1(src1);
 
     double num2(3);
@@ -582,7 +582,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("a", 1);
+    std::string src3("id", 2);
     Result var3(src3);
 
     double num4(3);
@@ -596,7 +596,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   SECTION("test35") {
     std::map<std::string, Result> map0;
 
-    std::string src1("id", 2);
+    std::string src1("a", 1);
     Result var1(src1);
 
     double num2(3);
@@ -604,7 +604,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("a", 1);
+    std::string src3("id", 2);
     Result var3(src3);
 
     double num4(3);
@@ -618,7 +618,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   SECTION("test36") {
     std::map<std::string, Result> map0;
 
-    std::string src1("id", 2);
+    std::string src1("a", 1);
     Result var1(src1);
 
     double num2(3);
@@ -626,7 +626,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("a", 1);
+    std::string src3("id", 2);
     Result var3(src3);
 
     double num4(3);
@@ -640,18 +640,18 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   SECTION("test37") {
     std::map<std::string, Result> map0;
 
-    std::string src1("id", 2);
+    std::string src1("a", 1);
     Result var1(src1);
 
-    double num2(96);
+    double num2(0);
     Result var2(num2);
 
     map0.insert({src1, var2});
 
-    std::string src3("a", 1);
+    std::string src3("id", 2);
     Result var3(src3);
 
-    double num4(0);
+    double num4(96);
     Result var4(num4);
 
     map0.insert({src3, var4});
@@ -662,18 +662,18 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   SECTION("test38") {
     std::map<std::string, Result> map0;
 
-    std::string src1("id", 2);
+    std::string src1("a", 1);
     Result var1(src1);
 
-    double num2(96);
+    double num2(0);
     Result var2(num2);
 
     map0.insert({src1, var2});
 
-    std::string src3("a", 1);
+    std::string src3("id", 2);
     Result var3(src3);
 
-    double num4(0);
+    double num4(96);
     Result var4(num4);
 
     map0.insert({src3, var4});
@@ -689,7 +689,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   SECTION("test40") {
     std::map<std::string, Result> map0;
 
-    std::string src1("id", 2);
+    std::string src1("a", 1);
     Result var1(src1);
 
     double num2(0);
@@ -697,7 +697,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("a", 1);
+    std::string src3("id", 2);
     Result var3(src3);
 
     double num4(0);
@@ -725,7 +725,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   SECTION("test42") {
     std::map<std::string, Result> map0;
 
-    std::string src1("id", 2);
+    std::string src1("a", 1);
     Result var1(src1);
 
     double num2(0);
@@ -733,7 +733,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("a", 1);
+    std::string src3("id", 2);
     Result var3(src3);
 
     double num4(0);
@@ -747,7 +747,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   SECTION("test43") {
     std::map<std::string, Result> map0;
 
-    std::string src1("id", 2);
+    std::string src1("a", 1);
     Result var1(src1);
 
     double num2(0);
@@ -755,7 +755,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("a", 1);
+    std::string src3("id", 2);
     Result var3(src3);
 
     double num4(0);
@@ -1160,7 +1160,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   SECTION("test88") {
     std::map<std::string, Result> map0;
 
-    std::string src1("id", 2);
+    std::string src1("a", 1);
     Result var1(src1);
 
     double num2(1);
@@ -1168,7 +1168,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("a", 1);
+    std::string src3("id", 2);
     Result var3(src3);
 
     double num4(1);
@@ -1182,18 +1182,18 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   SECTION("test89") {
     std::map<std::string, Result> map0;
 
-    std::string src1("id", 2);
+    std::string src1("a", 1);
     Result var1(src1);
 
-    double num2(99);
+    double num2(3);
     Result var2(num2);
 
     map0.insert({src1, var2});
 
-    std::string src3("a", 1);
+    std::string src3("id", 2);
     Result var3(src3);
 
-    double num4(3);
+    double num4(99);
     Result var4(num4);
 
     map0.insert({src3, var4});
@@ -1311,7 +1311,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   SECTION("test101") {
     std::map<std::string, Result> map0;
 
-    std::string src1("id", 2);
+    std::string src1("a", 1);
     Result var1(src1);
 
     double num2(0);
@@ -1319,7 +1319,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("a", 1);
+    std::string src3("id", 2);
     Result var3(src3);
 
     double num4(0);
@@ -1333,7 +1333,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   SECTION("test102") {
     std::map<std::string, Result> map0;
 
-    std::string src1("id", 2);
+    std::string src1("a", 1);
     Result var1(src1);
 
     double num2(0);
@@ -1341,7 +1341,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("a", 1);
+    std::string src3("id", 2);
     Result var3(src3);
 
     double num4(0);
@@ -1355,7 +1355,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   SECTION("test103") {
     std::map<std::string, Result> map0;
 
-    std::string src1("id", 2);
+    std::string src1("a", 1);
     Result var1(src1);
 
     double num2(0);
@@ -1363,7 +1363,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("a", 1);
+    std::string src3("id", 2);
     Result var3(src3);
 
     double num4(0);
@@ -1419,30 +1419,30 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   SECTION("test107") {
     std::map<std::string, Result> map0;
 
-    std::string src1("id", 2);
+    std::string src1("b", 1);
     Result var1(src1);
 
-    double num2(0);
-    Result var2(num2);
+    std::map<std::string, Result> map2;
+
+    std::string src3("c", 1);
+    Result var3(src3);
+
+    double num4(0);
+    Result var4(num4);
+
+    map2.insert({src3, var4});
+
+    Result var2(map2);
 
     map0.insert({src1, var2});
 
-    std::string src3("b", 1);
-    Result var3(src3);
-
-    std::map<std::string, Result> map4;
-
-    std::string src5("c", 1);
+    std::string src5("id", 2);
     Result var5(src5);
 
     double num6(0);
     Result var6(num6);
 
-    map4.insert({src5, var6});
-
-    Result var4(map4);
-
-    map0.insert({src3, var4});
+    map0.insert({src5, var6});
 
     Result var0(map0);
   }
@@ -1450,30 +1450,30 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   SECTION("test108") {
     std::map<std::string, Result> map0;
 
-    std::string src1("id", 2);
+    std::string src1("b", 1);
     Result var1(src1);
 
-    double num2(0);
-    Result var2(num2);
+    std::map<std::string, Result> map2;
+
+    std::string src3("c", 1);
+    Result var3(src3);
+
+    double num4(0);
+    Result var4(num4);
+
+    map2.insert({src3, var4});
+
+    Result var2(map2);
 
     map0.insert({src1, var2});
 
-    std::string src3("b", 1);
-    Result var3(src3);
-
-    std::map<std::string, Result> map4;
-
-    std::string src5("c", 1);
+    std::string src5("id", 2);
     Result var5(src5);
 
     double num6(0);
     Result var6(num6);
 
-    map4.insert({src5, var6});
-
-    Result var4(map4);
-
-    map0.insert({src3, var4});
+    map0.insert({src5, var6});
 
     Result var0(map0);
   }
@@ -1557,7 +1557,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   SECTION("test113") {
     std::map<std::string, Result> map0;
 
-    std::string src1("id", 2);
+    std::string src1("a", 1);
     Result var1(src1);
 
     double num2(0);
@@ -1565,7 +1565,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("a", 1);
+    std::string src3("id", 2);
     Result var3(src3);
 
     double num4(0);
@@ -1612,19 +1612,19 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   SECTION("test117") {
     std::map<std::string, Result> map0;
 
-    std::string src1("id", 2);
+    std::string src1("b", 1);
     Result var1(src1);
 
-    double num2(0);
-    Result var2(num2);
+    std::map<std::string, Result> map2;
+    Result var2(map2);
 
     map0.insert({src1, var2});
 
-    std::string src3("b", 1);
+    std::string src3("id", 2);
     Result var3(src3);
 
-    std::map<std::string, Result> map4;
-    Result var4(map4);
+    double num4(0);
+    Result var4(num4);
 
     map0.insert({src3, var4});
 
@@ -1634,19 +1634,19 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   SECTION("test118") {
     std::map<std::string, Result> map0;
 
-    std::string src1("id", 2);
+    std::string src1("b", 1);
     Result var1(src1);
 
-    double num2(0);
-    Result var2(num2);
+    std::map<std::string, Result> map2;
+    Result var2(map2);
 
     map0.insert({src1, var2});
 
-    std::string src3("b", 1);
+    std::string src3("id", 2);
     Result var3(src3);
 
-    std::map<std::string, Result> map4;
-    Result var4(map4);
+    double num4(0);
+    Result var4(num4);
 
     map0.insert({src3, var4});
 
@@ -1656,30 +1656,30 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   SECTION("test119") {
     std::map<std::string, Result> map0;
 
-    std::string src1("id", 2);
+    std::string src1("b", 1);
     Result var1(src1);
 
-    double num2(0);
-    Result var2(num2);
+    std::map<std::string, Result> map2;
+
+    std::string src3("c", 1);
+    Result var3(src3);
+
+    double num4(0);
+    Result var4(num4);
+
+    map2.insert({src3, var4});
+
+    Result var2(map2);
 
     map0.insert({src1, var2});
 
-    std::string src3("b", 1);
-    Result var3(src3);
-
-    std::map<std::string, Result> map4;
-
-    std::string src5("c", 1);
+    std::string src5("id", 2);
     Result var5(src5);
 
     double num6(0);
     Result var6(num6);
 
-    map4.insert({src5, var6});
-
-    Result var4(map4);
-
-    map0.insert({src3, var4});
+    map0.insert({src5, var6});
 
     Result var0(map0);
   }

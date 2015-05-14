@@ -6,7 +6,7 @@
 
 using namespace ReQL;
 
-TEST_CASE("cpp Regression tests for issue", "[cpp][ast]") {
+TEST_CASE("cpp Regression tests for issue 163", "[cpp][ast]") {
 
   SECTION("test1") {
     std::vector<Result> arr0(3);

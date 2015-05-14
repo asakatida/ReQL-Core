@@ -326,18 +326,18 @@ TEST_CASE("cpp Test point changebasics", "[cpp][ast]") {
 
     std::map<std::string, Result> map4;
 
-    std::string src5("red", 3);
+    std::string src5("blue", 4);
     Result var5(src5);
 
-    double num6(1);
+    double num6(2);
     Result var6(num6);
 
     map4.insert({src5, var6});
 
-    std::string src7("blue", 4);
+    std::string src7("red", 3);
     Result var7(src7);
 
-    double num8(2);
+    double num8(1);
     Result var8(num8);
 
     map4.insert({src7, var8});
@@ -348,18 +348,18 @@ TEST_CASE("cpp Test point changebasics", "[cpp][ast]") {
 
     std::map<std::string, Result> map9;
 
-    std::string src10("red", 3);
+    std::string src10("blue", 4);
     Result var10(src10);
 
-    double num11(1);
+    double num11(2);
     Result var11(num11);
 
     map9.insert({src10, var11});
 
-    std::string src12("blue", 4);
+    std::string src12("red", 3);
     Result var12(src12);
 
-    double num13(2);
+    double num13(1);
     Result var13(num13);
 
     map9.insert({src12, var13});
@@ -370,18 +370,18 @@ TEST_CASE("cpp Test point changebasics", "[cpp][ast]") {
 
     std::map<std::string, Result> map14;
 
-    std::string src15("red", 3);
+    std::string src15("blue", 4);
     Result var15(src15);
 
-    double num16(1);
+    double num16(4);
     Result var16(num16);
 
     map14.insert({src15, var16});
 
-    std::string src17("blue", 4);
+    std::string src17("red", 3);
     Result var17(src17);
 
-    double num18(4);
+    double num18(1);
     Result var18(num18);
 
     map14.insert({src17, var18});
@@ -639,18 +639,18 @@ TEST_CASE("cpp Test point changebasics", "[cpp][ast]") {
 
     std::map<std::string, Result> map1;
 
-    std::string src2("red", 3);
+    std::string src2("blue", 4);
     Result var2(src2);
 
-    double num3(1);
+    double num3(2);
     Result var3(num3);
 
     map1.insert({src2, var3});
 
-    std::string src4("blue", 4);
+    std::string src4("red", 3);
     Result var4(src4);
 
-    double num5(2);
+    double num5(1);
     Result var5(num5);
 
     map1.insert({src4, var5});

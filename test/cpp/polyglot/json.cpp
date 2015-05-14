@@ -153,19 +153,19 @@ TEST_CASE("cpp Tests RQL json parsing", "[cpp][ast]") {
   SECTION("test16") {
     std::map<std::string, Result> map0;
 
-    std::string src1("epoch_time", 10);
+    std::string src1("$reql_type$", 11);
     Result var1(src1);
 
-    double num2(1410393600);
-    Result var2(num2);
+    std::string src2("TIME", 4);
+    Result var2(src2);
 
     map0.insert({src1, var2});
 
-    std::string src3("$reql_type$", 11);
+    std::string src3("epoch_time", 10);
     Result var3(src3);
 
-    std::string src4("TIME", 4);
-    Result var4(src4);
+    double num4(1410393600);
+    Result var4(num4);
 
     map0.insert({src3, var4});
 
@@ -188,37 +188,37 @@ TEST_CASE("cpp Tests RQL json parsing", "[cpp][ast]") {
   SECTION("test18") {
     std::map<std::string, Result> map0;
 
-    std::string src1("coordinates", 11);
+    std::string src1("$reql_type$", 11);
     Result var1(src1);
 
-    std::vector<Result> arr2(2);
-
-    double num3(0);
-    Result var3(num3);
-
-    arr2.insert(arr2.end(), var3);
-
-    double num4(0);
-    Result var4(num4);
-
-    arr2.insert(arr2.end(), var4);
-
-    Result var2(arr2);
+    std::string src2("GEOMETRY", 8);
+    Result var2(src2);
 
     map0.insert({src1, var2});
 
-    std::string src5("type", 4);
-    Result var5(src5);
+    std::string src3("coordinates", 11);
+    Result var3(src3);
 
-    std::string src6("Point", 5);
-    Result var6(src6);
+    std::vector<Result> arr4(2);
 
-    map0.insert({src5, var6});
+    double num5(0);
+    Result var5(num5);
 
-    std::string src7("$reql_type$", 11);
+    arr4.insert(arr4.end(), var5);
+
+    double num6(0);
+    Result var6(num6);
+
+    arr4.insert(arr4.end(), var6);
+
+    Result var4(arr4);
+
+    map0.insert({src3, var4});
+
+    std::string src7("type", 4);
     Result var7(src7);
 
-    std::string src8("GEOMETRY", 8);
+    std::string src8("Point", 5);
     Result var8(src8);
 
     map0.insert({src7, var8});

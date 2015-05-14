@@ -136,7 +136,7 @@ TEST_CASE("cpp Tests array limit variations", "[cpp][ast]") {
   SECTION("test11") {
     std::map<std::string, Result> map0;
 
-    std::string src1("errors", 6);
+    std::string src1("deleted", 7);
     Result var1(src1);
 
     double num2(0.0);
@@ -144,7 +144,7 @@ TEST_CASE("cpp Tests array limit variations", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("skipped", 7);
+    std::string src3("errors", 6);
     Result var3(src3);
 
     double num4(0.0);
@@ -152,23 +152,23 @@ TEST_CASE("cpp Tests array limit variations", "[cpp][ast]") {
 
     map0.insert({src3, var4});
 
-    std::string src5("deleted", 7);
+    std::string src5("inserted", 8);
     Result var5(src5);
 
-    double num6(0.0);
+    double num6(1);
     Result var6(num6);
 
     map0.insert({src5, var6});
 
-    std::string src7("inserted", 8);
+    std::string src7("replaced", 8);
     Result var7(src7);
 
-    double num8(1);
+    double num8(0.0);
     Result var8(num8);
 
     map0.insert({src7, var8});
 
-    std::string src9("unchanged", 9);
+    std::string src9("skipped", 7);
     Result var9(src9);
 
     double num10(0.0);
@@ -176,7 +176,7 @@ TEST_CASE("cpp Tests array limit variations", "[cpp][ast]") {
 
     map0.insert({src9, var10});
 
-    std::string src11("replaced", 8);
+    std::string src11("unchanged", 9);
     Result var11(src11);
 
     double num12(0.0);
@@ -190,72 +190,72 @@ TEST_CASE("cpp Tests array limit variations", "[cpp][ast]") {
   SECTION("test12") {
     std::map<std::string, Result> map0;
 
-    std::string src1("id", 2);
+    std::string src1("array", 5);
     Result var1(src1);
 
-    double num2(1);
-    Result var2(num2);
+    std::vector<Result> arr2(10);
+
+    double num3(1);
+    Result var3(num3);
+
+    arr2.insert(arr2.end(), var3);
+
+    double num4(2);
+    Result var4(num4);
+
+    arr2.insert(arr2.end(), var4);
+
+    double num5(3);
+    Result var5(num5);
+
+    arr2.insert(arr2.end(), var5);
+
+    double num6(4);
+    Result var6(num6);
+
+    arr2.insert(arr2.end(), var6);
+
+    double num7(5);
+    Result var7(num7);
+
+    arr2.insert(arr2.end(), var7);
+
+    double num8(6);
+    Result var8(num8);
+
+    arr2.insert(arr2.end(), var8);
+
+    double num9(7);
+    Result var9(num9);
+
+    arr2.insert(arr2.end(), var9);
+
+    double num10(8);
+    Result var10(num10);
+
+    arr2.insert(arr2.end(), var10);
+
+    double num11(9);
+    Result var11(num11);
+
+    arr2.insert(arr2.end(), var11);
+
+    double num12(10);
+    Result var12(num12);
+
+    arr2.insert(arr2.end(), var12);
+
+    Result var2(arr2);
 
     map0.insert({src1, var2});
 
-    std::string src3("array", 5);
-    Result var3(src3);
+    std::string src13("id", 2);
+    Result var13(src13);
 
-    std::vector<Result> arr4(10);
-
-    double num5(1);
-    Result var5(num5);
-
-    arr4.insert(arr4.end(), var5);
-
-    double num6(2);
-    Result var6(num6);
-
-    arr4.insert(arr4.end(), var6);
-
-    double num7(3);
-    Result var7(num7);
-
-    arr4.insert(arr4.end(), var7);
-
-    double num8(4);
-    Result var8(num8);
-
-    arr4.insert(arr4.end(), var8);
-
-    double num9(5);
-    Result var9(num9);
-
-    arr4.insert(arr4.end(), var9);
-
-    double num10(6);
-    Result var10(num10);
-
-    arr4.insert(arr4.end(), var10);
-
-    double num11(7);
-    Result var11(num11);
-
-    arr4.insert(arr4.end(), var11);
-
-    double num12(8);
-    Result var12(num12);
-
-    arr4.insert(arr4.end(), var12);
-
-    double num13(9);
-    Result var13(num13);
-
-    arr4.insert(arr4.end(), var13);
-
-    double num14(10);
+    double num14(1);
     Result var14(num14);
 
-    arr4.insert(arr4.end(), var14);
-
-    Result var4(arr4);
-
-    map0.insert({src3, var4});
+    map0.insert({src13, var14});
 
     Result var0(map0);
   }

@@ -426,24 +426,24 @@ TEST_CASE("c Test point changebasics", "[c][ast]") {
     reql_object_init(var4.get(), pair4.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf5(new uint8_t[3]);
-    const uint8_t src5[] = "red";
-    reql_string_init(var5.get(), buf5.get(), 3);
-    reql_string_append(var5.get(), src5, 3);
+    std::unique_ptr<uint8_t[]> buf5(new uint8_t[4]);
+    const uint8_t src5[] = "blue";
+    reql_string_init(var5.get(), buf5.get(), 4);
+    reql_string_append(var5.get(), src5, 4);
 
     std::unique_ptr<ReQL_Obj_t> var6(new ReQL_Obj_t);
-    reql_number_init(var6.get(), 1);
+    reql_number_init(var6.get(), 2);
 
     reql_object_add(var4.get(), var5.get(), var6.get());
 
     std::unique_ptr<ReQL_Obj_t> var7(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf7(new uint8_t[4]);
-    const uint8_t src7[] = "blue";
-    reql_string_init(var7.get(), buf7.get(), 4);
-    reql_string_append(var7.get(), src7, 4);
+    std::unique_ptr<uint8_t[]> buf7(new uint8_t[3]);
+    const uint8_t src7[] = "red";
+    reql_string_init(var7.get(), buf7.get(), 3);
+    reql_string_append(var7.get(), src7, 3);
 
     std::unique_ptr<ReQL_Obj_t> var8(new ReQL_Obj_t);
-    reql_number_init(var8.get(), 2);
+    reql_number_init(var8.get(), 1);
 
     reql_object_add(var4.get(), var7.get(), var8.get());
 
@@ -454,24 +454,24 @@ TEST_CASE("c Test point changebasics", "[c][ast]") {
     reql_object_init(var9.get(), pair9.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var10(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf10(new uint8_t[3]);
-    const uint8_t src10[] = "red";
-    reql_string_init(var10.get(), buf10.get(), 3);
-    reql_string_append(var10.get(), src10, 3);
+    std::unique_ptr<uint8_t[]> buf10(new uint8_t[4]);
+    const uint8_t src10[] = "blue";
+    reql_string_init(var10.get(), buf10.get(), 4);
+    reql_string_append(var10.get(), src10, 4);
 
     std::unique_ptr<ReQL_Obj_t> var11(new ReQL_Obj_t);
-    reql_number_init(var11.get(), 1);
+    reql_number_init(var11.get(), 2);
 
     reql_object_add(var9.get(), var10.get(), var11.get());
 
     std::unique_ptr<ReQL_Obj_t> var12(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf12(new uint8_t[4]);
-    const uint8_t src12[] = "blue";
-    reql_string_init(var12.get(), buf12.get(), 4);
-    reql_string_append(var12.get(), src12, 4);
+    std::unique_ptr<uint8_t[]> buf12(new uint8_t[3]);
+    const uint8_t src12[] = "red";
+    reql_string_init(var12.get(), buf12.get(), 3);
+    reql_string_append(var12.get(), src12, 3);
 
     std::unique_ptr<ReQL_Obj_t> var13(new ReQL_Obj_t);
-    reql_number_init(var13.get(), 2);
+    reql_number_init(var13.get(), 1);
 
     reql_object_add(var9.get(), var12.get(), var13.get());
 
@@ -482,24 +482,24 @@ TEST_CASE("c Test point changebasics", "[c][ast]") {
     reql_object_init(var14.get(), pair14.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var15(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf15(new uint8_t[3]);
-    const uint8_t src15[] = "red";
-    reql_string_init(var15.get(), buf15.get(), 3);
-    reql_string_append(var15.get(), src15, 3);
+    std::unique_ptr<uint8_t[]> buf15(new uint8_t[4]);
+    const uint8_t src15[] = "blue";
+    reql_string_init(var15.get(), buf15.get(), 4);
+    reql_string_append(var15.get(), src15, 4);
 
     std::unique_ptr<ReQL_Obj_t> var16(new ReQL_Obj_t);
-    reql_number_init(var16.get(), 1);
+    reql_number_init(var16.get(), 4);
 
     reql_object_add(var14.get(), var15.get(), var16.get());
 
     std::unique_ptr<ReQL_Obj_t> var17(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf17(new uint8_t[4]);
-    const uint8_t src17[] = "blue";
-    reql_string_init(var17.get(), buf17.get(), 4);
-    reql_string_append(var17.get(), src17, 4);
+    std::unique_ptr<uint8_t[]> buf17(new uint8_t[3]);
+    const uint8_t src17[] = "red";
+    reql_string_init(var17.get(), buf17.get(), 3);
+    reql_string_append(var17.get(), src17, 3);
 
     std::unique_ptr<ReQL_Obj_t> var18(new ReQL_Obj_t);
-    reql_number_init(var18.get(), 4);
+    reql_number_init(var18.get(), 1);
 
     reql_object_add(var14.get(), var17.get(), var18.get());
 
@@ -829,24 +829,24 @@ TEST_CASE("c Test point changebasics", "[c][ast]") {
     reql_object_init(var1.get(), pair1.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
-    const uint8_t src2[] = "red";
-    reql_string_init(var2.get(), buf2.get(), 3);
-    reql_string_append(var2.get(), src2, 3);
+    std::unique_ptr<uint8_t[]> buf2(new uint8_t[4]);
+    const uint8_t src2[] = "blue";
+    reql_string_init(var2.get(), buf2.get(), 4);
+    reql_string_append(var2.get(), src2, 4);
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
-    reql_number_init(var3.get(), 1);
+    reql_number_init(var3.get(), 2);
 
     reql_object_add(var1.get(), var2.get(), var3.get());
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf4(new uint8_t[4]);
-    const uint8_t src4[] = "blue";
-    reql_string_init(var4.get(), buf4.get(), 4);
-    reql_string_append(var4.get(), src4, 4);
+    std::unique_ptr<uint8_t[]> buf4(new uint8_t[3]);
+    const uint8_t src4[] = "red";
+    reql_string_init(var4.get(), buf4.get(), 3);
+    reql_string_append(var4.get(), src4, 3);
 
     std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
-    reql_number_init(var5.get(), 2);
+    reql_number_init(var5.get(), 1);
 
     reql_object_add(var1.get(), var4.get(), var5.get());
 

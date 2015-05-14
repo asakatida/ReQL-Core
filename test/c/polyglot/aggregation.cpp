@@ -14,10 +14,10 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var0.get(), pair0.get(), 6);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[6]);
-    const uint8_t src1[] = "errors";
-    reql_string_init(var1.get(), buf1.get(), 6);
-    reql_string_append(var1.get(), src1, 6);
+    std::unique_ptr<uint8_t[]> buf1(new uint8_t[7]);
+    const uint8_t src1[] = "deleted";
+    reql_string_init(var1.get(), buf1.get(), 7);
+    reql_string_append(var1.get(), src1, 7);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     reql_number_init(var2.get(), 0.0);
@@ -25,10 +25,10 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_add(var0.get(), var1.get(), var2.get());
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf3(new uint8_t[7]);
-    const uint8_t src3[] = "skipped";
-    reql_string_init(var3.get(), buf3.get(), 7);
-    reql_string_append(var3.get(), src3, 7);
+    std::unique_ptr<uint8_t[]> buf3(new uint8_t[6]);
+    const uint8_t src3[] = "errors";
+    reql_string_init(var3.get(), buf3.get(), 6);
+    reql_string_append(var3.get(), src3, 6);
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
     reql_number_init(var4.get(), 0.0);
@@ -36,32 +36,32 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_add(var0.get(), var3.get(), var4.get());
 
     std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf5(new uint8_t[7]);
-    const uint8_t src5[] = "deleted";
-    reql_string_init(var5.get(), buf5.get(), 7);
-    reql_string_append(var5.get(), src5, 7);
+    std::unique_ptr<uint8_t[]> buf5(new uint8_t[8]);
+    const uint8_t src5[] = "inserted";
+    reql_string_init(var5.get(), buf5.get(), 8);
+    reql_string_append(var5.get(), src5, 8);
 
     std::unique_ptr<ReQL_Obj_t> var6(new ReQL_Obj_t);
-    reql_number_init(var6.get(), 0.0);
+    reql_number_init(var6.get(), 100);
 
     reql_object_add(var0.get(), var5.get(), var6.get());
 
     std::unique_ptr<ReQL_Obj_t> var7(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf7(new uint8_t[8]);
-    const uint8_t src7[] = "inserted";
+    const uint8_t src7[] = "replaced";
     reql_string_init(var7.get(), buf7.get(), 8);
     reql_string_append(var7.get(), src7, 8);
 
     std::unique_ptr<ReQL_Obj_t> var8(new ReQL_Obj_t);
-    reql_number_init(var8.get(), 100);
+    reql_number_init(var8.get(), 0.0);
 
     reql_object_add(var0.get(), var7.get(), var8.get());
 
     std::unique_ptr<ReQL_Obj_t> var9(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf9(new uint8_t[9]);
-    const uint8_t src9[] = "unchanged";
-    reql_string_init(var9.get(), buf9.get(), 9);
-    reql_string_append(var9.get(), src9, 9);
+    std::unique_ptr<uint8_t[]> buf9(new uint8_t[7]);
+    const uint8_t src9[] = "skipped";
+    reql_string_init(var9.get(), buf9.get(), 7);
+    reql_string_append(var9.get(), src9, 7);
 
     std::unique_ptr<ReQL_Obj_t> var10(new ReQL_Obj_t);
     reql_number_init(var10.get(), 0.0);
@@ -69,10 +69,10 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_add(var0.get(), var9.get(), var10.get());
 
     std::unique_ptr<ReQL_Obj_t> var11(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf11(new uint8_t[8]);
-    const uint8_t src11[] = "replaced";
-    reql_string_init(var11.get(), buf11.get(), 8);
-    reql_string_append(var11.get(), src11, 8);
+    std::unique_ptr<uint8_t[]> buf11(new uint8_t[9]);
+    const uint8_t src11[] = "unchanged";
+    reql_string_init(var11.get(), buf11.get(), 9);
+    reql_string_append(var11.get(), src11, 9);
 
     std::unique_ptr<ReQL_Obj_t> var12(new ReQL_Obj_t);
     reql_number_init(var12.get(), 0.0);
@@ -86,10 +86,10 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var0.get(), pair0.get(), 6);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[6]);
-    const uint8_t src1[] = "errors";
-    reql_string_init(var1.get(), buf1.get(), 6);
-    reql_string_append(var1.get(), src1, 6);
+    std::unique_ptr<uint8_t[]> buf1(new uint8_t[7]);
+    const uint8_t src1[] = "deleted";
+    reql_string_init(var1.get(), buf1.get(), 7);
+    reql_string_append(var1.get(), src1, 7);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     reql_number_init(var2.get(), 0.0);
@@ -97,10 +97,10 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_add(var0.get(), var1.get(), var2.get());
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf3(new uint8_t[7]);
-    const uint8_t src3[] = "skipped";
-    reql_string_init(var3.get(), buf3.get(), 7);
-    reql_string_append(var3.get(), src3, 7);
+    std::unique_ptr<uint8_t[]> buf3(new uint8_t[6]);
+    const uint8_t src3[] = "errors";
+    reql_string_init(var3.get(), buf3.get(), 6);
+    reql_string_append(var3.get(), src3, 6);
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
     reql_number_init(var4.get(), 0.0);
@@ -108,32 +108,32 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_add(var0.get(), var3.get(), var4.get());
 
     std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf5(new uint8_t[7]);
-    const uint8_t src5[] = "deleted";
-    reql_string_init(var5.get(), buf5.get(), 7);
-    reql_string_append(var5.get(), src5, 7);
+    std::unique_ptr<uint8_t[]> buf5(new uint8_t[8]);
+    const uint8_t src5[] = "inserted";
+    reql_string_init(var5.get(), buf5.get(), 8);
+    reql_string_append(var5.get(), src5, 8);
 
     std::unique_ptr<ReQL_Obj_t> var6(new ReQL_Obj_t);
-    reql_number_init(var6.get(), 0.0);
+    reql_number_init(var6.get(), 100);
 
     reql_object_add(var0.get(), var5.get(), var6.get());
 
     std::unique_ptr<ReQL_Obj_t> var7(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf7(new uint8_t[8]);
-    const uint8_t src7[] = "inserted";
+    const uint8_t src7[] = "replaced";
     reql_string_init(var7.get(), buf7.get(), 8);
     reql_string_append(var7.get(), src7, 8);
 
     std::unique_ptr<ReQL_Obj_t> var8(new ReQL_Obj_t);
-    reql_number_init(var8.get(), 100);
+    reql_number_init(var8.get(), 0.0);
 
     reql_object_add(var0.get(), var7.get(), var8.get());
 
     std::unique_ptr<ReQL_Obj_t> var9(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf9(new uint8_t[9]);
-    const uint8_t src9[] = "unchanged";
-    reql_string_init(var9.get(), buf9.get(), 9);
-    reql_string_append(var9.get(), src9, 9);
+    std::unique_ptr<uint8_t[]> buf9(new uint8_t[7]);
+    const uint8_t src9[] = "skipped";
+    reql_string_init(var9.get(), buf9.get(), 7);
+    reql_string_append(var9.get(), src9, 7);
 
     std::unique_ptr<ReQL_Obj_t> var10(new ReQL_Obj_t);
     reql_number_init(var10.get(), 0.0);
@@ -141,10 +141,10 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_add(var0.get(), var9.get(), var10.get());
 
     std::unique_ptr<ReQL_Obj_t> var11(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf11(new uint8_t[8]);
-    const uint8_t src11[] = "replaced";
-    reql_string_init(var11.get(), buf11.get(), 8);
-    reql_string_append(var11.get(), src11, 8);
+    std::unique_ptr<uint8_t[]> buf11(new uint8_t[9]);
+    const uint8_t src11[] = "unchanged";
+    reql_string_init(var11.get(), buf11.get(), 9);
+    reql_string_append(var11.get(), src11, 9);
 
     std::unique_ptr<ReQL_Obj_t> var12(new ReQL_Obj_t);
     reql_number_init(var12.get(), 0.0);
@@ -158,10 +158,10 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var0.get(), pair0.get(), 6);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[6]);
-    const uint8_t src1[] = "errors";
-    reql_string_init(var1.get(), buf1.get(), 6);
-    reql_string_append(var1.get(), src1, 6);
+    std::unique_ptr<uint8_t[]> buf1(new uint8_t[7]);
+    const uint8_t src1[] = "deleted";
+    reql_string_init(var1.get(), buf1.get(), 7);
+    reql_string_append(var1.get(), src1, 7);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     reql_number_init(var2.get(), 0.0);
@@ -169,10 +169,10 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_add(var0.get(), var1.get(), var2.get());
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf3(new uint8_t[7]);
-    const uint8_t src3[] = "skipped";
-    reql_string_init(var3.get(), buf3.get(), 7);
-    reql_string_append(var3.get(), src3, 7);
+    std::unique_ptr<uint8_t[]> buf3(new uint8_t[6]);
+    const uint8_t src3[] = "errors";
+    reql_string_init(var3.get(), buf3.get(), 6);
+    reql_string_append(var3.get(), src3, 6);
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
     reql_number_init(var4.get(), 0.0);
@@ -180,32 +180,32 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_add(var0.get(), var3.get(), var4.get());
 
     std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf5(new uint8_t[7]);
-    const uint8_t src5[] = "deleted";
-    reql_string_init(var5.get(), buf5.get(), 7);
-    reql_string_append(var5.get(), src5, 7);
+    std::unique_ptr<uint8_t[]> buf5(new uint8_t[8]);
+    const uint8_t src5[] = "inserted";
+    reql_string_init(var5.get(), buf5.get(), 8);
+    reql_string_append(var5.get(), src5, 8);
 
     std::unique_ptr<ReQL_Obj_t> var6(new ReQL_Obj_t);
-    reql_number_init(var6.get(), 0.0);
+    reql_number_init(var6.get(), 100);
 
     reql_object_add(var0.get(), var5.get(), var6.get());
 
     std::unique_ptr<ReQL_Obj_t> var7(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf7(new uint8_t[8]);
-    const uint8_t src7[] = "inserted";
+    const uint8_t src7[] = "replaced";
     reql_string_init(var7.get(), buf7.get(), 8);
     reql_string_append(var7.get(), src7, 8);
 
     std::unique_ptr<ReQL_Obj_t> var8(new ReQL_Obj_t);
-    reql_number_init(var8.get(), 100);
+    reql_number_init(var8.get(), 0.0);
 
     reql_object_add(var0.get(), var7.get(), var8.get());
 
     std::unique_ptr<ReQL_Obj_t> var9(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf9(new uint8_t[9]);
-    const uint8_t src9[] = "unchanged";
-    reql_string_init(var9.get(), buf9.get(), 9);
-    reql_string_append(var9.get(), src9, 9);
+    std::unique_ptr<uint8_t[]> buf9(new uint8_t[7]);
+    const uint8_t src9[] = "skipped";
+    reql_string_init(var9.get(), buf9.get(), 7);
+    reql_string_append(var9.get(), src9, 7);
 
     std::unique_ptr<ReQL_Obj_t> var10(new ReQL_Obj_t);
     reql_number_init(var10.get(), 0.0);
@@ -213,10 +213,10 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_add(var0.get(), var9.get(), var10.get());
 
     std::unique_ptr<ReQL_Obj_t> var11(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf11(new uint8_t[8]);
-    const uint8_t src11[] = "replaced";
-    reql_string_init(var11.get(), buf11.get(), 8);
-    reql_string_append(var11.get(), src11, 8);
+    std::unique_ptr<uint8_t[]> buf11(new uint8_t[9]);
+    const uint8_t src11[] = "unchanged";
+    reql_string_init(var11.get(), buf11.get(), 9);
+    reql_string_append(var11.get(), src11, 9);
 
     std::unique_ptr<ReQL_Obj_t> var12(new ReQL_Obj_t);
     reql_number_init(var12.get(), 0.0);
@@ -230,10 +230,10 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var0.get(), pair0.get(), 6);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[6]);
-    const uint8_t src1[] = "errors";
-    reql_string_init(var1.get(), buf1.get(), 6);
-    reql_string_append(var1.get(), src1, 6);
+    std::unique_ptr<uint8_t[]> buf1(new uint8_t[7]);
+    const uint8_t src1[] = "deleted";
+    reql_string_init(var1.get(), buf1.get(), 7);
+    reql_string_append(var1.get(), src1, 7);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     reql_number_init(var2.get(), 0.0);
@@ -241,10 +241,10 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_add(var0.get(), var1.get(), var2.get());
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf3(new uint8_t[7]);
-    const uint8_t src3[] = "skipped";
-    reql_string_init(var3.get(), buf3.get(), 7);
-    reql_string_append(var3.get(), src3, 7);
+    std::unique_ptr<uint8_t[]> buf3(new uint8_t[6]);
+    const uint8_t src3[] = "errors";
+    reql_string_init(var3.get(), buf3.get(), 6);
+    reql_string_append(var3.get(), src3, 6);
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
     reql_number_init(var4.get(), 0.0);
@@ -252,32 +252,32 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_add(var0.get(), var3.get(), var4.get());
 
     std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf5(new uint8_t[7]);
-    const uint8_t src5[] = "deleted";
-    reql_string_init(var5.get(), buf5.get(), 7);
-    reql_string_append(var5.get(), src5, 7);
+    std::unique_ptr<uint8_t[]> buf5(new uint8_t[8]);
+    const uint8_t src5[] = "inserted";
+    reql_string_init(var5.get(), buf5.get(), 8);
+    reql_string_append(var5.get(), src5, 8);
 
     std::unique_ptr<ReQL_Obj_t> var6(new ReQL_Obj_t);
-    reql_number_init(var6.get(), 0.0);
+    reql_number_init(var6.get(), 1);
 
     reql_object_add(var0.get(), var5.get(), var6.get());
 
     std::unique_ptr<ReQL_Obj_t> var7(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf7(new uint8_t[8]);
-    const uint8_t src7[] = "inserted";
+    const uint8_t src7[] = "replaced";
     reql_string_init(var7.get(), buf7.get(), 8);
     reql_string_append(var7.get(), src7, 8);
 
     std::unique_ptr<ReQL_Obj_t> var8(new ReQL_Obj_t);
-    reql_number_init(var8.get(), 1);
+    reql_number_init(var8.get(), 0.0);
 
     reql_object_add(var0.get(), var7.get(), var8.get());
 
     std::unique_ptr<ReQL_Obj_t> var9(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf9(new uint8_t[9]);
-    const uint8_t src9[] = "unchanged";
-    reql_string_init(var9.get(), buf9.get(), 9);
-    reql_string_append(var9.get(), src9, 9);
+    std::unique_ptr<uint8_t[]> buf9(new uint8_t[7]);
+    const uint8_t src9[] = "skipped";
+    reql_string_init(var9.get(), buf9.get(), 7);
+    reql_string_append(var9.get(), src9, 7);
 
     std::unique_ptr<ReQL_Obj_t> var10(new ReQL_Obj_t);
     reql_number_init(var10.get(), 0.0);
@@ -285,10 +285,10 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_add(var0.get(), var9.get(), var10.get());
 
     std::unique_ptr<ReQL_Obj_t> var11(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf11(new uint8_t[8]);
-    const uint8_t src11[] = "replaced";
-    reql_string_init(var11.get(), buf11.get(), 8);
-    reql_string_append(var11.get(), src11, 8);
+    std::unique_ptr<uint8_t[]> buf11(new uint8_t[9]);
+    const uint8_t src11[] = "unchanged";
+    reql_string_init(var11.get(), buf11.get(), 9);
+    reql_string_append(var11.get(), src11, 9);
 
     std::unique_ptr<ReQL_Obj_t> var12(new ReQL_Obj_t);
     reql_number_init(var12.get(), 0.0);
@@ -316,24 +316,24 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var1.get(), pair1.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[9]);
-    const uint8_t src2[] = "reduction";
-    reql_string_init(var2.get(), buf2.get(), 9);
-    reql_string_append(var2.get(), src2, 9);
+    std::unique_ptr<uint8_t[]> buf2(new uint8_t[5]);
+    const uint8_t src2[] = "group";
+    reql_string_init(var2.get(), buf2.get(), 5);
+    reql_string_append(var2.get(), src2, 5);
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
-    reql_number_init(var3.get(), 1200);
+    reql_number_init(var3.get(), 0);
 
     reql_object_add(var1.get(), var2.get(), var3.get());
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf4(new uint8_t[5]);
-    const uint8_t src4[] = "group";
-    reql_string_init(var4.get(), buf4.get(), 5);
-    reql_string_append(var4.get(), src4, 5);
+    std::unique_ptr<uint8_t[]> buf4(new uint8_t[9]);
+    const uint8_t src4[] = "reduction";
+    reql_string_init(var4.get(), buf4.get(), 9);
+    reql_string_append(var4.get(), src4, 9);
 
     std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
-    reql_number_init(var5.get(), 0);
+    reql_number_init(var5.get(), 1200);
 
     reql_object_add(var1.get(), var4.get(), var5.get());
 
@@ -344,24 +344,24 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var6.get(), pair6.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var7(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf7(new uint8_t[9]);
-    const uint8_t src7[] = "reduction";
-    reql_string_init(var7.get(), buf7.get(), 9);
-    reql_string_append(var7.get(), src7, 9);
+    std::unique_ptr<uint8_t[]> buf7(new uint8_t[5]);
+    const uint8_t src7[] = "group";
+    reql_string_init(var7.get(), buf7.get(), 5);
+    reql_string_append(var7.get(), src7, 5);
 
     std::unique_ptr<ReQL_Obj_t> var8(new ReQL_Obj_t);
-    reql_number_init(var8.get(), 1225);
+    reql_number_init(var8.get(), 1);
 
     reql_object_add(var6.get(), var7.get(), var8.get());
 
     std::unique_ptr<ReQL_Obj_t> var9(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf9(new uint8_t[5]);
-    const uint8_t src9[] = "group";
-    reql_string_init(var9.get(), buf9.get(), 5);
-    reql_string_append(var9.get(), src9, 5);
+    std::unique_ptr<uint8_t[]> buf9(new uint8_t[9]);
+    const uint8_t src9[] = "reduction";
+    reql_string_init(var9.get(), buf9.get(), 9);
+    reql_string_append(var9.get(), src9, 9);
 
     std::unique_ptr<ReQL_Obj_t> var10(new ReQL_Obj_t);
-    reql_number_init(var10.get(), 1);
+    reql_number_init(var10.get(), 1225);
 
     reql_object_add(var6.get(), var9.get(), var10.get());
 
@@ -372,24 +372,24 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var11.get(), pair11.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var12(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf12(new uint8_t[9]);
-    const uint8_t src12[] = "reduction";
-    reql_string_init(var12.get(), buf12.get(), 9);
-    reql_string_append(var12.get(), src12, 9);
+    std::unique_ptr<uint8_t[]> buf12(new uint8_t[5]);
+    const uint8_t src12[] = "group";
+    reql_string_init(var12.get(), buf12.get(), 5);
+    reql_string_append(var12.get(), src12, 5);
 
     std::unique_ptr<ReQL_Obj_t> var13(new ReQL_Obj_t);
-    reql_number_init(var13.get(), 1250);
+    reql_number_init(var13.get(), 2);
 
     reql_object_add(var11.get(), var12.get(), var13.get());
 
     std::unique_ptr<ReQL_Obj_t> var14(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf14(new uint8_t[5]);
-    const uint8_t src14[] = "group";
-    reql_string_init(var14.get(), buf14.get(), 5);
-    reql_string_append(var14.get(), src14, 5);
+    std::unique_ptr<uint8_t[]> buf14(new uint8_t[9]);
+    const uint8_t src14[] = "reduction";
+    reql_string_init(var14.get(), buf14.get(), 9);
+    reql_string_append(var14.get(), src14, 9);
 
     std::unique_ptr<ReQL_Obj_t> var15(new ReQL_Obj_t);
-    reql_number_init(var15.get(), 2);
+    reql_number_init(var15.get(), 1250);
 
     reql_object_add(var11.get(), var14.get(), var15.get());
 
@@ -400,24 +400,24 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var16.get(), pair16.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var17(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf17(new uint8_t[9]);
-    const uint8_t src17[] = "reduction";
-    reql_string_init(var17.get(), buf17.get(), 9);
-    reql_string_append(var17.get(), src17, 9);
+    std::unique_ptr<uint8_t[]> buf17(new uint8_t[5]);
+    const uint8_t src17[] = "group";
+    reql_string_init(var17.get(), buf17.get(), 5);
+    reql_string_append(var17.get(), src17, 5);
 
     std::unique_ptr<ReQL_Obj_t> var18(new ReQL_Obj_t);
-    reql_number_init(var18.get(), 1275);
+    reql_number_init(var18.get(), 3);
 
     reql_object_add(var16.get(), var17.get(), var18.get());
 
     std::unique_ptr<ReQL_Obj_t> var19(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf19(new uint8_t[5]);
-    const uint8_t src19[] = "group";
-    reql_string_init(var19.get(), buf19.get(), 5);
-    reql_string_append(var19.get(), src19, 5);
+    std::unique_ptr<uint8_t[]> buf19(new uint8_t[9]);
+    const uint8_t src19[] = "reduction";
+    reql_string_init(var19.get(), buf19.get(), 9);
+    reql_string_append(var19.get(), src19, 9);
 
     std::unique_ptr<ReQL_Obj_t> var20(new ReQL_Obj_t);
-    reql_number_init(var20.get(), 3);
+    reql_number_init(var20.get(), 1275);
 
     reql_object_add(var16.get(), var19.get(), var20.get());
 
@@ -444,24 +444,24 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var1.get(), pair1.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[9]);
-    const uint8_t src2[] = "reduction";
-    reql_string_init(var2.get(), buf2.get(), 9);
-    reql_string_append(var2.get(), src2, 9);
+    std::unique_ptr<uint8_t[]> buf2(new uint8_t[5]);
+    const uint8_t src2[] = "group";
+    reql_string_init(var2.get(), buf2.get(), 5);
+    reql_string_append(var2.get(), src2, 5);
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
-    reql_number_init(var3.get(), 48);
+    reql_number_init(var3.get(), 0);
 
     reql_object_add(var1.get(), var2.get(), var3.get());
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf4(new uint8_t[5]);
-    const uint8_t src4[] = "group";
-    reql_string_init(var4.get(), buf4.get(), 5);
-    reql_string_append(var4.get(), src4, 5);
+    std::unique_ptr<uint8_t[]> buf4(new uint8_t[9]);
+    const uint8_t src4[] = "reduction";
+    reql_string_init(var4.get(), buf4.get(), 9);
+    reql_string_append(var4.get(), src4, 9);
 
     std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
-    reql_number_init(var5.get(), 0);
+    reql_number_init(var5.get(), 48);
 
     reql_object_add(var1.get(), var4.get(), var5.get());
 
@@ -472,24 +472,24 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var6.get(), pair6.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var7(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf7(new uint8_t[9]);
-    const uint8_t src7[] = "reduction";
-    reql_string_init(var7.get(), buf7.get(), 9);
-    reql_string_append(var7.get(), src7, 9);
+    std::unique_ptr<uint8_t[]> buf7(new uint8_t[5]);
+    const uint8_t src7[] = "group";
+    reql_string_init(var7.get(), buf7.get(), 5);
+    reql_string_append(var7.get(), src7, 5);
 
     std::unique_ptr<ReQL_Obj_t> var8(new ReQL_Obj_t);
-    reql_number_init(var8.get(), 49);
+    reql_number_init(var8.get(), 1);
 
     reql_object_add(var6.get(), var7.get(), var8.get());
 
     std::unique_ptr<ReQL_Obj_t> var9(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf9(new uint8_t[5]);
-    const uint8_t src9[] = "group";
-    reql_string_init(var9.get(), buf9.get(), 5);
-    reql_string_append(var9.get(), src9, 5);
+    std::unique_ptr<uint8_t[]> buf9(new uint8_t[9]);
+    const uint8_t src9[] = "reduction";
+    reql_string_init(var9.get(), buf9.get(), 9);
+    reql_string_append(var9.get(), src9, 9);
 
     std::unique_ptr<ReQL_Obj_t> var10(new ReQL_Obj_t);
-    reql_number_init(var10.get(), 1);
+    reql_number_init(var10.get(), 49);
 
     reql_object_add(var6.get(), var9.get(), var10.get());
 
@@ -500,24 +500,24 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var11.get(), pair11.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var12(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf12(new uint8_t[9]);
-    const uint8_t src12[] = "reduction";
-    reql_string_init(var12.get(), buf12.get(), 9);
-    reql_string_append(var12.get(), src12, 9);
+    std::unique_ptr<uint8_t[]> buf12(new uint8_t[5]);
+    const uint8_t src12[] = "group";
+    reql_string_init(var12.get(), buf12.get(), 5);
+    reql_string_append(var12.get(), src12, 5);
 
     std::unique_ptr<ReQL_Obj_t> var13(new ReQL_Obj_t);
-    reql_number_init(var13.get(), 50);
+    reql_number_init(var13.get(), 2);
 
     reql_object_add(var11.get(), var12.get(), var13.get());
 
     std::unique_ptr<ReQL_Obj_t> var14(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf14(new uint8_t[5]);
-    const uint8_t src14[] = "group";
-    reql_string_init(var14.get(), buf14.get(), 5);
-    reql_string_append(var14.get(), src14, 5);
+    std::unique_ptr<uint8_t[]> buf14(new uint8_t[9]);
+    const uint8_t src14[] = "reduction";
+    reql_string_init(var14.get(), buf14.get(), 9);
+    reql_string_append(var14.get(), src14, 9);
 
     std::unique_ptr<ReQL_Obj_t> var15(new ReQL_Obj_t);
-    reql_number_init(var15.get(), 2);
+    reql_number_init(var15.get(), 50);
 
     reql_object_add(var11.get(), var14.get(), var15.get());
 
@@ -528,24 +528,24 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var16.get(), pair16.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var17(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf17(new uint8_t[9]);
-    const uint8_t src17[] = "reduction";
-    reql_string_init(var17.get(), buf17.get(), 9);
-    reql_string_append(var17.get(), src17, 9);
+    std::unique_ptr<uint8_t[]> buf17(new uint8_t[5]);
+    const uint8_t src17[] = "group";
+    reql_string_init(var17.get(), buf17.get(), 5);
+    reql_string_append(var17.get(), src17, 5);
 
     std::unique_ptr<ReQL_Obj_t> var18(new ReQL_Obj_t);
-    reql_number_init(var18.get(), 51);
+    reql_number_init(var18.get(), 3);
 
     reql_object_add(var16.get(), var17.get(), var18.get());
 
     std::unique_ptr<ReQL_Obj_t> var19(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf19(new uint8_t[5]);
-    const uint8_t src19[] = "group";
-    reql_string_init(var19.get(), buf19.get(), 5);
-    reql_string_append(var19.get(), src19, 5);
+    std::unique_ptr<uint8_t[]> buf19(new uint8_t[9]);
+    const uint8_t src19[] = "reduction";
+    reql_string_init(var19.get(), buf19.get(), 9);
+    reql_string_append(var19.get(), src19, 9);
 
     std::unique_ptr<ReQL_Obj_t> var20(new ReQL_Obj_t);
-    reql_number_init(var20.get(), 3);
+    reql_number_init(var20.get(), 51);
 
     reql_object_add(var16.get(), var19.get(), var20.get());
 
@@ -563,10 +563,10 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var0.get(), pair0.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[2]);
-    const uint8_t src1[] = "id";
-    reql_string_init(var1.get(), buf1.get(), 2);
-    reql_string_append(var1.get(), src1, 2);
+    std::unique_ptr<uint8_t[]> buf1(new uint8_t[1]);
+    const uint8_t src1[] = "a";
+    reql_string_init(var1.get(), buf1.get(), 1);
+    reql_string_append(var1.get(), src1, 1);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     reql_number_init(var2.get(), 0);
@@ -574,10 +574,10 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_add(var0.get(), var1.get(), var2.get());
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf3(new uint8_t[1]);
-    const uint8_t src3[] = "a";
-    reql_string_init(var3.get(), buf3.get(), 1);
-    reql_string_append(var3.get(), src3, 1);
+    std::unique_ptr<uint8_t[]> buf3(new uint8_t[2]);
+    const uint8_t src3[] = "id";
+    reql_string_init(var3.get(), buf3.get(), 2);
+    reql_string_append(var3.get(), src3, 2);
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
     reql_number_init(var4.get(), 0);
@@ -600,25 +600,25 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var1.get(), pair1.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[9]);
-    const uint8_t src2[] = "reduction";
-    reql_string_init(var2.get(), buf2.get(), 9);
-    reql_string_append(var2.get(), src2, 9);
+    std::unique_ptr<uint8_t[]> buf2(new uint8_t[5]);
+    const uint8_t src2[] = "group";
+    reql_string_init(var2.get(), buf2.get(), 5);
+    reql_string_append(var2.get(), src2, 5);
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Pair_t[]> pair3(new ReQL_Pair_t[2]);
-    reql_object_init(var3.get(), pair3.get(), 2);
+    reql_number_init(var3.get(), 0);
+
+    reql_object_add(var1.get(), var2.get(), var3.get());
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf4(new uint8_t[2]);
-    const uint8_t src4[] = "id";
-    reql_string_init(var4.get(), buf4.get(), 2);
-    reql_string_append(var4.get(), src4, 2);
+    std::unique_ptr<uint8_t[]> buf4(new uint8_t[9]);
+    const uint8_t src4[] = "reduction";
+    reql_string_init(var4.get(), buf4.get(), 9);
+    reql_string_append(var4.get(), src4, 9);
 
     std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
-    reql_number_init(var5.get(), 0);
-
-    reql_object_add(var3.get(), var4.get(), var5.get());
+    std::unique_ptr<ReQL_Pair_t[]> pair5(new ReQL_Pair_t[2]);
+    reql_object_init(var5.get(), pair5.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var6(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf6(new uint8_t[1]);
@@ -629,20 +629,20 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     std::unique_ptr<ReQL_Obj_t> var7(new ReQL_Obj_t);
     reql_number_init(var7.get(), 0);
 
-    reql_object_add(var3.get(), var6.get(), var7.get());
-
-    reql_object_add(var1.get(), var2.get(), var3.get());
+    reql_object_add(var5.get(), var6.get(), var7.get());
 
     std::unique_ptr<ReQL_Obj_t> var8(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf8(new uint8_t[5]);
-    const uint8_t src8[] = "group";
-    reql_string_init(var8.get(), buf8.get(), 5);
-    reql_string_append(var8.get(), src8, 5);
+    std::unique_ptr<uint8_t[]> buf8(new uint8_t[2]);
+    const uint8_t src8[] = "id";
+    reql_string_init(var8.get(), buf8.get(), 2);
+    reql_string_append(var8.get(), src8, 2);
 
     std::unique_ptr<ReQL_Obj_t> var9(new ReQL_Obj_t);
     reql_number_init(var9.get(), 0);
 
-    reql_object_add(var1.get(), var8.get(), var9.get());
+    reql_object_add(var5.get(), var8.get(), var9.get());
+
+    reql_object_add(var1.get(), var4.get(), var5.get());
 
     reql_array_append(var0.get(), var1.get());
 
@@ -651,25 +651,25 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var10.get(), pair10.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var11(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf11(new uint8_t[9]);
-    const uint8_t src11[] = "reduction";
-    reql_string_init(var11.get(), buf11.get(), 9);
-    reql_string_append(var11.get(), src11, 9);
+    std::unique_ptr<uint8_t[]> buf11(new uint8_t[5]);
+    const uint8_t src11[] = "group";
+    reql_string_init(var11.get(), buf11.get(), 5);
+    reql_string_append(var11.get(), src11, 5);
 
     std::unique_ptr<ReQL_Obj_t> var12(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Pair_t[]> pair12(new ReQL_Pair_t[2]);
-    reql_object_init(var12.get(), pair12.get(), 2);
+    reql_number_init(var12.get(), 1);
+
+    reql_object_add(var10.get(), var11.get(), var12.get());
 
     std::unique_ptr<ReQL_Obj_t> var13(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf13(new uint8_t[2]);
-    const uint8_t src13[] = "id";
-    reql_string_init(var13.get(), buf13.get(), 2);
-    reql_string_append(var13.get(), src13, 2);
+    std::unique_ptr<uint8_t[]> buf13(new uint8_t[9]);
+    const uint8_t src13[] = "reduction";
+    reql_string_init(var13.get(), buf13.get(), 9);
+    reql_string_append(var13.get(), src13, 9);
 
     std::unique_ptr<ReQL_Obj_t> var14(new ReQL_Obj_t);
-    reql_number_init(var14.get(), 1);
-
-    reql_object_add(var12.get(), var13.get(), var14.get());
+    std::unique_ptr<ReQL_Pair_t[]> pair14(new ReQL_Pair_t[2]);
+    reql_object_init(var14.get(), pair14.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var15(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf15(new uint8_t[1]);
@@ -680,20 +680,20 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     std::unique_ptr<ReQL_Obj_t> var16(new ReQL_Obj_t);
     reql_number_init(var16.get(), 1);
 
-    reql_object_add(var12.get(), var15.get(), var16.get());
-
-    reql_object_add(var10.get(), var11.get(), var12.get());
+    reql_object_add(var14.get(), var15.get(), var16.get());
 
     std::unique_ptr<ReQL_Obj_t> var17(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf17(new uint8_t[5]);
-    const uint8_t src17[] = "group";
-    reql_string_init(var17.get(), buf17.get(), 5);
-    reql_string_append(var17.get(), src17, 5);
+    std::unique_ptr<uint8_t[]> buf17(new uint8_t[2]);
+    const uint8_t src17[] = "id";
+    reql_string_init(var17.get(), buf17.get(), 2);
+    reql_string_append(var17.get(), src17, 2);
 
     std::unique_ptr<ReQL_Obj_t> var18(new ReQL_Obj_t);
     reql_number_init(var18.get(), 1);
 
-    reql_object_add(var10.get(), var17.get(), var18.get());
+    reql_object_add(var14.get(), var17.get(), var18.get());
+
+    reql_object_add(var10.get(), var13.get(), var14.get());
 
     reql_array_append(var0.get(), var10.get());
 
@@ -702,25 +702,25 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var19.get(), pair19.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var20(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf20(new uint8_t[9]);
-    const uint8_t src20[] = "reduction";
-    reql_string_init(var20.get(), buf20.get(), 9);
-    reql_string_append(var20.get(), src20, 9);
+    std::unique_ptr<uint8_t[]> buf20(new uint8_t[5]);
+    const uint8_t src20[] = "group";
+    reql_string_init(var20.get(), buf20.get(), 5);
+    reql_string_append(var20.get(), src20, 5);
 
     std::unique_ptr<ReQL_Obj_t> var21(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Pair_t[]> pair21(new ReQL_Pair_t[2]);
-    reql_object_init(var21.get(), pair21.get(), 2);
+    reql_number_init(var21.get(), 2);
+
+    reql_object_add(var19.get(), var20.get(), var21.get());
 
     std::unique_ptr<ReQL_Obj_t> var22(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf22(new uint8_t[2]);
-    const uint8_t src22[] = "id";
-    reql_string_init(var22.get(), buf22.get(), 2);
-    reql_string_append(var22.get(), src22, 2);
+    std::unique_ptr<uint8_t[]> buf22(new uint8_t[9]);
+    const uint8_t src22[] = "reduction";
+    reql_string_init(var22.get(), buf22.get(), 9);
+    reql_string_append(var22.get(), src22, 9);
 
     std::unique_ptr<ReQL_Obj_t> var23(new ReQL_Obj_t);
-    reql_number_init(var23.get(), 2);
-
-    reql_object_add(var21.get(), var22.get(), var23.get());
+    std::unique_ptr<ReQL_Pair_t[]> pair23(new ReQL_Pair_t[2]);
+    reql_object_init(var23.get(), pair23.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var24(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf24(new uint8_t[1]);
@@ -731,20 +731,20 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     std::unique_ptr<ReQL_Obj_t> var25(new ReQL_Obj_t);
     reql_number_init(var25.get(), 2);
 
-    reql_object_add(var21.get(), var24.get(), var25.get());
-
-    reql_object_add(var19.get(), var20.get(), var21.get());
+    reql_object_add(var23.get(), var24.get(), var25.get());
 
     std::unique_ptr<ReQL_Obj_t> var26(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf26(new uint8_t[5]);
-    const uint8_t src26[] = "group";
-    reql_string_init(var26.get(), buf26.get(), 5);
-    reql_string_append(var26.get(), src26, 5);
+    std::unique_ptr<uint8_t[]> buf26(new uint8_t[2]);
+    const uint8_t src26[] = "id";
+    reql_string_init(var26.get(), buf26.get(), 2);
+    reql_string_append(var26.get(), src26, 2);
 
     std::unique_ptr<ReQL_Obj_t> var27(new ReQL_Obj_t);
     reql_number_init(var27.get(), 2);
 
-    reql_object_add(var19.get(), var26.get(), var27.get());
+    reql_object_add(var23.get(), var26.get(), var27.get());
+
+    reql_object_add(var19.get(), var22.get(), var23.get());
 
     reql_array_append(var0.get(), var19.get());
 
@@ -753,25 +753,25 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var28.get(), pair28.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var29(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf29(new uint8_t[9]);
-    const uint8_t src29[] = "reduction";
-    reql_string_init(var29.get(), buf29.get(), 9);
-    reql_string_append(var29.get(), src29, 9);
+    std::unique_ptr<uint8_t[]> buf29(new uint8_t[5]);
+    const uint8_t src29[] = "group";
+    reql_string_init(var29.get(), buf29.get(), 5);
+    reql_string_append(var29.get(), src29, 5);
 
     std::unique_ptr<ReQL_Obj_t> var30(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Pair_t[]> pair30(new ReQL_Pair_t[2]);
-    reql_object_init(var30.get(), pair30.get(), 2);
+    reql_number_init(var30.get(), 3);
+
+    reql_object_add(var28.get(), var29.get(), var30.get());
 
     std::unique_ptr<ReQL_Obj_t> var31(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf31(new uint8_t[2]);
-    const uint8_t src31[] = "id";
-    reql_string_init(var31.get(), buf31.get(), 2);
-    reql_string_append(var31.get(), src31, 2);
+    std::unique_ptr<uint8_t[]> buf31(new uint8_t[9]);
+    const uint8_t src31[] = "reduction";
+    reql_string_init(var31.get(), buf31.get(), 9);
+    reql_string_append(var31.get(), src31, 9);
 
     std::unique_ptr<ReQL_Obj_t> var32(new ReQL_Obj_t);
-    reql_number_init(var32.get(), 3);
-
-    reql_object_add(var30.get(), var31.get(), var32.get());
+    std::unique_ptr<ReQL_Pair_t[]> pair32(new ReQL_Pair_t[2]);
+    reql_object_init(var32.get(), pair32.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var33(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf33(new uint8_t[1]);
@@ -782,20 +782,20 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     std::unique_ptr<ReQL_Obj_t> var34(new ReQL_Obj_t);
     reql_number_init(var34.get(), 3);
 
-    reql_object_add(var30.get(), var33.get(), var34.get());
-
-    reql_object_add(var28.get(), var29.get(), var30.get());
+    reql_object_add(var32.get(), var33.get(), var34.get());
 
     std::unique_ptr<ReQL_Obj_t> var35(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf35(new uint8_t[5]);
-    const uint8_t src35[] = "group";
-    reql_string_init(var35.get(), buf35.get(), 5);
-    reql_string_append(var35.get(), src35, 5);
+    std::unique_ptr<uint8_t[]> buf35(new uint8_t[2]);
+    const uint8_t src35[] = "id";
+    reql_string_init(var35.get(), buf35.get(), 2);
+    reql_string_append(var35.get(), src35, 2);
 
     std::unique_ptr<ReQL_Obj_t> var36(new ReQL_Obj_t);
     reql_number_init(var36.get(), 3);
 
-    reql_object_add(var28.get(), var35.get(), var36.get());
+    reql_object_add(var32.get(), var35.get(), var36.get());
+
+    reql_object_add(var28.get(), var31.get(), var32.get());
 
     reql_array_append(var0.get(), var28.get());
   }
@@ -806,10 +806,10 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var0.get(), pair0.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[2]);
-    const uint8_t src1[] = "id";
-    reql_string_init(var1.get(), buf1.get(), 2);
-    reql_string_append(var1.get(), src1, 2);
+    std::unique_ptr<uint8_t[]> buf1(new uint8_t[1]);
+    const uint8_t src1[] = "a";
+    reql_string_init(var1.get(), buf1.get(), 1);
+    reql_string_append(var1.get(), src1, 1);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     reql_number_init(var2.get(), 3);
@@ -817,10 +817,10 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_add(var0.get(), var1.get(), var2.get());
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf3(new uint8_t[1]);
-    const uint8_t src3[] = "a";
-    reql_string_init(var3.get(), buf3.get(), 1);
-    reql_string_append(var3.get(), src3, 1);
+    std::unique_ptr<uint8_t[]> buf3(new uint8_t[2]);
+    const uint8_t src3[] = "id";
+    reql_string_init(var3.get(), buf3.get(), 2);
+    reql_string_append(var3.get(), src3, 2);
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
     reql_number_init(var4.get(), 3);
@@ -843,25 +843,25 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var1.get(), pair1.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[9]);
-    const uint8_t src2[] = "reduction";
-    reql_string_init(var2.get(), buf2.get(), 9);
-    reql_string_append(var2.get(), src2, 9);
+    std::unique_ptr<uint8_t[]> buf2(new uint8_t[5]);
+    const uint8_t src2[] = "group";
+    reql_string_init(var2.get(), buf2.get(), 5);
+    reql_string_append(var2.get(), src2, 5);
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Pair_t[]> pair3(new ReQL_Pair_t[2]);
-    reql_object_init(var3.get(), pair3.get(), 2);
+    reql_number_init(var3.get(), 0);
+
+    reql_object_add(var1.get(), var2.get(), var3.get());
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf4(new uint8_t[2]);
-    const uint8_t src4[] = "id";
-    reql_string_init(var4.get(), buf4.get(), 2);
-    reql_string_append(var4.get(), src4, 2);
+    std::unique_ptr<uint8_t[]> buf4(new uint8_t[9]);
+    const uint8_t src4[] = "reduction";
+    reql_string_init(var4.get(), buf4.get(), 9);
+    reql_string_append(var4.get(), src4, 9);
 
     std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
-    reql_number_init(var5.get(), 96);
-
-    reql_object_add(var3.get(), var4.get(), var5.get());
+    std::unique_ptr<ReQL_Pair_t[]> pair5(new ReQL_Pair_t[2]);
+    reql_object_init(var5.get(), pair5.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var6(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf6(new uint8_t[1]);
@@ -872,20 +872,20 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     std::unique_ptr<ReQL_Obj_t> var7(new ReQL_Obj_t);
     reql_number_init(var7.get(), 0);
 
-    reql_object_add(var3.get(), var6.get(), var7.get());
-
-    reql_object_add(var1.get(), var2.get(), var3.get());
+    reql_object_add(var5.get(), var6.get(), var7.get());
 
     std::unique_ptr<ReQL_Obj_t> var8(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf8(new uint8_t[5]);
-    const uint8_t src8[] = "group";
-    reql_string_init(var8.get(), buf8.get(), 5);
-    reql_string_append(var8.get(), src8, 5);
+    std::unique_ptr<uint8_t[]> buf8(new uint8_t[2]);
+    const uint8_t src8[] = "id";
+    reql_string_init(var8.get(), buf8.get(), 2);
+    reql_string_append(var8.get(), src8, 2);
 
     std::unique_ptr<ReQL_Obj_t> var9(new ReQL_Obj_t);
-    reql_number_init(var9.get(), 0);
+    reql_number_init(var9.get(), 96);
 
-    reql_object_add(var1.get(), var8.get(), var9.get());
+    reql_object_add(var5.get(), var8.get(), var9.get());
+
+    reql_object_add(var1.get(), var4.get(), var5.get());
 
     reql_array_append(var0.get(), var1.get());
 
@@ -894,25 +894,25 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var10.get(), pair10.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var11(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf11(new uint8_t[9]);
-    const uint8_t src11[] = "reduction";
-    reql_string_init(var11.get(), buf11.get(), 9);
-    reql_string_append(var11.get(), src11, 9);
+    std::unique_ptr<uint8_t[]> buf11(new uint8_t[5]);
+    const uint8_t src11[] = "group";
+    reql_string_init(var11.get(), buf11.get(), 5);
+    reql_string_append(var11.get(), src11, 5);
 
     std::unique_ptr<ReQL_Obj_t> var12(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Pair_t[]> pair12(new ReQL_Pair_t[2]);
-    reql_object_init(var12.get(), pair12.get(), 2);
+    reql_number_init(var12.get(), 1);
+
+    reql_object_add(var10.get(), var11.get(), var12.get());
 
     std::unique_ptr<ReQL_Obj_t> var13(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf13(new uint8_t[2]);
-    const uint8_t src13[] = "id";
-    reql_string_init(var13.get(), buf13.get(), 2);
-    reql_string_append(var13.get(), src13, 2);
+    std::unique_ptr<uint8_t[]> buf13(new uint8_t[9]);
+    const uint8_t src13[] = "reduction";
+    reql_string_init(var13.get(), buf13.get(), 9);
+    reql_string_append(var13.get(), src13, 9);
 
     std::unique_ptr<ReQL_Obj_t> var14(new ReQL_Obj_t);
-    reql_number_init(var14.get(), 97);
-
-    reql_object_add(var12.get(), var13.get(), var14.get());
+    std::unique_ptr<ReQL_Pair_t[]> pair14(new ReQL_Pair_t[2]);
+    reql_object_init(var14.get(), pair14.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var15(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf15(new uint8_t[1]);
@@ -923,20 +923,20 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     std::unique_ptr<ReQL_Obj_t> var16(new ReQL_Obj_t);
     reql_number_init(var16.get(), 1);
 
-    reql_object_add(var12.get(), var15.get(), var16.get());
-
-    reql_object_add(var10.get(), var11.get(), var12.get());
+    reql_object_add(var14.get(), var15.get(), var16.get());
 
     std::unique_ptr<ReQL_Obj_t> var17(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf17(new uint8_t[5]);
-    const uint8_t src17[] = "group";
-    reql_string_init(var17.get(), buf17.get(), 5);
-    reql_string_append(var17.get(), src17, 5);
+    std::unique_ptr<uint8_t[]> buf17(new uint8_t[2]);
+    const uint8_t src17[] = "id";
+    reql_string_init(var17.get(), buf17.get(), 2);
+    reql_string_append(var17.get(), src17, 2);
 
     std::unique_ptr<ReQL_Obj_t> var18(new ReQL_Obj_t);
-    reql_number_init(var18.get(), 1);
+    reql_number_init(var18.get(), 97);
 
-    reql_object_add(var10.get(), var17.get(), var18.get());
+    reql_object_add(var14.get(), var17.get(), var18.get());
+
+    reql_object_add(var10.get(), var13.get(), var14.get());
 
     reql_array_append(var0.get(), var10.get());
 
@@ -945,25 +945,25 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var19.get(), pair19.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var20(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf20(new uint8_t[9]);
-    const uint8_t src20[] = "reduction";
-    reql_string_init(var20.get(), buf20.get(), 9);
-    reql_string_append(var20.get(), src20, 9);
+    std::unique_ptr<uint8_t[]> buf20(new uint8_t[5]);
+    const uint8_t src20[] = "group";
+    reql_string_init(var20.get(), buf20.get(), 5);
+    reql_string_append(var20.get(), src20, 5);
 
     std::unique_ptr<ReQL_Obj_t> var21(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Pair_t[]> pair21(new ReQL_Pair_t[2]);
-    reql_object_init(var21.get(), pair21.get(), 2);
+    reql_number_init(var21.get(), 2);
+
+    reql_object_add(var19.get(), var20.get(), var21.get());
 
     std::unique_ptr<ReQL_Obj_t> var22(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf22(new uint8_t[2]);
-    const uint8_t src22[] = "id";
-    reql_string_init(var22.get(), buf22.get(), 2);
-    reql_string_append(var22.get(), src22, 2);
+    std::unique_ptr<uint8_t[]> buf22(new uint8_t[9]);
+    const uint8_t src22[] = "reduction";
+    reql_string_init(var22.get(), buf22.get(), 9);
+    reql_string_append(var22.get(), src22, 9);
 
     std::unique_ptr<ReQL_Obj_t> var23(new ReQL_Obj_t);
-    reql_number_init(var23.get(), 98);
-
-    reql_object_add(var21.get(), var22.get(), var23.get());
+    std::unique_ptr<ReQL_Pair_t[]> pair23(new ReQL_Pair_t[2]);
+    reql_object_init(var23.get(), pair23.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var24(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf24(new uint8_t[1]);
@@ -974,20 +974,20 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     std::unique_ptr<ReQL_Obj_t> var25(new ReQL_Obj_t);
     reql_number_init(var25.get(), 2);
 
-    reql_object_add(var21.get(), var24.get(), var25.get());
-
-    reql_object_add(var19.get(), var20.get(), var21.get());
+    reql_object_add(var23.get(), var24.get(), var25.get());
 
     std::unique_ptr<ReQL_Obj_t> var26(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf26(new uint8_t[5]);
-    const uint8_t src26[] = "group";
-    reql_string_init(var26.get(), buf26.get(), 5);
-    reql_string_append(var26.get(), src26, 5);
+    std::unique_ptr<uint8_t[]> buf26(new uint8_t[2]);
+    const uint8_t src26[] = "id";
+    reql_string_init(var26.get(), buf26.get(), 2);
+    reql_string_append(var26.get(), src26, 2);
 
     std::unique_ptr<ReQL_Obj_t> var27(new ReQL_Obj_t);
-    reql_number_init(var27.get(), 2);
+    reql_number_init(var27.get(), 98);
 
-    reql_object_add(var19.get(), var26.get(), var27.get());
+    reql_object_add(var23.get(), var26.get(), var27.get());
+
+    reql_object_add(var19.get(), var22.get(), var23.get());
 
     reql_array_append(var0.get(), var19.get());
 
@@ -996,25 +996,25 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var28.get(), pair28.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var29(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf29(new uint8_t[9]);
-    const uint8_t src29[] = "reduction";
-    reql_string_init(var29.get(), buf29.get(), 9);
-    reql_string_append(var29.get(), src29, 9);
+    std::unique_ptr<uint8_t[]> buf29(new uint8_t[5]);
+    const uint8_t src29[] = "group";
+    reql_string_init(var29.get(), buf29.get(), 5);
+    reql_string_append(var29.get(), src29, 5);
 
     std::unique_ptr<ReQL_Obj_t> var30(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Pair_t[]> pair30(new ReQL_Pair_t[2]);
-    reql_object_init(var30.get(), pair30.get(), 2);
+    reql_number_init(var30.get(), 3);
+
+    reql_object_add(var28.get(), var29.get(), var30.get());
 
     std::unique_ptr<ReQL_Obj_t> var31(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf31(new uint8_t[2]);
-    const uint8_t src31[] = "id";
-    reql_string_init(var31.get(), buf31.get(), 2);
-    reql_string_append(var31.get(), src31, 2);
+    std::unique_ptr<uint8_t[]> buf31(new uint8_t[9]);
+    const uint8_t src31[] = "reduction";
+    reql_string_init(var31.get(), buf31.get(), 9);
+    reql_string_append(var31.get(), src31, 9);
 
     std::unique_ptr<ReQL_Obj_t> var32(new ReQL_Obj_t);
-    reql_number_init(var32.get(), 99);
-
-    reql_object_add(var30.get(), var31.get(), var32.get());
+    std::unique_ptr<ReQL_Pair_t[]> pair32(new ReQL_Pair_t[2]);
+    reql_object_init(var32.get(), pair32.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var33(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf33(new uint8_t[1]);
@@ -1025,20 +1025,20 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     std::unique_ptr<ReQL_Obj_t> var34(new ReQL_Obj_t);
     reql_number_init(var34.get(), 3);
 
-    reql_object_add(var30.get(), var33.get(), var34.get());
-
-    reql_object_add(var28.get(), var29.get(), var30.get());
+    reql_object_add(var32.get(), var33.get(), var34.get());
 
     std::unique_ptr<ReQL_Obj_t> var35(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf35(new uint8_t[5]);
-    const uint8_t src35[] = "group";
-    reql_string_init(var35.get(), buf35.get(), 5);
-    reql_string_append(var35.get(), src35, 5);
+    std::unique_ptr<uint8_t[]> buf35(new uint8_t[2]);
+    const uint8_t src35[] = "id";
+    reql_string_init(var35.get(), buf35.get(), 2);
+    reql_string_append(var35.get(), src35, 2);
 
     std::unique_ptr<ReQL_Obj_t> var36(new ReQL_Obj_t);
-    reql_number_init(var36.get(), 3);
+    reql_number_init(var36.get(), 99);
 
-    reql_object_add(var28.get(), var35.get(), var36.get());
+    reql_object_add(var32.get(), var35.get(), var36.get());
+
+    reql_object_add(var28.get(), var31.get(), var32.get());
 
     reql_array_append(var0.get(), var28.get());
   }
@@ -1049,10 +1049,10 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var0.get(), pair0.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[2]);
-    const uint8_t src1[] = "id";
-    reql_string_init(var1.get(), buf1.get(), 2);
-    reql_string_append(var1.get(), src1, 2);
+    std::unique_ptr<uint8_t[]> buf1(new uint8_t[1]);
+    const uint8_t src1[] = "a";
+    reql_string_init(var1.get(), buf1.get(), 1);
+    reql_string_append(var1.get(), src1, 1);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     reql_number_init(var2.get(), 0);
@@ -1060,10 +1060,10 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_add(var0.get(), var1.get(), var2.get());
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf3(new uint8_t[1]);
-    const uint8_t src3[] = "a";
-    reql_string_init(var3.get(), buf3.get(), 1);
-    reql_string_append(var3.get(), src3, 1);
+    std::unique_ptr<uint8_t[]> buf3(new uint8_t[2]);
+    const uint8_t src3[] = "id";
+    reql_string_init(var3.get(), buf3.get(), 2);
+    reql_string_append(var3.get(), src3, 2);
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
     reql_number_init(var4.get(), 0);
@@ -1081,25 +1081,25 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var1.get(), pair1.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[9]);
-    const uint8_t src2[] = "reduction";
-    reql_string_init(var2.get(), buf2.get(), 9);
-    reql_string_append(var2.get(), src2, 9);
+    std::unique_ptr<uint8_t[]> buf2(new uint8_t[5]);
+    const uint8_t src2[] = "group";
+    reql_string_init(var2.get(), buf2.get(), 5);
+    reql_string_append(var2.get(), src2, 5);
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Pair_t[]> pair3(new ReQL_Pair_t[2]);
-    reql_object_init(var3.get(), pair3.get(), 2);
+    reql_number_init(var3.get(), 0);
+
+    reql_object_add(var1.get(), var2.get(), var3.get());
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf4(new uint8_t[2]);
-    const uint8_t src4[] = "id";
-    reql_string_init(var4.get(), buf4.get(), 2);
-    reql_string_append(var4.get(), src4, 2);
+    std::unique_ptr<uint8_t[]> buf4(new uint8_t[9]);
+    const uint8_t src4[] = "reduction";
+    reql_string_init(var4.get(), buf4.get(), 9);
+    reql_string_append(var4.get(), src4, 9);
 
     std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
-    reql_number_init(var5.get(), 0);
-
-    reql_object_add(var3.get(), var4.get(), var5.get());
+    std::unique_ptr<ReQL_Pair_t[]> pair5(new ReQL_Pair_t[2]);
+    reql_object_init(var5.get(), pair5.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var6(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf6(new uint8_t[1]);
@@ -1110,20 +1110,20 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     std::unique_ptr<ReQL_Obj_t> var7(new ReQL_Obj_t);
     reql_number_init(var7.get(), 0);
 
-    reql_object_add(var3.get(), var6.get(), var7.get());
-
-    reql_object_add(var1.get(), var2.get(), var3.get());
+    reql_object_add(var5.get(), var6.get(), var7.get());
 
     std::unique_ptr<ReQL_Obj_t> var8(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf8(new uint8_t[5]);
-    const uint8_t src8[] = "group";
-    reql_string_init(var8.get(), buf8.get(), 5);
-    reql_string_append(var8.get(), src8, 5);
+    std::unique_ptr<uint8_t[]> buf8(new uint8_t[2]);
+    const uint8_t src8[] = "id";
+    reql_string_init(var8.get(), buf8.get(), 2);
+    reql_string_append(var8.get(), src8, 2);
 
     std::unique_ptr<ReQL_Obj_t> var9(new ReQL_Obj_t);
     reql_number_init(var9.get(), 0);
 
-    reql_object_add(var1.get(), var8.get(), var9.get());
+    reql_object_add(var5.get(), var8.get(), var9.get());
+
+    reql_object_add(var1.get(), var4.get(), var5.get());
 
     reql_array_append(var0.get(), var1.get());
 
@@ -1132,25 +1132,25 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var10.get(), pair10.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var11(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf11(new uint8_t[9]);
-    const uint8_t src11[] = "reduction";
-    reql_string_init(var11.get(), buf11.get(), 9);
-    reql_string_append(var11.get(), src11, 9);
+    std::unique_ptr<uint8_t[]> buf11(new uint8_t[5]);
+    const uint8_t src11[] = "group";
+    reql_string_init(var11.get(), buf11.get(), 5);
+    reql_string_append(var11.get(), src11, 5);
 
     std::unique_ptr<ReQL_Obj_t> var12(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Pair_t[]> pair12(new ReQL_Pair_t[2]);
-    reql_object_init(var12.get(), pair12.get(), 2);
+    reql_number_init(var12.get(), 1);
+
+    reql_object_add(var10.get(), var11.get(), var12.get());
 
     std::unique_ptr<ReQL_Obj_t> var13(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf13(new uint8_t[2]);
-    const uint8_t src13[] = "id";
-    reql_string_init(var13.get(), buf13.get(), 2);
-    reql_string_append(var13.get(), src13, 2);
+    std::unique_ptr<uint8_t[]> buf13(new uint8_t[9]);
+    const uint8_t src13[] = "reduction";
+    reql_string_init(var13.get(), buf13.get(), 9);
+    reql_string_append(var13.get(), src13, 9);
 
     std::unique_ptr<ReQL_Obj_t> var14(new ReQL_Obj_t);
-    reql_number_init(var14.get(), 1);
-
-    reql_object_add(var12.get(), var13.get(), var14.get());
+    std::unique_ptr<ReQL_Pair_t[]> pair14(new ReQL_Pair_t[2]);
+    reql_object_init(var14.get(), pair14.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var15(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf15(new uint8_t[1]);
@@ -1161,20 +1161,20 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     std::unique_ptr<ReQL_Obj_t> var16(new ReQL_Obj_t);
     reql_number_init(var16.get(), 1);
 
-    reql_object_add(var12.get(), var15.get(), var16.get());
-
-    reql_object_add(var10.get(), var11.get(), var12.get());
+    reql_object_add(var14.get(), var15.get(), var16.get());
 
     std::unique_ptr<ReQL_Obj_t> var17(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf17(new uint8_t[5]);
-    const uint8_t src17[] = "group";
-    reql_string_init(var17.get(), buf17.get(), 5);
-    reql_string_append(var17.get(), src17, 5);
+    std::unique_ptr<uint8_t[]> buf17(new uint8_t[2]);
+    const uint8_t src17[] = "id";
+    reql_string_init(var17.get(), buf17.get(), 2);
+    reql_string_append(var17.get(), src17, 2);
 
     std::unique_ptr<ReQL_Obj_t> var18(new ReQL_Obj_t);
     reql_number_init(var18.get(), 1);
 
-    reql_object_add(var10.get(), var17.get(), var18.get());
+    reql_object_add(var14.get(), var17.get(), var18.get());
+
+    reql_object_add(var10.get(), var13.get(), var14.get());
 
     reql_array_append(var0.get(), var10.get());
 
@@ -1183,25 +1183,25 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var19.get(), pair19.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var20(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf20(new uint8_t[9]);
-    const uint8_t src20[] = "reduction";
-    reql_string_init(var20.get(), buf20.get(), 9);
-    reql_string_append(var20.get(), src20, 9);
+    std::unique_ptr<uint8_t[]> buf20(new uint8_t[5]);
+    const uint8_t src20[] = "group";
+    reql_string_init(var20.get(), buf20.get(), 5);
+    reql_string_append(var20.get(), src20, 5);
 
     std::unique_ptr<ReQL_Obj_t> var21(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Pair_t[]> pair21(new ReQL_Pair_t[2]);
-    reql_object_init(var21.get(), pair21.get(), 2);
+    reql_number_init(var21.get(), 2);
+
+    reql_object_add(var19.get(), var20.get(), var21.get());
 
     std::unique_ptr<ReQL_Obj_t> var22(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf22(new uint8_t[2]);
-    const uint8_t src22[] = "id";
-    reql_string_init(var22.get(), buf22.get(), 2);
-    reql_string_append(var22.get(), src22, 2);
+    std::unique_ptr<uint8_t[]> buf22(new uint8_t[9]);
+    const uint8_t src22[] = "reduction";
+    reql_string_init(var22.get(), buf22.get(), 9);
+    reql_string_append(var22.get(), src22, 9);
 
     std::unique_ptr<ReQL_Obj_t> var23(new ReQL_Obj_t);
-    reql_number_init(var23.get(), 2);
-
-    reql_object_add(var21.get(), var22.get(), var23.get());
+    std::unique_ptr<ReQL_Pair_t[]> pair23(new ReQL_Pair_t[2]);
+    reql_object_init(var23.get(), pair23.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var24(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf24(new uint8_t[1]);
@@ -1212,20 +1212,20 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     std::unique_ptr<ReQL_Obj_t> var25(new ReQL_Obj_t);
     reql_number_init(var25.get(), 2);
 
-    reql_object_add(var21.get(), var24.get(), var25.get());
-
-    reql_object_add(var19.get(), var20.get(), var21.get());
+    reql_object_add(var23.get(), var24.get(), var25.get());
 
     std::unique_ptr<ReQL_Obj_t> var26(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf26(new uint8_t[5]);
-    const uint8_t src26[] = "group";
-    reql_string_init(var26.get(), buf26.get(), 5);
-    reql_string_append(var26.get(), src26, 5);
+    std::unique_ptr<uint8_t[]> buf26(new uint8_t[2]);
+    const uint8_t src26[] = "id";
+    reql_string_init(var26.get(), buf26.get(), 2);
+    reql_string_append(var26.get(), src26, 2);
 
     std::unique_ptr<ReQL_Obj_t> var27(new ReQL_Obj_t);
     reql_number_init(var27.get(), 2);
 
-    reql_object_add(var19.get(), var26.get(), var27.get());
+    reql_object_add(var23.get(), var26.get(), var27.get());
+
+    reql_object_add(var19.get(), var22.get(), var23.get());
 
     reql_array_append(var0.get(), var19.get());
 
@@ -1234,25 +1234,25 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var28.get(), pair28.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var29(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf29(new uint8_t[9]);
-    const uint8_t src29[] = "reduction";
-    reql_string_init(var29.get(), buf29.get(), 9);
-    reql_string_append(var29.get(), src29, 9);
+    std::unique_ptr<uint8_t[]> buf29(new uint8_t[5]);
+    const uint8_t src29[] = "group";
+    reql_string_init(var29.get(), buf29.get(), 5);
+    reql_string_append(var29.get(), src29, 5);
 
     std::unique_ptr<ReQL_Obj_t> var30(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Pair_t[]> pair30(new ReQL_Pair_t[2]);
-    reql_object_init(var30.get(), pair30.get(), 2);
+    reql_number_init(var30.get(), 3);
+
+    reql_object_add(var28.get(), var29.get(), var30.get());
 
     std::unique_ptr<ReQL_Obj_t> var31(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf31(new uint8_t[2]);
-    const uint8_t src31[] = "id";
-    reql_string_init(var31.get(), buf31.get(), 2);
-    reql_string_append(var31.get(), src31, 2);
+    std::unique_ptr<uint8_t[]> buf31(new uint8_t[9]);
+    const uint8_t src31[] = "reduction";
+    reql_string_init(var31.get(), buf31.get(), 9);
+    reql_string_append(var31.get(), src31, 9);
 
     std::unique_ptr<ReQL_Obj_t> var32(new ReQL_Obj_t);
-    reql_number_init(var32.get(), 3);
-
-    reql_object_add(var30.get(), var31.get(), var32.get());
+    std::unique_ptr<ReQL_Pair_t[]> pair32(new ReQL_Pair_t[2]);
+    reql_object_init(var32.get(), pair32.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var33(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf33(new uint8_t[1]);
@@ -1263,20 +1263,20 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     std::unique_ptr<ReQL_Obj_t> var34(new ReQL_Obj_t);
     reql_number_init(var34.get(), 3);
 
-    reql_object_add(var30.get(), var33.get(), var34.get());
-
-    reql_object_add(var28.get(), var29.get(), var30.get());
+    reql_object_add(var32.get(), var33.get(), var34.get());
 
     std::unique_ptr<ReQL_Obj_t> var35(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf35(new uint8_t[5]);
-    const uint8_t src35[] = "group";
-    reql_string_init(var35.get(), buf35.get(), 5);
-    reql_string_append(var35.get(), src35, 5);
+    std::unique_ptr<uint8_t[]> buf35(new uint8_t[2]);
+    const uint8_t src35[] = "id";
+    reql_string_init(var35.get(), buf35.get(), 2);
+    reql_string_append(var35.get(), src35, 2);
 
     std::unique_ptr<ReQL_Obj_t> var36(new ReQL_Obj_t);
     reql_number_init(var36.get(), 3);
 
-    reql_object_add(var28.get(), var35.get(), var36.get());
+    reql_object_add(var32.get(), var35.get(), var36.get());
+
+    reql_object_add(var28.get(), var31.get(), var32.get());
 
     reql_array_append(var0.get(), var28.get());
   }
@@ -1287,24 +1287,24 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var0.get(), pair0.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[2]);
-    const uint8_t src1[] = "id";
-    reql_string_init(var1.get(), buf1.get(), 2);
-    reql_string_append(var1.get(), src1, 2);
+    std::unique_ptr<uint8_t[]> buf1(new uint8_t[1]);
+    const uint8_t src1[] = "a";
+    reql_string_init(var1.get(), buf1.get(), 1);
+    reql_string_append(var1.get(), src1, 1);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    reql_number_init(var2.get(), 99);
+    reql_number_init(var2.get(), 3);
 
     reql_object_add(var0.get(), var1.get(), var2.get());
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf3(new uint8_t[1]);
-    const uint8_t src3[] = "a";
-    reql_string_init(var3.get(), buf3.get(), 1);
-    reql_string_append(var3.get(), src3, 1);
+    std::unique_ptr<uint8_t[]> buf3(new uint8_t[2]);
+    const uint8_t src3[] = "id";
+    reql_string_init(var3.get(), buf3.get(), 2);
+    reql_string_append(var3.get(), src3, 2);
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
-    reql_number_init(var4.get(), 3);
+    reql_number_init(var4.get(), 99);
 
     reql_object_add(var0.get(), var3.get(), var4.get());
   }
@@ -1319,25 +1319,25 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var1.get(), pair1.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[9]);
-    const uint8_t src2[] = "reduction";
-    reql_string_init(var2.get(), buf2.get(), 9);
-    reql_string_append(var2.get(), src2, 9);
+    std::unique_ptr<uint8_t[]> buf2(new uint8_t[5]);
+    const uint8_t src2[] = "group";
+    reql_string_init(var2.get(), buf2.get(), 5);
+    reql_string_append(var2.get(), src2, 5);
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Pair_t[]> pair3(new ReQL_Pair_t[2]);
-    reql_object_init(var3.get(), pair3.get(), 2);
+    reql_number_init(var3.get(), 0);
+
+    reql_object_add(var1.get(), var2.get(), var3.get());
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf4(new uint8_t[2]);
-    const uint8_t src4[] = "id";
-    reql_string_init(var4.get(), buf4.get(), 2);
-    reql_string_append(var4.get(), src4, 2);
+    std::unique_ptr<uint8_t[]> buf4(new uint8_t[9]);
+    const uint8_t src4[] = "reduction";
+    reql_string_init(var4.get(), buf4.get(), 9);
+    reql_string_append(var4.get(), src4, 9);
 
     std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
-    reql_number_init(var5.get(), 96);
-
-    reql_object_add(var3.get(), var4.get(), var5.get());
+    std::unique_ptr<ReQL_Pair_t[]> pair5(new ReQL_Pair_t[2]);
+    reql_object_init(var5.get(), pair5.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var6(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf6(new uint8_t[1]);
@@ -1348,20 +1348,20 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     std::unique_ptr<ReQL_Obj_t> var7(new ReQL_Obj_t);
     reql_number_init(var7.get(), 0);
 
-    reql_object_add(var3.get(), var6.get(), var7.get());
-
-    reql_object_add(var1.get(), var2.get(), var3.get());
+    reql_object_add(var5.get(), var6.get(), var7.get());
 
     std::unique_ptr<ReQL_Obj_t> var8(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf8(new uint8_t[5]);
-    const uint8_t src8[] = "group";
-    reql_string_init(var8.get(), buf8.get(), 5);
-    reql_string_append(var8.get(), src8, 5);
+    std::unique_ptr<uint8_t[]> buf8(new uint8_t[2]);
+    const uint8_t src8[] = "id";
+    reql_string_init(var8.get(), buf8.get(), 2);
+    reql_string_append(var8.get(), src8, 2);
 
     std::unique_ptr<ReQL_Obj_t> var9(new ReQL_Obj_t);
-    reql_number_init(var9.get(), 0);
+    reql_number_init(var9.get(), 96);
 
-    reql_object_add(var1.get(), var8.get(), var9.get());
+    reql_object_add(var5.get(), var8.get(), var9.get());
+
+    reql_object_add(var1.get(), var4.get(), var5.get());
 
     reql_array_append(var0.get(), var1.get());
 
@@ -1370,25 +1370,25 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var10.get(), pair10.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var11(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf11(new uint8_t[9]);
-    const uint8_t src11[] = "reduction";
-    reql_string_init(var11.get(), buf11.get(), 9);
-    reql_string_append(var11.get(), src11, 9);
+    std::unique_ptr<uint8_t[]> buf11(new uint8_t[5]);
+    const uint8_t src11[] = "group";
+    reql_string_init(var11.get(), buf11.get(), 5);
+    reql_string_append(var11.get(), src11, 5);
 
     std::unique_ptr<ReQL_Obj_t> var12(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Pair_t[]> pair12(new ReQL_Pair_t[2]);
-    reql_object_init(var12.get(), pair12.get(), 2);
+    reql_number_init(var12.get(), 1);
+
+    reql_object_add(var10.get(), var11.get(), var12.get());
 
     std::unique_ptr<ReQL_Obj_t> var13(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf13(new uint8_t[2]);
-    const uint8_t src13[] = "id";
-    reql_string_init(var13.get(), buf13.get(), 2);
-    reql_string_append(var13.get(), src13, 2);
+    std::unique_ptr<uint8_t[]> buf13(new uint8_t[9]);
+    const uint8_t src13[] = "reduction";
+    reql_string_init(var13.get(), buf13.get(), 9);
+    reql_string_append(var13.get(), src13, 9);
 
     std::unique_ptr<ReQL_Obj_t> var14(new ReQL_Obj_t);
-    reql_number_init(var14.get(), 97);
-
-    reql_object_add(var12.get(), var13.get(), var14.get());
+    std::unique_ptr<ReQL_Pair_t[]> pair14(new ReQL_Pair_t[2]);
+    reql_object_init(var14.get(), pair14.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var15(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf15(new uint8_t[1]);
@@ -1399,20 +1399,20 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     std::unique_ptr<ReQL_Obj_t> var16(new ReQL_Obj_t);
     reql_number_init(var16.get(), 1);
 
-    reql_object_add(var12.get(), var15.get(), var16.get());
-
-    reql_object_add(var10.get(), var11.get(), var12.get());
+    reql_object_add(var14.get(), var15.get(), var16.get());
 
     std::unique_ptr<ReQL_Obj_t> var17(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf17(new uint8_t[5]);
-    const uint8_t src17[] = "group";
-    reql_string_init(var17.get(), buf17.get(), 5);
-    reql_string_append(var17.get(), src17, 5);
+    std::unique_ptr<uint8_t[]> buf17(new uint8_t[2]);
+    const uint8_t src17[] = "id";
+    reql_string_init(var17.get(), buf17.get(), 2);
+    reql_string_append(var17.get(), src17, 2);
 
     std::unique_ptr<ReQL_Obj_t> var18(new ReQL_Obj_t);
-    reql_number_init(var18.get(), 1);
+    reql_number_init(var18.get(), 97);
 
-    reql_object_add(var10.get(), var17.get(), var18.get());
+    reql_object_add(var14.get(), var17.get(), var18.get());
+
+    reql_object_add(var10.get(), var13.get(), var14.get());
 
     reql_array_append(var0.get(), var10.get());
 
@@ -1421,25 +1421,25 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var19.get(), pair19.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var20(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf20(new uint8_t[9]);
-    const uint8_t src20[] = "reduction";
-    reql_string_init(var20.get(), buf20.get(), 9);
-    reql_string_append(var20.get(), src20, 9);
+    std::unique_ptr<uint8_t[]> buf20(new uint8_t[5]);
+    const uint8_t src20[] = "group";
+    reql_string_init(var20.get(), buf20.get(), 5);
+    reql_string_append(var20.get(), src20, 5);
 
     std::unique_ptr<ReQL_Obj_t> var21(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Pair_t[]> pair21(new ReQL_Pair_t[2]);
-    reql_object_init(var21.get(), pair21.get(), 2);
+    reql_number_init(var21.get(), 2);
+
+    reql_object_add(var19.get(), var20.get(), var21.get());
 
     std::unique_ptr<ReQL_Obj_t> var22(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf22(new uint8_t[2]);
-    const uint8_t src22[] = "id";
-    reql_string_init(var22.get(), buf22.get(), 2);
-    reql_string_append(var22.get(), src22, 2);
+    std::unique_ptr<uint8_t[]> buf22(new uint8_t[9]);
+    const uint8_t src22[] = "reduction";
+    reql_string_init(var22.get(), buf22.get(), 9);
+    reql_string_append(var22.get(), src22, 9);
 
     std::unique_ptr<ReQL_Obj_t> var23(new ReQL_Obj_t);
-    reql_number_init(var23.get(), 98);
-
-    reql_object_add(var21.get(), var22.get(), var23.get());
+    std::unique_ptr<ReQL_Pair_t[]> pair23(new ReQL_Pair_t[2]);
+    reql_object_init(var23.get(), pair23.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var24(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf24(new uint8_t[1]);
@@ -1450,20 +1450,20 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     std::unique_ptr<ReQL_Obj_t> var25(new ReQL_Obj_t);
     reql_number_init(var25.get(), 2);
 
-    reql_object_add(var21.get(), var24.get(), var25.get());
-
-    reql_object_add(var19.get(), var20.get(), var21.get());
+    reql_object_add(var23.get(), var24.get(), var25.get());
 
     std::unique_ptr<ReQL_Obj_t> var26(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf26(new uint8_t[5]);
-    const uint8_t src26[] = "group";
-    reql_string_init(var26.get(), buf26.get(), 5);
-    reql_string_append(var26.get(), src26, 5);
+    std::unique_ptr<uint8_t[]> buf26(new uint8_t[2]);
+    const uint8_t src26[] = "id";
+    reql_string_init(var26.get(), buf26.get(), 2);
+    reql_string_append(var26.get(), src26, 2);
 
     std::unique_ptr<ReQL_Obj_t> var27(new ReQL_Obj_t);
-    reql_number_init(var27.get(), 2);
+    reql_number_init(var27.get(), 98);
 
-    reql_object_add(var19.get(), var26.get(), var27.get());
+    reql_object_add(var23.get(), var26.get(), var27.get());
+
+    reql_object_add(var19.get(), var22.get(), var23.get());
 
     reql_array_append(var0.get(), var19.get());
 
@@ -1472,25 +1472,25 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var28.get(), pair28.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var29(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf29(new uint8_t[9]);
-    const uint8_t src29[] = "reduction";
-    reql_string_init(var29.get(), buf29.get(), 9);
-    reql_string_append(var29.get(), src29, 9);
+    std::unique_ptr<uint8_t[]> buf29(new uint8_t[5]);
+    const uint8_t src29[] = "group";
+    reql_string_init(var29.get(), buf29.get(), 5);
+    reql_string_append(var29.get(), src29, 5);
 
     std::unique_ptr<ReQL_Obj_t> var30(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Pair_t[]> pair30(new ReQL_Pair_t[2]);
-    reql_object_init(var30.get(), pair30.get(), 2);
+    reql_number_init(var30.get(), 3);
+
+    reql_object_add(var28.get(), var29.get(), var30.get());
 
     std::unique_ptr<ReQL_Obj_t> var31(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf31(new uint8_t[2]);
-    const uint8_t src31[] = "id";
-    reql_string_init(var31.get(), buf31.get(), 2);
-    reql_string_append(var31.get(), src31, 2);
+    std::unique_ptr<uint8_t[]> buf31(new uint8_t[9]);
+    const uint8_t src31[] = "reduction";
+    reql_string_init(var31.get(), buf31.get(), 9);
+    reql_string_append(var31.get(), src31, 9);
 
     std::unique_ptr<ReQL_Obj_t> var32(new ReQL_Obj_t);
-    reql_number_init(var32.get(), 99);
-
-    reql_object_add(var30.get(), var31.get(), var32.get());
+    std::unique_ptr<ReQL_Pair_t[]> pair32(new ReQL_Pair_t[2]);
+    reql_object_init(var32.get(), pair32.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var33(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf33(new uint8_t[1]);
@@ -1501,20 +1501,20 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     std::unique_ptr<ReQL_Obj_t> var34(new ReQL_Obj_t);
     reql_number_init(var34.get(), 3);
 
-    reql_object_add(var30.get(), var33.get(), var34.get());
-
-    reql_object_add(var28.get(), var29.get(), var30.get());
+    reql_object_add(var32.get(), var33.get(), var34.get());
 
     std::unique_ptr<ReQL_Obj_t> var35(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf35(new uint8_t[5]);
-    const uint8_t src35[] = "group";
-    reql_string_init(var35.get(), buf35.get(), 5);
-    reql_string_append(var35.get(), src35, 5);
+    std::unique_ptr<uint8_t[]> buf35(new uint8_t[2]);
+    const uint8_t src35[] = "id";
+    reql_string_init(var35.get(), buf35.get(), 2);
+    reql_string_append(var35.get(), src35, 2);
 
     std::unique_ptr<ReQL_Obj_t> var36(new ReQL_Obj_t);
-    reql_number_init(var36.get(), 3);
+    reql_number_init(var36.get(), 99);
 
-    reql_object_add(var28.get(), var35.get(), var36.get());
+    reql_object_add(var32.get(), var35.get(), var36.get());
+
+    reql_object_add(var28.get(), var31.get(), var32.get());
 
     reql_array_append(var0.get(), var28.get());
   }
@@ -1539,24 +1539,24 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var1.get(), pair1.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[9]);
-    const uint8_t src2[] = "reduction";
-    reql_string_init(var2.get(), buf2.get(), 9);
-    reql_string_append(var2.get(), src2, 9);
+    std::unique_ptr<uint8_t[]> buf2(new uint8_t[5]);
+    const uint8_t src2[] = "group";
+    reql_string_init(var2.get(), buf2.get(), 5);
+    reql_string_append(var2.get(), src2, 5);
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
-    reql_number_init(var3.get(), 1200);
+    reql_number_init(var3.get(), 0);
 
     reql_object_add(var1.get(), var2.get(), var3.get());
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf4(new uint8_t[5]);
-    const uint8_t src4[] = "group";
-    reql_string_init(var4.get(), buf4.get(), 5);
-    reql_string_append(var4.get(), src4, 5);
+    std::unique_ptr<uint8_t[]> buf4(new uint8_t[9]);
+    const uint8_t src4[] = "reduction";
+    reql_string_init(var4.get(), buf4.get(), 9);
+    reql_string_append(var4.get(), src4, 9);
 
     std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
-    reql_number_init(var5.get(), 0);
+    reql_number_init(var5.get(), 1200);
 
     reql_object_add(var1.get(), var4.get(), var5.get());
 
@@ -1567,24 +1567,24 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var6.get(), pair6.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var7(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf7(new uint8_t[9]);
-    const uint8_t src7[] = "reduction";
-    reql_string_init(var7.get(), buf7.get(), 9);
-    reql_string_append(var7.get(), src7, 9);
+    std::unique_ptr<uint8_t[]> buf7(new uint8_t[5]);
+    const uint8_t src7[] = "group";
+    reql_string_init(var7.get(), buf7.get(), 5);
+    reql_string_append(var7.get(), src7, 5);
 
     std::unique_ptr<ReQL_Obj_t> var8(new ReQL_Obj_t);
-    reql_number_init(var8.get(), 1225);
+    reql_number_init(var8.get(), 1);
 
     reql_object_add(var6.get(), var7.get(), var8.get());
 
     std::unique_ptr<ReQL_Obj_t> var9(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf9(new uint8_t[5]);
-    const uint8_t src9[] = "group";
-    reql_string_init(var9.get(), buf9.get(), 5);
-    reql_string_append(var9.get(), src9, 5);
+    std::unique_ptr<uint8_t[]> buf9(new uint8_t[9]);
+    const uint8_t src9[] = "reduction";
+    reql_string_init(var9.get(), buf9.get(), 9);
+    reql_string_append(var9.get(), src9, 9);
 
     std::unique_ptr<ReQL_Obj_t> var10(new ReQL_Obj_t);
-    reql_number_init(var10.get(), 1);
+    reql_number_init(var10.get(), 1225);
 
     reql_object_add(var6.get(), var9.get(), var10.get());
 
@@ -1595,24 +1595,24 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var11.get(), pair11.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var12(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf12(new uint8_t[9]);
-    const uint8_t src12[] = "reduction";
-    reql_string_init(var12.get(), buf12.get(), 9);
-    reql_string_append(var12.get(), src12, 9);
+    std::unique_ptr<uint8_t[]> buf12(new uint8_t[5]);
+    const uint8_t src12[] = "group";
+    reql_string_init(var12.get(), buf12.get(), 5);
+    reql_string_append(var12.get(), src12, 5);
 
     std::unique_ptr<ReQL_Obj_t> var13(new ReQL_Obj_t);
-    reql_number_init(var13.get(), 1250);
+    reql_number_init(var13.get(), 2);
 
     reql_object_add(var11.get(), var12.get(), var13.get());
 
     std::unique_ptr<ReQL_Obj_t> var14(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf14(new uint8_t[5]);
-    const uint8_t src14[] = "group";
-    reql_string_init(var14.get(), buf14.get(), 5);
-    reql_string_append(var14.get(), src14, 5);
+    std::unique_ptr<uint8_t[]> buf14(new uint8_t[9]);
+    const uint8_t src14[] = "reduction";
+    reql_string_init(var14.get(), buf14.get(), 9);
+    reql_string_append(var14.get(), src14, 9);
 
     std::unique_ptr<ReQL_Obj_t> var15(new ReQL_Obj_t);
-    reql_number_init(var15.get(), 2);
+    reql_number_init(var15.get(), 1250);
 
     reql_object_add(var11.get(), var14.get(), var15.get());
 
@@ -1623,24 +1623,24 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var16.get(), pair16.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var17(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf17(new uint8_t[9]);
-    const uint8_t src17[] = "reduction";
-    reql_string_init(var17.get(), buf17.get(), 9);
-    reql_string_append(var17.get(), src17, 9);
+    std::unique_ptr<uint8_t[]> buf17(new uint8_t[5]);
+    const uint8_t src17[] = "group";
+    reql_string_init(var17.get(), buf17.get(), 5);
+    reql_string_append(var17.get(), src17, 5);
 
     std::unique_ptr<ReQL_Obj_t> var18(new ReQL_Obj_t);
-    reql_number_init(var18.get(), 1275);
+    reql_number_init(var18.get(), 3);
 
     reql_object_add(var16.get(), var17.get(), var18.get());
 
     std::unique_ptr<ReQL_Obj_t> var19(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf19(new uint8_t[5]);
-    const uint8_t src19[] = "group";
-    reql_string_init(var19.get(), buf19.get(), 5);
-    reql_string_append(var19.get(), src19, 5);
+    std::unique_ptr<uint8_t[]> buf19(new uint8_t[9]);
+    const uint8_t src19[] = "reduction";
+    reql_string_init(var19.get(), buf19.get(), 9);
+    reql_string_append(var19.get(), src19, 9);
 
     std::unique_ptr<ReQL_Obj_t> var20(new ReQL_Obj_t);
-    reql_number_init(var20.get(), 3);
+    reql_number_init(var20.get(), 1275);
 
     reql_object_add(var16.get(), var19.get(), var20.get());
 
@@ -1667,24 +1667,24 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var1.get(), pair1.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[9]);
-    const uint8_t src2[] = "reduction";
-    reql_string_init(var2.get(), buf2.get(), 9);
-    reql_string_append(var2.get(), src2, 9);
+    std::unique_ptr<uint8_t[]> buf2(new uint8_t[5]);
+    const uint8_t src2[] = "group";
+    reql_string_init(var2.get(), buf2.get(), 5);
+    reql_string_append(var2.get(), src2, 5);
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
-    reql_number_init(var3.get(), 48);
+    reql_number_init(var3.get(), 0);
 
     reql_object_add(var1.get(), var2.get(), var3.get());
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf4(new uint8_t[5]);
-    const uint8_t src4[] = "group";
-    reql_string_init(var4.get(), buf4.get(), 5);
-    reql_string_append(var4.get(), src4, 5);
+    std::unique_ptr<uint8_t[]> buf4(new uint8_t[9]);
+    const uint8_t src4[] = "reduction";
+    reql_string_init(var4.get(), buf4.get(), 9);
+    reql_string_append(var4.get(), src4, 9);
 
     std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
-    reql_number_init(var5.get(), 0);
+    reql_number_init(var5.get(), 48);
 
     reql_object_add(var1.get(), var4.get(), var5.get());
 
@@ -1695,24 +1695,24 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var6.get(), pair6.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var7(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf7(new uint8_t[9]);
-    const uint8_t src7[] = "reduction";
-    reql_string_init(var7.get(), buf7.get(), 9);
-    reql_string_append(var7.get(), src7, 9);
+    std::unique_ptr<uint8_t[]> buf7(new uint8_t[5]);
+    const uint8_t src7[] = "group";
+    reql_string_init(var7.get(), buf7.get(), 5);
+    reql_string_append(var7.get(), src7, 5);
 
     std::unique_ptr<ReQL_Obj_t> var8(new ReQL_Obj_t);
-    reql_number_init(var8.get(), 49);
+    reql_number_init(var8.get(), 1);
 
     reql_object_add(var6.get(), var7.get(), var8.get());
 
     std::unique_ptr<ReQL_Obj_t> var9(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf9(new uint8_t[5]);
-    const uint8_t src9[] = "group";
-    reql_string_init(var9.get(), buf9.get(), 5);
-    reql_string_append(var9.get(), src9, 5);
+    std::unique_ptr<uint8_t[]> buf9(new uint8_t[9]);
+    const uint8_t src9[] = "reduction";
+    reql_string_init(var9.get(), buf9.get(), 9);
+    reql_string_append(var9.get(), src9, 9);
 
     std::unique_ptr<ReQL_Obj_t> var10(new ReQL_Obj_t);
-    reql_number_init(var10.get(), 1);
+    reql_number_init(var10.get(), 49);
 
     reql_object_add(var6.get(), var9.get(), var10.get());
 
@@ -1723,24 +1723,24 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var11.get(), pair11.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var12(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf12(new uint8_t[9]);
-    const uint8_t src12[] = "reduction";
-    reql_string_init(var12.get(), buf12.get(), 9);
-    reql_string_append(var12.get(), src12, 9);
+    std::unique_ptr<uint8_t[]> buf12(new uint8_t[5]);
+    const uint8_t src12[] = "group";
+    reql_string_init(var12.get(), buf12.get(), 5);
+    reql_string_append(var12.get(), src12, 5);
 
     std::unique_ptr<ReQL_Obj_t> var13(new ReQL_Obj_t);
-    reql_number_init(var13.get(), 50);
+    reql_number_init(var13.get(), 2);
 
     reql_object_add(var11.get(), var12.get(), var13.get());
 
     std::unique_ptr<ReQL_Obj_t> var14(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf14(new uint8_t[5]);
-    const uint8_t src14[] = "group";
-    reql_string_init(var14.get(), buf14.get(), 5);
-    reql_string_append(var14.get(), src14, 5);
+    std::unique_ptr<uint8_t[]> buf14(new uint8_t[9]);
+    const uint8_t src14[] = "reduction";
+    reql_string_init(var14.get(), buf14.get(), 9);
+    reql_string_append(var14.get(), src14, 9);
 
     std::unique_ptr<ReQL_Obj_t> var15(new ReQL_Obj_t);
-    reql_number_init(var15.get(), 2);
+    reql_number_init(var15.get(), 50);
 
     reql_object_add(var11.get(), var14.get(), var15.get());
 
@@ -1751,24 +1751,24 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var16.get(), pair16.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var17(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf17(new uint8_t[9]);
-    const uint8_t src17[] = "reduction";
-    reql_string_init(var17.get(), buf17.get(), 9);
-    reql_string_append(var17.get(), src17, 9);
+    std::unique_ptr<uint8_t[]> buf17(new uint8_t[5]);
+    const uint8_t src17[] = "group";
+    reql_string_init(var17.get(), buf17.get(), 5);
+    reql_string_append(var17.get(), src17, 5);
 
     std::unique_ptr<ReQL_Obj_t> var18(new ReQL_Obj_t);
-    reql_number_init(var18.get(), 51);
+    reql_number_init(var18.get(), 3);
 
     reql_object_add(var16.get(), var17.get(), var18.get());
 
     std::unique_ptr<ReQL_Obj_t> var19(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf19(new uint8_t[5]);
-    const uint8_t src19[] = "group";
-    reql_string_init(var19.get(), buf19.get(), 5);
-    reql_string_append(var19.get(), src19, 5);
+    std::unique_ptr<uint8_t[]> buf19(new uint8_t[9]);
+    const uint8_t src19[] = "reduction";
+    reql_string_init(var19.get(), buf19.get(), 9);
+    reql_string_append(var19.get(), src19, 9);
 
     std::unique_ptr<ReQL_Obj_t> var20(new ReQL_Obj_t);
-    reql_number_init(var20.get(), 3);
+    reql_number_init(var20.get(), 51);
 
     reql_object_add(var16.get(), var19.get(), var20.get());
 
@@ -1781,24 +1781,24 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var0.get(), pair0.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[2]);
-    const uint8_t src1[] = "id";
-    reql_string_init(var1.get(), buf1.get(), 2);
-    reql_string_append(var1.get(), src1, 2);
+    std::unique_ptr<uint8_t[]> buf1(new uint8_t[1]);
+    const uint8_t src1[] = "a";
+    reql_string_init(var1.get(), buf1.get(), 1);
+    reql_string_append(var1.get(), src1, 1);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    reql_number_init(var2.get(), 96);
+    reql_number_init(var2.get(), 0);
 
     reql_object_add(var0.get(), var1.get(), var2.get());
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf3(new uint8_t[1]);
-    const uint8_t src3[] = "a";
-    reql_string_init(var3.get(), buf3.get(), 1);
-    reql_string_append(var3.get(), src3, 1);
+    std::unique_ptr<uint8_t[]> buf3(new uint8_t[2]);
+    const uint8_t src3[] = "id";
+    reql_string_init(var3.get(), buf3.get(), 2);
+    reql_string_append(var3.get(), src3, 2);
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
-    reql_number_init(var4.get(), 0);
+    reql_number_init(var4.get(), 96);
 
     reql_object_add(var0.get(), var3.get(), var4.get());
   }
@@ -1823,10 +1823,10 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var1.get(), pair1.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[9]);
-    const uint8_t src2[] = "reduction";
-    reql_string_init(var2.get(), buf2.get(), 9);
-    reql_string_append(var2.get(), src2, 9);
+    std::unique_ptr<uint8_t[]> buf2(new uint8_t[5]);
+    const uint8_t src2[] = "group";
+    reql_string_init(var2.get(), buf2.get(), 5);
+    reql_string_append(var2.get(), src2, 5);
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
     reql_number_init(var3.get(), 0);
@@ -1834,10 +1834,10 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_add(var1.get(), var2.get(), var3.get());
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf4(new uint8_t[5]);
-    const uint8_t src4[] = "group";
-    reql_string_init(var4.get(), buf4.get(), 5);
-    reql_string_append(var4.get(), src4, 5);
+    std::unique_ptr<uint8_t[]> buf4(new uint8_t[9]);
+    const uint8_t src4[] = "reduction";
+    reql_string_init(var4.get(), buf4.get(), 9);
+    reql_string_append(var4.get(), src4, 9);
 
     std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
     reql_number_init(var5.get(), 0);
@@ -1851,10 +1851,10 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var6.get(), pair6.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var7(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf7(new uint8_t[9]);
-    const uint8_t src7[] = "reduction";
-    reql_string_init(var7.get(), buf7.get(), 9);
-    reql_string_append(var7.get(), src7, 9);
+    std::unique_ptr<uint8_t[]> buf7(new uint8_t[5]);
+    const uint8_t src7[] = "group";
+    reql_string_init(var7.get(), buf7.get(), 5);
+    reql_string_append(var7.get(), src7, 5);
 
     std::unique_ptr<ReQL_Obj_t> var8(new ReQL_Obj_t);
     reql_number_init(var8.get(), 1);
@@ -1862,10 +1862,10 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_add(var6.get(), var7.get(), var8.get());
 
     std::unique_ptr<ReQL_Obj_t> var9(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf9(new uint8_t[5]);
-    const uint8_t src9[] = "group";
-    reql_string_init(var9.get(), buf9.get(), 5);
-    reql_string_append(var9.get(), src9, 5);
+    std::unique_ptr<uint8_t[]> buf9(new uint8_t[9]);
+    const uint8_t src9[] = "reduction";
+    reql_string_init(var9.get(), buf9.get(), 9);
+    reql_string_append(var9.get(), src9, 9);
 
     std::unique_ptr<ReQL_Obj_t> var10(new ReQL_Obj_t);
     reql_number_init(var10.get(), 1);
@@ -1879,10 +1879,10 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var11.get(), pair11.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var12(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf12(new uint8_t[9]);
-    const uint8_t src12[] = "reduction";
-    reql_string_init(var12.get(), buf12.get(), 9);
-    reql_string_append(var12.get(), src12, 9);
+    std::unique_ptr<uint8_t[]> buf12(new uint8_t[5]);
+    const uint8_t src12[] = "group";
+    reql_string_init(var12.get(), buf12.get(), 5);
+    reql_string_append(var12.get(), src12, 5);
 
     std::unique_ptr<ReQL_Obj_t> var13(new ReQL_Obj_t);
     reql_number_init(var13.get(), 2);
@@ -1890,10 +1890,10 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_add(var11.get(), var12.get(), var13.get());
 
     std::unique_ptr<ReQL_Obj_t> var14(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf14(new uint8_t[5]);
-    const uint8_t src14[] = "group";
-    reql_string_init(var14.get(), buf14.get(), 5);
-    reql_string_append(var14.get(), src14, 5);
+    std::unique_ptr<uint8_t[]> buf14(new uint8_t[9]);
+    const uint8_t src14[] = "reduction";
+    reql_string_init(var14.get(), buf14.get(), 9);
+    reql_string_append(var14.get(), src14, 9);
 
     std::unique_ptr<ReQL_Obj_t> var15(new ReQL_Obj_t);
     reql_number_init(var15.get(), 2);
@@ -1907,10 +1907,10 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var16.get(), pair16.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var17(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf17(new uint8_t[9]);
-    const uint8_t src17[] = "reduction";
-    reql_string_init(var17.get(), buf17.get(), 9);
-    reql_string_append(var17.get(), src17, 9);
+    std::unique_ptr<uint8_t[]> buf17(new uint8_t[5]);
+    const uint8_t src17[] = "group";
+    reql_string_init(var17.get(), buf17.get(), 5);
+    reql_string_append(var17.get(), src17, 5);
 
     std::unique_ptr<ReQL_Obj_t> var18(new ReQL_Obj_t);
     reql_number_init(var18.get(), 3);
@@ -1918,10 +1918,10 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_add(var16.get(), var17.get(), var18.get());
 
     std::unique_ptr<ReQL_Obj_t> var19(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf19(new uint8_t[5]);
-    const uint8_t src19[] = "group";
-    reql_string_init(var19.get(), buf19.get(), 5);
-    reql_string_append(var19.get(), src19, 5);
+    std::unique_ptr<uint8_t[]> buf19(new uint8_t[9]);
+    const uint8_t src19[] = "reduction";
+    reql_string_init(var19.get(), buf19.get(), 9);
+    reql_string_append(var19.get(), src19, 9);
 
     std::unique_ptr<ReQL_Obj_t> var20(new ReQL_Obj_t);
     reql_number_init(var20.get(), 3);
@@ -1951,24 +1951,24 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var1.get(), pair1.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[9]);
-    const uint8_t src2[] = "reduction";
-    reql_string_init(var2.get(), buf2.get(), 9);
-    reql_string_append(var2.get(), src2, 9);
+    std::unique_ptr<uint8_t[]> buf2(new uint8_t[5]);
+    const uint8_t src2[] = "group";
+    reql_string_init(var2.get(), buf2.get(), 5);
+    reql_string_append(var2.get(), src2, 5);
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
-    reql_number_init(var3.get(), 96);
+    reql_number_init(var3.get(), 0);
 
     reql_object_add(var1.get(), var2.get(), var3.get());
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf4(new uint8_t[5]);
-    const uint8_t src4[] = "group";
-    reql_string_init(var4.get(), buf4.get(), 5);
-    reql_string_append(var4.get(), src4, 5);
+    std::unique_ptr<uint8_t[]> buf4(new uint8_t[9]);
+    const uint8_t src4[] = "reduction";
+    reql_string_init(var4.get(), buf4.get(), 9);
+    reql_string_append(var4.get(), src4, 9);
 
     std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
-    reql_number_init(var5.get(), 0);
+    reql_number_init(var5.get(), 96);
 
     reql_object_add(var1.get(), var4.get(), var5.get());
 
@@ -1979,24 +1979,24 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var6.get(), pair6.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var7(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf7(new uint8_t[9]);
-    const uint8_t src7[] = "reduction";
-    reql_string_init(var7.get(), buf7.get(), 9);
-    reql_string_append(var7.get(), src7, 9);
+    std::unique_ptr<uint8_t[]> buf7(new uint8_t[5]);
+    const uint8_t src7[] = "group";
+    reql_string_init(var7.get(), buf7.get(), 5);
+    reql_string_append(var7.get(), src7, 5);
 
     std::unique_ptr<ReQL_Obj_t> var8(new ReQL_Obj_t);
-    reql_number_init(var8.get(), 97);
+    reql_number_init(var8.get(), 1);
 
     reql_object_add(var6.get(), var7.get(), var8.get());
 
     std::unique_ptr<ReQL_Obj_t> var9(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf9(new uint8_t[5]);
-    const uint8_t src9[] = "group";
-    reql_string_init(var9.get(), buf9.get(), 5);
-    reql_string_append(var9.get(), src9, 5);
+    std::unique_ptr<uint8_t[]> buf9(new uint8_t[9]);
+    const uint8_t src9[] = "reduction";
+    reql_string_init(var9.get(), buf9.get(), 9);
+    reql_string_append(var9.get(), src9, 9);
 
     std::unique_ptr<ReQL_Obj_t> var10(new ReQL_Obj_t);
-    reql_number_init(var10.get(), 1);
+    reql_number_init(var10.get(), 97);
 
     reql_object_add(var6.get(), var9.get(), var10.get());
 
@@ -2007,24 +2007,24 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var11.get(), pair11.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var12(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf12(new uint8_t[9]);
-    const uint8_t src12[] = "reduction";
-    reql_string_init(var12.get(), buf12.get(), 9);
-    reql_string_append(var12.get(), src12, 9);
+    std::unique_ptr<uint8_t[]> buf12(new uint8_t[5]);
+    const uint8_t src12[] = "group";
+    reql_string_init(var12.get(), buf12.get(), 5);
+    reql_string_append(var12.get(), src12, 5);
 
     std::unique_ptr<ReQL_Obj_t> var13(new ReQL_Obj_t);
-    reql_number_init(var13.get(), 98);
+    reql_number_init(var13.get(), 2);
 
     reql_object_add(var11.get(), var12.get(), var13.get());
 
     std::unique_ptr<ReQL_Obj_t> var14(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf14(new uint8_t[5]);
-    const uint8_t src14[] = "group";
-    reql_string_init(var14.get(), buf14.get(), 5);
-    reql_string_append(var14.get(), src14, 5);
+    std::unique_ptr<uint8_t[]> buf14(new uint8_t[9]);
+    const uint8_t src14[] = "reduction";
+    reql_string_init(var14.get(), buf14.get(), 9);
+    reql_string_append(var14.get(), src14, 9);
 
     std::unique_ptr<ReQL_Obj_t> var15(new ReQL_Obj_t);
-    reql_number_init(var15.get(), 2);
+    reql_number_init(var15.get(), 98);
 
     reql_object_add(var11.get(), var14.get(), var15.get());
 
@@ -2035,24 +2035,24 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var16.get(), pair16.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var17(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf17(new uint8_t[9]);
-    const uint8_t src17[] = "reduction";
-    reql_string_init(var17.get(), buf17.get(), 9);
-    reql_string_append(var17.get(), src17, 9);
+    std::unique_ptr<uint8_t[]> buf17(new uint8_t[5]);
+    const uint8_t src17[] = "group";
+    reql_string_init(var17.get(), buf17.get(), 5);
+    reql_string_append(var17.get(), src17, 5);
 
     std::unique_ptr<ReQL_Obj_t> var18(new ReQL_Obj_t);
-    reql_number_init(var18.get(), 99);
+    reql_number_init(var18.get(), 3);
 
     reql_object_add(var16.get(), var17.get(), var18.get());
 
     std::unique_ptr<ReQL_Obj_t> var19(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf19(new uint8_t[5]);
-    const uint8_t src19[] = "group";
-    reql_string_init(var19.get(), buf19.get(), 5);
-    reql_string_append(var19.get(), src19, 5);
+    std::unique_ptr<uint8_t[]> buf19(new uint8_t[9]);
+    const uint8_t src19[] = "reduction";
+    reql_string_init(var19.get(), buf19.get(), 9);
+    reql_string_append(var19.get(), src19, 9);
 
     std::unique_ptr<ReQL_Obj_t> var20(new ReQL_Obj_t);
-    reql_number_init(var20.get(), 3);
+    reql_number_init(var20.get(), 99);
 
     reql_object_add(var16.get(), var19.get(), var20.get());
 
@@ -2069,24 +2069,24 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var1.get(), pair1.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[9]);
-    const uint8_t src2[] = "reduction";
-    reql_string_init(var2.get(), buf2.get(), 9);
-    reql_string_append(var2.get(), src2, 9);
+    std::unique_ptr<uint8_t[]> buf2(new uint8_t[5]);
+    const uint8_t src2[] = "group";
+    reql_string_init(var2.get(), buf2.get(), 5);
+    reql_string_append(var2.get(), src2, 5);
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
-    reql_number_init(var3.get(), 1200);
+    reql_number_init(var3.get(), 0);
 
     reql_object_add(var1.get(), var2.get(), var3.get());
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf4(new uint8_t[5]);
-    const uint8_t src4[] = "group";
-    reql_string_init(var4.get(), buf4.get(), 5);
-    reql_string_append(var4.get(), src4, 5);
+    std::unique_ptr<uint8_t[]> buf4(new uint8_t[9]);
+    const uint8_t src4[] = "reduction";
+    reql_string_init(var4.get(), buf4.get(), 9);
+    reql_string_append(var4.get(), src4, 9);
 
     std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
-    reql_number_init(var5.get(), 0);
+    reql_number_init(var5.get(), 1200);
 
     reql_object_add(var1.get(), var4.get(), var5.get());
 
@@ -2097,24 +2097,24 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var6.get(), pair6.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var7(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf7(new uint8_t[9]);
-    const uint8_t src7[] = "reduction";
-    reql_string_init(var7.get(), buf7.get(), 9);
-    reql_string_append(var7.get(), src7, 9);
+    std::unique_ptr<uint8_t[]> buf7(new uint8_t[5]);
+    const uint8_t src7[] = "group";
+    reql_string_init(var7.get(), buf7.get(), 5);
+    reql_string_append(var7.get(), src7, 5);
 
     std::unique_ptr<ReQL_Obj_t> var8(new ReQL_Obj_t);
-    reql_number_init(var8.get(), 1225);
+    reql_number_init(var8.get(), 1);
 
     reql_object_add(var6.get(), var7.get(), var8.get());
 
     std::unique_ptr<ReQL_Obj_t> var9(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf9(new uint8_t[5]);
-    const uint8_t src9[] = "group";
-    reql_string_init(var9.get(), buf9.get(), 5);
-    reql_string_append(var9.get(), src9, 5);
+    std::unique_ptr<uint8_t[]> buf9(new uint8_t[9]);
+    const uint8_t src9[] = "reduction";
+    reql_string_init(var9.get(), buf9.get(), 9);
+    reql_string_append(var9.get(), src9, 9);
 
     std::unique_ptr<ReQL_Obj_t> var10(new ReQL_Obj_t);
-    reql_number_init(var10.get(), 1);
+    reql_number_init(var10.get(), 1225);
 
     reql_object_add(var6.get(), var9.get(), var10.get());
 
@@ -2125,24 +2125,24 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var11.get(), pair11.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var12(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf12(new uint8_t[9]);
-    const uint8_t src12[] = "reduction";
-    reql_string_init(var12.get(), buf12.get(), 9);
-    reql_string_append(var12.get(), src12, 9);
+    std::unique_ptr<uint8_t[]> buf12(new uint8_t[5]);
+    const uint8_t src12[] = "group";
+    reql_string_init(var12.get(), buf12.get(), 5);
+    reql_string_append(var12.get(), src12, 5);
 
     std::unique_ptr<ReQL_Obj_t> var13(new ReQL_Obj_t);
-    reql_number_init(var13.get(), 1250);
+    reql_number_init(var13.get(), 2);
 
     reql_object_add(var11.get(), var12.get(), var13.get());
 
     std::unique_ptr<ReQL_Obj_t> var14(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf14(new uint8_t[5]);
-    const uint8_t src14[] = "group";
-    reql_string_init(var14.get(), buf14.get(), 5);
-    reql_string_append(var14.get(), src14, 5);
+    std::unique_ptr<uint8_t[]> buf14(new uint8_t[9]);
+    const uint8_t src14[] = "reduction";
+    reql_string_init(var14.get(), buf14.get(), 9);
+    reql_string_append(var14.get(), src14, 9);
 
     std::unique_ptr<ReQL_Obj_t> var15(new ReQL_Obj_t);
-    reql_number_init(var15.get(), 2);
+    reql_number_init(var15.get(), 1250);
 
     reql_object_add(var11.get(), var14.get(), var15.get());
 
@@ -2153,24 +2153,24 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var16.get(), pair16.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var17(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf17(new uint8_t[9]);
-    const uint8_t src17[] = "reduction";
-    reql_string_init(var17.get(), buf17.get(), 9);
-    reql_string_append(var17.get(), src17, 9);
+    std::unique_ptr<uint8_t[]> buf17(new uint8_t[5]);
+    const uint8_t src17[] = "group";
+    reql_string_init(var17.get(), buf17.get(), 5);
+    reql_string_append(var17.get(), src17, 5);
 
     std::unique_ptr<ReQL_Obj_t> var18(new ReQL_Obj_t);
-    reql_number_init(var18.get(), 1275);
+    reql_number_init(var18.get(), 3);
 
     reql_object_add(var16.get(), var17.get(), var18.get());
 
     std::unique_ptr<ReQL_Obj_t> var19(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf19(new uint8_t[5]);
-    const uint8_t src19[] = "group";
-    reql_string_init(var19.get(), buf19.get(), 5);
-    reql_string_append(var19.get(), src19, 5);
+    std::unique_ptr<uint8_t[]> buf19(new uint8_t[9]);
+    const uint8_t src19[] = "reduction";
+    reql_string_init(var19.get(), buf19.get(), 9);
+    reql_string_append(var19.get(), src19, 9);
 
     std::unique_ptr<ReQL_Obj_t> var20(new ReQL_Obj_t);
-    reql_number_init(var20.get(), 3);
+    reql_number_init(var20.get(), 1275);
 
     reql_object_add(var16.get(), var19.get(), var20.get());
 
@@ -2373,42 +2373,42 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var1.get(), pair1.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[9]);
-    const uint8_t src2[] = "reduction";
-    reql_string_init(var2.get(), buf2.get(), 9);
-    reql_string_append(var2.get(), src2, 9);
+    std::unique_ptr<uint8_t[]> buf2(new uint8_t[5]);
+    const uint8_t src2[] = "group";
+    reql_string_init(var2.get(), buf2.get(), 5);
+    reql_string_append(var2.get(), src2, 5);
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*[]> arr3(new ReQL_Obj_t*[3]);
-    reql_array_init(var3.get(), arr3.get(), 3);
-
-    std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
-    reql_number_init(var4.get(), 0);
-
-    reql_array_append(var3.get(), var4.get());
-
-    std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
-    reql_number_init(var5.get(), 4);
-
-    reql_array_append(var3.get(), var5.get());
-
-    std::unique_ptr<ReQL_Obj_t> var6(new ReQL_Obj_t);
-    reql_number_init(var6.get(), 8);
-
-    reql_array_append(var3.get(), var6.get());
+    reql_number_init(var3.get(), 0);
 
     reql_object_add(var1.get(), var2.get(), var3.get());
 
+    std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
+    std::unique_ptr<uint8_t[]> buf4(new uint8_t[9]);
+    const uint8_t src4[] = "reduction";
+    reql_string_init(var4.get(), buf4.get(), 9);
+    reql_string_append(var4.get(), src4, 9);
+
+    std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
+    std::unique_ptr<ReQL_Obj_t*[]> arr5(new ReQL_Obj_t*[3]);
+    reql_array_init(var5.get(), arr5.get(), 3);
+
+    std::unique_ptr<ReQL_Obj_t> var6(new ReQL_Obj_t);
+    reql_number_init(var6.get(), 0);
+
+    reql_array_append(var5.get(), var6.get());
+
     std::unique_ptr<ReQL_Obj_t> var7(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf7(new uint8_t[5]);
-    const uint8_t src7[] = "group";
-    reql_string_init(var7.get(), buf7.get(), 5);
-    reql_string_append(var7.get(), src7, 5);
+    reql_number_init(var7.get(), 4);
+
+    reql_array_append(var5.get(), var7.get());
 
     std::unique_ptr<ReQL_Obj_t> var8(new ReQL_Obj_t);
-    reql_number_init(var8.get(), 0);
+    reql_number_init(var8.get(), 8);
 
-    reql_object_add(var1.get(), var7.get(), var8.get());
+    reql_array_append(var5.get(), var8.get());
+
+    reql_object_add(var1.get(), var4.get(), var5.get());
 
     reql_array_append(var0.get(), var1.get());
 
@@ -2417,42 +2417,42 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var9.get(), pair9.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var10(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf10(new uint8_t[9]);
-    const uint8_t src10[] = "reduction";
-    reql_string_init(var10.get(), buf10.get(), 9);
-    reql_string_append(var10.get(), src10, 9);
+    std::unique_ptr<uint8_t[]> buf10(new uint8_t[5]);
+    const uint8_t src10[] = "group";
+    reql_string_init(var10.get(), buf10.get(), 5);
+    reql_string_append(var10.get(), src10, 5);
 
     std::unique_ptr<ReQL_Obj_t> var11(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*[]> arr11(new ReQL_Obj_t*[3]);
-    reql_array_init(var11.get(), arr11.get(), 3);
-
-    std::unique_ptr<ReQL_Obj_t> var12(new ReQL_Obj_t);
-    reql_number_init(var12.get(), 1);
-
-    reql_array_append(var11.get(), var12.get());
-
-    std::unique_ptr<ReQL_Obj_t> var13(new ReQL_Obj_t);
-    reql_number_init(var13.get(), 5);
-
-    reql_array_append(var11.get(), var13.get());
-
-    std::unique_ptr<ReQL_Obj_t> var14(new ReQL_Obj_t);
-    reql_number_init(var14.get(), 9);
-
-    reql_array_append(var11.get(), var14.get());
+    reql_number_init(var11.get(), 1);
 
     reql_object_add(var9.get(), var10.get(), var11.get());
 
+    std::unique_ptr<ReQL_Obj_t> var12(new ReQL_Obj_t);
+    std::unique_ptr<uint8_t[]> buf12(new uint8_t[9]);
+    const uint8_t src12[] = "reduction";
+    reql_string_init(var12.get(), buf12.get(), 9);
+    reql_string_append(var12.get(), src12, 9);
+
+    std::unique_ptr<ReQL_Obj_t> var13(new ReQL_Obj_t);
+    std::unique_ptr<ReQL_Obj_t*[]> arr13(new ReQL_Obj_t*[3]);
+    reql_array_init(var13.get(), arr13.get(), 3);
+
+    std::unique_ptr<ReQL_Obj_t> var14(new ReQL_Obj_t);
+    reql_number_init(var14.get(), 1);
+
+    reql_array_append(var13.get(), var14.get());
+
     std::unique_ptr<ReQL_Obj_t> var15(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf15(new uint8_t[5]);
-    const uint8_t src15[] = "group";
-    reql_string_init(var15.get(), buf15.get(), 5);
-    reql_string_append(var15.get(), src15, 5);
+    reql_number_init(var15.get(), 5);
+
+    reql_array_append(var13.get(), var15.get());
 
     std::unique_ptr<ReQL_Obj_t> var16(new ReQL_Obj_t);
-    reql_number_init(var16.get(), 1);
+    reql_number_init(var16.get(), 9);
 
-    reql_object_add(var9.get(), var15.get(), var16.get());
+    reql_array_append(var13.get(), var16.get());
+
+    reql_object_add(var9.get(), var12.get(), var13.get());
 
     reql_array_append(var0.get(), var9.get());
 
@@ -2461,37 +2461,37 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var17.get(), pair17.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var18(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf18(new uint8_t[9]);
-    const uint8_t src18[] = "reduction";
-    reql_string_init(var18.get(), buf18.get(), 9);
-    reql_string_append(var18.get(), src18, 9);
+    std::unique_ptr<uint8_t[]> buf18(new uint8_t[5]);
+    const uint8_t src18[] = "group";
+    reql_string_init(var18.get(), buf18.get(), 5);
+    reql_string_append(var18.get(), src18, 5);
 
     std::unique_ptr<ReQL_Obj_t> var19(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*[]> arr19(new ReQL_Obj_t*[2]);
-    reql_array_init(var19.get(), arr19.get(), 2);
-
-    std::unique_ptr<ReQL_Obj_t> var20(new ReQL_Obj_t);
-    reql_number_init(var20.get(), 2);
-
-    reql_array_append(var19.get(), var20.get());
-
-    std::unique_ptr<ReQL_Obj_t> var21(new ReQL_Obj_t);
-    reql_number_init(var21.get(), 6);
-
-    reql_array_append(var19.get(), var21.get());
+    reql_number_init(var19.get(), 2);
 
     reql_object_add(var17.get(), var18.get(), var19.get());
 
+    std::unique_ptr<ReQL_Obj_t> var20(new ReQL_Obj_t);
+    std::unique_ptr<uint8_t[]> buf20(new uint8_t[9]);
+    const uint8_t src20[] = "reduction";
+    reql_string_init(var20.get(), buf20.get(), 9);
+    reql_string_append(var20.get(), src20, 9);
+
+    std::unique_ptr<ReQL_Obj_t> var21(new ReQL_Obj_t);
+    std::unique_ptr<ReQL_Obj_t*[]> arr21(new ReQL_Obj_t*[2]);
+    reql_array_init(var21.get(), arr21.get(), 2);
+
     std::unique_ptr<ReQL_Obj_t> var22(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf22(new uint8_t[5]);
-    const uint8_t src22[] = "group";
-    reql_string_init(var22.get(), buf22.get(), 5);
-    reql_string_append(var22.get(), src22, 5);
+    reql_number_init(var22.get(), 2);
+
+    reql_array_append(var21.get(), var22.get());
 
     std::unique_ptr<ReQL_Obj_t> var23(new ReQL_Obj_t);
-    reql_number_init(var23.get(), 2);
+    reql_number_init(var23.get(), 6);
 
-    reql_object_add(var17.get(), var22.get(), var23.get());
+    reql_array_append(var21.get(), var23.get());
+
+    reql_object_add(var17.get(), var20.get(), var21.get());
 
     reql_array_append(var0.get(), var17.get());
 
@@ -2500,37 +2500,37 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var24.get(), pair24.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var25(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf25(new uint8_t[9]);
-    const uint8_t src25[] = "reduction";
-    reql_string_init(var25.get(), buf25.get(), 9);
-    reql_string_append(var25.get(), src25, 9);
+    std::unique_ptr<uint8_t[]> buf25(new uint8_t[5]);
+    const uint8_t src25[] = "group";
+    reql_string_init(var25.get(), buf25.get(), 5);
+    reql_string_append(var25.get(), src25, 5);
 
     std::unique_ptr<ReQL_Obj_t> var26(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*[]> arr26(new ReQL_Obj_t*[2]);
-    reql_array_init(var26.get(), arr26.get(), 2);
-
-    std::unique_ptr<ReQL_Obj_t> var27(new ReQL_Obj_t);
-    reql_number_init(var27.get(), 3);
-
-    reql_array_append(var26.get(), var27.get());
-
-    std::unique_ptr<ReQL_Obj_t> var28(new ReQL_Obj_t);
-    reql_number_init(var28.get(), 7);
-
-    reql_array_append(var26.get(), var28.get());
+    reql_number_init(var26.get(), 3);
 
     reql_object_add(var24.get(), var25.get(), var26.get());
 
+    std::unique_ptr<ReQL_Obj_t> var27(new ReQL_Obj_t);
+    std::unique_ptr<uint8_t[]> buf27(new uint8_t[9]);
+    const uint8_t src27[] = "reduction";
+    reql_string_init(var27.get(), buf27.get(), 9);
+    reql_string_append(var27.get(), src27, 9);
+
+    std::unique_ptr<ReQL_Obj_t> var28(new ReQL_Obj_t);
+    std::unique_ptr<ReQL_Obj_t*[]> arr28(new ReQL_Obj_t*[2]);
+    reql_array_init(var28.get(), arr28.get(), 2);
+
     std::unique_ptr<ReQL_Obj_t> var29(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf29(new uint8_t[5]);
-    const uint8_t src29[] = "group";
-    reql_string_init(var29.get(), buf29.get(), 5);
-    reql_string_append(var29.get(), src29, 5);
+    reql_number_init(var29.get(), 3);
+
+    reql_array_append(var28.get(), var29.get());
 
     std::unique_ptr<ReQL_Obj_t> var30(new ReQL_Obj_t);
-    reql_number_init(var30.get(), 3);
+    reql_number_init(var30.get(), 7);
 
-    reql_object_add(var24.get(), var29.get(), var30.get());
+    reql_array_append(var28.get(), var30.get());
+
+    reql_object_add(var24.get(), var27.get(), var28.get());
 
     reql_array_append(var0.get(), var24.get());
   }
@@ -2545,24 +2545,24 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var1.get(), pair1.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[9]);
-    const uint8_t src2[] = "reduction";
-    reql_string_init(var2.get(), buf2.get(), 9);
-    reql_string_append(var2.get(), src2, 9);
+    std::unique_ptr<uint8_t[]> buf2(new uint8_t[5]);
+    const uint8_t src2[] = "group";
+    reql_string_init(var2.get(), buf2.get(), 5);
+    reql_string_append(var2.get(), src2, 5);
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
-    reql_number_init(var3.get(), 9);
+    reql_number_init(var3.get(), 0);
 
     reql_object_add(var1.get(), var2.get(), var3.get());
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf4(new uint8_t[5]);
-    const uint8_t src4[] = "group";
-    reql_string_init(var4.get(), buf4.get(), 5);
-    reql_string_append(var4.get(), src4, 5);
+    std::unique_ptr<uint8_t[]> buf4(new uint8_t[9]);
+    const uint8_t src4[] = "reduction";
+    reql_string_init(var4.get(), buf4.get(), 9);
+    reql_string_append(var4.get(), src4, 9);
 
     std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
-    reql_number_init(var5.get(), 0);
+    reql_number_init(var5.get(), 9);
 
     reql_object_add(var1.get(), var4.get(), var5.get());
 
@@ -2573,24 +2573,24 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var6.get(), pair6.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var7(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf7(new uint8_t[9]);
-    const uint8_t src7[] = "reduction";
-    reql_string_init(var7.get(), buf7.get(), 9);
-    reql_string_append(var7.get(), src7, 9);
+    std::unique_ptr<uint8_t[]> buf7(new uint8_t[5]);
+    const uint8_t src7[] = "group";
+    reql_string_init(var7.get(), buf7.get(), 5);
+    reql_string_append(var7.get(), src7, 5);
 
     std::unique_ptr<ReQL_Obj_t> var8(new ReQL_Obj_t);
-    reql_number_init(var8.get(), 9);
+    reql_number_init(var8.get(), 1);
 
     reql_object_add(var6.get(), var7.get(), var8.get());
 
     std::unique_ptr<ReQL_Obj_t> var9(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf9(new uint8_t[5]);
-    const uint8_t src9[] = "group";
-    reql_string_init(var9.get(), buf9.get(), 5);
-    reql_string_append(var9.get(), src9, 5);
+    std::unique_ptr<uint8_t[]> buf9(new uint8_t[9]);
+    const uint8_t src9[] = "reduction";
+    reql_string_init(var9.get(), buf9.get(), 9);
+    reql_string_append(var9.get(), src9, 9);
 
     std::unique_ptr<ReQL_Obj_t> var10(new ReQL_Obj_t);
-    reql_number_init(var10.get(), 1);
+    reql_number_init(var10.get(), 9);
 
     reql_object_add(var6.get(), var9.get(), var10.get());
 
@@ -2601,24 +2601,24 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var11.get(), pair11.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var12(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf12(new uint8_t[9]);
-    const uint8_t src12[] = "reduction";
-    reql_string_init(var12.get(), buf12.get(), 9);
-    reql_string_append(var12.get(), src12, 9);
+    std::unique_ptr<uint8_t[]> buf12(new uint8_t[5]);
+    const uint8_t src12[] = "group";
+    reql_string_init(var12.get(), buf12.get(), 5);
+    reql_string_append(var12.get(), src12, 5);
 
     std::unique_ptr<ReQL_Obj_t> var13(new ReQL_Obj_t);
-    reql_number_init(var13.get(), 4);
+    reql_number_init(var13.get(), 2);
 
     reql_object_add(var11.get(), var12.get(), var13.get());
 
     std::unique_ptr<ReQL_Obj_t> var14(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf14(new uint8_t[5]);
-    const uint8_t src14[] = "group";
-    reql_string_init(var14.get(), buf14.get(), 5);
-    reql_string_append(var14.get(), src14, 5);
+    std::unique_ptr<uint8_t[]> buf14(new uint8_t[9]);
+    const uint8_t src14[] = "reduction";
+    reql_string_init(var14.get(), buf14.get(), 9);
+    reql_string_append(var14.get(), src14, 9);
 
     std::unique_ptr<ReQL_Obj_t> var15(new ReQL_Obj_t);
-    reql_number_init(var15.get(), 2);
+    reql_number_init(var15.get(), 4);
 
     reql_object_add(var11.get(), var14.get(), var15.get());
 
@@ -2629,24 +2629,24 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var16.get(), pair16.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var17(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf17(new uint8_t[9]);
-    const uint8_t src17[] = "reduction";
-    reql_string_init(var17.get(), buf17.get(), 9);
-    reql_string_append(var17.get(), src17, 9);
+    std::unique_ptr<uint8_t[]> buf17(new uint8_t[5]);
+    const uint8_t src17[] = "group";
+    reql_string_init(var17.get(), buf17.get(), 5);
+    reql_string_append(var17.get(), src17, 5);
 
     std::unique_ptr<ReQL_Obj_t> var18(new ReQL_Obj_t);
-    reql_number_init(var18.get(), 4);
+    reql_number_init(var18.get(), 3);
 
     reql_object_add(var16.get(), var17.get(), var18.get());
 
     std::unique_ptr<ReQL_Obj_t> var19(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf19(new uint8_t[5]);
-    const uint8_t src19[] = "group";
-    reql_string_init(var19.get(), buf19.get(), 5);
-    reql_string_append(var19.get(), src19, 5);
+    std::unique_ptr<uint8_t[]> buf19(new uint8_t[9]);
+    const uint8_t src19[] = "reduction";
+    reql_string_init(var19.get(), buf19.get(), 9);
+    reql_string_append(var19.get(), src19, 9);
 
     std::unique_ptr<ReQL_Obj_t> var20(new ReQL_Obj_t);
-    reql_number_init(var20.get(), 3);
+    reql_number_init(var20.get(), 4);
 
     reql_object_add(var16.get(), var19.get(), var20.get());
 
@@ -3857,26 +3857,26 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf2(new uint8_t[5]);
-    const uint8_t src2[] = "ready";
+    const uint8_t src2[] = "index";
     reql_string_init(var2.get(), buf2.get(), 5);
     reql_string_append(var2.get(), src2, 5);
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
-    reql_bool_init(var3.get(), 1);
+    std::unique_ptr<uint8_t[]> buf3(new uint8_t[1]);
+    const uint8_t src3[] = "a";
+    reql_string_init(var3.get(), buf3.get(), 1);
+    reql_string_append(var3.get(), src3, 1);
 
     reql_object_add(var1.get(), var2.get(), var3.get());
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf4(new uint8_t[5]);
-    const uint8_t src4[] = "index";
+    const uint8_t src4[] = "ready";
     reql_string_init(var4.get(), buf4.get(), 5);
     reql_string_append(var4.get(), src4, 5);
 
     std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf5(new uint8_t[1]);
-    const uint8_t src5[] = "a";
-    reql_string_init(var5.get(), buf5.get(), 1);
-    reql_string_append(var5.get(), src5, 1);
+    reql_bool_init(var5.get(), 1);
 
     reql_object_add(var1.get(), var4.get(), var5.get());
 
@@ -9232,24 +9232,24 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var1.get(), pair1.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[9]);
-    const uint8_t src2[] = "reduction";
-    reql_string_init(var2.get(), buf2.get(), 9);
-    reql_string_append(var2.get(), src2, 9);
+    std::unique_ptr<uint8_t[]> buf2(new uint8_t[5]);
+    const uint8_t src2[] = "group";
+    reql_string_init(var2.get(), buf2.get(), 5);
+    reql_string_append(var2.get(), src2, 5);
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
-    reql_number_init(var3.get(), 25);
+    reql_number_init(var3.get(), 0);
 
     reql_object_add(var1.get(), var2.get(), var3.get());
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf4(new uint8_t[5]);
-    const uint8_t src4[] = "group";
-    reql_string_init(var4.get(), buf4.get(), 5);
-    reql_string_append(var4.get(), src4, 5);
+    std::unique_ptr<uint8_t[]> buf4(new uint8_t[9]);
+    const uint8_t src4[] = "reduction";
+    reql_string_init(var4.get(), buf4.get(), 9);
+    reql_string_append(var4.get(), src4, 9);
 
     std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
-    reql_number_init(var5.get(), 0);
+    reql_number_init(var5.get(), 25);
 
     reql_object_add(var1.get(), var4.get(), var5.get());
 
@@ -9260,24 +9260,24 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var6.get(), pair6.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var7(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf7(new uint8_t[9]);
-    const uint8_t src7[] = "reduction";
-    reql_string_init(var7.get(), buf7.get(), 9);
-    reql_string_append(var7.get(), src7, 9);
+    std::unique_ptr<uint8_t[]> buf7(new uint8_t[5]);
+    const uint8_t src7[] = "group";
+    reql_string_init(var7.get(), buf7.get(), 5);
+    reql_string_append(var7.get(), src7, 5);
 
     std::unique_ptr<ReQL_Obj_t> var8(new ReQL_Obj_t);
-    reql_number_init(var8.get(), 25);
+    reql_number_init(var8.get(), 1);
 
     reql_object_add(var6.get(), var7.get(), var8.get());
 
     std::unique_ptr<ReQL_Obj_t> var9(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf9(new uint8_t[5]);
-    const uint8_t src9[] = "group";
-    reql_string_init(var9.get(), buf9.get(), 5);
-    reql_string_append(var9.get(), src9, 5);
+    std::unique_ptr<uint8_t[]> buf9(new uint8_t[9]);
+    const uint8_t src9[] = "reduction";
+    reql_string_init(var9.get(), buf9.get(), 9);
+    reql_string_append(var9.get(), src9, 9);
 
     std::unique_ptr<ReQL_Obj_t> var10(new ReQL_Obj_t);
-    reql_number_init(var10.get(), 1);
+    reql_number_init(var10.get(), 25);
 
     reql_object_add(var6.get(), var9.get(), var10.get());
 
@@ -9288,24 +9288,24 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var11.get(), pair11.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var12(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf12(new uint8_t[9]);
-    const uint8_t src12[] = "reduction";
-    reql_string_init(var12.get(), buf12.get(), 9);
-    reql_string_append(var12.get(), src12, 9);
+    std::unique_ptr<uint8_t[]> buf12(new uint8_t[5]);
+    const uint8_t src12[] = "group";
+    reql_string_init(var12.get(), buf12.get(), 5);
+    reql_string_append(var12.get(), src12, 5);
 
     std::unique_ptr<ReQL_Obj_t> var13(new ReQL_Obj_t);
-    reql_number_init(var13.get(), 25);
+    reql_number_init(var13.get(), 2);
 
     reql_object_add(var11.get(), var12.get(), var13.get());
 
     std::unique_ptr<ReQL_Obj_t> var14(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf14(new uint8_t[5]);
-    const uint8_t src14[] = "group";
-    reql_string_init(var14.get(), buf14.get(), 5);
-    reql_string_append(var14.get(), src14, 5);
+    std::unique_ptr<uint8_t[]> buf14(new uint8_t[9]);
+    const uint8_t src14[] = "reduction";
+    reql_string_init(var14.get(), buf14.get(), 9);
+    reql_string_append(var14.get(), src14, 9);
 
     std::unique_ptr<ReQL_Obj_t> var15(new ReQL_Obj_t);
-    reql_number_init(var15.get(), 2);
+    reql_number_init(var15.get(), 25);
 
     reql_object_add(var11.get(), var14.get(), var15.get());
 
@@ -9316,24 +9316,24 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var16.get(), pair16.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var17(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf17(new uint8_t[9]);
-    const uint8_t src17[] = "reduction";
-    reql_string_init(var17.get(), buf17.get(), 9);
-    reql_string_append(var17.get(), src17, 9);
+    std::unique_ptr<uint8_t[]> buf17(new uint8_t[5]);
+    const uint8_t src17[] = "group";
+    reql_string_init(var17.get(), buf17.get(), 5);
+    reql_string_append(var17.get(), src17, 5);
 
     std::unique_ptr<ReQL_Obj_t> var18(new ReQL_Obj_t);
-    reql_number_init(var18.get(), 25);
+    reql_number_init(var18.get(), 3);
 
     reql_object_add(var16.get(), var17.get(), var18.get());
 
     std::unique_ptr<ReQL_Obj_t> var19(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf19(new uint8_t[5]);
-    const uint8_t src19[] = "group";
-    reql_string_init(var19.get(), buf19.get(), 5);
-    reql_string_append(var19.get(), src19, 5);
+    std::unique_ptr<uint8_t[]> buf19(new uint8_t[9]);
+    const uint8_t src19[] = "reduction";
+    reql_string_init(var19.get(), buf19.get(), 9);
+    reql_string_append(var19.get(), src19, 9);
 
     std::unique_ptr<ReQL_Obj_t> var20(new ReQL_Obj_t);
-    reql_number_init(var20.get(), 3);
+    reql_number_init(var20.get(), 25);
 
     reql_object_add(var16.get(), var19.get(), var20.get());
 
@@ -9376,37 +9376,37 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var1.get(), pair1.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[9]);
-    const uint8_t src2[] = "reduction";
-    reql_string_init(var2.get(), buf2.get(), 9);
-    reql_string_append(var2.get(), src2, 9);
+    std::unique_ptr<uint8_t[]> buf2(new uint8_t[5]);
+    const uint8_t src2[] = "group";
+    reql_string_init(var2.get(), buf2.get(), 5);
+    reql_string_append(var2.get(), src2, 5);
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
-    reql_number_init(var3.get(), 24);
+    std::unique_ptr<ReQL_Obj_t*[]> arr3(new ReQL_Obj_t*[2]);
+    reql_array_init(var3.get(), arr3.get(), 2);
+
+    std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
+    reql_number_init(var4.get(), 0);
+
+    reql_array_append(var3.get(), var4.get());
+
+    std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
+    reql_number_init(var5.get(), 0);
+
+    reql_array_append(var3.get(), var5.get());
 
     reql_object_add(var1.get(), var2.get(), var3.get());
 
-    std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf4(new uint8_t[5]);
-    const uint8_t src4[] = "group";
-    reql_string_init(var4.get(), buf4.get(), 5);
-    reql_string_append(var4.get(), src4, 5);
-
-    std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*[]> arr5(new ReQL_Obj_t*[2]);
-    reql_array_init(var5.get(), arr5.get(), 2);
-
     std::unique_ptr<ReQL_Obj_t> var6(new ReQL_Obj_t);
-    reql_number_init(var6.get(), 0);
-
-    reql_array_append(var5.get(), var6.get());
+    std::unique_ptr<uint8_t[]> buf6(new uint8_t[9]);
+    const uint8_t src6[] = "reduction";
+    reql_string_init(var6.get(), buf6.get(), 9);
+    reql_string_append(var6.get(), src6, 9);
 
     std::unique_ptr<ReQL_Obj_t> var7(new ReQL_Obj_t);
-    reql_number_init(var7.get(), 0);
+    reql_number_init(var7.get(), 24);
 
-    reql_array_append(var5.get(), var7.get());
-
-    reql_object_add(var1.get(), var4.get(), var5.get());
+    reql_object_add(var1.get(), var6.get(), var7.get());
 
     reql_array_append(var0.get(), var1.get());
 
@@ -9415,37 +9415,37 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var8.get(), pair8.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var9(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf9(new uint8_t[9]);
-    const uint8_t src9[] = "reduction";
-    reql_string_init(var9.get(), buf9.get(), 9);
-    reql_string_append(var9.get(), src9, 9);
+    std::unique_ptr<uint8_t[]> buf9(new uint8_t[5]);
+    const uint8_t src9[] = "group";
+    reql_string_init(var9.get(), buf9.get(), 5);
+    reql_string_append(var9.get(), src9, 5);
 
     std::unique_ptr<ReQL_Obj_t> var10(new ReQL_Obj_t);
-    reql_number_init(var10.get(), 28);
+    std::unique_ptr<ReQL_Obj_t*[]> arr10(new ReQL_Obj_t*[2]);
+    reql_array_init(var10.get(), arr10.get(), 2);
+
+    std::unique_ptr<ReQL_Obj_t> var11(new ReQL_Obj_t);
+    reql_number_init(var11.get(), 1);
+
+    reql_array_append(var10.get(), var11.get());
+
+    std::unique_ptr<ReQL_Obj_t> var12(new ReQL_Obj_t);
+    reql_number_init(var12.get(), 1);
+
+    reql_array_append(var10.get(), var12.get());
 
     reql_object_add(var8.get(), var9.get(), var10.get());
 
-    std::unique_ptr<ReQL_Obj_t> var11(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf11(new uint8_t[5]);
-    const uint8_t src11[] = "group";
-    reql_string_init(var11.get(), buf11.get(), 5);
-    reql_string_append(var11.get(), src11, 5);
-
-    std::unique_ptr<ReQL_Obj_t> var12(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*[]> arr12(new ReQL_Obj_t*[2]);
-    reql_array_init(var12.get(), arr12.get(), 2);
-
     std::unique_ptr<ReQL_Obj_t> var13(new ReQL_Obj_t);
-    reql_number_init(var13.get(), 1);
-
-    reql_array_append(var12.get(), var13.get());
+    std::unique_ptr<uint8_t[]> buf13(new uint8_t[9]);
+    const uint8_t src13[] = "reduction";
+    reql_string_init(var13.get(), buf13.get(), 9);
+    reql_string_append(var13.get(), src13, 9);
 
     std::unique_ptr<ReQL_Obj_t> var14(new ReQL_Obj_t);
-    reql_number_init(var14.get(), 1);
+    reql_number_init(var14.get(), 28);
 
-    reql_array_append(var12.get(), var14.get());
-
-    reql_object_add(var8.get(), var11.get(), var12.get());
+    reql_object_add(var8.get(), var13.get(), var14.get());
 
     reql_array_append(var0.get(), var8.get());
 
@@ -9454,37 +9454,37 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var15.get(), pair15.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var16(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf16(new uint8_t[9]);
-    const uint8_t src16[] = "reduction";
-    reql_string_init(var16.get(), buf16.get(), 9);
-    reql_string_append(var16.get(), src16, 9);
+    std::unique_ptr<uint8_t[]> buf16(new uint8_t[5]);
+    const uint8_t src16[] = "group";
+    reql_string_init(var16.get(), buf16.get(), 5);
+    reql_string_append(var16.get(), src16, 5);
 
     std::unique_ptr<ReQL_Obj_t> var17(new ReQL_Obj_t);
-    reql_number_init(var17.get(), 32);
+    std::unique_ptr<ReQL_Obj_t*[]> arr17(new ReQL_Obj_t*[2]);
+    reql_array_init(var17.get(), arr17.get(), 2);
+
+    std::unique_ptr<ReQL_Obj_t> var18(new ReQL_Obj_t);
+    reql_number_init(var18.get(), 2);
+
+    reql_array_append(var17.get(), var18.get());
+
+    std::unique_ptr<ReQL_Obj_t> var19(new ReQL_Obj_t);
+    reql_number_init(var19.get(), 2);
+
+    reql_array_append(var17.get(), var19.get());
 
     reql_object_add(var15.get(), var16.get(), var17.get());
 
-    std::unique_ptr<ReQL_Obj_t> var18(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf18(new uint8_t[5]);
-    const uint8_t src18[] = "group";
-    reql_string_init(var18.get(), buf18.get(), 5);
-    reql_string_append(var18.get(), src18, 5);
-
-    std::unique_ptr<ReQL_Obj_t> var19(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*[]> arr19(new ReQL_Obj_t*[2]);
-    reql_array_init(var19.get(), arr19.get(), 2);
-
     std::unique_ptr<ReQL_Obj_t> var20(new ReQL_Obj_t);
-    reql_number_init(var20.get(), 2);
-
-    reql_array_append(var19.get(), var20.get());
+    std::unique_ptr<uint8_t[]> buf20(new uint8_t[9]);
+    const uint8_t src20[] = "reduction";
+    reql_string_init(var20.get(), buf20.get(), 9);
+    reql_string_append(var20.get(), src20, 9);
 
     std::unique_ptr<ReQL_Obj_t> var21(new ReQL_Obj_t);
-    reql_number_init(var21.get(), 2);
+    reql_number_init(var21.get(), 32);
 
-    reql_array_append(var19.get(), var21.get());
-
-    reql_object_add(var15.get(), var18.get(), var19.get());
+    reql_object_add(var15.get(), var20.get(), var21.get());
 
     reql_array_append(var0.get(), var15.get());
 
@@ -9493,37 +9493,37 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var22.get(), pair22.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var23(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf23(new uint8_t[9]);
-    const uint8_t src23[] = "reduction";
-    reql_string_init(var23.get(), buf23.get(), 9);
-    reql_string_append(var23.get(), src23, 9);
+    std::unique_ptr<uint8_t[]> buf23(new uint8_t[5]);
+    const uint8_t src23[] = "group";
+    reql_string_init(var23.get(), buf23.get(), 5);
+    reql_string_append(var23.get(), src23, 5);
 
     std::unique_ptr<ReQL_Obj_t> var24(new ReQL_Obj_t);
-    reql_number_init(var24.get(), 36);
+    std::unique_ptr<ReQL_Obj_t*[]> arr24(new ReQL_Obj_t*[2]);
+    reql_array_init(var24.get(), arr24.get(), 2);
+
+    std::unique_ptr<ReQL_Obj_t> var25(new ReQL_Obj_t);
+    reql_number_init(var25.get(), 3);
+
+    reql_array_append(var24.get(), var25.get());
+
+    std::unique_ptr<ReQL_Obj_t> var26(new ReQL_Obj_t);
+    reql_number_init(var26.get(), 3);
+
+    reql_array_append(var24.get(), var26.get());
 
     reql_object_add(var22.get(), var23.get(), var24.get());
 
-    std::unique_ptr<ReQL_Obj_t> var25(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf25(new uint8_t[5]);
-    const uint8_t src25[] = "group";
-    reql_string_init(var25.get(), buf25.get(), 5);
-    reql_string_append(var25.get(), src25, 5);
-
-    std::unique_ptr<ReQL_Obj_t> var26(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*[]> arr26(new ReQL_Obj_t*[2]);
-    reql_array_init(var26.get(), arr26.get(), 2);
-
     std::unique_ptr<ReQL_Obj_t> var27(new ReQL_Obj_t);
-    reql_number_init(var27.get(), 3);
-
-    reql_array_append(var26.get(), var27.get());
+    std::unique_ptr<uint8_t[]> buf27(new uint8_t[9]);
+    const uint8_t src27[] = "reduction";
+    reql_string_init(var27.get(), buf27.get(), 9);
+    reql_string_append(var27.get(), src27, 9);
 
     std::unique_ptr<ReQL_Obj_t> var28(new ReQL_Obj_t);
-    reql_number_init(var28.get(), 3);
+    reql_number_init(var28.get(), 36);
 
-    reql_array_append(var26.get(), var28.get());
-
-    reql_object_add(var22.get(), var25.get(), var26.get());
+    reql_object_add(var22.get(), var27.get(), var28.get());
 
     reql_array_append(var0.get(), var22.get());
   }
@@ -9538,37 +9538,37 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var1.get(), pair1.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[9]);
-    const uint8_t src2[] = "reduction";
-    reql_string_init(var2.get(), buf2.get(), 9);
-    reql_string_append(var2.get(), src2, 9);
+    std::unique_ptr<uint8_t[]> buf2(new uint8_t[5]);
+    const uint8_t src2[] = "group";
+    reql_string_init(var2.get(), buf2.get(), 5);
+    reql_string_append(var2.get(), src2, 5);
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
-    reql_number_init(var3.get(), 25);
+    std::unique_ptr<ReQL_Obj_t*[]> arr3(new ReQL_Obj_t*[2]);
+    reql_array_init(var3.get(), arr3.get(), 2);
+
+    std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
+    reql_number_init(var4.get(), 0);
+
+    reql_array_append(var3.get(), var4.get());
+
+    std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
+    reql_null_init(var5.get());
+
+    reql_array_append(var3.get(), var5.get());
 
     reql_object_add(var1.get(), var2.get(), var3.get());
 
-    std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf4(new uint8_t[5]);
-    const uint8_t src4[] = "group";
-    reql_string_init(var4.get(), buf4.get(), 5);
-    reql_string_append(var4.get(), src4, 5);
-
-    std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*[]> arr5(new ReQL_Obj_t*[2]);
-    reql_array_init(var5.get(), arr5.get(), 2);
-
     std::unique_ptr<ReQL_Obj_t> var6(new ReQL_Obj_t);
-    reql_number_init(var6.get(), 0);
-
-    reql_array_append(var5.get(), var6.get());
+    std::unique_ptr<uint8_t[]> buf6(new uint8_t[9]);
+    const uint8_t src6[] = "reduction";
+    reql_string_init(var6.get(), buf6.get(), 9);
+    reql_string_append(var6.get(), src6, 9);
 
     std::unique_ptr<ReQL_Obj_t> var7(new ReQL_Obj_t);
-    reql_null_init(var7.get());
+    reql_number_init(var7.get(), 25);
 
-    reql_array_append(var5.get(), var7.get());
-
-    reql_object_add(var1.get(), var4.get(), var5.get());
+    reql_object_add(var1.get(), var6.get(), var7.get());
 
     reql_array_append(var0.get(), var1.get());
 
@@ -9577,37 +9577,37 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var8.get(), pair8.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var9(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf9(new uint8_t[9]);
-    const uint8_t src9[] = "reduction";
-    reql_string_init(var9.get(), buf9.get(), 9);
-    reql_string_append(var9.get(), src9, 9);
+    std::unique_ptr<uint8_t[]> buf9(new uint8_t[5]);
+    const uint8_t src9[] = "group";
+    reql_string_init(var9.get(), buf9.get(), 5);
+    reql_string_append(var9.get(), src9, 5);
 
     std::unique_ptr<ReQL_Obj_t> var10(new ReQL_Obj_t);
-    reql_number_init(var10.get(), 25);
+    std::unique_ptr<ReQL_Obj_t*[]> arr10(new ReQL_Obj_t*[2]);
+    reql_array_init(var10.get(), arr10.get(), 2);
+
+    std::unique_ptr<ReQL_Obj_t> var11(new ReQL_Obj_t);
+    reql_number_init(var11.get(), 1);
+
+    reql_array_append(var10.get(), var11.get());
+
+    std::unique_ptr<ReQL_Obj_t> var12(new ReQL_Obj_t);
+    reql_null_init(var12.get());
+
+    reql_array_append(var10.get(), var12.get());
 
     reql_object_add(var8.get(), var9.get(), var10.get());
 
-    std::unique_ptr<ReQL_Obj_t> var11(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf11(new uint8_t[5]);
-    const uint8_t src11[] = "group";
-    reql_string_init(var11.get(), buf11.get(), 5);
-    reql_string_append(var11.get(), src11, 5);
-
-    std::unique_ptr<ReQL_Obj_t> var12(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*[]> arr12(new ReQL_Obj_t*[2]);
-    reql_array_init(var12.get(), arr12.get(), 2);
-
     std::unique_ptr<ReQL_Obj_t> var13(new ReQL_Obj_t);
-    reql_number_init(var13.get(), 1);
-
-    reql_array_append(var12.get(), var13.get());
+    std::unique_ptr<uint8_t[]> buf13(new uint8_t[9]);
+    const uint8_t src13[] = "reduction";
+    reql_string_init(var13.get(), buf13.get(), 9);
+    reql_string_append(var13.get(), src13, 9);
 
     std::unique_ptr<ReQL_Obj_t> var14(new ReQL_Obj_t);
-    reql_null_init(var14.get());
+    reql_number_init(var14.get(), 25);
 
-    reql_array_append(var12.get(), var14.get());
-
-    reql_object_add(var8.get(), var11.get(), var12.get());
+    reql_object_add(var8.get(), var13.get(), var14.get());
 
     reql_array_append(var0.get(), var8.get());
 
@@ -9616,37 +9616,37 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var15.get(), pair15.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var16(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf16(new uint8_t[9]);
-    const uint8_t src16[] = "reduction";
-    reql_string_init(var16.get(), buf16.get(), 9);
-    reql_string_append(var16.get(), src16, 9);
+    std::unique_ptr<uint8_t[]> buf16(new uint8_t[5]);
+    const uint8_t src16[] = "group";
+    reql_string_init(var16.get(), buf16.get(), 5);
+    reql_string_append(var16.get(), src16, 5);
 
     std::unique_ptr<ReQL_Obj_t> var17(new ReQL_Obj_t);
-    reql_number_init(var17.get(), 25);
+    std::unique_ptr<ReQL_Obj_t*[]> arr17(new ReQL_Obj_t*[2]);
+    reql_array_init(var17.get(), arr17.get(), 2);
+
+    std::unique_ptr<ReQL_Obj_t> var18(new ReQL_Obj_t);
+    reql_number_init(var18.get(), 2);
+
+    reql_array_append(var17.get(), var18.get());
+
+    std::unique_ptr<ReQL_Obj_t> var19(new ReQL_Obj_t);
+    reql_null_init(var19.get());
+
+    reql_array_append(var17.get(), var19.get());
 
     reql_object_add(var15.get(), var16.get(), var17.get());
 
-    std::unique_ptr<ReQL_Obj_t> var18(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf18(new uint8_t[5]);
-    const uint8_t src18[] = "group";
-    reql_string_init(var18.get(), buf18.get(), 5);
-    reql_string_append(var18.get(), src18, 5);
-
-    std::unique_ptr<ReQL_Obj_t> var19(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*[]> arr19(new ReQL_Obj_t*[2]);
-    reql_array_init(var19.get(), arr19.get(), 2);
-
     std::unique_ptr<ReQL_Obj_t> var20(new ReQL_Obj_t);
-    reql_number_init(var20.get(), 2);
-
-    reql_array_append(var19.get(), var20.get());
+    std::unique_ptr<uint8_t[]> buf20(new uint8_t[9]);
+    const uint8_t src20[] = "reduction";
+    reql_string_init(var20.get(), buf20.get(), 9);
+    reql_string_append(var20.get(), src20, 9);
 
     std::unique_ptr<ReQL_Obj_t> var21(new ReQL_Obj_t);
-    reql_null_init(var21.get());
+    reql_number_init(var21.get(), 25);
 
-    reql_array_append(var19.get(), var21.get());
-
-    reql_object_add(var15.get(), var18.get(), var19.get());
+    reql_object_add(var15.get(), var20.get(), var21.get());
 
     reql_array_append(var0.get(), var15.get());
 
@@ -9655,37 +9655,37 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var22.get(), pair22.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var23(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf23(new uint8_t[9]);
-    const uint8_t src23[] = "reduction";
-    reql_string_init(var23.get(), buf23.get(), 9);
-    reql_string_append(var23.get(), src23, 9);
+    std::unique_ptr<uint8_t[]> buf23(new uint8_t[5]);
+    const uint8_t src23[] = "group";
+    reql_string_init(var23.get(), buf23.get(), 5);
+    reql_string_append(var23.get(), src23, 5);
 
     std::unique_ptr<ReQL_Obj_t> var24(new ReQL_Obj_t);
-    reql_number_init(var24.get(), 25);
+    std::unique_ptr<ReQL_Obj_t*[]> arr24(new ReQL_Obj_t*[2]);
+    reql_array_init(var24.get(), arr24.get(), 2);
+
+    std::unique_ptr<ReQL_Obj_t> var25(new ReQL_Obj_t);
+    reql_number_init(var25.get(), 3);
+
+    reql_array_append(var24.get(), var25.get());
+
+    std::unique_ptr<ReQL_Obj_t> var26(new ReQL_Obj_t);
+    reql_null_init(var26.get());
+
+    reql_array_append(var24.get(), var26.get());
 
     reql_object_add(var22.get(), var23.get(), var24.get());
 
-    std::unique_ptr<ReQL_Obj_t> var25(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf25(new uint8_t[5]);
-    const uint8_t src25[] = "group";
-    reql_string_init(var25.get(), buf25.get(), 5);
-    reql_string_append(var25.get(), src25, 5);
-
-    std::unique_ptr<ReQL_Obj_t> var26(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*[]> arr26(new ReQL_Obj_t*[2]);
-    reql_array_init(var26.get(), arr26.get(), 2);
-
     std::unique_ptr<ReQL_Obj_t> var27(new ReQL_Obj_t);
-    reql_number_init(var27.get(), 3);
-
-    reql_array_append(var26.get(), var27.get());
+    std::unique_ptr<uint8_t[]> buf27(new uint8_t[9]);
+    const uint8_t src27[] = "reduction";
+    reql_string_init(var27.get(), buf27.get(), 9);
+    reql_string_append(var27.get(), src27, 9);
 
     std::unique_ptr<ReQL_Obj_t> var28(new ReQL_Obj_t);
-    reql_null_init(var28.get());
+    reql_number_init(var28.get(), 25);
 
-    reql_array_append(var26.get(), var28.get());
-
-    reql_object_add(var22.get(), var25.get(), var26.get());
+    reql_object_add(var22.get(), var27.get(), var28.get());
 
     reql_array_append(var0.get(), var22.get());
   }
@@ -9700,37 +9700,37 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var1.get(), pair1.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[9]);
-    const uint8_t src2[] = "reduction";
-    reql_string_init(var2.get(), buf2.get(), 9);
-    reql_string_append(var2.get(), src2, 9);
+    std::unique_ptr<uint8_t[]> buf2(new uint8_t[5]);
+    const uint8_t src2[] = "group";
+    reql_string_init(var2.get(), buf2.get(), 5);
+    reql_string_append(var2.get(), src2, 5);
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
-    reql_number_init(var3.get(), 25);
+    std::unique_ptr<ReQL_Obj_t*[]> arr3(new ReQL_Obj_t*[2]);
+    reql_array_init(var3.get(), arr3.get(), 2);
+
+    std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
+    reql_number_init(var4.get(), 0);
+
+    reql_array_append(var3.get(), var4.get());
+
+    std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
+    reql_number_init(var5.get(), 1);
+
+    reql_array_append(var3.get(), var5.get());
 
     reql_object_add(var1.get(), var2.get(), var3.get());
 
-    std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf4(new uint8_t[5]);
-    const uint8_t src4[] = "group";
-    reql_string_init(var4.get(), buf4.get(), 5);
-    reql_string_append(var4.get(), src4, 5);
-
-    std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*[]> arr5(new ReQL_Obj_t*[2]);
-    reql_array_init(var5.get(), arr5.get(), 2);
-
     std::unique_ptr<ReQL_Obj_t> var6(new ReQL_Obj_t);
-    reql_number_init(var6.get(), 0);
-
-    reql_array_append(var5.get(), var6.get());
+    std::unique_ptr<uint8_t[]> buf6(new uint8_t[9]);
+    const uint8_t src6[] = "reduction";
+    reql_string_init(var6.get(), buf6.get(), 9);
+    reql_string_append(var6.get(), src6, 9);
 
     std::unique_ptr<ReQL_Obj_t> var7(new ReQL_Obj_t);
-    reql_number_init(var7.get(), 1);
+    reql_number_init(var7.get(), 25);
 
-    reql_array_append(var5.get(), var7.get());
-
-    reql_object_add(var1.get(), var4.get(), var5.get());
+    reql_object_add(var1.get(), var6.get(), var7.get());
 
     reql_array_append(var0.get(), var1.get());
 
@@ -9739,40 +9739,40 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var8.get(), pair8.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var9(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf9(new uint8_t[9]);
-    const uint8_t src9[] = "reduction";
-    reql_string_init(var9.get(), buf9.get(), 9);
-    reql_string_append(var9.get(), src9, 9);
+    std::unique_ptr<uint8_t[]> buf9(new uint8_t[5]);
+    const uint8_t src9[] = "group";
+    reql_string_init(var9.get(), buf9.get(), 5);
+    reql_string_append(var9.get(), src9, 5);
 
     std::unique_ptr<ReQL_Obj_t> var10(new ReQL_Obj_t);
-    reql_number_init(var10.get(), 25);
+    std::unique_ptr<ReQL_Obj_t*[]> arr10(new ReQL_Obj_t*[2]);
+    reql_array_init(var10.get(), arr10.get(), 2);
+
+    std::unique_ptr<ReQL_Obj_t> var11(new ReQL_Obj_t);
+    reql_number_init(var11.get(), 0);
+
+    reql_array_append(var10.get(), var11.get());
+
+    std::unique_ptr<ReQL_Obj_t> var12(new ReQL_Obj_t);
+    std::unique_ptr<uint8_t[]> buf12(new uint8_t[3]);
+    const uint8_t src12[] = "two";
+    reql_string_init(var12.get(), buf12.get(), 3);
+    reql_string_append(var12.get(), src12, 3);
+
+    reql_array_append(var10.get(), var12.get());
 
     reql_object_add(var8.get(), var9.get(), var10.get());
 
-    std::unique_ptr<ReQL_Obj_t> var11(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf11(new uint8_t[5]);
-    const uint8_t src11[] = "group";
-    reql_string_init(var11.get(), buf11.get(), 5);
-    reql_string_append(var11.get(), src11, 5);
-
-    std::unique_ptr<ReQL_Obj_t> var12(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*[]> arr12(new ReQL_Obj_t*[2]);
-    reql_array_init(var12.get(), arr12.get(), 2);
-
     std::unique_ptr<ReQL_Obj_t> var13(new ReQL_Obj_t);
-    reql_number_init(var13.get(), 0);
-
-    reql_array_append(var12.get(), var13.get());
+    std::unique_ptr<uint8_t[]> buf13(new uint8_t[9]);
+    const uint8_t src13[] = "reduction";
+    reql_string_init(var13.get(), buf13.get(), 9);
+    reql_string_append(var13.get(), src13, 9);
 
     std::unique_ptr<ReQL_Obj_t> var14(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf14(new uint8_t[3]);
-    const uint8_t src14[] = "two";
-    reql_string_init(var14.get(), buf14.get(), 3);
-    reql_string_append(var14.get(), src14, 3);
+    reql_number_init(var14.get(), 25);
 
-    reql_array_append(var12.get(), var14.get());
-
-    reql_object_add(var8.get(), var11.get(), var12.get());
+    reql_object_add(var8.get(), var13.get(), var14.get());
 
     reql_array_append(var0.get(), var8.get());
 
@@ -9781,37 +9781,37 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var15.get(), pair15.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var16(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf16(new uint8_t[9]);
-    const uint8_t src16[] = "reduction";
-    reql_string_init(var16.get(), buf16.get(), 9);
-    reql_string_append(var16.get(), src16, 9);
+    std::unique_ptr<uint8_t[]> buf16(new uint8_t[5]);
+    const uint8_t src16[] = "group";
+    reql_string_init(var16.get(), buf16.get(), 5);
+    reql_string_append(var16.get(), src16, 5);
 
     std::unique_ptr<ReQL_Obj_t> var17(new ReQL_Obj_t);
-    reql_number_init(var17.get(), 25);
+    std::unique_ptr<ReQL_Obj_t*[]> arr17(new ReQL_Obj_t*[2]);
+    reql_array_init(var17.get(), arr17.get(), 2);
+
+    std::unique_ptr<ReQL_Obj_t> var18(new ReQL_Obj_t);
+    reql_number_init(var18.get(), 1);
+
+    reql_array_append(var17.get(), var18.get());
+
+    std::unique_ptr<ReQL_Obj_t> var19(new ReQL_Obj_t);
+    reql_number_init(var19.get(), 1);
+
+    reql_array_append(var17.get(), var19.get());
 
     reql_object_add(var15.get(), var16.get(), var17.get());
 
-    std::unique_ptr<ReQL_Obj_t> var18(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf18(new uint8_t[5]);
-    const uint8_t src18[] = "group";
-    reql_string_init(var18.get(), buf18.get(), 5);
-    reql_string_append(var18.get(), src18, 5);
-
-    std::unique_ptr<ReQL_Obj_t> var19(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*[]> arr19(new ReQL_Obj_t*[2]);
-    reql_array_init(var19.get(), arr19.get(), 2);
-
     std::unique_ptr<ReQL_Obj_t> var20(new ReQL_Obj_t);
-    reql_number_init(var20.get(), 1);
-
-    reql_array_append(var19.get(), var20.get());
+    std::unique_ptr<uint8_t[]> buf20(new uint8_t[9]);
+    const uint8_t src20[] = "reduction";
+    reql_string_init(var20.get(), buf20.get(), 9);
+    reql_string_append(var20.get(), src20, 9);
 
     std::unique_ptr<ReQL_Obj_t> var21(new ReQL_Obj_t);
-    reql_number_init(var21.get(), 1);
+    reql_number_init(var21.get(), 25);
 
-    reql_array_append(var19.get(), var21.get());
-
-    reql_object_add(var15.get(), var18.get(), var19.get());
+    reql_object_add(var15.get(), var20.get(), var21.get());
 
     reql_array_append(var0.get(), var15.get());
 
@@ -9820,40 +9820,40 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var22.get(), pair22.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var23(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf23(new uint8_t[9]);
-    const uint8_t src23[] = "reduction";
-    reql_string_init(var23.get(), buf23.get(), 9);
-    reql_string_append(var23.get(), src23, 9);
+    std::unique_ptr<uint8_t[]> buf23(new uint8_t[5]);
+    const uint8_t src23[] = "group";
+    reql_string_init(var23.get(), buf23.get(), 5);
+    reql_string_append(var23.get(), src23, 5);
 
     std::unique_ptr<ReQL_Obj_t> var24(new ReQL_Obj_t);
-    reql_number_init(var24.get(), 25);
+    std::unique_ptr<ReQL_Obj_t*[]> arr24(new ReQL_Obj_t*[2]);
+    reql_array_init(var24.get(), arr24.get(), 2);
+
+    std::unique_ptr<ReQL_Obj_t> var25(new ReQL_Obj_t);
+    reql_number_init(var25.get(), 1);
+
+    reql_array_append(var24.get(), var25.get());
+
+    std::unique_ptr<ReQL_Obj_t> var26(new ReQL_Obj_t);
+    std::unique_ptr<uint8_t[]> buf26(new uint8_t[3]);
+    const uint8_t src26[] = "two";
+    reql_string_init(var26.get(), buf26.get(), 3);
+    reql_string_append(var26.get(), src26, 3);
+
+    reql_array_append(var24.get(), var26.get());
 
     reql_object_add(var22.get(), var23.get(), var24.get());
 
-    std::unique_ptr<ReQL_Obj_t> var25(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf25(new uint8_t[5]);
-    const uint8_t src25[] = "group";
-    reql_string_init(var25.get(), buf25.get(), 5);
-    reql_string_append(var25.get(), src25, 5);
-
-    std::unique_ptr<ReQL_Obj_t> var26(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*[]> arr26(new ReQL_Obj_t*[2]);
-    reql_array_init(var26.get(), arr26.get(), 2);
-
     std::unique_ptr<ReQL_Obj_t> var27(new ReQL_Obj_t);
-    reql_number_init(var27.get(), 1);
-
-    reql_array_append(var26.get(), var27.get());
+    std::unique_ptr<uint8_t[]> buf27(new uint8_t[9]);
+    const uint8_t src27[] = "reduction";
+    reql_string_init(var27.get(), buf27.get(), 9);
+    reql_string_append(var27.get(), src27, 9);
 
     std::unique_ptr<ReQL_Obj_t> var28(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf28(new uint8_t[3]);
-    const uint8_t src28[] = "two";
-    reql_string_init(var28.get(), buf28.get(), 3);
-    reql_string_append(var28.get(), src28, 3);
+    reql_number_init(var28.get(), 25);
 
-    reql_array_append(var26.get(), var28.get());
-
-    reql_object_add(var22.get(), var25.get(), var26.get());
+    reql_object_add(var22.get(), var27.get(), var28.get());
 
     reql_array_append(var0.get(), var22.get());
 
@@ -9862,37 +9862,37 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var29.get(), pair29.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var30(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf30(new uint8_t[9]);
-    const uint8_t src30[] = "reduction";
-    reql_string_init(var30.get(), buf30.get(), 9);
-    reql_string_append(var30.get(), src30, 9);
+    std::unique_ptr<uint8_t[]> buf30(new uint8_t[5]);
+    const uint8_t src30[] = "group";
+    reql_string_init(var30.get(), buf30.get(), 5);
+    reql_string_append(var30.get(), src30, 5);
 
     std::unique_ptr<ReQL_Obj_t> var31(new ReQL_Obj_t);
-    reql_number_init(var31.get(), 25);
+    std::unique_ptr<ReQL_Obj_t*[]> arr31(new ReQL_Obj_t*[2]);
+    reql_array_init(var31.get(), arr31.get(), 2);
+
+    std::unique_ptr<ReQL_Obj_t> var32(new ReQL_Obj_t);
+    reql_number_init(var32.get(), 2);
+
+    reql_array_append(var31.get(), var32.get());
+
+    std::unique_ptr<ReQL_Obj_t> var33(new ReQL_Obj_t);
+    reql_number_init(var33.get(), 1);
+
+    reql_array_append(var31.get(), var33.get());
 
     reql_object_add(var29.get(), var30.get(), var31.get());
 
-    std::unique_ptr<ReQL_Obj_t> var32(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf32(new uint8_t[5]);
-    const uint8_t src32[] = "group";
-    reql_string_init(var32.get(), buf32.get(), 5);
-    reql_string_append(var32.get(), src32, 5);
-
-    std::unique_ptr<ReQL_Obj_t> var33(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*[]> arr33(new ReQL_Obj_t*[2]);
-    reql_array_init(var33.get(), arr33.get(), 2);
-
     std::unique_ptr<ReQL_Obj_t> var34(new ReQL_Obj_t);
-    reql_number_init(var34.get(), 2);
-
-    reql_array_append(var33.get(), var34.get());
+    std::unique_ptr<uint8_t[]> buf34(new uint8_t[9]);
+    const uint8_t src34[] = "reduction";
+    reql_string_init(var34.get(), buf34.get(), 9);
+    reql_string_append(var34.get(), src34, 9);
 
     std::unique_ptr<ReQL_Obj_t> var35(new ReQL_Obj_t);
-    reql_number_init(var35.get(), 1);
+    reql_number_init(var35.get(), 25);
 
-    reql_array_append(var33.get(), var35.get());
-
-    reql_object_add(var29.get(), var32.get(), var33.get());
+    reql_object_add(var29.get(), var34.get(), var35.get());
 
     reql_array_append(var0.get(), var29.get());
 
@@ -9901,40 +9901,40 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var36.get(), pair36.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var37(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf37(new uint8_t[9]);
-    const uint8_t src37[] = "reduction";
-    reql_string_init(var37.get(), buf37.get(), 9);
-    reql_string_append(var37.get(), src37, 9);
+    std::unique_ptr<uint8_t[]> buf37(new uint8_t[5]);
+    const uint8_t src37[] = "group";
+    reql_string_init(var37.get(), buf37.get(), 5);
+    reql_string_append(var37.get(), src37, 5);
 
     std::unique_ptr<ReQL_Obj_t> var38(new ReQL_Obj_t);
-    reql_number_init(var38.get(), 25);
+    std::unique_ptr<ReQL_Obj_t*[]> arr38(new ReQL_Obj_t*[2]);
+    reql_array_init(var38.get(), arr38.get(), 2);
+
+    std::unique_ptr<ReQL_Obj_t> var39(new ReQL_Obj_t);
+    reql_number_init(var39.get(), 2);
+
+    reql_array_append(var38.get(), var39.get());
+
+    std::unique_ptr<ReQL_Obj_t> var40(new ReQL_Obj_t);
+    std::unique_ptr<uint8_t[]> buf40(new uint8_t[3]);
+    const uint8_t src40[] = "two";
+    reql_string_init(var40.get(), buf40.get(), 3);
+    reql_string_append(var40.get(), src40, 3);
+
+    reql_array_append(var38.get(), var40.get());
 
     reql_object_add(var36.get(), var37.get(), var38.get());
 
-    std::unique_ptr<ReQL_Obj_t> var39(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf39(new uint8_t[5]);
-    const uint8_t src39[] = "group";
-    reql_string_init(var39.get(), buf39.get(), 5);
-    reql_string_append(var39.get(), src39, 5);
-
-    std::unique_ptr<ReQL_Obj_t> var40(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*[]> arr40(new ReQL_Obj_t*[2]);
-    reql_array_init(var40.get(), arr40.get(), 2);
-
     std::unique_ptr<ReQL_Obj_t> var41(new ReQL_Obj_t);
-    reql_number_init(var41.get(), 2);
-
-    reql_array_append(var40.get(), var41.get());
+    std::unique_ptr<uint8_t[]> buf41(new uint8_t[9]);
+    const uint8_t src41[] = "reduction";
+    reql_string_init(var41.get(), buf41.get(), 9);
+    reql_string_append(var41.get(), src41, 9);
 
     std::unique_ptr<ReQL_Obj_t> var42(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf42(new uint8_t[3]);
-    const uint8_t src42[] = "two";
-    reql_string_init(var42.get(), buf42.get(), 3);
-    reql_string_append(var42.get(), src42, 3);
+    reql_number_init(var42.get(), 25);
 
-    reql_array_append(var40.get(), var42.get());
-
-    reql_object_add(var36.get(), var39.get(), var40.get());
+    reql_object_add(var36.get(), var41.get(), var42.get());
 
     reql_array_append(var0.get(), var36.get());
 
@@ -9943,37 +9943,37 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var43.get(), pair43.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var44(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf44(new uint8_t[9]);
-    const uint8_t src44[] = "reduction";
-    reql_string_init(var44.get(), buf44.get(), 9);
-    reql_string_append(var44.get(), src44, 9);
+    std::unique_ptr<uint8_t[]> buf44(new uint8_t[5]);
+    const uint8_t src44[] = "group";
+    reql_string_init(var44.get(), buf44.get(), 5);
+    reql_string_append(var44.get(), src44, 5);
 
     std::unique_ptr<ReQL_Obj_t> var45(new ReQL_Obj_t);
-    reql_number_init(var45.get(), 25);
+    std::unique_ptr<ReQL_Obj_t*[]> arr45(new ReQL_Obj_t*[2]);
+    reql_array_init(var45.get(), arr45.get(), 2);
+
+    std::unique_ptr<ReQL_Obj_t> var46(new ReQL_Obj_t);
+    reql_number_init(var46.get(), 3);
+
+    reql_array_append(var45.get(), var46.get());
+
+    std::unique_ptr<ReQL_Obj_t> var47(new ReQL_Obj_t);
+    reql_number_init(var47.get(), 1);
+
+    reql_array_append(var45.get(), var47.get());
 
     reql_object_add(var43.get(), var44.get(), var45.get());
 
-    std::unique_ptr<ReQL_Obj_t> var46(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf46(new uint8_t[5]);
-    const uint8_t src46[] = "group";
-    reql_string_init(var46.get(), buf46.get(), 5);
-    reql_string_append(var46.get(), src46, 5);
-
-    std::unique_ptr<ReQL_Obj_t> var47(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*[]> arr47(new ReQL_Obj_t*[2]);
-    reql_array_init(var47.get(), arr47.get(), 2);
-
     std::unique_ptr<ReQL_Obj_t> var48(new ReQL_Obj_t);
-    reql_number_init(var48.get(), 3);
-
-    reql_array_append(var47.get(), var48.get());
+    std::unique_ptr<uint8_t[]> buf48(new uint8_t[9]);
+    const uint8_t src48[] = "reduction";
+    reql_string_init(var48.get(), buf48.get(), 9);
+    reql_string_append(var48.get(), src48, 9);
 
     std::unique_ptr<ReQL_Obj_t> var49(new ReQL_Obj_t);
-    reql_number_init(var49.get(), 1);
+    reql_number_init(var49.get(), 25);
 
-    reql_array_append(var47.get(), var49.get());
-
-    reql_object_add(var43.get(), var46.get(), var47.get());
+    reql_object_add(var43.get(), var48.get(), var49.get());
 
     reql_array_append(var0.get(), var43.get());
 
@@ -9982,40 +9982,40 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var50.get(), pair50.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var51(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf51(new uint8_t[9]);
-    const uint8_t src51[] = "reduction";
-    reql_string_init(var51.get(), buf51.get(), 9);
-    reql_string_append(var51.get(), src51, 9);
+    std::unique_ptr<uint8_t[]> buf51(new uint8_t[5]);
+    const uint8_t src51[] = "group";
+    reql_string_init(var51.get(), buf51.get(), 5);
+    reql_string_append(var51.get(), src51, 5);
 
     std::unique_ptr<ReQL_Obj_t> var52(new ReQL_Obj_t);
-    reql_number_init(var52.get(), 25);
+    std::unique_ptr<ReQL_Obj_t*[]> arr52(new ReQL_Obj_t*[2]);
+    reql_array_init(var52.get(), arr52.get(), 2);
+
+    std::unique_ptr<ReQL_Obj_t> var53(new ReQL_Obj_t);
+    reql_number_init(var53.get(), 3);
+
+    reql_array_append(var52.get(), var53.get());
+
+    std::unique_ptr<ReQL_Obj_t> var54(new ReQL_Obj_t);
+    std::unique_ptr<uint8_t[]> buf54(new uint8_t[3]);
+    const uint8_t src54[] = "two";
+    reql_string_init(var54.get(), buf54.get(), 3);
+    reql_string_append(var54.get(), src54, 3);
+
+    reql_array_append(var52.get(), var54.get());
 
     reql_object_add(var50.get(), var51.get(), var52.get());
 
-    std::unique_ptr<ReQL_Obj_t> var53(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf53(new uint8_t[5]);
-    const uint8_t src53[] = "group";
-    reql_string_init(var53.get(), buf53.get(), 5);
-    reql_string_append(var53.get(), src53, 5);
-
-    std::unique_ptr<ReQL_Obj_t> var54(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*[]> arr54(new ReQL_Obj_t*[2]);
-    reql_array_init(var54.get(), arr54.get(), 2);
-
     std::unique_ptr<ReQL_Obj_t> var55(new ReQL_Obj_t);
-    reql_number_init(var55.get(), 3);
-
-    reql_array_append(var54.get(), var55.get());
+    std::unique_ptr<uint8_t[]> buf55(new uint8_t[9]);
+    const uint8_t src55[] = "reduction";
+    reql_string_init(var55.get(), buf55.get(), 9);
+    reql_string_append(var55.get(), src55, 9);
 
     std::unique_ptr<ReQL_Obj_t> var56(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf56(new uint8_t[3]);
-    const uint8_t src56[] = "two";
-    reql_string_init(var56.get(), buf56.get(), 3);
-    reql_string_append(var56.get(), src56, 3);
+    reql_number_init(var56.get(), 25);
 
-    reql_array_append(var54.get(), var56.get());
-
-    reql_object_add(var50.get(), var53.get(), var54.get());
+    reql_object_add(var50.get(), var55.get(), var56.get());
 
     reql_array_append(var0.get(), var50.get());
   }
@@ -10031,10 +10031,10 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var0.get(), pair0.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[2]);
-    const uint8_t src1[] = "id";
-    reql_string_init(var1.get(), buf1.get(), 2);
-    reql_string_append(var1.get(), src1, 2);
+    std::unique_ptr<uint8_t[]> buf1(new uint8_t[1]);
+    const uint8_t src1[] = "a";
+    reql_string_init(var1.get(), buf1.get(), 1);
+    reql_string_append(var1.get(), src1, 1);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     reql_number_init(var2.get(), 0);
@@ -10042,10 +10042,10 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_add(var0.get(), var1.get(), var2.get());
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf3(new uint8_t[1]);
-    const uint8_t src3[] = "a";
-    reql_string_init(var3.get(), buf3.get(), 1);
-    reql_string_append(var3.get(), src3, 1);
+    std::unique_ptr<uint8_t[]> buf3(new uint8_t[2]);
+    const uint8_t src3[] = "id";
+    reql_string_init(var3.get(), buf3.get(), 2);
+    reql_string_append(var3.get(), src3, 2);
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
     reql_number_init(var4.get(), 0);
@@ -10059,10 +10059,10 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var0.get(), pair0.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[2]);
-    const uint8_t src1[] = "id";
-    reql_string_init(var1.get(), buf1.get(), 2);
-    reql_string_append(var1.get(), src1, 2);
+    std::unique_ptr<uint8_t[]> buf1(new uint8_t[1]);
+    const uint8_t src1[] = "a";
+    reql_string_init(var1.get(), buf1.get(), 1);
+    reql_string_append(var1.get(), src1, 1);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     reql_number_init(var2.get(), 0);
@@ -10070,10 +10070,10 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_add(var0.get(), var1.get(), var2.get());
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf3(new uint8_t[1]);
-    const uint8_t src3[] = "a";
-    reql_string_init(var3.get(), buf3.get(), 1);
-    reql_string_append(var3.get(), src3, 1);
+    std::unique_ptr<uint8_t[]> buf3(new uint8_t[2]);
+    const uint8_t src3[] = "id";
+    reql_string_init(var3.get(), buf3.get(), 2);
+    reql_string_append(var3.get(), src3, 2);
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
     reql_number_init(var4.get(), 0);
@@ -10087,10 +10087,10 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var0.get(), pair0.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[2]);
-    const uint8_t src1[] = "id";
-    reql_string_init(var1.get(), buf1.get(), 2);
-    reql_string_append(var1.get(), src1, 2);
+    std::unique_ptr<uint8_t[]> buf1(new uint8_t[1]);
+    const uint8_t src1[] = "a";
+    reql_string_init(var1.get(), buf1.get(), 1);
+    reql_string_append(var1.get(), src1, 1);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     reql_number_init(var2.get(), 0);
@@ -10098,10 +10098,10 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_add(var0.get(), var1.get(), var2.get());
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf3(new uint8_t[1]);
-    const uint8_t src3[] = "a";
-    reql_string_init(var3.get(), buf3.get(), 1);
-    reql_string_append(var3.get(), src3, 1);
+    std::unique_ptr<uint8_t[]> buf3(new uint8_t[2]);
+    const uint8_t src3[] = "id";
+    reql_string_init(var3.get(), buf3.get(), 2);
+    reql_string_append(var3.get(), src3, 2);
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
     reql_number_init(var4.get(), 0);
@@ -10115,24 +10115,24 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var0.get(), pair0.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[2]);
-    const uint8_t src1[] = "id";
-    reql_string_init(var1.get(), buf1.get(), 2);
-    reql_string_append(var1.get(), src1, 2);
+    std::unique_ptr<uint8_t[]> buf1(new uint8_t[1]);
+    const uint8_t src1[] = "a";
+    reql_string_init(var1.get(), buf1.get(), 1);
+    reql_string_append(var1.get(), src1, 1);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    reql_number_init(var2.get(), 99);
+    reql_number_init(var2.get(), 3);
 
     reql_object_add(var0.get(), var1.get(), var2.get());
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf3(new uint8_t[1]);
-    const uint8_t src3[] = "a";
-    reql_string_init(var3.get(), buf3.get(), 1);
-    reql_string_append(var3.get(), src3, 1);
+    std::unique_ptr<uint8_t[]> buf3(new uint8_t[2]);
+    const uint8_t src3[] = "id";
+    reql_string_init(var3.get(), buf3.get(), 2);
+    reql_string_append(var3.get(), src3, 2);
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
-    reql_number_init(var4.get(), 3);
+    reql_number_init(var4.get(), 99);
 
     reql_object_add(var0.get(), var3.get(), var4.get());
   }
@@ -10143,24 +10143,24 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var0.get(), pair0.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[2]);
-    const uint8_t src1[] = "id";
-    reql_string_init(var1.get(), buf1.get(), 2);
-    reql_string_append(var1.get(), src1, 2);
+    std::unique_ptr<uint8_t[]> buf1(new uint8_t[1]);
+    const uint8_t src1[] = "a";
+    reql_string_init(var1.get(), buf1.get(), 1);
+    reql_string_append(var1.get(), src1, 1);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    reql_number_init(var2.get(), 99);
+    reql_number_init(var2.get(), 3);
 
     reql_object_add(var0.get(), var1.get(), var2.get());
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf3(new uint8_t[1]);
-    const uint8_t src3[] = "a";
-    reql_string_init(var3.get(), buf3.get(), 1);
-    reql_string_append(var3.get(), src3, 1);
+    std::unique_ptr<uint8_t[]> buf3(new uint8_t[2]);
+    const uint8_t src3[] = "id";
+    reql_string_init(var3.get(), buf3.get(), 2);
+    reql_string_append(var3.get(), src3, 2);
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
-    reql_number_init(var4.get(), 3);
+    reql_number_init(var4.get(), 99);
 
     reql_object_add(var0.get(), var3.get(), var4.get());
   }
@@ -10171,24 +10171,24 @@ TEST_CASE("c Tests that manipulation data in tables", "[c][ast]") {
     reql_object_init(var0.get(), pair0.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[2]);
-    const uint8_t src1[] = "id";
-    reql_string_init(var1.get(), buf1.get(), 2);
-    reql_string_append(var1.get(), src1, 2);
+    std::unique_ptr<uint8_t[]> buf1(new uint8_t[1]);
+    const uint8_t src1[] = "a";
+    reql_string_init(var1.get(), buf1.get(), 1);
+    reql_string_append(var1.get(), src1, 1);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    reql_number_init(var2.get(), 99);
+    reql_number_init(var2.get(), 3);
 
     reql_object_add(var0.get(), var1.get(), var2.get());
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf3(new uint8_t[1]);
-    const uint8_t src3[] = "a";
-    reql_string_init(var3.get(), buf3.get(), 1);
-    reql_string_append(var3.get(), src3, 1);
+    std::unique_ptr<uint8_t[]> buf3(new uint8_t[2]);
+    const uint8_t src3[] = "id";
+    reql_string_init(var3.get(), buf3.get(), 2);
+    reql_string_append(var3.get(), src3, 2);
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
-    reql_number_init(var4.get(), 3);
+    reql_number_init(var4.get(), 99);
 
     reql_object_add(var0.get(), var3.get(), var4.get());
   }

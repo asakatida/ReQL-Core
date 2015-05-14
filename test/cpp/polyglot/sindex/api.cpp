@@ -11,7 +11,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   SECTION("test1") {
     std::map<std::string, Result> map0;
 
-    std::string src1("errors", 6);
+    std::string src1("deleted", 7);
     Result var1(src1);
 
     double num2(0);
@@ -19,7 +19,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("skipped", 7);
+    std::string src3("errors", 6);
     Result var3(src3);
 
     double num4(0);
@@ -27,23 +27,23 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
 
     map0.insert({src3, var4});
 
-    std::string src5("unchanged", 9);
+    std::string src5("inserted", 8);
     Result var5(src5);
 
-    double num6(0);
+    double num6(4);
     Result var6(num6);
 
     map0.insert({src5, var6});
 
-    std::string src7("inserted", 8);
+    std::string src7("replaced", 8);
     Result var7(src7);
 
-    double num8(4);
+    double num8(0);
     Result var8(num8);
 
     map0.insert({src7, var8});
 
-    std::string src9("deleted", 7);
+    std::string src9("skipped", 7);
     Result var9(src9);
 
     double num10(0);
@@ -51,7 +51,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
 
     map0.insert({src9, var10});
 
-    std::string src11("replaced", 8);
+    std::string src11("unchanged", 9);
     Result var11(src11);
 
     double num12(0);
@@ -297,18 +297,18 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
 
     std::map<std::string, Result> map1;
 
-    std::string src2("ready", 5);
+    std::string src2("index", 5);
     Result var2(src2);
 
-    Result var3(true);
+    std::string src3("rename-last-dup", 15);
+    Result var3(src3);
 
     map1.insert({src2, var3});
 
-    std::string src4("index", 5);
+    std::string src4("ready", 5);
     Result var4(src4);
 
-    std::string src5("rename-last-dup", 15);
-    Result var5(src5);
+    Result var5(true);
 
     map1.insert({src4, var5});
 
@@ -504,7 +504,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   SECTION("test40") {
     std::map<std::string, Result> map0;
 
-    std::string src1("errors", 6);
+    std::string src1("deleted", 7);
     Result var1(src1);
 
     double num2(0);
@@ -512,7 +512,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("skipped", 7);
+    std::string src3("errors", 6);
     Result var3(src3);
 
     double num4(0);
@@ -520,7 +520,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
 
     map0.insert({src3, var4});
 
-    std::string src5("deleted", 7);
+    std::string src5("inserted", 8);
     Result var5(src5);
 
     double num6(0);
@@ -528,7 +528,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
 
     map0.insert({src5, var6});
 
-    std::string src7("inserted", 8);
+    std::string src7("replaced", 8);
     Result var7(src7);
 
     double num8(0);
@@ -536,18 +536,18 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
 
     map0.insert({src7, var8});
 
-    std::string src9("unchanged", 9);
+    std::string src9("skipped", 7);
     Result var9(src9);
 
-    double num10(1);
+    double num10(0);
     Result var10(num10);
 
     map0.insert({src9, var10});
 
-    std::string src11("replaced", 8);
+    std::string src11("unchanged", 9);
     Result var11(src11);
 
-    double num12(0);
+    double num12(1);
     Result var12(num12);
 
     map0.insert({src11, var12});
@@ -653,7 +653,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   SECTION("test52") {
     std::map<std::string, Result> map0;
 
-    std::string src1("errors", 6);
+    std::string src1("deleted", 7);
     Result var1(src1);
 
     double num2(0);
@@ -661,7 +661,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("skipped", 7);
+    std::string src3("errors", 6);
     Result var3(src3);
 
     double num4(0);
@@ -669,7 +669,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
 
     map0.insert({src3, var4});
 
-    std::string src5("deleted", 7);
+    std::string src5("inserted", 8);
     Result var5(src5);
 
     double num6(0);
@@ -677,7 +677,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
 
     map0.insert({src5, var6});
 
-    std::string src7("inserted", 8);
+    std::string src7("replaced", 8);
     Result var7(src7);
 
     double num8(0);
@@ -685,18 +685,18 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
 
     map0.insert({src7, var8});
 
-    std::string src9("unchanged", 9);
+    std::string src9("skipped", 7);
     Result var9(src9);
 
-    double num10(1);
+    double num10(0);
     Result var10(num10);
 
     map0.insert({src9, var10});
 
-    std::string src11("replaced", 8);
+    std::string src11("unchanged", 9);
     Result var11(src11);
 
-    double num12(0);
+    double num12(1);
     Result var12(num12);
 
     map0.insert({src11, var12});
@@ -707,7 +707,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   SECTION("test53") {
     std::map<std::string, Result> map0;
 
-    std::string src1("errors", 6);
+    std::string src1("deleted", 7);
     Result var1(src1);
 
     double num2(0);
@@ -715,7 +715,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("skipped", 7);
+    std::string src3("errors", 6);
     Result var3(src3);
 
     double num4(0);
@@ -723,7 +723,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
 
     map0.insert({src3, var4});
 
-    std::string src5("deleted", 7);
+    std::string src5("inserted", 8);
     Result var5(src5);
 
     double num6(0);
@@ -731,7 +731,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
 
     map0.insert({src5, var6});
 
-    std::string src7("inserted", 8);
+    std::string src7("replaced", 8);
     Result var7(src7);
 
     double num8(0);
@@ -739,18 +739,18 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
 
     map0.insert({src7, var8});
 
-    std::string src9("unchanged", 9);
+    std::string src9("skipped", 7);
     Result var9(src9);
 
-    double num10(1);
+    double num10(0);
     Result var10(num10);
 
     map0.insert({src9, var10});
 
-    std::string src11("replaced", 8);
+    std::string src11("unchanged", 9);
     Result var11(src11);
 
-    double num12(0);
+    double num12(1);
     Result var12(num12);
 
     map0.insert({src11, var12});
@@ -761,7 +761,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   SECTION("test54") {
     std::map<std::string, Result> map0;
 
-    std::string src1("errors", 6);
+    std::string src1("deleted", 7);
     Result var1(src1);
 
     double num2(0);
@@ -769,7 +769,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("skipped", 7);
+    std::string src3("errors", 6);
     Result var3(src3);
 
     double num4(0);
@@ -777,7 +777,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
 
     map0.insert({src3, var4});
 
-    std::string src5("deleted", 7);
+    std::string src5("inserted", 8);
     Result var5(src5);
 
     double num6(0);
@@ -785,7 +785,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
 
     map0.insert({src5, var6});
 
-    std::string src7("inserted", 8);
+    std::string src7("replaced", 8);
     Result var7(src7);
 
     double num8(0);
@@ -793,18 +793,18 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
 
     map0.insert({src7, var8});
 
-    std::string src9("unchanged", 9);
+    std::string src9("skipped", 7);
     Result var9(src9);
 
-    double num10(3);
+    double num10(0);
     Result var10(num10);
 
     map0.insert({src9, var10});
 
-    std::string src11("replaced", 8);
+    std::string src11("unchanged", 9);
     Result var11(src11);
 
-    double num12(0);
+    double num12(3);
     Result var12(num12);
 
     map0.insert({src11, var12});
@@ -815,7 +815,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   SECTION("test55") {
     std::map<std::string, Result> map0;
 
-    std::string src1("errors", 6);
+    std::string src1("deleted", 7);
     Result var1(src1);
 
     double num2(0);
@@ -823,7 +823,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("skipped", 7);
+    std::string src3("errors", 6);
     Result var3(src3);
 
     double num4(0);
@@ -831,7 +831,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
 
     map0.insert({src3, var4});
 
-    std::string src5("deleted", 7);
+    std::string src5("inserted", 8);
     Result var5(src5);
 
     double num6(0);
@@ -839,7 +839,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
 
     map0.insert({src5, var6});
 
-    std::string src7("inserted", 8);
+    std::string src7("replaced", 8);
     Result var7(src7);
 
     double num8(0);
@@ -847,18 +847,18 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
 
     map0.insert({src7, var8});
 
-    std::string src9("unchanged", 9);
+    std::string src9("skipped", 7);
     Result var9(src9);
 
-    double num10(3);
+    double num10(0);
     Result var10(num10);
 
     map0.insert({src9, var10});
 
-    std::string src11("replaced", 8);
+    std::string src11("unchanged", 9);
     Result var11(src11);
 
-    double num12(0);
+    double num12(3);
     Result var12(num12);
 
     map0.insert({src11, var12});
@@ -1004,7 +1004,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   SECTION("test71") {
     std::map<std::string, Result> map0;
 
-    std::string src1("errors", 6);
+    std::string src1("deleted", 7);
     Result var1(src1);
 
     double num2(0);
@@ -1012,7 +1012,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("skipped", 7);
+    std::string src3("errors", 6);
     Result var3(src3);
 
     double num4(0);
@@ -1020,7 +1020,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
 
     map0.insert({src3, var4});
 
-    std::string src5("deleted", 7);
+    std::string src5("inserted", 8);
     Result var5(src5);
 
     double num6(0);
@@ -1028,7 +1028,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
 
     map0.insert({src5, var6});
 
-    std::string src7("inserted", 8);
+    std::string src7("replaced", 8);
     Result var7(src7);
 
     double num8(0);
@@ -1036,18 +1036,18 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
 
     map0.insert({src7, var8});
 
-    std::string src9("unchanged", 9);
+    std::string src9("skipped", 7);
     Result var9(src9);
 
-    double num10(2);
+    double num10(0);
     Result var10(num10);
 
     map0.insert({src9, var10});
 
-    std::string src11("replaced", 8);
+    std::string src11("unchanged", 9);
     Result var11(src11);
 
-    double num12(0);
+    double num12(2);
     Result var12(num12);
 
     map0.insert({src11, var12});
@@ -2769,7 +2769,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   SECTION("test100") {
     std::map<std::string, Result> map0;
 
-    std::string src1("errors", 6);
+    std::string src1("deleted", 7);
     Result var1(src1);
 
     double num2(0);
@@ -2777,7 +2777,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("skipped", 7);
+    std::string src3("errors", 6);
     Result var3(src3);
 
     double num4(0);
@@ -2785,23 +2785,23 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
 
     map0.insert({src3, var4});
 
-    std::string src5("unchanged", 9);
+    std::string src5("inserted", 8);
     Result var5(src5);
 
-    double num6(0);
+    double num6(1);
     Result var6(num6);
 
     map0.insert({src5, var6});
 
-    std::string src7("inserted", 8);
+    std::string src7("replaced", 8);
     Result var7(src7);
 
-    double num8(1);
+    double num8(0);
     Result var8(num8);
 
     map0.insert({src7, var8});
 
-    std::string src9("deleted", 7);
+    std::string src9("skipped", 7);
     Result var9(src9);
 
     double num10(0);
@@ -2809,7 +2809,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
 
     map0.insert({src9, var10});
 
-    std::string src11("replaced", 8);
+    std::string src11("unchanged", 9);
     Result var11(src11);
 
     double num12(0);

@@ -297,18 +297,18 @@ TEST_CASE("cpp Test `include_states`", "[cpp][ast]") {
 
     std::map<std::string, Result> map14;
 
-    std::string src15("id", 2);
+    std::string src15("a", 1);
     Result var15(src15);
 
-    double num16(2);
+    double num16(1);
     Result var16(num16);
 
     map14.insert({src15, var16});
 
-    std::string src17("a", 1);
+    std::string src17("id", 2);
     Result var17(src17);
 
-    double num18(1);
+    double num18(2);
     Result var18(num18);
 
     map14.insert({src17, var18});
@@ -400,18 +400,18 @@ TEST_CASE("cpp Test `include_states`", "[cpp][ast]") {
 
     std::map<std::string, Result> map11;
 
-    std::string src12("id", 2);
+    std::string src12("a", 1);
     Result var12(src12);
 
-    double num13(2);
+    double num13(1);
     Result var13(num13);
 
     map11.insert({src12, var13});
 
-    std::string src14("a", 1);
+    std::string src14("id", 2);
     Result var14(src14);
 
-    double num15(1);
+    double num15(2);
     Result var15(num15);
 
     map11.insert({src14, var15});
@@ -495,18 +495,18 @@ TEST_CASE("cpp Test `include_states`", "[cpp][ast]") {
 
     std::map<std::string, Result> map6;
 
-    std::string src7("id", 2);
+    std::string src7("a", 1);
     Result var7(src7);
 
-    double num8(2);
+    double num8(1);
     Result var8(num8);
 
     map6.insert({src7, var8});
 
-    std::string src9("a", 1);
+    std::string src9("id", 2);
     Result var9(src9);
 
-    double num10(1);
+    double num10(2);
     Result var10(num10);
 
     map6.insert({src9, var10});

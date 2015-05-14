@@ -138,29 +138,28 @@ TEST_CASE("c Tests manipulation operations on objects", "[c][ast]") {
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf1(new uint8_t[1]);
-    const uint8_t src1[] = "e";
+    const uint8_t src1[] = "b";
     reql_string_init(var1.get(), buf1.get(), 1);
     reql_string_append(var1.get(), src1, 1);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Pair_t[]> pair2(new ReQL_Pair_t[1]);
-    reql_object_init(var2.get(), pair2.get(), 1);
+    reql_number_init(var2.get(), 2);
+
+    reql_object_add(var0.get(), var1.get(), var2.get());
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf3(new uint8_t[1]);
-    const uint8_t src3[] = "f";
+    const uint8_t src3[] = "c";
     reql_string_init(var3.get(), buf3.get(), 1);
     reql_string_append(var3.get(), src3, 1);
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf4(new uint8_t[4]);
-    const uint8_t src4[] = "buzz";
-    reql_string_init(var4.get(), buf4.get(), 4);
-    reql_string_append(var4.get(), src4, 4);
+    std::unique_ptr<uint8_t[]> buf4(new uint8_t[3]);
+    const uint8_t src4[] = "str";
+    reql_string_init(var4.get(), buf4.get(), 3);
+    reql_string_append(var4.get(), src4, 3);
 
-    reql_object_add(var2.get(), var3.get(), var4.get());
-
-    reql_object_add(var0.get(), var1.get(), var2.get());
+    reql_object_add(var0.get(), var3.get(), var4.get());
 
     std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf5(new uint8_t[1]);
@@ -175,28 +174,29 @@ TEST_CASE("c Tests manipulation operations on objects", "[c][ast]") {
 
     std::unique_ptr<ReQL_Obj_t> var7(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf7(new uint8_t[1]);
-    const uint8_t src7[] = "b";
+    const uint8_t src7[] = "e";
     reql_string_init(var7.get(), buf7.get(), 1);
     reql_string_append(var7.get(), src7, 1);
 
     std::unique_ptr<ReQL_Obj_t> var8(new ReQL_Obj_t);
-    reql_number_init(var8.get(), 2);
-
-    reql_object_add(var0.get(), var7.get(), var8.get());
+    std::unique_ptr<ReQL_Pair_t[]> pair8(new ReQL_Pair_t[1]);
+    reql_object_init(var8.get(), pair8.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var9(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf9(new uint8_t[1]);
-    const uint8_t src9[] = "c";
+    const uint8_t src9[] = "f";
     reql_string_init(var9.get(), buf9.get(), 1);
     reql_string_append(var9.get(), src9, 1);
 
     std::unique_ptr<ReQL_Obj_t> var10(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf10(new uint8_t[3]);
-    const uint8_t src10[] = "str";
-    reql_string_init(var10.get(), buf10.get(), 3);
-    reql_string_append(var10.get(), src10, 3);
+    std::unique_ptr<uint8_t[]> buf10(new uint8_t[4]);
+    const uint8_t src10[] = "buzz";
+    reql_string_init(var10.get(), buf10.get(), 4);
+    reql_string_append(var10.get(), src10, 4);
 
-    reql_object_add(var0.get(), var9.get(), var10.get());
+    reql_object_add(var8.get(), var9.get(), var10.get());
+
+    reql_object_add(var0.get(), var7.get(), var8.get());
   }
 
   SECTION("test19") {
@@ -206,54 +206,54 @@ TEST_CASE("c Tests manipulation operations on objects", "[c][ast]") {
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf1(new uint8_t[1]);
-    const uint8_t src1[] = "e";
+    const uint8_t src1[] = "c";
     reql_string_init(var1.get(), buf1.get(), 1);
     reql_string_append(var1.get(), src1, 1);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Pair_t[]> pair2(new ReQL_Pair_t[1]);
-    reql_object_init(var2.get(), pair2.get(), 1);
+    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
+    const uint8_t src2[] = "str";
+    reql_string_init(var2.get(), buf2.get(), 3);
+    reql_string_append(var2.get(), src2, 3);
+
+    reql_object_add(var0.get(), var1.get(), var2.get());
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf3(new uint8_t[1]);
-    const uint8_t src3[] = "f";
+    const uint8_t src3[] = "d";
     reql_string_init(var3.get(), buf3.get(), 1);
     reql_string_append(var3.get(), src3, 1);
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf4(new uint8_t[4]);
-    const uint8_t src4[] = "buzz";
-    reql_string_init(var4.get(), buf4.get(), 4);
-    reql_string_append(var4.get(), src4, 4);
+    reql_null_init(var4.get());
 
-    reql_object_add(var2.get(), var3.get(), var4.get());
-
-    reql_object_add(var0.get(), var1.get(), var2.get());
+    reql_object_add(var0.get(), var3.get(), var4.get());
 
     std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf5(new uint8_t[1]);
-    const uint8_t src5[] = "d";
+    const uint8_t src5[] = "e";
     reql_string_init(var5.get(), buf5.get(), 1);
     reql_string_append(var5.get(), src5, 1);
 
     std::unique_ptr<ReQL_Obj_t> var6(new ReQL_Obj_t);
-    reql_null_init(var6.get());
-
-    reql_object_add(var0.get(), var5.get(), var6.get());
+    std::unique_ptr<ReQL_Pair_t[]> pair6(new ReQL_Pair_t[1]);
+    reql_object_init(var6.get(), pair6.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var7(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf7(new uint8_t[1]);
-    const uint8_t src7[] = "c";
+    const uint8_t src7[] = "f";
     reql_string_init(var7.get(), buf7.get(), 1);
     reql_string_append(var7.get(), src7, 1);
 
     std::unique_ptr<ReQL_Obj_t> var8(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf8(new uint8_t[3]);
-    const uint8_t src8[] = "str";
-    reql_string_init(var8.get(), buf8.get(), 3);
-    reql_string_append(var8.get(), src8, 3);
+    std::unique_ptr<uint8_t[]> buf8(new uint8_t[4]);
+    const uint8_t src8[] = "buzz";
+    reql_string_init(var8.get(), buf8.get(), 4);
+    reql_string_append(var8.get(), src8, 4);
 
-    reql_object_add(var0.get(), var7.get(), var8.get());
+    reql_object_add(var6.get(), var7.get(), var8.get());
+
+    reql_object_add(var0.get(), var5.get(), var6.get());
   }
 
   SECTION("test20") {
@@ -306,48 +306,48 @@ TEST_CASE("c Tests manipulation operations on objects", "[c][ast]") {
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf3(new uint8_t[1]);
-    const uint8_t src3[] = "d";
+    const uint8_t src3[] = "b";
     reql_string_init(var3.get(), buf3.get(), 1);
     reql_string_append(var3.get(), src3, 1);
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
-    reql_null_init(var4.get());
+    reql_number_init(var4.get(), 2);
 
     reql_object_add(var0.get(), var3.get(), var4.get());
 
     std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf5(new uint8_t[1]);
-    const uint8_t src5[] = "b";
+    const uint8_t src5[] = "c";
     reql_string_init(var5.get(), buf5.get(), 1);
     reql_string_append(var5.get(), src5, 1);
 
     std::unique_ptr<ReQL_Obj_t> var6(new ReQL_Obj_t);
-    reql_number_init(var6.get(), 2);
+    std::unique_ptr<uint8_t[]> buf6(new uint8_t[3]);
+    const uint8_t src6[] = "str";
+    reql_string_init(var6.get(), buf6.get(), 3);
+    reql_string_append(var6.get(), src6, 3);
 
     reql_object_add(var0.get(), var5.get(), var6.get());
 
     std::unique_ptr<ReQL_Obj_t> var7(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf7(new uint8_t[1]);
-    const uint8_t src7[] = "e";
+    const uint8_t src7[] = "d";
     reql_string_init(var7.get(), buf7.get(), 1);
     reql_string_append(var7.get(), src7, 1);
 
     std::unique_ptr<ReQL_Obj_t> var8(new ReQL_Obj_t);
-    reql_object_init(var8.get(), nullptr, 0);
+    reql_null_init(var8.get());
 
     reql_object_add(var0.get(), var7.get(), var8.get());
 
     std::unique_ptr<ReQL_Obj_t> var9(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf9(new uint8_t[1]);
-    const uint8_t src9[] = "c";
+    const uint8_t src9[] = "e";
     reql_string_init(var9.get(), buf9.get(), 1);
     reql_string_append(var9.get(), src9, 1);
 
     std::unique_ptr<ReQL_Obj_t> var10(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf10(new uint8_t[3]);
-    const uint8_t src10[] = "str";
-    reql_string_init(var10.get(), buf10.get(), 3);
-    reql_string_append(var10.get(), src10, 3);
+    reql_object_init(var10.get(), nullptr, 0);
 
     reql_object_add(var0.get(), var9.get(), var10.get());
   }
@@ -370,65 +370,65 @@ TEST_CASE("c Tests manipulation operations on objects", "[c][ast]") {
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf3(new uint8_t[1]);
-    const uint8_t src3[] = "d";
+    const uint8_t src3[] = "b";
     reql_string_init(var3.get(), buf3.get(), 1);
     reql_string_append(var3.get(), src3, 1);
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
-    reql_null_init(var4.get());
+    reql_number_init(var4.get(), 2);
 
     reql_object_add(var0.get(), var3.get(), var4.get());
 
     std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf5(new uint8_t[1]);
-    const uint8_t src5[] = "b";
+    const uint8_t src5[] = "c";
     reql_string_init(var5.get(), buf5.get(), 1);
     reql_string_append(var5.get(), src5, 1);
 
     std::unique_ptr<ReQL_Obj_t> var6(new ReQL_Obj_t);
-    reql_number_init(var6.get(), 2);
+    std::unique_ptr<uint8_t[]> buf6(new uint8_t[3]);
+    const uint8_t src6[] = "str";
+    reql_string_init(var6.get(), buf6.get(), 3);
+    reql_string_append(var6.get(), src6, 3);
 
     reql_object_add(var0.get(), var5.get(), var6.get());
 
     std::unique_ptr<ReQL_Obj_t> var7(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf7(new uint8_t[1]);
-    const uint8_t src7[] = "e";
+    const uint8_t src7[] = "d";
     reql_string_init(var7.get(), buf7.get(), 1);
     reql_string_append(var7.get(), src7, 1);
 
     std::unique_ptr<ReQL_Obj_t> var8(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Pair_t[]> pair8(new ReQL_Pair_t[1]);
-    reql_object_init(var8.get(), pair8.get(), 1);
+    reql_null_init(var8.get());
+
+    reql_object_add(var0.get(), var7.get(), var8.get());
 
     std::unique_ptr<ReQL_Obj_t> var9(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf9(new uint8_t[1]);
-    const uint8_t src9[] = "f";
+    const uint8_t src9[] = "e";
     reql_string_init(var9.get(), buf9.get(), 1);
     reql_string_append(var9.get(), src9, 1);
 
     std::unique_ptr<ReQL_Obj_t> var10(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf10(new uint8_t[4]);
-    const uint8_t src10[] = "buzz";
-    reql_string_init(var10.get(), buf10.get(), 4);
-    reql_string_append(var10.get(), src10, 4);
-
-    reql_object_add(var8.get(), var9.get(), var10.get());
-
-    reql_object_add(var0.get(), var7.get(), var8.get());
+    std::unique_ptr<ReQL_Pair_t[]> pair10(new ReQL_Pair_t[1]);
+    reql_object_init(var10.get(), pair10.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var11(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf11(new uint8_t[1]);
-    const uint8_t src11[] = "c";
+    const uint8_t src11[] = "f";
     reql_string_init(var11.get(), buf11.get(), 1);
     reql_string_append(var11.get(), src11, 1);
 
     std::unique_ptr<ReQL_Obj_t> var12(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf12(new uint8_t[3]);
-    const uint8_t src12[] = "str";
-    reql_string_init(var12.get(), buf12.get(), 3);
-    reql_string_append(var12.get(), src12, 3);
+    std::unique_ptr<uint8_t[]> buf12(new uint8_t[4]);
+    const uint8_t src12[] = "buzz";
+    reql_string_init(var12.get(), buf12.get(), 4);
+    reql_string_append(var12.get(), src12, 4);
 
-    reql_object_add(var0.get(), var11.get(), var12.get());
+    reql_object_add(var10.get(), var11.get(), var12.get());
+
+    reql_object_add(var0.get(), var9.get(), var10.get());
   }
 
   SECTION("test23") {
@@ -454,48 +454,48 @@ TEST_CASE("c Tests manipulation operations on objects", "[c][ast]") {
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf3(new uint8_t[1]);
-    const uint8_t src3[] = "d";
+    const uint8_t src3[] = "b";
     reql_string_init(var3.get(), buf3.get(), 1);
     reql_string_append(var3.get(), src3, 1);
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
-    reql_null_init(var4.get());
+    reql_number_init(var4.get(), 2);
 
     reql_object_add(var0.get(), var3.get(), var4.get());
 
     std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf5(new uint8_t[1]);
-    const uint8_t src5[] = "b";
+    const uint8_t src5[] = "c";
     reql_string_init(var5.get(), buf5.get(), 1);
     reql_string_append(var5.get(), src5, 1);
 
     std::unique_ptr<ReQL_Obj_t> var6(new ReQL_Obj_t);
-    reql_number_init(var6.get(), 2);
+    std::unique_ptr<uint8_t[]> buf6(new uint8_t[3]);
+    const uint8_t src6[] = "str";
+    reql_string_init(var6.get(), buf6.get(), 3);
+    reql_string_append(var6.get(), src6, 3);
 
     reql_object_add(var0.get(), var5.get(), var6.get());
 
     std::unique_ptr<ReQL_Obj_t> var7(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf7(new uint8_t[1]);
-    const uint8_t src7[] = "e";
+    const uint8_t src7[] = "d";
     reql_string_init(var7.get(), buf7.get(), 1);
     reql_string_append(var7.get(), src7, 1);
 
     std::unique_ptr<ReQL_Obj_t> var8(new ReQL_Obj_t);
-    reql_number_init(var8.get(), -2);
+    reql_null_init(var8.get());
 
     reql_object_add(var0.get(), var7.get(), var8.get());
 
     std::unique_ptr<ReQL_Obj_t> var9(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf9(new uint8_t[1]);
-    const uint8_t src9[] = "c";
+    const uint8_t src9[] = "e";
     reql_string_init(var9.get(), buf9.get(), 1);
     reql_string_append(var9.get(), src9, 1);
 
     std::unique_ptr<ReQL_Obj_t> var10(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf10(new uint8_t[3]);
-    const uint8_t src10[] = "str";
-    reql_string_init(var10.get(), buf10.get(), 3);
-    reql_string_append(var10.get(), src10, 3);
+    reql_number_init(var10.get(), -2);
 
     reql_object_add(var0.get(), var9.get(), var10.get());
   }
@@ -518,37 +518,37 @@ TEST_CASE("c Tests manipulation operations on objects", "[c][ast]") {
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf3(new uint8_t[1]);
-    const uint8_t src3[] = "d";
+    const uint8_t src3[] = "b";
     reql_string_init(var3.get(), buf3.get(), 1);
     reql_string_append(var3.get(), src3, 1);
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
-    reql_null_init(var4.get());
+    reql_number_init(var4.get(), 2);
 
     reql_object_add(var0.get(), var3.get(), var4.get());
 
     std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf5(new uint8_t[1]);
-    const uint8_t src5[] = "b";
+    const uint8_t src5[] = "c";
     reql_string_init(var5.get(), buf5.get(), 1);
     reql_string_append(var5.get(), src5, 1);
 
     std::unique_ptr<ReQL_Obj_t> var6(new ReQL_Obj_t);
-    reql_number_init(var6.get(), 2);
+    std::unique_ptr<uint8_t[]> buf6(new uint8_t[3]);
+    const uint8_t src6[] = "str";
+    reql_string_init(var6.get(), buf6.get(), 3);
+    reql_string_append(var6.get(), src6, 3);
 
     reql_object_add(var0.get(), var5.get(), var6.get());
 
     std::unique_ptr<ReQL_Obj_t> var7(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf7(new uint8_t[1]);
-    const uint8_t src7[] = "c";
+    const uint8_t src7[] = "d";
     reql_string_init(var7.get(), buf7.get(), 1);
     reql_string_append(var7.get(), src7, 1);
 
     std::unique_ptr<ReQL_Obj_t> var8(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf8(new uint8_t[3]);
-    const uint8_t src8[] = "str";
-    reql_string_init(var8.get(), buf8.get(), 3);
-    reql_string_append(var8.get(), src8, 3);
+    reql_null_init(var8.get());
 
     reql_object_add(var0.get(), var7.get(), var8.get());
   }
@@ -571,65 +571,65 @@ TEST_CASE("c Tests manipulation operations on objects", "[c][ast]") {
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf3(new uint8_t[1]);
-    const uint8_t src3[] = "d";
+    const uint8_t src3[] = "b";
     reql_string_init(var3.get(), buf3.get(), 1);
     reql_string_append(var3.get(), src3, 1);
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
-    reql_null_init(var4.get());
+    reql_number_init(var4.get(), 2);
 
     reql_object_add(var0.get(), var3.get(), var4.get());
 
     std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf5(new uint8_t[1]);
-    const uint8_t src5[] = "b";
+    const uint8_t src5[] = "c";
     reql_string_init(var5.get(), buf5.get(), 1);
     reql_string_append(var5.get(), src5, 1);
 
     std::unique_ptr<ReQL_Obj_t> var6(new ReQL_Obj_t);
-    reql_number_init(var6.get(), 2);
+    std::unique_ptr<uint8_t[]> buf6(new uint8_t[3]);
+    const uint8_t src6[] = "str";
+    reql_string_init(var6.get(), buf6.get(), 3);
+    reql_string_append(var6.get(), src6, 3);
 
     reql_object_add(var0.get(), var5.get(), var6.get());
 
     std::unique_ptr<ReQL_Obj_t> var7(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf7(new uint8_t[1]);
-    const uint8_t src7[] = "e";
+    const uint8_t src7[] = "d";
     reql_string_init(var7.get(), buf7.get(), 1);
     reql_string_append(var7.get(), src7, 1);
 
     std::unique_ptr<ReQL_Obj_t> var8(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Pair_t[]> pair8(new ReQL_Pair_t[1]);
-    reql_object_init(var8.get(), pair8.get(), 1);
+    reql_null_init(var8.get());
+
+    reql_object_add(var0.get(), var7.get(), var8.get());
 
     std::unique_ptr<ReQL_Obj_t> var9(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf9(new uint8_t[1]);
-    const uint8_t src9[] = "f";
+    const uint8_t src9[] = "e";
     reql_string_init(var9.get(), buf9.get(), 1);
     reql_string_append(var9.get(), src9, 1);
 
     std::unique_ptr<ReQL_Obj_t> var10(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf10(new uint8_t[4]);
-    const uint8_t src10[] = "quux";
-    reql_string_init(var10.get(), buf10.get(), 4);
-    reql_string_append(var10.get(), src10, 4);
-
-    reql_object_add(var8.get(), var9.get(), var10.get());
-
-    reql_object_add(var0.get(), var7.get(), var8.get());
+    std::unique_ptr<ReQL_Pair_t[]> pair10(new ReQL_Pair_t[1]);
+    reql_object_init(var10.get(), pair10.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var11(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf11(new uint8_t[1]);
-    const uint8_t src11[] = "c";
+    const uint8_t src11[] = "f";
     reql_string_init(var11.get(), buf11.get(), 1);
     reql_string_append(var11.get(), src11, 1);
 
     std::unique_ptr<ReQL_Obj_t> var12(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf12(new uint8_t[3]);
-    const uint8_t src12[] = "str";
-    reql_string_init(var12.get(), buf12.get(), 3);
-    reql_string_append(var12.get(), src12, 3);
+    std::unique_ptr<uint8_t[]> buf12(new uint8_t[4]);
+    const uint8_t src12[] = "quux";
+    reql_string_init(var12.get(), buf12.get(), 4);
+    reql_string_append(var12.get(), src12, 4);
 
-    reql_object_add(var0.get(), var11.get(), var12.get());
+    reql_object_add(var10.get(), var11.get(), var12.get());
+
+    reql_object_add(var0.get(), var9.get(), var10.get());
   }
 
   SECTION("test27") {
@@ -650,79 +650,79 @@ TEST_CASE("c Tests manipulation operations on objects", "[c][ast]") {
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf3(new uint8_t[1]);
-    const uint8_t src3[] = "d";
+    const uint8_t src3[] = "b";
     reql_string_init(var3.get(), buf3.get(), 1);
     reql_string_append(var3.get(), src3, 1);
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
-    reql_null_init(var4.get());
+    reql_number_init(var4.get(), 2);
 
     reql_object_add(var0.get(), var3.get(), var4.get());
 
     std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf5(new uint8_t[1]);
-    const uint8_t src5[] = "b";
+    const uint8_t src5[] = "c";
     reql_string_init(var5.get(), buf5.get(), 1);
     reql_string_append(var5.get(), src5, 1);
 
     std::unique_ptr<ReQL_Obj_t> var6(new ReQL_Obj_t);
-    reql_number_init(var6.get(), 2);
+    std::unique_ptr<uint8_t[]> buf6(new uint8_t[3]);
+    const uint8_t src6[] = "str";
+    reql_string_init(var6.get(), buf6.get(), 3);
+    reql_string_append(var6.get(), src6, 3);
 
     reql_object_add(var0.get(), var5.get(), var6.get());
 
     std::unique_ptr<ReQL_Obj_t> var7(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf7(new uint8_t[1]);
-    const uint8_t src7[] = "e";
+    const uint8_t src7[] = "d";
     reql_string_init(var7.get(), buf7.get(), 1);
     reql_string_append(var7.get(), src7, 1);
 
     std::unique_ptr<ReQL_Obj_t> var8(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Pair_t[]> pair8(new ReQL_Pair_t[2]);
-    reql_object_init(var8.get(), pair8.get(), 2);
+    reql_null_init(var8.get());
+
+    reql_object_add(var0.get(), var7.get(), var8.get());
 
     std::unique_ptr<ReQL_Obj_t> var9(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf9(new uint8_t[1]);
-    const uint8_t src9[] = "f";
+    const uint8_t src9[] = "e";
     reql_string_init(var9.get(), buf9.get(), 1);
     reql_string_append(var9.get(), src9, 1);
 
     std::unique_ptr<ReQL_Obj_t> var10(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf10(new uint8_t[4]);
-    const uint8_t src10[] = "buzz";
-    reql_string_init(var10.get(), buf10.get(), 4);
-    reql_string_append(var10.get(), src10, 4);
-
-    reql_object_add(var8.get(), var9.get(), var10.get());
+    std::unique_ptr<ReQL_Pair_t[]> pair10(new ReQL_Pair_t[2]);
+    reql_object_init(var10.get(), pair10.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var11(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf11(new uint8_t[1]);
-    const uint8_t src11[] = "g";
+    const uint8_t src11[] = "f";
     reql_string_init(var11.get(), buf11.get(), 1);
     reql_string_append(var11.get(), src11, 1);
 
     std::unique_ptr<ReQL_Obj_t> var12(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf12(new uint8_t[4]);
-    const uint8_t src12[] = "quux";
+    const uint8_t src12[] = "buzz";
     reql_string_init(var12.get(), buf12.get(), 4);
     reql_string_append(var12.get(), src12, 4);
 
-    reql_object_add(var8.get(), var11.get(), var12.get());
-
-    reql_object_add(var0.get(), var7.get(), var8.get());
+    reql_object_add(var10.get(), var11.get(), var12.get());
 
     std::unique_ptr<ReQL_Obj_t> var13(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf13(new uint8_t[1]);
-    const uint8_t src13[] = "c";
+    const uint8_t src13[] = "g";
     reql_string_init(var13.get(), buf13.get(), 1);
     reql_string_append(var13.get(), src13, 1);
 
     std::unique_ptr<ReQL_Obj_t> var14(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf14(new uint8_t[3]);
-    const uint8_t src14[] = "str";
-    reql_string_init(var14.get(), buf14.get(), 3);
-    reql_string_append(var14.get(), src14, 3);
+    std::unique_ptr<uint8_t[]> buf14(new uint8_t[4]);
+    const uint8_t src14[] = "quux";
+    reql_string_init(var14.get(), buf14.get(), 4);
+    reql_string_append(var14.get(), src14, 4);
 
-    reql_object_add(var0.get(), var13.get(), var14.get());
+    reql_object_add(var10.get(), var13.get(), var14.get());
+
+    reql_object_add(var0.get(), var9.get(), var10.get());
   }
 
   SECTION("test28") {
@@ -743,65 +743,65 @@ TEST_CASE("c Tests manipulation operations on objects", "[c][ast]") {
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf3(new uint8_t[1]);
-    const uint8_t src3[] = "d";
+    const uint8_t src3[] = "b";
     reql_string_init(var3.get(), buf3.get(), 1);
     reql_string_append(var3.get(), src3, 1);
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
-    reql_null_init(var4.get());
+    reql_number_init(var4.get(), 2);
 
     reql_object_add(var0.get(), var3.get(), var4.get());
 
     std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf5(new uint8_t[1]);
-    const uint8_t src5[] = "b";
+    const uint8_t src5[] = "c";
     reql_string_init(var5.get(), buf5.get(), 1);
     reql_string_append(var5.get(), src5, 1);
 
     std::unique_ptr<ReQL_Obj_t> var6(new ReQL_Obj_t);
-    reql_number_init(var6.get(), 2);
+    std::unique_ptr<uint8_t[]> buf6(new uint8_t[3]);
+    const uint8_t src6[] = "str";
+    reql_string_init(var6.get(), buf6.get(), 3);
+    reql_string_append(var6.get(), src6, 3);
 
     reql_object_add(var0.get(), var5.get(), var6.get());
 
     std::unique_ptr<ReQL_Obj_t> var7(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf7(new uint8_t[1]);
-    const uint8_t src7[] = "e";
+    const uint8_t src7[] = "d";
     reql_string_init(var7.get(), buf7.get(), 1);
     reql_string_append(var7.get(), src7, 1);
 
     std::unique_ptr<ReQL_Obj_t> var8(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Pair_t[]> pair8(new ReQL_Pair_t[1]);
-    reql_object_init(var8.get(), pair8.get(), 1);
+    reql_null_init(var8.get());
+
+    reql_object_add(var0.get(), var7.get(), var8.get());
 
     std::unique_ptr<ReQL_Obj_t> var9(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf9(new uint8_t[1]);
-    const uint8_t src9[] = "g";
+    const uint8_t src9[] = "e";
     reql_string_init(var9.get(), buf9.get(), 1);
     reql_string_append(var9.get(), src9, 1);
 
     std::unique_ptr<ReQL_Obj_t> var10(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf10(new uint8_t[4]);
-    const uint8_t src10[] = "quux";
-    reql_string_init(var10.get(), buf10.get(), 4);
-    reql_string_append(var10.get(), src10, 4);
-
-    reql_object_add(var8.get(), var9.get(), var10.get());
-
-    reql_object_add(var0.get(), var7.get(), var8.get());
+    std::unique_ptr<ReQL_Pair_t[]> pair10(new ReQL_Pair_t[1]);
+    reql_object_init(var10.get(), pair10.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var11(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf11(new uint8_t[1]);
-    const uint8_t src11[] = "c";
+    const uint8_t src11[] = "g";
     reql_string_init(var11.get(), buf11.get(), 1);
     reql_string_append(var11.get(), src11, 1);
 
     std::unique_ptr<ReQL_Obj_t> var12(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf12(new uint8_t[3]);
-    const uint8_t src12[] = "str";
-    reql_string_init(var12.get(), buf12.get(), 3);
-    reql_string_append(var12.get(), src12, 3);
+    std::unique_ptr<uint8_t[]> buf12(new uint8_t[4]);
+    const uint8_t src12[] = "quux";
+    reql_string_init(var12.get(), buf12.get(), 4);
+    reql_string_append(var12.get(), src12, 4);
 
-    reql_object_add(var0.get(), var11.get(), var12.get());
+    reql_object_add(var10.get(), var11.get(), var12.get());
+
+    reql_object_add(var0.get(), var9.get(), var10.get());
   }
 
   SECTION("test29") {
@@ -822,65 +822,65 @@ TEST_CASE("c Tests manipulation operations on objects", "[c][ast]") {
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf3(new uint8_t[1]);
-    const uint8_t src3[] = "d";
+    const uint8_t src3[] = "b";
     reql_string_init(var3.get(), buf3.get(), 1);
     reql_string_append(var3.get(), src3, 1);
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
-    reql_null_init(var4.get());
+    reql_number_init(var4.get(), 2);
 
     reql_object_add(var0.get(), var3.get(), var4.get());
 
     std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf5(new uint8_t[1]);
-    const uint8_t src5[] = "b";
+    const uint8_t src5[] = "c";
     reql_string_init(var5.get(), buf5.get(), 1);
     reql_string_append(var5.get(), src5, 1);
 
     std::unique_ptr<ReQL_Obj_t> var6(new ReQL_Obj_t);
-    reql_number_init(var6.get(), 2);
+    std::unique_ptr<uint8_t[]> buf6(new uint8_t[3]);
+    const uint8_t src6[] = "str";
+    reql_string_init(var6.get(), buf6.get(), 3);
+    reql_string_append(var6.get(), src6, 3);
 
     reql_object_add(var0.get(), var5.get(), var6.get());
 
     std::unique_ptr<ReQL_Obj_t> var7(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf7(new uint8_t[1]);
-    const uint8_t src7[] = "e";
+    const uint8_t src7[] = "d";
     reql_string_init(var7.get(), buf7.get(), 1);
     reql_string_append(var7.get(), src7, 1);
 
     std::unique_ptr<ReQL_Obj_t> var8(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Pair_t[]> pair8(new ReQL_Pair_t[1]);
-    reql_object_init(var8.get(), pair8.get(), 1);
+    reql_null_init(var8.get());
+
+    reql_object_add(var0.get(), var7.get(), var8.get());
 
     std::unique_ptr<ReQL_Obj_t> var9(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf9(new uint8_t[1]);
-    const uint8_t src9[] = "f";
+    const uint8_t src9[] = "e";
     reql_string_init(var9.get(), buf9.get(), 1);
     reql_string_append(var9.get(), src9, 1);
 
     std::unique_ptr<ReQL_Obj_t> var10(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf10(new uint8_t[4]);
-    const uint8_t src10[] = "buzz";
-    reql_string_init(var10.get(), buf10.get(), 4);
-    reql_string_append(var10.get(), src10, 4);
-
-    reql_object_add(var8.get(), var9.get(), var10.get());
-
-    reql_object_add(var0.get(), var7.get(), var8.get());
+    std::unique_ptr<ReQL_Pair_t[]> pair10(new ReQL_Pair_t[1]);
+    reql_object_init(var10.get(), pair10.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var11(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf11(new uint8_t[1]);
-    const uint8_t src11[] = "c";
+    const uint8_t src11[] = "f";
     reql_string_init(var11.get(), buf11.get(), 1);
     reql_string_append(var11.get(), src11, 1);
 
     std::unique_ptr<ReQL_Obj_t> var12(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf12(new uint8_t[3]);
-    const uint8_t src12[] = "str";
-    reql_string_init(var12.get(), buf12.get(), 3);
-    reql_string_append(var12.get(), src12, 3);
+    std::unique_ptr<uint8_t[]> buf12(new uint8_t[4]);
+    const uint8_t src12[] = "buzz";
+    reql_string_init(var12.get(), buf12.get(), 4);
+    reql_string_append(var12.get(), src12, 4);
 
-    reql_object_add(var0.get(), var11.get(), var12.get());
+    reql_object_add(var10.get(), var11.get(), var12.get());
+
+    reql_object_add(var0.get(), var9.get(), var10.get());
   }
 
   SECTION("test31") {
@@ -995,23 +995,23 @@ TEST_CASE("c Tests manipulation operations on objects", "[c][ast]") {
 
     std::unique_ptr<ReQL_Obj_t> var9(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf9(new uint8_t[1]);
-    const uint8_t src9[] = "f";
+    const uint8_t src9[] = "e";
     reql_string_init(var9.get(), buf9.get(), 1);
     reql_string_append(var9.get(), src9, 1);
 
     std::unique_ptr<ReQL_Obj_t> var10(new ReQL_Obj_t);
-    reql_number_init(var10.get(), 5);
+    reql_number_init(var10.get(), 4);
 
     reql_object_add(var0.get(), var9.get(), var10.get());
 
     std::unique_ptr<ReQL_Obj_t> var11(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf11(new uint8_t[1]);
-    const uint8_t src11[] = "e";
+    const uint8_t src11[] = "f";
     reql_string_init(var11.get(), buf11.get(), 1);
     reql_string_append(var11.get(), src11, 1);
 
     std::unique_ptr<ReQL_Obj_t> var12(new ReQL_Obj_t);
-    reql_number_init(var12.get(), 4);
+    reql_number_init(var12.get(), 5);
 
     reql_object_add(var0.get(), var11.get(), var12.get());
   }

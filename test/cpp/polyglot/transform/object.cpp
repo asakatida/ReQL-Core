@@ -112,22 +112,21 @@ TEST_CASE("cpp Tests manipulation operations on objects", "[cpp][ast]") {
   SECTION("test18") {
     std::map<std::string, Result> map0;
 
-    std::string src1("e", 1);
+    std::string src1("b", 1);
     Result var1(src1);
 
-    std::map<std::string, Result> map2;
-
-    std::string src3("f", 1);
-    Result var3(src3);
-
-    std::string src4("buzz", 4);
-    Result var4(src4);
-
-    map2.insert({src3, var4});
-
-    Result var2(map2);
+    double num2(2);
+    Result var2(num2);
 
     map0.insert({src1, var2});
+
+    std::string src3("c", 1);
+    Result var3(src3);
+
+    std::string src4("str", 3);
+    Result var4(src4);
+
+    map0.insert({src3, var4});
 
     std::string src5("d", 1);
     Result var5(src5);
@@ -136,21 +135,22 @@ TEST_CASE("cpp Tests manipulation operations on objects", "[cpp][ast]") {
 
     map0.insert({src5, var6});
 
-    std::string src7("b", 1);
+    std::string src7("e", 1);
     Result var7(src7);
 
-    double num8(2);
-    Result var8(num8);
+    std::map<std::string, Result> map8;
 
-    map0.insert({src7, var8});
-
-    std::string src9("c", 1);
+    std::string src9("f", 1);
     Result var9(src9);
 
-    std::string src10("str", 3);
+    std::string src10("buzz", 4);
     Result var10(src10);
 
-    map0.insert({src9, var10});
+    map8.insert({src9, var10});
+
+    Result var8(map8);
+
+    map0.insert({src7, var8});
 
     Result var0(map0);
   }
@@ -158,37 +158,37 @@ TEST_CASE("cpp Tests manipulation operations on objects", "[cpp][ast]") {
   SECTION("test19") {
     std::map<std::string, Result> map0;
 
-    std::string src1("e", 1);
+    std::string src1("c", 1);
     Result var1(src1);
 
-    std::map<std::string, Result> map2;
-
-    std::string src3("f", 1);
-    Result var3(src3);
-
-    std::string src4("buzz", 4);
-    Result var4(src4);
-
-    map2.insert({src3, var4});
-
-    Result var2(map2);
+    std::string src2("str", 3);
+    Result var2(src2);
 
     map0.insert({src1, var2});
 
-    std::string src5("d", 1);
+    std::string src3("d", 1);
+    Result var3(src3);
+
+    Result var4;
+
+    map0.insert({src3, var4});
+
+    std::string src5("e", 1);
     Result var5(src5);
 
-    Result var6;
+    std::map<std::string, Result> map6;
 
-    map0.insert({src5, var6});
-
-    std::string src7("c", 1);
+    std::string src7("f", 1);
     Result var7(src7);
 
-    std::string src8("str", 3);
+    std::string src8("buzz", 4);
     Result var8(src8);
 
-    map0.insert({src7, var8});
+    map6.insert({src7, var8});
+
+    Result var6(map6);
+
+    map0.insert({src5, var6});
 
     Result var0(map0);
   }
@@ -227,34 +227,34 @@ TEST_CASE("cpp Tests manipulation operations on objects", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("d", 1);
+    std::string src3("b", 1);
     Result var3(src3);
 
-    Result var4;
+    double num4(2);
+    Result var4(num4);
 
     map0.insert({src3, var4});
 
-    std::string src5("b", 1);
+    std::string src5("c", 1);
     Result var5(src5);
 
-    double num6(2);
-    Result var6(num6);
+    std::string src6("str", 3);
+    Result var6(src6);
 
     map0.insert({src5, var6});
 
-    std::string src7("e", 1);
+    std::string src7("d", 1);
     Result var7(src7);
 
-    std::map<std::string, Result> map8;
-    Result var8(map8);
+    Result var8;
 
     map0.insert({src7, var8});
 
-    std::string src9("c", 1);
+    std::string src9("e", 1);
     Result var9(src9);
 
-    std::string src10("str", 3);
-    Result var10(src10);
+    std::map<std::string, Result> map10;
+    Result var10(map10);
 
     map0.insert({src9, var10});
 
@@ -272,45 +272,45 @@ TEST_CASE("cpp Tests manipulation operations on objects", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("d", 1);
+    std::string src3("b", 1);
     Result var3(src3);
 
-    Result var4;
+    double num4(2);
+    Result var4(num4);
 
     map0.insert({src3, var4});
 
-    std::string src5("b", 1);
+    std::string src5("c", 1);
     Result var5(src5);
 
-    double num6(2);
-    Result var6(num6);
+    std::string src6("str", 3);
+    Result var6(src6);
 
     map0.insert({src5, var6});
 
-    std::string src7("e", 1);
+    std::string src7("d", 1);
     Result var7(src7);
 
-    std::map<std::string, Result> map8;
-
-    std::string src9("f", 1);
-    Result var9(src9);
-
-    std::string src10("buzz", 4);
-    Result var10(src10);
-
-    map8.insert({src9, var10});
-
-    Result var8(map8);
+    Result var8;
 
     map0.insert({src7, var8});
 
-    std::string src11("c", 1);
+    std::string src9("e", 1);
+    Result var9(src9);
+
+    std::map<std::string, Result> map10;
+
+    std::string src11("f", 1);
     Result var11(src11);
 
-    std::string src12("str", 3);
+    std::string src12("buzz", 4);
     Result var12(src12);
 
-    map0.insert({src11, var12});
+    map10.insert({src11, var12});
+
+    Result var10(map10);
+
+    map0.insert({src9, var10});
 
     Result var0(map0);
   }
@@ -331,34 +331,34 @@ TEST_CASE("cpp Tests manipulation operations on objects", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("d", 1);
+    std::string src3("b", 1);
     Result var3(src3);
 
-    Result var4;
+    double num4(2);
+    Result var4(num4);
 
     map0.insert({src3, var4});
 
-    std::string src5("b", 1);
+    std::string src5("c", 1);
     Result var5(src5);
 
-    double num6(2);
-    Result var6(num6);
+    std::string src6("str", 3);
+    Result var6(src6);
 
     map0.insert({src5, var6});
 
-    std::string src7("e", 1);
+    std::string src7("d", 1);
     Result var7(src7);
 
-    double num8(-2);
-    Result var8(num8);
+    Result var8;
 
     map0.insert({src7, var8});
 
-    std::string src9("c", 1);
+    std::string src9("e", 1);
     Result var9(src9);
 
-    std::string src10("str", 3);
-    Result var10(src10);
+    double num10(-2);
+    Result var10(num10);
 
     map0.insert({src9, var10});
 
@@ -376,26 +376,26 @@ TEST_CASE("cpp Tests manipulation operations on objects", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("d", 1);
+    std::string src3("b", 1);
     Result var3(src3);
 
-    Result var4;
+    double num4(2);
+    Result var4(num4);
 
     map0.insert({src3, var4});
 
-    std::string src5("b", 1);
+    std::string src5("c", 1);
     Result var5(src5);
 
-    double num6(2);
-    Result var6(num6);
+    std::string src6("str", 3);
+    Result var6(src6);
 
     map0.insert({src5, var6});
 
-    std::string src7("c", 1);
+    std::string src7("d", 1);
     Result var7(src7);
 
-    std::string src8("str", 3);
-    Result var8(src8);
+    Result var8;
 
     map0.insert({src7, var8});
 
@@ -413,45 +413,45 @@ TEST_CASE("cpp Tests manipulation operations on objects", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("d", 1);
+    std::string src3("b", 1);
     Result var3(src3);
 
-    Result var4;
+    double num4(2);
+    Result var4(num4);
 
     map0.insert({src3, var4});
 
-    std::string src5("b", 1);
+    std::string src5("c", 1);
     Result var5(src5);
 
-    double num6(2);
-    Result var6(num6);
+    std::string src6("str", 3);
+    Result var6(src6);
 
     map0.insert({src5, var6});
 
-    std::string src7("e", 1);
+    std::string src7("d", 1);
     Result var7(src7);
 
-    std::map<std::string, Result> map8;
-
-    std::string src9("f", 1);
-    Result var9(src9);
-
-    std::string src10("quux", 4);
-    Result var10(src10);
-
-    map8.insert({src9, var10});
-
-    Result var8(map8);
+    Result var8;
 
     map0.insert({src7, var8});
 
-    std::string src11("c", 1);
+    std::string src9("e", 1);
+    Result var9(src9);
+
+    std::map<std::string, Result> map10;
+
+    std::string src11("f", 1);
     Result var11(src11);
 
-    std::string src12("str", 3);
+    std::string src12("quux", 4);
     Result var12(src12);
 
-    map0.insert({src11, var12});
+    map10.insert({src11, var12});
+
+    Result var10(map10);
+
+    map0.insert({src9, var10});
 
     Result var0(map0);
   }
@@ -467,53 +467,53 @@ TEST_CASE("cpp Tests manipulation operations on objects", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("d", 1);
+    std::string src3("b", 1);
     Result var3(src3);
 
-    Result var4;
+    double num4(2);
+    Result var4(num4);
 
     map0.insert({src3, var4});
 
-    std::string src5("b", 1);
+    std::string src5("c", 1);
     Result var5(src5);
 
-    double num6(2);
-    Result var6(num6);
+    std::string src6("str", 3);
+    Result var6(src6);
 
     map0.insert({src5, var6});
 
-    std::string src7("e", 1);
+    std::string src7("d", 1);
     Result var7(src7);
 
-    std::map<std::string, Result> map8;
-
-    std::string src9("f", 1);
-    Result var9(src9);
-
-    std::string src10("buzz", 4);
-    Result var10(src10);
-
-    map8.insert({src9, var10});
-
-    std::string src11("g", 1);
-    Result var11(src11);
-
-    std::string src12("quux", 4);
-    Result var12(src12);
-
-    map8.insert({src11, var12});
-
-    Result var8(map8);
+    Result var8;
 
     map0.insert({src7, var8});
 
-    std::string src13("c", 1);
+    std::string src9("e", 1);
+    Result var9(src9);
+
+    std::map<std::string, Result> map10;
+
+    std::string src11("f", 1);
+    Result var11(src11);
+
+    std::string src12("buzz", 4);
+    Result var12(src12);
+
+    map10.insert({src11, var12});
+
+    std::string src13("g", 1);
     Result var13(src13);
 
-    std::string src14("str", 3);
+    std::string src14("quux", 4);
     Result var14(src14);
 
-    map0.insert({src13, var14});
+    map10.insert({src13, var14});
+
+    Result var10(map10);
+
+    map0.insert({src9, var10});
 
     Result var0(map0);
   }
@@ -529,45 +529,45 @@ TEST_CASE("cpp Tests manipulation operations on objects", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("d", 1);
+    std::string src3("b", 1);
     Result var3(src3);
 
-    Result var4;
+    double num4(2);
+    Result var4(num4);
 
     map0.insert({src3, var4});
 
-    std::string src5("b", 1);
+    std::string src5("c", 1);
     Result var5(src5);
 
-    double num6(2);
-    Result var6(num6);
+    std::string src6("str", 3);
+    Result var6(src6);
 
     map0.insert({src5, var6});
 
-    std::string src7("e", 1);
+    std::string src7("d", 1);
     Result var7(src7);
 
-    std::map<std::string, Result> map8;
-
-    std::string src9("g", 1);
-    Result var9(src9);
-
-    std::string src10("quux", 4);
-    Result var10(src10);
-
-    map8.insert({src9, var10});
-
-    Result var8(map8);
+    Result var8;
 
     map0.insert({src7, var8});
 
-    std::string src11("c", 1);
+    std::string src9("e", 1);
+    Result var9(src9);
+
+    std::map<std::string, Result> map10;
+
+    std::string src11("g", 1);
     Result var11(src11);
 
-    std::string src12("str", 3);
+    std::string src12("quux", 4);
     Result var12(src12);
 
-    map0.insert({src11, var12});
+    map10.insert({src11, var12});
+
+    Result var10(map10);
+
+    map0.insert({src9, var10});
 
     Result var0(map0);
   }
@@ -583,45 +583,45 @@ TEST_CASE("cpp Tests manipulation operations on objects", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src3("d", 1);
+    std::string src3("b", 1);
     Result var3(src3);
 
-    Result var4;
+    double num4(2);
+    Result var4(num4);
 
     map0.insert({src3, var4});
 
-    std::string src5("b", 1);
+    std::string src5("c", 1);
     Result var5(src5);
 
-    double num6(2);
-    Result var6(num6);
+    std::string src6("str", 3);
+    Result var6(src6);
 
     map0.insert({src5, var6});
 
-    std::string src7("e", 1);
+    std::string src7("d", 1);
     Result var7(src7);
 
-    std::map<std::string, Result> map8;
-
-    std::string src9("f", 1);
-    Result var9(src9);
-
-    std::string src10("buzz", 4);
-    Result var10(src10);
-
-    map8.insert({src9, var10});
-
-    Result var8(map8);
+    Result var8;
 
     map0.insert({src7, var8});
 
-    std::string src11("c", 1);
+    std::string src9("e", 1);
+    Result var9(src9);
+
+    std::map<std::string, Result> map10;
+
+    std::string src11("f", 1);
     Result var11(src11);
 
-    std::string src12("str", 3);
+    std::string src12("buzz", 4);
     Result var12(src12);
 
-    map0.insert({src11, var12});
+    map10.insert({src11, var12});
+
+    Result var10(map10);
+
+    map0.insert({src9, var10});
 
     Result var0(map0);
   }
@@ -704,18 +704,18 @@ TEST_CASE("cpp Tests manipulation operations on objects", "[cpp][ast]") {
 
     map0.insert({src7, var8});
 
-    std::string src9("f", 1);
+    std::string src9("e", 1);
     Result var9(src9);
 
-    double num10(5);
+    double num10(4);
     Result var10(num10);
 
     map0.insert({src9, var10});
 
-    std::string src11("e", 1);
+    std::string src11("f", 1);
     Result var11(src11);
 
-    double num12(4);
+    double num12(5);
     Result var12(num12);
 
     map0.insert({src11, var12});

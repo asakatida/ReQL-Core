@@ -79,18 +79,18 @@ TEST_CASE("cpp Test changefeed squashing", "[cpp][ast]") {
 
     std::map<std::string, Result> map10;
 
-    std::string src11("id", 2);
+    std::string src11("a", 1);
     Result var11(src11);
 
-    double num12(100);
+    double num12(1);
     Result var12(num12);
 
     map10.insert({src11, var12});
 
-    std::string src13("a", 1);
+    std::string src13("id", 2);
     Result var13(src13);
 
-    double num14(1);
+    double num14(100);
     Result var14(num14);
 
     map10.insert({src13, var14});
@@ -163,18 +163,18 @@ TEST_CASE("cpp Test changefeed squashing", "[cpp][ast]") {
 
     std::map<std::string, Result> map10;
 
-    std::string src11("id", 2);
+    std::string src11("a", 1);
     Result var11(src11);
 
-    double num12(100);
+    double num12(1);
     Result var12(num12);
 
     map10.insert({src11, var12});
 
-    std::string src13("a", 1);
+    std::string src13("id", 2);
     Result var13(src13);
 
-    double num14(1);
+    double num14(100);
     Result var14(num14);
 
     map10.insert({src13, var14});
@@ -217,18 +217,18 @@ TEST_CASE("cpp Test changefeed squashing", "[cpp][ast]") {
 
     std::map<std::string, Result> map3;
 
-    std::string src4("id", 2);
+    std::string src4("a", 1);
     Result var4(src4);
 
-    double num5(100);
+    double num5(1);
     Result var5(num5);
 
     map3.insert({src4, var5});
 
-    std::string src6("a", 1);
+    std::string src6("id", 2);
     Result var6(src6);
 
-    double num7(1);
+    double num7(100);
     Result var7(num7);
 
     map3.insert({src6, var7});
@@ -261,18 +261,18 @@ TEST_CASE("cpp Test changefeed squashing", "[cpp][ast]") {
 
     std::map<std::string, Result> map3;
 
-    std::string src4("id", 2);
+    std::string src4("a", 1);
     Result var4(src4);
 
-    double num5(100);
+    double num5(1);
     Result var5(num5);
 
     map3.insert({src4, var5});
 
-    std::string src6("a", 1);
+    std::string src6("id", 2);
     Result var6(src6);
 
-    double num7(1);
+    double num7(100);
     Result var7(num7);
 
     map3.insert({src6, var7});

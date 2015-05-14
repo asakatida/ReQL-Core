@@ -6,7 +6,7 @@
 
 using namespace ReQL;
 
-TEST_CASE("c Test basic time arithmetic", "[c][ast]") {
+TEST_CASE("c Test basic time arithmetic 228", "[c][ast]") {
 
   SECTION("test10") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);

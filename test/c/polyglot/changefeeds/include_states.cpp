@@ -398,24 +398,24 @@ TEST_CASE("c Test `include_states`", "[c][ast]") {
     reql_object_init(var14.get(), pair14.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var15(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf15(new uint8_t[2]);
-    const uint8_t src15[] = "id";
-    reql_string_init(var15.get(), buf15.get(), 2);
-    reql_string_append(var15.get(), src15, 2);
+    std::unique_ptr<uint8_t[]> buf15(new uint8_t[1]);
+    const uint8_t src15[] = "a";
+    reql_string_init(var15.get(), buf15.get(), 1);
+    reql_string_append(var15.get(), src15, 1);
 
     std::unique_ptr<ReQL_Obj_t> var16(new ReQL_Obj_t);
-    reql_number_init(var16.get(), 2);
+    reql_number_init(var16.get(), 1);
 
     reql_object_add(var14.get(), var15.get(), var16.get());
 
     std::unique_ptr<ReQL_Obj_t> var17(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf17(new uint8_t[1]);
-    const uint8_t src17[] = "a";
-    reql_string_init(var17.get(), buf17.get(), 1);
-    reql_string_append(var17.get(), src17, 1);
+    std::unique_ptr<uint8_t[]> buf17(new uint8_t[2]);
+    const uint8_t src17[] = "id";
+    reql_string_init(var17.get(), buf17.get(), 2);
+    reql_string_append(var17.get(), src17, 2);
 
     std::unique_ptr<ReQL_Obj_t> var18(new ReQL_Obj_t);
-    reql_number_init(var18.get(), 1);
+    reql_number_init(var18.get(), 2);
 
     reql_object_add(var14.get(), var17.get(), var18.get());
 
@@ -531,24 +531,24 @@ TEST_CASE("c Test `include_states`", "[c][ast]") {
     reql_object_init(var11.get(), pair11.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var12(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf12(new uint8_t[2]);
-    const uint8_t src12[] = "id";
-    reql_string_init(var12.get(), buf12.get(), 2);
-    reql_string_append(var12.get(), src12, 2);
+    std::unique_ptr<uint8_t[]> buf12(new uint8_t[1]);
+    const uint8_t src12[] = "a";
+    reql_string_init(var12.get(), buf12.get(), 1);
+    reql_string_append(var12.get(), src12, 1);
 
     std::unique_ptr<ReQL_Obj_t> var13(new ReQL_Obj_t);
-    reql_number_init(var13.get(), 2);
+    reql_number_init(var13.get(), 1);
 
     reql_object_add(var11.get(), var12.get(), var13.get());
 
     std::unique_ptr<ReQL_Obj_t> var14(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf14(new uint8_t[1]);
-    const uint8_t src14[] = "a";
-    reql_string_init(var14.get(), buf14.get(), 1);
-    reql_string_append(var14.get(), src14, 1);
+    std::unique_ptr<uint8_t[]> buf14(new uint8_t[2]);
+    const uint8_t src14[] = "id";
+    reql_string_init(var14.get(), buf14.get(), 2);
+    reql_string_append(var14.get(), src14, 2);
 
     std::unique_ptr<ReQL_Obj_t> var15(new ReQL_Obj_t);
-    reql_number_init(var15.get(), 1);
+    reql_number_init(var15.get(), 2);
 
     reql_object_add(var11.get(), var14.get(), var15.get());
 
@@ -657,24 +657,24 @@ TEST_CASE("c Test `include_states`", "[c][ast]") {
     reql_object_init(var6.get(), pair6.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var7(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf7(new uint8_t[2]);
-    const uint8_t src7[] = "id";
-    reql_string_init(var7.get(), buf7.get(), 2);
-    reql_string_append(var7.get(), src7, 2);
+    std::unique_ptr<uint8_t[]> buf7(new uint8_t[1]);
+    const uint8_t src7[] = "a";
+    reql_string_init(var7.get(), buf7.get(), 1);
+    reql_string_append(var7.get(), src7, 1);
 
     std::unique_ptr<ReQL_Obj_t> var8(new ReQL_Obj_t);
-    reql_number_init(var8.get(), 2);
+    reql_number_init(var8.get(), 1);
 
     reql_object_add(var6.get(), var7.get(), var8.get());
 
     std::unique_ptr<ReQL_Obj_t> var9(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf9(new uint8_t[1]);
-    const uint8_t src9[] = "a";
-    reql_string_init(var9.get(), buf9.get(), 1);
-    reql_string_append(var9.get(), src9, 1);
+    std::unique_ptr<uint8_t[]> buf9(new uint8_t[2]);
+    const uint8_t src9[] = "id";
+    reql_string_init(var9.get(), buf9.get(), 2);
+    reql_string_append(var9.get(), src9, 2);
 
     std::unique_ptr<ReQL_Obj_t> var10(new ReQL_Obj_t);
-    reql_number_init(var10.get(), 1);
+    reql_number_init(var10.get(), 2);
 
     reql_object_add(var6.get(), var9.get(), var10.get());
 

@@ -18,6 +18,10 @@ from pathlib import Path
 
 xrange = range
 
+test_names = set()
+
+test_name_shell = '{} {}'
+
 test_shell = '''// Copyright 2015 Adam Grandquist
 
 #include "./catch.hpp"
@@ -26,8 +30,8 @@ test_shell = '''// Copyright 2015 Adam Grandquist
 
 using namespace ReQL;
 
-TEST_CASE("{1} {0}", "[{1}][ast]") {{
-{2}
+TEST_CASE("{}", "[{}][ast]") {{
+{}
 }}
 '''
 
@@ -147,14 +151,14 @@ def recurse_result_c(res, obj_id):
     reql_object_init(var{0}.get(), pair{0}.get(), {1});'''.format(obj_id, len(res))]
         orig_obj_id = obj_id
         obj_id += 1
-        for k, v in res.items():
+        for k in sorted(res.keys()):
             if not isinstance(k, str):
                 raise BadKeyError()
             key_id = obj_id
             src, obj_id = recurse_result_c(k, obj_id)
             obj.append(src)
             val_id = obj_id
-            src, obj_id = recurse_result_c(v, obj_id)
+            src, obj_id = recurse_result_c(res[k], obj_id)
             obj.append(src)
             obj.append('''
     reql_object_add(var{}.get(), var{}.get(), var{}.get());'''.format(orig_obj_id, key_id, val_id))
@@ -222,14 +226,14 @@ def recurse_result_cpp(res, obj_id):
     std::map<std::string, Result> map{};'''.format(obj_id)]
         orig_obj_id = obj_id
         obj_id += 1
-        for k, v in res.items():
+        for k in sorted(res.keys()):
             if not isinstance(k, str):
                 raise BadKeyError()
             key_id = obj_id
             src, obj_id = recurse_result_cpp(k, obj_id)
             obj.append(src)
             val_id = obj_id
-            src, obj_id = recurse_result_cpp(v, obj_id)
+            src, obj_id = recurse_result_cpp(res[k], obj_id)
             obj.append(src)
             obj.append('''
     map{}.insert({{src{}, var{}}});'''.format(orig_obj_id, key_id, val_id))
@@ -409,15 +413,23 @@ def each_test(path, file, c_path, cpp_path):
     test_file = file.relative_to(path)
 
     with touch((c_path / test_file).with_suffix('.cpp')) as ostream:
+        test_name = test_name_shell.format('c', tests['desc'])
+        if test_name in test_names:
+            test_name = ' '.join([test_name, str(len(test_names))])
+        test_names.add(test_name)
         ostream.write(test_shell.format(
-            tests['desc'],
+            test_name,
             'c',
             '\n'.join(convert_tests(tests, 'c'))
         ))
 
     with touch((cpp_path / test_file).with_suffix('.cpp')) as ostream:
+        test_name = test_name_shell.format('cpp', tests['desc'])
+        if test_name in test_names:
+            test_name = ' '.join([test_name, str(len(test_names))])
+        test_names.add(test_name)
         ostream.write(test_shell.format(
-            tests['desc'],
+            test_name,
             'cpp',
             '\n'.join(convert_tests(tests, 'cpp'))
         ))

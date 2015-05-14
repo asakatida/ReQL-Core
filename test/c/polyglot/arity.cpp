@@ -853,24 +853,24 @@ TEST_CASE("c Test the arity of every function", "[c][ast]") {
     reql_object_init(var1.get(), pair1.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[9]);
-    const uint8_t src2[] = "reduction";
-    reql_string_init(var2.get(), buf2.get(), 9);
-    reql_string_append(var2.get(), src2, 9);
+    std::unique_ptr<uint8_t[]> buf2(new uint8_t[5]);
+    const uint8_t src2[] = "group";
+    reql_string_init(var2.get(), buf2.get(), 5);
+    reql_string_append(var2.get(), src2, 5);
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
-    reql_number_init(var3.get(), 1);
+    reql_number_init(var3.get(), 0);
 
     reql_object_add(var1.get(), var2.get(), var3.get());
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf4(new uint8_t[5]);
-    const uint8_t src4[] = "group";
-    reql_string_init(var4.get(), buf4.get(), 5);
-    reql_string_append(var4.get(), src4, 5);
+    std::unique_ptr<uint8_t[]> buf4(new uint8_t[9]);
+    const uint8_t src4[] = "reduction";
+    reql_string_init(var4.get(), buf4.get(), 9);
+    reql_string_append(var4.get(), src4, 9);
 
     std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
-    reql_number_init(var5.get(), 0);
+    reql_number_init(var5.get(), 1);
 
     reql_object_add(var1.get(), var4.get(), var5.get());
 
@@ -887,24 +887,24 @@ TEST_CASE("c Test the arity of every function", "[c][ast]") {
     reql_object_init(var1.get(), pair1.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[9]);
-    const uint8_t src2[] = "reduction";
-    reql_string_init(var2.get(), buf2.get(), 9);
-    reql_string_append(var2.get(), src2, 9);
+    std::unique_ptr<uint8_t[]> buf2(new uint8_t[5]);
+    const uint8_t src2[] = "group";
+    reql_string_init(var2.get(), buf2.get(), 5);
+    reql_string_append(var2.get(), src2, 5);
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
-    reql_number_init(var3.get(), 1);
+    reql_number_init(var3.get(), 0);
 
     reql_object_add(var1.get(), var2.get(), var3.get());
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf4(new uint8_t[5]);
-    const uint8_t src4[] = "group";
-    reql_string_init(var4.get(), buf4.get(), 5);
-    reql_string_append(var4.get(), src4, 5);
+    std::unique_ptr<uint8_t[]> buf4(new uint8_t[9]);
+    const uint8_t src4[] = "reduction";
+    reql_string_init(var4.get(), buf4.get(), 9);
+    reql_string_append(var4.get(), src4, 9);
 
     std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
-    reql_number_init(var5.get(), 0);
+    reql_number_init(var5.get(), 1);
 
     reql_object_add(var1.get(), var4.get(), var5.get());
 

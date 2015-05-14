@@ -6,7 +6,7 @@
 
 using namespace ReQL;
 
-TEST_CASE("cpp Regression test for issue", "[cpp][ast]") {
+TEST_CASE("cpp Regression test for issue 191", "[cpp][ast]") {
 
   SECTION("test0") {
     std::map<std::string, Result> map0;

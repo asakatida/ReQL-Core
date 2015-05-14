@@ -6,7 +6,7 @@
 
 using namespace ReQL;
 
-TEST_CASE("cpp Test basic time arithmetic", "[cpp][ast]") {
+TEST_CASE("cpp Test basic time arithmetic 229", "[cpp][ast]") {
 
   SECTION("test10") {
     Result var0(true);

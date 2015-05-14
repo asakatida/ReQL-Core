@@ -6,6 +6,6 @@
 
 using namespace ReQL;
 
-TEST_CASE("c Regression tests for issue", "[c][ast]") {
+TEST_CASE("c Regression tests for issue 200", "[c][ast]") {
 
 }

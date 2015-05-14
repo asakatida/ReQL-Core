@@ -120,199 +120,199 @@ TEST_CASE("cpp Test basic geometry operators", "[cpp][ast]") {
   SECTION("test24") {
     std::map<std::string, Result> map0;
 
-    std::string src1("coordinates", 11);
+    std::string src1("$reql_type$", 11);
     Result var1(src1);
 
-    std::vector<Result> arr2(2);
-
-    std::vector<Result> arr3(5);
-
-    std::vector<Result> arr4(2);
-
-    double num5(0);
-    Result var5(num5);
-
-    arr4.insert(arr4.end(), var5);
-
-    double num6(0);
-    Result var6(num6);
-
-    arr4.insert(arr4.end(), var6);
-
-    Result var4(arr4);
-
-    arr3.insert(arr3.end(), var4);
-
-    std::vector<Result> arr7(2);
-
-    double num8(1);
-    Result var8(num8);
-
-    arr7.insert(arr7.end(), var8);
-
-    double num9(0);
-    Result var9(num9);
-
-    arr7.insert(arr7.end(), var9);
-
-    Result var7(arr7);
-
-    arr3.insert(arr3.end(), var7);
-
-    std::vector<Result> arr10(2);
-
-    double num11(1);
-    Result var11(num11);
-
-    arr10.insert(arr10.end(), var11);
-
-    double num12(1);
-    Result var12(num12);
-
-    arr10.insert(arr10.end(), var12);
-
-    Result var10(arr10);
-
-    arr3.insert(arr3.end(), var10);
-
-    std::vector<Result> arr13(2);
-
-    double num14(0);
-    Result var14(num14);
-
-    arr13.insert(arr13.end(), var14);
-
-    double num15(1);
-    Result var15(num15);
-
-    arr13.insert(arr13.end(), var15);
-
-    Result var13(arr13);
-
-    arr3.insert(arr3.end(), var13);
-
-    std::vector<Result> arr16(2);
-
-    double num17(0);
-    Result var17(num17);
-
-    arr16.insert(arr16.end(), var17);
-
-    double num18(0);
-    Result var18(num18);
-
-    arr16.insert(arr16.end(), var18);
-
-    Result var16(arr16);
-
-    arr3.insert(arr3.end(), var16);
-
-    Result var3(arr3);
-
-    arr2.insert(arr2.end(), var3);
-
-    std::vector<Result> arr19(5);
-
-    std::vector<Result> arr20(2);
-
-    double num21(0.1);
-    Result var21(num21);
-
-    arr20.insert(arr20.end(), var21);
-
-    double num22(0.1);
-    Result var22(num22);
-
-    arr20.insert(arr20.end(), var22);
-
-    Result var20(arr20);
-
-    arr19.insert(arr19.end(), var20);
-
-    std::vector<Result> arr23(2);
-
-    double num24(0.9);
-    Result var24(num24);
-
-    arr23.insert(arr23.end(), var24);
-
-    double num25(0.1);
-    Result var25(num25);
-
-    arr23.insert(arr23.end(), var25);
-
-    Result var23(arr23);
-
-    arr19.insert(arr19.end(), var23);
-
-    std::vector<Result> arr26(2);
-
-    double num27(0.9);
-    Result var27(num27);
-
-    arr26.insert(arr26.end(), var27);
-
-    double num28(0.9);
-    Result var28(num28);
-
-    arr26.insert(arr26.end(), var28);
-
-    Result var26(arr26);
-
-    arr19.insert(arr19.end(), var26);
-
-    std::vector<Result> arr29(2);
-
-    double num30(0.1);
-    Result var30(num30);
-
-    arr29.insert(arr29.end(), var30);
-
-    double num31(0.9);
-    Result var31(num31);
-
-    arr29.insert(arr29.end(), var31);
-
-    Result var29(arr29);
-
-    arr19.insert(arr19.end(), var29);
-
-    std::vector<Result> arr32(2);
-
-    double num33(0.1);
-    Result var33(num33);
-
-    arr32.insert(arr32.end(), var33);
-
-    double num34(0.1);
-    Result var34(num34);
-
-    arr32.insert(arr32.end(), var34);
-
-    Result var32(arr32);
-
-    arr19.insert(arr19.end(), var32);
-
-    Result var19(arr19);
-
-    arr2.insert(arr2.end(), var19);
-
-    Result var2(arr2);
+    std::string src2("GEOMETRY", 8);
+    Result var2(src2);
 
     map0.insert({src1, var2});
 
-    std::string src35("type", 4);
-    Result var35(src35);
+    std::string src3("coordinates", 11);
+    Result var3(src3);
 
-    std::string src36("Polygon", 7);
-    Result var36(src36);
+    std::vector<Result> arr4(2);
 
-    map0.insert({src35, var36});
+    std::vector<Result> arr5(5);
 
-    std::string src37("$reql_type$", 11);
+    std::vector<Result> arr6(2);
+
+    double num7(0);
+    Result var7(num7);
+
+    arr6.insert(arr6.end(), var7);
+
+    double num8(0);
+    Result var8(num8);
+
+    arr6.insert(arr6.end(), var8);
+
+    Result var6(arr6);
+
+    arr5.insert(arr5.end(), var6);
+
+    std::vector<Result> arr9(2);
+
+    double num10(1);
+    Result var10(num10);
+
+    arr9.insert(arr9.end(), var10);
+
+    double num11(0);
+    Result var11(num11);
+
+    arr9.insert(arr9.end(), var11);
+
+    Result var9(arr9);
+
+    arr5.insert(arr5.end(), var9);
+
+    std::vector<Result> arr12(2);
+
+    double num13(1);
+    Result var13(num13);
+
+    arr12.insert(arr12.end(), var13);
+
+    double num14(1);
+    Result var14(num14);
+
+    arr12.insert(arr12.end(), var14);
+
+    Result var12(arr12);
+
+    arr5.insert(arr5.end(), var12);
+
+    std::vector<Result> arr15(2);
+
+    double num16(0);
+    Result var16(num16);
+
+    arr15.insert(arr15.end(), var16);
+
+    double num17(1);
+    Result var17(num17);
+
+    arr15.insert(arr15.end(), var17);
+
+    Result var15(arr15);
+
+    arr5.insert(arr5.end(), var15);
+
+    std::vector<Result> arr18(2);
+
+    double num19(0);
+    Result var19(num19);
+
+    arr18.insert(arr18.end(), var19);
+
+    double num20(0);
+    Result var20(num20);
+
+    arr18.insert(arr18.end(), var20);
+
+    Result var18(arr18);
+
+    arr5.insert(arr5.end(), var18);
+
+    Result var5(arr5);
+
+    arr4.insert(arr4.end(), var5);
+
+    std::vector<Result> arr21(5);
+
+    std::vector<Result> arr22(2);
+
+    double num23(0.1);
+    Result var23(num23);
+
+    arr22.insert(arr22.end(), var23);
+
+    double num24(0.1);
+    Result var24(num24);
+
+    arr22.insert(arr22.end(), var24);
+
+    Result var22(arr22);
+
+    arr21.insert(arr21.end(), var22);
+
+    std::vector<Result> arr25(2);
+
+    double num26(0.9);
+    Result var26(num26);
+
+    arr25.insert(arr25.end(), var26);
+
+    double num27(0.1);
+    Result var27(num27);
+
+    arr25.insert(arr25.end(), var27);
+
+    Result var25(arr25);
+
+    arr21.insert(arr21.end(), var25);
+
+    std::vector<Result> arr28(2);
+
+    double num29(0.9);
+    Result var29(num29);
+
+    arr28.insert(arr28.end(), var29);
+
+    double num30(0.9);
+    Result var30(num30);
+
+    arr28.insert(arr28.end(), var30);
+
+    Result var28(arr28);
+
+    arr21.insert(arr21.end(), var28);
+
+    std::vector<Result> arr31(2);
+
+    double num32(0.1);
+    Result var32(num32);
+
+    arr31.insert(arr31.end(), var32);
+
+    double num33(0.9);
+    Result var33(num33);
+
+    arr31.insert(arr31.end(), var33);
+
+    Result var31(arr31);
+
+    arr21.insert(arr21.end(), var31);
+
+    std::vector<Result> arr34(2);
+
+    double num35(0.1);
+    Result var35(num35);
+
+    arr34.insert(arr34.end(), var35);
+
+    double num36(0.1);
+    Result var36(num36);
+
+    arr34.insert(arr34.end(), var36);
+
+    Result var34(arr34);
+
+    arr21.insert(arr21.end(), var34);
+
+    Result var21(arr21);
+
+    arr4.insert(arr4.end(), var21);
+
+    Result var4(arr4);
+
+    map0.insert({src3, var4});
+
+    std::string src37("type", 4);
     Result var37(src37);
 
-    std::string src38("GEOMETRY", 8);
+    std::string src38("Polygon", 7);
     Result var38(src38);
 
     map0.insert({src37, var38});
@@ -393,199 +393,199 @@ TEST_CASE("cpp Test basic geometry operators", "[cpp][ast]") {
   SECTION("test30") {
     std::map<std::string, Result> map0;
 
-    std::string src1("coordinates", 11);
+    std::string src1("$reql_type$", 11);
     Result var1(src1);
 
-    std::vector<Result> arr2(2);
+    std::string src2("GEOMETRY", 8);
+    Result var2(src2);
 
-    std::vector<Result> arr3(5);
+    map0.insert({src1, var2});
+
+    std::string src3("coordinates", 11);
+    Result var3(src3);
 
     std::vector<Result> arr4(2);
 
-    double num5(0);
-    Result var5(num5);
+    std::vector<Result> arr5(5);
+
+    std::vector<Result> arr6(2);
+
+    double num7(0);
+    Result var7(num7);
+
+    arr6.insert(arr6.end(), var7);
+
+    double num8(0);
+    Result var8(num8);
+
+    arr6.insert(arr6.end(), var8);
+
+    Result var6(arr6);
+
+    arr5.insert(arr5.end(), var6);
+
+    std::vector<Result> arr9(2);
+
+    double num10(1);
+    Result var10(num10);
+
+    arr9.insert(arr9.end(), var10);
+
+    double num11(0);
+    Result var11(num11);
+
+    arr9.insert(arr9.end(), var11);
+
+    Result var9(arr9);
+
+    arr5.insert(arr5.end(), var9);
+
+    std::vector<Result> arr12(2);
+
+    double num13(1);
+    Result var13(num13);
+
+    arr12.insert(arr12.end(), var13);
+
+    double num14(1);
+    Result var14(num14);
+
+    arr12.insert(arr12.end(), var14);
+
+    Result var12(arr12);
+
+    arr5.insert(arr5.end(), var12);
+
+    std::vector<Result> arr15(2);
+
+    double num16(0);
+    Result var16(num16);
+
+    arr15.insert(arr15.end(), var16);
+
+    double num17(1);
+    Result var17(num17);
+
+    arr15.insert(arr15.end(), var17);
+
+    Result var15(arr15);
+
+    arr5.insert(arr5.end(), var15);
+
+    std::vector<Result> arr18(2);
+
+    double num19(0);
+    Result var19(num19);
+
+    arr18.insert(arr18.end(), var19);
+
+    double num20(0);
+    Result var20(num20);
+
+    arr18.insert(arr18.end(), var20);
+
+    Result var18(arr18);
+
+    arr5.insert(arr5.end(), var18);
+
+    Result var5(arr5);
 
     arr4.insert(arr4.end(), var5);
 
-    double num6(0);
-    Result var6(num6);
+    std::vector<Result> arr21(5);
 
-    arr4.insert(arr4.end(), var6);
+    std::vector<Result> arr22(2);
 
-    Result var4(arr4);
+    double num23(0);
+    Result var23(num23);
 
-    arr3.insert(arr3.end(), var4);
+    arr22.insert(arr22.end(), var23);
 
-    std::vector<Result> arr7(2);
-
-    double num8(1);
-    Result var8(num8);
-
-    arr7.insert(arr7.end(), var8);
-
-    double num9(0);
-    Result var9(num9);
-
-    arr7.insert(arr7.end(), var9);
-
-    Result var7(arr7);
-
-    arr3.insert(arr3.end(), var7);
-
-    std::vector<Result> arr10(2);
-
-    double num11(1);
-    Result var11(num11);
-
-    arr10.insert(arr10.end(), var11);
-
-    double num12(1);
-    Result var12(num12);
-
-    arr10.insert(arr10.end(), var12);
-
-    Result var10(arr10);
-
-    arr3.insert(arr3.end(), var10);
-
-    std::vector<Result> arr13(2);
-
-    double num14(0);
-    Result var14(num14);
-
-    arr13.insert(arr13.end(), var14);
-
-    double num15(1);
-    Result var15(num15);
-
-    arr13.insert(arr13.end(), var15);
-
-    Result var13(arr13);
-
-    arr3.insert(arr3.end(), var13);
-
-    std::vector<Result> arr16(2);
-
-    double num17(0);
-    Result var17(num17);
-
-    arr16.insert(arr16.end(), var17);
-
-    double num18(0);
-    Result var18(num18);
-
-    arr16.insert(arr16.end(), var18);
-
-    Result var16(arr16);
-
-    arr3.insert(arr3.end(), var16);
-
-    Result var3(arr3);
-
-    arr2.insert(arr2.end(), var3);
-
-    std::vector<Result> arr19(5);
-
-    std::vector<Result> arr20(2);
-
-    double num21(0);
-    Result var21(num21);
-
-    arr20.insert(arr20.end(), var21);
-
-    double num22(0);
-    Result var22(num22);
-
-    arr20.insert(arr20.end(), var22);
-
-    Result var20(arr20);
-
-    arr19.insert(arr19.end(), var20);
-
-    std::vector<Result> arr23(2);
-
-    double num24(0.1);
+    double num24(0);
     Result var24(num24);
 
-    arr23.insert(arr23.end(), var24);
+    arr22.insert(arr22.end(), var24);
 
-    double num25(0.9);
-    Result var25(num25);
+    Result var22(arr22);
 
-    arr23.insert(arr23.end(), var25);
+    arr21.insert(arr21.end(), var22);
 
-    Result var23(arr23);
+    std::vector<Result> arr25(2);
 
-    arr19.insert(arr19.end(), var23);
+    double num26(0.1);
+    Result var26(num26);
 
-    std::vector<Result> arr26(2);
+    arr25.insert(arr25.end(), var26);
 
     double num27(0.9);
     Result var27(num27);
 
-    arr26.insert(arr26.end(), var27);
+    arr25.insert(arr25.end(), var27);
 
-    double num28(0.9);
-    Result var28(num28);
+    Result var25(arr25);
 
-    arr26.insert(arr26.end(), var28);
+    arr21.insert(arr21.end(), var25);
 
-    Result var26(arr26);
+    std::vector<Result> arr28(2);
 
-    arr19.insert(arr19.end(), var26);
+    double num29(0.9);
+    Result var29(num29);
 
-    std::vector<Result> arr29(2);
+    arr28.insert(arr28.end(), var29);
 
     double num30(0.9);
     Result var30(num30);
 
-    arr29.insert(arr29.end(), var30);
+    arr28.insert(arr28.end(), var30);
 
-    double num31(0.1);
-    Result var31(num31);
+    Result var28(arr28);
 
-    arr29.insert(arr29.end(), var31);
+    arr21.insert(arr21.end(), var28);
 
-    Result var29(arr29);
+    std::vector<Result> arr31(2);
 
-    arr19.insert(arr19.end(), var29);
+    double num32(0.9);
+    Result var32(num32);
 
-    std::vector<Result> arr32(2);
+    arr31.insert(arr31.end(), var32);
 
-    double num33(0);
+    double num33(0.1);
     Result var33(num33);
 
-    arr32.insert(arr32.end(), var33);
+    arr31.insert(arr31.end(), var33);
 
-    double num34(0);
-    Result var34(num34);
+    Result var31(arr31);
 
-    arr32.insert(arr32.end(), var34);
+    arr21.insert(arr21.end(), var31);
 
-    Result var32(arr32);
+    std::vector<Result> arr34(2);
 
-    arr19.insert(arr19.end(), var32);
+    double num35(0);
+    Result var35(num35);
 
-    Result var19(arr19);
+    arr34.insert(arr34.end(), var35);
 
-    arr2.insert(arr2.end(), var19);
+    double num36(0);
+    Result var36(num36);
 
-    Result var2(arr2);
+    arr34.insert(arr34.end(), var36);
 
-    map0.insert({src1, var2});
+    Result var34(arr34);
 
-    std::string src35("type", 4);
-    Result var35(src35);
+    arr21.insert(arr21.end(), var34);
 
-    std::string src36("Polygon", 7);
-    Result var36(src36);
+    Result var21(arr21);
 
-    map0.insert({src35, var36});
+    arr4.insert(arr4.end(), var21);
 
-    std::string src37("$reql_type$", 11);
+    Result var4(arr4);
+
+    map0.insert({src3, var4});
+
+    std::string src37("type", 4);
     Result var37(src37);
 
-    std::string src38("GEOMETRY", 8);
+    std::string src38("Polygon", 7);
     Result var38(src38);
 
     map0.insert({src37, var38});

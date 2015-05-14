@@ -34,36 +34,40 @@ TEST_CASE("cpp Test basic time arithmetic", "[cpp][ast]") {
   SECTION("test1") {
     std::map<std::string, Result> map0;
 
-    std::string src1("stuff", 5);
+    std::string src1("more", 4);
     Result var1(src1);
 
-    std::map<std::string, Result> map2;
+    std::vector<Result> arr2(1);
 
-    std::string src3("reql_ast_obj", 12);
-    Result var3(src3);
+    std::map<std::string, Result> map3;
 
-    std::map<std::string, Result> map4;
+    std::string src4("reql_ast_obj", 12);
+    Result var4(src4);
 
-    std::string src5("reql_ast_obj", 12);
-    Result var5(src5);
+    std::map<std::string, Result> map5;
 
-    std::string src6("datetime", 8);
+    std::string src6("reql_ast_obj", 12);
     Result var6(src6);
 
-    map4.insert({src5, var6});
+    std::string src7("datetime", 8);
+    Result var7(src7);
 
-    Result var4(map4);
+    map5.insert({src6, var7});
 
-    map2.insert({src3, var4});
+    Result var5(map5);
 
-    Result var2(map2);
+    map3.insert({src4, var5});
+
+    Result var3(map3);
+
+    arr2.insert(arr2.end(), var3);
+
+    Result var2(arr2);
 
     map0.insert({src1, var2});
 
-    std::string src7("more", 4);
-    Result var7(src7);
-
-    std::vector<Result> arr8(1);
+    std::string src8("stuff", 5);
+    Result var8(src8);
 
     std::map<std::string, Result> map9;
 
@@ -86,11 +90,7 @@ TEST_CASE("cpp Test basic time arithmetic", "[cpp][ast]") {
 
     Result var9(map9);
 
-    arr8.insert(arr8.end(), var9);
-
-    Result var8(arr8);
-
-    map0.insert({src7, var8});
+    map0.insert({src8, var9});
 
     Result var0(map0);
   }

@@ -143,18 +143,18 @@ TEST_CASE("cpp sindex status", "[cpp][ast]") {
 
     std::map<std::string, Result> map1;
 
-    std::string src2("ready", 5);
+    std::string src2("index", 5);
     Result var2(src2);
 
-    Result var3(true);
+    std::string src3("quux", 4);
+    Result var3(src3);
 
     map1.insert({src2, var3});
 
-    std::string src4("index", 5);
+    std::string src4("ready", 5);
     Result var4(src4);
 
-    std::string src5("quux", 4);
-    Result var5(src5);
+    Result var5(true);
 
     map1.insert({src4, var5});
 

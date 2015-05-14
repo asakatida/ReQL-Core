@@ -25,7 +25,7 @@ TEST_CASE("cpp 2767 -- Evaulate secondary index function with pristine env.", "[
   SECTION("test1") {
     std::map<std::string, Result> map0;
 
-    std::string src1("errors", 6);
+    std::string src1("deleted", 7);
     Result var1(src1);
 
     double num2(0);
@@ -33,7 +33,7 @@ TEST_CASE("cpp 2767 -- Evaulate secondary index function with pristine env.", "[
 
     map0.insert({src1, var2});
 
-    std::string src3("skipped", 7);
+    std::string src3("errors", 6);
     Result var3(src3);
 
     double num4(0);
@@ -41,23 +41,23 @@ TEST_CASE("cpp 2767 -- Evaulate secondary index function with pristine env.", "[
 
     map0.insert({src3, var4});
 
-    std::string src5("deleted", 7);
+    std::string src5("inserted", 8);
     Result var5(src5);
 
-    double num6(0);
+    double num6(1);
     Result var6(num6);
 
     map0.insert({src5, var6});
 
-    std::string src7("inserted", 8);
+    std::string src7("replaced", 8);
     Result var7(src7);
 
-    double num8(1);
+    double num8(0);
     Result var8(num8);
 
     map0.insert({src7, var8});
 
-    std::string src9("unchanged", 9);
+    std::string src9("skipped", 7);
     Result var9(src9);
 
     double num10(0);
@@ -65,7 +65,7 @@ TEST_CASE("cpp 2767 -- Evaulate secondary index function with pristine env.", "[
 
     map0.insert({src9, var10});
 
-    std::string src11("replaced", 8);
+    std::string src11("unchanged", 9);
     Result var11(src11);
 
     double num12(0);
@@ -81,47 +81,47 @@ TEST_CASE("cpp 2767 -- Evaulate secondary index function with pristine env.", "[
 
     std::map<std::string, Result> map1;
 
-    std::string src2("id", 2);
+    std::string src2("a", 1);
     Result var2(src2);
 
-    double num3(1);
-    Result var3(num3);
+    std::vector<Result> arr3(5);
+
+    double num4(1);
+    Result var4(num4);
+
+    arr3.insert(arr3.end(), var4);
+
+    double num5(2);
+    Result var5(num5);
+
+    arr3.insert(arr3.end(), var5);
+
+    double num6(3);
+    Result var6(num6);
+
+    arr3.insert(arr3.end(), var6);
+
+    double num7(4);
+    Result var7(num7);
+
+    arr3.insert(arr3.end(), var7);
+
+    double num8(5);
+    Result var8(num8);
+
+    arr3.insert(arr3.end(), var8);
+
+    Result var3(arr3);
 
     map1.insert({src2, var3});
 
-    std::string src4("a", 1);
-    Result var4(src4);
+    std::string src9("id", 2);
+    Result var9(src9);
 
-    std::vector<Result> arr5(5);
-
-    double num6(1);
-    Result var6(num6);
-
-    arr5.insert(arr5.end(), var6);
-
-    double num7(2);
-    Result var7(num7);
-
-    arr5.insert(arr5.end(), var7);
-
-    double num8(3);
-    Result var8(num8);
-
-    arr5.insert(arr5.end(), var8);
-
-    double num9(4);
-    Result var9(num9);
-
-    arr5.insert(arr5.end(), var9);
-
-    double num10(5);
+    double num10(1);
     Result var10(num10);
 
-    arr5.insert(arr5.end(), var10);
-
-    Result var5(arr5);
-
-    map1.insert({src4, var5});
+    map1.insert({src9, var10});
 
     Result var1(map1);
 
@@ -135,47 +135,47 @@ TEST_CASE("cpp 2767 -- Evaulate secondary index function with pristine env.", "[
 
     std::map<std::string, Result> map1;
 
-    std::string src2("id", 2);
+    std::string src2("a", 1);
     Result var2(src2);
 
-    double num3(1);
-    Result var3(num3);
+    std::vector<Result> arr3(5);
+
+    double num4(1);
+    Result var4(num4);
+
+    arr3.insert(arr3.end(), var4);
+
+    double num5(2);
+    Result var5(num5);
+
+    arr3.insert(arr3.end(), var5);
+
+    double num6(3);
+    Result var6(num6);
+
+    arr3.insert(arr3.end(), var6);
+
+    double num7(4);
+    Result var7(num7);
+
+    arr3.insert(arr3.end(), var7);
+
+    double num8(5);
+    Result var8(num8);
+
+    arr3.insert(arr3.end(), var8);
+
+    Result var3(arr3);
 
     map1.insert({src2, var3});
 
-    std::string src4("a", 1);
-    Result var4(src4);
+    std::string src9("id", 2);
+    Result var9(src9);
 
-    std::vector<Result> arr5(5);
-
-    double num6(1);
-    Result var6(num6);
-
-    arr5.insert(arr5.end(), var6);
-
-    double num7(2);
-    Result var7(num7);
-
-    arr5.insert(arr5.end(), var7);
-
-    double num8(3);
-    Result var8(num8);
-
-    arr5.insert(arr5.end(), var8);
-
-    double num9(4);
-    Result var9(num9);
-
-    arr5.insert(arr5.end(), var9);
-
-    double num10(5);
+    double num10(1);
     Result var10(num10);
 
-    arr5.insert(arr5.end(), var10);
-
-    Result var5(arr5);
-
-    map1.insert({src4, var5});
+    map1.insert({src9, var10});
 
     Result var1(map1);
 
@@ -189,47 +189,47 @@ TEST_CASE("cpp 2767 -- Evaulate secondary index function with pristine env.", "[
 
     std::map<std::string, Result> map1;
 
-    std::string src2("id", 2);
+    std::string src2("a", 1);
     Result var2(src2);
 
-    double num3(1);
-    Result var3(num3);
+    std::vector<Result> arr3(5);
+
+    double num4(1);
+    Result var4(num4);
+
+    arr3.insert(arr3.end(), var4);
+
+    double num5(2);
+    Result var5(num5);
+
+    arr3.insert(arr3.end(), var5);
+
+    double num6(3);
+    Result var6(num6);
+
+    arr3.insert(arr3.end(), var6);
+
+    double num7(4);
+    Result var7(num7);
+
+    arr3.insert(arr3.end(), var7);
+
+    double num8(5);
+    Result var8(num8);
+
+    arr3.insert(arr3.end(), var8);
+
+    Result var3(arr3);
 
     map1.insert({src2, var3});
 
-    std::string src4("a", 1);
-    Result var4(src4);
+    std::string src9("id", 2);
+    Result var9(src9);
 
-    std::vector<Result> arr5(5);
-
-    double num6(1);
-    Result var6(num6);
-
-    arr5.insert(arr5.end(), var6);
-
-    double num7(2);
-    Result var7(num7);
-
-    arr5.insert(arr5.end(), var7);
-
-    double num8(3);
-    Result var8(num8);
-
-    arr5.insert(arr5.end(), var8);
-
-    double num9(4);
-    Result var9(num9);
-
-    arr5.insert(arr5.end(), var9);
-
-    double num10(5);
+    double num10(1);
     Result var10(num10);
 
-    arr5.insert(arr5.end(), var10);
-
-    Result var5(arr5);
-
-    map1.insert({src4, var5});
+    map1.insert({src9, var10});
 
     Result var1(map1);
 
