@@ -20,8 +20,6 @@ set(SOURCES
  src/cpp/query.cpp
  src/cpp/result.cpp
  src/cpp/wrapper.cpp
- src/ReQL.c
- src/ReQL.cpp
  test/c/polyglot/datum/array.cpp
  test/c/polyglot/datum/binary.cpp
  test/c/polyglot/datum/bool.cpp

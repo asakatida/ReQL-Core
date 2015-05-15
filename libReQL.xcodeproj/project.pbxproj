@@ -260,8 +260,6 @@
 		1ECDD78A1AB53D80004CD31E /* ast.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1ECDD7491AB53D80004CD31E /* ast.cpp */; };
 		1ECDD78B1AB53D80004CD31E /* expr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1ECDD74B1AB53D80004CD31E /* expr.cpp */; };
 		1ECDD78C1AB53D80004CD31E /* new.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1ECDD74D1AB53D80004CD31E /* new.cpp */; };
-		1ECDD79B1AB53D80004CD31E /* ReQL.c in Sources */ = {isa = PBXBuildFile; fileRef = 1ECDD76C1AB53D80004CD31E /* ReQL.c */; };
-		1ECDD79C1AB53D80004CD31E /* ReQL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1ECDD76D1AB53D80004CD31E /* ReQL.cpp */; };
 		1ECDD7A11AB53D80004CD31E /* decode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1ECDD7791AB53D80004CD31E /* decode.cpp */; };
 		1ECDD7A21AB53D80004CD31E /* encode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1ECDD77A1AB53D80004CD31E /* encode.cpp */; };
 		1ECDD7A31AB53D80004CD31E /* expr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1ECDD77B1AB53D80004CD31E /* expr.cpp */; };
@@ -555,8 +553,6 @@
 		1ECDD74C1AB53D80004CD31E /* expr.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = expr.hpp; sourceTree = "<group>"; };
 		1ECDD74D1AB53D80004CD31E /* new.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = new.cpp; sourceTree = "<group>"; };
 		1ECDD74E1AB53D80004CD31E /* new.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = new.hpp; sourceTree = "<group>"; };
-		1ECDD76C1AB53D80004CD31E /* ReQL.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ReQL.c; sourceTree = "<group>"; };
-		1ECDD76D1AB53D80004CD31E /* ReQL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ReQL.cpp; sourceTree = "<group>"; };
 		1ECDD76E1AB53D80004CD31E /* ReQL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReQL.h; sourceTree = "<group>"; };
 		1ECDD76F1AB53D80004CD31E /* ReQL.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ReQL.hpp; sourceTree = "<group>"; };
 		1ECDD7791AB53D80004CD31E /* decode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = decode.cpp; sourceTree = "<group>"; };
@@ -1042,8 +1038,6 @@
 			children = (
 				1ECDD7331AB53D80004CD31E /* c */,
 				1ECDD7481AB53D80004CD31E /* cpp */,
-				1ECDD76C1AB53D80004CD31E /* ReQL.c */,
-				1ECDD76D1AB53D80004CD31E /* ReQL.cpp */,
 				1ECDD76E1AB53D80004CD31E /* ReQL.h */,
 				1ECDD76F1AB53D80004CD31E /* ReQL.hpp */,
 			);
@@ -1252,7 +1246,6 @@
 				1E5460401B03C91000A0362E /* logic.cpp in Sources */,
 				1E5460361B03C91000A0362E /* operations.cpp in Sources */,
 				1E545F841B03C90300A0362E /* 718.cpp in Sources */,
-				1ECDD79C1AB53D80004CD31E /* ReQL.cpp in Sources */,
 				1E545F2A1B03C90300A0362E /* point.cpp in Sources */,
 				1E0F0CC31AEB2606001E31C2 /* query.cpp in Sources */,
 				1E545F791B03C90300A0362E /* 469.cpp in Sources */,
@@ -1366,7 +1359,6 @@
 				1E545F3D1B03C90300A0362E /* operations.cpp in Sources */,
 				1E545F3A1B03C90300A0362E /* geojson.cpp in Sources */,
 				1E5460471B03C91000A0362E /* table.cpp in Sources */,
-				1ECDD79B1AB53D80004CD31E /* ReQL.c in Sources */,
 				1E545F7D1B03C90300A0362E /* 568.cpp in Sources */,
 				1E545F701B03C90300A0362E /* 3444.cpp in Sources */,
 				1ECDD7851AB53D80004CD31E /* decode.c in Sources */,
