@@ -79,20 +79,16 @@ TEST_CASE("c connection", "[c][connection]") {
       REQUIRE(reql_cur_open(cur.get()) != 0);
 
       if (reql_cur_open(cur.get()) != 0) {
-        ReQL_Obj_t *result = reql_cursor_to_array(cur.get());
-
-        REQUIRE(result != nullptr);
-
-        reql_json_destroy(result);
+        ReQL_Obj_c result(reql_cursor_to_array(cur.get()));
       }
     }
-
-    reql_close_conn(c.get());
-
-    REQUIRE(reql_conn_open(c.get()) == 0);
-
-    reql_ensure_conn_close(c.get());
-
-    REQUIRE(reql_conn_open(c.get()) == 0);
   }
+
+  reql_close_conn(c.get());
+
+  REQUIRE(reql_conn_open(c.get()) == 0);
+
+  reql_ensure_conn_close(c.get());
+
+  REQUIRE(reql_conn_open(c.get()) == 0);
 }

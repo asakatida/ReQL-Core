@@ -15,6 +15,14 @@ extern "C" {
 
 namespace ReQL {
 
+ReQL_Obj_c::ReQL_Obj_c(const ReQL_Obj_t &ptr) : ReQL_Obj_t(ptr) {}
+  
+ReQL_Obj_c::ReQL_Obj_c(const ReQL_Obj_t *ptr) : ReQL_Obj_c(*ptr) {}
+
+ReQL_Obj_c::~ReQL_Obj_c() {
+  reql_json_destroy(this);
+}
+
 std::string inspect(const Query &query) {
   return inspect(query.data());
 }
