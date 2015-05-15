@@ -39,6 +39,246 @@ section_shell = '''
   SECTION("test{}") {{{}
   }}'''
 
+class ObjectRecursor:
+    def recurse(self, obj):
+        if isinstance(obj, str):
+            return self.string_obj(obj)
+        elif isinstance(obj, bytes):
+            return self.bytes_obj(obj)
+        elif isinstance(obj, collections.Mapping):
+            if len(obj) == 0:
+                return self.empty_map_obj()
+            self.map_obj_start(len(obj))
+            for k in sorted(obj.keys()):
+                v = obj[k]
+                self.key_obj(k)
+                k = self.recurse(k)
+                self.val_obj()
+                self.key_val_pair(k, self.recurse(v))
+            return self.map_obj_end()
+        elif isinstance(obj, collections.Iterable):
+            if len(obj) == 0:
+                return self.empty_array_obj()
+            self.array_obj_start(len(obj))
+            for e in obj:
+                self.elem_start()
+                self.elem_end(self.recurse(e))
+            return self.array_obj_end()
+        elif isinstance(obj, bool):
+            return self.bool_obj(obj)
+        elif isinstance(obj, numbers.Number):
+            return self.number_obj(obj)
+        elif isinstance(obj, collections.Callable):
+            return self.callable_obj(obj)
+        elif obj == None:
+            return self.none_obj()
+        else:
+            return self.recurse({'reql_ast_obj': type(obj)})
+        raise Exception("unknown object type {}".format(type(obj)))
+
+class ResultBuilder(ObjectRecursor):
+    def __init__(self):
+        self.obj_id = 0
+        self.array_stack = []
+        self.array_id_stack = []
+        self.elem_id_stack = []
+        self.object_stack = []
+        self.object_id_stack = []
+        self.key_id_stack = []
+        self.val_id_stack = []
+
+    def next_obj_id(self):
+        obj_id = self.obj_id
+        self.obj_id += 1
+        return obj_id
+
+    def append_id(self, stack):
+        stack.append(self.obj_id)
+
+    def recurse(self, res):
+        if isinstance(res, r.RqlQuery):
+            res = {'reql_ast_obj': type(res)}
+        return super().recurse(res)
+
+    def bytes_obj(self, obj):
+        return self.recurse(obj.decode())
+
+    def key_obj(self, key):
+        if not isinstance(key, str):
+            raise BadKeyError()
+        self.append_id(self.key_id_stack)
+
+    def val_obj(self):
+        self.append_id(self.val_id_stack)
+
+    def elem_start(self):
+        self.append_id(self.elem_id_stack)
+
+    def map_obj_end(self):
+        self.object_id_stack.pop()
+        return '\n'.join(self.object_stack.pop())
+
+    def array_obj_end(self):
+        self.array_id_stack.pop()
+        return '\n'.join(self.array_stack.pop())
+
+    def callable_obj(self, obj):
+        if obj == sorted:
+            return self.recurse(['func', 'sorted'])
+        elif isinstance(obj, types.LambdaType):
+            return self.recurse(obj())
+        else:
+            return self.recurse({'reql_ast_obj': obj.__name__})
+
+class CResultBuilder(ResultBuilder):
+    def string_obj(self, obj):
+        obj = obj.encode('unicode_escape').replace(b'"', b'\\"')
+        return '''
+    std::unique_ptr<ReQL_Obj_t> var{0}(new ReQL_Obj_t);
+    std::unique_ptr<uint8_t[]> buf{0}(new uint8_t[{1}]);
+    const uint8_t src{0}[] = "{2}";
+    reql_string_init(var{0}.get(), buf{0}.get(), {1});
+    reql_string_append(var{0}.get(), src{0}, {1});'''.format(
+            self.next_obj_id(), len(obj), obj.decode())
+
+    def empty_map_obj(self):
+        return '''
+    std::unique_ptr<ReQL_Obj_t> var{0}(new ReQL_Obj_t);
+    reql_object_init(var{0}.get(), nullptr, 0);'''.format(self.next_obj_id())
+
+    def map_obj_start(self, count):
+        orig_obj_id = self.next_obj_id()
+        self.object_id_stack.append(orig_obj_id)
+        self.object_stack.append(['''
+    std::unique_ptr<ReQL_Obj_t> var{0}(new ReQL_Obj_t);
+    std::unique_ptr<ReQL_Pair_t[]> pair{0}(new ReQL_Pair_t[{1}]);
+    reql_object_init(var{0}.get(), pair{0}.get(), {1});'''.format(
+            orig_obj_id, count)])
+
+    def key_val_pair(self, key, val):
+        self.object_stack[-1].append(key)
+        self.object_stack[-1].append(val)
+        key_id = self.key_id_stack.pop()
+        val_id = self.val_id_stack.pop()
+        self.object_stack[-1].append('''
+    reql_object_add(var{}.get(), var{}.get(), var{}.get());'''.format(
+            self.object_id_stack[-1], key_id, val_id))
+
+    def empty_array_obj(self):
+        return '''
+    std::unique_ptr<ReQL_Obj_t> var{0}(new ReQL_Obj_t);
+    reql_array_init(var{0}.get(), nullptr, 0);'''.format(self.next_obj_id())
+
+    def array_obj_start(self, count):
+        orig_obj_id = self.next_obj_id()
+        self.array_id_stack.append(orig_obj_id)
+        self.array_stack.append(['''
+    std::unique_ptr<ReQL_Obj_t> var{0}(new ReQL_Obj_t);
+    std::unique_ptr<ReQL_Obj_t*[]> arr{0}(new ReQL_Obj_t*[{1}]);
+    reql_array_init(var{0}.get(), arr{0}.get(), {1});'''.format(
+            orig_obj_id, count)])
+
+    def elem_end(self, elem):
+        self.array_stack[-1].append(elem)
+        elem_id = self.elem_id_stack.pop()
+        self.array_stack[-1].append('''
+    reql_array_append(var{}.get(), var{}.get());'''.format(
+            self.array_id_stack[-1], elem_id))
+
+    def bool_obj(self, obj):
+        return '''
+    std::unique_ptr<ReQL_Obj_t> var{0}(new ReQL_Obj_t);
+    reql_bool_init(var{0}.get(), {1});'''.format(
+            self.next_obj_id(), 1 if obj else 0)
+
+    def number_obj(self, obj):
+        return '''
+    std::unique_ptr<ReQL_Obj_t> var{0}(new ReQL_Obj_t);
+    reql_number_init(var{0}.get(), {1});'''.format(
+            self.next_obj_id(), obj)
+
+    def none_obj(self):
+        return '''
+    std::unique_ptr<ReQL_Obj_t> var{0}(new ReQL_Obj_t);
+    reql_null_init(var{0}.get());'''.format(
+            self.next_obj_id())
+
+class CPPResultBuilder(ResultBuilder):
+    def string_obj(self, obj):
+        obj = obj.encode('unicode_escape').replace(b'"', b'\\"')
+        return '''
+    std::string src{0}("{2}", {1});
+    Result var{0}(src{0});'''.format(
+            self.next_obj_id(), len(obj), obj.decode())
+
+    def empty_map_obj(self):
+        return '''
+    std::map<std::string, Result> map{0};
+    Result var{0}(map{0});'''.format(self.next_obj_id())
+
+    def map_obj_start(self, count):
+        orig_obj_id = self.next_obj_id()
+        self.object_id_stack.append(orig_obj_id)
+        self.object_stack.append(['''
+    std::map<std::string, Result> map{};'''.format(
+            orig_obj_id)])
+
+    def key_val_pair(self, key, val):
+        self.object_stack[-1].append(key)
+        self.object_stack[-1].append(val)
+        key_id = self.key_id_stack.pop()
+        val_id = self.val_id_stack.pop()
+        self.object_stack[-1].append('''
+    map{}.insert({{src{}, var{}}});'''.format(
+            self.object_id_stack[-1], key_id, val_id))
+
+    def map_obj_end(self):
+        self.object_stack[-1].append('''
+    Result var{0}(map{0});'''.format(
+            self.object_id_stack[-1]))
+        return super().map_obj_end()
+
+    def empty_array_obj(self):
+        return '''
+    std::vector<Result> arr{0};
+    Result var{0}(arr{0});'''.format(self.next_obj_id())
+
+    def array_obj_start(self, count):
+        orig_obj_id = self.next_obj_id()
+        self.array_id_stack.append(orig_obj_id)
+        self.array_stack.append(['''
+    std::vector<Result> arr{}({});'''.format(
+            orig_obj_id, count)])
+
+    def elem_end(self, elem):
+        self.array_stack[-1].append(elem)
+        elem_id = self.elem_id_stack.pop()
+        self.array_stack[-1].append('''
+    arr{0}.insert(arr{0}.end(), var{1});'''.format(
+            self.array_id_stack[-1], elem_id))
+
+    def array_obj_end(self):
+        self.array_stack[-1].append('''
+    Result var{0}(arr{0});'''.format(
+            self.array_id_stack[-1]))
+        return super().array_obj_end()
+
+    def bool_obj(self, obj):
+        return '''
+    Result var{}({});'''.format(
+            self.next_obj_id(), 'true' if obj else 'false')
+
+    def number_obj(self, obj):
+        return '''
+    double num{0}({1});
+    Result var{0}(num{0});'''.format(
+            self.next_obj_id(), obj)
+
+    def none_obj(self):
+        return '''
+    Result var{};'''.format(
+            self.next_obj_id())
+
 class TestTable:
     def __init__(self, name):
         self.name = name
@@ -127,162 +367,11 @@ class TestTable:
 class BadKeyError(Exception):
     pass
 
-def recurse_result_c(res, obj_id):
-    if isinstance(res, r.RqlQuery):
-        return recurse_result_c({'reql_ast_obj': type(res)}, obj_id)
-    elif isinstance(res, str):
-        res = res.encode('unicode_escape').replace(b'"', b'\\"')
-        return '''
-    std::unique_ptr<ReQL_Obj_t> var{0}(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf{0}(new uint8_t[{1}]);
-    const uint8_t src{0}[] = "{2}";
-    reql_string_init(var{0}.get(), buf{0}.get(), {1});
-    reql_string_append(var{0}.get(), src{0}, {1});'''.format(obj_id, len(res), res.decode()), obj_id + 1
-    elif isinstance(res, bytes):
-        return recurse_result_c(res.decode(), obj_id)
-    elif isinstance(res, collections.Mapping):
-        if len(res) == 0:
-            return '''
-    std::unique_ptr<ReQL_Obj_t> var{0}(new ReQL_Obj_t);
-    reql_object_init(var{0}.get(), nullptr, 0);'''.format(obj_id), obj_id + 1
-        obj = ['''
-    std::unique_ptr<ReQL_Obj_t> var{0}(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Pair_t[]> pair{0}(new ReQL_Pair_t[{1}]);
-    reql_object_init(var{0}.get(), pair{0}.get(), {1});'''.format(obj_id, len(res))]
-        orig_obj_id = obj_id
-        obj_id += 1
-        for k in sorted(res.keys()):
-            if not isinstance(k, str):
-                raise BadKeyError()
-            key_id = obj_id
-            src, obj_id = recurse_result_c(k, obj_id)
-            obj.append(src)
-            val_id = obj_id
-            src, obj_id = recurse_result_c(res[k], obj_id)
-            obj.append(src)
-            obj.append('''
-    reql_object_add(var{}.get(), var{}.get(), var{}.get());'''.format(orig_obj_id, key_id, val_id))
-        return '\n'.join(obj), obj_id
-    elif isinstance(res, collections.Iterable):
-        if len(res) == 0:
-            return '''
-    std::unique_ptr<ReQL_Obj_t> var{0}(new ReQL_Obj_t);
-    reql_array_init(var{0}.get(), nullptr, 0);'''.format(obj_id), obj_id + 1
-        obj = ['''
-    std::unique_ptr<ReQL_Obj_t> var{0}(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*[]> arr{0}(new ReQL_Obj_t*[{1}]);
-    reql_array_init(var{0}.get(), arr{0}.get(), {1});'''.format(obj_id, len(res))]
-        orig_obj_id = obj_id
-        obj_id += 1
-        for e in res:
-            elem_id = obj_id
-            src, obj_id = recurse_result_c(e, obj_id)
-            obj.append(src)
-            obj.append('''
-    reql_array_append(var{}.get(), var{}.get());'''.format(orig_obj_id, elem_id))
-        return '\n'.join(obj), obj_id
-    elif isinstance(res, bool):
-        return '''
-    std::unique_ptr<ReQL_Obj_t> var{0}(new ReQL_Obj_t);
-    reql_bool_init(var{0}.get(), {1});'''.format(obj_id, 1 if res else 0), obj_id + 1
-    elif isinstance(res, numbers.Number):
-        return '''
-    std::unique_ptr<ReQL_Obj_t> var{0}(new ReQL_Obj_t);
-    reql_number_init(var{0}.get(), {1});'''.format(obj_id, res), obj_id + 1
-    elif isinstance(res, collections.Callable):
-        if res == range:
-            return recurse_result_c(['func', 'range'], obj_id)
-        elif res == map:
-            return recurse_result_c(['func', 'map'], obj_id)
-        elif res == sorted:
-            return recurse_result_c(['func', 'sorted'], obj_id)
-        elif isinstance(res, types.LambdaType):
-            return recurse_result_c(res(), obj_id)
-        else:
-            return recurse_result_c({'reql_ast_obj': res.__name__}, obj_id)
-    elif res == None:
-        return '''
-    std::unique_ptr<ReQL_Obj_t> var{0}(new ReQL_Obj_t);
-    reql_null_init(var{0}.get());'''.format(obj_id), obj_id + 1
-    else:
-        return recurse_result_c({'reql_ast_obj': type(res)}, obj_id)
-
-def recurse_result_cpp(res, obj_id):
-    if isinstance(res, r.RqlQuery):
-        return recurse_result_cpp({'reql_ast_obj': type(res)}, obj_id)
-    elif isinstance(res, str):
-        res = res.encode('unicode_escape').replace(b'"', b'\\"')
-        return '''
-    std::string src{0}("{2}", {1});
-    Result var{0}(src{0});'''.format(obj_id, len(res), res.decode()), obj_id + 1
-    elif isinstance(res, bytes):
-        return recurse_result_cpp(res.decode(), obj_id)
-    elif isinstance(res, collections.Mapping):
-        if len(res) == 0:
-            return '''
-    std::map<std::string, Result> map{0};
-    Result var{0}(map{0});'''.format(obj_id), obj_id + 1
-        obj = ['''
-    std::map<std::string, Result> map{};'''.format(obj_id)]
-        orig_obj_id = obj_id
-        obj_id += 1
-        for k in sorted(res.keys()):
-            if not isinstance(k, str):
-                raise BadKeyError()
-            key_id = obj_id
-            src, obj_id = recurse_result_cpp(k, obj_id)
-            obj.append(src)
-            val_id = obj_id
-            src, obj_id = recurse_result_cpp(res[k], obj_id)
-            obj.append(src)
-            obj.append('''
-    map{}.insert({{src{}, var{}}});'''.format(orig_obj_id, key_id, val_id))
-        obj.append('''
-    Result var{0}(map{0});'''.format(orig_obj_id))
-        return '\n'.join(obj), obj_id
-    elif isinstance(res, collections.Iterable):
-        if len(res) == 0:
-            return '''
-    std::vector<Result> arr{0};
-    Result var{0}(arr{0});'''.format(obj_id), obj_id + 1
-        obj = ['''
-    std::vector<Result> arr{}({});'''.format(obj_id, len(res))]
-        orig_obj_id = obj_id
-        obj_id += 1
-        for e in res:
-            elem_id = obj_id
-            src, obj_id = recurse_result_cpp(e, obj_id)
-            obj.append(src)
-            obj.append('''
-    arr{0}.insert(arr{0}.end(), var{1});'''.format(orig_obj_id, elem_id))
-        obj.append('''
-    Result var{0}(arr{0});'''.format(orig_obj_id))
-        return '\n'.join(obj), obj_id
-    elif isinstance(res, bool):
-        return '''
-    Result var{}({});'''.format(obj_id, 'true' if res else 'false'), obj_id + 1
-    elif isinstance(res, numbers.Number):
-        return '''
-    double num{0}({1});
-    Result var{0}(num{0});'''.format(obj_id, res), obj_id + 1
-    elif isinstance(res, collections.Callable):
-        if res == sorted:
-            return recurse_result_cpp(['func', 'sorted'], obj_id)
-        elif isinstance(res, types.LambdaType):
-            return recurse_result_cpp(res(), obj_id)
-        else:
-            return recurse_result_cpp({'reql_ast_obj': res.__name__}, obj_id)
-    elif res == None:
-        return '''
-    Result var{};'''.format(obj_id), obj_id + 1
-    else:
-        return recurse_result_cpp({'reql_ast_obj': type(res)}, obj_id)
-
 def recurse_result(res, lang):
     if lang == 'cpp':
-        return recurse_result_cpp(res, 0)[0]
+        return CPPResultBuilder().recurse(res)
     elif lang == 'c':
-        return recurse_result_c(res, 0)[0]
+        return CResultBuilder().recurse(res)
 
 def eval_result(result, lang):
     if isinstance(result, str):
