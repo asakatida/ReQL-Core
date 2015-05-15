@@ -12,6 +12,8 @@ tmp/
 # CMake
 CMakeCache.txt
 CMakeFiles
+CMakeScripts
+*.build
 Makefile
 cmake_install.cmake
 install_manifest.txt
@@ -38,8 +40,10 @@ DerivedData
 # QT Creator
 *.user
 
+# Test objects
+libReQLtest*
+
 # Compiled Object files
-libReQLtest
 __pycache__/
 *.out
 *.py[cod]
