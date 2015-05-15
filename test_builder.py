@@ -72,8 +72,6 @@ class ObjectRecursor:
             return self.callable_obj(obj)
         elif obj == None:
             return self.none_obj()
-        else:
-            return self.recurse({'reql_ast_obj': type(obj)})
         raise Exception("unknown object type {}".format(type(obj)))
 
 class ResultBuilder(ObjectRecursor):
@@ -95,10 +93,12 @@ class ResultBuilder(ObjectRecursor):
     def append_id(self, stack):
         stack.append(self.obj_id)
 
-    def recurse(self, res):
-        if isinstance(res, r.RqlQuery):
-            res = {'reql_ast_obj': type(res)}
-        return super().recurse(res)
+    def recurse(self, obj):
+        if isinstance(obj, r.RqlQuery):
+            obj = {'reql_ast_obj': type(obj)}
+        elif isinstance(obj, datetime):
+            obj = obj.ctime()
+        return super().recurse(obj)
 
     def bytes_obj(self, obj):
         return self.recurse(obj.decode())
