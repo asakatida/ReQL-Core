@@ -175,7 +175,10 @@ Cursor::next() {
 
 void
 Cursor::next(Parser &p) {
-  p.parse(Wrapper(reql_cursor_next(data())));
+  ReQL_Obj_t *res = reql_cursor_next(data());
+  if (res != nullptr) {
+    p.parse(Wrapper(res));
+  }
 }
 
 ReQL_Cur_t *

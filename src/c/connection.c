@@ -255,6 +255,17 @@ reql_ensure_conn_close_(ReQL_Conn_t *conn) {
   while (reql_conn_socket(conn) > 0) {
     pthread_cond_wait(conn->condition.done, conn->condition.mutex);
   }
+  while (conn->cursors != NULL) {
+    ReQL_Cur_t *cur = conn->cursors;
+    if (cur == cur->next) {
+      conn->cursors = NULL;
+    } else {
+      conn->cursors = cur->next;
+      conn->cursors->prev = conn->cursors;
+    }
+
+    reql_close_cur(cur);
+  }
   reql_conn_unlock(conn);
   pthread_mutex_destroy(conn->condition.mutex);
   free(conn->condition.mutex); conn->condition.mutex = NULL;
@@ -306,9 +317,16 @@ reql_conn_loop(void *conn) {
     if (size > 0) {
       if (pos >= size) {
         ReQL_Obj_t *res = reql_decode(response, size);
-        reql_conn_lock(conn);
-        reql_conn_set_res(conn, res, token);
-        reql_conn_unlock(conn);
+        if (res == NULL) {
+          if (reql_error_type() == REQL_E_NO) {
+            reql_connection_error("Failed to decode response", __func__);
+          }
+          reql_close_conn(conn);
+        } else {
+          reql_conn_lock(conn);
+          reql_conn_set_res(conn, res, token);
+          reql_conn_unlock(conn);
+        }
 
         pos -= size;
         size = 0;

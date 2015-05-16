@@ -166,6 +166,7 @@ reql_cursor_set_response(ReQL_Cur_t *cur, ReQL_Obj_t *res) {
     reql_json_destroy(res);
   } else {
     cur->response = res;
+    pthread_cond_signal(cur->condition.next);
   }
   reql_cursor_unlock(cur);
 }
@@ -173,7 +174,7 @@ reql_cursor_set_response(ReQL_Cur_t *cur, ReQL_Obj_t *res) {
 static char
 reql_cursor_response_wait(ReQL_Cur_t *cur) {
   int success = 0;
-  while (reql_cursor_response(cur) == NULL && success == 0) {
+  while (reql_cursor_response(cur) == NULL && success == 0 && reql_cur_open(cur)) {
     success = pthread_cond_wait(cur->condition.next, cur->condition.mutex);
   }
   return reql_cur_open(cur) && (success == 0);
