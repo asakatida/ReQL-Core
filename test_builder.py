@@ -394,11 +394,11 @@ def eval_result(result, lang):
         s = lambda *args: {'func': 's'}
         uuid = lambda *args: {'func': 'uuid'}
 
+        true = True
+        false = False
+        nil = null = None
+
         result = result.replace('=>', ':')
-        result = result.replace('true', 'True')
-        result = result.replace('false', 'False')
-        result = result.replace('null', 'None')
-        result = result.replace('nil', 'None')
         try:
             result = eval(result)
         except:
