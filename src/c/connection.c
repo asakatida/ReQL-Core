@@ -153,18 +153,11 @@ reql_conn_unlock(ReQL_Conn_t *conn) {
 
 extern void
 reql_connection_init(ReQL_Conn_t *conn) {
-  conn->condition.mutex = NULL;
-  conn->condition.done = NULL;
+  memset(conn, (int)NULL, sizeof(ReQL_Conn_t));
   reql_conn_lock(conn);
   conn->socket = -1;
-  conn->done = 0;
-  conn->max_token = 0;
-  conn->cursors = NULL;
   conn->timeout = 20;
-  conn->auth_size = 0;
-  conn->auth = NULL;
   conn->port = "28015";
-  conn->addr = NULL;
   reql_conn_unlock(conn);
 }
 

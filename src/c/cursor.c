@@ -24,20 +24,114 @@ limitations under the License.
 #include "./c/dev/error.h"
 
 #include <stdlib.h>
+#include <string.h>
 
 static void
-reql_cursor_lock(const ReQL_Cur_t *cur) {
+reql_cursor_error(const char *msg, const char *trace) {
+  reql_error_init(REQL_E_CURSOR, msg, trace);
+}
+
+static void
+reql_cursor_memory_error(const char *trace) {
+  reql_cursor_error("Insufficient memory", trace);
+}
+
+static void
+reql_cursor_mutex_init(ReQL_Cur_t *cur) {
   if (cur->condition.mutex == NULL) {
-    return;
+    pthread_mutexattr_t *attrs = malloc(sizeof(pthread_mutexattr_t));
+
+    if (attrs == NULL) {
+      reql_cursor_memory_error(__func__);
+      return;
+    }
+
+    pthread_mutexattr_init(attrs);
+    pthread_mutexattr_settype(attrs, PTHREAD_MUTEX_ERRORCHECK);
+
+    pthread_mutex_t *mutex = malloc(sizeof(pthread_mutex_t));
+
+    pthread_mutex_init(mutex, attrs);
+
+    cur->condition.mutex = mutex;
+
+    pthread_mutexattr_destroy(attrs);
+
+    free(attrs); attrs = NULL;
   }
+
+  if (cur->condition.done == NULL) {
+    pthread_condattr_t *attrs = malloc(sizeof(pthread_condattr_t));
+
+    if (attrs == NULL) {
+      reql_cursor_memory_error(__func__);
+      return;
+    }
+
+    pthread_condattr_init(attrs);
+    pthread_condattr_setpshared(attrs, PTHREAD_PROCESS_PRIVATE);
+
+    pthread_cond_t *done = malloc(sizeof(pthread_cond_t));
+
+    pthread_cond_init(done, attrs);
+
+    cur->condition.done = done;
+
+    pthread_condattr_destroy(attrs);
+    
+    free(attrs); attrs = NULL;
+  }
+
+  if (cur->condition.next == NULL) {
+    pthread_condattr_t *attrs = malloc(sizeof(pthread_condattr_t));
+
+    if (attrs == NULL) {
+      reql_cursor_memory_error(__func__);
+      return;
+    }
+
+    pthread_condattr_init(attrs);
+    pthread_condattr_setpshared(attrs, PTHREAD_PROCESS_PRIVATE);
+
+    pthread_cond_t *done = malloc(sizeof(pthread_cond_t));
+
+    pthread_cond_init(done, attrs);
+
+    cur->condition.next = done;
+
+    pthread_condattr_destroy(attrs);
+
+    free(attrs); attrs = NULL;
+  }
+}
+
+static void
+reql_cursor_mutex_destroy(ReQL_Cur_t *cur) {
+  if (cur->condition.mutex != NULL) {
+    pthread_mutex_destroy(cur->condition.mutex);
+    free(cur->condition.mutex); cur->condition.mutex = NULL;
+  }
+
+  if (cur->condition.done != NULL) {
+    pthread_cond_destroy(cur->condition.done);
+    free(cur->condition.done); cur->condition.done = NULL;
+  }
+
+  if (cur->condition.next != NULL) {
+    pthread_cond_destroy(cur->condition.next);
+    free(cur->condition.next); cur->condition.next = NULL;
+  }
+}
+
+static void
+reql_cursor_lock(ReQL_Cur_t *cur) {
+  reql_cursor_mutex_init(cur);
   pthread_mutex_lock(cur->condition.mutex);
 }
 
 static void
-reql_cursor_unlock(const ReQL_Cur_t *cur) {
-  if (cur->condition.mutex == NULL) {
-    return;
-  }
+reql_cursor_unlock(ReQL_Cur_t *cur) {
+  reql_cursor_mutex_init(cur);
   pthread_mutex_unlock(cur->condition.mutex);
 }
 
@@ -126,13 +220,10 @@ reql_cur_open(const ReQL_Cur_t *cur) {
 
 extern void
 reql_cursor_init(ReQL_Cur_t *cur, uint64_t token) {
-  pthread_mutex_lock(cur->condition.mutex);
-  cur->cb = NULL;
-  cur->done = 0;
-  cur->next = cur->prev = cur;
-  cur->response = NULL;
+  memset(cur, (int)NULL, sizeof(ReQL_Cur_t));
+  reql_cursor_lock(cur);
   cur->token = token;
-  pthread_mutex_unlock(cur->condition.mutex);
+  reql_cursor_unlock(cur);
 }
 
 extern ReQL_Obj_t *
