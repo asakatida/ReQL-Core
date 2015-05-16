@@ -11,12 +11,12 @@
 
 namespace ReQL {
 
-  class ReQL_Obj_c : public ReQL_Obj_t {
-  public:
-    ReQL_Obj_c(const ReQL_Obj_t &ptr);
-    ReQL_Obj_c(const ReQL_Obj_t *ptr);
-    ~ReQL_Obj_c();
-  };
+class ReQL_Obj_c : public ReQL_Obj_t {
+public:
+  ReQL_Obj_c(const ReQL_Obj_t &ptr);
+  ReQL_Obj_c(const ReQL_Obj_t *ptr);
+  ~ReQL_Obj_c();
+};
 
 std::string inspect(const Query &query);
 std::string inspect(const ReQL_Obj_t *query);

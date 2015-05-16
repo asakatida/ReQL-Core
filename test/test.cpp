@@ -3,20 +3,17 @@
 #define CATCH_CONFIG_MAIN
 #include "./test.hpp"
 
+#include <string>
+
 namespace ReQL {
 extern "C" {
 
 #include "./c/dev/json.h"
 
 }
-}
-
-#include <string>
-
-namespace ReQL {
 
 ReQL_Obj_c::ReQL_Obj_c(const ReQL_Obj_t &ptr) : ReQL_Obj_t(ptr) {}
-  
+
 ReQL_Obj_c::ReQL_Obj_c(const ReQL_Obj_t *ptr) : ReQL_Obj_c(*ptr) {}
 
 ReQL_Obj_c::~ReQL_Obj_c() {
