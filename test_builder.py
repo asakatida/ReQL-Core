@@ -431,7 +431,7 @@ def eval_result(result, lang):
                 return eval_result(res, lang)
             except BadKeyError:
                 pass
-        return recurse_result(res, lang)
+        return recurse_result(result, lang)
     elif isinstance(result, (collections.Iterable, numbers.Number, type(None))):
         return recurse_result(result, lang)
     else:
