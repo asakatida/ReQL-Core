@@ -464,16 +464,26 @@ def eval_section(section, tables):
         pass
     return ''
 
+def eval_definition(definition, tables, lang):
+    try:
+        exec(definition, None, tables)
+    except:
+        pass
+    else:
+        return str(definition)
+    return str(definition)
+
 def convert_tests(tests, lang):
     lang_tests = []
     tables = {table: TestTable(table) for table in get_tables(tests)}
     for i, test in enumerate(tests['tests']):
         lang_test = []
+        definitions = test.get('def')
+        if definitions:
+            definitions = eval_definition(definitions, tables, lang)
+            lang_tests.append(definitions)
         section = test.get('py', test.get('cd'))
         if section:
-#            definitions = test.get('def')
-#            if definitions:
-#                lang_test.append(eval_section(definitions, tables))
 #            if isinstance(section, str):
 #                lang_test.append(eval_section(section, tables))
 #            elif isinstance(section, list):
