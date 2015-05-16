@@ -12,11 +12,35 @@ extern "C" {
 
 }
 
-ReQL_Obj_c::ReQL_Obj_c(const ReQL_Obj_t &ptr) : ReQL_Obj_t(ptr) {}
+ReQL_Conn_c::ReQL_Conn_c() : std::unique_ptr<ReQL_Conn_t>(new ReQL_Conn_t) {
+  reql_connection_init(get());
 
-ReQL_Obj_c::ReQL_Obj_c(const ReQL_Obj_t *ptr) : ReQL_Obj_c(*ptr) {}
+  REQUIRE(reql_conn_open(get()) == 0);
+}
 
-ReQL_Obj_c::~ReQL_Obj_c() {
+ReQL_Conn_c::~ReQL_Conn_c() {
+  reql_close_conn(get());
+
+  REQUIRE(reql_conn_open(get()) == 0);
+
+  reql_ensure_conn_close(get());
+
+  REQUIRE(reql_conn_open(get()) == 0);
+}
+
+ReQL_Cur_c::ReQL_Cur_c() : std::unique_ptr<ReQL_Cur_t>(new ReQL_Cur_t) {}
+
+ReQL_Cur_c::~ReQL_Cur_c() {}
+
+ReQL_Obj_c::ReQL_Obj_c() : std::unique_ptr<ReQL_Obj_t>(new ReQL_Obj_t) {}
+
+ReQL_Obj_c::~ReQL_Obj_c() {}
+
+ReQL_Res_c::ReQL_Res_c(const ReQL_Obj_t &ptr) : ReQL_Obj_t(ptr) {}
+
+ReQL_Res_c::ReQL_Res_c(const ReQL_Obj_t *ptr) : ReQL_Res_c(*ptr) {}
+
+ReQL_Res_c::~ReQL_Res_c() {
   reql_json_destroy(this);
 }
 

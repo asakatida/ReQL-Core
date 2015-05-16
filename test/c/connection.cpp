@@ -13,19 +13,15 @@ extern "C" {
 using namespace ReQL;
 
 TEST_CASE("c connection", "[c][connection]") {
-  std::unique_ptr<ReQL_Conn_t> c(new ReQL_Conn_t);
+  ReQL_Conn_c c;
 
   SECTION("reql_connection_init") {
-    reql_connection_init(c.get());
-
     REQUIRE(reql_conn_addr(c.get()) == nullptr);
     REQUIRE(reql_conn_auth_key(c.get()) == nullptr);
     REQUIRE(reql_conn_auth_size(c.get()) == 0);
     REQUIRE(std::strncmp(reql_conn_port(c.get()), "28015", 5) == 0);
     REQUIRE(reql_conn_timeout(c.get()) == uint64_t(20));
   }
-
-  reql_connection_init(c.get());
 
   SECTION("reql_conn_set_auth") {
     char key[] = "test";
@@ -59,36 +55,22 @@ TEST_CASE("c connection", "[c][connection]") {
   }
 
   SECTION("reql_connect") {
-    REQUIRE(reql_conn_open(c.get()) == 0);
-
     std::unique_ptr<std::uint8_t> buf(new std::uint8_t[100]);
 
     REQUIRE(reql_connect(c.get(), buf.get(), 100) == 0);
 
     REQUIRE(reql_conn_open(c.get()) != 0);
 
-    if (reql_conn_open(c.get()) != 0) {
-      std::unique_ptr<ReQL_Obj_t> q(new ReQL_Obj_t);
+    ReQL_Obj_c q;
 
-      reql_number_init(q.get(), 2.72);
+    reql_number_init(q.get(), 2.72);
 
-      std::unique_ptr<ReQL_Cur_t> cur(new ReQL_Cur_t);
+    std::unique_ptr<ReQL_Cur_t> cur(new ReQL_Cur_t);
 
-      reql_run(cur.get(), q.get(), c.get(), nullptr);
+    reql_run(cur.get(), q.get(), c.get(), nullptr);
 
-      REQUIRE(reql_cur_open(cur.get()) != 0);
+    REQUIRE(reql_cur_open(cur.get()) != 0);
 
-      if (reql_cur_open(cur.get()) != 0) {
-        ReQL_Obj_c result(reql_cursor_to_array(cur.get()));
-      }
-    }
+    ReQL_Res_c result(reql_cursor_to_array(cur.get()));
   }
-
-  reql_close_conn(c.get());
-
-  REQUIRE(reql_conn_open(c.get()) == 0);
-
-  reql_ensure_conn_close(c.get());
-
-  REQUIRE(reql_conn_open(c.get()) == 0);
 }
