@@ -46,9 +46,10 @@ class ObjectRecursor:
         elif isinstance(obj, bytes):
             return self.bytes_obj(obj)
         elif isinstance(obj, collections.Mapping):
-            if len(obj) == 0:
+            count = len(obj)
+            if count == 0:
                 return self.empty_map_obj()
-            self.map_obj_start(len(obj))
+            self.map_obj_start(count)
             for k in sorted(obj.keys()):
                 v = obj[k]
                 self.key_obj(k)
@@ -57,9 +58,10 @@ class ObjectRecursor:
                 self.key_val_pair(k, self.recurse(v))
             return self.map_obj_end()
         elif isinstance(obj, collections.Iterable):
-            if len(obj) == 0:
+            count = len(obj)
+            if count == 0:
                 return self.empty_array_obj()
-            self.array_obj_start(len(obj))
+            self.array_obj_start(count)
             for e in obj:
                 self.elem_start()
                 self.elem_end(self.recurse(e))
@@ -77,11 +79,9 @@ class ObjectRecursor:
 class ResultBuilder(ObjectRecursor):
     def __init__(self):
         self.obj_id = 0
-        self.array_stack = []
-        self.array_id_stack = []
+        self.array_stack = {}
         self.elem_id_stack = []
-        self.object_stack = []
-        self.object_id_stack = []
+        self.object_stack = {}
         self.key_id_stack = []
         self.val_id_stack = []
 
@@ -92,6 +92,22 @@ class ResultBuilder(ObjectRecursor):
 
     def append_id(self, stack):
         stack.append(self.obj_id)
+
+    def array_stack_top(self):
+        return max(self.array_stack.keys())
+
+    def active_array_append(self, *args):
+        top = self.array_stack[self.array_stack_top()]
+        for arg in args:
+            top.append(arg)
+
+    def object_stack_top(self):
+        return max(self.object_stack.keys())
+
+    def active_object_append(self, *args):
+        top = self.object_stack[self.object_stack_top()]
+        for arg in args:
+            top.append(arg)
 
     def recurse(self, obj):
         if isinstance(obj, r.RqlQuery):
@@ -115,12 +131,10 @@ class ResultBuilder(ObjectRecursor):
         self.append_id(self.elem_id_stack)
 
     def map_obj_end(self):
-        self.object_id_stack.pop()
-        return '\n'.join(self.object_stack.pop())
+        return '\n'.join(self.object_stack.pop(self.object_stack_top()))
 
     def array_obj_end(self):
-        self.array_id_stack.pop()
-        return '\n'.join(self.array_stack.pop())
+        return '\n'.join(self.array_stack.pop(self.array_stack_top()))
 
     def callable_obj(self, obj):
         if obj == sorted:
@@ -130,154 +144,136 @@ class ResultBuilder(ObjectRecursor):
         else:
             return self.recurse({'reql_ast_obj': obj.__name__})
 
-class CResultBuilder(ResultBuilder):
     def string_obj(self, obj):
         obj = obj.encode('unicode_escape').replace(b'"', b'\\"')
-        return '''
+        return self.shell_string.format(
+            self.next_obj_id(), len(obj), obj.decode())
+
+    def empty_map_obj(self):
+        return self.shell_empty_map.format(self.next_obj_id())
+
+    def map_obj_start(self, count):
+        orig_obj_id = self.next_obj_id()
+        self.object_stack[orig_obj_id] = [
+            self.shell_map_start.format(orig_obj_id, count)]
+
+    def key_val_pair(self, key, val):
+        self.active_object_append(key, val, self.shell_key_val.format(
+            self.object_stack_top(),
+            self.key_id_stack.pop(),
+            self.val_id_stack.pop()))
+
+    def empty_array_obj(self):
+        return self.shell_empty_array.format(self.next_obj_id())
+
+    def array_obj_start(self, count):
+        orig_obj_id = self.next_obj_id()
+        self.array_stack[orig_obj_id] = [
+            self.shell_array_start.format(orig_obj_id, count)]
+
+    def elem_end(self, elem):
+        self.active_array_append(elem, self.shell_elem.format(
+            self.array_stack_top(), self.elem_id_stack.pop()))
+
+    def bool_obj(self, shell, obj):
+        return shell.format(self.next_obj_id(), obj)
+
+    def number_obj(self, obj):
+        return self.shell_number.format(self.next_obj_id(), obj)
+
+    def none_obj(self):
+        return self.shell_none.format(self.next_obj_id())
+
+class CResultBuilder(ResultBuilder):
+    shell_string = '''
     std::unique_ptr<ReQL_Obj_t> var{0}(new ReQL_Obj_t);
     std::unique_ptr<uint8_t[]> buf{0}(new uint8_t[{1}]);
     const uint8_t src{0}[] = "{2}";
     reql_string_init(var{0}.get(), buf{0}.get(), {1});
-    reql_string_append(var{0}.get(), src{0}, {1});'''.format(
-            self.next_obj_id(), len(obj), obj.decode())
+    reql_string_append(var{0}.get(), src{0}, {1});'''
 
-    def empty_map_obj(self):
-        return '''
+    shell_empty_map = '''
     std::unique_ptr<ReQL_Obj_t> var{0}(new ReQL_Obj_t);
-    reql_object_init(var{0}.get(), nullptr, 0);'''.format(self.next_obj_id())
+    reql_object_init(var{0}.get(), nullptr, 0);'''
 
-    def map_obj_start(self, count):
-        orig_obj_id = self.next_obj_id()
-        self.object_id_stack.append(orig_obj_id)
-        self.object_stack.append(['''
+    shell_map_start = '''
     std::unique_ptr<ReQL_Obj_t> var{0}(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Pair_t[]> pair{0}(new ReQL_Pair_t[{1}]);
-    reql_object_init(var{0}.get(), pair{0}.get(), {1});'''.format(
-            orig_obj_id, count)])
+    reql_object_init(var{0}.get(), pair{0}.get(), {1});'''
 
-    def key_val_pair(self, key, val):
-        self.object_stack[-1].append(key)
-        self.object_stack[-1].append(val)
-        key_id = self.key_id_stack.pop()
-        val_id = self.val_id_stack.pop()
-        self.object_stack[-1].append('''
-    reql_object_add(var{}.get(), var{}.get(), var{}.get());'''.format(
-            self.object_id_stack[-1], key_id, val_id))
+    shell_key_val = '''
+    reql_object_add(var{}.get(), var{}.get(), var{}.get());'''
 
-    def empty_array_obj(self):
-        return '''
+    shell_empty_array = '''
     std::unique_ptr<ReQL_Obj_t> var{0}(new ReQL_Obj_t);
-    reql_array_init(var{0}.get(), nullptr, 0);'''.format(self.next_obj_id())
+    reql_array_init(var{0}.get(), nullptr, 0);'''
 
-    def array_obj_start(self, count):
-        orig_obj_id = self.next_obj_id()
-        self.array_id_stack.append(orig_obj_id)
-        self.array_stack.append(['''
+    shell_array_start = '''
     std::unique_ptr<ReQL_Obj_t> var{0}(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Obj_t*[]> arr{0}(new ReQL_Obj_t*[{1}]);
-    reql_array_init(var{0}.get(), arr{0}.get(), {1});'''.format(
-            orig_obj_id, count)])
+    reql_array_init(var{0}.get(), arr{0}.get(), {1});'''
 
-    def elem_end(self, elem):
-        self.array_stack[-1].append(elem)
-        elem_id = self.elem_id_stack.pop()
-        self.array_stack[-1].append('''
-    reql_array_append(var{}.get(), var{}.get());'''.format(
-            self.array_id_stack[-1], elem_id))
+    shell_elem = '''
+    reql_array_append(var{}.get(), var{}.get());'''
 
     def bool_obj(self, obj):
-        return '''
+        return super().bool_obj('''
     std::unique_ptr<ReQL_Obj_t> var{0}(new ReQL_Obj_t);
-    reql_bool_init(var{0}.get(), {1});'''.format(
-            self.next_obj_id(), 1 if obj else 0)
+    reql_bool_init(var{0}.get(), {1});''', 1 if obj else 0)
 
-    def number_obj(self, obj):
-        return '''
+    shell_number = '''
     std::unique_ptr<ReQL_Obj_t> var{0}(new ReQL_Obj_t);
-    reql_number_init(var{0}.get(), {1});'''.format(
-            self.next_obj_id(), obj)
+    reql_number_init(var{0}.get(), {1});'''
 
-    def none_obj(self):
-        return '''
+    shell_none = '''
     std::unique_ptr<ReQL_Obj_t> var{0}(new ReQL_Obj_t);
-    reql_null_init(var{0}.get());'''.format(
-            self.next_obj_id())
+    reql_null_init(var{0}.get());'''
 
 class CPPResultBuilder(ResultBuilder):
-    def string_obj(self, obj):
-        obj = obj.encode('unicode_escape').replace(b'"', b'\\"')
-        return '''
+    shell_string = '''
     std::string src{0}("{2}", {1});
-    Result var{0}(src{0});'''.format(
-            self.next_obj_id(), len(obj), obj.decode())
+    Result var{0}(src{0});'''
 
-    def empty_map_obj(self):
-        return '''
+    shell_empty_map = '''
     std::map<std::string, Result> map{0};
-    Result var{0}(map{0});'''.format(self.next_obj_id())
+    Result var{0}(map{0});'''
 
-    def map_obj_start(self, count):
-        orig_obj_id = self.next_obj_id()
-        self.object_id_stack.append(orig_obj_id)
-        self.object_stack.append(['''
-    std::map<std::string, Result> map{};'''.format(
-            orig_obj_id)])
+    shell_map_start = '''
+    std::map<std::string, Result> map{};'''
 
-    def key_val_pair(self, key, val):
-        self.object_stack[-1].append(key)
-        self.object_stack[-1].append(val)
-        key_id = self.key_id_stack.pop()
-        val_id = self.val_id_stack.pop()
-        self.object_stack[-1].append('''
-    map{}.insert({{src{}, var{}}});'''.format(
-            self.object_id_stack[-1], key_id, val_id))
+    shell_key_val = '''
+    map{}.insert({{src{}, var{}}});'''
 
     def map_obj_end(self):
-        self.object_stack[-1].append('''
-    Result var{0}(map{0});'''.format(
-            self.object_id_stack[-1]))
+        self.active_object_append('''
+    Result var{0}(map{0});'''.format(self.object_stack_top()))
         return super().map_obj_end()
 
-    def empty_array_obj(self):
-        return '''
+    shell_empty_array = '''
     std::vector<Result> arr{0};
-    Result var{0}(arr{0});'''.format(self.next_obj_id())
+    Result var{0}(arr{0});'''
 
-    def array_obj_start(self, count):
-        orig_obj_id = self.next_obj_id()
-        self.array_id_stack.append(orig_obj_id)
-        self.array_stack.append(['''
-    std::vector<Result> arr{}({});'''.format(
-            orig_obj_id, count)])
+    shell_array_start = '''
+    std::vector<Result> arr{}({});'''
 
-    def elem_end(self, elem):
-        self.array_stack[-1].append(elem)
-        elem_id = self.elem_id_stack.pop()
-        self.array_stack[-1].append('''
-    arr{0}.insert(arr{0}.end(), var{1});'''.format(
-            self.array_id_stack[-1], elem_id))
+    shell_elem = '''
+    arr{0}.insert(arr{0}.end(), var{1});'''
 
     def array_obj_end(self):
-        self.array_stack[-1].append('''
-    Result var{0}(arr{0});'''.format(
-            self.array_id_stack[-1]))
+        self.active_array_append('''
+    Result var{0}(arr{0});'''.format(self.array_stack_top()))
         return super().array_obj_end()
 
     def bool_obj(self, obj):
-        return '''
-    Result var{}({});'''.format(
-            self.next_obj_id(), 'true' if obj else 'false')
+        return super().bool_obj('''
+    Result var{}({});''', 'true' if obj else 'false')
 
-    def number_obj(self, obj):
-        return '''
+    shell_number = '''
     double num{0}({1});
-    Result var{0}(num{0});'''.format(
-            self.next_obj_id(), obj)
+    Result var{0}(num{0});'''
 
-    def none_obj(self):
-        return '''
-    Result var{};'''.format(
-            self.next_obj_id())
+    shell_none = '''
+    Result var{};'''
 
 class TestTable:
     def __init__(self, name):
