@@ -45,7 +45,7 @@ ReQL_Res_c::~ReQL_Res_c() {
 }
 
 std::string inspect(const Query &query) {
-  return inspect(query.data());
+  return inspect(query._data());
 }
 
 std::string inspect(const ReQL_Obj_t *query) {

@@ -57,27 +57,23 @@ Cursor Query::run(const Connection &conn) const {
 
   Cursor cur;
 
-  reql_run(cur.data(), data(), conn.data(), nullptr);
+  reql_run(cur.data(), _data(), conn.data(), nullptr);
 
   return cur;
 }
 
 Query &Query::operator=(const Query &other) {
   if (this != &other) {
-    copy(other);
+    p_query = other.p_query;
   }
   return *this;
 }
 
 Query &Query::operator=(Query &&other) {
   if (this != &other) {
-    move(std::move(other));
+    p_query = std::move(other.p_query);
   }
   return *this;
-}
-
-bool Query::operator<(const Query &other) const {
-  return Expr::operator<(other);
 }
 
 }  // namespace ReQL

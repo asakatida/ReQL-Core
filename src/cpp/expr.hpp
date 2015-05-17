@@ -29,19 +29,14 @@ limitations under the License.
 
 namespace ReQL {
 
-class Query;
-
 class Expr {
 public:
-  bool operator<(const Expr &other) const;
+  Expr(const Expr &other);
+  Expr(Expr &&other);
 
-  explicit Expr(const Expr &other);
-  explicit Expr(Expr &&other);
-
-  Expr &operator=(const Expr &other);
-  Expr &operator=(Expr &&other);
-
-  ReQL_Obj_t *data() const;
+  ReQL_Obj_t *_data() const;
+  ReQL_Datum_t _type() const;
+  const ReQL &_internal() const;
 
 protected:
   Expr();
@@ -52,15 +47,8 @@ protected:
   explicit Expr(const bool &val);
   explicit Expr(const std::vector<Query> &val);
   explicit Expr(const std::map<std::string, Query> &val);
-  void copy(const Expr &other);
-  void move(Expr &&other);
 
-private:
   ReQL p_query;
-  ReQL_AST_Function p_func;
-  ReQL_AST_Function_Kwargs p_func_kwargs;
-  std::vector<Expr> p_array;
-  std::map<Expr, Expr> p_object;
 };
 
 }  // namespace ReQL

@@ -33,28 +33,33 @@ extern "C" {
 
 }
 
-class ReQL {
+class Query;
+
+class ReQL : public std::unique_ptr<ReQL_Obj_t> {
 public:
   ReQL();
   explicit ReQL(const double &val);
   explicit ReQL(const bool &val);
   explicit ReQL(const std::string &val);
-  explicit ReQL(const std::vector<ReQL> &array);
-  explicit ReQL(const std::map<ReQL, ReQL> &object);
-  ReQL(const ReQL_AST_Function &f, const std::vector<ReQL> &args);
-  ReQL(const ReQL_AST_Function_Kwargs &f, const std::vector<ReQL> &args, const std::map<ReQL, ReQL> &kwargs);
-  explicit ReQL(const ReQL &other);
+  explicit ReQL(const std::vector<Query> &array);
+  explicit ReQL(const std::map<std::string, Query> &object);
+  ReQL(const ReQL_AST_Function &f, const std::vector<Query> &args);
+  ReQL(const ReQL_AST_Function_Kwargs &f, const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);
+  ReQL(const ReQL &other);
+  ReQL(ReQL &&other);
+
+  ~ReQL();
 
   ReQL &operator=(const ReQL &other);
   ReQL &operator=(ReQL &&other);
 
-  ReQL_Obj_t *data() const;
-
   bool operator<(const ReQL &other) const;
 
+  ReQL_Datum_t _type() const;
+
 private:
-  ReQL_Datum_t type() const;
   void copy(const ReQL &other);
+  void move(ReQL &&other);
 
   ReQL_AST_Function p_func;
   ReQL_AST_Function_Kwargs p_func_kwargs;
@@ -66,7 +71,6 @@ private:
   std::unique_ptr<uint8_t> p_buf;
   std::unique_ptr<ReQL_Obj_t> p_kwargs;
   std::unique_ptr<ReQL_Pair_t> p_object;
-  std::unique_ptr<ReQL_Obj_t> p_query;
 };
 
 }  // namespace ReQL
