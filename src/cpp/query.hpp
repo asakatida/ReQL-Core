@@ -49,7 +49,10 @@ public:
   Query &operator=(const Query &other);
   Query &operator=(Query &&other);
 
+  void no_reply(const Connection &conn) const;
+  void no_reply(const Connection &conn, const std::map<std::string, Query> &kwargs) const;
   Cursor run(const Connection &conn) const;
+  Cursor run(const Connection &conn, const std::map<std::string, Query> &kwargs) const;
 };
 
 }  // namespace ReQL
