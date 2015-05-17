@@ -150,20 +150,25 @@ private:
 
 ResultBuilder::~ResultBuilder() {}
 
-Cursor::Cursor() : p_cur(new ReQL_Cur_t) {}
+Cursor::Cursor() : std::unique_ptr<ReQL_Cur_t>(new ReQL_Cur_t) {}
 
-Cursor::~Cursor() {}
+Cursor::Cursor(Cursor &&other) : std::unique_ptr<ReQL_Cur_t>(std::move(other)) {}
 
 Cursor &
 Cursor::operator=(Cursor &&other) {
   if (this != &other) {
-    p_cur = std::move(other.p_cur);
+    close();
+    std::unique_ptr<ReQL_Cur_t>::operator=(std::move(other));
   }
   return *this;
 }
 
+Cursor::~Cursor() {
+  close();
+}
+
 bool Cursor::isOpen() const {
-  return reql_cur_open(data());
+  return reql_cur_open(get());
 }
 
 Result
@@ -175,19 +180,15 @@ Cursor::next() {
 
 void
 Cursor::next(Parser &p) {
-  ReQL_Obj_t *res = reql_cursor_next(data());
+  ReQL_Obj_t *res = reql_cursor_next(get());
   if (res != nullptr) {
     p.parse(Wrapper(res));
   }
 }
 
-ReQL_Cur_t *
-Cursor::data() const {
-  return p_cur.get();
-}
-
 void
 Cursor::close() {
+  reql_close_cur(get());
 }
 
 }  // namespace ReQL

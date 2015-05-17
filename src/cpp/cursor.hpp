@@ -29,14 +29,12 @@ limitations under the License.
 
 namespace ReQL {
 
-class Cursor {
+class Cursor : public std::unique_ptr<ReQL_Cur_t> {
 public:
   Cursor();
 
-  Cursor(const Cursor &other);
   Cursor(Cursor &&other);
 
-  Cursor &operator=(const Cursor &other);
   Cursor &operator=(Cursor &&other);
 
   ~Cursor();
@@ -48,12 +46,7 @@ public:
   std::vector<Result> toVector();
   void toVector(Parser p);
 
-  ReQL_Cur_t *data() const;
-
   void close();
-
-private:
-  std::unique_ptr<ReQL_Cur_t> p_cur;
 };
 
 }  // namespace ReQL
