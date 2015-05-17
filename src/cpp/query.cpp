@@ -50,11 +50,8 @@ Query::Query(const AST &other) : AST(other) {}
 
 Query::Query(Query &&other) : AST(std::move(other)) {}
 
-Cursor Query::run(const Connection &conn) const {
-  if (!conn.isOpen()) {
-    throw ReQLDriverError();
-  }
-
+Cursor
+Query::run(const Connection &conn) const {
   Cursor cur;
 
   reql_run(cur.get(), _data(), conn.data(), nullptr);
@@ -62,14 +59,16 @@ Cursor Query::run(const Connection &conn) const {
   return cur;
 }
 
-Query &Query::operator=(const Query &other) {
+Query &
+Query::operator=(const Query &other) {
   if (this != &other) {
     p_query = other.p_query;
   }
   return *this;
 }
 
-Query &Query::operator=(Query &&other) {
+Query &
+Query::operator=(Query &&other) {
   if (this != &other) {
     p_query = std::move(other.p_query);
   }
