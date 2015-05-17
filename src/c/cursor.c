@@ -201,6 +201,7 @@ reql_close_cur_(ReQL_Cur_t *cur) {
     cur->conn = NULL;
     pthread_cond_broadcast(cur->condition.next);
     pthread_cond_broadcast(cur->condition.done);
+    reql_cursor_mutex_destroy(cur);
   }
 }
 
