@@ -15,6 +15,7 @@ extern "C" {
 
 }  // namespace _C
 
+using namespace ReQL;
 using namespace _C;
 
 ReQL_Conn_c::ReQL_Conn_c() : _C::CTypes::connection(new ReQL_Conn_t) {
@@ -41,12 +42,10 @@ ReQL_Obj_c::ReQL_Obj_c() : _C::CTypes::object(new ReQL_Obj_t) {}
 
 ReQL_Obj_c::~ReQL_Obj_c() {}
 
-ReQL_Res_c::ReQL_Res_c(const ReQL_Obj_t &ptr) : ReQL_Obj_t(ptr) {}
-
-ReQL_Res_c::ReQL_Res_c(const ReQL_Obj_t *ptr) : ReQL_Res_c(*ptr) {}
+ReQL_Res_c::ReQL_Res_c(ReQL_Obj_t *ptr) : p_ptr(ptr) {}
 
 ReQL_Res_c::~ReQL_Res_c() {
-  reql_json_destroy(this);
+  reql_json_destroy(p_ptr);
 }
 
 std::string inspect(const Query &query) {

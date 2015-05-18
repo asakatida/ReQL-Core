@@ -27,11 +27,12 @@ public:
   ~ReQL_Obj_c();
 };
 
-class ReQL_Res_c : public _C::ReQL_Obj_t {
+class ReQL_Res_c {
 public:
-  ReQL_Res_c(const _C::ReQL_Obj_t &ptr);
-  ReQL_Res_c(const _C::ReQL_Obj_t *ptr);
+  ReQL_Res_c(_C::ReQL_Obj_t *ptr);
   ~ReQL_Res_c();
+
+  _C::ReQL_Obj_t *p_ptr;
 };
 
 std::string inspect(const Query &query);
