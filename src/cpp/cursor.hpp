@@ -21,15 +21,11 @@ limitations under the License.
 #ifndef REQL_CPP_CURSOR_HPP_
 #define REQL_CPP_CURSOR_HPP_
 
-#include <map>
-#include <string>
-#include <vector>
-
-#include "./cpp/result.hpp"
+#include "./cpp/parser.hpp"
 
 namespace ReQL {
 
-class Cursor : public _C::Types::cursor {
+class Cursor : public _C::CTypes::cursor {
 public:
   Cursor();
 
@@ -41,9 +37,9 @@ public:
 
   bool isOpen() const;
 
-  Result next();
+  Query next();
   void next(Parser &p);
-  std::vector<Result> toVector();
+  Types::array toVector();
   void toVector(Parser p);
 
   void close();

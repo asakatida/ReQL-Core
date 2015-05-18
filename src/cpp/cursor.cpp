@@ -21,144 +21,104 @@ limitations under the License.
 #include "./cpp/cursor.hpp"
 
 #include "./cpp/error.hpp"
-#include "./cpp/wrapper.hpp"
-
-#include <map>
-#include <string>
-#include <vector>
+#include "./cpp/query.hpp"
 
 namespace ReQL {
 
 class ResultBuilder : public Parser {
 public:
-  ResultBuilder() : Parser(), p_stack(), p_keys(), p_result() {}
+  ResultBuilder() {}
   ~ResultBuilder();
 
-  Result result() { return p_result; }
+  Query result() { return p_result; }
 
-  void parse(Wrapper val) { parse_c(val.get()); }
+  void parse(Query val) { parse_c(val._internal().get()); }
 
 private:
   void startObject() {
-    p_stack.push_back(Result(std::map<Types::string, Result>()));
+    p_objects.push_back(Types::object());
   }
 
-  void addKey(Types::string key) {
-    p_keys.push_back(key);
+  void startKeyValue() {
   }
 
-  void addKeyValue(Types::string key) {
-    Result object = p_stack.back();
-    p_stack.pop_back();
-    object.insert(key, Result());
-    p_stack.push_back(object);
-  }
-
-  void addKeyValue(Types::string key, bool value) {
-    Result object = p_stack.back();
-    p_stack.pop_back();
-    object.insert(key, Result(value));
-    p_stack.push_back(object);
-  }
-
-  void addKeyValue(Types::string key, double value) {
-    Result object = p_stack.back();
-    p_stack.pop_back();
-    object.insert(key, Result(value));
-    p_stack.push_back(object);
-  }
-
-  void addKeyValue(Types::string key, Types::string value) {
-    Result object = p_stack.back();
-    p_stack.pop_back();
-    object.insert(key, Result(value));
-    p_stack.push_back(object);
+  void endKeyValue(Types::string key) {
+    if (p_objects.empty()) {
+      throw ReQLDriverError();
+    }
+    Types::object object = p_objects.back();
+    p_objects.pop_back();
+    object.insert({key, p_result});
+    p_objects.push_back(object);
   }
 
   void endObject() {
-    end();
+    if (p_objects.empty()) {
+      throw ReQLDriverError();
+    }
+    Types::object object = p_objects.back();
+    p_objects.pop_back();
+    p_result = Query(object);
   }
 
   void startArray() {
-    p_stack.push_back(Result(std::vector<Result>()));
+    p_arrays.push_back(Types::array());
   }
 
-  void addElement() {
-    addElement(Result());
+  void startElement() {
   }
 
-  void addElement(bool value) {
-    addElement(Result(value));
-  }
-
-  void addElement(double value) {
-    addElement(Result(value));
-  }
-
-  void addElement(Types::string value) {
-    addElement(Result(value));
-  }
-
-  void addElement(Result val) {
-    if (p_stack.empty()) {
-      p_result = std::move(val);
-      return;
-    }
-    Result array = p_stack.back();
-    p_stack.pop_back();
-    return addElement(array, val);
-  }
-
-  void addElement(Result array, Result val) {
-    if (array.type() == _C::REQL_R_ARRAY) {
-      array.insert(val);
-      p_stack.push_back(array);
-    } else {
+  void endElement() {
+    if (p_arrays.empty()) {
       throw ReQLDriverError();
     }
+    Types::array array = p_arrays.back();
+    p_arrays.pop_back();
+    array.push_back(p_result);
+    p_arrays.push_back(array);
   }
 
   void endArray() {
-    end();
-  }
-
-  void end() {
-    Result last = p_stack.back();
-    p_stack.pop_back();
-    if (p_stack.empty()) {
-      p_result = std::move(last);
-      return;
-    }
-    Result object = p_stack.back();
-    p_stack.pop_back();
-    if (object.type() == _C::REQL_R_OBJECT) {
-      Types::string key = p_keys.back();
-      p_keys.pop_back();
-      object.insert(key, last);
-      p_stack.push_back(object);
-    } else if (object.type() == _C::REQL_R_ARRAY) {
-      addElement(object, last);
-    } else {
+    if (p_arrays.empty()) {
       throw ReQLDriverError();
     }
+    Types::array array = p_arrays.back();
+    p_arrays.pop_back();
+    p_result = Query(array);
   }
 
-  std::vector<Result> p_stack;
-  std::vector<Types::string> p_keys;
-  Result p_result;
+  void addValue() {
+    p_result = Query();
+  }
+
+  void addValue(bool value) {
+    p_result = Query(value);
+  }
+
+  void addValue(double value) {
+    p_result = Query(value);
+  }
+
+  void addValue(Types::string value) {
+    p_result = Query(value);
+  }
+
+  std::vector<Types::object> p_objects;
+  std::vector<Types::array> p_arrays;
+  Query p_result;
 };
 
 ResultBuilder::~ResultBuilder() {}
 
-Cursor::Cursor() : _C::Types::cursor(new _C::ReQL_Cur_t) {}
+Cursor::Cursor() : _C::CTypes::cursor(new _C::ReQL_Cur_t) {}
 
-Cursor::Cursor(Cursor &&other) : _C::Types::cursor(std::move(other)) {}
+Cursor::Cursor(Cursor &&other) : _C::CTypes::cursor(std::move(other)) {}
 
 Cursor &
 Cursor::operator=(Cursor &&other) {
   if (this != &other) {
     close();
-    _C::Types::cursor::operator=(std::move(other));
+    _C::CTypes::cursor::operator=(std::move(other));
   }
   return *this;
 }
@@ -171,18 +131,16 @@ bool Cursor::isOpen() const {
   return reql_cur_open(get());
 }
 
-Result
+Query
 Cursor::next() {
-  ResultBuilder builder;
-  next(builder);
-  return builder.result();
+  return Query(reql_cursor_next(get()));
 }
 
 void
 Cursor::next(Parser &p) {
   _C::ReQL_Obj_t *res = reql_cursor_next(get());
   if (res != nullptr) {
-    p.parse(Wrapper(res));
+    p.parse_c(res);
   }
 }
 

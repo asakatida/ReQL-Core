@@ -233,48 +233,48 @@ class CResultBuilder(ResultBuilder):
 class CPPResultBuilder(ResultBuilder):
     shell_string = '''
     std::string src{0}("{2}", {1});
-    Result var{0}(src{0});'''
+    Query var{0}(src{0});'''
 
     shell_empty_map = '''
-    std::map<std::string, Result> map{0};
-    Result var{0}(map{0});'''
+    Types::object map{0};
+    Query var{0}(map{0});'''
 
     shell_map_start = '''
-    std::map<std::string, Result> map{};'''
+    Types::object map{};'''
 
     shell_key_val = '''
     map{}.insert({{src{}, var{}}});'''
 
     def map_obj_end(self):
         self.active_object_append('''
-    Result var{0}(map{0});'''.format(self.object_stack_top()))
+    Query var{0}(map{0});'''.format(self.object_stack_top()))
         return super().map_obj_end()
 
     shell_empty_array = '''
-    std::vector<Result> arr{0};
-    Result var{0}(arr{0});'''
+    Types::array arr{0};
+    Query var{0}(arr{0});'''
 
     shell_array_start = '''
-    std::vector<Result> arr{}({});'''
+    Types::array arr{}({});'''
 
     shell_elem = '''
     arr{0}.insert(arr{0}.end(), var{1});'''
 
     def array_obj_end(self):
         self.active_array_append('''
-    Result var{0}(arr{0});'''.format(self.array_stack_top()))
+    Query var{0}(arr{0});'''.format(self.array_stack_top()))
         return super().array_obj_end()
 
     def bool_obj(self, obj):
         return super().bool_obj('''
-    Result var{}({});''', 'true' if obj else 'false')
+    Query var{}({});''', 'true' if obj else 'false')
 
     shell_number = '''
     double num{0}({1});
-    Result var{0}(num{0});'''
+    Query var{0}(num{0});'''
 
     shell_none = '''
-    Result var{};'''
+    Query var{};'''
 
 class TestTable:
     def __init__(self, name):
