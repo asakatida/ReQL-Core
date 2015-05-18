@@ -68,7 +68,7 @@ TEST_CASE("c connection", "[c][connection]") {
 
     reql_number_init(q.get(), 2.72);
 
-    std::unique_ptr<ReQL_Cur_t> cur(new ReQL_Cur_t);
+    ReQL_Cur_c cur;
 
     reql_run(cur.get(), q.get(), c.get(), nullptr);
 
