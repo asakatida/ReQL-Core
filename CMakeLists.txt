@@ -270,5 +270,5 @@ set(MOC_HEADERS
 aux_source_directory(./src SRC_LIST)
 add_executable(${PROJECT_NAME} ${SOURCES} ${MOC_SRCS})
 
-list(APPEND CMAKE_C_FLAGS "-std=c11 -fblocks -Isrc -O0 -Weverything -Wno-padded ${CMAKE_C_FLAGS}")
-list(APPEND CMAKE_CXX_FLAGS "-std=c++11 -Isrc -Itest -O0 -Weverything -Wno-padded -Wno-exit-time-destructors -Wno-c++98-compat ${CMAKE_CXX_FLAGS}")
+list(APPEND CMAKE_C_FLAGS "-std=c11 -fblocks -Isrc -O0 -Werror -Weverything -Wno-padded ${CMAKE_C_FLAGS}")
+list(APPEND CMAKE_CXX_FLAGS "-std=c++11 -Isrc -Itest -O0 -Werror -Weverything -Wno-padded -Wno-exit-time-destructors -Wno-c++98-compat ${CMAKE_CXX_FLAGS}")
