@@ -26,7 +26,7 @@ limitations under the License.
 
 namespace ReQL {
 
-Connection::Connection() : _C::Types::connection(new _C::ReQL_Conn_t) {
+Connection::Connection() : _C::CTypes::connection(new _C::ReQL_Conn_t) {
   reql_connection_init(get());
 
   _C::ReQL_Byte buf[500];
@@ -36,7 +36,7 @@ Connection::Connection() : _C::Types::connection(new _C::ReQL_Conn_t) {
   }
 }
 
-Connection::Connection(const Types::string &host) : _C::Types::connection(new _C::ReQL_Conn_t) {
+Connection::Connection(const Types::string &host) : _C::CTypes::connection(new _C::ReQL_Conn_t) {
   reql_connection_init(get());
 
   reql_conn_set_addr(get(), const_cast<char *>(host.c_str()));
@@ -48,7 +48,7 @@ Connection::Connection(const Types::string &host) : _C::Types::connection(new _C
   }
 }
 
-Connection::Connection(const Types::string &host, const std::uint16_t &port) : _C::Types::connection(new _C::ReQL_Conn_t) {
+Connection::Connection(const Types::string &host, const std::uint16_t &port) : _C::CTypes::connection(new _C::ReQL_Conn_t) {
   reql_connection_init(get());
 
   reql_conn_set_addr(get(), const_cast<char *>(host.c_str()));
@@ -61,7 +61,7 @@ Connection::Connection(const Types::string &host, const std::uint16_t &port) : _
   }
 }
 
-Connection::Connection(const Types::string &host, const std::uint16_t &port, const Types::string &key) : _C::Types::connection(new _C::ReQL_Conn_t) {
+Connection::Connection(const Types::string &host, const std::uint16_t &port, const Types::string &key) : _C::CTypes::connection(new _C::ReQL_Conn_t) {
   reql_connection_init(get());
 
   std::size_t auth_size = key.size();
@@ -81,7 +81,7 @@ Connection::Connection(const Types::string &host, const std::uint16_t &port, con
   }
 }
 
-Connection::Connection(Connection &&other) : _C::Types::connection(std::move(other)) {}
+Connection::Connection(Connection &&other) : _C::CTypes::connection(std::move(other)) {}
 
 Connection::~Connection() {
   reql_ensure_conn_close(get());
@@ -89,7 +89,7 @@ Connection::~Connection() {
 
 Connection &Connection::operator=(Connection &&other) {
   if (this != &other) {
-    _C::Types::connection::operator=(std::move(other));
+    _C::CTypes::connection::operator=(std::move(other));
   }
   return *this;
 }

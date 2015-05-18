@@ -39,7 +39,7 @@ extern "C" {
 
 namespace _Internal {
 
-ReQL::ReQL() : _C::Types::object(new _C::ReQL_Obj_t), p_func(nullptr), p_func_kwargs(nullptr), p_args(nullptr), p_array(nullptr), p_buf(nullptr), p_kwargs(nullptr), p_object(nullptr) {
+ReQL::ReQL() : _C::CTypes::object(new _C::ReQL_Obj_t), p_func(nullptr), p_func_kwargs(nullptr), p_args(nullptr), p_array(nullptr), p_buf(nullptr), p_kwargs(nullptr), p_object(nullptr) {
   reql_null_init(get());
 }
 

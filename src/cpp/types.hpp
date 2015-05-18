@@ -36,7 +36,7 @@ extern "C" {
 
 }
 
-namespace Types {
+namespace CTypes {
 
 typedef std::unique_ptr<ReQL_Byte> string;
 typedef std::unique_ptr<ReQL_Obj_t> object;

@@ -25,7 +25,7 @@ limitations under the License.
 
 namespace ReQL {
 
-class Connection : public _C::Types::connection {
+class Connection : public _C::CTypes::connection {
 public:
   Connection();
   explicit Connection(const Types::string &host);

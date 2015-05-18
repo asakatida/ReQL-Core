@@ -40,7 +40,7 @@ extern "C" {
 
 namespace _Internal {
 
-class ReQL : public _C::Types::object {
+class ReQL : public _C::CTypes::object {
 public:
   ReQL();
   explicit ReQL(const double &val);
@@ -71,11 +71,11 @@ private:
   std::vector<ReQL> p_r_array;
   std::map<ReQL, ReQL> p_r_object;
   Types::string p_str;
-  _C::Types::object p_args;
-  _C::Types::array p_array;
-  _C::Types::string p_buf;
-  _C::Types::object p_kwargs;
-  _C::Types::pairs p_object;
+  _C::CTypes::object p_args;
+  _C::CTypes::array p_array;
+  _C::CTypes::string p_buf;
+  _C::CTypes::object p_kwargs;
+  _C::CTypes::pairs p_object;
 };
 
 }  // namespace _Internal
