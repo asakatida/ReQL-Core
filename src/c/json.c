@@ -178,6 +178,7 @@ reql_string_append(ReQL_Obj_t *obj, const ReQL_Byte *ext, const ReQL_Size size) 
   const ReQL_Size new_alloc = reql_ensure_space(obj, size);
 
   if (new_alloc != 0) {
+    reql_error_init(REQL_E_JSON, "insufficient space in object", __func__);
     return new_alloc;
   }
 
@@ -239,6 +240,7 @@ reql_array_insert(ReQL_Obj_t *obj, ReQL_Obj_t *val, const ReQL_Size idx) {
     const ReQL_Size new_alloc = reql_ensure_space(obj, idx + 1);
 
     if (new_alloc != 0) {
+      reql_error_init(REQL_E_JSON, "insufficient space in object", __func__);
       return new_alloc;
     }
 
@@ -576,6 +578,7 @@ reql_object_add(ReQL_Obj_t *obj, ReQL_Obj_t *key, ReQL_Obj_t *val) {
       ReQL_Size new_alloc = reql_ensure_space(obj, size);
 
       if (new_alloc != 0) {
+        reql_error_init(REQL_E_JSON, "insufficient space in object", __func__);
         return new_alloc;
       }
     }
