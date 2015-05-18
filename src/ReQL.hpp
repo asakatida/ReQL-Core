@@ -23,6 +23,7 @@ limitations under the License.
 
 #include "./cpp/connection.hpp"
 #include "./cpp/cursor.hpp"
+#include "./cpp/error.hpp"
 #include "./cpp/query.hpp"
 
 #endif
