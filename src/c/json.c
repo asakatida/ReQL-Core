@@ -101,7 +101,7 @@ reql_ensure_space(const ReQL_Obj_t *obj, ReQL_Size size) {
     if (min_size < size) {
       return UINT32_MAX;
     }
-    
+
     return min_size;
   }
 
@@ -713,7 +713,7 @@ reql_json_destroy(ReQL_Obj_t *json) {
       case REQL_R_STR: break;
     }
   }
-  
+
   json->owner = NULL;
 
   switch (reql_datum_type(json)) {

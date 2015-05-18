@@ -78,7 +78,7 @@ reql_cursor_mutex_init(ReQL_Cur_t *cur) {
     cur->condition.done = done;
 
     pthread_condattr_destroy(attrs);
-    
+
     free(attrs); attrs = NULL;
   }
 

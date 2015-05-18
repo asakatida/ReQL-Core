@@ -31,7 +31,7 @@ Query::Query() : AST() {}
 Query::Query(const _C::ReQL_AST_Function &f, const Types::array &args) : AST(f, args) {}
 
 Query::Query(const _C::ReQL_AST_Function_Kwargs &f, const Types::array &args, const Types::object &kwargs) : AST(f, args, kwargs) {}
-  
+
 Query::Query(const Types::string &val) : AST(val) {}
 
 Query::Query(const double &val) : AST(val) {}

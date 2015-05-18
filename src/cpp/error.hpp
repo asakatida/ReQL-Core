@@ -36,37 +36,37 @@ public:
   ReQLQueryError();
   virtual const char* what() const _NOEXCEPT;
 };
-  
+
 class ReQLClientError : public ReQLQueryError {
 public:
   ReQLClientError();
   virtual const char* what() const _NOEXCEPT;
 };
-  
+
 class ReQLCompileError : public ReQLQueryError {
 public:
   ReQLCompileError();
   virtual const char* what() const _NOEXCEPT;
 };
-  
+
 class ReQLRuntimeError : public ReQLQueryError {
 public:
   ReQLRuntimeError();
   virtual const char* what() const _NOEXCEPT;
 };
-  
+
 class ReQLCursorEmpty : public ReQLQueryError {
 public:
   ReQLCursorEmpty();
   virtual const char* what() const _NOEXCEPT;
 };
-  
+
 class ReQLDriverError : public ReQLError {
 public:
   ReQLDriverError();
   virtual const char* what() const _NOEXCEPT;
 };
-  
+
 }  // namespace ReQL
 
 #endif  // REQL_CPP_ERROR_HPP_

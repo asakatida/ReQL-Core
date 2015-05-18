@@ -25,7 +25,7 @@ limitations under the License.
 
 namespace ReQL {
 namespace _Internal {
-    
+
 class Expr {
 public:
   Expr(const Expr &other);
