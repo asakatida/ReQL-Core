@@ -102,20 +102,20 @@ def cpp_term_imp(name)
   "#{
 "
 Query
-AST::#{mangle_cpp_const name}(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
+AST::#{mangle_cpp_const name}(const Types::array &args, const Types::object &kwargs) const {
   return init(#{c_ast_name name}, this, args, kwargs);
 }
 Query
-#{mangle_cpp_const name}(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
+#{mangle_cpp_const name}(const Types::array &args, const Types::object &kwargs) {
   return init(#{c_ast_name name}, args, kwargs);
 }" if opts? name
 }
 Query
-AST::#{mangle_cpp_const name}(const std::vector<Query> &args) const {
+AST::#{mangle_cpp_const name}(const Types::array &args) const {
   return init(#{c_ast_name name}, this, args);
 }
 Query
-#{mangle_cpp_const name}(const std::vector<Query> &args) {
+#{mangle_cpp_const name}(const Types::array &args) {
   return init(#{c_ast_name name}, args);
 }"
 end
@@ -132,10 +132,10 @@ def cpp_term_class(name)
   Query
   #{
     mangle_cpp_const name
-  }(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const;" if opts? name
+  }(const Types::array &args, const Types::object &kwargs) const;" if opts? name
   }
   Query
-  #{mangle_cpp_const name}(const std::vector<Query> &args) const;"
+  #{mangle_cpp_const name}(const Types::array &args) const;"
 end
 
 build('src/cpp/ast.hpp', :cpp_term_class) do |name|
@@ -150,10 +150,10 @@ def cpp_term_def(name)
 Query
 #{
   mangle_cpp_const name
-}(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);" if opts? name
+}(const Types::array &args, const Types::object &kwargs);" if opts? name
 }
 Query
-#{mangle_cpp_const name}(const std::vector<Query> &args);"
+#{mangle_cpp_const name}(const Types::array &args);"
 end
 
 build('src/cpp/ast.hpp', :cpp_term_def) do |name|
