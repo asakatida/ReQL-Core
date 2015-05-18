@@ -244,6 +244,7 @@ set(MOC_HEADERS
  src/c/json.h
  src/c/types.h
  src/c/util/portable_endian.h
+ src/c/util/reql_assert.h
  src/c/dev/ast.h
  src/c/dev/char.h
  src/c/dev/connection.h

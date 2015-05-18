@@ -276,6 +276,7 @@
 		1E0F0CBD1AEB2606001E31C2 /* cursor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cursor.hpp; sourceTree = "<group>"; };
 		1E0F0CBE1AEB2606001E31C2 /* query.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = query.cpp; sourceTree = "<group>"; };
 		1E0F0CBF1AEB2606001E31C2 /* query.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = query.hpp; sourceTree = "<group>"; };
+		1E149B031B0A50FC0074D374 /* reql_assert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = reql_assert.h; sourceTree = "<group>"; };
 		1E2FA66A1ABCDBCF00134CFA /* connection.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = connection.c; sourceTree = "<group>"; };
 		1E2FA66B1ABCDBCF00134CFA /* connection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = connection.h; sourceTree = "<group>"; };
 		1E2FA66D1ABCDE7C00134CFA /* connection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = connection.cpp; sourceTree = "<group>"; };
@@ -1073,6 +1074,7 @@
 			isa = PBXGroup;
 			children = (
 				1ECDD7451AB53D80004CD31E /* portable_endian.h */,
+				1E149B031B0A50FC0074D374 /* reql_assert.h */,
 			);
 			path = util;
 			sourceTree = "<group>";
