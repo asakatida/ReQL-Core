@@ -290,8 +290,18 @@ reql_array_pop(ReQL_Obj_t *obj) {
 }
 
 extern ReQL_Obj_t *
-reql_array_last(const ReQL_Obj_t *obj) {
-  return reql_array_index(obj, reql_size(obj) - 1);
+reql_array_last(ReQL_Obj_t *obj) {
+  ReQL_Size size = reql_size(obj);
+  if (size > 0) {
+    --size;
+    ReQL_Obj_t *res = reql_array_index(obj, size);
+    if (res == NULL) {
+      reql_set_size(obj, size);
+      res = reql_array_last(obj);
+    }
+    return res;
+  }
+  return NULL;
 }
 
 extern void

@@ -428,7 +428,7 @@ reql_array_pop(ReQL_Obj_t *obj);
  * @return last object or NULL.
  */
 extern ReQL_Obj_t *
-reql_array_last(const ReQL_Obj_t *obj);
+reql_array_last(ReQL_Obj_t *obj);
 
 /**
  * @brief create object iterator initialized at object start
