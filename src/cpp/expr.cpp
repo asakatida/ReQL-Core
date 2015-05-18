@@ -28,33 +28,34 @@ limitations under the License.
 #include <vector>
 
 namespace ReQL {
+namespace _Internal {
 
 Expr::Expr() {}
 
-Expr::Expr(const ReQL_AST_Function_Kwargs &f, const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) : p_query(f, args, kwargs) {}
+Expr::Expr(const _C::ReQL_AST_Function_Kwargs &f, const Types::array &args, const Types::object &kwargs) : p_query(f, args, kwargs) {}
 
-Expr::Expr(const ReQL_AST_Function &f, const std::vector<Query> &args) : p_query(f, args) {}
+Expr::Expr(const _C::ReQL_AST_Function &f, const Types::array &args) : p_query(f, args) {}
 
-Expr::Expr(const std::string &val) : p_query(val) {}
+Expr::Expr(const Types::string &val) : p_query(val) {}
 
 Expr::Expr(const double &val) : p_query(val) {}
 
 Expr::Expr(const bool &val) : p_query(val) {}
 
-Expr::Expr(const std::vector<Query> &val) : p_query(val) {}
+Expr::Expr(const Types::array &val) : p_query(val) {}
 
-Expr::Expr(const std::map<std::string, Query> &val) : p_query(val) {}
+Expr::Expr(const Types::object &val) : p_query(val) {}
 
 Expr::Expr(const Expr &other) : p_query(other.p_query) {}
 
 Expr::Expr(Expr &&other) : p_query(std::move(other.p_query)) {}
 
-ReQL_Obj_t *
+_C::ReQL_Obj_t *
 Expr::_data() const {
   return _internal().get();
 }
 
-ReQL_Datum_t
+_C::ReQL_Datum_t
 Expr::_type() const {
   return _internal()._type();
 }
@@ -64,4 +65,5 @@ Expr::_internal() const {
   return p_query;
 }
 
+}  // namespace _Internal
 }  // namespace ReQL

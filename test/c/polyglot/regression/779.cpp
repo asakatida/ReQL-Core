@@ -5,6 +5,7 @@
 #include "./test.hpp"
 
 using namespace ReQL;
+using namespace _C;
 
 TEST_CASE("c 779 -- NULL byte in string", "[c][ast]") {
 

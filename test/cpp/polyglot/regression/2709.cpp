@@ -5,6 +5,7 @@
 #include "./test.hpp"
 
 using namespace ReQL;
+using namespace _C;
 
 TEST_CASE("cpp 2709 -- Guarantee failed with [max_els >= min_els]", "[cpp][ast]") {
 

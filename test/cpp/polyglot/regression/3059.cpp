@@ -5,6 +5,7 @@
 #include "./test.hpp"
 
 using namespace ReQL;
+using namespace _C;
 
 TEST_CASE("cpp Use pseudotype name properly in `info`", "[cpp][ast]") {
 

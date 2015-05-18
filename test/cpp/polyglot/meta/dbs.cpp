@@ -5,6 +5,7 @@
 #include "./test.hpp"
 
 using namespace ReQL;
+using namespace _C;
 
 TEST_CASE("cpp Tests meta queries for databases", "[cpp][ast]") {
 
@@ -65,7 +66,25 @@ TEST_CASE("cpp Tests meta queries for databases", "[cpp][ast]") {
   }
 
   SECTION("test4") {
-    Result var0;
+    std::map<std::string, Result> map0;
+
+    std::string src1("name", 4);
+    Result var1(src1);
+
+    std::string src2("a", 1);
+    Result var2(src2);
+
+    map0.insert({src1, var2});
+
+    std::string src3("uuid", 4);
+    Result var3(src3);
+
+    std::string src4("uuid()", 6);
+    Result var4(src4);
+
+    map0.insert({src3, var4});
+
+    Result var0(map0);
   }
 
   SECTION("test5") {

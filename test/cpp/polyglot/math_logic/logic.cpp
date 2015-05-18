@@ -5,6 +5,7 @@
 #include "./test.hpp"
 
 using namespace ReQL;
+using namespace _C;
 
 TEST_CASE("cpp These tests are aimed at &&, ||, and !", "[cpp][ast]") {
 

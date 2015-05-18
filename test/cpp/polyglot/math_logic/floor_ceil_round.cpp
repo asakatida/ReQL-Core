@@ -5,6 +5,7 @@
 #include "./test.hpp"
 
 using namespace ReQL;
+using namespace _C;
 
 TEST_CASE("cpp tests for `floor`, `ceil`, and `round`, tests inspired by the Python test suite", "[cpp][ast]") {
 

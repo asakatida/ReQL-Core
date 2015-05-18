@@ -28,14 +28,14 @@ limitations under the License.
  * @brief connection object
  */
 struct ReQL_Conn_s {
-  uint32_t auth_size;
+  ReQL_Size auth_size;
   int socket;
 
   char done;
 
-  uint64_t max_token;
+  ReQL_Token max_token;
 
-  uint64_t timeout;
+  ReQL_Token timeout;
 
   char *port;
   char *addr;
@@ -64,7 +64,7 @@ reql_connection_init(ReQL_Conn_t *conn);
  * @param auth byte array key.
  */
 extern void
-reql_conn_set_auth(ReQL_Conn_t *conn, uint32_t size, char *auth);
+reql_conn_set_auth(ReQL_Conn_t *conn, ReQL_Size size, char *auth);
 
 /**
  * @brief get authentication key buffer used on connection.
@@ -79,7 +79,7 @@ reql_conn_auth_key(ReQL_Conn_t *conn);
  * @param conn connection object.
  * @return size of authentication key.
  */
-extern uint32_t
+extern ReQL_Size
 reql_conn_auth_size(ReQL_Conn_t *conn);
 
 /**
@@ -120,14 +120,14 @@ reql_conn_port(ReQL_Conn_t *conn);
  * @param timeout timout in seconds.
  */
 extern void
-reql_conn_set_timeout(ReQL_Conn_t *conn, const uint64_t timeout);
+reql_conn_set_timeout(ReQL_Conn_t *conn, const ReQL_Token timeout);
 
 /**
  * @brief get timeout used on connection.
  * @param conn connection object.
  * @return timeout in seconds.
  */
-extern uint64_t
+extern ReQL_Token
 reql_conn_timeout(ReQL_Conn_t *conn);
 
 /**
@@ -138,7 +138,7 @@ reql_conn_timeout(ReQL_Conn_t *conn);
  * @return 0 on success. non zero on error.
  */
 extern int
-reql_connect(ReQL_Conn_t *conn, uint8_t *buf, const uint32_t size);
+reql_connect(ReQL_Conn_t *conn, ReQL_Byte *buf, const ReQL_Size size);
 
 /**
  * @brief Declare a connection ready to be closed.

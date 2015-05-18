@@ -5,6 +5,7 @@
 #include "./test.hpp"
 
 using namespace ReQL;
+using namespace _C;
 
 TEST_CASE("cpp Test that we do not crash on an error during a function called at unsharding", "[cpp][ast]") {
 

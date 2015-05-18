@@ -5,6 +5,7 @@
 #include "./test.hpp"
 
 using namespace ReQL;
+using namespace _C;
 
 TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
 
@@ -476,11 +477,31 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test34") {
-    Result var0;
+    std::map<std::string, Result> map0;
+
+    std::string src1("result", 6);
+    Result var1(src1);
+
+    std::string src2("blank", 5);
+    Result var2(src2);
+
+    map0.insert({src1, var2});
+
+    Result var0(map0);
   }
 
   SECTION("test35") {
-    Result var0;
+    std::map<std::string, Result> map0;
+
+    std::string src1("result", 6);
+    Result var1(src1);
+
+    std::string src2("blank", 5);
+    Result var2(src2);
+
+    map0.insert({src1, var2});
+
+    Result var0(map0);
   }
 
   SECTION("test36") {
@@ -570,7 +591,17 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test42") {
-    Result var0;
+    std::map<std::string, Result> map0;
+
+    std::string src1("result", 6);
+    Result var1(src1);
+
+    std::string src2("blank", 5);
+    Result var2(src2);
+
+    map0.insert({src1, var2});
+
+    Result var0(map0);
   }
 
   SECTION("test43") {
@@ -909,7 +940,17 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test59") {
-    Result var0;
+    std::map<std::string, Result> map0;
+
+    std::string src1("result", 6);
+    Result var1(src1);
+
+    std::string src2("blank", 5);
+    Result var2(src2);
+
+    map0.insert({src1, var2});
+
+    Result var0(map0);
   }
 
   SECTION("test60") {
@@ -918,7 +959,17 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test61") {
-    Result var0;
+    std::map<std::string, Result> map0;
+
+    std::string src1("result", 6);
+    Result var1(src1);
+
+    std::string src2("blank", 5);
+    Result var2(src2);
+
+    map0.insert({src1, var2});
+
+    Result var0(map0);
   }
 
   SECTION("test62") {
@@ -2710,7 +2761,17 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test94") {
-    Result var0;
+    std::map<std::string, Result> map0;
+
+    std::string src1("result", 6);
+    Result var1(src1);
+
+    std::string src2("blank", 5);
+    Result var2(src2);
+
+    map0.insert({src1, var2});
+
+    Result var0(map0);
   }
 
   SECTION("test95") {
@@ -2749,7 +2810,17 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test98") {
-    Result var0;
+    std::map<std::string, Result> map0;
+
+    std::string src1("result", 6);
+    Result var1(src1);
+
+    std::string src2("blank", 5);
+    Result var2(src2);
+
+    map0.insert({src1, var2});
+
+    Result var0(map0);
   }
 
   SECTION("test99") {
@@ -5496,7 +5567,17 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test210") {
-    Result var0;
+    std::map<std::string, Result> map0;
+
+    std::string src1("result", 6);
+    Result var1(src1);
+
+    std::string src2("blank", 5);
+    Result var2(src2);
+
+    map0.insert({src1, var2});
+
+    Result var0(map0);
   }
 
   SECTION("test211") {

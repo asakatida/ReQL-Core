@@ -5,6 +5,7 @@
 #include "./test.hpp"
 
 using namespace ReQL;
+using namespace _C;
 
 TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]") {
 
@@ -546,11 +547,31 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test40") {
-    Result var0;
+    std::map<std::string, Result> map0;
+
+    std::string src1("result", 6);
+    Result var1(src1);
+
+    std::string src2("blank", 5);
+    Result var2(src2);
+
+    map0.insert({src1, var2});
+
+    Result var0(map0);
   }
 
   SECTION("test41") {
-    Result var0;
+    std::map<std::string, Result> map0;
+
+    std::string src1("inserted", 8);
+    Result var1(src1);
+
+    double num2(4);
+    Result var2(num2);
+
+    map0.insert({src1, var2});
+
+    Result var0(map0);
   }
 
   SECTION("test42") {
@@ -680,15 +701,45 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test51") {
-    Result var0;
+    std::map<std::string, Result> map0;
+
+    std::string src1("result", 6);
+    Result var1(src1);
+
+    std::string src2("blank", 5);
+    Result var2(src2);
+
+    map0.insert({src1, var2});
+
+    Result var0(map0);
   }
 
   SECTION("test52") {
-    Result var0;
+    std::map<std::string, Result> map0;
+
+    std::string src1("result", 6);
+    Result var1(src1);
+
+    std::string src2("blank", 5);
+    Result var2(src2);
+
+    map0.insert({src1, var2});
+
+    Result var0(map0);
   }
 
   SECTION("test53") {
-    Result var0;
+    std::map<std::string, Result> map0;
+
+    std::string src1("result", 6);
+    Result var1(src1);
+
+    std::string src2("blank", 5);
+    Result var2(src2);
+
+    map0.insert({src1, var2});
+
+    Result var0(map0);
   }
 
   SECTION("test54") {
@@ -860,7 +911,25 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test67") {
-    Result var0;
+    std::map<std::string, Result> map0;
+
+    std::string src1("db", 2);
+    Result var1(src1);
+
+    std::string src2("test", 4);
+    Result var2(src2);
+
+    map0.insert({src1, var2});
+
+    std::string src3("name", 4);
+    Result var3(src3);
+
+    std::string src4("testA", 5);
+    Result var4(src4);
+
+    map0.insert({src3, var4});
+
+    Result var0(map0);
   }
 
   SECTION("test68") {

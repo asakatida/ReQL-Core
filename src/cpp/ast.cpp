@@ -29,1802 +29,1806 @@ limitations under the License.
 namespace ReQL {
 
 static Query
-init(const ReQL_AST_Function &f, const std::vector<Query> &args) {
+init(const _C::ReQL_AST_Function &f, const Types::array &args) {
   return Query(f, args);
 }
 
 static Query
-init(const ReQL_AST_Function &f, const AST *term, const std::vector<Query> &args) {
-  std::vector<Query> new_args;
+init(const _C::ReQL_AST_Function &f, const _Internal::AST *term, const Types::array &args) {
+  Types::array new_args;
   new_args.push_back(*term);
   new_args.insert(new_args.end(), args.cbegin(), args.cend());
   return init(f, new_args);
 }
 
 static Query
-init(const ReQL_AST_Function_Kwargs &f, const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
+init(const _C::ReQL_AST_Function_Kwargs &f, const Types::array &args, const Types::object &kwargs) {
   return Query(f, args, kwargs);
 }
 
 static Query
-init(const ReQL_AST_Function_Kwargs &f, const AST *term, const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
-  std::vector<Query> new_args;
+init(const _C::ReQL_AST_Function_Kwargs &f, const _Internal::AST *term, const Types::array &args, const Types::object &kwargs) {
+  Types::array new_args;
   new_args.push_back(*term);
   new_args.insert(new_args.end(), args.cbegin(), args.cend());
   return init(f, new_args, kwargs);
 }
 
 static Query
-init(const ReQL_AST_Function_Kwargs &f, const std::vector<Query> &args) {
-  return init(f, args, std::map<std::string, Query>());
+init(const _C::ReQL_AST_Function_Kwargs &f, const Types::array &args) {
+  return init(f, args, Types::object());
 }
 
 static Query
-init(const ReQL_AST_Function_Kwargs &f, const AST *term, const std::vector<Query> &args) {
-  return init(f, term, args, std::map<std::string, Query>());
+init(const _C::ReQL_AST_Function_Kwargs &f, const _Internal::AST *term, const Types::array &args) {
+  return init(f, term, args, Types::object());
 }
-  
+
+namespace _Internal {
+
 AST::AST() : Expr() {}
 
-AST::AST(const ReQL_AST_Function &f, const std::vector<Query> &args) : Expr(f, args) {}
+AST::AST(const _C::ReQL_AST_Function &f, const Types::array &args) : Expr(f, args) {}
 
-AST::AST(const ReQL_AST_Function_Kwargs &f, const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) : Expr(f, args, kwargs) {}
-  
-AST::AST(const std::string &val) : Expr(val) {}
+AST::AST(const _C::ReQL_AST_Function_Kwargs &f, const Types::array &args, const Types::object &kwargs) : Expr(f, args, kwargs) {}
+
+AST::AST(const Types::string &val) : Expr(val) {}
 
 AST::AST(const double &val) : Expr(val) {}
 
 AST::AST(const bool &val) : Expr(val) {}
 
-AST::AST(const std::vector<Query> &val) : Expr(val) {}
+AST::AST(const Types::array &val) : Expr(val) {}
 
-AST::AST(const std::map<std::string, Query> &val) : Expr(val) {}
+AST::AST(const Types::object &val) : Expr(val) {}
 
 AST::AST(const AST &other) : Expr(other) {}
 
 AST::AST(AST &&other) : Expr(std::move(other)) {}
 
+}  // namespace _Internal
+
 Query
-AST::add(const std::vector<Query> &args) const {
-  return init(reql_ast_add, this, args);
+_Internal::AST::add(const Types::array &args) const {
+  return init(_C::reql_ast_add, this, args);
 }
 Query
-add(const std::vector<Query> &args) {
-  return init(reql_ast_add, args);
+add(const Types::array &args) {
+  return init(_C::reql_ast_add, args);
 }
 
 Query
-AST::and_(const std::vector<Query> &args) const {
-  return init(reql_ast_and, this, args);
+_Internal::AST::and_(const Types::array &args) const {
+  return init(_C::reql_ast_and, this, args);
 }
 Query
-and_(const std::vector<Query> &args) {
-  return init(reql_ast_and, args);
+and_(const Types::array &args) {
+  return init(_C::reql_ast_and, args);
 }
 
 Query
-AST::append(const std::vector<Query> &args) const {
-  return init(reql_ast_append, this, args);
+_Internal::AST::append(const Types::array &args) const {
+  return init(_C::reql_ast_append, this, args);
 }
 Query
-append(const std::vector<Query> &args) {
-  return init(reql_ast_append, args);
+append(const Types::array &args) {
+  return init(_C::reql_ast_append, args);
 }
 
 Query
-AST::april(const std::vector<Query> &args) const {
-  return init(reql_ast_april, this, args);
+_Internal::AST::april(const Types::array &args) const {
+  return init(_C::reql_ast_april, this, args);
 }
 Query
-april(const std::vector<Query> &args) {
-  return init(reql_ast_april, args);
+april(const Types::array &args) {
+  return init(_C::reql_ast_april, args);
 }
 
 Query
-AST::args(const std::vector<Query> &args) const {
-  return init(reql_ast_args, this, args);
+_Internal::AST::args(const Types::array &args) const {
+  return init(_C::reql_ast_args, this, args);
 }
 Query
-args(const std::vector<Query> &args) {
-  return init(reql_ast_args, args);
+args(const Types::array &args) {
+  return init(_C::reql_ast_args, args);
 }
 
 Query
-AST::asc(const std::vector<Query> &args) const {
-  return init(reql_ast_asc, this, args);
+_Internal::AST::asc(const Types::array &args) const {
+  return init(_C::reql_ast_asc, this, args);
 }
 Query
-asc(const std::vector<Query> &args) {
-  return init(reql_ast_asc, args);
+asc(const Types::array &args) {
+  return init(_C::reql_ast_asc, args);
 }
 
 Query
-AST::august(const std::vector<Query> &args) const {
-  return init(reql_ast_august, this, args);
+_Internal::AST::august(const Types::array &args) const {
+  return init(_C::reql_ast_august, this, args);
 }
 Query
-august(const std::vector<Query> &args) {
-  return init(reql_ast_august, args);
+august(const Types::array &args) {
+  return init(_C::reql_ast_august, args);
 }
 
 Query
-AST::avg(const std::vector<Query> &args) const {
-  return init(reql_ast_avg, this, args);
+_Internal::AST::avg(const Types::array &args) const {
+  return init(_C::reql_ast_avg, this, args);
 }
 Query
-avg(const std::vector<Query> &args) {
-  return init(reql_ast_avg, args);
+avg(const Types::array &args) {
+  return init(_C::reql_ast_avg, args);
 }
 
 Query
-AST::between(const std::vector<Query> &args) const {
-  return init(reql_ast_between, this, args);
+_Internal::AST::between(const Types::array &args) const {
+  return init(_C::reql_ast_between, this, args);
 }
 Query
-between(const std::vector<Query> &args) {
-  return init(reql_ast_between, args);
+between(const Types::array &args) {
+  return init(_C::reql_ast_between, args);
 }
 
 Query
-AST::between_deprecated(const std::vector<Query> &args) const {
-  return init(reql_ast_between_deprecated, this, args);
+_Internal::AST::between_deprecated(const Types::array &args) const {
+  return init(_C::reql_ast_between_deprecated, this, args);
 }
 Query
-between_deprecated(const std::vector<Query> &args) {
-  return init(reql_ast_between_deprecated, args);
+between_deprecated(const Types::array &args) {
+  return init(_C::reql_ast_between_deprecated, args);
 }
 
 Query
-AST::binary(const std::vector<Query> &args) const {
-  return init(reql_ast_binary, this, args);
+_Internal::AST::binary(const Types::array &args) const {
+  return init(_C::reql_ast_binary, this, args);
 }
 Query
-binary(const std::vector<Query> &args) {
-  return init(reql_ast_binary, args);
+binary(const Types::array &args) {
+  return init(_C::reql_ast_binary, args);
 }
 
 Query
-AST::bracket(const std::vector<Query> &args) const {
-  return init(reql_ast_bracket, this, args);
+_Internal::AST::bracket(const Types::array &args) const {
+  return init(_C::reql_ast_bracket, this, args);
 }
 Query
-bracket(const std::vector<Query> &args) {
-  return init(reql_ast_bracket, args);
+bracket(const Types::array &args) {
+  return init(_C::reql_ast_bracket, args);
 }
 
 Query
-AST::branch(const std::vector<Query> &args) const {
-  return init(reql_ast_branch, this, args);
+_Internal::AST::branch(const Types::array &args) const {
+  return init(_C::reql_ast_branch, this, args);
 }
 Query
-branch(const std::vector<Query> &args) {
-  return init(reql_ast_branch, args);
+branch(const Types::array &args) {
+  return init(_C::reql_ast_branch, args);
 }
 
 Query
-AST::ceil(const std::vector<Query> &args) const {
-  return init(reql_ast_ceil, this, args);
+_Internal::AST::ceil(const Types::array &args) const {
+  return init(_C::reql_ast_ceil, this, args);
 }
 Query
-ceil(const std::vector<Query> &args) {
-  return init(reql_ast_ceil, args);
+ceil(const Types::array &args) {
+  return init(_C::reql_ast_ceil, args);
 }
 
 Query
-AST::changes(const std::vector<Query> &args) const {
-  return init(reql_ast_changes, this, args);
+_Internal::AST::changes(const Types::array &args) const {
+  return init(_C::reql_ast_changes, this, args);
 }
 Query
-changes(const std::vector<Query> &args) {
-  return init(reql_ast_changes, args);
+changes(const Types::array &args) {
+  return init(_C::reql_ast_changes, args);
 }
 
 Query
-AST::change_at(const std::vector<Query> &args) const {
-  return init(reql_ast_change_at, this, args);
+_Internal::AST::change_at(const Types::array &args) const {
+  return init(_C::reql_ast_change_at, this, args);
 }
 Query
-change_at(const std::vector<Query> &args) {
-  return init(reql_ast_change_at, args);
+change_at(const Types::array &args) {
+  return init(_C::reql_ast_change_at, args);
 }
 
 Query
-AST::circle(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
-  return init(reql_ast_circle, this, args, kwargs);
+_Internal::AST::circle(const Types::array &args, const Types::object &kwargs) const {
+  return init(_C::reql_ast_circle, this, args, kwargs);
 }
 Query
-circle(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
-  return init(reql_ast_circle, args, kwargs);
+circle(const Types::array &args, const Types::object &kwargs) {
+  return init(_C::reql_ast_circle, args, kwargs);
 }
 Query
-AST::circle(const std::vector<Query> &args) const {
-  return init(reql_ast_circle, this, args);
+_Internal::AST::circle(const Types::array &args) const {
+  return init(_C::reql_ast_circle, this, args);
 }
 Query
-circle(const std::vector<Query> &args) {
-  return init(reql_ast_circle, args);
+circle(const Types::array &args) {
+  return init(_C::reql_ast_circle, args);
 }
 
 Query
-AST::coerce_to(const std::vector<Query> &args) const {
-  return init(reql_ast_coerce_to, this, args);
+_Internal::AST::coerce_to(const Types::array &args) const {
+  return init(_C::reql_ast_coerce_to, this, args);
 }
 Query
-coerce_to(const std::vector<Query> &args) {
-  return init(reql_ast_coerce_to, args);
+coerce_to(const Types::array &args) {
+  return init(_C::reql_ast_coerce_to, args);
 }
 
 Query
-AST::concat_map(const std::vector<Query> &args) const {
-  return init(reql_ast_concat_map, this, args);
+_Internal::AST::concat_map(const Types::array &args) const {
+  return init(_C::reql_ast_concat_map, this, args);
 }
 Query
-concat_map(const std::vector<Query> &args) {
-  return init(reql_ast_concat_map, args);
+concat_map(const Types::array &args) {
+  return init(_C::reql_ast_concat_map, args);
 }
 
 Query
-AST::config(const std::vector<Query> &args) const {
-  return init(reql_ast_config, this, args);
+_Internal::AST::config(const Types::array &args) const {
+  return init(_C::reql_ast_config, this, args);
 }
 Query
-config(const std::vector<Query> &args) {
-  return init(reql_ast_config, args);
+config(const Types::array &args) {
+  return init(_C::reql_ast_config, args);
 }
 
 Query
-AST::contains(const std::vector<Query> &args) const {
-  return init(reql_ast_contains, this, args);
+_Internal::AST::contains(const Types::array &args) const {
+  return init(_C::reql_ast_contains, this, args);
 }
 Query
-contains(const std::vector<Query> &args) {
-  return init(reql_ast_contains, args);
+contains(const Types::array &args) {
+  return init(_C::reql_ast_contains, args);
 }
 
 Query
-AST::count(const std::vector<Query> &args) const {
-  return init(reql_ast_count, this, args);
+_Internal::AST::count(const Types::array &args) const {
+  return init(_C::reql_ast_count, this, args);
 }
 Query
-count(const std::vector<Query> &args) {
-  return init(reql_ast_count, args);
+count(const Types::array &args) {
+  return init(_C::reql_ast_count, args);
 }
 
 Query
-AST::date(const std::vector<Query> &args) const {
-  return init(reql_ast_date, this, args);
+_Internal::AST::date(const Types::array &args) const {
+  return init(_C::reql_ast_date, this, args);
 }
 Query
-date(const std::vector<Query> &args) {
-  return init(reql_ast_date, args);
+date(const Types::array &args) {
+  return init(_C::reql_ast_date, args);
 }
 
 Query
-AST::datum(const std::vector<Query> &args) const {
-  return init(reql_ast_datum, this, args);
+_Internal::AST::datum(const Types::array &args) const {
+  return init(_C::reql_ast_datum, this, args);
 }
 Query
-datum(const std::vector<Query> &args) {
-  return init(reql_ast_datum, args);
+datum(const Types::array &args) {
+  return init(_C::reql_ast_datum, args);
 }
 
 Query
-AST::day(const std::vector<Query> &args) const {
-  return init(reql_ast_day, this, args);
+_Internal::AST::day(const Types::array &args) const {
+  return init(_C::reql_ast_day, this, args);
 }
 Query
-day(const std::vector<Query> &args) {
-  return init(reql_ast_day, args);
+day(const Types::array &args) {
+  return init(_C::reql_ast_day, args);
 }
 
 Query
-AST::day_of_week(const std::vector<Query> &args) const {
-  return init(reql_ast_day_of_week, this, args);
+_Internal::AST::day_of_week(const Types::array &args) const {
+  return init(_C::reql_ast_day_of_week, this, args);
 }
 Query
-day_of_week(const std::vector<Query> &args) {
-  return init(reql_ast_day_of_week, args);
+day_of_week(const Types::array &args) {
+  return init(_C::reql_ast_day_of_week, args);
 }
 
 Query
-AST::day_of_year(const std::vector<Query> &args) const {
-  return init(reql_ast_day_of_year, this, args);
+_Internal::AST::day_of_year(const Types::array &args) const {
+  return init(_C::reql_ast_day_of_year, this, args);
 }
 Query
-day_of_year(const std::vector<Query> &args) {
-  return init(reql_ast_day_of_year, args);
+day_of_year(const Types::array &args) {
+  return init(_C::reql_ast_day_of_year, args);
 }
 
 Query
-AST::db(const std::vector<Query> &args) const {
-  return init(reql_ast_db, this, args);
+_Internal::AST::db(const Types::array &args) const {
+  return init(_C::reql_ast_db, this, args);
 }
 Query
-db(const std::vector<Query> &args) {
-  return init(reql_ast_db, args);
+db(const Types::array &args) {
+  return init(_C::reql_ast_db, args);
 }
 
 Query
-AST::db_create(const std::vector<Query> &args) const {
-  return init(reql_ast_db_create, this, args);
+_Internal::AST::db_create(const Types::array &args) const {
+  return init(_C::reql_ast_db_create, this, args);
 }
 Query
-db_create(const std::vector<Query> &args) {
-  return init(reql_ast_db_create, args);
+db_create(const Types::array &args) {
+  return init(_C::reql_ast_db_create, args);
 }
 
 Query
-AST::db_drop(const std::vector<Query> &args) const {
-  return init(reql_ast_db_drop, this, args);
+_Internal::AST::db_drop(const Types::array &args) const {
+  return init(_C::reql_ast_db_drop, this, args);
 }
 Query
-db_drop(const std::vector<Query> &args) {
-  return init(reql_ast_db_drop, args);
+db_drop(const Types::array &args) {
+  return init(_C::reql_ast_db_drop, args);
 }
 
 Query
-AST::db_list(const std::vector<Query> &args) const {
-  return init(reql_ast_db_list, this, args);
+_Internal::AST::db_list(const Types::array &args) const {
+  return init(_C::reql_ast_db_list, this, args);
 }
 Query
-db_list(const std::vector<Query> &args) {
-  return init(reql_ast_db_list, args);
+db_list(const Types::array &args) {
+  return init(_C::reql_ast_db_list, args);
 }
 
 Query
-AST::december(const std::vector<Query> &args) const {
-  return init(reql_ast_december, this, args);
+_Internal::AST::december(const Types::array &args) const {
+  return init(_C::reql_ast_december, this, args);
 }
 Query
-december(const std::vector<Query> &args) {
-  return init(reql_ast_december, args);
+december(const Types::array &args) {
+  return init(_C::reql_ast_december, args);
 }
 
 Query
-AST::default_(const std::vector<Query> &args) const {
-  return init(reql_ast_default, this, args);
+_Internal::AST::default_(const Types::array &args) const {
+  return init(_C::reql_ast_default, this, args);
 }
 Query
-default_(const std::vector<Query> &args) {
-  return init(reql_ast_default, args);
+default_(const Types::array &args) {
+  return init(_C::reql_ast_default, args);
 }
 
 Query
-AST::delete_(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
-  return init(reql_ast_delete, this, args, kwargs);
+_Internal::AST::delete_(const Types::array &args, const Types::object &kwargs) const {
+  return init(_C::reql_ast_delete, this, args, kwargs);
 }
 Query
-delete_(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
-  return init(reql_ast_delete, args, kwargs);
+delete_(const Types::array &args, const Types::object &kwargs) {
+  return init(_C::reql_ast_delete, args, kwargs);
 }
 Query
-AST::delete_(const std::vector<Query> &args) const {
-  return init(reql_ast_delete, this, args);
+_Internal::AST::delete_(const Types::array &args) const {
+  return init(_C::reql_ast_delete, this, args);
 }
 Query
-delete_(const std::vector<Query> &args) {
-  return init(reql_ast_delete, args);
+delete_(const Types::array &args) {
+  return init(_C::reql_ast_delete, args);
 }
 
 Query
-AST::delete_at(const std::vector<Query> &args) const {
-  return init(reql_ast_delete_at, this, args);
+_Internal::AST::delete_at(const Types::array &args) const {
+  return init(_C::reql_ast_delete_at, this, args);
 }
 Query
-delete_at(const std::vector<Query> &args) {
-  return init(reql_ast_delete_at, args);
+delete_at(const Types::array &args) {
+  return init(_C::reql_ast_delete_at, args);
 }
 
 Query
-AST::desc(const std::vector<Query> &args) const {
-  return init(reql_ast_desc, this, args);
+_Internal::AST::desc(const Types::array &args) const {
+  return init(_C::reql_ast_desc, this, args);
 }
 Query
-desc(const std::vector<Query> &args) {
-  return init(reql_ast_desc, args);
+desc(const Types::array &args) {
+  return init(_C::reql_ast_desc, args);
 }
 
 Query
-AST::difference(const std::vector<Query> &args) const {
-  return init(reql_ast_difference, this, args);
+_Internal::AST::difference(const Types::array &args) const {
+  return init(_C::reql_ast_difference, this, args);
 }
 Query
-difference(const std::vector<Query> &args) {
-  return init(reql_ast_difference, args);
+difference(const Types::array &args) {
+  return init(_C::reql_ast_difference, args);
 }
 
 Query
-AST::distance(const std::vector<Query> &args) const {
-  return init(reql_ast_distance, this, args);
+_Internal::AST::distance(const Types::array &args) const {
+  return init(_C::reql_ast_distance, this, args);
 }
 Query
-distance(const std::vector<Query> &args) {
-  return init(reql_ast_distance, args);
+distance(const Types::array &args) {
+  return init(_C::reql_ast_distance, args);
 }
 
 Query
-AST::distinct(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
-  return init(reql_ast_distinct, this, args, kwargs);
+_Internal::AST::distinct(const Types::array &args, const Types::object &kwargs) const {
+  return init(_C::reql_ast_distinct, this, args, kwargs);
 }
 Query
-distinct(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
-  return init(reql_ast_distinct, args, kwargs);
+distinct(const Types::array &args, const Types::object &kwargs) {
+  return init(_C::reql_ast_distinct, args, kwargs);
 }
 Query
-AST::distinct(const std::vector<Query> &args) const {
-  return init(reql_ast_distinct, this, args);
+_Internal::AST::distinct(const Types::array &args) const {
+  return init(_C::reql_ast_distinct, this, args);
 }
 Query
-distinct(const std::vector<Query> &args) {
-  return init(reql_ast_distinct, args);
+distinct(const Types::array &args) {
+  return init(_C::reql_ast_distinct, args);
 }
 
 Query
-AST::div(const std::vector<Query> &args) const {
-  return init(reql_ast_div, this, args);
+_Internal::AST::div(const Types::array &args) const {
+  return init(_C::reql_ast_div, this, args);
 }
 Query
-div(const std::vector<Query> &args) {
-  return init(reql_ast_div, args);
+div(const Types::array &args) {
+  return init(_C::reql_ast_div, args);
 }
 
 Query
-AST::downcase(const std::vector<Query> &args) const {
-  return init(reql_ast_downcase, this, args);
+_Internal::AST::downcase(const Types::array &args) const {
+  return init(_C::reql_ast_downcase, this, args);
 }
 Query
-downcase(const std::vector<Query> &args) {
-  return init(reql_ast_downcase, args);
+downcase(const Types::array &args) {
+  return init(_C::reql_ast_downcase, args);
 }
 
 Query
-AST::during(const std::vector<Query> &args) const {
-  return init(reql_ast_during, this, args);
+_Internal::AST::during(const Types::array &args) const {
+  return init(_C::reql_ast_during, this, args);
 }
 Query
-during(const std::vector<Query> &args) {
-  return init(reql_ast_during, args);
+during(const Types::array &args) {
+  return init(_C::reql_ast_during, args);
 }
 
 Query
-AST::epoch_time(const std::vector<Query> &args) const {
-  return init(reql_ast_epoch_time, this, args);
+_Internal::AST::epoch_time(const Types::array &args) const {
+  return init(_C::reql_ast_epoch_time, this, args);
 }
 Query
-epoch_time(const std::vector<Query> &args) {
-  return init(reql_ast_epoch_time, args);
+epoch_time(const Types::array &args) {
+  return init(_C::reql_ast_epoch_time, args);
 }
 
 Query
-AST::eq(const std::vector<Query> &args) const {
-  return init(reql_ast_eq, this, args);
+_Internal::AST::eq(const Types::array &args) const {
+  return init(_C::reql_ast_eq, this, args);
 }
 Query
-eq(const std::vector<Query> &args) {
-  return init(reql_ast_eq, args);
+eq(const Types::array &args) {
+  return init(_C::reql_ast_eq, args);
 }
 
 Query
-AST::eq_join(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
-  return init(reql_ast_eq_join, this, args, kwargs);
+_Internal::AST::eq_join(const Types::array &args, const Types::object &kwargs) const {
+  return init(_C::reql_ast_eq_join, this, args, kwargs);
 }
 Query
-eq_join(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
-  return init(reql_ast_eq_join, args, kwargs);
+eq_join(const Types::array &args, const Types::object &kwargs) {
+  return init(_C::reql_ast_eq_join, args, kwargs);
 }
 Query
-AST::eq_join(const std::vector<Query> &args) const {
-  return init(reql_ast_eq_join, this, args);
+_Internal::AST::eq_join(const Types::array &args) const {
+  return init(_C::reql_ast_eq_join, this, args);
 }
 Query
-eq_join(const std::vector<Query> &args) {
-  return init(reql_ast_eq_join, args);
+eq_join(const Types::array &args) {
+  return init(_C::reql_ast_eq_join, args);
 }
 
 Query
-AST::error(const std::vector<Query> &args) const {
-  return init(reql_ast_error, this, args);
+_Internal::AST::error(const Types::array &args) const {
+  return init(_C::reql_ast_error, this, args);
 }
 Query
-error(const std::vector<Query> &args) {
-  return init(reql_ast_error, args);
+error(const Types::array &args) {
+  return init(_C::reql_ast_error, args);
 }
 
 Query
-AST::february(const std::vector<Query> &args) const {
-  return init(reql_ast_february, this, args);
+_Internal::AST::february(const Types::array &args) const {
+  return init(_C::reql_ast_february, this, args);
 }
 Query
-february(const std::vector<Query> &args) {
-  return init(reql_ast_february, args);
+february(const Types::array &args) {
+  return init(_C::reql_ast_february, args);
 }
 
 Query
-AST::fill(const std::vector<Query> &args) const {
-  return init(reql_ast_fill, this, args);
+_Internal::AST::fill(const Types::array &args) const {
+  return init(_C::reql_ast_fill, this, args);
 }
 Query
-fill(const std::vector<Query> &args) {
-  return init(reql_ast_fill, args);
+fill(const Types::array &args) {
+  return init(_C::reql_ast_fill, args);
 }
 
 Query
-AST::filter(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
-  return init(reql_ast_filter, this, args, kwargs);
+_Internal::AST::filter(const Types::array &args, const Types::object &kwargs) const {
+  return init(_C::reql_ast_filter, this, args, kwargs);
 }
 Query
-filter(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
-  return init(reql_ast_filter, args, kwargs);
+filter(const Types::array &args, const Types::object &kwargs) {
+  return init(_C::reql_ast_filter, args, kwargs);
 }
 Query
-AST::filter(const std::vector<Query> &args) const {
-  return init(reql_ast_filter, this, args);
+_Internal::AST::filter(const Types::array &args) const {
+  return init(_C::reql_ast_filter, this, args);
 }
 Query
-filter(const std::vector<Query> &args) {
-  return init(reql_ast_filter, args);
+filter(const Types::array &args) {
+  return init(_C::reql_ast_filter, args);
 }
 
 Query
-AST::floor(const std::vector<Query> &args) const {
-  return init(reql_ast_floor, this, args);
+_Internal::AST::floor(const Types::array &args) const {
+  return init(_C::reql_ast_floor, this, args);
 }
 Query
-floor(const std::vector<Query> &args) {
-  return init(reql_ast_floor, args);
+floor(const Types::array &args) {
+  return init(_C::reql_ast_floor, args);
 }
 
 Query
-AST::for_each(const std::vector<Query> &args) const {
-  return init(reql_ast_for_each, this, args);
+_Internal::AST::for_each(const Types::array &args) const {
+  return init(_C::reql_ast_for_each, this, args);
 }
 Query
-for_each(const std::vector<Query> &args) {
-  return init(reql_ast_for_each, args);
+for_each(const Types::array &args) {
+  return init(_C::reql_ast_for_each, args);
 }
 
 Query
-AST::friday(const std::vector<Query> &args) const {
-  return init(reql_ast_friday, this, args);
+_Internal::AST::friday(const Types::array &args) const {
+  return init(_C::reql_ast_friday, this, args);
 }
 Query
-friday(const std::vector<Query> &args) {
-  return init(reql_ast_friday, args);
+friday(const Types::array &args) {
+  return init(_C::reql_ast_friday, args);
 }
 
 Query
-AST::func(const std::vector<Query> &args) const {
-  return init(reql_ast_func, this, args);
+_Internal::AST::func(const Types::array &args) const {
+  return init(_C::reql_ast_func, this, args);
 }
 Query
-func(const std::vector<Query> &args) {
-  return init(reql_ast_func, args);
+func(const Types::array &args) {
+  return init(_C::reql_ast_func, args);
 }
 
 Query
-AST::funcall(const std::vector<Query> &args) const {
-  return init(reql_ast_funcall, this, args);
+_Internal::AST::funcall(const Types::array &args) const {
+  return init(_C::reql_ast_funcall, this, args);
 }
 Query
-funcall(const std::vector<Query> &args) {
-  return init(reql_ast_funcall, args);
+funcall(const Types::array &args) {
+  return init(_C::reql_ast_funcall, args);
 }
 
 Query
-AST::ge(const std::vector<Query> &args) const {
-  return init(reql_ast_ge, this, args);
+_Internal::AST::ge(const Types::array &args) const {
+  return init(_C::reql_ast_ge, this, args);
 }
 Query
-ge(const std::vector<Query> &args) {
-  return init(reql_ast_ge, args);
+ge(const Types::array &args) {
+  return init(_C::reql_ast_ge, args);
 }
 
 Query
-AST::geojson(const std::vector<Query> &args) const {
-  return init(reql_ast_geojson, this, args);
+_Internal::AST::geojson(const Types::array &args) const {
+  return init(_C::reql_ast_geojson, this, args);
 }
 Query
-geojson(const std::vector<Query> &args) {
-  return init(reql_ast_geojson, args);
+geojson(const Types::array &args) {
+  return init(_C::reql_ast_geojson, args);
 }
 
 Query
-AST::get(const std::vector<Query> &args) const {
-  return init(reql_ast_get, this, args);
+_Internal::AST::get(const Types::array &args) const {
+  return init(_C::reql_ast_get, this, args);
 }
 Query
-get(const std::vector<Query> &args) {
-  return init(reql_ast_get, args);
+get(const Types::array &args) {
+  return init(_C::reql_ast_get, args);
 }
 
 Query
-AST::get_all(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
-  return init(reql_ast_get_all, this, args, kwargs);
+_Internal::AST::get_all(const Types::array &args, const Types::object &kwargs) const {
+  return init(_C::reql_ast_get_all, this, args, kwargs);
 }
 Query
-get_all(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
-  return init(reql_ast_get_all, args, kwargs);
+get_all(const Types::array &args, const Types::object &kwargs) {
+  return init(_C::reql_ast_get_all, args, kwargs);
 }
 Query
-AST::get_all(const std::vector<Query> &args) const {
-  return init(reql_ast_get_all, this, args);
+_Internal::AST::get_all(const Types::array &args) const {
+  return init(_C::reql_ast_get_all, this, args);
 }
 Query
-get_all(const std::vector<Query> &args) {
-  return init(reql_ast_get_all, args);
+get_all(const Types::array &args) {
+  return init(_C::reql_ast_get_all, args);
 }
 
 Query
-AST::get_field(const std::vector<Query> &args) const {
-  return init(reql_ast_get_field, this, args);
+_Internal::AST::get_field(const Types::array &args) const {
+  return init(_C::reql_ast_get_field, this, args);
 }
 Query
-get_field(const std::vector<Query> &args) {
-  return init(reql_ast_get_field, args);
+get_field(const Types::array &args) {
+  return init(_C::reql_ast_get_field, args);
 }
 
 Query
-AST::get_intersecting(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
-  return init(reql_ast_get_intersecting, this, args, kwargs);
+_Internal::AST::get_intersecting(const Types::array &args, const Types::object &kwargs) const {
+  return init(_C::reql_ast_get_intersecting, this, args, kwargs);
 }
 Query
-get_intersecting(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
-  return init(reql_ast_get_intersecting, args, kwargs);
+get_intersecting(const Types::array &args, const Types::object &kwargs) {
+  return init(_C::reql_ast_get_intersecting, args, kwargs);
 }
 Query
-AST::get_intersecting(const std::vector<Query> &args) const {
-  return init(reql_ast_get_intersecting, this, args);
+_Internal::AST::get_intersecting(const Types::array &args) const {
+  return init(_C::reql_ast_get_intersecting, this, args);
 }
 Query
-get_intersecting(const std::vector<Query> &args) {
-  return init(reql_ast_get_intersecting, args);
+get_intersecting(const Types::array &args) {
+  return init(_C::reql_ast_get_intersecting, args);
 }
 
 Query
-AST::get_nearest(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
-  return init(reql_ast_get_nearest, this, args, kwargs);
+_Internal::AST::get_nearest(const Types::array &args, const Types::object &kwargs) const {
+  return init(_C::reql_ast_get_nearest, this, args, kwargs);
 }
 Query
-get_nearest(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
-  return init(reql_ast_get_nearest, args, kwargs);
+get_nearest(const Types::array &args, const Types::object &kwargs) {
+  return init(_C::reql_ast_get_nearest, args, kwargs);
 }
 Query
-AST::get_nearest(const std::vector<Query> &args) const {
-  return init(reql_ast_get_nearest, this, args);
+_Internal::AST::get_nearest(const Types::array &args) const {
+  return init(_C::reql_ast_get_nearest, this, args);
 }
 Query
-get_nearest(const std::vector<Query> &args) {
-  return init(reql_ast_get_nearest, args);
+get_nearest(const Types::array &args) {
+  return init(_C::reql_ast_get_nearest, args);
 }
 
 Query
-AST::group(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
-  return init(reql_ast_group, this, args, kwargs);
+_Internal::AST::group(const Types::array &args, const Types::object &kwargs) const {
+  return init(_C::reql_ast_group, this, args, kwargs);
 }
 Query
-group(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
-  return init(reql_ast_group, args, kwargs);
+group(const Types::array &args, const Types::object &kwargs) {
+  return init(_C::reql_ast_group, args, kwargs);
 }
 Query
-AST::group(const std::vector<Query> &args) const {
-  return init(reql_ast_group, this, args);
+_Internal::AST::group(const Types::array &args) const {
+  return init(_C::reql_ast_group, this, args);
 }
 Query
-group(const std::vector<Query> &args) {
-  return init(reql_ast_group, args);
+group(const Types::array &args) {
+  return init(_C::reql_ast_group, args);
 }
 
 Query
-AST::gt(const std::vector<Query> &args) const {
-  return init(reql_ast_gt, this, args);
+_Internal::AST::gt(const Types::array &args) const {
+  return init(_C::reql_ast_gt, this, args);
 }
 Query
-gt(const std::vector<Query> &args) {
-  return init(reql_ast_gt, args);
+gt(const Types::array &args) {
+  return init(_C::reql_ast_gt, args);
 }
 
 Query
-AST::has_fields(const std::vector<Query> &args) const {
-  return init(reql_ast_has_fields, this, args);
+_Internal::AST::has_fields(const Types::array &args) const {
+  return init(_C::reql_ast_has_fields, this, args);
 }
 Query
-has_fields(const std::vector<Query> &args) {
-  return init(reql_ast_has_fields, args);
+has_fields(const Types::array &args) {
+  return init(_C::reql_ast_has_fields, args);
 }
 
 Query
-AST::hours(const std::vector<Query> &args) const {
-  return init(reql_ast_hours, this, args);
+_Internal::AST::hours(const Types::array &args) const {
+  return init(_C::reql_ast_hours, this, args);
 }
 Query
-hours(const std::vector<Query> &args) {
-  return init(reql_ast_hours, args);
+hours(const Types::array &args) {
+  return init(_C::reql_ast_hours, args);
 }
 
 Query
-AST::http(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
-  return init(reql_ast_http, this, args, kwargs);
+_Internal::AST::http(const Types::array &args, const Types::object &kwargs) const {
+  return init(_C::reql_ast_http, this, args, kwargs);
 }
 Query
-http(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
-  return init(reql_ast_http, args, kwargs);
+http(const Types::array &args, const Types::object &kwargs) {
+  return init(_C::reql_ast_http, args, kwargs);
 }
 Query
-AST::http(const std::vector<Query> &args) const {
-  return init(reql_ast_http, this, args);
+_Internal::AST::http(const Types::array &args) const {
+  return init(_C::reql_ast_http, this, args);
 }
 Query
-http(const std::vector<Query> &args) {
-  return init(reql_ast_http, args);
+http(const Types::array &args) {
+  return init(_C::reql_ast_http, args);
 }
 
 Query
-AST::implicit_var(const std::vector<Query> &args) const {
-  return init(reql_ast_implicit_var, this, args);
+_Internal::AST::implicit_var(const Types::array &args) const {
+  return init(_C::reql_ast_implicit_var, this, args);
 }
 Query
-implicit_var(const std::vector<Query> &args) {
-  return init(reql_ast_implicit_var, args);
+implicit_var(const Types::array &args) {
+  return init(_C::reql_ast_implicit_var, args);
 }
 
 Query
-AST::includes(const std::vector<Query> &args) const {
-  return init(reql_ast_includes, this, args);
+_Internal::AST::includes(const Types::array &args) const {
+  return init(_C::reql_ast_includes, this, args);
 }
 Query
-includes(const std::vector<Query> &args) {
-  return init(reql_ast_includes, args);
+includes(const Types::array &args) {
+  return init(_C::reql_ast_includes, args);
 }
 
 Query
-AST::index_create(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
-  return init(reql_ast_index_create, this, args, kwargs);
+_Internal::AST::index_create(const Types::array &args, const Types::object &kwargs) const {
+  return init(_C::reql_ast_index_create, this, args, kwargs);
 }
 Query
-index_create(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
-  return init(reql_ast_index_create, args, kwargs);
+index_create(const Types::array &args, const Types::object &kwargs) {
+  return init(_C::reql_ast_index_create, args, kwargs);
 }
 Query
-AST::index_create(const std::vector<Query> &args) const {
-  return init(reql_ast_index_create, this, args);
+_Internal::AST::index_create(const Types::array &args) const {
+  return init(_C::reql_ast_index_create, this, args);
 }
 Query
-index_create(const std::vector<Query> &args) {
-  return init(reql_ast_index_create, args);
+index_create(const Types::array &args) {
+  return init(_C::reql_ast_index_create, args);
 }
 
 Query
-AST::index_drop(const std::vector<Query> &args) const {
-  return init(reql_ast_index_drop, this, args);
+_Internal::AST::index_drop(const Types::array &args) const {
+  return init(_C::reql_ast_index_drop, this, args);
 }
 Query
-index_drop(const std::vector<Query> &args) {
-  return init(reql_ast_index_drop, args);
+index_drop(const Types::array &args) {
+  return init(_C::reql_ast_index_drop, args);
 }
 
 Query
-AST::index_list(const std::vector<Query> &args) const {
-  return init(reql_ast_index_list, this, args);
+_Internal::AST::index_list(const Types::array &args) const {
+  return init(_C::reql_ast_index_list, this, args);
 }
 Query
-index_list(const std::vector<Query> &args) {
-  return init(reql_ast_index_list, args);
+index_list(const Types::array &args) {
+  return init(_C::reql_ast_index_list, args);
 }
 
 Query
-AST::index_rename(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
-  return init(reql_ast_index_rename, this, args, kwargs);
+_Internal::AST::index_rename(const Types::array &args, const Types::object &kwargs) const {
+  return init(_C::reql_ast_index_rename, this, args, kwargs);
 }
 Query
-index_rename(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
-  return init(reql_ast_index_rename, args, kwargs);
+index_rename(const Types::array &args, const Types::object &kwargs) {
+  return init(_C::reql_ast_index_rename, args, kwargs);
 }
 Query
-AST::index_rename(const std::vector<Query> &args) const {
-  return init(reql_ast_index_rename, this, args);
+_Internal::AST::index_rename(const Types::array &args) const {
+  return init(_C::reql_ast_index_rename, this, args);
 }
 Query
-index_rename(const std::vector<Query> &args) {
-  return init(reql_ast_index_rename, args);
+index_rename(const Types::array &args) {
+  return init(_C::reql_ast_index_rename, args);
 }
 
 Query
-AST::index_status(const std::vector<Query> &args) const {
-  return init(reql_ast_index_status, this, args);
+_Internal::AST::index_status(const Types::array &args) const {
+  return init(_C::reql_ast_index_status, this, args);
 }
 Query
-index_status(const std::vector<Query> &args) {
-  return init(reql_ast_index_status, args);
+index_status(const Types::array &args) {
+  return init(_C::reql_ast_index_status, args);
 }
 
 Query
-AST::index_wait(const std::vector<Query> &args) const {
-  return init(reql_ast_index_wait, this, args);
+_Internal::AST::index_wait(const Types::array &args) const {
+  return init(_C::reql_ast_index_wait, this, args);
 }
 Query
-index_wait(const std::vector<Query> &args) {
-  return init(reql_ast_index_wait, args);
+index_wait(const Types::array &args) {
+  return init(_C::reql_ast_index_wait, args);
 }
 
 Query
-AST::info(const std::vector<Query> &args) const {
-  return init(reql_ast_info, this, args);
+_Internal::AST::info(const Types::array &args) const {
+  return init(_C::reql_ast_info, this, args);
 }
 Query
-info(const std::vector<Query> &args) {
-  return init(reql_ast_info, args);
+info(const Types::array &args) {
+  return init(_C::reql_ast_info, args);
 }
 
 Query
-AST::inner_join(const std::vector<Query> &args) const {
-  return init(reql_ast_inner_join, this, args);
+_Internal::AST::inner_join(const Types::array &args) const {
+  return init(_C::reql_ast_inner_join, this, args);
 }
 Query
-inner_join(const std::vector<Query> &args) {
-  return init(reql_ast_inner_join, args);
+inner_join(const Types::array &args) {
+  return init(_C::reql_ast_inner_join, args);
 }
 
 Query
-AST::insert(const std::vector<Query> &args) const {
-  return init(reql_ast_insert, this, args);
+_Internal::AST::insert(const Types::array &args) const {
+  return init(_C::reql_ast_insert, this, args);
 }
 Query
-insert(const std::vector<Query> &args) {
-  return init(reql_ast_insert, args);
+insert(const Types::array &args) {
+  return init(_C::reql_ast_insert, args);
 }
 
 Query
-AST::insert_at(const std::vector<Query> &args) const {
-  return init(reql_ast_insert_at, this, args);
+_Internal::AST::insert_at(const Types::array &args) const {
+  return init(_C::reql_ast_insert_at, this, args);
 }
 Query
-insert_at(const std::vector<Query> &args) {
-  return init(reql_ast_insert_at, args);
+insert_at(const Types::array &args) {
+  return init(_C::reql_ast_insert_at, args);
 }
 
 Query
-AST::intersects(const std::vector<Query> &args) const {
-  return init(reql_ast_intersects, this, args);
+_Internal::AST::intersects(const Types::array &args) const {
+  return init(_C::reql_ast_intersects, this, args);
 }
 Query
-intersects(const std::vector<Query> &args) {
-  return init(reql_ast_intersects, args);
+intersects(const Types::array &args) {
+  return init(_C::reql_ast_intersects, args);
 }
 
 Query
-AST::in_timezone(const std::vector<Query> &args) const {
-  return init(reql_ast_in_timezone, this, args);
+_Internal::AST::in_timezone(const Types::array &args) const {
+  return init(_C::reql_ast_in_timezone, this, args);
 }
 Query
-in_timezone(const std::vector<Query> &args) {
-  return init(reql_ast_in_timezone, args);
+in_timezone(const Types::array &args) {
+  return init(_C::reql_ast_in_timezone, args);
 }
 
 Query
-AST::iso8601(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
-  return init(reql_ast_iso8601, this, args, kwargs);
+_Internal::AST::iso8601(const Types::array &args, const Types::object &kwargs) const {
+  return init(_C::reql_ast_iso8601, this, args, kwargs);
 }
 Query
-iso8601(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
-  return init(reql_ast_iso8601, args, kwargs);
+iso8601(const Types::array &args, const Types::object &kwargs) {
+  return init(_C::reql_ast_iso8601, args, kwargs);
 }
 Query
-AST::iso8601(const std::vector<Query> &args) const {
-  return init(reql_ast_iso8601, this, args);
+_Internal::AST::iso8601(const Types::array &args) const {
+  return init(_C::reql_ast_iso8601, this, args);
 }
 Query
-iso8601(const std::vector<Query> &args) {
-  return init(reql_ast_iso8601, args);
+iso8601(const Types::array &args) {
+  return init(_C::reql_ast_iso8601, args);
 }
 
 Query
-AST::is_empty(const std::vector<Query> &args) const {
-  return init(reql_ast_is_empty, this, args);
+_Internal::AST::is_empty(const Types::array &args) const {
+  return init(_C::reql_ast_is_empty, this, args);
 }
 Query
-is_empty(const std::vector<Query> &args) {
-  return init(reql_ast_is_empty, args);
+is_empty(const Types::array &args) {
+  return init(_C::reql_ast_is_empty, args);
 }
 
 Query
-AST::january(const std::vector<Query> &args) const {
-  return init(reql_ast_january, this, args);
+_Internal::AST::january(const Types::array &args) const {
+  return init(_C::reql_ast_january, this, args);
 }
 Query
-january(const std::vector<Query> &args) {
-  return init(reql_ast_january, args);
+january(const Types::array &args) {
+  return init(_C::reql_ast_january, args);
 }
 
 Query
-AST::javascript(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
-  return init(reql_ast_javascript, this, args, kwargs);
+_Internal::AST::javascript(const Types::array &args, const Types::object &kwargs) const {
+  return init(_C::reql_ast_javascript, this, args, kwargs);
 }
 Query
-javascript(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
-  return init(reql_ast_javascript, args, kwargs);
+javascript(const Types::array &args, const Types::object &kwargs) {
+  return init(_C::reql_ast_javascript, args, kwargs);
 }
 Query
-AST::javascript(const std::vector<Query> &args) const {
-  return init(reql_ast_javascript, this, args);
+_Internal::AST::javascript(const Types::array &args) const {
+  return init(_C::reql_ast_javascript, this, args);
 }
 Query
-javascript(const std::vector<Query> &args) {
-  return init(reql_ast_javascript, args);
+javascript(const Types::array &args) {
+  return init(_C::reql_ast_javascript, args);
 }
 
 Query
-AST::json(const std::vector<Query> &args) const {
-  return init(reql_ast_json, this, args);
+_Internal::AST::json(const Types::array &args) const {
+  return init(_C::reql_ast_json, this, args);
 }
 Query
-json(const std::vector<Query> &args) {
-  return init(reql_ast_json, args);
+json(const Types::array &args) {
+  return init(_C::reql_ast_json, args);
 }
 
 Query
-AST::july(const std::vector<Query> &args) const {
-  return init(reql_ast_july, this, args);
+_Internal::AST::july(const Types::array &args) const {
+  return init(_C::reql_ast_july, this, args);
 }
 Query
-july(const std::vector<Query> &args) {
-  return init(reql_ast_july, args);
+july(const Types::array &args) {
+  return init(_C::reql_ast_july, args);
 }
 
 Query
-AST::june(const std::vector<Query> &args) const {
-  return init(reql_ast_june, this, args);
+_Internal::AST::june(const Types::array &args) const {
+  return init(_C::reql_ast_june, this, args);
 }
 Query
-june(const std::vector<Query> &args) {
-  return init(reql_ast_june, args);
+june(const Types::array &args) {
+  return init(_C::reql_ast_june, args);
 }
 
 Query
-AST::keys(const std::vector<Query> &args) const {
-  return init(reql_ast_keys, this, args);
+_Internal::AST::keys(const Types::array &args) const {
+  return init(_C::reql_ast_keys, this, args);
 }
 Query
-keys(const std::vector<Query> &args) {
-  return init(reql_ast_keys, args);
+keys(const Types::array &args) {
+  return init(_C::reql_ast_keys, args);
 }
 
 Query
-AST::le(const std::vector<Query> &args) const {
-  return init(reql_ast_le, this, args);
+_Internal::AST::le(const Types::array &args) const {
+  return init(_C::reql_ast_le, this, args);
 }
 Query
-le(const std::vector<Query> &args) {
-  return init(reql_ast_le, args);
+le(const Types::array &args) {
+  return init(_C::reql_ast_le, args);
 }
 
 Query
-AST::limit(const std::vector<Query> &args) const {
-  return init(reql_ast_limit, this, args);
+_Internal::AST::limit(const Types::array &args) const {
+  return init(_C::reql_ast_limit, this, args);
 }
 Query
-limit(const std::vector<Query> &args) {
-  return init(reql_ast_limit, args);
+limit(const Types::array &args) {
+  return init(_C::reql_ast_limit, args);
 }
 
 Query
-AST::line(const std::vector<Query> &args) const {
-  return init(reql_ast_line, this, args);
+_Internal::AST::line(const Types::array &args) const {
+  return init(_C::reql_ast_line, this, args);
 }
 Query
-line(const std::vector<Query> &args) {
-  return init(reql_ast_line, args);
+line(const Types::array &args) {
+  return init(_C::reql_ast_line, args);
 }
 
 Query
-AST::literal(const std::vector<Query> &args) const {
-  return init(reql_ast_literal, this, args);
+_Internal::AST::literal(const Types::array &args) const {
+  return init(_C::reql_ast_literal, this, args);
 }
 Query
-literal(const std::vector<Query> &args) {
-  return init(reql_ast_literal, args);
+literal(const Types::array &args) {
+  return init(_C::reql_ast_literal, args);
 }
 
 Query
-AST::lt(const std::vector<Query> &args) const {
-  return init(reql_ast_lt, this, args);
+_Internal::AST::lt(const Types::array &args) const {
+  return init(_C::reql_ast_lt, this, args);
 }
 Query
-lt(const std::vector<Query> &args) {
-  return init(reql_ast_lt, args);
+lt(const Types::array &args) {
+  return init(_C::reql_ast_lt, args);
 }
 
 Query
-AST::make_array(const std::vector<Query> &args) const {
-  return init(reql_ast_make_array, this, args);
+_Internal::AST::make_array(const Types::array &args) const {
+  return init(_C::reql_ast_make_array, this, args);
 }
 Query
-make_array(const std::vector<Query> &args) {
-  return init(reql_ast_make_array, args);
+make_array(const Types::array &args) {
+  return init(_C::reql_ast_make_array, args);
 }
 
 Query
-AST::make_obj(const std::vector<Query> &args) const {
-  return init(reql_ast_make_obj, this, args);
+_Internal::AST::make_obj(const Types::array &args) const {
+  return init(_C::reql_ast_make_obj, this, args);
 }
 Query
-make_obj(const std::vector<Query> &args) {
-  return init(reql_ast_make_obj, args);
+make_obj(const Types::array &args) {
+  return init(_C::reql_ast_make_obj, args);
 }
 
 Query
-AST::map(const std::vector<Query> &args) const {
-  return init(reql_ast_map, this, args);
+_Internal::AST::map(const Types::array &args) const {
+  return init(_C::reql_ast_map, this, args);
 }
 Query
-map(const std::vector<Query> &args) {
-  return init(reql_ast_map, args);
+map(const Types::array &args) {
+  return init(_C::reql_ast_map, args);
 }
 
 Query
-AST::march(const std::vector<Query> &args) const {
-  return init(reql_ast_march, this, args);
+_Internal::AST::march(const Types::array &args) const {
+  return init(_C::reql_ast_march, this, args);
 }
 Query
-march(const std::vector<Query> &args) {
-  return init(reql_ast_march, args);
+march(const Types::array &args) {
+  return init(_C::reql_ast_march, args);
 }
 
 Query
-AST::match(const std::vector<Query> &args) const {
-  return init(reql_ast_match, this, args);
+_Internal::AST::match(const Types::array &args) const {
+  return init(_C::reql_ast_match, this, args);
 }
 Query
-match(const std::vector<Query> &args) {
-  return init(reql_ast_match, args);
+match(const Types::array &args) {
+  return init(_C::reql_ast_match, args);
 }
 
 Query
-AST::max(const std::vector<Query> &args) const {
-  return init(reql_ast_max, this, args);
+_Internal::AST::max(const Types::array &args) const {
+  return init(_C::reql_ast_max, this, args);
 }
 Query
-max(const std::vector<Query> &args) {
-  return init(reql_ast_max, args);
+max(const Types::array &args) {
+  return init(_C::reql_ast_max, args);
 }
 
 Query
-AST::maxval(const std::vector<Query> &args) const {
-  return init(reql_ast_maxval, this, args);
+_Internal::AST::maxval(const Types::array &args) const {
+  return init(_C::reql_ast_maxval, this, args);
 }
 Query
-maxval(const std::vector<Query> &args) {
-  return init(reql_ast_maxval, args);
+maxval(const Types::array &args) {
+  return init(_C::reql_ast_maxval, args);
 }
 
 Query
-AST::may(const std::vector<Query> &args) const {
-  return init(reql_ast_may, this, args);
+_Internal::AST::may(const Types::array &args) const {
+  return init(_C::reql_ast_may, this, args);
 }
 Query
-may(const std::vector<Query> &args) {
-  return init(reql_ast_may, args);
+may(const Types::array &args) {
+  return init(_C::reql_ast_may, args);
 }
 
 Query
-AST::merge(const std::vector<Query> &args) const {
-  return init(reql_ast_merge, this, args);
+_Internal::AST::merge(const Types::array &args) const {
+  return init(_C::reql_ast_merge, this, args);
 }
 Query
-merge(const std::vector<Query> &args) {
-  return init(reql_ast_merge, args);
+merge(const Types::array &args) {
+  return init(_C::reql_ast_merge, args);
 }
 
 Query
-AST::min(const std::vector<Query> &args) const {
-  return init(reql_ast_min, this, args);
+_Internal::AST::min(const Types::array &args) const {
+  return init(_C::reql_ast_min, this, args);
 }
 Query
-min(const std::vector<Query> &args) {
-  return init(reql_ast_min, args);
+min(const Types::array &args) {
+  return init(_C::reql_ast_min, args);
 }
 
 Query
-AST::minutes(const std::vector<Query> &args) const {
-  return init(reql_ast_minutes, this, args);
+_Internal::AST::minutes(const Types::array &args) const {
+  return init(_C::reql_ast_minutes, this, args);
 }
 Query
-minutes(const std::vector<Query> &args) {
-  return init(reql_ast_minutes, args);
+minutes(const Types::array &args) {
+  return init(_C::reql_ast_minutes, args);
 }
 
 Query
-AST::minval(const std::vector<Query> &args) const {
-  return init(reql_ast_minval, this, args);
+_Internal::AST::minval(const Types::array &args) const {
+  return init(_C::reql_ast_minval, this, args);
 }
 Query
-minval(const std::vector<Query> &args) {
-  return init(reql_ast_minval, args);
+minval(const Types::array &args) {
+  return init(_C::reql_ast_minval, args);
 }
 
 Query
-AST::mod(const std::vector<Query> &args) const {
-  return init(reql_ast_mod, this, args);
+_Internal::AST::mod(const Types::array &args) const {
+  return init(_C::reql_ast_mod, this, args);
 }
 Query
-mod(const std::vector<Query> &args) {
-  return init(reql_ast_mod, args);
+mod(const Types::array &args) {
+  return init(_C::reql_ast_mod, args);
 }
 
 Query
-AST::monday(const std::vector<Query> &args) const {
-  return init(reql_ast_monday, this, args);
+_Internal::AST::monday(const Types::array &args) const {
+  return init(_C::reql_ast_monday, this, args);
 }
 Query
-monday(const std::vector<Query> &args) {
-  return init(reql_ast_monday, args);
+monday(const Types::array &args) {
+  return init(_C::reql_ast_monday, args);
 }
 
 Query
-AST::month(const std::vector<Query> &args) const {
-  return init(reql_ast_month, this, args);
+_Internal::AST::month(const Types::array &args) const {
+  return init(_C::reql_ast_month, this, args);
 }
 Query
-month(const std::vector<Query> &args) {
-  return init(reql_ast_month, args);
+month(const Types::array &args) {
+  return init(_C::reql_ast_month, args);
 }
 
 Query
-AST::mul(const std::vector<Query> &args) const {
-  return init(reql_ast_mul, this, args);
+_Internal::AST::mul(const Types::array &args) const {
+  return init(_C::reql_ast_mul, this, args);
 }
 Query
-mul(const std::vector<Query> &args) {
-  return init(reql_ast_mul, args);
+mul(const Types::array &args) {
+  return init(_C::reql_ast_mul, args);
 }
 
 Query
-AST::ne(const std::vector<Query> &args) const {
-  return init(reql_ast_ne, this, args);
+_Internal::AST::ne(const Types::array &args) const {
+  return init(_C::reql_ast_ne, this, args);
 }
 Query
-ne(const std::vector<Query> &args) {
-  return init(reql_ast_ne, args);
+ne(const Types::array &args) {
+  return init(_C::reql_ast_ne, args);
 }
 
 Query
-AST::not_(const std::vector<Query> &args) const {
-  return init(reql_ast_not, this, args);
+_Internal::AST::not_(const Types::array &args) const {
+  return init(_C::reql_ast_not, this, args);
 }
 Query
-not_(const std::vector<Query> &args) {
-  return init(reql_ast_not, args);
+not_(const Types::array &args) {
+  return init(_C::reql_ast_not, args);
 }
 
 Query
-AST::november(const std::vector<Query> &args) const {
-  return init(reql_ast_november, this, args);
+_Internal::AST::november(const Types::array &args) const {
+  return init(_C::reql_ast_november, this, args);
 }
 Query
-november(const std::vector<Query> &args) {
-  return init(reql_ast_november, args);
+november(const Types::array &args) {
+  return init(_C::reql_ast_november, args);
 }
 
 Query
-AST::now(const std::vector<Query> &args) const {
-  return init(reql_ast_now, this, args);
+_Internal::AST::now(const Types::array &args) const {
+  return init(_C::reql_ast_now, this, args);
 }
 Query
-now(const std::vector<Query> &args) {
-  return init(reql_ast_now, args);
+now(const Types::array &args) {
+  return init(_C::reql_ast_now, args);
 }
 
 Query
-AST::nth(const std::vector<Query> &args) const {
-  return init(reql_ast_nth, this, args);
+_Internal::AST::nth(const Types::array &args) const {
+  return init(_C::reql_ast_nth, this, args);
 }
 Query
-nth(const std::vector<Query> &args) {
-  return init(reql_ast_nth, args);
+nth(const Types::array &args) {
+  return init(_C::reql_ast_nth, args);
 }
 
 Query
-AST::object(const std::vector<Query> &args) const {
-  return init(reql_ast_object, this, args);
+_Internal::AST::object(const Types::array &args) const {
+  return init(_C::reql_ast_object, this, args);
 }
 Query
-object(const std::vector<Query> &args) {
-  return init(reql_ast_object, args);
+object(const Types::array &args) {
+  return init(_C::reql_ast_object, args);
 }
 
 Query
-AST::october(const std::vector<Query> &args) const {
-  return init(reql_ast_october, this, args);
+_Internal::AST::october(const Types::array &args) const {
+  return init(_C::reql_ast_october, this, args);
 }
 Query
-october(const std::vector<Query> &args) {
-  return init(reql_ast_october, args);
+october(const Types::array &args) {
+  return init(_C::reql_ast_october, args);
 }
 
 Query
-AST::offsets_of(const std::vector<Query> &args) const {
-  return init(reql_ast_offsets_of, this, args);
+_Internal::AST::offsets_of(const Types::array &args) const {
+  return init(_C::reql_ast_offsets_of, this, args);
 }
 Query
-offsets_of(const std::vector<Query> &args) {
-  return init(reql_ast_offsets_of, args);
+offsets_of(const Types::array &args) {
+  return init(_C::reql_ast_offsets_of, args);
 }
 
 Query
-AST::or_(const std::vector<Query> &args) const {
-  return init(reql_ast_or, this, args);
+_Internal::AST::or_(const Types::array &args) const {
+  return init(_C::reql_ast_or, this, args);
 }
 Query
-or_(const std::vector<Query> &args) {
-  return init(reql_ast_or, args);
+or_(const Types::array &args) {
+  return init(_C::reql_ast_or, args);
 }
 
 Query
-AST::order_by(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
-  return init(reql_ast_order_by, this, args, kwargs);
+_Internal::AST::order_by(const Types::array &args, const Types::object &kwargs) const {
+  return init(_C::reql_ast_order_by, this, args, kwargs);
 }
 Query
-order_by(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
-  return init(reql_ast_order_by, args, kwargs);
+order_by(const Types::array &args, const Types::object &kwargs) {
+  return init(_C::reql_ast_order_by, args, kwargs);
 }
 Query
-AST::order_by(const std::vector<Query> &args) const {
-  return init(reql_ast_order_by, this, args);
+_Internal::AST::order_by(const Types::array &args) const {
+  return init(_C::reql_ast_order_by, this, args);
 }
 Query
-order_by(const std::vector<Query> &args) {
-  return init(reql_ast_order_by, args);
+order_by(const Types::array &args) {
+  return init(_C::reql_ast_order_by, args);
 }
 
 Query
-AST::outer_join(const std::vector<Query> &args) const {
-  return init(reql_ast_outer_join, this, args);
+_Internal::AST::outer_join(const Types::array &args) const {
+  return init(_C::reql_ast_outer_join, this, args);
 }
 Query
-outer_join(const std::vector<Query> &args) {
-  return init(reql_ast_outer_join, args);
+outer_join(const Types::array &args) {
+  return init(_C::reql_ast_outer_join, args);
 }
 
 Query
-AST::pluck(const std::vector<Query> &args) const {
-  return init(reql_ast_pluck, this, args);
+_Internal::AST::pluck(const Types::array &args) const {
+  return init(_C::reql_ast_pluck, this, args);
 }
 Query
-pluck(const std::vector<Query> &args) {
-  return init(reql_ast_pluck, args);
+pluck(const Types::array &args) {
+  return init(_C::reql_ast_pluck, args);
 }
 
 Query
-AST::point(const std::vector<Query> &args) const {
-  return init(reql_ast_point, this, args);
+_Internal::AST::point(const Types::array &args) const {
+  return init(_C::reql_ast_point, this, args);
 }
 Query
-point(const std::vector<Query> &args) {
-  return init(reql_ast_point, args);
+point(const Types::array &args) {
+  return init(_C::reql_ast_point, args);
 }
 
 Query
-AST::polygon(const std::vector<Query> &args) const {
-  return init(reql_ast_polygon, this, args);
+_Internal::AST::polygon(const Types::array &args) const {
+  return init(_C::reql_ast_polygon, this, args);
 }
 Query
-polygon(const std::vector<Query> &args) {
-  return init(reql_ast_polygon, args);
+polygon(const Types::array &args) {
+  return init(_C::reql_ast_polygon, args);
 }
 
 Query
-AST::polygon_sub(const std::vector<Query> &args) const {
-  return init(reql_ast_polygon_sub, this, args);
+_Internal::AST::polygon_sub(const Types::array &args) const {
+  return init(_C::reql_ast_polygon_sub, this, args);
 }
 Query
-polygon_sub(const std::vector<Query> &args) {
-  return init(reql_ast_polygon_sub, args);
+polygon_sub(const Types::array &args) {
+  return init(_C::reql_ast_polygon_sub, args);
 }
 
 Query
-AST::prepend(const std::vector<Query> &args) const {
-  return init(reql_ast_prepend, this, args);
+_Internal::AST::prepend(const Types::array &args) const {
+  return init(_C::reql_ast_prepend, this, args);
 }
 Query
-prepend(const std::vector<Query> &args) {
-  return init(reql_ast_prepend, args);
+prepend(const Types::array &args) {
+  return init(_C::reql_ast_prepend, args);
 }
 
 Query
-AST::random(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
-  return init(reql_ast_random, this, args, kwargs);
+_Internal::AST::random(const Types::array &args, const Types::object &kwargs) const {
+  return init(_C::reql_ast_random, this, args, kwargs);
 }
 Query
-random(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
-  return init(reql_ast_random, args, kwargs);
+random(const Types::array &args, const Types::object &kwargs) {
+  return init(_C::reql_ast_random, args, kwargs);
 }
 Query
-AST::random(const std::vector<Query> &args) const {
-  return init(reql_ast_random, this, args);
+_Internal::AST::random(const Types::array &args) const {
+  return init(_C::reql_ast_random, this, args);
 }
 Query
-random(const std::vector<Query> &args) {
-  return init(reql_ast_random, args);
+random(const Types::array &args) {
+  return init(_C::reql_ast_random, args);
 }
 
 Query
-AST::range(const std::vector<Query> &args) const {
-  return init(reql_ast_range, this, args);
+_Internal::AST::range(const Types::array &args) const {
+  return init(_C::reql_ast_range, this, args);
 }
 Query
-range(const std::vector<Query> &args) {
-  return init(reql_ast_range, args);
+range(const Types::array &args) {
+  return init(_C::reql_ast_range, args);
 }
 
 Query
-AST::rebalance(const std::vector<Query> &args) const {
-  return init(reql_ast_rebalance, this, args);
+_Internal::AST::rebalance(const Types::array &args) const {
+  return init(_C::reql_ast_rebalance, this, args);
 }
 Query
-rebalance(const std::vector<Query> &args) {
-  return init(reql_ast_rebalance, args);
+rebalance(const Types::array &args) {
+  return init(_C::reql_ast_rebalance, args);
 }
 
 Query
-AST::reconfigure(const std::vector<Query> &args) const {
-  return init(reql_ast_reconfigure, this, args);
+_Internal::AST::reconfigure(const Types::array &args) const {
+  return init(_C::reql_ast_reconfigure, this, args);
 }
 Query
-reconfigure(const std::vector<Query> &args) {
-  return init(reql_ast_reconfigure, args);
+reconfigure(const Types::array &args) {
+  return init(_C::reql_ast_reconfigure, args);
 }
 
 Query
-AST::reduce(const std::vector<Query> &args) const {
-  return init(reql_ast_reduce, this, args);
+_Internal::AST::reduce(const Types::array &args) const {
+  return init(_C::reql_ast_reduce, this, args);
 }
 Query
-reduce(const std::vector<Query> &args) {
-  return init(reql_ast_reduce, args);
+reduce(const Types::array &args) {
+  return init(_C::reql_ast_reduce, args);
 }
 
 Query
-AST::replace(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
-  return init(reql_ast_replace, this, args, kwargs);
+_Internal::AST::replace(const Types::array &args, const Types::object &kwargs) const {
+  return init(_C::reql_ast_replace, this, args, kwargs);
 }
 Query
-replace(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
-  return init(reql_ast_replace, args, kwargs);
+replace(const Types::array &args, const Types::object &kwargs) {
+  return init(_C::reql_ast_replace, args, kwargs);
 }
 Query
-AST::replace(const std::vector<Query> &args) const {
-  return init(reql_ast_replace, this, args);
+_Internal::AST::replace(const Types::array &args) const {
+  return init(_C::reql_ast_replace, this, args);
 }
 Query
-replace(const std::vector<Query> &args) {
-  return init(reql_ast_replace, args);
+replace(const Types::array &args) {
+  return init(_C::reql_ast_replace, args);
 }
 
 Query
-AST::round(const std::vector<Query> &args) const {
-  return init(reql_ast_round, this, args);
+_Internal::AST::round(const Types::array &args) const {
+  return init(_C::reql_ast_round, this, args);
 }
 Query
-round(const std::vector<Query> &args) {
-  return init(reql_ast_round, args);
+round(const Types::array &args) {
+  return init(_C::reql_ast_round, args);
 }
 
 Query
-AST::sample(const std::vector<Query> &args) const {
-  return init(reql_ast_sample, this, args);
+_Internal::AST::sample(const Types::array &args) const {
+  return init(_C::reql_ast_sample, this, args);
 }
 Query
-sample(const std::vector<Query> &args) {
-  return init(reql_ast_sample, args);
+sample(const Types::array &args) {
+  return init(_C::reql_ast_sample, args);
 }
 
 Query
-AST::saturday(const std::vector<Query> &args) const {
-  return init(reql_ast_saturday, this, args);
+_Internal::AST::saturday(const Types::array &args) const {
+  return init(_C::reql_ast_saturday, this, args);
 }
 Query
-saturday(const std::vector<Query> &args) {
-  return init(reql_ast_saturday, args);
+saturday(const Types::array &args) {
+  return init(_C::reql_ast_saturday, args);
 }
 
 Query
-AST::seconds(const std::vector<Query> &args) const {
-  return init(reql_ast_seconds, this, args);
+_Internal::AST::seconds(const Types::array &args) const {
+  return init(_C::reql_ast_seconds, this, args);
 }
 Query
-seconds(const std::vector<Query> &args) {
-  return init(reql_ast_seconds, args);
+seconds(const Types::array &args) {
+  return init(_C::reql_ast_seconds, args);
 }
 
 Query
-AST::september(const std::vector<Query> &args) const {
-  return init(reql_ast_september, this, args);
+_Internal::AST::september(const Types::array &args) const {
+  return init(_C::reql_ast_september, this, args);
 }
 Query
-september(const std::vector<Query> &args) {
-  return init(reql_ast_september, args);
+september(const Types::array &args) {
+  return init(_C::reql_ast_september, args);
 }
 
 Query
-AST::set_difference(const std::vector<Query> &args) const {
-  return init(reql_ast_set_difference, this, args);
+_Internal::AST::set_difference(const Types::array &args) const {
+  return init(_C::reql_ast_set_difference, this, args);
 }
 Query
-set_difference(const std::vector<Query> &args) {
-  return init(reql_ast_set_difference, args);
+set_difference(const Types::array &args) {
+  return init(_C::reql_ast_set_difference, args);
 }
 
 Query
-AST::set_insert(const std::vector<Query> &args) const {
-  return init(reql_ast_set_insert, this, args);
+_Internal::AST::set_insert(const Types::array &args) const {
+  return init(_C::reql_ast_set_insert, this, args);
 }
 Query
-set_insert(const std::vector<Query> &args) {
-  return init(reql_ast_set_insert, args);
+set_insert(const Types::array &args) {
+  return init(_C::reql_ast_set_insert, args);
 }
 
 Query
-AST::set_intersection(const std::vector<Query> &args) const {
-  return init(reql_ast_set_intersection, this, args);
+_Internal::AST::set_intersection(const Types::array &args) const {
+  return init(_C::reql_ast_set_intersection, this, args);
 }
 Query
-set_intersection(const std::vector<Query> &args) {
-  return init(reql_ast_set_intersection, args);
+set_intersection(const Types::array &args) {
+  return init(_C::reql_ast_set_intersection, args);
 }
 
 Query
-AST::set_union(const std::vector<Query> &args) const {
-  return init(reql_ast_set_union, this, args);
+_Internal::AST::set_union(const Types::array &args) const {
+  return init(_C::reql_ast_set_union, this, args);
 }
 Query
-set_union(const std::vector<Query> &args) {
-  return init(reql_ast_set_union, args);
+set_union(const Types::array &args) {
+  return init(_C::reql_ast_set_union, args);
 }
 
 Query
-AST::skip(const std::vector<Query> &args) const {
-  return init(reql_ast_skip, this, args);
+_Internal::AST::skip(const Types::array &args) const {
+  return init(_C::reql_ast_skip, this, args);
 }
 Query
-skip(const std::vector<Query> &args) {
-  return init(reql_ast_skip, args);
+skip(const Types::array &args) {
+  return init(_C::reql_ast_skip, args);
 }
 
 Query
-AST::slice(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
-  return init(reql_ast_slice, this, args, kwargs);
+_Internal::AST::slice(const Types::array &args, const Types::object &kwargs) const {
+  return init(_C::reql_ast_slice, this, args, kwargs);
 }
 Query
-slice(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
-  return init(reql_ast_slice, args, kwargs);
+slice(const Types::array &args, const Types::object &kwargs) {
+  return init(_C::reql_ast_slice, args, kwargs);
 }
 Query
-AST::slice(const std::vector<Query> &args) const {
-  return init(reql_ast_slice, this, args);
+_Internal::AST::slice(const Types::array &args) const {
+  return init(_C::reql_ast_slice, this, args);
 }
 Query
-slice(const std::vector<Query> &args) {
-  return init(reql_ast_slice, args);
+slice(const Types::array &args) {
+  return init(_C::reql_ast_slice, args);
 }
 
 Query
-AST::splice_at(const std::vector<Query> &args) const {
-  return init(reql_ast_splice_at, this, args);
+_Internal::AST::splice_at(const Types::array &args) const {
+  return init(_C::reql_ast_splice_at, this, args);
 }
 Query
-splice_at(const std::vector<Query> &args) {
-  return init(reql_ast_splice_at, args);
+splice_at(const Types::array &args) {
+  return init(_C::reql_ast_splice_at, args);
 }
 
 Query
-AST::split(const std::vector<Query> &args) const {
-  return init(reql_ast_split, this, args);
+_Internal::AST::split(const Types::array &args) const {
+  return init(_C::reql_ast_split, this, args);
 }
 Query
-split(const std::vector<Query> &args) {
-  return init(reql_ast_split, args);
+split(const Types::array &args) {
+  return init(_C::reql_ast_split, args);
 }
 
 Query
-AST::status(const std::vector<Query> &args) const {
-  return init(reql_ast_status, this, args);
+_Internal::AST::status(const Types::array &args) const {
+  return init(_C::reql_ast_status, this, args);
 }
 Query
-status(const std::vector<Query> &args) {
-  return init(reql_ast_status, args);
+status(const Types::array &args) {
+  return init(_C::reql_ast_status, args);
 }
 
 Query
-AST::sub(const std::vector<Query> &args) const {
-  return init(reql_ast_sub, this, args);
+_Internal::AST::sub(const Types::array &args) const {
+  return init(_C::reql_ast_sub, this, args);
 }
 Query
-sub(const std::vector<Query> &args) {
-  return init(reql_ast_sub, args);
+sub(const Types::array &args) {
+  return init(_C::reql_ast_sub, args);
 }
 
 Query
-AST::sum(const std::vector<Query> &args) const {
-  return init(reql_ast_sum, this, args);
+_Internal::AST::sum(const Types::array &args) const {
+  return init(_C::reql_ast_sum, this, args);
 }
 Query
-sum(const std::vector<Query> &args) {
-  return init(reql_ast_sum, args);
+sum(const Types::array &args) {
+  return init(_C::reql_ast_sum, args);
 }
 
 Query
-AST::sunday(const std::vector<Query> &args) const {
-  return init(reql_ast_sunday, this, args);
+_Internal::AST::sunday(const Types::array &args) const {
+  return init(_C::reql_ast_sunday, this, args);
 }
 Query
-sunday(const std::vector<Query> &args) {
-  return init(reql_ast_sunday, args);
+sunday(const Types::array &args) {
+  return init(_C::reql_ast_sunday, args);
 }
 
 Query
-AST::sync(const std::vector<Query> &args) const {
-  return init(reql_ast_sync, this, args);
+_Internal::AST::sync(const Types::array &args) const {
+  return init(_C::reql_ast_sync, this, args);
 }
 Query
-sync(const std::vector<Query> &args) {
-  return init(reql_ast_sync, args);
+sync(const Types::array &args) {
+  return init(_C::reql_ast_sync, args);
 }
 
 Query
-AST::table(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
-  return init(reql_ast_table, this, args, kwargs);
+_Internal::AST::table(const Types::array &args, const Types::object &kwargs) const {
+  return init(_C::reql_ast_table, this, args, kwargs);
 }
 Query
-table(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
-  return init(reql_ast_table, args, kwargs);
+table(const Types::array &args, const Types::object &kwargs) {
+  return init(_C::reql_ast_table, args, kwargs);
 }
 Query
-AST::table(const std::vector<Query> &args) const {
-  return init(reql_ast_table, this, args);
+_Internal::AST::table(const Types::array &args) const {
+  return init(_C::reql_ast_table, this, args);
 }
 Query
-table(const std::vector<Query> &args) {
-  return init(reql_ast_table, args);
+table(const Types::array &args) {
+  return init(_C::reql_ast_table, args);
 }
 
 Query
-AST::table_create(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
-  return init(reql_ast_table_create, this, args, kwargs);
+_Internal::AST::table_create(const Types::array &args, const Types::object &kwargs) const {
+  return init(_C::reql_ast_table_create, this, args, kwargs);
 }
 Query
-table_create(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
-  return init(reql_ast_table_create, args, kwargs);
+table_create(const Types::array &args, const Types::object &kwargs) {
+  return init(_C::reql_ast_table_create, args, kwargs);
 }
 Query
-AST::table_create(const std::vector<Query> &args) const {
-  return init(reql_ast_table_create, this, args);
+_Internal::AST::table_create(const Types::array &args) const {
+  return init(_C::reql_ast_table_create, this, args);
 }
 Query
-table_create(const std::vector<Query> &args) {
-  return init(reql_ast_table_create, args);
+table_create(const Types::array &args) {
+  return init(_C::reql_ast_table_create, args);
 }
 
 Query
-AST::table_drop(const std::vector<Query> &args) const {
-  return init(reql_ast_table_drop, this, args);
+_Internal::AST::table_drop(const Types::array &args) const {
+  return init(_C::reql_ast_table_drop, this, args);
 }
 Query
-table_drop(const std::vector<Query> &args) {
-  return init(reql_ast_table_drop, args);
+table_drop(const Types::array &args) {
+  return init(_C::reql_ast_table_drop, args);
 }
 
 Query
-AST::table_list(const std::vector<Query> &args) const {
-  return init(reql_ast_table_list, this, args);
+_Internal::AST::table_list(const Types::array &args) const {
+  return init(_C::reql_ast_table_list, this, args);
 }
 Query
-table_list(const std::vector<Query> &args) {
-  return init(reql_ast_table_list, args);
+table_list(const Types::array &args) {
+  return init(_C::reql_ast_table_list, args);
 }
 
 Query
-AST::thursday(const std::vector<Query> &args) const {
-  return init(reql_ast_thursday, this, args);
+_Internal::AST::thursday(const Types::array &args) const {
+  return init(_C::reql_ast_thursday, this, args);
 }
 Query
-thursday(const std::vector<Query> &args) {
-  return init(reql_ast_thursday, args);
+thursday(const Types::array &args) {
+  return init(_C::reql_ast_thursday, args);
 }
 
 Query
-AST::time(const std::vector<Query> &args) const {
-  return init(reql_ast_time, this, args);
+_Internal::AST::time(const Types::array &args) const {
+  return init(_C::reql_ast_time, this, args);
 }
 Query
-time(const std::vector<Query> &args) {
-  return init(reql_ast_time, args);
+time(const Types::array &args) {
+  return init(_C::reql_ast_time, args);
 }
 
 Query
-AST::timezone_(const std::vector<Query> &args) const {
-  return init(reql_ast_timezone, this, args);
+_Internal::AST::timezone_(const Types::array &args) const {
+  return init(_C::reql_ast_timezone, this, args);
 }
 Query
-timezone_(const std::vector<Query> &args) {
-  return init(reql_ast_timezone, args);
+timezone_(const Types::array &args) {
+  return init(_C::reql_ast_timezone, args);
 }
 
 Query
-AST::time_of_day(const std::vector<Query> &args) const {
-  return init(reql_ast_time_of_day, this, args);
+_Internal::AST::time_of_day(const Types::array &args) const {
+  return init(_C::reql_ast_time_of_day, this, args);
 }
 Query
-time_of_day(const std::vector<Query> &args) {
-  return init(reql_ast_time_of_day, args);
+time_of_day(const Types::array &args) {
+  return init(_C::reql_ast_time_of_day, args);
 }
 
 Query
-AST::to_epoch_time(const std::vector<Query> &args) const {
-  return init(reql_ast_to_epoch_time, this, args);
+_Internal::AST::to_epoch_time(const Types::array &args) const {
+  return init(_C::reql_ast_to_epoch_time, this, args);
 }
 Query
-to_epoch_time(const std::vector<Query> &args) {
-  return init(reql_ast_to_epoch_time, args);
+to_epoch_time(const Types::array &args) {
+  return init(_C::reql_ast_to_epoch_time, args);
 }
 
 Query
-AST::to_geojson(const std::vector<Query> &args) const {
-  return init(reql_ast_to_geojson, this, args);
+_Internal::AST::to_geojson(const Types::array &args) const {
+  return init(_C::reql_ast_to_geojson, this, args);
 }
 Query
-to_geojson(const std::vector<Query> &args) {
-  return init(reql_ast_to_geojson, args);
+to_geojson(const Types::array &args) {
+  return init(_C::reql_ast_to_geojson, args);
 }
 
 Query
-AST::to_iso8601(const std::vector<Query> &args) const {
-  return init(reql_ast_to_iso8601, this, args);
+_Internal::AST::to_iso8601(const Types::array &args) const {
+  return init(_C::reql_ast_to_iso8601, this, args);
 }
 Query
-to_iso8601(const std::vector<Query> &args) {
-  return init(reql_ast_to_iso8601, args);
+to_iso8601(const Types::array &args) {
+  return init(_C::reql_ast_to_iso8601, args);
 }
 
 Query
-AST::to_json_string(const std::vector<Query> &args) const {
-  return init(reql_ast_to_json_string, this, args);
+_Internal::AST::to_json_string(const Types::array &args) const {
+  return init(_C::reql_ast_to_json_string, this, args);
 }
 Query
-to_json_string(const std::vector<Query> &args) {
-  return init(reql_ast_to_json_string, args);
+to_json_string(const Types::array &args) {
+  return init(_C::reql_ast_to_json_string, args);
 }
 
 Query
-AST::tuesday(const std::vector<Query> &args) const {
-  return init(reql_ast_tuesday, this, args);
+_Internal::AST::tuesday(const Types::array &args) const {
+  return init(_C::reql_ast_tuesday, this, args);
 }
 Query
-tuesday(const std::vector<Query> &args) {
-  return init(reql_ast_tuesday, args);
+tuesday(const Types::array &args) {
+  return init(_C::reql_ast_tuesday, args);
 }
 
 Query
-AST::type_of(const std::vector<Query> &args) const {
-  return init(reql_ast_type_of, this, args);
+_Internal::AST::type_of(const Types::array &args) const {
+  return init(_C::reql_ast_type_of, this, args);
 }
 Query
-type_of(const std::vector<Query> &args) {
-  return init(reql_ast_type_of, args);
+type_of(const Types::array &args) {
+  return init(_C::reql_ast_type_of, args);
 }
 
 Query
-AST::ungroup(const std::vector<Query> &args) const {
-  return init(reql_ast_ungroup, this, args);
+_Internal::AST::ungroup(const Types::array &args) const {
+  return init(_C::reql_ast_ungroup, this, args);
 }
 Query
-ungroup(const std::vector<Query> &args) {
-  return init(reql_ast_ungroup, args);
+ungroup(const Types::array &args) {
+  return init(_C::reql_ast_ungroup, args);
 }
 
 Query
-AST::union_(const std::vector<Query> &args) const {
-  return init(reql_ast_union, this, args);
+_Internal::AST::union_(const Types::array &args) const {
+  return init(_C::reql_ast_union, this, args);
 }
 Query
-union_(const std::vector<Query> &args) {
-  return init(reql_ast_union, args);
+union_(const Types::array &args) {
+  return init(_C::reql_ast_union, args);
 }
 
 Query
-AST::upcase(const std::vector<Query> &args) const {
-  return init(reql_ast_upcase, this, args);
+_Internal::AST::upcase(const Types::array &args) const {
+  return init(_C::reql_ast_upcase, this, args);
 }
 Query
-upcase(const std::vector<Query> &args) {
-  return init(reql_ast_upcase, args);
+upcase(const Types::array &args) {
+  return init(_C::reql_ast_upcase, args);
 }
 
 Query
-AST::update(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
-  return init(reql_ast_update, this, args, kwargs);
+_Internal::AST::update(const Types::array &args, const Types::object &kwargs) const {
+  return init(_C::reql_ast_update, this, args, kwargs);
 }
 Query
-update(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
-  return init(reql_ast_update, args, kwargs);
+update(const Types::array &args, const Types::object &kwargs) {
+  return init(_C::reql_ast_update, args, kwargs);
 }
 Query
-AST::update(const std::vector<Query> &args) const {
-  return init(reql_ast_update, this, args);
+_Internal::AST::update(const Types::array &args) const {
+  return init(_C::reql_ast_update, this, args);
 }
 Query
-update(const std::vector<Query> &args) {
-  return init(reql_ast_update, args);
+update(const Types::array &args) {
+  return init(_C::reql_ast_update, args);
 }
 
 Query
-AST::uuid(const std::vector<Query> &args) const {
-  return init(reql_ast_uuid, this, args);
+_Internal::AST::uuid(const Types::array &args) const {
+  return init(_C::reql_ast_uuid, this, args);
 }
 Query
-uuid(const std::vector<Query> &args) {
-  return init(reql_ast_uuid, args);
+uuid(const Types::array &args) {
+  return init(_C::reql_ast_uuid, args);
 }
 
 Query
-AST::var(const std::vector<Query> &args) const {
-  return init(reql_ast_var, this, args);
+_Internal::AST::var(const Types::array &args) const {
+  return init(_C::reql_ast_var, this, args);
 }
 Query
-var(const std::vector<Query> &args) {
-  return init(reql_ast_var, args);
+var(const Types::array &args) {
+  return init(_C::reql_ast_var, args);
 }
 
 Query
-AST::wait(const std::vector<Query> &args) const {
-  return init(reql_ast_wait, this, args);
+_Internal::AST::wait(const Types::array &args) const {
+  return init(_C::reql_ast_wait, this, args);
 }
 Query
-wait(const std::vector<Query> &args) {
-  return init(reql_ast_wait, args);
+wait(const Types::array &args) {
+  return init(_C::reql_ast_wait, args);
 }
 
 Query
-AST::wednesday(const std::vector<Query> &args) const {
-  return init(reql_ast_wednesday, this, args);
+_Internal::AST::wednesday(const Types::array &args) const {
+  return init(_C::reql_ast_wednesday, this, args);
 }
 Query
-wednesday(const std::vector<Query> &args) {
-  return init(reql_ast_wednesday, args);
+wednesday(const Types::array &args) {
+  return init(_C::reql_ast_wednesday, args);
 }
 
 Query
-AST::without(const std::vector<Query> &args) const {
-  return init(reql_ast_without, this, args);
+_Internal::AST::without(const Types::array &args) const {
+  return init(_C::reql_ast_without, this, args);
 }
 Query
-without(const std::vector<Query> &args) {
-  return init(reql_ast_without, args);
+without(const Types::array &args) {
+  return init(_C::reql_ast_without, args);
 }
 
 Query
-AST::with_fields(const std::vector<Query> &args) const {
-  return init(reql_ast_with_fields, this, args);
+_Internal::AST::with_fields(const Types::array &args) const {
+  return init(_C::reql_ast_with_fields, this, args);
 }
 Query
-with_fields(const std::vector<Query> &args) {
-  return init(reql_ast_with_fields, args);
+with_fields(const Types::array &args) {
+  return init(_C::reql_ast_with_fields, args);
 }
 
 Query
-AST::year(const std::vector<Query> &args) const {
-  return init(reql_ast_year, this, args);
+_Internal::AST::year(const Types::array &args) const {
+  return init(_C::reql_ast_year, this, args);
 }
 Query
-year(const std::vector<Query> &args) {
-  return init(reql_ast_year, args);
+year(const Types::array &args) {
+  return init(_C::reql_ast_year, args);
 }
 
 Query
-AST::zip(const std::vector<Query> &args) const {
-  return init(reql_ast_zip, this, args);
+_Internal::AST::zip(const Types::array &args) const {
+  return init(_C::reql_ast_zip, this, args);
 }
 Query
-zip(const std::vector<Query> &args) {
-  return init(reql_ast_zip, args);
+zip(const Types::array &args) {
+  return init(_C::reql_ast_zip, args);
 }
 
 }  // namespace ReQL

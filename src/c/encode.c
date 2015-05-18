@@ -28,12 +28,12 @@ limitations under the License.
 #include <string.h>
 
 static int
-reql_string_t_append(ReQL_String_t *obj, const uint8_t *ext, const uint32_t size) {
+reql_string_t_append(ReQL_String_t *obj, const ReQL_Byte *ext, const ReQL_Size size) {
   if (obj->alloc_size <= (obj->size + size)) {
     obj->alloc_size += size;
     obj->alloc_size *= 1.1;
 
-    uint8_t *str = realloc(obj->str, sizeof(uint8_t) * obj->alloc_size);
+    ReQL_Byte *str = realloc(obj->str, sizeof(ReQL_Byte) * obj->alloc_size);
 
     if (str == NULL) {
       free(obj->str);
@@ -54,17 +54,17 @@ reql_string_t_append(ReQL_String_t *obj, const uint8_t *ext, const uint32_t size
 }
 
 static int
-reql_string_t_append_(ReQL_String_t *json, const uint8_t ext) {
+reql_string_t_append_(ReQL_String_t *json, const ReQL_Byte ext) {
   return reql_string_t_append(json, &ext, 1);
 }
 
 static int
-reql_escape_string(ReQL_String_t *json, const uint8_t *str, const uint32_t size) {
+reql_escape_string(ReQL_String_t *json, const ReQL_Byte *str, const ReQL_Size size) {
   if (reql_string_t_append_(json, quotation) != 0) {
     return -1;
   }
-  uint32_t i, ext_size;
-  uint8_t chr;
+  ReQL_Size i, ext_size;
+  ReQL_Byte chr;
   for (i=0; i < size; ++i) {
     chr = str[i];
     if ((ext_size = reql_json_string_esc_size(chr)) != 0) {
@@ -137,7 +137,7 @@ reql_encode_(ReQL_Obj_t *obj, ReQL_String_t *json) {
       int err = -1;
 
       if (size == snprintf(str, size_w_null, "%g", val)) {
-        err = reql_string_t_append(json, (uint8_t *)str, (uint32_t)size);
+        err = reql_string_t_append(json, (ReQL_Byte *)str, (ReQL_Size)size);
       }
 
       free(str);
@@ -187,7 +187,7 @@ reql_encode(ReQL_Obj_t *val) {
     return NULL;
   }
 
-  json->str = malloc(sizeof(uint8_t) * 100);
+  json->str = malloc(sizeof(ReQL_Byte) * 100);
 
   if (json->str == NULL) {
     free(json);

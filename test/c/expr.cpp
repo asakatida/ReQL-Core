@@ -5,9 +5,10 @@
 #include <limits>
 
 using namespace ReQL;
+using namespace _C;
 
 TEST_CASE("c expr array", "[c][expr][array]") {
-  std::unique_ptr<ReQL_Obj_t> ary(new ReQL_Obj_t);
+  ReQL_Obj_c ary;
 
   const uint32_t size = 5;
 
@@ -30,7 +31,7 @@ TEST_CASE("c expr array", "[c][expr][array]") {
       REQUIRE(reql_array_append(ary.get(), elements.back().get()) == 0);
     }
 
-    std::unique_ptr<ReQL_Obj_t> extra(new ReQL_Obj_t);
+    ReQL_Obj_c extra;
 
     reql_null_init(extra.get());
 
@@ -38,7 +39,7 @@ TEST_CASE("c expr array", "[c][expr][array]") {
   }
 
   SECTION("grow and shrink") {
-    std::unique_ptr<ReQL_Obj_t> elem(new ReQL_Obj_t);
+    ReQL_Obj_c elem;
 
     reql_null_init(elem.get());
 
@@ -50,7 +51,7 @@ TEST_CASE("c expr array", "[c][expr][array]") {
   }
 
   SECTION("insert after end") {
-    std::unique_ptr<ReQL_Obj_t> elem(new ReQL_Obj_t);
+    ReQL_Obj_c elem;
 
     reql_null_init(elem.get());
 
@@ -59,9 +60,9 @@ TEST_CASE("c expr array", "[c][expr][array]") {
 }
 
 TEST_CASE("c expr object", "[c][expr][object]") {
-  std::unique_ptr<ReQL_Obj_t> obj(new ReQL_Obj_t);
-  std::unique_ptr<ReQL_Obj_t> key(new ReQL_Obj_t);
-  std::unique_ptr<ReQL_Obj_t> val(new ReQL_Obj_t);
+  ReQL_Obj_c obj;
+  ReQL_Obj_c key;
+  ReQL_Obj_c val;
 
   ReQL_Pair_t pair[1];
 
@@ -91,7 +92,7 @@ TEST_CASE("c expr object", "[c][expr][object]") {
   }
 
   SECTION("reuse key") {
-    std::unique_ptr<ReQL_Obj_t> new_val(new ReQL_Obj_t);
+    ReQL_Obj_c new_val;
 
     const double num = 3.14;
 
@@ -108,8 +109,8 @@ TEST_CASE("c expr object", "[c][expr][object]") {
   }
 
   SECTION("duplicate key") {
-    std::unique_ptr<ReQL_Obj_t> new_key(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t> new_val(new ReQL_Obj_t);
+    ReQL_Obj_c new_key;
+    ReQL_Obj_c new_val;
 
     const double num = 3.14;
 
@@ -133,8 +134,8 @@ TEST_CASE("c expr object", "[c][expr][object]") {
   }
 
   SECTION("out of space") {
-    std::unique_ptr<ReQL_Obj_t> new_key(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t> new_val(new ReQL_Obj_t);
+    ReQL_Obj_c new_key;
+    ReQL_Obj_c new_val;
 
     const double num = 3.14;
 
@@ -161,7 +162,7 @@ TEST_CASE("c expr object", "[c][expr][object]") {
 }
 
 TEST_CASE("c expr", "[c][expr]") {
-  std::unique_ptr<ReQL_Obj_t> val(new ReQL_Obj_t);
+  ReQL_Obj_c val;
 
   SECTION("bool") {
     reql_bool_init(val.get(), 10);

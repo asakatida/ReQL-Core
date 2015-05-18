@@ -28,125 +28,82 @@ limitations under the License.
 
 namespace ReQL {
 
-Connection::Connection() : p_conn(new ReQL_Conn_t) {
-  reql_connection_init(data());
+Connection::Connection() : _C::Types::connection(new _C::ReQL_Conn_t) {
+  reql_connection_init(get());
 
-  std::uint8_t buf[500];
+  _C::ReQL_Byte buf[500];
 
-  if (reql_connect(data(), buf, 500) != 0) {
+  if (reql_connect(get(), buf, 500) != 0) {
     throw ReQLDriverError();
   }
 }
 
-Connection::Connection(const std::string &host) : p_conn(new ReQL_Conn_t) {
-  reql_connection_init(data());
+Connection::Connection(const Types::string &host) : _C::Types::connection(new _C::ReQL_Conn_t) {
+  reql_connection_init(get());
 
-  reql_conn_set_addr(data(), const_cast<char *>(host.c_str()));
+  reql_conn_set_addr(get(), const_cast<char *>(host.c_str()));
 
-  std::uint8_t buf[500];
+  _C::ReQL_Byte buf[500];
 
-  if (reql_connect(data(), buf, 500) != 0) {
+  if (reql_connect(get(), buf, 500) != 0) {
     throw ReQLDriverError();
   }
 }
 
-Connection::Connection(const std::string &host, const std::uint16_t &port) : p_conn(new ReQL_Conn_t) {
-  reql_connection_init(data());
+Connection::Connection(const Types::string &host, const std::uint16_t &port) : _C::Types::connection(new _C::ReQL_Conn_t) {
+  reql_connection_init(get());
 
-  reql_conn_set_addr(data(), const_cast<char *>(host.c_str()));
-  reql_conn_set_port(data(), const_cast<char *>(std::to_string(port).c_str()));
+  reql_conn_set_addr(get(), const_cast<char *>(host.c_str()));
+  reql_conn_set_port(get(), const_cast<char *>(std::to_string(port).c_str()));
 
-  std::uint8_t buf[500];
+  _C::ReQL_Byte buf[500];
 
-  if (reql_connect(data(), buf, 500) != 0) {
+  if (reql_connect(get(), buf, 500) != 0) {
     throw ReQLDriverError();
   }
 }
 
-Connection::Connection(const std::string &host, const std::uint16_t &port, const std::string &key) : p_conn(new ReQL_Conn_t) {
-  reql_connection_init(data());
+Connection::Connection(const Types::string &host, const std::uint16_t &port, const Types::string &key) : _C::Types::connection(new _C::ReQL_Conn_t) {
+  reql_connection_init(get());
 
   std::size_t auth_size = key.size();
 
-  if (auth_size > std::numeric_limits<std::uint32_t>::max()) {
+  if (auth_size > std::numeric_limits<_C::ReQL_Size>::max()) {
     return;
   }
 
-  reql_conn_set_addr(data(), const_cast<char *>(host.c_str()));
-  reql_conn_set_port(data(), const_cast<char *>(std::to_string(port).c_str()));
-  reql_conn_set_auth(data(), static_cast<std::uint32_t>(auth_size), const_cast<char *>(key.c_str()));
+  reql_conn_set_addr(get(), const_cast<char *>(host.c_str()));
+  reql_conn_set_port(get(), const_cast<char *>(std::to_string(port).c_str()));
+  reql_conn_set_auth(get(), static_cast<_C::ReQL_Size>(auth_size), const_cast<char *>(key.c_str()));
 
-  std::uint8_t buf[500];
+  _C::ReQL_Byte buf[500];
 
-  if (reql_connect(data(), buf, 500) != 0) {
+  if (reql_connect(get(), buf, 500) != 0) {
     throw ReQLDriverError();
   }
 }
 
-Connection::Connection(const Connection &other) : p_conn(new ReQL_Conn_t) {
-  reql_connection_init(data());
-
-  ReQL_Conn_t *o_conn = other.data();
-
-  reql_conn_set_addr(data(), o_conn->addr);
-  reql_conn_set_port(data(), o_conn->port);
-  reql_conn_set_auth(data(), o_conn->auth_size, o_conn->auth);
-
-  std::uint8_t buf[500];
-
-  if (reql_connect(data(), buf, 500) != 0) {
-    throw ReQLDriverError();
-  }
-}
-
-Connection::Connection(Connection &&other) {
-  p_conn = std::move(other.p_conn);
-}
+Connection::Connection(Connection &&other) : _C::Types::connection(std::move(other)) {}
 
 Connection::~Connection() {
-  reql_ensure_conn_close(data());
-}
-
-Connection &Connection::operator=(const Connection &other) {
-  if (this != &other) {
-    reql_ensure_conn_close(data());
-    reql_connection_init(data());
-
-    ReQL_Conn_t *o_conn = other.data();
-
-    reql_conn_set_addr(data(), o_conn->addr);
-    reql_conn_set_port(data(), o_conn->port);
-    reql_conn_set_auth(data(), o_conn->auth_size, o_conn->auth);
-
-    std::uint8_t buf[500];
-
-    if (reql_connect(data(), buf, 500)) {
-      throw ReQLDriverError();
-    }
-  }
-  return *this;
+  reql_ensure_conn_close(get());
 }
 
 Connection &Connection::operator=(Connection &&other) {
   if (this != &other) {
-    p_conn = std::move(other.p_conn);
+    _C::Types::connection::operator=(std::move(other));
   }
   return *this;
 }
 
 void
 Connection::close() {
-  reql_close_conn(data());
+  reql_close_conn(get());
 }
 
 bool
 Connection::isOpen() const {
-  return reql_conn_open(data());
-}
-
-ReQL_Conn_t *
-Connection::data() const {
-  return p_conn.get();
+  return reql_conn_open(get());
 }
 
 }  // namespace ReQL

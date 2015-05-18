@@ -5,6 +5,7 @@
 #include "./test.hpp"
 
 using namespace ReQL;
+using namespace _C;
 
 TEST_CASE("cpp Test edge cases of changefeed operations", "[cpp][ast]") {
 
@@ -23,63 +24,213 @@ TEST_CASE("cpp Test edge cases of changefeed operations", "[cpp][ast]") {
   }
 
   SECTION("test2") {
-    Result var0;
+    std::map<std::string, Result> map0;
+
+    std::string src1("result", 6);
+    Result var1(src1);
+
+    std::string src2("blank", 5);
+    Result var2(src2);
+
+    map0.insert({src1, var2});
+
+    Result var0(map0);
   }
 
   SECTION("test3") {
-    Result var0;
+    std::map<std::string, Result> map0;
+
+    std::string src1("result", 6);
+    Result var1(src1);
+
+    std::string src2("blank", 5);
+    Result var2(src2);
+
+    map0.insert({src1, var2});
+
+    Result var0(map0);
   }
 
   SECTION("test4") {
-    Result var0;
+    std::map<std::string, Result> map0;
+
+    std::string src1("result", 6);
+    Result var1(src1);
+
+    std::string src2("blank", 5);
+    Result var2(src2);
+
+    map0.insert({src1, var2});
+
+    Result var0(map0);
   }
 
   SECTION("test5") {
-    Result var0;
+    std::map<std::string, Result> map0;
+
+    std::string src1("result", 6);
+    Result var1(src1);
+
+    std::string src2("blank", 5);
+    Result var2(src2);
+
+    map0.insert({src1, var2});
+
+    Result var0(map0);
   }
 
   SECTION("test6") {
-    Result var0;
+    std::map<std::string, Result> map0;
+
+    std::string src1("result", 6);
+    Result var1(src1);
+
+    std::string src2("blank", 5);
+    Result var2(src2);
+
+    map0.insert({src1, var2});
+
+    Result var0(map0);
   }
 
   SECTION("test7") {
-    Result var0;
+    std::map<std::string, Result> map0;
+
+    std::string src1("result", 6);
+    Result var1(src1);
+
+    std::string src2("blank", 5);
+    Result var2(src2);
+
+    map0.insert({src1, var2});
+
+    Result var0(map0);
   }
 
   SECTION("test12") {
-    Result var0;
+    std::map<std::string, Result> map0;
+
+    std::string src1("result", 6);
+    Result var1(src1);
+
+    std::string src2("blank", 5);
+    Result var2(src2);
+
+    map0.insert({src1, var2});
+
+    Result var0(map0);
   }
 
   SECTION("test13") {
-    Result var0;
+    std::map<std::string, Result> map0;
+
+    std::string src1("result", 6);
+    Result var1(src1);
+
+    std::string src2("blank", 5);
+    Result var2(src2);
+
+    map0.insert({src1, var2});
+
+    Result var0(map0);
   }
 
   SECTION("test14") {
-    Result var0;
+    std::map<std::string, Result> map0;
+
+    std::string src1("result", 6);
+    Result var1(src1);
+
+    std::string src2("blank", 5);
+    Result var2(src2);
+
+    map0.insert({src1, var2});
+
+    Result var0(map0);
   }
 
   SECTION("test15") {
-    Result var0;
+    std::map<std::string, Result> map0;
+
+    std::string src1("result", 6);
+    Result var1(src1);
+
+    std::string src2("blank", 5);
+    Result var2(src2);
+
+    map0.insert({src1, var2});
+
+    Result var0(map0);
   }
 
   SECTION("test16") {
-    Result var0;
+    std::map<std::string, Result> map0;
+
+    std::string src1("result", 6);
+    Result var1(src1);
+
+    std::string src2("blank", 5);
+    Result var2(src2);
+
+    map0.insert({src1, var2});
+
+    Result var0(map0);
   }
 
   SECTION("test21") {
-    Result var0;
+    std::map<std::string, Result> map0;
+
+    std::string src1("result", 6);
+    Result var1(src1);
+
+    std::string src2("blank", 5);
+    Result var2(src2);
+
+    map0.insert({src1, var2});
+
+    Result var0(map0);
   }
 
   SECTION("test22") {
-    Result var0;
+    std::map<std::string, Result> map0;
+
+    std::string src1("result", 6);
+    Result var1(src1);
+
+    std::string src2("blank", 5);
+    Result var2(src2);
+
+    map0.insert({src1, var2});
+
+    Result var0(map0);
   }
 
   SECTION("test23") {
-    Result var0;
+    std::map<std::string, Result> map0;
+
+    std::string src1("result", 6);
+    Result var1(src1);
+
+    std::string src2("blank", 5);
+    Result var2(src2);
+
+    map0.insert({src1, var2});
+
+    Result var0(map0);
   }
 
   SECTION("test24") {
-    Result var0;
+    std::map<std::string, Result> map0;
+
+    std::string src1("result", 6);
+    Result var1(src1);
+
+    std::string src2("blank", 5);
+    Result var2(src2);
+
+    map0.insert({src1, var2});
+
+    Result var0(map0);
   }
 
   SECTION("test27") {
@@ -97,7 +248,17 @@ TEST_CASE("cpp Test edge cases of changefeed operations", "[cpp][ast]") {
   }
 
   SECTION("test28") {
-    Result var0;
+    std::map<std::string, Result> map0;
+
+    std::string src1("result", 6);
+    Result var1(src1);
+
+    std::string src2("blank", 5);
+    Result var2(src2);
+
+    map0.insert({src1, var2});
+
+    Result var0(map0);
   }
 
   SECTION("test29") {
@@ -115,7 +276,17 @@ TEST_CASE("cpp Test edge cases of changefeed operations", "[cpp][ast]") {
   }
 
   SECTION("test30") {
-    Result var0;
+    std::map<std::string, Result> map0;
+
+    std::string src1("result", 6);
+    Result var1(src1);
+
+    std::string src2("blank", 5);
+    Result var2(src2);
+
+    map0.insert({src1, var2});
+
+    Result var0(map0);
   }
 
   SECTION("test31") {

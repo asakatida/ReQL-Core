@@ -5,6 +5,7 @@
 #include "./test.hpp"
 
 using namespace ReQL;
+using namespace _C;
 
 TEST_CASE("cpp Tests for the basic usage of the mod operation", "[cpp][ast]") {
 

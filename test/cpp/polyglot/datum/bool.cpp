@@ -5,6 +5,7 @@
 #include "./test.hpp"
 
 using namespace ReQL;
+using namespace _C;
 
 TEST_CASE("cpp Tests of conversion to and from the RQL bool type", "[cpp][ast]") {
 
@@ -22,7 +23,7 @@ TEST_CASE("cpp Tests of conversion to and from the RQL bool type", "[cpp][ast]")
   }
 
   SECTION("test3") {
-    std::string src0("True", 4);
+    std::string src0("true", 4);
     Result var0(src0);
   }
 

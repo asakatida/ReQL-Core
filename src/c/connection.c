@@ -36,8 +36,8 @@ limitations under the License.
 #include <sys/uio.h>
 #include <unistd.h>
 
-static const uint32_t REQL_VERSION = 0x400c2d20;
-static const uint32_t REQL_PROTOCOL = 0x7e6970c7;
+static const ReQL_Size REQL_VERSION = 0x400c2d20;
+static const ReQL_Size REQL_PROTOCOL = 0x7e6970c7;
 
 enum {
   REQL_CONTINUE = 2,
@@ -47,36 +47,36 @@ enum {
 };
 
 typedef union {
-  uint32_t num;
-  uint8_t buf[4];
+  ReQL_Size num;
+  ReQL_Byte buf[4];
 } ReQL_LE32;
 
 typedef union {
-  uint64_t num;
-  uint8_t buf[8];
+  ReQL_Token num;
+  ReQL_Byte buf[8];
 } ReQL_LE64;
 
 static void
-reql_make_32_le(uint8_t *buf, const uint32_t magic) {
+reql_make_32_le(ReQL_Byte *buf, const ReQL_Size magic) {
   ReQL_LE32 convert = {htole32(magic)};
   memcpy(buf, convert.buf, 4);
 }
 
 static void
-reql_make_64_token(uint8_t *buf, const uint64_t magic) {
+reql_make_64_token(ReQL_Byte *buf, const ReQL_Token magic) {
   ReQL_LE64 convert = {htole64(magic)};
   memcpy(buf, convert.buf, 8);
 }
 
-static uint32_t
-reql_get_32_le(uint8_t *buf) {
+static ReQL_Size
+reql_get_32_le(ReQL_Byte *buf) {
   ReQL_LE32 convert = {0};
   memcpy(convert.buf, buf, 4);
   return le32toh(convert.num);
 }
 
-static uint64_t
-reql_get_64_token(uint8_t *buf) {
+static ReQL_Token
+reql_get_64_token(ReQL_Byte *buf) {
   ReQL_LE64 convert = {0};
   memcpy(convert.buf, buf, 8);
   return le64toh(convert.num);
@@ -162,7 +162,7 @@ reql_connection_init(ReQL_Conn_t *conn) {
 }
 
 extern void
-reql_conn_set_auth(ReQL_Conn_t *conn, const uint32_t size, char *auth) {
+reql_conn_set_auth(ReQL_Conn_t *conn, const ReQL_Size size, char *auth) {
   reql_conn_lock(conn);
   conn->auth_size = size;
   conn->auth = auth;
@@ -177,10 +177,10 @@ reql_conn_auth_key(ReQL_Conn_t *conn) {
   return auth;
 }
 
-extern uint32_t
+extern ReQL_Size
 reql_conn_auth_size(ReQL_Conn_t *conn) {
   reql_conn_lock(conn);
-  const uint32_t size = conn->auth_size;
+  const ReQL_Size size = conn->auth_size;
   reql_conn_unlock(conn);
   return size;
 }
@@ -216,16 +216,16 @@ reql_conn_port(ReQL_Conn_t *conn) {
 }
 
 extern void
-reql_conn_set_timeout(ReQL_Conn_t *conn, const uint64_t timeout) {
+reql_conn_set_timeout(ReQL_Conn_t *conn, const ReQL_Token timeout) {
   reql_conn_lock(conn);
   conn->timeout = timeout;
   reql_conn_unlock(conn);
 }
 
-extern uint64_t
+extern ReQL_Token
 reql_conn_timeout(ReQL_Conn_t *conn) {
   reql_conn_lock(conn);
-  const uint64_t timeout = conn->timeout;
+  const ReQL_Token timeout = conn->timeout;
   reql_conn_unlock(conn);
   return timeout;
 }
@@ -272,7 +272,7 @@ reql_ensure_conn_close_(ReQL_Conn_t *conn) {
 }
 
 static void
-reql_conn_set_res(const ReQL_Conn_t *conn, ReQL_Obj_t *res, const uint64_t token) {
+reql_conn_set_res(const ReQL_Conn_t *conn, ReQL_Obj_t *res, const ReQL_Token token) {
   ReQL_Cur_t *cur = conn->cursors;
 
   while (1) {
@@ -295,9 +295,9 @@ reql_conn_done(const ReQL_Conn_t *conn) {
 
 static void *
 reql_conn_loop(void *conn) {
-  uint8_t *response = malloc(sizeof(uint8_t) * 12);
-  uint64_t token = 0;
-  uint32_t pos = 0, size = 0;
+  ReQL_Byte *response = malloc(sizeof(ReQL_Byte) * 12);
+  ReQL_Token token = 0;
+  ReQL_Size pos = 0, size = 0;
   ssize_t rcv_size;
   size_t rcv_size_request;
 
@@ -331,7 +331,7 @@ reql_conn_loop(void *conn) {
         pos -= size;
         size = 0;
 
-        uint8_t *buf = realloc(response, sizeof(uint8_t) * 12);
+        ReQL_Byte *buf = realloc(response, sizeof(ReQL_Byte) * 12);
         if (buf == NULL) {
           reql_close_conn(conn);
         } else {
@@ -343,7 +343,7 @@ reql_conn_loop(void *conn) {
         pos -= 12;
         token = reql_get_64_token(response);
         size = reql_get_32_le(&response[8]);
-        uint8_t *buf = realloc(response, sizeof(uint8_t) * size);
+        ReQL_Byte *buf = realloc(response, sizeof(ReQL_Byte) * size);
         if (buf == NULL) {
           reql_close_conn(conn);
         } else {
@@ -363,7 +363,7 @@ reql_conn_loop(void *conn) {
 }
 
 static int
-reql_connect_(ReQL_Conn_t *conn, uint8_t *buf, const uint32_t size) {
+reql_connect_(ReQL_Conn_t *conn, ReQL_Byte *buf, const ReQL_Size size) {
   struct addrinfo hints;
   struct addrinfo *result, *rp;
 
@@ -404,7 +404,7 @@ reql_connect_(ReQL_Conn_t *conn, uint8_t *buf, const uint32_t size) {
     return -1;
   }
 
-  uint8_t iov_base[3][4];
+  ReQL_Byte iov_base[3][4];
 
   reql_make_32_le(iov_base[0], REQL_VERSION);
   reql_make_32_le(iov_base[1], conn->auth_size);
@@ -455,7 +455,7 @@ reql_connect_(ReQL_Conn_t *conn, uint8_t *buf, const uint32_t size) {
 }
 
 extern int
-reql_connect(ReQL_Conn_t *conn, uint8_t *buf, const uint32_t size) {
+reql_connect(ReQL_Conn_t *conn, ReQL_Byte *buf, const ReQL_Size size) {
   reql_conn_lock(conn);
   const int status = reql_connect_(conn, buf, size);
   if (status != 0) {
@@ -497,7 +497,7 @@ reql_build(const ReQL_Obj_t *query) {
       if (obj == NULL) {
         break;
       }
-      uint32_t size = reql_size(query);
+      ReQL_Size size = reql_size(query);
       ReQL_Obj_t **arrray = malloc(sizeof(ReQL_Obj_t*) * size);
       reql_array_init(obj, arrray, size);
       ReQL_Iter_t it = reql_new_iter(query);
@@ -537,7 +537,7 @@ reql_build(const ReQL_Obj_t *query) {
       if (obj == NULL) {
         break;
       }
-      uint32_t size = reql_size(query);
+      ReQL_Size size = reql_size(query);
       ReQL_Pair_t *pairs = malloc(sizeof(ReQL_Pair_t) * size);
       reql_object_init(obj, pairs, size);
       ReQL_Iter_t it = reql_new_iter(query);
@@ -575,8 +575,8 @@ reql_build(const ReQL_Obj_t *query) {
       if (obj == NULL) {
         break;
       }
-      uint32_t size = reql_size(query);
-      uint8_t *buf = malloc(sizeof(uint8_t) * size);
+      ReQL_Size size = reql_size(query);
+      ReQL_Byte *buf = malloc(sizeof(ReQL_Byte) * size);
       reql_string_init(obj, buf, size);
       reql_string_append(obj, reql_string_buf(query), size);
       break;
@@ -616,7 +616,7 @@ reql_run_(ReQL_Cur_t *cur, const ReQL_String_t *wire_query, ReQL_Conn_t *conn) {
     return -1;
   }
 
-  const uint64_t token = conn->max_token++;
+  const ReQL_Token token = conn->max_token++;
 
   if (cur != NULL) {
     reql_cursor_init(cur, token);
@@ -630,11 +630,11 @@ reql_run_(ReQL_Cur_t *cur, const ReQL_String_t *wire_query, ReQL_Conn_t *conn) {
     cur->conn = conn;
   }
 
-  uint8_t token_bytes[8];
+  ReQL_Byte token_bytes[8];
 
   reql_make_64_token(token_bytes, token);
 
-  uint8_t size[4];
+  ReQL_Byte size[4];
 
   reql_make_32_le(size, wire_query->size);
 

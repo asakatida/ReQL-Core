@@ -3,15 +3,18 @@
 #include "./test.hpp"
 
 namespace ReQL {
+namespace _C {
 extern "C" {
 #include "./c/dev/encode.h"
 }
 }
+}  // namespace _C
 
 using namespace ReQL;
+using namespace _C;
 
 TEST_CASE("encode values", "[c][encode]") {
-  std::unique_ptr<ReQL_Obj_t> val(new ReQL_Obj_t);
+  ReQL_Obj_c val;
 
   SECTION("null") {
     reql_null_init(val.get());

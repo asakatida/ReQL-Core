@@ -25,7 +25,7 @@ limitations under the License.
 #include "./c/cursor.h"
 
 extern void
-reql_cursor_init(ReQL_Cur_t *cur, uint64_t token);
+reql_cursor_init(ReQL_Cur_t *cur, ReQL_Token token);
 
 extern void
 reql_cursor_set_response(ReQL_Cur_t *cur, ReQL_Obj_t *res);

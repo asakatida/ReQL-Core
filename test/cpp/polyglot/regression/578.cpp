@@ -5,6 +5,7 @@
 #include "./test.hpp"
 
 using namespace ReQL;
+using namespace _C;
 
 TEST_CASE("cpp Catch obvious sindex creation/dropping errors (#578)", "[cpp][ast]") {
 

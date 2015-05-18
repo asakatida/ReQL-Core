@@ -29,7 +29,7 @@ limitations under the License.
 
 static void
 reql_update_array(ReQL_Obj_t *array, ReQL_Obj_t *elem) {
-  uint32_t new_alloc = reql_array_append(array, elem);
+  ReQL_Size new_alloc = reql_array_append(array, elem);
 
   if (new_alloc != 0) {
     ReQL_Obj_t **arr = array->obj.datum.json.var.data.array;
@@ -50,7 +50,7 @@ reql_update_array(ReQL_Obj_t *array, ReQL_Obj_t *elem) {
 
 static void
 reql_update_object(ReQL_Obj_t *obj, ReQL_Obj_t *key, ReQL_Obj_t *val) {
-  uint32_t new_alloc = reql_object_add(obj, key, val);
+  ReQL_Size new_alloc = reql_object_add(obj, key, val);
 
   if (new_alloc != 0) {
     ReQL_Pair_t *pair = obj->obj.datum.json.var.data.pair;
@@ -128,7 +128,7 @@ reql_merge_stack(ReQL_Obj_t *stack) {
 }
 
 static ReQL_Obj_t *
-reql_string_decode(uint32_t size, uint8_t *json) {
+reql_string_decode(ReQL_Size size, ReQL_Byte *json) {
   if (size == 0) {
     ReQL_Obj_t *obj = malloc(sizeof(ReQL_Obj_t));
 
@@ -140,14 +140,14 @@ reql_string_decode(uint32_t size, uint8_t *json) {
     return obj;
   }
 
-  uint8_t res;
-  uint8_t *str = malloc(sizeof(uint8_t) * size);
+  ReQL_Byte res;
+  ReQL_Byte *str = malloc(sizeof(ReQL_Byte) * size);
 
   if (str == NULL) {
     return NULL;
   }
 
-  uint32_t i, j = 0;
+  ReQL_Size i, j = 0;
   for (i=0; i < size; ++i) {
     res = json[i];
     if (res == 0x5C) { /* \ */
@@ -184,7 +184,7 @@ reql_string_decode(uint32_t size, uint8_t *json) {
             char valid = 1;
             int8_t n;
             for (n=1; n <= 4; ++n) {
-              res = json[i + (uint8_t)n];
+              res = json[i + (ReQL_Byte)n];
               if (!((res >= '0' && res <= '9') ||
                     (res >= 'a' && res <= 'f') ||
                     (res >= 'A' && res <= 'F'))) {
@@ -197,7 +197,7 @@ reql_string_decode(uint32_t size, uint8_t *json) {
                 return NULL;
               }
               res = 0;
-              uint8_t hex;
+              ReQL_Byte hex;
               for (n=1; n >= 0; --n) {
                 hex = json[++i];
                 if (hex >= '0' && hex <= '9') {
@@ -221,7 +221,7 @@ reql_string_decode(uint32_t size, uint8_t *json) {
   ReQL_Obj_t *out = malloc(sizeof(ReQL_Obj_t));
 
   if (out != NULL) {
-    uint8_t *buf = malloc(sizeof(uint8_t) * j);
+    ReQL_Byte *buf = malloc(sizeof(ReQL_Byte) * j);
 
     if (buf == NULL) {
       free(out);
@@ -238,10 +238,10 @@ reql_string_decode(uint32_t size, uint8_t *json) {
 }
 
 static int
-reql_number_decode(uint32_t size, uint8_t *json, double *val) {
+reql_number_decode(ReQL_Size size, ReQL_Byte *json, double *val) {
   double num = 0;
-  uint32_t i;
-  uint8_t digit = '0';
+  ReQL_Size i;
+  ReQL_Byte digit = '0';
   for (i=1; i <= size; ++i) {
     digit = json[size - i];
     if (digit == '+') {
@@ -253,7 +253,7 @@ reql_number_decode(uint32_t size, uint8_t *json, double *val) {
     num += (digit - '0') * pow(10, i - 1);
   }
   if (i <= size) {
-    uint32_t new_size = size - i - 1;
+    ReQL_Size new_size = size - i - 1;
     if (new_size <= 0) {
       return -1;
     }
@@ -278,13 +278,13 @@ reql_number_decode(uint32_t size, uint8_t *json, double *val) {
 }
 
 static ReQL_Obj_t *
-reql_decode_(ReQL_Obj_t *stack, uint8_t *json, uint32_t size) {
+reql_decode_(ReQL_Obj_t *stack, ReQL_Byte *json, ReQL_Size size) {
   if (json[size - 1] == 0) {
     --size;
   }
   ReQL_Datum_t state = REQL_R_JSON;
   char esc = 0, arr_open = 0, obj_open = 0;
-  uint32_t i, str_start = 0;
+  ReQL_Size i, str_start = 0;
   for (i=0; i < size; ++i) {
     switch (state) {
       case REQL_R_NUM: {
@@ -333,7 +333,7 @@ reql_decode_(ReQL_Obj_t *stack, uint8_t *json, uint32_t size) {
           }
           case '"': {
             if (!esc) {
-              uint32_t orig_size = i - str_start;
+              ReQL_Size orig_size = i - str_start;
 
               ReQL_Obj_t *obj = reql_string_decode(orig_size, &json[str_start]);
 
@@ -632,7 +632,7 @@ reql_decode_(ReQL_Obj_t *stack, uint8_t *json, uint32_t size) {
 }
 
 extern ReQL_Obj_t *
-reql_decode(uint8_t *json, uint32_t size) {
+reql_decode(ReQL_Byte *json, ReQL_Size size) {
   ReQL_Obj_t *stack = malloc(sizeof(ReQL_Obj_t));
   ReQL_Obj_t **arr = malloc(sizeof(ReQL_Obj_t*) * 10);
   reql_array_init(stack, arr, 10);

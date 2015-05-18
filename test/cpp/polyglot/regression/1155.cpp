@@ -5,6 +5,7 @@
 #include "./test.hpp"
 
 using namespace ReQL;
+using namespace _C;
 
 TEST_CASE("cpp 1155 -- Empty batched_replaces_t constructed", "[cpp][ast]") {
 

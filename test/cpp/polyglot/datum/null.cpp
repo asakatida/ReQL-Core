@@ -5,6 +5,7 @@
 #include "./test.hpp"
 
 using namespace ReQL;
+using namespace _C;
 
 TEST_CASE("cpp Tests of conversion to and from the RQL null type", "[cpp][ast]") {
 
@@ -18,7 +19,7 @@ TEST_CASE("cpp Tests of conversion to and from the RQL null type", "[cpp][ast]")
   }
 
   SECTION("test2") {
-    std::string src0("None", 4);
+    std::string src0("null", 4);
     Result var0(src0);
   }
 

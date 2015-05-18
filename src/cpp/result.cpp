@@ -28,23 +28,28 @@ limitations under the License.
 #include <vector>
 
 namespace ReQL {
+
+namespace _C {
+
 extern "C" {
 
 #include "./c/dev/json.h"
 
 }
 
-Result::Result() : p_type(REQL_R_NULL) {}
+}  // namespace _C
 
-Result::Result(const bool val) : p_type(REQL_R_BOOL), p_boolean(val) {}
+Result::Result() : p_type(_C::REQL_R_NULL) {}
 
-Result::Result(const double val) : p_type(REQL_R_NUM), p_num(val) {}
+Result::Result(const bool val) : p_type(_C::REQL_R_BOOL), p_boolean(val) {}
 
-Result::Result(const std::string val) : p_type(REQL_R_STR), p_string(val) {}
+Result::Result(const double val) : p_type(_C::REQL_R_NUM), p_num(val) {}
 
-Result::Result(const std::map<std::string, Result> val) : p_type(REQL_R_OBJECT), p_object(val) {}
+Result::Result(const Types::string val) : p_type(_C::REQL_R_STR), p_string(val) {}
 
-Result::Result(const std::vector<Result> val) : p_type(REQL_R_ARRAY), p_array(val) {}
+Result::Result(const std::map<Types::string, Result> val) : p_type(_C::REQL_R_OBJECT), p_object(val) {}
+
+Result::Result(const std::vector<Result> val) : p_type(_C::REQL_R_ARRAY), p_array(val) {}
 
 Result::Result(const Result &other) : p_type(other.p_type) {
   copy(other);
@@ -74,28 +79,28 @@ Result::operator=(Result &&other) {
 
 void
 Result::insert(Result elem) {
-  if (p_type != REQL_R_ARRAY) {
+  if (p_type != _C::REQL_R_ARRAY) {
     throw ReQLDriverError();
   }
   p_array.push_back(elem);
 }
 
 void
-Result::insert(std::string key, Result value) {
-  if (p_type != REQL_R_OBJECT) {
+Result::insert(Types::string key, Result value) {
+  if (p_type != _C::REQL_R_OBJECT) {
     throw ReQLDriverError();
   }
   p_object.insert({key, value});
 }
 
-ReQL_Datum_t
+_C::ReQL_Datum_t
 Result::type() const {
   return p_type;
 }
 
 bool
 Result::boolean() const {
-  if (p_type != REQL_R_BOOL) {
+  if (p_type != _C::REQL_R_BOOL) {
     throw ReQLDriverError();
   }
   return p_boolean;
@@ -103,23 +108,23 @@ Result::boolean() const {
 
 double
 Result::number() const {
-  if (p_type != REQL_R_NUM) {
+  if (p_type != _C::REQL_R_NUM) {
     throw ReQLDriverError();
   }
   return p_num;
 }
 
-std::map<std::string, Result>
+std::map<Types::string, Result>
 Result::object() const {
-  if (p_type != REQL_R_OBJECT) {
+  if (p_type != _C::REQL_R_OBJECT) {
     throw ReQLDriverError();
   }
   return p_object;
 }
 
-std::string
+Types::string
 Result::string() const {
-  if (p_type != REQL_R_STR) {
+  if (p_type != _C::REQL_R_STR) {
     throw ReQLDriverError();
   }
   return p_string;
@@ -127,7 +132,7 @@ Result::string() const {
 
 std::vector<Result>
 Result::array() const {
-  if (p_type != REQL_R_ARRAY) {
+  if (p_type != _C::REQL_R_ARRAY) {
     throw ReQLDriverError();
   }
   return p_array;
@@ -136,62 +141,62 @@ Result::array() const {
 void
 Result::copy(const Result &other) {
   switch (p_type) {
-    case REQL_R_ARRAY: {
+    case _C::REQL_R_ARRAY: {
       p_array = other.array();
       break;
     }
-    case REQL_R_BOOL: {
+    case _C::REQL_R_BOOL: {
       p_boolean = other.boolean();
       break;
     }
-    case REQL_R_NUM: {
+    case _C::REQL_R_NUM: {
       p_num = other.number();
       break;
     }
-    case REQL_R_OBJECT: {
+    case _C::REQL_R_OBJECT: {
       p_object = other.object();
       break;
     }
-    case REQL_R_STR: {
+    case _C::REQL_R_STR: {
       p_string = other.string();
       break;
     }
-    case REQL_R_NULL: {
+    case _C::REQL_R_NULL: {
       break;
     }
-    case REQL_R_REQL:
-    case REQL_R_JSON: throw ReQLDriverError();
+    case _C::REQL_R_REQL:
+    case _C::REQL_R_JSON: throw ReQLDriverError();
   }
 }
 
 void
 Result::move(Result &&other) {
   switch (p_type) {
-    case REQL_R_ARRAY: {
+    case _C::REQL_R_ARRAY: {
       p_array = std::move(other.p_array);
       break;
     }
-    case REQL_R_BOOL: {
+    case _C::REQL_R_BOOL: {
       p_boolean = std::move(other.p_boolean);
       break;
     }
-    case REQL_R_NUM: {
+    case _C::REQL_R_NUM: {
       p_num = std::move(other.p_num);
       break;
     }
-    case REQL_R_OBJECT: {
+    case _C::REQL_R_OBJECT: {
       p_object = std::move(other.p_object);
       break;
     }
-    case REQL_R_STR: {
+    case _C::REQL_R_STR: {
       p_string = std::move(other.p_string);
       break;
     }
-    case REQL_R_NULL: {
+    case _C::REQL_R_NULL: {
       break;
     }
-    case REQL_R_JSON:
-    case REQL_R_REQL: throw ReQLDriverError();
+    case _C::REQL_R_JSON:
+    case _C::REQL_R_REQL: throw ReQLDriverError();
   }
 }
 
@@ -203,13 +208,13 @@ Parser::parse(Wrapper val) {
 }
 
 void
-Parser::parse_c(ReQL_Obj_t *val) {
+Parser::parse_c(_C::ReQL_Obj_t *val) {
   switch (reql_datum_type(val)) {
-    case REQL_R_ARRAY: {
+    case _C::REQL_R_ARRAY: {
       startArray();
 
-      ReQL_Iter_t it = reql_new_iter(val);
-      ReQL_Obj_t *elem = NULL;
+      _C::ReQL_Iter_t it = reql_new_iter(val);
+      _C::ReQL_Obj_t *elem = NULL;
 
       while ((elem = reql_iter_next(&it)) != NULL) {
         parse_c(elem);
@@ -218,54 +223,54 @@ Parser::parse_c(ReQL_Obj_t *val) {
       endArray();
       break;
     }
-    case REQL_R_BOOL: {
+    case _C::REQL_R_BOOL: {
       addElement(static_cast<bool>(reql_to_bool(val)));
       break;
     }
-    case REQL_R_JSON:
-    case REQL_R_REQL: break;
-    case REQL_R_NULL: {
+    case _C::REQL_R_JSON:
+    case _C::REQL_R_REQL: break;
+    case _C::REQL_R_NULL: {
       addElement();
       break;
     }
-    case REQL_R_NUM: {
+    case _C::REQL_R_NUM: {
       addElement(reql_to_number(val));
       break;
     }
-    case REQL_R_OBJECT: {
+    case _C::REQL_R_OBJECT: {
       startObject();
 
-      ReQL_Iter_t it = reql_new_iter(val);
-      ReQL_Obj_t *key = NULL;
-      ReQL_Obj_t *value = NULL;
+      _C::ReQL_Iter_t it = reql_new_iter(val);
+      _C::ReQL_Obj_t *key = NULL;
+      _C::ReQL_Obj_t *value = NULL;
 
       while ((key = reql_iter_next(&it)) != NULL) {
         value = reql_object_get(val, key);
-        std::string key_string(reinterpret_cast<char*>(reql_string_buf(key)), reql_size(key));
+        Types::string key_string(reinterpret_cast<char*>(reql_string_buf(key)), reql_size(key));
 
         switch (reql_datum_type(value)) {
-          case REQL_R_BOOL: {
+          case _C::REQL_R_BOOL: {
             addKeyValue(key_string, static_cast<bool>(reql_to_bool(val)));
             break;
           }
-          case REQL_R_ARRAY:
-          case REQL_R_OBJECT: {
+          case _C::REQL_R_ARRAY:
+          case _C::REQL_R_OBJECT: {
             addKey(key_string);
             parse_c(value);
             break;
           }
-          case REQL_R_NULL: {
+          case _C::REQL_R_NULL: {
             addKeyValue(key_string);
             break;
           }
-          case REQL_R_NUM: {
+          case _C::REQL_R_NUM: {
             addKeyValue(key_string, reql_to_number(value));
             break;
           }
-          case REQL_R_JSON:
-          case REQL_R_REQL: break;
-          case REQL_R_STR: {
-            addKeyValue(key_string, std::string(reinterpret_cast<char*>(reql_string_buf(value)), reql_size(value)));
+          case _C::REQL_R_JSON:
+          case _C::REQL_R_REQL: break;
+          case _C::REQL_R_STR: {
+            addKeyValue(key_string, Types::string(reinterpret_cast<char*>(reql_string_buf(value)), reql_size(value)));
             break;
           }
         }
@@ -274,8 +279,8 @@ Parser::parse_c(ReQL_Obj_t *val) {
       endObject();
       break;
     }
-    case REQL_R_STR: {
-      addElement(std::string(reinterpret_cast<char*>(reql_string_buf(val)), reql_size(val)));
+    case _C::REQL_R_STR: {
+      addElement(Types::string(reinterpret_cast<char*>(reql_string_buf(val)), reql_size(val)));
       break;
     }
   }

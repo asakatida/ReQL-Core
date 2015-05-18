@@ -23,12 +23,12 @@ limitations under the License.
 
 #include "./c/json.h"
 
-#include <stdint.h>
+#include "./c/types.h"
 
 struct ReQL_String_s {
-  uint32_t size;
-  uint32_t alloc_size;
-  uint8_t *str;
+  ReQL_Size size;
+  ReQL_Size alloc_size;
+  ReQL_Byte *str;
 };
 typedef struct ReQL_String_s ReQL_String_t;
 

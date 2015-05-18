@@ -28,13 +28,20 @@ limitations under the License.
 #include <vector>
 
 namespace ReQL {
+
+namespace _C {
+
 extern "C" {
 
 #include "./c/dev/json.h"
-    
+
 }
 
-ReQL::ReQL() : std::unique_ptr<ReQL_Obj_t>(new ReQL_Obj_t), p_func(nullptr), p_func_kwargs(nullptr), p_args(nullptr), p_array(nullptr), p_buf(nullptr), p_kwargs(nullptr), p_object(nullptr) {
+}  // namespace _C
+
+namespace _Internal {
+
+ReQL::ReQL() : _C::Types::object(new _C::ReQL_Obj_t), p_func(nullptr), p_func_kwargs(nullptr), p_args(nullptr), p_array(nullptr), p_buf(nullptr), p_kwargs(nullptr), p_object(nullptr) {
   reql_null_init(get());
 }
 
@@ -46,32 +53,32 @@ ReQL::ReQL(const bool &val) : ReQL() {
   reql_bool_init(get(), val);
 }
 
-ReQL::ReQL(const std::string &val) : ReQL() {
-  if (val.size() > std::numeric_limits<std::uint32_t>::max()) {
+ReQL::ReQL(const Types::string &val) : ReQL() {
+  if (val.size() > std::numeric_limits<_C::ReQL_Size>::max()) {
     throw ReQLDriverError();
   }
 
   p_str = val;
-  const std::uint32_t size = static_cast<std::uint32_t>(p_str.size());
-  std::uint8_t *buf = reinterpret_cast<std::uint8_t*>(const_cast<char*>(p_str.c_str()));
+  const _C::ReQL_Size size = static_cast<_C::ReQL_Size>(p_str.size());
+  _C::ReQL_Byte *buf = reinterpret_cast<_C::ReQL_Byte*>(const_cast<char*>(p_str.c_str()));
 
   if (size > 0) {
-    p_buf.reset(new uint8_t[size]);
+    p_buf.reset(new _C::ReQL_Byte[size]);
   }
 
   reql_string_init(get(), p_buf.get(), size);
   reql_string_append(get(), buf, size);
 }
 
-ReQL::ReQL(const std::vector<Query> &array) : ReQL() {
-  if (array.size() > std::numeric_limits<std::uint32_t>::max()) {
+ReQL::ReQL(const Types::array &array) : ReQL() {
+  if (array.size() > std::numeric_limits<_C::ReQL_Size>::max()) {
     throw ReQLDriverError();
   }
 
-  const std::uint32_t size = static_cast<std::uint32_t>(array.size());
+  const _C::ReQL_Size size = static_cast<_C::ReQL_Size>(array.size());
 
   if (size > 0) {
-    p_array.reset(new ReQL_Obj_t*[size]);
+    p_array.reset(new _C::ReQL_Obj_t*[size]);
   }
 
   reql_array_init(get(), p_array.get(), size);
@@ -81,18 +88,18 @@ ReQL::ReQL(const std::vector<Query> &array) : ReQL() {
   }
 }
 
-ReQL::ReQL(const std::map<std::string, Query> &object) : ReQL() {
-  if (object.size() > std::numeric_limits<std::uint32_t>::max()) {
+ReQL::ReQL(const Types::object &object) : ReQL() {
+  if (object.size() > std::numeric_limits<_C::ReQL_Size>::max()) {
     throw ReQLDriverError();
   }
 
-  const std::uint32_t size = static_cast<std::uint32_t>(object.size());
+  const _C::ReQL_Size size = static_cast<_C::ReQL_Size>(object.size());
 
   if (size > 0) {
-    p_object.reset(new ReQL_Pair_t[size]);
+    p_object.reset(new _C::ReQL_Pair_t[size]);
   }
 
-  reql_object_init(get(), p_object.get(), static_cast<std::uint32_t>(size));
+  reql_object_init(get(), p_object.get(), static_cast<_C::ReQL_Size>(size));
   for (auto it=object.cbegin(); it != object.cend(); ++it) {
     ReQL key = ReQL(it->first);
     p_r_object.insert({key, it->second._internal()});
@@ -100,21 +107,21 @@ ReQL::ReQL(const std::map<std::string, Query> &object) : ReQL() {
   }
 }
 
-ReQL::ReQL(const ReQL_AST_Function &f, const std::vector<Query> &args) : ReQL() {
-  if (args.size() > std::numeric_limits<std::uint32_t>::max()) {
+ReQL::ReQL(const _C::ReQL_AST_Function &f, const Types::array &args) : ReQL() {
+  if (args.size() > std::numeric_limits<_C::ReQL_Size>::max()) {
     throw ReQLDriverError();
   }
 
   p_func = f;
   p_func_kwargs = nullptr;
 
-  const std::uint32_t args_size = static_cast<std::uint32_t>(args.size());
+  const _C::ReQL_Size args_size = static_cast<_C::ReQL_Size>(args.size());
 
   if (args_size > 0) {
-    p_array.reset(new ReQL_Obj_t*[args_size]);
+    p_array.reset(new _C::ReQL_Obj_t*[args_size]);
   }
 
-  p_args.reset(new ReQL_Obj_t);
+  p_args.reset(new _C::ReQL_Obj_t);
   reql_array_init(p_args.get(), p_array.get(), args_size);
   for (auto it=args.cbegin(); it != args.cend(); ++it) {
     p_r_array.push_back(it->_internal());
@@ -124,38 +131,38 @@ ReQL::ReQL(const ReQL_AST_Function &f, const std::vector<Query> &args) : ReQL() 
   f(get(), p_args.get());
 }
 
-ReQL::ReQL(const ReQL_AST_Function_Kwargs &f, const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) : ReQL() {
-  if (args.size() > std::numeric_limits<std::uint32_t>::max()) {
+ReQL::ReQL(const _C::ReQL_AST_Function_Kwargs &f, const Types::array &args, const Types::object &kwargs) : ReQL() {
+  if (args.size() > std::numeric_limits<_C::ReQL_Size>::max()) {
     throw ReQLDriverError();
   }
 
-  if (kwargs.size() > std::numeric_limits<std::uint32_t>::max()) {
+  if (kwargs.size() > std::numeric_limits<_C::ReQL_Size>::max()) {
     throw ReQLDriverError();
   }
-  
+
   p_func = nullptr;
   p_func_kwargs = f;
 
-  const std::uint32_t args_size = static_cast<std::uint32_t>(args.size());
+  const _C::ReQL_Size args_size = static_cast<_C::ReQL_Size>(args.size());
 
   if (args_size > 0) {
-    p_array.reset(new ReQL_Obj_t*[args_size]);
+    p_array.reset(new _C::ReQL_Obj_t*[args_size]);
   }
 
-  p_args.reset(new ReQL_Obj_t);
+  p_args.reset(new _C::ReQL_Obj_t);
   reql_array_init(p_args.get(), p_array.get(), args_size);
   for (auto it=args.cbegin(); it != args.cend(); ++it) {
     p_r_array.push_back(it->_internal());
     reql_array_append(p_args.get(), it->_data());
   }
 
-  const std::uint32_t kwargs_size = static_cast<std::uint32_t>(kwargs.size());
+  const _C::ReQL_Size kwargs_size = static_cast<_C::ReQL_Size>(kwargs.size());
 
   if (kwargs_size > 0) {
-    p_object.reset(new ReQL_Pair_t[kwargs_size]);
+    p_object.reset(new _C::ReQL_Pair_t[kwargs_size]);
   }
 
-  p_kwargs.reset(new ReQL_Obj_t);
+  p_kwargs.reset(new _C::ReQL_Obj_t);
   reql_object_init(p_kwargs.get(), p_object.get(), kwargs_size);
   for (auto it=kwargs.cbegin(); it != kwargs.cend(); ++it) {
     ReQL key(it->first);
@@ -189,15 +196,15 @@ ReQL::~ReQL() {
     p_kwargs->owner = nullptr;
   }
 
-  ReQL_Obj_t *owner = get()->owner;
+  _C::ReQL_Obj_t *owner = get()->owner;
 
   if (owner != nullptr) {
     switch (reql_datum_type(owner)) {
-      case REQL_R_ARRAY: {
-        const uint32_t size = reql_size(owner);
-        ReQL_Obj_t **array = owner->obj.datum.json.var.data.array;
+      case _C::REQL_R_ARRAY: {
+        const _C::ReQL_Size size = reql_size(owner);
+        _C::ReQL_Obj_t **array = owner->obj.datum.json.var.data.array;
 
-        uint32_t i;
+        _C::ReQL_Size i;
 
         for (i=0; i < size; ++i) {
           if (array[i] == get()) {
@@ -208,11 +215,11 @@ ReQL::~ReQL() {
 
         break;
       }
-      case REQL_R_OBJECT: {
-        const uint32_t size = reql_size(owner);
-        ReQL_Pair_t *pair = owner->obj.datum.json.var.data.pair;
+      case _C::REQL_R_OBJECT: {
+        const _C::ReQL_Size size = reql_size(owner);
+        _C::ReQL_Pair_t *pair = owner->obj.datum.json.var.data.pair;
 
-        uint32_t i;
+        _C::ReQL_Size i;
 
         for (i=0; i < size; ++i) {
           if (pair[i].val == get()) {
@@ -228,19 +235,19 @@ ReQL::~ReQL() {
 
         break;
       }
-      case REQL_R_REQL: {
-        if (reql_args(owner) == get()) {
+      case _C::REQL_R_REQL: {
+        if (_C::reql_args(owner) == get()) {
           owner->obj.args.args = nullptr;
-        } else if (reql_kwargs(owner) == get()) {
+        } else if (_C::reql_kwargs(owner) == get()) {
           owner->obj.args.kwargs = nullptr;
         }
         break;
       }
-      case REQL_R_BOOL:
-      case REQL_R_JSON:
-      case REQL_R_NULL:
-      case REQL_R_NUM:
-      case REQL_R_STR: break;
+      case _C::REQL_R_BOOL:
+      case _C::REQL_R_JSON:
+      case _C::REQL_R_NULL:
+      case _C::REQL_R_NUM:
+      case _C::REQL_R_STR: break;
     }
   }
 
@@ -272,45 +279,45 @@ ReQL::copy(const ReQL &other) {
   p_kwargs.reset();
   p_object.reset();
   switch (other._type()) {
-    case REQL_R_ARRAY: {
+    case _C::REQL_R_ARRAY: {
       std::size_t size = p_r_array.size();
       if (size > 0) {
-        p_array.reset(new ReQL_Obj_t*[size]);
+        p_array.reset(new _C::ReQL_Obj_t*[size]);
       }
-      reql_array_init(get(), p_array.get(), static_cast<std::uint32_t>(size));
+      reql_array_init(get(), p_array.get(), static_cast<_C::ReQL_Size>(size));
       for (auto it=p_r_array.cbegin(); it != p_r_array.cend(); ++it) {
         reql_array_append(get(), it->get());
       }
       break;
     }
-    case REQL_R_BOOL: {
+    case _C::REQL_R_BOOL: {
       reql_bool_init(get(), reql_to_bool(other.get()));
       break;
     }
-    case REQL_R_JSON: throw ReQLDriverError();
-    case REQL_R_NULL: break;
-    case REQL_R_NUM: {
+    case _C::REQL_R_JSON: throw ReQLDriverError();
+    case _C::REQL_R_NULL: break;
+    case _C::REQL_R_NUM: {
       reql_number_init(get(), reql_to_number(other.get()));
       break;
     }
-    case REQL_R_OBJECT: {
+    case _C::REQL_R_OBJECT: {
       std::size_t size = p_r_object.size();
       if (size > 0) {
-        p_object.reset(new ReQL_Pair_t[size]);
+        p_object.reset(new _C::ReQL_Pair_t[size]);
       }
-      reql_object_init(get(), p_object.get(), static_cast<std::uint32_t>(size));
+      reql_object_init(get(), p_object.get(), static_cast<_C::ReQL_Size>(size));
       for (auto it=p_r_object.cbegin(); it != p_r_object.cend(); ++it) {
-        if (it->first._type() != REQL_R_STR) throw ReQLDriverError();
+        if (it->first._type() != _C::REQL_R_STR) throw ReQLDriverError();
         reql_object_add(get(), it->first.get(), it->second.get());
       }
       break;
     }
-    case REQL_R_REQL: {
+    case _C::REQL_R_REQL: {
       std::size_t args_size = p_r_array.size();
       if (args_size > 0) {
-        p_args.reset(new ReQL_Obj_t);
-        p_array.reset(new ReQL_Obj_t*[args_size]);
-        reql_array_init(p_args.get(), p_array.get(), static_cast<std::uint32_t>(args_size));
+        p_args.reset(new _C::ReQL_Obj_t);
+        p_array.reset(new _C::ReQL_Obj_t*[args_size]);
+        reql_array_init(p_args.get(), p_array.get(), static_cast<_C::ReQL_Size>(args_size));
         for (auto it=p_r_array.cbegin(); it != p_r_array.cend(); ++it) {
           reql_array_append(p_args.get(), it->get());
         }
@@ -318,11 +325,11 @@ ReQL::copy(const ReQL &other) {
       if (p_func == nullptr) {
         std::size_t kwargs_size = p_r_object.size();
         if (kwargs_size > 0) {
-          p_kwargs.reset(new ReQL_Obj_t);
-          p_object.reset(new ReQL_Pair_t[kwargs_size]);
-          reql_object_init(p_kwargs.get(), p_object.get(), static_cast<std::uint32_t>(kwargs_size));
+          p_kwargs.reset(new _C::ReQL_Obj_t);
+          p_object.reset(new _C::ReQL_Pair_t[kwargs_size]);
+          reql_object_init(p_kwargs.get(), p_object.get(), static_cast<_C::ReQL_Size>(kwargs_size));
           for (auto it=p_r_object.cbegin(); it != p_r_object.cend(); ++it) {
-            if (it->first._type() != REQL_R_STR) throw ReQLDriverError();
+            if (it->first._type() != _C::REQL_R_STR) throw ReQLDriverError();
             reql_object_add(p_kwargs.get(), it->first.get(), it->second.get());
           }
         }
@@ -334,11 +341,11 @@ ReQL::copy(const ReQL &other) {
       }
       break;
     }
-    case REQL_R_STR: {
-      std::uint32_t size = static_cast<std::uint32_t>(p_str.size());
-      std::uint8_t *buf = reinterpret_cast<std::uint8_t*>(const_cast<char*>(p_str.c_str()));
+    case _C::REQL_R_STR: {
+      _C::ReQL_Size size = static_cast<_C::ReQL_Size>(p_str.size());
+      _C::ReQL_Byte *buf = reinterpret_cast<_C::ReQL_Byte*>(const_cast<char*>(p_str.c_str()));
       if (size > 0) {
-        p_buf.reset(new uint8_t[size]);
+        p_buf.reset(new _C::ReQL_Byte[size]);
       }
       reql_string_init(get(), p_buf.get(), size);
       reql_string_append(get(), buf, size);
@@ -361,28 +368,28 @@ ReQL::move(ReQL &&other) {
   p_object = std::move(other.p_object);
 }
 
-ReQL_Datum_t
+_C::ReQL_Datum_t
 ReQL::_type() const {
   return reql_datum_type(get());
 }
 
 bool
 ReQL::operator<(const ReQL &other) const {
-  ReQL_Datum_t ltype = _type(), rtype = other._type();
+  _C::ReQL_Datum_t ltype = _type(), rtype = other._type();
   if (ltype == rtype) {
     switch (ltype) {
-      case REQL_R_ARRAY:
-      case REQL_R_BOOL:
-      case REQL_R_JSON:
-      case REQL_R_NULL:
-      case REQL_R_NUM:
-      case REQL_R_OBJECT:
-      case REQL_R_REQL: return get() < other.get();
-      case REQL_R_STR: {
-        ReQL_Obj_t *val = get();
-        ReQL_Obj_t *o_val = other.get();
-        std::string same(reinterpret_cast<char*>(reql_string_buf(val)), reql_size(val));
-        std::string diff(reinterpret_cast<char*>(reql_string_buf(o_val)), reql_size(o_val));
+      case _C::REQL_R_ARRAY:
+      case _C::REQL_R_BOOL:
+      case _C::REQL_R_JSON:
+      case _C::REQL_R_NULL:
+      case _C::REQL_R_NUM:
+      case _C::REQL_R_OBJECT:
+      case _C::REQL_R_REQL: return get() < other.get();
+      case _C::REQL_R_STR: {
+        _C::ReQL_Obj_t *val = get();
+        _C::ReQL_Obj_t *o_val = other.get();
+        Types::string same(reinterpret_cast<char*>(reql_string_buf(val)), reql_size(val));
+        Types::string diff(reinterpret_cast<char*>(reql_string_buf(o_val)), reql_size(o_val));
         return same < diff;
       }
     }
@@ -405,5 +412,7 @@ ReQL::operator=(ReQL &&other) {
   }
   return *this;
 }
+
+}  // namespace _Internal
 
 }  // namespace ReQL

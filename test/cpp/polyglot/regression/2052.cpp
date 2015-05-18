@@ -5,6 +5,7 @@
 #include "./test.hpp"
 
 using namespace ReQL;
+using namespace _C;
 
 TEST_CASE("cpp 2052 -- Verify that the server rejects bogus global options.", "[cpp][ast]") {
 

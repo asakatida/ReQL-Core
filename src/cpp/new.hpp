@@ -21,30 +21,32 @@ limitations under the License.
 #ifndef REQL_CPP_NEW_HPP_
 #define REQL_CPP_NEW_HPP_
 
-#include <map>
-#include <string>
-#include <vector>
+#include "./cpp/types.hpp"
 
 namespace ReQL {
+
+namespace _C {
+
 extern "C" {
 
-#include "./ReQL.h"
 #include "./c/dev/ast.h"
 
 }
 
-class Query;
+}  // namespace _C
 
-class ReQL : public std::unique_ptr<ReQL_Obj_t> {
+namespace _Internal {
+
+class ReQL : public _C::Types::object {
 public:
   ReQL();
   explicit ReQL(const double &val);
   explicit ReQL(const bool &val);
-  explicit ReQL(const std::string &val);
-  explicit ReQL(const std::vector<Query> &array);
-  explicit ReQL(const std::map<std::string, Query> &object);
-  ReQL(const ReQL_AST_Function &f, const std::vector<Query> &args);
-  ReQL(const ReQL_AST_Function_Kwargs &f, const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);
+  explicit ReQL(const Types::string &val);
+  explicit ReQL(const Types::array &array);
+  explicit ReQL(const Types::object &object);
+  ReQL(const _C::ReQL_AST_Function &f, const Types::array &args);
+  ReQL(const _C::ReQL_AST_Function_Kwargs &f, const Types::array &args, const Types::object &kwargs);
   ReQL(const ReQL &other);
   ReQL(ReQL &&other);
 
@@ -55,23 +57,25 @@ public:
 
   bool operator<(const ReQL &other) const;
 
-  ReQL_Datum_t _type() const;
+  _C::ReQL_Datum_t _type() const;
 
 private:
   void copy(const ReQL &other);
   void move(ReQL &&other);
 
-  ReQL_AST_Function p_func;
-  ReQL_AST_Function_Kwargs p_func_kwargs;
+  _C::ReQL_AST_Function p_func;
+  _C::ReQL_AST_Function_Kwargs p_func_kwargs;
   std::vector<ReQL> p_r_array;
   std::map<ReQL, ReQL> p_r_object;
-  std::string p_str;
-  std::unique_ptr<ReQL_Obj_t> p_args;
-  std::unique_ptr<ReQL_Obj_t*> p_array;
-  std::unique_ptr<uint8_t> p_buf;
-  std::unique_ptr<ReQL_Obj_t> p_kwargs;
-  std::unique_ptr<ReQL_Pair_t> p_object;
+  Types::string p_str;
+  _C::Types::object p_args;
+  _C::Types::array p_array;
+  _C::Types::string p_buf;
+  _C::Types::object p_kwargs;
+  _C::Types::pairs p_object;
 };
+
+}  // namespace _Internal
 
 }  // namespace ReQL
 

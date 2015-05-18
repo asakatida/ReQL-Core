@@ -567,6 +567,9 @@
 		8773F1C11A6A058D001F14C5 /* libReQL-test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "libReQL-test"; sourceTree = BUILT_PRODUCTS_DIR; };
 		878CDF871AFE6196008638B8 /* error.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = error.cpp; sourceTree = "<group>"; };
 		878CDF881AFE6196008638B8 /* error.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = error.hpp; sourceTree = "<group>"; };
+		87F3A8B11B093E1600401BCE /* types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
+		87F3A8B21B093E8000401BCE /* error.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = error.h; sourceTree = "<group>"; };
+		87F3A8B31B0942CE00401BCE /* types.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = types.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1057,10 +1060,12 @@
 				1ECDD73A1AB53D80004CD31E /* decode.c */,
 				1ECDD73C1AB53D80004CD31E /* encode.c */,
 				1ECDD73E1AB53D80004CD31E /* error.c */,
+				87F3A8B21B093E8000401BCE /* error.h */,
 				1ECDD7401AB53D80004CD31E /* expr.c */,
 				1ECDD7411AB53D80004CD31E /* expr.h */,
 				1ECDD7421AB53D80004CD31E /* json.c */,
 				1ECDD7431AB53D80004CD31E /* json.h */,
+				87F3A8B11B093E1600401BCE /* types.h */,
 				1E8855471ADF55160014920B /* dev */,
 				1ECDD7441AB53D80004CD31E /* util */,
 			);
@@ -1096,6 +1101,7 @@
 				1E3B90941AEEC0F0009AD8D7 /* wrapper.hpp */,
 				878CDF871AFE6196008638B8 /* error.cpp */,
 				878CDF881AFE6196008638B8 /* error.hpp */,
+				87F3A8B31B0942CE00401BCE /* types.hpp */,
 			);
 			path = cpp;
 			sourceTree = "<group>";

@@ -6,11 +6,18 @@
 #include <string>
 
 namespace ReQL {
+
+namespace _C {
+
 extern "C" {
 
 #include "./c/dev/json.h"
 
 }
+
+}  // namespace _C
+
+using namespace _C;
 
 ReQL_Conn_c::ReQL_Conn_c() : std::unique_ptr<ReQL_Conn_t>(new ReQL_Conn_t) {
   reql_connection_init(get());

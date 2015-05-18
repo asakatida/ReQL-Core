@@ -5,6 +5,7 @@
 #include "./test.hpp"
 
 using namespace ReQL;
+using namespace _C;
 
 TEST_CASE("cpp 2697 -- Array insert and splice operations don't check array size limit.", "[cpp][ast]") {
 

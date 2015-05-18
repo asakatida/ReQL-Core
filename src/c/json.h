@@ -21,7 +21,7 @@ limitations under the License.
 #ifndef REQL_C_JSON_H_
 #define REQL_C_JSON_H_
 
-#include <stdint.h>
+#include "./c/types.h"
 
 /**
  * @brief JSON types.
@@ -235,7 +235,7 @@ typedef struct ReQL_Pair_s ReQL_Pair_t;
  * Supports objects and arrays.
  */
 struct ReQL_Iter_s {
-  uint32_t idx;
+  ReQL_Size idx;
   const struct ReQL_Obj_s *obj;
 };
 typedef struct ReQL_Iter_s ReQL_Iter_t;
@@ -250,10 +250,10 @@ struct ReQL_Obj_s {
       ReQL_Datum_t dt;
       union {
         struct {
-          uint32_t size;
-          uint32_t alloc_size;
+          ReQL_Size size;
+          ReQL_Size alloc_size;
           union {
-            uint8_t *str;
+            ReQL_Byte *str;
             struct ReQL_Obj_s **array;
             ReQL_Pair_t *pair;
           } data;
@@ -342,7 +342,7 @@ reql_to_number(const ReQL_Obj_t *obj);
  * @param alloc_size number of bytes in buffer.
  */
 extern void
-reql_string_init(ReQL_Obj_t *obj, uint8_t *buf, uint32_t alloc_size);
+reql_string_init(ReQL_Obj_t *obj, ReQL_Byte *buf, ReQL_Size alloc_size);
 
 /**
  * @brief append c string to JSON string.
@@ -351,8 +351,8 @@ reql_string_init(ReQL_Obj_t *obj, uint8_t *buf, uint32_t alloc_size);
  * @param size number of bytes in ext buffer.
  * @return 0 if successful. Otherwise the new internal buffer size requested to allow appending ext.
  */
-extern uint32_t
-reql_string_append(ReQL_Obj_t *obj, const uint8_t *ext, const uint32_t size);
+extern ReQL_Size
+reql_string_append(ReQL_Obj_t *obj, const ReQL_Byte *ext, const ReQL_Size size);
 
 /**
  * @brief get byte array from a JSON string.
@@ -363,7 +363,7 @@ reql_string_append(ReQL_Obj_t *obj, const uint8_t *ext, const uint32_t size);
  * @param obj ReQL string datum.
  * @return byte array with contents of JSON string.
  */
-extern uint8_t *
+extern ReQL_Byte *
 reql_string_buf(const ReQL_Obj_t *obj);
 
 /**
@@ -371,7 +371,7 @@ reql_string_buf(const ReQL_Obj_t *obj);
  * @param obj ReQL string, array or object datum.
  * @return number of elements from variable size JSON value.
  */
-extern uint32_t
+extern ReQL_Size
 reql_size(const ReQL_Obj_t *obj);
 
 /**
@@ -384,7 +384,7 @@ reql_size(const ReQL_Obj_t *obj);
  * @param alloc_size number of objects in arr.
  */
 extern void
-reql_array_init(ReQL_Obj_t *obj, ReQL_Obj_t **arr, uint32_t alloc_size);
+reql_array_init(ReQL_Obj_t *obj, ReQL_Obj_t **arr, ReQL_Size alloc_size);
 
 /**
  * @brief replace object at index with value.
@@ -393,8 +393,8 @@ reql_array_init(ReQL_Obj_t *obj, ReQL_Obj_t **arr, uint32_t alloc_size);
  * @param idx index to replace with value.
  * @return 0 if successful. Otherwise the new internal array size requested to allow inserting at idx.
  */
-extern uint32_t
-reql_array_insert(ReQL_Obj_t *obj, ReQL_Obj_t *val, const uint32_t idx);
+extern ReQL_Size
+reql_array_insert(ReQL_Obj_t *obj, ReQL_Obj_t *val, const ReQL_Size idx);
 
 /**
  * @brief object at c index of JSON array.
@@ -403,7 +403,7 @@ reql_array_insert(ReQL_Obj_t *obj, ReQL_Obj_t *val, const uint32_t idx);
  * @return index object or NULL.
  */
 extern ReQL_Obj_t *
-reql_array_index(const ReQL_Obj_t *obj, const uint32_t idx);
+reql_array_index(const ReQL_Obj_t *obj, const ReQL_Size idx);
 
 /**
  * @brief push object onto end of array.
@@ -411,7 +411,7 @@ reql_array_index(const ReQL_Obj_t *obj, const uint32_t idx);
  * @param val new element for array.
  * @return 0 if successful. Otherwise the new internal array size requested to allow inserting at idx.
  */
-extern uint32_t
+extern ReQL_Size
 reql_array_append(ReQL_Obj_t *arr, ReQL_Obj_t *val);
 
 /**
@@ -460,7 +460,7 @@ reql_iter_next(ReQL_Iter_t *arr);
  * @param alloc_size number of objects in pair.
  */
 extern void
-reql_object_init(ReQL_Obj_t *obj, ReQL_Pair_t *pair, const uint32_t alloc_size);
+reql_object_init(ReQL_Obj_t *obj, ReQL_Pair_t *pair, const ReQL_Size alloc_size);
 
 /**
  * @brief set key to value, updating if key already exists.
@@ -469,7 +469,7 @@ reql_object_init(ReQL_Obj_t *obj, ReQL_Pair_t *pair, const uint32_t alloc_size);
  * @param val new object for key.
  * @return 0 if successful. Otherwise the new internal array size requested to allow adding key.
  */
-extern uint32_t
+extern ReQL_Size
 reql_object_add(ReQL_Obj_t *obj, ReQL_Obj_t *key, ReQL_Obj_t *val);
 
 /**

@@ -5,6 +5,7 @@
 #include "./test.hpp"
 
 using namespace ReQL;
+using namespace _C;
 
 TEST_CASE("cpp Issue 177", "[cpp][ast]") {
 
@@ -91,7 +92,7 @@ TEST_CASE("cpp Issue 177", "[cpp][ast]") {
     std::string src3("value", 5);
     Result var3(src3);
 
-    std::string src4("None", 4);
+    std::string src4("null", 4);
     Result var4(src4);
 
     map0.insert({src3, var4});
@@ -113,7 +114,7 @@ TEST_CASE("cpp Issue 177", "[cpp][ast]") {
     std::string src3("value", 5);
     Result var3(src3);
 
-    std::string src4("True", 4);
+    std::string src4("true", 4);
     Result var4(src4);
 
     map0.insert({src3, var4});

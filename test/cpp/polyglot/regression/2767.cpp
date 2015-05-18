@@ -5,6 +5,7 @@
 #include "./test.hpp"
 
 using namespace ReQL;
+using namespace _C;
 
 TEST_CASE("cpp 2767 -- Evaulate secondary index function with pristine env.", "[cpp][ast]") {
 

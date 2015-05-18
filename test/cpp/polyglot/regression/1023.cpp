@@ -5,6 +5,7 @@
 #include "./test.hpp"
 
 using namespace ReQL;
+using namespace _C;
 
 TEST_CASE("cpp Tests key sorting of all usable types in primary indexes", "[cpp][ast]") {
 

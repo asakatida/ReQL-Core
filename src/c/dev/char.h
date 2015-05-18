@@ -21,7 +21,7 @@ limitations under the License.
 #ifndef REQL_C_DEV_CHAR_H_
 #define REQL_C_DEV_CHAR_H_
 
-#include <stdint.h>
+#include "./c/types.h"
 
 enum {
   char_left_square_bracket = 0x5B,
@@ -34,23 +34,23 @@ enum {
   char_reverse_solidus = 0x5C,
 };
 
-static const uint8_t left_square_bracket = char_left_square_bracket;
-static const uint8_t right_square_bracket = char_right_square_bracket;
-static const uint8_t left_curly_bracket = char_left_curly_bracket;
-static const uint8_t right_curly_bracket = char_right_curly_bracket;
-static const uint8_t colon = char_colon;
-static const uint8_t comma = char_comma;
-static const uint8_t quotation = char_quotation;
-static const uint8_t reverse_solidus = char_reverse_solidus;
+static const ReQL_Byte left_square_bracket = char_left_square_bracket;
+static const ReQL_Byte right_square_bracket = char_right_square_bracket;
+static const ReQL_Byte left_curly_bracket = char_left_curly_bracket;
+static const ReQL_Byte right_curly_bracket = char_right_curly_bracket;
+static const ReQL_Byte colon = char_colon;
+static const ReQL_Byte comma = char_comma;
+static const ReQL_Byte quotation = char_quotation;
+static const ReQL_Byte reverse_solidus = char_reverse_solidus;
 
-static const uint8_t json_true[4] = {0x74, 0x72, 0x75, 0x65};
-static const uint8_t json_false[5] = {0x66, 0x61, 0x6C, 0x73, 0x65};
-static const uint8_t json_null[4] = {0x6E, 0x75, 0x6C, 0x6C};
+static const ReQL_Byte json_true[4] = {0x74, 0x72, 0x75, 0x65};
+static const ReQL_Byte json_false[5] = {0x66, 0x61, 0x6C, 0x73, 0x65};
+static const ReQL_Byte json_null[4] = {0x6E, 0x75, 0x6C, 0x6C};
 
-extern const uint8_t *
-reql_json_string_esc(const uint8_t chr);
+extern const ReQL_Byte *
+reql_json_string_esc(const ReQL_Byte chr);
 
-extern uint32_t
-reql_json_string_esc_size(const uint8_t chr);
+extern ReQL_Size
+reql_json_string_esc_size(const ReQL_Byte chr);
 
 #endif  // REQL_C_DEV_CHAR_H_

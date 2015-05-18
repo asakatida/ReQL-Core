@@ -31,16 +31,16 @@ limitations under the License.
 
 namespace ReQL {
 
-class Query : public AST {
+class Query : public _Internal::AST {
 public:
   Query();
-  Query(const ReQL_AST_Function &f, const std::vector<Query> &args);
-  Query(const ReQL_AST_Function_Kwargs &f, const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);
-  explicit Query(const std::string &val);
+  Query(const _C::ReQL_AST_Function &f, const Types::array &args);
+  Query(const _C::ReQL_AST_Function_Kwargs &f, const Types::array &args, const Types::object &kwargs);
+  explicit Query(const Types::string &val);
   explicit Query(const double &val);
   explicit Query(const bool &val);
-  explicit Query(const std::vector<Query> &val);
-  explicit Query(const std::map<std::string, Query> &val);
+  explicit Query(const Types::array &val);
+  explicit Query(const Types::object &val);
 
   Query(const Query &other);
   Query(const AST &other);
@@ -50,9 +50,9 @@ public:
   Query &operator=(Query &&other);
 
   void no_reply(const Connection &conn) const;
-  void no_reply(const Connection &conn, const std::map<std::string, Query> &kwargs) const;
+  void no_reply(const Connection &conn, const Types::object &kwargs) const;
   Cursor run(const Connection &conn) const;
-  Cursor run(const Connection &conn, const std::map<std::string, Query> &kwargs) const;
+  Cursor run(const Connection &conn, const Types::object &kwargs) const;
 };
 
 }  // namespace ReQL

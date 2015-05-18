@@ -40,35 +40,35 @@ public:
 
 private:
   void startObject() {
-    p_stack.push_back(Result(std::map<std::string, Result>()));
+    p_stack.push_back(Result(std::map<Types::string, Result>()));
   }
 
-  void addKey(std::string key) {
+  void addKey(Types::string key) {
     p_keys.push_back(key);
   }
 
-  void addKeyValue(std::string key) {
+  void addKeyValue(Types::string key) {
     Result object = p_stack.back();
     p_stack.pop_back();
     object.insert(key, Result());
     p_stack.push_back(object);
   }
 
-  void addKeyValue(std::string key, bool value) {
+  void addKeyValue(Types::string key, bool value) {
     Result object = p_stack.back();
     p_stack.pop_back();
     object.insert(key, Result(value));
     p_stack.push_back(object);
   }
 
-  void addKeyValue(std::string key, double value) {
+  void addKeyValue(Types::string key, double value) {
     Result object = p_stack.back();
     p_stack.pop_back();
     object.insert(key, Result(value));
     p_stack.push_back(object);
   }
 
-  void addKeyValue(std::string key, std::string value) {
+  void addKeyValue(Types::string key, Types::string value) {
     Result object = p_stack.back();
     p_stack.pop_back();
     object.insert(key, Result(value));
@@ -95,7 +95,7 @@ private:
     addElement(Result(value));
   }
 
-  void addElement(std::string value) {
+  void addElement(Types::string value) {
     addElement(Result(value));
   }
 
@@ -110,7 +110,7 @@ private:
   }
 
   void addElement(Result array, Result val) {
-    if (array.type() == REQL_R_ARRAY) {
+    if (array.type() == _C::REQL_R_ARRAY) {
       array.insert(val);
       p_stack.push_back(array);
     } else {
@@ -131,12 +131,12 @@ private:
     }
     Result object = p_stack.back();
     p_stack.pop_back();
-    if (object.type() == REQL_R_OBJECT) {
-      std::string key = p_keys.back();
+    if (object.type() == _C::REQL_R_OBJECT) {
+      Types::string key = p_keys.back();
       p_keys.pop_back();
       object.insert(key, last);
       p_stack.push_back(object);
-    } else if (object.type() == REQL_R_ARRAY) {
+    } else if (object.type() == _C::REQL_R_ARRAY) {
       addElement(object, last);
     } else {
       throw ReQLDriverError();
@@ -144,21 +144,21 @@ private:
   }
 
   std::vector<Result> p_stack;
-  std::vector<std::string> p_keys;
+  std::vector<Types::string> p_keys;
   Result p_result;
 };
 
 ResultBuilder::~ResultBuilder() {}
 
-Cursor::Cursor() : std::unique_ptr<ReQL_Cur_t>(new ReQL_Cur_t) {}
+Cursor::Cursor() : _C::Types::cursor(new _C::ReQL_Cur_t) {}
 
-Cursor::Cursor(Cursor &&other) : std::unique_ptr<ReQL_Cur_t>(std::move(other)) {}
+Cursor::Cursor(Cursor &&other) : _C::Types::cursor(std::move(other)) {}
 
 Cursor &
 Cursor::operator=(Cursor &&other) {
   if (this != &other) {
     close();
-    std::unique_ptr<ReQL_Cur_t>::operator=(std::move(other));
+    _C::Types::cursor::operator=(std::move(other));
   }
   return *this;
 }
@@ -180,7 +180,7 @@ Cursor::next() {
 
 void
 Cursor::next(Parser &p) {
-  ReQL_Obj_t *res = reql_cursor_next(get());
+  _C::ReQL_Obj_t *res = reql_cursor_next(get());
   if (res != nullptr) {
     p.parse(Wrapper(res));
   }

@@ -5,6 +5,7 @@
 #include "./test.hpp"
 
 using namespace ReQL;
+using namespace _C;
 
 TEST_CASE("cpp Tests of conversion to and from the RQL number type", "[cpp][ast]") {
 
@@ -54,7 +55,17 @@ TEST_CASE("cpp Tests of conversion to and from the RQL number type", "[cpp][ast]
   }
 
   SECTION("test9") {
-    Result var0;
+    std::map<std::string, Result> map0;
+
+    std::string src1("result", 6);
+    Result var1(src1);
+
+    std::string src2("blank", 5);
+    Result var2(src2);
+
+    map0.insert({src1, var2});
+
+    Result var0(map0);
   }
 
   SECTION("test10") {

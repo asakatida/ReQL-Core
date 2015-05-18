@@ -221,7 +221,7 @@ reql_cur_open(const ReQL_Cur_t *cur) {
 }
 
 extern void
-reql_cursor_init(ReQL_Cur_t *cur, uint64_t token) {
+reql_cursor_init(ReQL_Cur_t *cur, ReQL_Token token) {
   memset(cur, (int)NULL, sizeof(ReQL_Cur_t));
   reql_cursor_lock(cur);
   cur->token = token;
@@ -236,8 +236,8 @@ reql_cursor_next(ReQL_Cur_t *cur) {
     res = reql_cursor_response(cur);
     cur->response = NULL;
     ReQL_Obj_t key;
-    uint8_t buf[1];
-    const uint8_t *ext = (uint8_t *)"t";
+    ReQL_Byte buf[1];
+    const ReQL_Byte *ext = (ReQL_Byte *)"t";
     reql_string_init(&key, buf, 1);
     reql_string_append(&key, ext, 1);
     ReQL_Obj_t *type = reql_object_get(res, &key);

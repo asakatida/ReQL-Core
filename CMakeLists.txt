@@ -238,15 +238,22 @@ set(SOURCES
 
 set(MOC_HEADERS
  src/c/ast.h
- src/c/char.h
  src/c/connection.h
  src/c/cursor.h
- src/c/decode.h
- src/c/encode.h
  src/c/error.h
  src/c/expr.h
  src/c/json.h
+ src/c/types.h
  src/c/util/portable_endian.h
+ src/c/dev/ast.h
+ src/c/dev/char.h
+ src/c/dev/connection.h
+ src/c/dev/cursor.h
+ src/c/dev/decode.h
+ src/c/dev/encode.h
+ src/c/dev/error.h
+ src/c/dev/expr.h
+ src/c/dev/json.h
  src/cpp/ast.hpp
  src/cpp/connection.hpp
  src/cpp/cursor.hpp

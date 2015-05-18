@@ -21,20 +21,13 @@ limitations under the License.
 #ifndef REQL_CPP_WRAPPER_HPP_
 #define REQL_CPP_WRAPPER_HPP_
 
-#include <map>
-#include <string>
-#include <vector>
+#include "./cpp/types.hpp"
 
 namespace ReQL {
-extern "C" {
 
-#include "./ReQL.h"
-
-}
-
-class Wrapper : public std::unique_ptr<ReQL_Obj_t> {
+class Wrapper : public _C::Types::object {
 public:
-  Wrapper(ReQL_Obj_t *obj);
+  Wrapper(_C::ReQL_Obj_t *obj);
   Wrapper(const Wrapper &other);
   Wrapper(Wrapper &&other);
   virtual ~Wrapper();

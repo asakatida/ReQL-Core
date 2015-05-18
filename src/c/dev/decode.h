@@ -23,9 +23,9 @@ limitations under the License.
 
 #include "./c/json.h"
 
-#include <stdint.h>
+#include "./c/types.h"
 
 extern ReQL_Obj_t *
-reql_decode(uint8_t *json, uint32_t size);
+reql_decode(ReQL_Byte *json, ReQL_Size size);
 
 #endif  // REQL_C_DEV_DECODE_H_

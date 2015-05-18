@@ -3,14 +3,17 @@
 #include "./test.hpp"
 
 namespace ReQL {
+namespace _C {
 extern "C" {
 #include "./c/dev/decode.h"
 }
 }
+}  // namespace _C
 
 #include <string>
 
 using namespace ReQL;
+using namespace _C;
 
 TEST_CASE("decode errors", "[c][decode]") {
   SECTION("empty string") {
@@ -138,7 +141,7 @@ TEST_CASE("decode values", "[c][decode]") {
     const uint32_t key_size = 3;
     uint8_t key_buf[4];
 
-    std::unique_ptr<ReQL_Obj_t> key(new ReQL_Obj_t);
+    ReQL_Obj_c key;
     reql_string_init(key.get(), key_buf, key_size);
     reql_string_append(key.get(), reinterpret_cast<std::uint8_t*>(const_cast<char*>("key")), key_size);
 

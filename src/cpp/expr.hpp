@@ -28,29 +28,31 @@ limitations under the License.
 #include <vector>
 
 namespace ReQL {
-
+namespace _Internal {
+    
 class Expr {
 public:
   Expr(const Expr &other);
   Expr(Expr &&other);
 
-  ReQL_Obj_t *_data() const;
-  ReQL_Datum_t _type() const;
+  _C::ReQL_Obj_t *_data() const;
+  _C::ReQL_Datum_t _type() const;
   const ReQL &_internal() const;
 
 protected:
   Expr();
-  Expr(const ReQL_AST_Function &f, const std::vector<Query> &args);
-  Expr(const ReQL_AST_Function_Kwargs &f, const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);
-  explicit Expr(const std::string &val);
+  Expr(const _C::ReQL_AST_Function &f, const Types::array &args);
+  Expr(const _C::ReQL_AST_Function_Kwargs &f, const Types::array &args, const Types::object &kwargs);
+  explicit Expr(const Types::string &val);
   explicit Expr(const double &val);
   explicit Expr(const bool &val);
-  explicit Expr(const std::vector<Query> &val);
-  explicit Expr(const std::map<std::string, Query> &val);
+  explicit Expr(const Types::array &val);
+  explicit Expr(const Types::object &val);
 
   ReQL p_query;
 };
 
+}  // namespace _Internal
 }  // namespace ReQL
 
 #endif  // REQL_CPP_EXPR_HPP_

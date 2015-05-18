@@ -5,11 +5,12 @@
 #include "./test.hpp"
 
 using namespace ReQL;
+using namespace _C;
 
 TEST_CASE("c These tests test the type of command", "[c][ast]") {
 
   SECTION("test0") {
-    std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
+    ReQL_Obj_c var0;
     std::unique_ptr<uint8_t[]> buf0(new uint8_t[4]);
     const uint8_t src0[] = "NULL";
     reql_string_init(var0.get(), buf0.get(), 4);
@@ -17,7 +18,7 @@ TEST_CASE("c These tests test the type of command", "[c][ast]") {
   }
 
   SECTION("test1") {
-    std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
+    ReQL_Obj_c var0;
     std::unique_ptr<uint8_t[]> buf0(new uint8_t[4]);
     const uint8_t src0[] = "NULL";
     reql_string_init(var0.get(), buf0.get(), 4);

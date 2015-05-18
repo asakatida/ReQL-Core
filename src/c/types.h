@@ -18,39 +18,13 @@ limitations under the License.
  * @copyright Apache
  */
 
-#include "./cpp/wrapper.hpp"
+#ifndef REQL_C_TYPES_H_
+#define REQL_C_TYPES_H_
 
-#include "./cpp/error.hpp"
+#include <stdint.h>
 
-namespace ReQL {
+typedef uint8_t ReQL_Byte;
+typedef uint32_t ReQL_Size;
+typedef uint64_t ReQL_Token;
 
-Wrapper::Wrapper(_C::ReQL_Obj_t *obj) : _C::Types::object(obj) {
-  switch (reql_datum_type(obj)) {
-    case _C::REQL_R_ARRAY: {
-      break;
-    }
-    case _C::REQL_R_BOOL: {
-      break;
-    }
-    case _C::REQL_R_JSON: throw ReQLDriverError();
-    case _C::REQL_R_NULL: {
-      break;
-    }
-    case _C::REQL_R_NUM: {
-      break;
-    }
-    case _C::REQL_R_OBJECT: {
-      break;
-    }
-    case _C::REQL_R_REQL: {
-      break;
-    }
-    case _C::REQL_R_STR: {
-      break;
-    }
-  }
-}
-
-Wrapper::~Wrapper() {}
-
-}
+#endif  // REQL_C_TYPES_H_

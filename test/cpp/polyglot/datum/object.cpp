@@ -5,6 +5,7 @@
 #include "./test.hpp"
 
 using namespace ReQL;
+using namespace _C;
 
 TEST_CASE("cpp Tests conversion to and from the RQL object type", "[cpp][ast]") {
 
@@ -14,11 +15,31 @@ TEST_CASE("cpp Tests conversion to and from the RQL object type", "[cpp][ast]") 
   }
 
   SECTION("test1") {
-    Result var0;
+    std::map<std::string, Result> map0;
+
+    std::string src1("result", 6);
+    Result var1(src1);
+
+    std::string src2("blank", 5);
+    Result var2(src2);
+
+    map0.insert({src1, var2});
+
+    Result var0(map0);
   }
 
   SECTION("test2") {
-    Result var0;
+    std::map<std::string, Result> map0;
+
+    std::string src1("result", 6);
+    Result var1(src1);
+
+    std::string src2("blank", 5);
+    Result var2(src2);
+
+    map0.insert({src1, var2});
+
+    Result var0(map0);
   }
 
   SECTION("test3") {
@@ -158,7 +179,17 @@ TEST_CASE("cpp Tests conversion to and from the RQL object type", "[cpp][ast]") 
   }
 
   SECTION("test13") {
-    Result var0;
+    std::map<std::string, Result> map0;
+
+    std::string src1("result", 6);
+    Result var1(src1);
+
+    std::string src2("blank", 5);
+    Result var2(src2);
+
+    map0.insert({src1, var2});
+
+    Result var0(map0);
   }
 
   SECTION("test15") {

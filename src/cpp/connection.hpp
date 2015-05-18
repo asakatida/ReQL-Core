@@ -21,40 +21,26 @@ limitations under the License.
 #ifndef REQL_CPP_CONNECTION_HPP_
 #define REQL_CPP_CONNECTION_HPP_
 
-#include <map>
-#include <string>
-#include <vector>
+#include "./cpp/types.hpp"
 
 namespace ReQL {
-extern "C" {
 
-#include "./ReQL.h"
-
-}
-
-class Connection {
+class Connection : public _C::Types::connection {
 public:
   Connection();
-  explicit Connection(const std::string &host);
-  Connection(const std::string &host, const std::uint16_t &port);
-  Connection(const std::string &host, const std::uint16_t &port, const std::string &key);
+  explicit Connection(const Types::string &host);
+  Connection(const Types::string &host, const std::uint16_t &port);
+  Connection(const Types::string &host, const std::uint16_t &port, const Types::string &key);
 
-  explicit Connection(const Connection &other);
-  explicit Connection(Connection &&other);
+  Connection(Connection &&other);
 
-  Connection &operator=(const Connection &other);
   Connection &operator=(Connection &&other);
 
   ~Connection();
 
   bool isOpen() const;
 
-  ReQL_Conn_t *data() const;
-
   void close();
-
-private:
-  std::unique_ptr<ReQL_Conn_t> p_conn;
 };
 
 }  // namespace ReQL

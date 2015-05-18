@@ -5,11 +5,12 @@
 #include "./test.hpp"
 
 using namespace ReQL;
+using namespace _C;
 
 TEST_CASE("c Tests of nested arithmetic expressions", "[c][ast]") {
 
   SECTION("test0") {
-    std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
+    ReQL_Obj_c var0;
     reql_number_init(var0.get(), 1);
   }
 }
