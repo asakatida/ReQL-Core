@@ -38,10 +38,10 @@ extern "C" {
 
 namespace CTypes {
 
-typedef std::unique_ptr<ReQL_Byte> string;
+typedef std::unique_ptr<ReQL_Byte[]> string;
 typedef std::unique_ptr<ReQL_Obj_t> object;
-typedef std::unique_ptr<ReQL_Obj_t*> array;
-typedef std::unique_ptr<ReQL_Pair_t> pairs;
+typedef std::unique_ptr<ReQL_Obj_t*[]> array;
+typedef std::unique_ptr<ReQL_Pair_t[]> pairs;
 typedef std::unique_ptr<ReQL_Conn_t> connection;
 typedef std::unique_ptr<ReQL_Cur_t> cursor;
 
