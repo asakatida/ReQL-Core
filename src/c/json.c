@@ -212,6 +212,10 @@ reql_iter_next(ReQL_Iter_t *obj) {
       return NULL;
     }
     ++obj->idx;
+
+    if (next == NULL) {
+      return reql_iter_next(obj);
+    }
   }
 
   return next;
