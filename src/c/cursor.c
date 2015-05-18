@@ -201,22 +201,21 @@ reql_close_cur_(ReQL_Cur_t *cur) {
     cur->conn = NULL;
     pthread_cond_broadcast(cur->condition.next);
     pthread_cond_broadcast(cur->condition.done);
-    reql_cursor_mutex_destroy(cur);
   }
+  reql_cursor_mutex_destroy(cur);
 }
 
 extern void
 reql_close_cur(ReQL_Cur_t *cur) {
-  pthread_mutex_lock(cur->condition.mutex);
+  reql_cursor_lock(cur);
   reql_close_cur_(cur);
-  pthread_mutex_unlock(cur->condition.mutex);
 }
 
 extern char
-reql_cur_open(const ReQL_Cur_t *cur) {
-  pthread_mutex_lock(cur->condition.mutex);
+reql_cur_open(ReQL_Cur_t *cur) {
+  reql_cursor_lock(cur);
   const char open = reql_cursor_done(cur) == 0 && reql_cursor_conn(cur) != NULL;
-  pthread_mutex_unlock(cur->condition.mutex);
+  reql_cursor_unlock(cur);
   return open;
 }
 
@@ -230,7 +229,7 @@ reql_cursor_init(ReQL_Cur_t *cur, ReQL_Token token) {
 
 extern ReQL_Obj_t *
 reql_cursor_next(ReQL_Cur_t *cur) {
-  pthread_mutex_lock(cur->condition.mutex);
+  reql_cursor_lock(cur);
   ReQL_Obj_t *res = NULL;
   if (reql_cursor_response_wait(cur) != 0) {
     res = reql_cursor_response(cur);
@@ -259,28 +258,36 @@ reql_cursor_next(ReQL_Cur_t *cur) {
       }
     }
   }
-  pthread_mutex_unlock(cur->condition.mutex);
+  reql_cursor_unlock(cur);
   return res;
 }
 
 extern void
 reql_cursor_each(ReQL_Cur_t *cur, ReQL_Each_Function cb) {
-  pthread_mutex_lock(cur->condition.mutex);
+  reql_cursor_lock(cur);
   cur->cb = cb;
-  pthread_mutex_unlock(cur->condition.mutex);
+  reql_cursor_unlock(cur);
 }
 
 extern void
 reql_cur_drain(ReQL_Cur_t *cur) {
-  reql_cursor_each(cur, ^(ReQL_Obj_t *res) { (void)res; return 0; });
+  reql_cursor_lock(cur);
+  if (cur->cb == NULL) {
+    cur->cb = ^(ReQL_Obj_t *res) { (void)res; return 0; };
+  }
+  pthread_cond_wait(cur->condition.done, cur->condition.mutex);
 }
 
 extern ReQL_Obj_t *
 reql_cursor_to_array(ReQL_Cur_t *cur) {
   ReQL_Obj_t *array = malloc(sizeof(ReQL_Obj_t));
-  reql_cursor_each(cur, ^(ReQL_Obj_t *res) {
+  ReQL_Obj_t **arr = malloc(sizeof(ReQL_Obj_t *) * 20);
+  reql_array_init(array, arr, 20);
+  reql_cursor_lock(cur);
+  cur->cb = ^(ReQL_Obj_t *res) {
     reql_array_append(array, res);
     return 0;
-  });
+  };
+  pthread_cond_wait(cur->condition.done, cur->condition.mutex);
   return array;
 }
