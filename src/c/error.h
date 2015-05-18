@@ -18,14 +18,27 @@ limitations under the License.
  * @copyright Apache
  */
 
-#ifndef REQL_H_
-#define REQL_H_
+#ifndef REQL_C_ERROR_H_
+#define REQL_C_ERROR_H_
 
-#include "./c/json.h"
 #include "./c/error.h"
-#include "./c/expr.h"
-#include "./c/ast.h"
-#include "./c/cursor.h"
-#include "./c/connection.h"
 
-#endif  // REQL_H_
+typedef enum {
+  REQL_E_NO,
+  REQL_E_CONNECTION,
+  REQL_E_CURSOR,
+  REQL_E_DECODE,
+  REQL_E_ENCODE,
+  REQL_E_JSON
+} ReQL_Error_Type_t;
+
+extern const char *
+reql_error_msg(void);
+
+extern const char *
+reql_error_trace(void);
+
+extern ReQL_Error_Type_t
+reql_error_type(void);
+
+#endif  // REQL_CV_ERROR_H_

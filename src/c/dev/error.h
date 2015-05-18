@@ -21,23 +21,7 @@ limitations under the License.
 #ifndef REQL_C_DEV_ERROR_H_
 #define REQL_C_DEV_ERROR_H_
 
-typedef enum {
-  REQL_E_NO,
-  REQL_E_CONNECTION,
-  REQL_E_CURSOR,
-  REQL_E_DECODE,
-  REQL_E_ENCODE,
-  REQL_E_JSON
-} ReQL_Error_Type_t;
-
-extern const char *
-reql_error_msg(void);
-
-extern const char *
-reql_error_trace(void);
-
-extern ReQL_Error_Type_t
-reql_error_type(void);
+#include "./c/error.h"
 
 extern void
 reql_error_init(ReQL_Error_Type_t err, const char *msg, const char *trace);
