@@ -147,7 +147,12 @@ reql_conn_lock(ReQL_Conn_t *conn) {
 
 static void
 reql_conn_unlock(ReQL_Conn_t *conn) {
-  reql_connection_mutex_init(conn);
+  if (conn == NULL) {
+    return;
+  }
+  if (conn->condition.mutex == NULL) {
+    return;
+  }
   pthread_mutex_unlock(conn->condition.mutex);
 }
 

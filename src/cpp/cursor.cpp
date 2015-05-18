@@ -127,7 +127,7 @@ Cursor::operator=(Cursor &&other) {
 }
 
 Cursor::~Cursor() {
-  close();
+  reql_cursor_destroy(get());
 }
 
 bool Cursor::isOpen() const {

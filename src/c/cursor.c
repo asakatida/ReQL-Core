@@ -131,7 +131,12 @@ reql_cursor_lock(ReQL_Cur_t *cur) {
 
 static void
 reql_cursor_unlock(ReQL_Cur_t *cur) {
-  reql_cursor_mutex_init(cur);
+  if (cur == NULL) {
+    return;
+  }
+  if (cur->condition.mutex == NULL) {
+    return;
+  }
   pthread_mutex_unlock(cur->condition.mutex);
 }
 
@@ -183,32 +188,40 @@ reql_cursor_response_wait(ReQL_Cur_t *cur) {
 static void
 reql_close_cur_(ReQL_Cur_t *cur) {
   if (reql_cur_open(cur) != 0) {
-    if (cur->response != NULL) {
-      reql_json_destroy(cur->response);
-      cur->response = NULL;
-    }
     cur->done = 1;
     ReQL_Cur_t *prev = cur->prev;
+    if (prev == cur) {
+      prev = NULL;
+    }
     ReQL_Cur_t *next = cur->next;
-    if (next == cur && prev == cur) {
+    if (next == cur) {
+      next = NULL;
+    }
+    if (next == NULL && prev == NULL) {
       if (cur->conn != NULL) {
         cur->conn->cursors = NULL;
       }
     } else {
-      prev->next = next == cur ? prev : next;
-      next->prev = prev == cur ? next : prev;
+      if (prev == NULL) {
+        next->prev = next;
+      } else if (next == NULL) {
+        prev->next = prev;
+      } else {
+        next->prev = NULL;
+        prev->next = NULL;
+      }
     }
     cur->conn = NULL;
     pthread_cond_broadcast(cur->condition.next);
     pthread_cond_broadcast(cur->condition.done);
   }
-  reql_cursor_mutex_destroy(cur);
 }
 
 extern void
 reql_close_cur(ReQL_Cur_t *cur) {
   reql_cursor_lock(cur);
   reql_close_cur_(cur);
+  reql_cursor_unlock(cur);
 }
 
 extern char
@@ -224,6 +237,16 @@ reql_cursor_init(ReQL_Cur_t *cur, ReQL_Token token) {
   memset(cur, (int)NULL, sizeof(ReQL_Cur_t));
   reql_cursor_lock(cur);
   cur->token = token;
+  reql_cursor_unlock(cur);
+}
+
+extern void
+reql_cursor_destroy(ReQL_Cur_t *cur) {
+  reql_close_cur(cur);
+  reql_cursor_lock(cur);
+  reql_json_destroy(cur->response);
+  cur->response = NULL;
+  reql_cursor_mutex_destroy(cur);
   reql_cursor_unlock(cur);
 }
 
