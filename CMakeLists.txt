@@ -17,9 +17,8 @@ set(SOURCES
  src/cpp/error.cpp
  src/cpp/expr.cpp
  src/cpp/new.cpp
+ src/cpp/parser.cpp
  src/cpp/query.cpp
- src/cpp/result.cpp
- src/cpp/wrapper.cpp
  test/c/polyglot/datum/array.cpp
  test/c/polyglot/datum/binary.cpp
  test/c/polyglot/datum/bool.cpp
@@ -260,9 +259,8 @@ set(MOC_HEADERS
  src/cpp/error.hpp
  src/cpp/expr.hpp
  src/cpp/new.hpp
+ src/cpp/parser.hpp
  src/cpp/query.hpp
- src/cpp/result.hpp
- src/cpp/wrapper.hpp
  src/ReQL.h
  src/ReQL.hpp
  test/catch.hpp
