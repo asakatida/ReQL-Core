@@ -11,17 +11,17 @@ TEST_CASE("c Tests of converstion to and from the RQL binary type", "[c][ast]") 
 
   SECTION("test1") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
+    _C::CTypes::string buf1(new uint8_t[4]);
     const uint8_t src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[1]);
+    _C::CTypes::string buf2(new uint8_t[1]);
     const uint8_t src2[] = "s";
     reql_string_init(var2.get(), buf2.get(), 1);
     reql_string_append(var2.get(), src2, 1);
@@ -36,17 +36,17 @@ TEST_CASE("c Tests of converstion to and from the RQL binary type", "[c][ast]") 
 
   SECTION("test4") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
+    _C::CTypes::string buf1(new uint8_t[4]);
     const uint8_t src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[1]);
+    _C::CTypes::string buf2(new uint8_t[1]);
     const uint8_t src2[] = "s";
     reql_string_init(var2.get(), buf2.get(), 1);
     reql_string_append(var2.get(), src2, 1);
@@ -61,17 +61,17 @@ TEST_CASE("c Tests of converstion to and from the RQL binary type", "[c][ast]") 
 
   SECTION("test7") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
+    _C::CTypes::string buf1(new uint8_t[4]);
     const uint8_t src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[1]);
+    _C::CTypes::string buf2(new uint8_t[1]);
     const uint8_t src2[] = "s";
     reql_string_init(var2.get(), buf2.get(), 1);
     reql_string_append(var2.get(), src2, 1);
@@ -86,17 +86,17 @@ TEST_CASE("c Tests of converstion to and from the RQL binary type", "[c][ast]") 
 
   SECTION("test10") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
+    _C::CTypes::string buf1(new uint8_t[4]);
     const uint8_t src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[1]);
+    _C::CTypes::string buf2(new uint8_t[1]);
     const uint8_t src2[] = "s";
     reql_string_init(var2.get(), buf2.get(), 1);
     reql_string_append(var2.get(), src2, 1);
@@ -111,17 +111,17 @@ TEST_CASE("c Tests of converstion to and from the RQL binary type", "[c][ast]") 
 
   SECTION("test13") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
+    _C::CTypes::string buf1(new uint8_t[4]);
     const uint8_t src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[1]);
+    _C::CTypes::string buf2(new uint8_t[1]);
     const uint8_t src2[] = "s";
     reql_string_init(var2.get(), buf2.get(), 1);
     reql_string_append(var2.get(), src2, 1);
@@ -136,17 +136,17 @@ TEST_CASE("c Tests of converstion to and from the RQL binary type", "[c][ast]") 
 
   SECTION("test16") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
+    _C::CTypes::string buf1(new uint8_t[4]);
     const uint8_t src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[1]);
+    _C::CTypes::string buf2(new uint8_t[1]);
     const uint8_t src2[] = "s";
     reql_string_init(var2.get(), buf2.get(), 1);
     reql_string_append(var2.get(), src2, 1);
@@ -161,17 +161,17 @@ TEST_CASE("c Tests of converstion to and from the RQL binary type", "[c][ast]") 
 
   SECTION("test19") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
+    _C::CTypes::string buf1(new uint8_t[4]);
     const uint8_t src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[1]);
+    _C::CTypes::string buf2(new uint8_t[1]);
     const uint8_t src2[] = "s";
     reql_string_init(var2.get(), buf2.get(), 1);
     reql_string_append(var2.get(), src2, 1);
@@ -186,17 +186,17 @@ TEST_CASE("c Tests of converstion to and from the RQL binary type", "[c][ast]") 
 
   SECTION("test22") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
+    _C::CTypes::string buf1(new uint8_t[4]);
     const uint8_t src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[1]);
+    _C::CTypes::string buf2(new uint8_t[1]);
     const uint8_t src2[] = "s";
     reql_string_init(var2.get(), buf2.get(), 1);
     reql_string_append(var2.get(), src2, 1);
@@ -211,17 +211,17 @@ TEST_CASE("c Tests of converstion to and from the RQL binary type", "[c][ast]") 
 
   SECTION("test25") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
+    _C::CTypes::string buf1(new uint8_t[4]);
     const uint8_t src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[1]);
+    _C::CTypes::string buf2(new uint8_t[1]);
     const uint8_t src2[] = "s";
     reql_string_init(var2.get(), buf2.get(), 1);
     reql_string_append(var2.get(), src2, 1);
@@ -236,17 +236,17 @@ TEST_CASE("c Tests of converstion to and from the RQL binary type", "[c][ast]") 
 
   SECTION("test28") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
+    _C::CTypes::string buf1(new uint8_t[4]);
     const uint8_t src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[1]);
+    _C::CTypes::string buf2(new uint8_t[1]);
     const uint8_t src2[] = "s";
     reql_string_init(var2.get(), buf2.get(), 1);
     reql_string_append(var2.get(), src2, 1);
@@ -261,17 +261,17 @@ TEST_CASE("c Tests of converstion to and from the RQL binary type", "[c][ast]") 
 
   SECTION("test31") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
+    _C::CTypes::string buf1(new uint8_t[4]);
     const uint8_t src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[1]);
+    _C::CTypes::string buf2(new uint8_t[1]);
     const uint8_t src2[] = "s";
     reql_string_init(var2.get(), buf2.get(), 1);
     reql_string_append(var2.get(), src2, 1);
@@ -286,17 +286,17 @@ TEST_CASE("c Tests of converstion to and from the RQL binary type", "[c][ast]") 
 
   SECTION("test34") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
+    _C::CTypes::string buf1(new uint8_t[4]);
     const uint8_t src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[1]);
+    _C::CTypes::string buf2(new uint8_t[1]);
     const uint8_t src2[] = "s";
     reql_string_init(var2.get(), buf2.get(), 1);
     reql_string_append(var2.get(), src2, 1);
@@ -311,17 +311,17 @@ TEST_CASE("c Tests of converstion to and from the RQL binary type", "[c][ast]") 
 
   SECTION("test37") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
+    _C::CTypes::string buf1(new uint8_t[4]);
     const uint8_t src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[1]);
+    _C::CTypes::string buf2(new uint8_t[1]);
     const uint8_t src2[] = "s";
     reql_string_init(var2.get(), buf2.get(), 1);
     reql_string_append(var2.get(), src2, 1);
@@ -546,17 +546,17 @@ TEST_CASE("c Tests of converstion to and from the RQL binary type", "[c][ast]") 
 
   SECTION("test87") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[6]);
+    _C::CTypes::string buf1(new uint8_t[6]);
     const uint8_t src1[] = "result";
     reql_string_init(var1.get(), buf1.get(), 6);
     reql_string_append(var1.get(), src1, 6);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[5]);
+    _C::CTypes::string buf2(new uint8_t[5]);
     const uint8_t src2[] = "blank";
     reql_string_init(var2.get(), buf2.get(), 5);
     reql_string_append(var2.get(), src2, 5);
@@ -566,17 +566,17 @@ TEST_CASE("c Tests of converstion to and from the RQL binary type", "[c][ast]") 
 
   SECTION("test88") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[6]);
+    _C::CTypes::string buf1(new uint8_t[6]);
     const uint8_t src1[] = "result";
     reql_string_init(var1.get(), buf1.get(), 6);
     reql_string_append(var1.get(), src1, 6);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[5]);
+    _C::CTypes::string buf2(new uint8_t[5]);
     const uint8_t src2[] = "blank";
     reql_string_init(var2.get(), buf2.get(), 5);
     reql_string_append(var2.get(), src2, 5);
@@ -586,17 +586,17 @@ TEST_CASE("c Tests of converstion to and from the RQL binary type", "[c][ast]") 
 
   SECTION("test89") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[6]);
+    _C::CTypes::string buf1(new uint8_t[6]);
     const uint8_t src1[] = "result";
     reql_string_init(var1.get(), buf1.get(), 6);
     reql_string_append(var1.get(), src1, 6);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[5]);
+    _C::CTypes::string buf2(new uint8_t[5]);
     const uint8_t src2[] = "blank";
     reql_string_init(var2.get(), buf2.get(), 5);
     reql_string_append(var2.get(), src2, 5);
@@ -606,7 +606,7 @@ TEST_CASE("c Tests of converstion to and from the RQL binary type", "[c][ast]") 
 
   SECTION("test90") {
     ReQL_Obj_c var0;
-    std::unique_ptr<uint8_t[]> buf0(new uint8_t[3]);
+    _C::CTypes::string buf0(new uint8_t[3]);
     const uint8_t src0[] = "foo";
     reql_string_init(var0.get(), buf0.get(), 3);
     reql_string_append(var0.get(), src0, 3);
@@ -614,17 +614,17 @@ TEST_CASE("c Tests of converstion to and from the RQL binary type", "[c][ast]") 
 
   SECTION("test91") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[6]);
+    _C::CTypes::string buf1(new uint8_t[6]);
     const uint8_t src1[] = "result";
     reql_string_init(var1.get(), buf1.get(), 6);
     reql_string_append(var1.get(), src1, 6);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[5]);
+    _C::CTypes::string buf2(new uint8_t[5]);
     const uint8_t src2[] = "blank";
     reql_string_init(var2.get(), buf2.get(), 5);
     reql_string_append(var2.get(), src2, 5);
@@ -634,17 +634,17 @@ TEST_CASE("c Tests of converstion to and from the RQL binary type", "[c][ast]") 
 
   SECTION("test92") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[6]);
+    _C::CTypes::string buf1(new uint8_t[6]);
     const uint8_t src1[] = "result";
     reql_string_init(var1.get(), buf1.get(), 6);
     reql_string_append(var1.get(), src1, 6);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[5]);
+    _C::CTypes::string buf2(new uint8_t[5]);
     const uint8_t src2[] = "blank";
     reql_string_init(var2.get(), buf2.get(), 5);
     reql_string_append(var2.get(), src2, 5);
@@ -654,7 +654,7 @@ TEST_CASE("c Tests of converstion to and from the RQL binary type", "[c][ast]") 
 
   SECTION("test93") {
     ReQL_Obj_c var0;
-    std::unique_ptr<uint8_t[]> buf0(new uint8_t[3]);
+    _C::CTypes::string buf0(new uint8_t[3]);
     const uint8_t src0[] = "foo";
     reql_string_init(var0.get(), buf0.get(), 3);
     reql_string_append(var0.get(), src0, 3);
@@ -662,7 +662,7 @@ TEST_CASE("c Tests of converstion to and from the RQL binary type", "[c][ast]") 
 
   SECTION("test94") {
     ReQL_Obj_c var0;
-    std::unique_ptr<uint8_t[]> buf0(new uint8_t[3]);
+    _C::CTypes::string buf0(new uint8_t[3]);
     const uint8_t src0[] = "foo";
     reql_string_init(var0.get(), buf0.get(), 3);
     reql_string_append(var0.get(), src0, 3);
@@ -670,7 +670,7 @@ TEST_CASE("c Tests of converstion to and from the RQL binary type", "[c][ast]") 
 
   SECTION("test95") {
     ReQL_Obj_c var0;
-    std::unique_ptr<uint8_t[]> buf0(new uint8_t[2]);
+    _C::CTypes::string buf0(new uint8_t[2]);
     const uint8_t src0[] = "ef";
     reql_string_init(var0.get(), buf0.get(), 2);
     reql_string_append(var0.get(), src0, 2);
@@ -678,7 +678,7 @@ TEST_CASE("c Tests of converstion to and from the RQL binary type", "[c][ast]") 
 
   SECTION("test96") {
     ReQL_Obj_c var0;
-    std::unique_ptr<uint8_t[]> buf0(new uint8_t[2]);
+    _C::CTypes::string buf0(new uint8_t[2]);
     const uint8_t src0[] = "ab";
     reql_string_init(var0.get(), buf0.get(), 2);
     reql_string_append(var0.get(), src0, 2);
@@ -686,7 +686,7 @@ TEST_CASE("c Tests of converstion to and from the RQL binary type", "[c][ast]") 
 
   SECTION("test97") {
     ReQL_Obj_c var0;
-    std::unique_ptr<uint8_t[]> buf0(new uint8_t[3]);
+    _C::CTypes::string buf0(new uint8_t[3]);
     const uint8_t src0[] = "def";
     reql_string_init(var0.get(), buf0.get(), 3);
     reql_string_append(var0.get(), src0, 3);
@@ -694,7 +694,7 @@ TEST_CASE("c Tests of converstion to and from the RQL binary type", "[c][ast]") 
 
   SECTION("test98") {
     ReQL_Obj_c var0;
-    std::unique_ptr<uint8_t[]> buf0(new uint8_t[3]);
+    _C::CTypes::string buf0(new uint8_t[3]);
     const uint8_t src0[] = "cde";
     reql_string_init(var0.get(), buf0.get(), 3);
     reql_string_append(var0.get(), src0, 3);
@@ -702,7 +702,7 @@ TEST_CASE("c Tests of converstion to and from the RQL binary type", "[c][ast]") 
 
   SECTION("test99") {
     ReQL_Obj_c var0;
-    std::unique_ptr<uint8_t[]> buf0(new uint8_t[2]);
+    _C::CTypes::string buf0(new uint8_t[2]);
     const uint8_t src0[] = "ab";
     reql_string_init(var0.get(), buf0.get(), 2);
     reql_string_append(var0.get(), src0, 2);
@@ -710,7 +710,7 @@ TEST_CASE("c Tests of converstion to and from the RQL binary type", "[c][ast]") 
 
   SECTION("test100") {
     ReQL_Obj_c var0;
-    std::unique_ptr<uint8_t[]> buf0(new uint8_t[2]);
+    _C::CTypes::string buf0(new uint8_t[2]);
     const uint8_t src0[] = "fg";
     reql_string_init(var0.get(), buf0.get(), 2);
     reql_string_append(var0.get(), src0, 2);
@@ -718,7 +718,7 @@ TEST_CASE("c Tests of converstion to and from the RQL binary type", "[c][ast]") 
 
   SECTION("test101") {
     ReQL_Obj_c var0;
-    std::unique_ptr<uint8_t[]> buf0(new uint8_t[2]);
+    _C::CTypes::string buf0(new uint8_t[2]);
     const uint8_t src0[] = "ab";
     reql_string_init(var0.get(), buf0.get(), 2);
     reql_string_append(var0.get(), src0, 2);
@@ -726,7 +726,7 @@ TEST_CASE("c Tests of converstion to and from the RQL binary type", "[c][ast]") 
 
   SECTION("test102") {
     ReQL_Obj_c var0;
-    std::unique_ptr<uint8_t[]> buf0(new uint8_t[2]);
+    _C::CTypes::string buf0(new uint8_t[2]);
     const uint8_t src0[] = "fg";
     reql_string_init(var0.get(), buf0.get(), 2);
     reql_string_append(var0.get(), src0, 2);
@@ -734,17 +734,17 @@ TEST_CASE("c Tests of converstion to and from the RQL binary type", "[c][ast]") 
 
   SECTION("test103") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
+    _C::CTypes::string buf1(new uint8_t[4]);
     const uint8_t src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[1]);
+    _C::CTypes::string buf2(new uint8_t[1]);
     const uint8_t src2[] = "b";
     reql_string_init(var2.get(), buf2.get(), 1);
     reql_string_append(var2.get(), src2, 1);
@@ -754,17 +754,17 @@ TEST_CASE("c Tests of converstion to and from the RQL binary type", "[c][ast]") 
 
   SECTION("test104") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[2]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[2]);
     reql_object_init(var0.get(), pair0.get(), 2);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[11]);
+    _C::CTypes::string buf1(new uint8_t[11]);
     const uint8_t src1[] = "$reql_type$";
     reql_string_init(var1.get(), buf1.get(), 11);
     reql_string_append(var1.get(), src1, 11);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[6]);
+    _C::CTypes::string buf2(new uint8_t[6]);
     const uint8_t src2[] = "BINARY";
     reql_string_init(var2.get(), buf2.get(), 6);
     reql_string_append(var2.get(), src2, 6);
@@ -772,13 +772,13 @@ TEST_CASE("c Tests of converstion to and from the RQL binary type", "[c][ast]") 
     reql_object_add(var0.get(), var1.get(), var2.get());
 
     ReQL_Obj_c var3;
-    std::unique_ptr<uint8_t[]> buf3(new uint8_t[4]);
+    _C::CTypes::string buf3(new uint8_t[4]);
     const uint8_t src3[] = "data";
     reql_string_init(var3.get(), buf3.get(), 4);
     reql_string_append(var3.get(), src3, 4);
 
     ReQL_Obj_c var4;
-    std::unique_ptr<uint8_t[]> buf4(new uint8_t[4]);
+    _C::CTypes::string buf4(new uint8_t[4]);
     const uint8_t src4[] = "AAE=";
     reql_string_init(var4.get(), buf4.get(), 4);
     reql_string_append(var4.get(), src4, 4);
@@ -788,17 +788,17 @@ TEST_CASE("c Tests of converstion to and from the RQL binary type", "[c][ast]") 
 
   SECTION("test105") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
+    _C::CTypes::string buf1(new uint8_t[4]);
     const uint8_t src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[6]);
+    _C::CTypes::string buf2(new uint8_t[6]);
     const uint8_t src2[] = "Buffer";
     reql_string_init(var2.get(), buf2.get(), 6);
     reql_string_append(var2.get(), src2, 6);
@@ -808,17 +808,17 @@ TEST_CASE("c Tests of converstion to and from the RQL binary type", "[c][ast]") 
 
   SECTION("test106") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
+    _C::CTypes::string buf1(new uint8_t[4]);
     const uint8_t src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
+    _C::CTypes::string buf2(new uint8_t[3]);
     const uint8_t src2[] = "err";
     reql_string_init(var2.get(), buf2.get(), 3);
     reql_string_append(var2.get(), src2, 3);
@@ -828,17 +828,17 @@ TEST_CASE("c Tests of converstion to and from the RQL binary type", "[c][ast]") 
 
   SECTION("test107") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
+    _C::CTypes::string buf1(new uint8_t[4]);
     const uint8_t src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
+    _C::CTypes::string buf2(new uint8_t[3]);
     const uint8_t src2[] = "err";
     reql_string_init(var2.get(), buf2.get(), 3);
     reql_string_append(var2.get(), src2, 3);
@@ -848,17 +848,17 @@ TEST_CASE("c Tests of converstion to and from the RQL binary type", "[c][ast]") 
 
   SECTION("test108") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
+    _C::CTypes::string buf1(new uint8_t[4]);
     const uint8_t src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
+    _C::CTypes::string buf2(new uint8_t[3]);
     const uint8_t src2[] = "err";
     reql_string_init(var2.get(), buf2.get(), 3);
     reql_string_append(var2.get(), src2, 3);
@@ -868,17 +868,17 @@ TEST_CASE("c Tests of converstion to and from the RQL binary type", "[c][ast]") 
 
   SECTION("test109") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
+    _C::CTypes::string buf1(new uint8_t[4]);
     const uint8_t src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
+    _C::CTypes::string buf2(new uint8_t[3]);
     const uint8_t src2[] = "err";
     reql_string_init(var2.get(), buf2.get(), 3);
     reql_string_append(var2.get(), src2, 3);
@@ -888,17 +888,17 @@ TEST_CASE("c Tests of converstion to and from the RQL binary type", "[c][ast]") 
 
   SECTION("test110") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
+    _C::CTypes::string buf1(new uint8_t[4]);
     const uint8_t src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
+    _C::CTypes::string buf2(new uint8_t[3]);
     const uint8_t src2[] = "err";
     reql_string_init(var2.get(), buf2.get(), 3);
     reql_string_append(var2.get(), src2, 3);
@@ -908,17 +908,17 @@ TEST_CASE("c Tests of converstion to and from the RQL binary type", "[c][ast]") 
 
   SECTION("test111") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
+    _C::CTypes::string buf1(new uint8_t[4]);
     const uint8_t src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
+    _C::CTypes::string buf2(new uint8_t[3]);
     const uint8_t src2[] = "err";
     reql_string_init(var2.get(), buf2.get(), 3);
     reql_string_append(var2.get(), src2, 3);
@@ -928,17 +928,17 @@ TEST_CASE("c Tests of converstion to and from the RQL binary type", "[c][ast]") 
 
   SECTION("test112") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
+    _C::CTypes::string buf1(new uint8_t[4]);
     const uint8_t src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
+    _C::CTypes::string buf2(new uint8_t[3]);
     const uint8_t src2[] = "err";
     reql_string_init(var2.get(), buf2.get(), 3);
     reql_string_append(var2.get(), src2, 3);
@@ -948,17 +948,17 @@ TEST_CASE("c Tests of converstion to and from the RQL binary type", "[c][ast]") 
 
   SECTION("test113") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
+    _C::CTypes::string buf1(new uint8_t[4]);
     const uint8_t src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
+    _C::CTypes::string buf2(new uint8_t[3]);
     const uint8_t src2[] = "err";
     reql_string_init(var2.get(), buf2.get(), 3);
     reql_string_append(var2.get(), src2, 3);
@@ -968,17 +968,17 @@ TEST_CASE("c Tests of converstion to and from the RQL binary type", "[c][ast]") 
 
   SECTION("test114") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
+    _C::CTypes::string buf1(new uint8_t[4]);
     const uint8_t src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
+    _C::CTypes::string buf2(new uint8_t[3]);
     const uint8_t src2[] = "err";
     reql_string_init(var2.get(), buf2.get(), 3);
     reql_string_append(var2.get(), src2, 3);
@@ -988,17 +988,17 @@ TEST_CASE("c Tests of converstion to and from the RQL binary type", "[c][ast]") 
 
   SECTION("test115") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
+    _C::CTypes::string buf1(new uint8_t[4]);
     const uint8_t src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
+    _C::CTypes::string buf2(new uint8_t[3]);
     const uint8_t src2[] = "err";
     reql_string_init(var2.get(), buf2.get(), 3);
     reql_string_append(var2.get(), src2, 3);
@@ -1008,17 +1008,17 @@ TEST_CASE("c Tests of converstion to and from the RQL binary type", "[c][ast]") 
 
   SECTION("test116") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
+    _C::CTypes::string buf1(new uint8_t[4]);
     const uint8_t src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
+    _C::CTypes::string buf2(new uint8_t[3]);
     const uint8_t src2[] = "err";
     reql_string_init(var2.get(), buf2.get(), 3);
     reql_string_append(var2.get(), src2, 3);
@@ -1028,17 +1028,17 @@ TEST_CASE("c Tests of converstion to and from the RQL binary type", "[c][ast]") 
 
   SECTION("test117") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
+    _C::CTypes::string buf1(new uint8_t[4]);
     const uint8_t src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
+    _C::CTypes::string buf2(new uint8_t[3]);
     const uint8_t src2[] = "err";
     reql_string_init(var2.get(), buf2.get(), 3);
     reql_string_append(var2.get(), src2, 3);

@@ -17,7 +17,7 @@ extern "C" {
 
 using namespace _C;
 
-ReQL_Conn_c::ReQL_Conn_c() : std::unique_ptr<ReQL_Conn_t>(new ReQL_Conn_t) {
+ReQL_Conn_c::ReQL_Conn_c() : _C::CTypes::connection(new ReQL_Conn_t) {
   reql_connection_init(get());
 
   REQUIRE(reql_conn_open(get()) == 0);
@@ -33,11 +33,11 @@ ReQL_Conn_c::~ReQL_Conn_c() {
   REQUIRE(reql_conn_open(get()) == 0);
 }
 
-ReQL_Cur_c::ReQL_Cur_c() : std::unique_ptr<ReQL_Cur_t>(new ReQL_Cur_t) {}
+ReQL_Cur_c::ReQL_Cur_c() : _C::CTypes::cursor(new ReQL_Cur_t) {}
 
 ReQL_Cur_c::~ReQL_Cur_c() {}
 
-ReQL_Obj_c::ReQL_Obj_c() : std::unique_ptr<ReQL_Obj_t>(new ReQL_Obj_t) {}
+ReQL_Obj_c::ReQL_Obj_c() : _C::CTypes::object(new ReQL_Obj_t) {}
 
 ReQL_Obj_c::~ReQL_Obj_c() {}
 

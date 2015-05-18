@@ -11,17 +11,17 @@ TEST_CASE("c Test changefeeds on a table", "[c][ast]") {
 
   SECTION("test0") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[6]);
+    _C::CTypes::string buf1(new uint8_t[6]);
     const uint8_t src1[] = "result";
     reql_string_init(var1.get(), buf1.get(), 6);
     reql_string_append(var1.get(), src1, 6);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[5]);
+    _C::CTypes::string buf2(new uint8_t[5]);
     const uint8_t src2[] = "blank";
     reql_string_init(var2.get(), buf2.get(), 5);
     reql_string_append(var2.get(), src2, 5);
@@ -31,17 +31,17 @@ TEST_CASE("c Test changefeeds on a table", "[c][ast]") {
 
   SECTION("test1") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
+    _C::CTypes::string buf1(new uint8_t[4]);
     const uint8_t src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[7]);
+    _C::CTypes::string buf2(new uint8_t[7]);
     const uint8_t src2[] = "partial";
     reql_string_init(var2.get(), buf2.get(), 7);
     reql_string_append(var2.get(), src2, 7);
@@ -51,17 +51,17 @@ TEST_CASE("c Test changefeeds on a table", "[c][ast]") {
 
   SECTION("test2") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
+    _C::CTypes::string buf1(new uint8_t[4]);
     const uint8_t src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
+    _C::CTypes::string buf2(new uint8_t[3]);
     const uint8_t src2[] = "bag";
     reql_string_init(var2.get(), buf2.get(), 3);
     reql_string_append(var2.get(), src2, 3);
@@ -71,17 +71,17 @@ TEST_CASE("c Test changefeeds on a table", "[c][ast]") {
 
   SECTION("test3") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
+    _C::CTypes::string buf1(new uint8_t[4]);
     const uint8_t src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[7]);
+    _C::CTypes::string buf2(new uint8_t[7]);
     const uint8_t src2[] = "partial";
     reql_string_init(var2.get(), buf2.get(), 7);
     reql_string_append(var2.get(), src2, 7);
@@ -91,25 +91,25 @@ TEST_CASE("c Test changefeeds on a table", "[c][ast]") {
 
   SECTION("test4") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[1]);
+    _C::CTypes::array arr0(new ReQL_Obj_t*[1]);
     reql_array_init(var0.get(), arr0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<ReQL_Pair_t[]> pair1(new ReQL_Pair_t[2]);
+    _C::CTypes::pairs pair1(new ReQL_Pair_t[2]);
     reql_object_init(var1.get(), pair1.get(), 2);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[7]);
+    _C::CTypes::string buf2(new uint8_t[7]);
     const uint8_t src2[] = "new_val";
     reql_string_init(var2.get(), buf2.get(), 7);
     reql_string_append(var2.get(), src2, 7);
 
     ReQL_Obj_c var3;
-    std::unique_ptr<ReQL_Pair_t[]> pair3(new ReQL_Pair_t[2]);
+    _C::CTypes::pairs pair3(new ReQL_Pair_t[2]);
     reql_object_init(var3.get(), pair3.get(), 2);
 
     ReQL_Obj_c var4;
-    std::unique_ptr<uint8_t[]> buf4(new uint8_t[2]);
+    _C::CTypes::string buf4(new uint8_t[2]);
     const uint8_t src4[] = "id";
     reql_string_init(var4.get(), buf4.get(), 2);
     reql_string_append(var4.get(), src4, 2);
@@ -120,7 +120,7 @@ TEST_CASE("c Test changefeeds on a table", "[c][ast]") {
     reql_object_add(var3.get(), var4.get(), var5.get());
 
     ReQL_Obj_c var6;
-    std::unique_ptr<uint8_t[]> buf6(new uint8_t[7]);
+    _C::CTypes::string buf6(new uint8_t[7]);
     const uint8_t src6[] = "version";
     reql_string_init(var6.get(), buf6.get(), 7);
     reql_string_append(var6.get(), src6, 7);
@@ -133,17 +133,17 @@ TEST_CASE("c Test changefeeds on a table", "[c][ast]") {
     reql_object_add(var1.get(), var2.get(), var3.get());
 
     ReQL_Obj_c var8;
-    std::unique_ptr<uint8_t[]> buf8(new uint8_t[7]);
+    _C::CTypes::string buf8(new uint8_t[7]);
     const uint8_t src8[] = "old_val";
     reql_string_init(var8.get(), buf8.get(), 7);
     reql_string_append(var8.get(), src8, 7);
 
     ReQL_Obj_c var9;
-    std::unique_ptr<ReQL_Pair_t[]> pair9(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair9(new ReQL_Pair_t[1]);
     reql_object_init(var9.get(), pair9.get(), 1);
 
     ReQL_Obj_c var10;
-    std::unique_ptr<uint8_t[]> buf10(new uint8_t[2]);
+    _C::CTypes::string buf10(new uint8_t[2]);
     const uint8_t src10[] = "id";
     reql_string_init(var10.get(), buf10.get(), 2);
     reql_string_append(var10.get(), src10, 2);
@@ -160,17 +160,17 @@ TEST_CASE("c Test changefeeds on a table", "[c][ast]") {
 
   SECTION("test5") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
+    _C::CTypes::string buf1(new uint8_t[4]);
     const uint8_t src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[7]);
+    _C::CTypes::string buf2(new uint8_t[7]);
     const uint8_t src2[] = "partial";
     reql_string_init(var2.get(), buf2.get(), 7);
     reql_string_append(var2.get(), src2, 7);
@@ -180,15 +180,15 @@ TEST_CASE("c Test changefeeds on a table", "[c][ast]") {
 
   SECTION("test6") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[1]);
+    _C::CTypes::array arr0(new ReQL_Obj_t*[1]);
     reql_array_init(var0.get(), arr0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<ReQL_Pair_t[]> pair1(new ReQL_Pair_t[2]);
+    _C::CTypes::pairs pair1(new ReQL_Pair_t[2]);
     reql_object_init(var1.get(), pair1.get(), 2);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[7]);
+    _C::CTypes::string buf2(new uint8_t[7]);
     const uint8_t src2[] = "new_val";
     reql_string_init(var2.get(), buf2.get(), 7);
     reql_string_append(var2.get(), src2, 7);
@@ -199,17 +199,17 @@ TEST_CASE("c Test changefeeds on a table", "[c][ast]") {
     reql_object_add(var1.get(), var2.get(), var3.get());
 
     ReQL_Obj_c var4;
-    std::unique_ptr<uint8_t[]> buf4(new uint8_t[7]);
+    _C::CTypes::string buf4(new uint8_t[7]);
     const uint8_t src4[] = "old_val";
     reql_string_init(var4.get(), buf4.get(), 7);
     reql_string_append(var4.get(), src4, 7);
 
     ReQL_Obj_c var5;
-    std::unique_ptr<ReQL_Pair_t[]> pair5(new ReQL_Pair_t[2]);
+    _C::CTypes::pairs pair5(new ReQL_Pair_t[2]);
     reql_object_init(var5.get(), pair5.get(), 2);
 
     ReQL_Obj_c var6;
-    std::unique_ptr<uint8_t[]> buf6(new uint8_t[2]);
+    _C::CTypes::string buf6(new uint8_t[2]);
     const uint8_t src6[] = "id";
     reql_string_init(var6.get(), buf6.get(), 2);
     reql_string_append(var6.get(), src6, 2);
@@ -220,7 +220,7 @@ TEST_CASE("c Test changefeeds on a table", "[c][ast]") {
     reql_object_add(var5.get(), var6.get(), var7.get());
 
     ReQL_Obj_c var8;
-    std::unique_ptr<uint8_t[]> buf8(new uint8_t[7]);
+    _C::CTypes::string buf8(new uint8_t[7]);
     const uint8_t src8[] = "version";
     reql_string_init(var8.get(), buf8.get(), 7);
     reql_string_append(var8.get(), src8, 7);
@@ -237,17 +237,17 @@ TEST_CASE("c Test changefeeds on a table", "[c][ast]") {
 
   SECTION("test7") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[6]);
+    _C::CTypes::string buf1(new uint8_t[6]);
     const uint8_t src1[] = "result";
     reql_string_init(var1.get(), buf1.get(), 6);
     reql_string_append(var1.get(), src1, 6);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[5]);
+    _C::CTypes::string buf2(new uint8_t[5]);
     const uint8_t src2[] = "blank";
     reql_string_init(var2.get(), buf2.get(), 5);
     reql_string_append(var2.get(), src2, 5);
@@ -257,17 +257,17 @@ TEST_CASE("c Test changefeeds on a table", "[c][ast]") {
 
   SECTION("test8") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
+    _C::CTypes::string buf1(new uint8_t[4]);
     const uint8_t src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[7]);
+    _C::CTypes::string buf2(new uint8_t[7]);
     const uint8_t src2[] = "partial";
     reql_string_init(var2.get(), buf2.get(), 7);
     reql_string_append(var2.get(), src2, 7);
@@ -277,25 +277,25 @@ TEST_CASE("c Test changefeeds on a table", "[c][ast]") {
 
   SECTION("test9") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[1]);
+    _C::CTypes::array arr0(new ReQL_Obj_t*[1]);
     reql_array_init(var0.get(), arr0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<ReQL_Pair_t[]> pair1(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair1(new ReQL_Pair_t[1]);
     reql_object_init(var1.get(), pair1.get(), 1);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[7]);
+    _C::CTypes::string buf2(new uint8_t[7]);
     const uint8_t src2[] = "new_val";
     reql_string_init(var2.get(), buf2.get(), 7);
     reql_string_append(var2.get(), src2, 7);
 
     ReQL_Obj_c var3;
-    std::unique_ptr<ReQL_Pair_t[]> pair3(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair3(new ReQL_Pair_t[1]);
     reql_object_init(var3.get(), pair3.get(), 1);
 
     ReQL_Obj_c var4;
-    std::unique_ptr<uint8_t[]> buf4(new uint8_t[7]);
+    _C::CTypes::string buf4(new uint8_t[7]);
     const uint8_t src4[] = "version";
     reql_string_init(var4.get(), buf4.get(), 7);
     reql_string_append(var4.get(), src4, 7);
@@ -312,17 +312,17 @@ TEST_CASE("c Test changefeeds on a table", "[c][ast]") {
 
   SECTION("test10") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
+    _C::CTypes::string buf1(new uint8_t[4]);
     const uint8_t src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
+    _C::CTypes::string buf2(new uint8_t[3]);
     const uint8_t src2[] = "err";
     reql_string_init(var2.get(), buf2.get(), 3);
     reql_string_append(var2.get(), src2, 3);
@@ -332,17 +332,17 @@ TEST_CASE("c Test changefeeds on a table", "[c][ast]") {
 
   SECTION("test12") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[6]);
+    _C::CTypes::string buf1(new uint8_t[6]);
     const uint8_t src1[] = "result";
     reql_string_init(var1.get(), buf1.get(), 6);
     reql_string_append(var1.get(), src1, 6);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[5]);
+    _C::CTypes::string buf2(new uint8_t[5]);
     const uint8_t src2[] = "blank";
     reql_string_init(var2.get(), buf2.get(), 5);
     reql_string_append(var2.get(), src2, 5);
@@ -352,17 +352,17 @@ TEST_CASE("c Test changefeeds on a table", "[c][ast]") {
 
   SECTION("test13") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
+    _C::CTypes::string buf1(new uint8_t[4]);
     const uint8_t src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[7]);
+    _C::CTypes::string buf2(new uint8_t[7]);
     const uint8_t src2[] = "partial";
     reql_string_init(var2.get(), buf2.get(), 7);
     reql_string_append(var2.get(), src2, 7);
@@ -372,17 +372,17 @@ TEST_CASE("c Test changefeeds on a table", "[c][ast]") {
 
   SECTION("test14") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
+    _C::CTypes::string buf1(new uint8_t[4]);
     const uint8_t src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
+    _C::CTypes::string buf2(new uint8_t[3]);
     const uint8_t src2[] = "bag";
     reql_string_init(var2.get(), buf2.get(), 3);
     reql_string_append(var2.get(), src2, 3);
@@ -392,17 +392,17 @@ TEST_CASE("c Test changefeeds on a table", "[c][ast]") {
 
   SECTION("test15") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
+    _C::CTypes::string buf1(new uint8_t[4]);
     const uint8_t src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[7]);
+    _C::CTypes::string buf2(new uint8_t[7]);
     const uint8_t src2[] = "partial";
     reql_string_init(var2.get(), buf2.get(), 7);
     reql_string_append(var2.get(), src2, 7);
@@ -412,25 +412,25 @@ TEST_CASE("c Test changefeeds on a table", "[c][ast]") {
 
   SECTION("test16") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[1]);
+    _C::CTypes::array arr0(new ReQL_Obj_t*[1]);
     reql_array_init(var0.get(), arr0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<ReQL_Pair_t[]> pair1(new ReQL_Pair_t[2]);
+    _C::CTypes::pairs pair1(new ReQL_Pair_t[2]);
     reql_object_init(var1.get(), pair1.get(), 2);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[7]);
+    _C::CTypes::string buf2(new uint8_t[7]);
     const uint8_t src2[] = "new_val";
     reql_string_init(var2.get(), buf2.get(), 7);
     reql_string_append(var2.get(), src2, 7);
 
     ReQL_Obj_c var3;
-    std::unique_ptr<ReQL_Pair_t[]> pair3(new ReQL_Pair_t[2]);
+    _C::CTypes::pairs pair3(new ReQL_Pair_t[2]);
     reql_object_init(var3.get(), pair3.get(), 2);
 
     ReQL_Obj_c var4;
-    std::unique_ptr<uint8_t[]> buf4(new uint8_t[2]);
+    _C::CTypes::string buf4(new uint8_t[2]);
     const uint8_t src4[] = "id";
     reql_string_init(var4.get(), buf4.get(), 2);
     reql_string_append(var4.get(), src4, 2);
@@ -441,7 +441,7 @@ TEST_CASE("c Test changefeeds on a table", "[c][ast]") {
     reql_object_add(var3.get(), var4.get(), var5.get());
 
     ReQL_Obj_c var6;
-    std::unique_ptr<uint8_t[]> buf6(new uint8_t[7]);
+    _C::CTypes::string buf6(new uint8_t[7]);
     const uint8_t src6[] = "version";
     reql_string_init(var6.get(), buf6.get(), 7);
     reql_string_append(var6.get(), src6, 7);
@@ -454,17 +454,17 @@ TEST_CASE("c Test changefeeds on a table", "[c][ast]") {
     reql_object_add(var1.get(), var2.get(), var3.get());
 
     ReQL_Obj_c var8;
-    std::unique_ptr<uint8_t[]> buf8(new uint8_t[7]);
+    _C::CTypes::string buf8(new uint8_t[7]);
     const uint8_t src8[] = "old_val";
     reql_string_init(var8.get(), buf8.get(), 7);
     reql_string_append(var8.get(), src8, 7);
 
     ReQL_Obj_c var9;
-    std::unique_ptr<ReQL_Pair_t[]> pair9(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair9(new ReQL_Pair_t[1]);
     reql_object_init(var9.get(), pair9.get(), 1);
 
     ReQL_Obj_c var10;
-    std::unique_ptr<uint8_t[]> buf10(new uint8_t[2]);
+    _C::CTypes::string buf10(new uint8_t[2]);
     const uint8_t src10[] = "id";
     reql_string_init(var10.get(), buf10.get(), 2);
     reql_string_append(var10.get(), src10, 2);
@@ -481,17 +481,17 @@ TEST_CASE("c Test changefeeds on a table", "[c][ast]") {
 
   SECTION("test17") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
+    _C::CTypes::string buf1(new uint8_t[4]);
     const uint8_t src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[7]);
+    _C::CTypes::string buf2(new uint8_t[7]);
     const uint8_t src2[] = "partial";
     reql_string_init(var2.get(), buf2.get(), 7);
     reql_string_append(var2.get(), src2, 7);
@@ -501,15 +501,15 @@ TEST_CASE("c Test changefeeds on a table", "[c][ast]") {
 
   SECTION("test18") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[1]);
+    _C::CTypes::array arr0(new ReQL_Obj_t*[1]);
     reql_array_init(var0.get(), arr0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<ReQL_Pair_t[]> pair1(new ReQL_Pair_t[2]);
+    _C::CTypes::pairs pair1(new ReQL_Pair_t[2]);
     reql_object_init(var1.get(), pair1.get(), 2);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[7]);
+    _C::CTypes::string buf2(new uint8_t[7]);
     const uint8_t src2[] = "new_val";
     reql_string_init(var2.get(), buf2.get(), 7);
     reql_string_append(var2.get(), src2, 7);
@@ -520,17 +520,17 @@ TEST_CASE("c Test changefeeds on a table", "[c][ast]") {
     reql_object_add(var1.get(), var2.get(), var3.get());
 
     ReQL_Obj_c var4;
-    std::unique_ptr<uint8_t[]> buf4(new uint8_t[7]);
+    _C::CTypes::string buf4(new uint8_t[7]);
     const uint8_t src4[] = "old_val";
     reql_string_init(var4.get(), buf4.get(), 7);
     reql_string_append(var4.get(), src4, 7);
 
     ReQL_Obj_c var5;
-    std::unique_ptr<ReQL_Pair_t[]> pair5(new ReQL_Pair_t[2]);
+    _C::CTypes::pairs pair5(new ReQL_Pair_t[2]);
     reql_object_init(var5.get(), pair5.get(), 2);
 
     ReQL_Obj_c var6;
-    std::unique_ptr<uint8_t[]> buf6(new uint8_t[2]);
+    _C::CTypes::string buf6(new uint8_t[2]);
     const uint8_t src6[] = "id";
     reql_string_init(var6.get(), buf6.get(), 2);
     reql_string_append(var6.get(), src6, 2);
@@ -541,7 +541,7 @@ TEST_CASE("c Test changefeeds on a table", "[c][ast]") {
     reql_object_add(var5.get(), var6.get(), var7.get());
 
     ReQL_Obj_c var8;
-    std::unique_ptr<uint8_t[]> buf8(new uint8_t[7]);
+    _C::CTypes::string buf8(new uint8_t[7]);
     const uint8_t src8[] = "version";
     reql_string_init(var8.get(), buf8.get(), 7);
     reql_string_append(var8.get(), src8, 7);
@@ -558,17 +558,17 @@ TEST_CASE("c Test changefeeds on a table", "[c][ast]") {
 
   SECTION("test19") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[6]);
+    _C::CTypes::string buf1(new uint8_t[6]);
     const uint8_t src1[] = "result";
     reql_string_init(var1.get(), buf1.get(), 6);
     reql_string_append(var1.get(), src1, 6);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[5]);
+    _C::CTypes::string buf2(new uint8_t[5]);
     const uint8_t src2[] = "blank";
     reql_string_init(var2.get(), buf2.get(), 5);
     reql_string_append(var2.get(), src2, 5);
@@ -578,17 +578,17 @@ TEST_CASE("c Test changefeeds on a table", "[c][ast]") {
 
   SECTION("test20") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
+    _C::CTypes::string buf1(new uint8_t[4]);
     const uint8_t src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[7]);
+    _C::CTypes::string buf2(new uint8_t[7]);
     const uint8_t src2[] = "partial";
     reql_string_init(var2.get(), buf2.get(), 7);
     reql_string_append(var2.get(), src2, 7);
@@ -598,25 +598,25 @@ TEST_CASE("c Test changefeeds on a table", "[c][ast]") {
 
   SECTION("test21") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[1]);
+    _C::CTypes::array arr0(new ReQL_Obj_t*[1]);
     reql_array_init(var0.get(), arr0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<ReQL_Pair_t[]> pair1(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair1(new ReQL_Pair_t[1]);
     reql_object_init(var1.get(), pair1.get(), 1);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[7]);
+    _C::CTypes::string buf2(new uint8_t[7]);
     const uint8_t src2[] = "new_val";
     reql_string_init(var2.get(), buf2.get(), 7);
     reql_string_append(var2.get(), src2, 7);
 
     ReQL_Obj_c var3;
-    std::unique_ptr<ReQL_Pair_t[]> pair3(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair3(new ReQL_Pair_t[1]);
     reql_object_init(var3.get(), pair3.get(), 1);
 
     ReQL_Obj_c var4;
-    std::unique_ptr<uint8_t[]> buf4(new uint8_t[7]);
+    _C::CTypes::string buf4(new uint8_t[7]);
     const uint8_t src4[] = "version";
     reql_string_init(var4.get(), buf4.get(), 7);
     reql_string_append(var4.get(), src4, 7);

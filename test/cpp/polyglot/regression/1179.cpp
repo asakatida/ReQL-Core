@@ -11,6 +11,6 @@ TEST_CASE("cpp 1179 -- BRACKET term", "[cpp][ast]") {
 
   SECTION("test0") {
     double num0(1);
-    Result var0(num0);
+    Query var0(num0);
   }
 }

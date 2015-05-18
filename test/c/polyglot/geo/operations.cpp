@@ -11,7 +11,7 @@ TEST_CASE("c Test basic geometry operators", "[c][ast]") {
 
   SECTION("test0") {
     ReQL_Obj_c var0;
-    std::unique_ptr<uint8_t[]> buf0(new uint8_t[21]);
+    _C::CTypes::string buf0(new uint8_t[21]);
     const uint8_t src0[] = "89011.262538353315904";
     reql_string_init(var0.get(), buf0.get(), 21);
     reql_string_append(var0.get(), src0, 21);
@@ -19,7 +19,7 @@ TEST_CASE("c Test basic geometry operators", "[c][ast]") {
 
   SECTION("test1") {
     ReQL_Obj_c var0;
-    std::unique_ptr<uint8_t[]> buf0(new uint8_t[21]);
+    _C::CTypes::string buf0(new uint8_t[21]);
     const uint8_t src0[] = "110968.30443995493988";
     reql_string_init(var0.get(), buf0.get(), 21);
     reql_string_append(var0.get(), src0, 21);
@@ -32,7 +32,7 @@ TEST_CASE("c Test basic geometry operators", "[c][ast]") {
 
   SECTION("test3") {
     ReQL_Obj_c var0;
-    std::unique_ptr<uint8_t[]> buf0(new uint8_t[21]);
+    _C::CTypes::string buf0(new uint8_t[21]);
     const uint8_t src0[] = "89011.262538353315904";
     reql_string_init(var0.get(), buf0.get(), 21);
     reql_string_append(var0.get(), src0, 21);
@@ -75,7 +75,7 @@ TEST_CASE("c Test basic geometry operators", "[c][ast]") {
 
   SECTION("test11") {
     ReQL_Obj_c var0;
-    std::unique_ptr<uint8_t[]> buf0(new uint8_t[22]);
+    _C::CTypes::string buf0(new uint8_t[22]);
     const uint8_t src0[] = "0.01393875509649327056";
     reql_string_init(var0.get(), buf0.get(), 22);
     reql_string_append(var0.get(), src0, 22);
@@ -83,7 +83,7 @@ TEST_CASE("c Test basic geometry operators", "[c][ast]") {
 
   SECTION("test12") {
     ReQL_Obj_c var0;
-    std::unique_ptr<uint8_t[]> buf0(new uint8_t[1]);
+    _C::CTypes::string buf0(new uint8_t[1]);
     const uint8_t src0[] = "0";
     reql_string_init(var0.get(), buf0.get(), 1);
     reql_string_append(var0.get(), src0, 1);
@@ -91,7 +91,7 @@ TEST_CASE("c Test basic geometry operators", "[c][ast]") {
 
   SECTION("test13") {
     ReQL_Obj_c var0;
-    std::unique_ptr<uint8_t[]> buf0(new uint8_t[20]);
+    _C::CTypes::string buf0(new uint8_t[20]);
     const uint8_t src0[] = "40007862.91725089401";
     reql_string_init(var0.get(), buf0.get(), 20);
     reql_string_append(var0.get(), src0, 20);
@@ -99,7 +99,7 @@ TEST_CASE("c Test basic geometry operators", "[c][ast]") {
 
   SECTION("test14") {
     ReQL_Obj_c var0;
-    std::unique_ptr<uint8_t[]> buf0(new uint8_t[20]);
+    _C::CTypes::string buf0(new uint8_t[20]);
     const uint8_t src0[] = "40007862.91725089401";
     reql_string_init(var0.get(), buf0.get(), 20);
     reql_string_append(var0.get(), src0, 20);
@@ -107,7 +107,7 @@ TEST_CASE("c Test basic geometry operators", "[c][ast]") {
 
   SECTION("test15") {
     ReQL_Obj_c var0;
-    std::unique_ptr<uint8_t[]> buf0(new uint8_t[1]);
+    _C::CTypes::string buf0(new uint8_t[1]);
     const uint8_t src0[] = "0";
     reql_string_init(var0.get(), buf0.get(), 1);
     reql_string_append(var0.get(), src0, 1);
@@ -115,7 +115,7 @@ TEST_CASE("c Test basic geometry operators", "[c][ast]") {
 
   SECTION("test16") {
     ReQL_Obj_c var0;
-    std::unique_ptr<uint8_t[]> buf0(new uint8_t[1]);
+    _C::CTypes::string buf0(new uint8_t[1]);
     const uint8_t src0[] = "0";
     reql_string_init(var0.get(), buf0.get(), 1);
     reql_string_append(var0.get(), src0, 1);
@@ -128,7 +128,7 @@ TEST_CASE("c Test basic geometry operators", "[c][ast]") {
 
   SECTION("test18") {
     ReQL_Obj_c var0;
-    std::unique_ptr<uint8_t[]> buf0(new uint8_t[21]);
+    _C::CTypes::string buf0(new uint8_t[21]);
     const uint8_t src0[] = "492471.49900552548934";
     reql_string_init(var0.get(), buf0.get(), 21);
     reql_string_append(var0.get(), src0, 21);
@@ -136,7 +136,7 @@ TEST_CASE("c Test basic geometry operators", "[c][ast]") {
 
   SECTION("test19") {
     ReQL_Obj_c var0;
-    std::unique_ptr<uint8_t[]> buf0(new uint8_t[21]);
+    _C::CTypes::string buf0(new uint8_t[21]);
     const uint8_t src0[] = "492471.49900552548934";
     reql_string_init(var0.get(), buf0.get(), 21);
     reql_string_append(var0.get(), src0, 21);
@@ -144,7 +144,7 @@ TEST_CASE("c Test basic geometry operators", "[c][ast]") {
 
   SECTION("test20") {
     ReQL_Obj_c var0;
-    std::unique_ptr<uint8_t[]> buf0(new uint8_t[1]);
+    _C::CTypes::string buf0(new uint8_t[1]);
     const uint8_t src0[] = "0";
     reql_string_init(var0.get(), buf0.get(), 1);
     reql_string_append(var0.get(), src0, 1);
@@ -152,7 +152,7 @@ TEST_CASE("c Test basic geometry operators", "[c][ast]") {
 
   SECTION("test21") {
     ReQL_Obj_c var0;
-    std::unique_ptr<uint8_t[]> buf0(new uint8_t[1]);
+    _C::CTypes::string buf0(new uint8_t[1]);
     const uint8_t src0[] = "0";
     reql_string_init(var0.get(), buf0.get(), 1);
     reql_string_append(var0.get(), src0, 1);
@@ -170,17 +170,17 @@ TEST_CASE("c Test basic geometry operators", "[c][ast]") {
 
   SECTION("test24") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[3]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[3]);
     reql_object_init(var0.get(), pair0.get(), 3);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[11]);
+    _C::CTypes::string buf1(new uint8_t[11]);
     const uint8_t src1[] = "$reql_type$";
     reql_string_init(var1.get(), buf1.get(), 11);
     reql_string_append(var1.get(), src1, 11);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[8]);
+    _C::CTypes::string buf2(new uint8_t[8]);
     const uint8_t src2[] = "GEOMETRY";
     reql_string_init(var2.get(), buf2.get(), 8);
     reql_string_append(var2.get(), src2, 8);
@@ -188,21 +188,21 @@ TEST_CASE("c Test basic geometry operators", "[c][ast]") {
     reql_object_add(var0.get(), var1.get(), var2.get());
 
     ReQL_Obj_c var3;
-    std::unique_ptr<uint8_t[]> buf3(new uint8_t[11]);
+    _C::CTypes::string buf3(new uint8_t[11]);
     const uint8_t src3[] = "coordinates";
     reql_string_init(var3.get(), buf3.get(), 11);
     reql_string_append(var3.get(), src3, 11);
 
     ReQL_Obj_c var4;
-    std::unique_ptr<ReQL_Obj_t*[]> arr4(new ReQL_Obj_t*[2]);
+    _C::CTypes::array arr4(new ReQL_Obj_t*[2]);
     reql_array_init(var4.get(), arr4.get(), 2);
 
     ReQL_Obj_c var5;
-    std::unique_ptr<ReQL_Obj_t*[]> arr5(new ReQL_Obj_t*[5]);
+    _C::CTypes::array arr5(new ReQL_Obj_t*[5]);
     reql_array_init(var5.get(), arr5.get(), 5);
 
     ReQL_Obj_c var6;
-    std::unique_ptr<ReQL_Obj_t*[]> arr6(new ReQL_Obj_t*[2]);
+    _C::CTypes::array arr6(new ReQL_Obj_t*[2]);
     reql_array_init(var6.get(), arr6.get(), 2);
 
     ReQL_Obj_c var7;
@@ -218,7 +218,7 @@ TEST_CASE("c Test basic geometry operators", "[c][ast]") {
     reql_array_append(var5.get(), var6.get());
 
     ReQL_Obj_c var9;
-    std::unique_ptr<ReQL_Obj_t*[]> arr9(new ReQL_Obj_t*[2]);
+    _C::CTypes::array arr9(new ReQL_Obj_t*[2]);
     reql_array_init(var9.get(), arr9.get(), 2);
 
     ReQL_Obj_c var10;
@@ -234,7 +234,7 @@ TEST_CASE("c Test basic geometry operators", "[c][ast]") {
     reql_array_append(var5.get(), var9.get());
 
     ReQL_Obj_c var12;
-    std::unique_ptr<ReQL_Obj_t*[]> arr12(new ReQL_Obj_t*[2]);
+    _C::CTypes::array arr12(new ReQL_Obj_t*[2]);
     reql_array_init(var12.get(), arr12.get(), 2);
 
     ReQL_Obj_c var13;
@@ -250,7 +250,7 @@ TEST_CASE("c Test basic geometry operators", "[c][ast]") {
     reql_array_append(var5.get(), var12.get());
 
     ReQL_Obj_c var15;
-    std::unique_ptr<ReQL_Obj_t*[]> arr15(new ReQL_Obj_t*[2]);
+    _C::CTypes::array arr15(new ReQL_Obj_t*[2]);
     reql_array_init(var15.get(), arr15.get(), 2);
 
     ReQL_Obj_c var16;
@@ -266,7 +266,7 @@ TEST_CASE("c Test basic geometry operators", "[c][ast]") {
     reql_array_append(var5.get(), var15.get());
 
     ReQL_Obj_c var18;
-    std::unique_ptr<ReQL_Obj_t*[]> arr18(new ReQL_Obj_t*[2]);
+    _C::CTypes::array arr18(new ReQL_Obj_t*[2]);
     reql_array_init(var18.get(), arr18.get(), 2);
 
     ReQL_Obj_c var19;
@@ -284,11 +284,11 @@ TEST_CASE("c Test basic geometry operators", "[c][ast]") {
     reql_array_append(var4.get(), var5.get());
 
     ReQL_Obj_c var21;
-    std::unique_ptr<ReQL_Obj_t*[]> arr21(new ReQL_Obj_t*[5]);
+    _C::CTypes::array arr21(new ReQL_Obj_t*[5]);
     reql_array_init(var21.get(), arr21.get(), 5);
 
     ReQL_Obj_c var22;
-    std::unique_ptr<ReQL_Obj_t*[]> arr22(new ReQL_Obj_t*[2]);
+    _C::CTypes::array arr22(new ReQL_Obj_t*[2]);
     reql_array_init(var22.get(), arr22.get(), 2);
 
     ReQL_Obj_c var23;
@@ -304,7 +304,7 @@ TEST_CASE("c Test basic geometry operators", "[c][ast]") {
     reql_array_append(var21.get(), var22.get());
 
     ReQL_Obj_c var25;
-    std::unique_ptr<ReQL_Obj_t*[]> arr25(new ReQL_Obj_t*[2]);
+    _C::CTypes::array arr25(new ReQL_Obj_t*[2]);
     reql_array_init(var25.get(), arr25.get(), 2);
 
     ReQL_Obj_c var26;
@@ -320,7 +320,7 @@ TEST_CASE("c Test basic geometry operators", "[c][ast]") {
     reql_array_append(var21.get(), var25.get());
 
     ReQL_Obj_c var28;
-    std::unique_ptr<ReQL_Obj_t*[]> arr28(new ReQL_Obj_t*[2]);
+    _C::CTypes::array arr28(new ReQL_Obj_t*[2]);
     reql_array_init(var28.get(), arr28.get(), 2);
 
     ReQL_Obj_c var29;
@@ -336,7 +336,7 @@ TEST_CASE("c Test basic geometry operators", "[c][ast]") {
     reql_array_append(var21.get(), var28.get());
 
     ReQL_Obj_c var31;
-    std::unique_ptr<ReQL_Obj_t*[]> arr31(new ReQL_Obj_t*[2]);
+    _C::CTypes::array arr31(new ReQL_Obj_t*[2]);
     reql_array_init(var31.get(), arr31.get(), 2);
 
     ReQL_Obj_c var32;
@@ -352,7 +352,7 @@ TEST_CASE("c Test basic geometry operators", "[c][ast]") {
     reql_array_append(var21.get(), var31.get());
 
     ReQL_Obj_c var34;
-    std::unique_ptr<ReQL_Obj_t*[]> arr34(new ReQL_Obj_t*[2]);
+    _C::CTypes::array arr34(new ReQL_Obj_t*[2]);
     reql_array_init(var34.get(), arr34.get(), 2);
 
     ReQL_Obj_c var35;
@@ -372,13 +372,13 @@ TEST_CASE("c Test basic geometry operators", "[c][ast]") {
     reql_object_add(var0.get(), var3.get(), var4.get());
 
     ReQL_Obj_c var37;
-    std::unique_ptr<uint8_t[]> buf37(new uint8_t[4]);
+    _C::CTypes::string buf37(new uint8_t[4]);
     const uint8_t src37[] = "type";
     reql_string_init(var37.get(), buf37.get(), 4);
     reql_string_append(var37.get(), src37, 4);
 
     ReQL_Obj_c var38;
-    std::unique_ptr<uint8_t[]> buf38(new uint8_t[7]);
+    _C::CTypes::string buf38(new uint8_t[7]);
     const uint8_t src38[] = "Polygon";
     reql_string_init(var38.get(), buf38.get(), 7);
     reql_string_append(var38.get(), src38, 7);
@@ -388,17 +388,17 @@ TEST_CASE("c Test basic geometry operators", "[c][ast]") {
 
   SECTION("test25") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
+    _C::CTypes::string buf1(new uint8_t[4]);
     const uint8_t src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
+    _C::CTypes::string buf2(new uint8_t[3]);
     const uint8_t src2[] = "err";
     reql_string_init(var2.get(), buf2.get(), 3);
     reql_string_append(var2.get(), src2, 3);
@@ -408,17 +408,17 @@ TEST_CASE("c Test basic geometry operators", "[c][ast]") {
 
   SECTION("test26") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
+    _C::CTypes::string buf1(new uint8_t[4]);
     const uint8_t src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
+    _C::CTypes::string buf2(new uint8_t[3]);
     const uint8_t src2[] = "err";
     reql_string_init(var2.get(), buf2.get(), 3);
     reql_string_append(var2.get(), src2, 3);
@@ -428,17 +428,17 @@ TEST_CASE("c Test basic geometry operators", "[c][ast]") {
 
   SECTION("test27") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
+    _C::CTypes::string buf1(new uint8_t[4]);
     const uint8_t src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
+    _C::CTypes::string buf2(new uint8_t[3]);
     const uint8_t src2[] = "err";
     reql_string_init(var2.get(), buf2.get(), 3);
     reql_string_append(var2.get(), src2, 3);
@@ -448,17 +448,17 @@ TEST_CASE("c Test basic geometry operators", "[c][ast]") {
 
   SECTION("test28") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
+    _C::CTypes::string buf1(new uint8_t[4]);
     const uint8_t src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
+    _C::CTypes::string buf2(new uint8_t[3]);
     const uint8_t src2[] = "err";
     reql_string_init(var2.get(), buf2.get(), 3);
     reql_string_append(var2.get(), src2, 3);
@@ -468,17 +468,17 @@ TEST_CASE("c Test basic geometry operators", "[c][ast]") {
 
   SECTION("test29") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
+    _C::CTypes::string buf1(new uint8_t[4]);
     const uint8_t src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
+    _C::CTypes::string buf2(new uint8_t[3]);
     const uint8_t src2[] = "err";
     reql_string_init(var2.get(), buf2.get(), 3);
     reql_string_append(var2.get(), src2, 3);
@@ -488,17 +488,17 @@ TEST_CASE("c Test basic geometry operators", "[c][ast]") {
 
   SECTION("test30") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[3]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[3]);
     reql_object_init(var0.get(), pair0.get(), 3);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[11]);
+    _C::CTypes::string buf1(new uint8_t[11]);
     const uint8_t src1[] = "$reql_type$";
     reql_string_init(var1.get(), buf1.get(), 11);
     reql_string_append(var1.get(), src1, 11);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[8]);
+    _C::CTypes::string buf2(new uint8_t[8]);
     const uint8_t src2[] = "GEOMETRY";
     reql_string_init(var2.get(), buf2.get(), 8);
     reql_string_append(var2.get(), src2, 8);
@@ -506,21 +506,21 @@ TEST_CASE("c Test basic geometry operators", "[c][ast]") {
     reql_object_add(var0.get(), var1.get(), var2.get());
 
     ReQL_Obj_c var3;
-    std::unique_ptr<uint8_t[]> buf3(new uint8_t[11]);
+    _C::CTypes::string buf3(new uint8_t[11]);
     const uint8_t src3[] = "coordinates";
     reql_string_init(var3.get(), buf3.get(), 11);
     reql_string_append(var3.get(), src3, 11);
 
     ReQL_Obj_c var4;
-    std::unique_ptr<ReQL_Obj_t*[]> arr4(new ReQL_Obj_t*[2]);
+    _C::CTypes::array arr4(new ReQL_Obj_t*[2]);
     reql_array_init(var4.get(), arr4.get(), 2);
 
     ReQL_Obj_c var5;
-    std::unique_ptr<ReQL_Obj_t*[]> arr5(new ReQL_Obj_t*[5]);
+    _C::CTypes::array arr5(new ReQL_Obj_t*[5]);
     reql_array_init(var5.get(), arr5.get(), 5);
 
     ReQL_Obj_c var6;
-    std::unique_ptr<ReQL_Obj_t*[]> arr6(new ReQL_Obj_t*[2]);
+    _C::CTypes::array arr6(new ReQL_Obj_t*[2]);
     reql_array_init(var6.get(), arr6.get(), 2);
 
     ReQL_Obj_c var7;
@@ -536,7 +536,7 @@ TEST_CASE("c Test basic geometry operators", "[c][ast]") {
     reql_array_append(var5.get(), var6.get());
 
     ReQL_Obj_c var9;
-    std::unique_ptr<ReQL_Obj_t*[]> arr9(new ReQL_Obj_t*[2]);
+    _C::CTypes::array arr9(new ReQL_Obj_t*[2]);
     reql_array_init(var9.get(), arr9.get(), 2);
 
     ReQL_Obj_c var10;
@@ -552,7 +552,7 @@ TEST_CASE("c Test basic geometry operators", "[c][ast]") {
     reql_array_append(var5.get(), var9.get());
 
     ReQL_Obj_c var12;
-    std::unique_ptr<ReQL_Obj_t*[]> arr12(new ReQL_Obj_t*[2]);
+    _C::CTypes::array arr12(new ReQL_Obj_t*[2]);
     reql_array_init(var12.get(), arr12.get(), 2);
 
     ReQL_Obj_c var13;
@@ -568,7 +568,7 @@ TEST_CASE("c Test basic geometry operators", "[c][ast]") {
     reql_array_append(var5.get(), var12.get());
 
     ReQL_Obj_c var15;
-    std::unique_ptr<ReQL_Obj_t*[]> arr15(new ReQL_Obj_t*[2]);
+    _C::CTypes::array arr15(new ReQL_Obj_t*[2]);
     reql_array_init(var15.get(), arr15.get(), 2);
 
     ReQL_Obj_c var16;
@@ -584,7 +584,7 @@ TEST_CASE("c Test basic geometry operators", "[c][ast]") {
     reql_array_append(var5.get(), var15.get());
 
     ReQL_Obj_c var18;
-    std::unique_ptr<ReQL_Obj_t*[]> arr18(new ReQL_Obj_t*[2]);
+    _C::CTypes::array arr18(new ReQL_Obj_t*[2]);
     reql_array_init(var18.get(), arr18.get(), 2);
 
     ReQL_Obj_c var19;
@@ -602,11 +602,11 @@ TEST_CASE("c Test basic geometry operators", "[c][ast]") {
     reql_array_append(var4.get(), var5.get());
 
     ReQL_Obj_c var21;
-    std::unique_ptr<ReQL_Obj_t*[]> arr21(new ReQL_Obj_t*[5]);
+    _C::CTypes::array arr21(new ReQL_Obj_t*[5]);
     reql_array_init(var21.get(), arr21.get(), 5);
 
     ReQL_Obj_c var22;
-    std::unique_ptr<ReQL_Obj_t*[]> arr22(new ReQL_Obj_t*[2]);
+    _C::CTypes::array arr22(new ReQL_Obj_t*[2]);
     reql_array_init(var22.get(), arr22.get(), 2);
 
     ReQL_Obj_c var23;
@@ -622,7 +622,7 @@ TEST_CASE("c Test basic geometry operators", "[c][ast]") {
     reql_array_append(var21.get(), var22.get());
 
     ReQL_Obj_c var25;
-    std::unique_ptr<ReQL_Obj_t*[]> arr25(new ReQL_Obj_t*[2]);
+    _C::CTypes::array arr25(new ReQL_Obj_t*[2]);
     reql_array_init(var25.get(), arr25.get(), 2);
 
     ReQL_Obj_c var26;
@@ -638,7 +638,7 @@ TEST_CASE("c Test basic geometry operators", "[c][ast]") {
     reql_array_append(var21.get(), var25.get());
 
     ReQL_Obj_c var28;
-    std::unique_ptr<ReQL_Obj_t*[]> arr28(new ReQL_Obj_t*[2]);
+    _C::CTypes::array arr28(new ReQL_Obj_t*[2]);
     reql_array_init(var28.get(), arr28.get(), 2);
 
     ReQL_Obj_c var29;
@@ -654,7 +654,7 @@ TEST_CASE("c Test basic geometry operators", "[c][ast]") {
     reql_array_append(var21.get(), var28.get());
 
     ReQL_Obj_c var31;
-    std::unique_ptr<ReQL_Obj_t*[]> arr31(new ReQL_Obj_t*[2]);
+    _C::CTypes::array arr31(new ReQL_Obj_t*[2]);
     reql_array_init(var31.get(), arr31.get(), 2);
 
     ReQL_Obj_c var32;
@@ -670,7 +670,7 @@ TEST_CASE("c Test basic geometry operators", "[c][ast]") {
     reql_array_append(var21.get(), var31.get());
 
     ReQL_Obj_c var34;
-    std::unique_ptr<ReQL_Obj_t*[]> arr34(new ReQL_Obj_t*[2]);
+    _C::CTypes::array arr34(new ReQL_Obj_t*[2]);
     reql_array_init(var34.get(), arr34.get(), 2);
 
     ReQL_Obj_c var35;
@@ -690,13 +690,13 @@ TEST_CASE("c Test basic geometry operators", "[c][ast]") {
     reql_object_add(var0.get(), var3.get(), var4.get());
 
     ReQL_Obj_c var37;
-    std::unique_ptr<uint8_t[]> buf37(new uint8_t[4]);
+    _C::CTypes::string buf37(new uint8_t[4]);
     const uint8_t src37[] = "type";
     reql_string_init(var37.get(), buf37.get(), 4);
     reql_string_append(var37.get(), src37, 4);
 
     ReQL_Obj_c var38;
-    std::unique_ptr<uint8_t[]> buf38(new uint8_t[7]);
+    _C::CTypes::string buf38(new uint8_t[7]);
     const uint8_t src38[] = "Polygon";
     reql_string_init(var38.get(), buf38.get(), 7);
     reql_string_append(var38.get(), src38, 7);
@@ -706,17 +706,17 @@ TEST_CASE("c Test basic geometry operators", "[c][ast]") {
 
   SECTION("test31") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
+    _C::CTypes::string buf1(new uint8_t[4]);
     const uint8_t src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
+    _C::CTypes::string buf2(new uint8_t[3]);
     const uint8_t src2[] = "err";
     reql_string_init(var2.get(), buf2.get(), 3);
     reql_string_append(var2.get(), src2, 3);
@@ -726,17 +726,17 @@ TEST_CASE("c Test basic geometry operators", "[c][ast]") {
 
   SECTION("test32") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
+    _C::CTypes::string buf1(new uint8_t[4]);
     const uint8_t src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
+    _C::CTypes::string buf2(new uint8_t[3]);
     const uint8_t src2[] = "err";
     reql_string_init(var2.get(), buf2.get(), 3);
     reql_string_append(var2.get(), src2, 3);

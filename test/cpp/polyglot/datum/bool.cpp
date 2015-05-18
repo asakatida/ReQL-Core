@@ -10,24 +10,24 @@ using namespace _C;
 TEST_CASE("cpp Tests of conversion to and from the RQL bool type", "[cpp][ast]") {
 
   SECTION("test0") {
-    Result var0(true);
+    Query var0(true);
   }
 
   SECTION("test1") {
-    Result var0(false);
+    Query var0(false);
   }
 
   SECTION("test2") {
     std::string src0("BOOL", 4);
-    Result var0(src0);
+    Query var0(src0);
   }
 
   SECTION("test3") {
     std::string src0("true", 4);
-    Result var0(src0);
+    Query var0(src0);
   }
 
   SECTION("test4") {
-    Result var0(true);
+    Query var0(true);
   }
 }

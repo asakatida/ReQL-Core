@@ -11,7 +11,7 @@ TEST_CASE("c Use pseudotype name properly in `info`", "[c][ast]") {
 
   SECTION("test0") {
     ReQL_Obj_c var0;
-    std::unique_ptr<uint8_t[]> buf0(new uint8_t[15]);
+    _C::CTypes::string buf0(new uint8_t[15]);
     const uint8_t src0[] = "PTYPE<GEOMETRY>";
     reql_string_init(var0.get(), buf0.get(), 15);
     reql_string_append(var0.get(), src0, 15);
@@ -19,7 +19,7 @@ TEST_CASE("c Use pseudotype name properly in `info`", "[c][ast]") {
 
   SECTION("test1") {
     ReQL_Obj_c var0;
-    std::unique_ptr<uint8_t[]> buf0(new uint8_t[15]);
+    _C::CTypes::string buf0(new uint8_t[15]);
     const uint8_t src0[] = "PTYPE<GEOMETRY>";
     reql_string_init(var0.get(), buf0.get(), 15);
     reql_string_append(var0.get(), src0, 15);

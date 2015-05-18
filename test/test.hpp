@@ -9,19 +9,19 @@
 
 namespace ReQL {
 
-class ReQL_Conn_c : public _C::Types::connection {
+class ReQL_Conn_c : public _C::CTypes::connection {
 public:
   ReQL_Conn_c();
   ~ReQL_Conn_c();
 };
 
-class ReQL_Cur_c : public _C::Types::cursor {
+class ReQL_Cur_c : public _C::CTypes::cursor {
 public:
   ReQL_Cur_c();
   ~ReQL_Cur_c();
 };
 
-class ReQL_Obj_c : public _C::Types::object {
+class ReQL_Obj_c : public _C::CTypes::object {
 public:
   ReQL_Obj_c();
   ~ReQL_Obj_c();

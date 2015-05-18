@@ -16,7 +16,7 @@ TEST_CASE("c secondary indexes on times", "[c][ast]") {
 
   SECTION("test10") {
     ReQL_Obj_c var0;
-    std::unique_ptr<uint8_t[]> buf0(new uint8_t[295]);
+    _C::CTypes::string buf0(new uint8_t[295]);
     const uint8_t src0[] = "Duplicate primary key `id`:\n{\n\t\"id\":\t{\n\t\t\"$reql_type$\":\t\"TIME\",\n\t\t\"epoch_time\":\t1375445163.0869998932,\n\t\t\"timezone\":\t\"-07:00\"\n\t}\n}\n{\n\t\"id\":\t{\n\t\t\"$reql_type$\":\t\"TIME\",\n\t\t\"epoch_time\":\t1375445163.0869998932,\n\t\t\"timezone\":\t\"+00:00\"\n\t}\n}";
     reql_string_init(var0.get(), buf0.get(), 295);
     reql_string_append(var0.get(), src0, 295);
@@ -59,11 +59,11 @@ TEST_CASE("c secondary indexes on times", "[c][ast]") {
 
   SECTION("test18") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[7]);
+    _C::CTypes::string buf1(new uint8_t[7]);
     const uint8_t src1[] = "created";
     reql_string_init(var1.get(), buf1.get(), 7);
     reql_string_append(var1.get(), src1, 7);
@@ -111,11 +111,11 @@ TEST_CASE("c secondary indexes on times", "[c][ast]") {
 
   SECTION("test26") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[7]);
+    _C::CTypes::string buf1(new uint8_t[7]);
     const uint8_t src1[] = "created";
     reql_string_init(var1.get(), buf1.get(), 7);
     reql_string_append(var1.get(), src1, 7);
@@ -173,7 +173,7 @@ TEST_CASE("c secondary indexes on times", "[c][ast]") {
 
   SECTION("test38") {
     ReQL_Obj_c var0;
-    std::unique_ptr<uint8_t[]> buf0(new uint8_t[11]);
+    _C::CTypes::string buf0(new uint8_t[11]);
     const uint8_t src0[] = "PTYPE<TIME>";
     reql_string_init(var0.get(), buf0.get(), 11);
     reql_string_append(var0.get(), src0, 11);

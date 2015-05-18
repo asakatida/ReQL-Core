@@ -10,18 +10,18 @@ using namespace _C;
 TEST_CASE("cpp Test empty polygon special cases", "[cpp][ast]") {
 
   SECTION("test0") {
-    Result var0(false);
+    Query var0(false);
   }
 
   SECTION("test1") {
-    Result var0(false);
+    Query var0(false);
   }
 
   SECTION("test2") {
-    Result var0(false);
+    Query var0(false);
   }
 
   SECTION("test3") {
-    Result var0(false);
+    Query var0(false);
   }
 }

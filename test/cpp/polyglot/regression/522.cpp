@@ -10,50 +10,50 @@ using namespace _C;
 TEST_CASE("cpp Skip after orderby causes use-after-free (#522)", "[cpp][ast]") {
 
   SECTION("test0") {
-    std::map<std::string, Result> map0;
+    Types::object map0;
 
     std::string src1("result", 6);
-    Result var1(src1);
+    Query var1(src1);
 
     std::string src2("blank", 5);
-    Result var2(src2);
+    Query var2(src2);
 
     map0.insert({src1, var2});
 
-    Result var0(map0);
+    Query var0(map0);
   }
 
   SECTION("test1") {
-    std::vector<Result> arr0(2);
+    Types::array arr0(2);
 
-    std::map<std::string, Result> map1;
+    Types::object map1;
 
     std::string src2("id", 2);
-    Result var2(src2);
+    Query var2(src2);
 
     double num3(1);
-    Result var3(num3);
+    Query var3(num3);
 
     map1.insert({src2, var3});
 
-    Result var1(map1);
+    Query var1(map1);
 
     arr0.insert(arr0.end(), var1);
 
-    std::map<std::string, Result> map4;
+    Types::object map4;
 
     std::string src5("id", 2);
-    Result var5(src5);
+    Query var5(src5);
 
     double num6(2);
-    Result var6(num6);
+    Query var6(num6);
 
     map4.insert({src5, var6});
 
-    Result var4(map4);
+    Query var4(map4);
 
     arr0.insert(arr0.end(), var4);
 
-    Result var0(arr0);
+    Query var0(arr0);
   }
 }

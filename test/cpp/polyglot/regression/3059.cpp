@@ -11,11 +11,11 @@ TEST_CASE("cpp Use pseudotype name properly in `info`", "[cpp][ast]") {
 
   SECTION("test0") {
     std::string src0("PTYPE<GEOMETRY>", 15);
-    Result var0(src0);
+    Query var0(src0);
   }
 
   SECTION("test1") {
     std::string src0("PTYPE<GEOMETRY>", 15);
-    Result var0(src0);
+    Query var0(src0);
   }
 }

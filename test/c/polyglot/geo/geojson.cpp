@@ -11,17 +11,17 @@ TEST_CASE("c Test geoJSON conversion", "[c][ast]") {
 
   SECTION("test0") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[3]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[3]);
     reql_object_init(var0.get(), pair0.get(), 3);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[11]);
+    _C::CTypes::string buf1(new uint8_t[11]);
     const uint8_t src1[] = "$reql_type$";
     reql_string_init(var1.get(), buf1.get(), 11);
     reql_string_append(var1.get(), src1, 11);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[8]);
+    _C::CTypes::string buf2(new uint8_t[8]);
     const uint8_t src2[] = "GEOMETRY";
     reql_string_init(var2.get(), buf2.get(), 8);
     reql_string_append(var2.get(), src2, 8);
@@ -29,13 +29,13 @@ TEST_CASE("c Test geoJSON conversion", "[c][ast]") {
     reql_object_add(var0.get(), var1.get(), var2.get());
 
     ReQL_Obj_c var3;
-    std::unique_ptr<uint8_t[]> buf3(new uint8_t[11]);
+    _C::CTypes::string buf3(new uint8_t[11]);
     const uint8_t src3[] = "coordinates";
     reql_string_init(var3.get(), buf3.get(), 11);
     reql_string_append(var3.get(), src3, 11);
 
     ReQL_Obj_c var4;
-    std::unique_ptr<ReQL_Obj_t*[]> arr4(new ReQL_Obj_t*[2]);
+    _C::CTypes::array arr4(new ReQL_Obj_t*[2]);
     reql_array_init(var4.get(), arr4.get(), 2);
 
     ReQL_Obj_c var5;
@@ -51,13 +51,13 @@ TEST_CASE("c Test geoJSON conversion", "[c][ast]") {
     reql_object_add(var0.get(), var3.get(), var4.get());
 
     ReQL_Obj_c var7;
-    std::unique_ptr<uint8_t[]> buf7(new uint8_t[4]);
+    _C::CTypes::string buf7(new uint8_t[4]);
     const uint8_t src7[] = "type";
     reql_string_init(var7.get(), buf7.get(), 4);
     reql_string_append(var7.get(), src7, 4);
 
     ReQL_Obj_c var8;
-    std::unique_ptr<uint8_t[]> buf8(new uint8_t[5]);
+    _C::CTypes::string buf8(new uint8_t[5]);
     const uint8_t src8[] = "Point";
     reql_string_init(var8.get(), buf8.get(), 5);
     reql_string_append(var8.get(), src8, 5);
@@ -67,17 +67,17 @@ TEST_CASE("c Test geoJSON conversion", "[c][ast]") {
 
   SECTION("test1") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[3]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[3]);
     reql_object_init(var0.get(), pair0.get(), 3);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[11]);
+    _C::CTypes::string buf1(new uint8_t[11]);
     const uint8_t src1[] = "$reql_type$";
     reql_string_init(var1.get(), buf1.get(), 11);
     reql_string_append(var1.get(), src1, 11);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[8]);
+    _C::CTypes::string buf2(new uint8_t[8]);
     const uint8_t src2[] = "GEOMETRY";
     reql_string_init(var2.get(), buf2.get(), 8);
     reql_string_append(var2.get(), src2, 8);
@@ -85,17 +85,17 @@ TEST_CASE("c Test geoJSON conversion", "[c][ast]") {
     reql_object_add(var0.get(), var1.get(), var2.get());
 
     ReQL_Obj_c var3;
-    std::unique_ptr<uint8_t[]> buf3(new uint8_t[11]);
+    _C::CTypes::string buf3(new uint8_t[11]);
     const uint8_t src3[] = "coordinates";
     reql_string_init(var3.get(), buf3.get(), 11);
     reql_string_append(var3.get(), src3, 11);
 
     ReQL_Obj_c var4;
-    std::unique_ptr<ReQL_Obj_t*[]> arr4(new ReQL_Obj_t*[2]);
+    _C::CTypes::array arr4(new ReQL_Obj_t*[2]);
     reql_array_init(var4.get(), arr4.get(), 2);
 
     ReQL_Obj_c var5;
-    std::unique_ptr<ReQL_Obj_t*[]> arr5(new ReQL_Obj_t*[2]);
+    _C::CTypes::array arr5(new ReQL_Obj_t*[2]);
     reql_array_init(var5.get(), arr5.get(), 2);
 
     ReQL_Obj_c var6;
@@ -111,7 +111,7 @@ TEST_CASE("c Test geoJSON conversion", "[c][ast]") {
     reql_array_append(var4.get(), var5.get());
 
     ReQL_Obj_c var8;
-    std::unique_ptr<ReQL_Obj_t*[]> arr8(new ReQL_Obj_t*[2]);
+    _C::CTypes::array arr8(new ReQL_Obj_t*[2]);
     reql_array_init(var8.get(), arr8.get(), 2);
 
     ReQL_Obj_c var9;
@@ -129,13 +129,13 @@ TEST_CASE("c Test geoJSON conversion", "[c][ast]") {
     reql_object_add(var0.get(), var3.get(), var4.get());
 
     ReQL_Obj_c var11;
-    std::unique_ptr<uint8_t[]> buf11(new uint8_t[4]);
+    _C::CTypes::string buf11(new uint8_t[4]);
     const uint8_t src11[] = "type";
     reql_string_init(var11.get(), buf11.get(), 4);
     reql_string_append(var11.get(), src11, 4);
 
     ReQL_Obj_c var12;
-    std::unique_ptr<uint8_t[]> buf12(new uint8_t[10]);
+    _C::CTypes::string buf12(new uint8_t[10]);
     const uint8_t src12[] = "LineString";
     reql_string_init(var12.get(), buf12.get(), 10);
     reql_string_append(var12.get(), src12, 10);
@@ -145,17 +145,17 @@ TEST_CASE("c Test geoJSON conversion", "[c][ast]") {
 
   SECTION("test2") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[3]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[3]);
     reql_object_init(var0.get(), pair0.get(), 3);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[11]);
+    _C::CTypes::string buf1(new uint8_t[11]);
     const uint8_t src1[] = "$reql_type$";
     reql_string_init(var1.get(), buf1.get(), 11);
     reql_string_append(var1.get(), src1, 11);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[8]);
+    _C::CTypes::string buf2(new uint8_t[8]);
     const uint8_t src2[] = "GEOMETRY";
     reql_string_init(var2.get(), buf2.get(), 8);
     reql_string_append(var2.get(), src2, 8);
@@ -163,21 +163,21 @@ TEST_CASE("c Test geoJSON conversion", "[c][ast]") {
     reql_object_add(var0.get(), var1.get(), var2.get());
 
     ReQL_Obj_c var3;
-    std::unique_ptr<uint8_t[]> buf3(new uint8_t[11]);
+    _C::CTypes::string buf3(new uint8_t[11]);
     const uint8_t src3[] = "coordinates";
     reql_string_init(var3.get(), buf3.get(), 11);
     reql_string_append(var3.get(), src3, 11);
 
     ReQL_Obj_c var4;
-    std::unique_ptr<ReQL_Obj_t*[]> arr4(new ReQL_Obj_t*[1]);
+    _C::CTypes::array arr4(new ReQL_Obj_t*[1]);
     reql_array_init(var4.get(), arr4.get(), 1);
 
     ReQL_Obj_c var5;
-    std::unique_ptr<ReQL_Obj_t*[]> arr5(new ReQL_Obj_t*[4]);
+    _C::CTypes::array arr5(new ReQL_Obj_t*[4]);
     reql_array_init(var5.get(), arr5.get(), 4);
 
     ReQL_Obj_c var6;
-    std::unique_ptr<ReQL_Obj_t*[]> arr6(new ReQL_Obj_t*[2]);
+    _C::CTypes::array arr6(new ReQL_Obj_t*[2]);
     reql_array_init(var6.get(), arr6.get(), 2);
 
     ReQL_Obj_c var7;
@@ -193,7 +193,7 @@ TEST_CASE("c Test geoJSON conversion", "[c][ast]") {
     reql_array_append(var5.get(), var6.get());
 
     ReQL_Obj_c var9;
-    std::unique_ptr<ReQL_Obj_t*[]> arr9(new ReQL_Obj_t*[2]);
+    _C::CTypes::array arr9(new ReQL_Obj_t*[2]);
     reql_array_init(var9.get(), arr9.get(), 2);
 
     ReQL_Obj_c var10;
@@ -209,7 +209,7 @@ TEST_CASE("c Test geoJSON conversion", "[c][ast]") {
     reql_array_append(var5.get(), var9.get());
 
     ReQL_Obj_c var12;
-    std::unique_ptr<ReQL_Obj_t*[]> arr12(new ReQL_Obj_t*[2]);
+    _C::CTypes::array arr12(new ReQL_Obj_t*[2]);
     reql_array_init(var12.get(), arr12.get(), 2);
 
     ReQL_Obj_c var13;
@@ -225,7 +225,7 @@ TEST_CASE("c Test geoJSON conversion", "[c][ast]") {
     reql_array_append(var5.get(), var12.get());
 
     ReQL_Obj_c var15;
-    std::unique_ptr<ReQL_Obj_t*[]> arr15(new ReQL_Obj_t*[2]);
+    _C::CTypes::array arr15(new ReQL_Obj_t*[2]);
     reql_array_init(var15.get(), arr15.get(), 2);
 
     ReQL_Obj_c var16;
@@ -245,13 +245,13 @@ TEST_CASE("c Test geoJSON conversion", "[c][ast]") {
     reql_object_add(var0.get(), var3.get(), var4.get());
 
     ReQL_Obj_c var18;
-    std::unique_ptr<uint8_t[]> buf18(new uint8_t[4]);
+    _C::CTypes::string buf18(new uint8_t[4]);
     const uint8_t src18[] = "type";
     reql_string_init(var18.get(), buf18.get(), 4);
     reql_string_append(var18.get(), src18, 4);
 
     ReQL_Obj_c var19;
-    std::unique_ptr<uint8_t[]> buf19(new uint8_t[7]);
+    _C::CTypes::string buf19(new uint8_t[7]);
     const uint8_t src19[] = "Polygon";
     reql_string_init(var19.get(), buf19.get(), 7);
     reql_string_append(var19.get(), src19, 7);
@@ -261,17 +261,17 @@ TEST_CASE("c Test geoJSON conversion", "[c][ast]") {
 
   SECTION("test3") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
+    _C::CTypes::string buf1(new uint8_t[4]);
     const uint8_t src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
+    _C::CTypes::string buf2(new uint8_t[3]);
     const uint8_t src2[] = "err";
     reql_string_init(var2.get(), buf2.get(), 3);
     reql_string_append(var2.get(), src2, 3);
@@ -281,17 +281,17 @@ TEST_CASE("c Test geoJSON conversion", "[c][ast]") {
 
   SECTION("test4") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
+    _C::CTypes::string buf1(new uint8_t[4]);
     const uint8_t src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
+    _C::CTypes::string buf2(new uint8_t[3]);
     const uint8_t src2[] = "err";
     reql_string_init(var2.get(), buf2.get(), 3);
     reql_string_append(var2.get(), src2, 3);
@@ -301,17 +301,17 @@ TEST_CASE("c Test geoJSON conversion", "[c][ast]") {
 
   SECTION("test5") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
+    _C::CTypes::string buf1(new uint8_t[4]);
     const uint8_t src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
+    _C::CTypes::string buf2(new uint8_t[3]);
     const uint8_t src2[] = "err";
     reql_string_init(var2.get(), buf2.get(), 3);
     reql_string_append(var2.get(), src2, 3);
@@ -321,17 +321,17 @@ TEST_CASE("c Test geoJSON conversion", "[c][ast]") {
 
   SECTION("test6") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
+    _C::CTypes::string buf1(new uint8_t[4]);
     const uint8_t src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
+    _C::CTypes::string buf2(new uint8_t[3]);
     const uint8_t src2[] = "err";
     reql_string_init(var2.get(), buf2.get(), 3);
     reql_string_append(var2.get(), src2, 3);
@@ -341,17 +341,17 @@ TEST_CASE("c Test geoJSON conversion", "[c][ast]") {
 
   SECTION("test7") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
+    _C::CTypes::string buf1(new uint8_t[4]);
     const uint8_t src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
+    _C::CTypes::string buf2(new uint8_t[3]);
     const uint8_t src2[] = "err";
     reql_string_init(var2.get(), buf2.get(), 3);
     reql_string_append(var2.get(), src2, 3);
@@ -361,17 +361,17 @@ TEST_CASE("c Test geoJSON conversion", "[c][ast]") {
 
   SECTION("test8") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
+    _C::CTypes::string buf1(new uint8_t[4]);
     const uint8_t src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
+    _C::CTypes::string buf2(new uint8_t[3]);
     const uint8_t src2[] = "err";
     reql_string_init(var2.get(), buf2.get(), 3);
     reql_string_append(var2.get(), src2, 3);
@@ -381,17 +381,17 @@ TEST_CASE("c Test geoJSON conversion", "[c][ast]") {
 
   SECTION("test9") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[4]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[4]);
     reql_object_init(var0.get(), pair0.get(), 4);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[11]);
+    _C::CTypes::string buf1(new uint8_t[11]);
     const uint8_t src1[] = "$reql_type$";
     reql_string_init(var1.get(), buf1.get(), 11);
     reql_string_append(var1.get(), src1, 11);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[8]);
+    _C::CTypes::string buf2(new uint8_t[8]);
     const uint8_t src2[] = "GEOMETRY";
     reql_string_init(var2.get(), buf2.get(), 8);
     reql_string_append(var2.get(), src2, 8);
@@ -399,13 +399,13 @@ TEST_CASE("c Test geoJSON conversion", "[c][ast]") {
     reql_object_add(var0.get(), var1.get(), var2.get());
 
     ReQL_Obj_c var3;
-    std::unique_ptr<uint8_t[]> buf3(new uint8_t[11]);
+    _C::CTypes::string buf3(new uint8_t[11]);
     const uint8_t src3[] = "coordinates";
     reql_string_init(var3.get(), buf3.get(), 11);
     reql_string_append(var3.get(), src3, 11);
 
     ReQL_Obj_c var4;
-    std::unique_ptr<ReQL_Obj_t*[]> arr4(new ReQL_Obj_t*[2]);
+    _C::CTypes::array arr4(new ReQL_Obj_t*[2]);
     reql_array_init(var4.get(), arr4.get(), 2);
 
     ReQL_Obj_c var5;
@@ -421,7 +421,7 @@ TEST_CASE("c Test geoJSON conversion", "[c][ast]") {
     reql_object_add(var0.get(), var3.get(), var4.get());
 
     ReQL_Obj_c var7;
-    std::unique_ptr<uint8_t[]> buf7(new uint8_t[3]);
+    _C::CTypes::string buf7(new uint8_t[3]);
     const uint8_t src7[] = "crs";
     reql_string_init(var7.get(), buf7.get(), 3);
     reql_string_append(var7.get(), src7, 3);
@@ -432,13 +432,13 @@ TEST_CASE("c Test geoJSON conversion", "[c][ast]") {
     reql_object_add(var0.get(), var7.get(), var8.get());
 
     ReQL_Obj_c var9;
-    std::unique_ptr<uint8_t[]> buf9(new uint8_t[4]);
+    _C::CTypes::string buf9(new uint8_t[4]);
     const uint8_t src9[] = "type";
     reql_string_init(var9.get(), buf9.get(), 4);
     reql_string_append(var9.get(), src9, 4);
 
     ReQL_Obj_c var10;
-    std::unique_ptr<uint8_t[]> buf10(new uint8_t[5]);
+    _C::CTypes::string buf10(new uint8_t[5]);
     const uint8_t src10[] = "Point";
     reql_string_init(var10.get(), buf10.get(), 5);
     reql_string_append(var10.get(), src10, 5);
@@ -448,17 +448,17 @@ TEST_CASE("c Test geoJSON conversion", "[c][ast]") {
 
   SECTION("test11") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
+    _C::CTypes::string buf1(new uint8_t[4]);
     const uint8_t src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
+    _C::CTypes::string buf2(new uint8_t[3]);
     const uint8_t src2[] = "err";
     reql_string_init(var2.get(), buf2.get(), 3);
     reql_string_append(var2.get(), src2, 3);

@@ -11,7 +11,7 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
 
   SECTION("test4") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[4]);
+    _C::CTypes::array arr0(new ReQL_Obj_t*[4]);
     reql_array_init(var0.get(), arr0.get(), 4);
 
     ReQL_Obj_c var1;
@@ -37,7 +37,7 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
 
   SECTION("test5") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[4]);
+    _C::CTypes::array arr0(new ReQL_Obj_t*[4]);
     reql_array_init(var0.get(), arr0.get(), 4);
 
     ReQL_Obj_c var1;
@@ -56,7 +56,7 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
     reql_array_append(var0.get(), var3.get());
 
     ReQL_Obj_c var4;
-    std::unique_ptr<uint8_t[]> buf4(new uint8_t[1]);
+    _C::CTypes::string buf4(new uint8_t[1]);
     const uint8_t src4[] = "a";
     reql_string_init(var4.get(), buf4.get(), 1);
     reql_string_append(var4.get(), src4, 1);
@@ -66,7 +66,7 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
 
   SECTION("test6") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[4]);
+    _C::CTypes::array arr0(new ReQL_Obj_t*[4]);
     reql_array_init(var0.get(), arr0.get(), 4);
 
     ReQL_Obj_c var1;
@@ -92,11 +92,11 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
 
   SECTION("test7") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[4]);
+    _C::CTypes::array arr0(new ReQL_Obj_t*[4]);
     reql_array_init(var0.get(), arr0.get(), 4);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[1]);
+    _C::CTypes::string buf1(new uint8_t[1]);
     const uint8_t src1[] = "a";
     reql_string_init(var1.get(), buf1.get(), 1);
     reql_string_append(var1.get(), src1, 1);
@@ -121,7 +121,7 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
 
   SECTION("test8") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[1]);
+    _C::CTypes::array arr0(new ReQL_Obj_t*[1]);
     reql_array_init(var0.get(), arr0.get(), 1);
 
     ReQL_Obj_c var1;
@@ -132,7 +132,7 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
 
   SECTION("test9") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[3]);
+    _C::CTypes::array arr0(new ReQL_Obj_t*[3]);
     reql_array_init(var0.get(), arr0.get(), 3);
 
     ReQL_Obj_c var1;
@@ -153,7 +153,7 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
 
   SECTION("test10") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[3]);
+    _C::CTypes::array arr0(new ReQL_Obj_t*[3]);
     reql_array_init(var0.get(), arr0.get(), 3);
 
     ReQL_Obj_c var1;
@@ -174,7 +174,7 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
 
   SECTION("test11") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[3]);
+    _C::CTypes::array arr0(new ReQL_Obj_t*[3]);
     reql_array_init(var0.get(), arr0.get(), 3);
 
     ReQL_Obj_c var1;
@@ -195,7 +195,7 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
 
   SECTION("test12") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[4]);
+    _C::CTypes::array arr0(new ReQL_Obj_t*[4]);
     reql_array_init(var0.get(), arr0.get(), 4);
 
     ReQL_Obj_c var1;
@@ -221,7 +221,7 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
 
   SECTION("test13") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[5]);
+    _C::CTypes::array arr0(new ReQL_Obj_t*[5]);
     reql_array_init(var0.get(), arr0.get(), 5);
 
     ReQL_Obj_c var1;
@@ -252,7 +252,7 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
 
   SECTION("test14") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[5]);
+    _C::CTypes::array arr0(new ReQL_Obj_t*[5]);
     reql_array_init(var0.get(), arr0.get(), 5);
 
     ReQL_Obj_c var1;
@@ -283,7 +283,7 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
 
   SECTION("test15") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[2]);
+    _C::CTypes::array arr0(new ReQL_Obj_t*[2]);
     reql_array_init(var0.get(), arr0.get(), 2);
 
     ReQL_Obj_c var1;
@@ -304,7 +304,7 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
 
   SECTION("test17") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[2]);
+    _C::CTypes::array arr0(new ReQL_Obj_t*[2]);
     reql_array_init(var0.get(), arr0.get(), 2);
 
     ReQL_Obj_c var1;
@@ -320,7 +320,7 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
 
   SECTION("test18") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[2]);
+    _C::CTypes::array arr0(new ReQL_Obj_t*[2]);
     reql_array_init(var0.get(), arr0.get(), 2);
 
     ReQL_Obj_c var1;
@@ -336,7 +336,7 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
 
   SECTION("test19") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[2]);
+    _C::CTypes::array arr0(new ReQL_Obj_t*[2]);
     reql_array_init(var0.get(), arr0.get(), 2);
 
     ReQL_Obj_c var1;
@@ -352,7 +352,7 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
 
   SECTION("test20") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[2]);
+    _C::CTypes::array arr0(new ReQL_Obj_t*[2]);
     reql_array_init(var0.get(), arr0.get(), 2);
 
     ReQL_Obj_c var1;
@@ -368,7 +368,7 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
 
   SECTION("test21") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[2]);
+    _C::CTypes::array arr0(new ReQL_Obj_t*[2]);
     reql_array_init(var0.get(), arr0.get(), 2);
 
     ReQL_Obj_c var1;
@@ -384,7 +384,7 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
 
   SECTION("test22") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[1]);
+    _C::CTypes::array arr0(new ReQL_Obj_t*[1]);
     reql_array_init(var0.get(), arr0.get(), 1);
 
     ReQL_Obj_c var1;
@@ -395,7 +395,7 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
 
   SECTION("test23") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[2]);
+    _C::CTypes::array arr0(new ReQL_Obj_t*[2]);
     reql_array_init(var0.get(), arr0.get(), 2);
 
     ReQL_Obj_c var1;
@@ -411,7 +411,7 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
 
   SECTION("test24") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[1]);
+    _C::CTypes::array arr0(new ReQL_Obj_t*[1]);
     reql_array_init(var0.get(), arr0.get(), 1);
 
     ReQL_Obj_c var1;
@@ -427,7 +427,7 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
 
   SECTION("test26") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[2]);
+    _C::CTypes::array arr0(new ReQL_Obj_t*[2]);
     reql_array_init(var0.get(), arr0.get(), 2);
 
     ReQL_Obj_c var1;
@@ -448,7 +448,7 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
 
   SECTION("test28") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[3]);
+    _C::CTypes::array arr0(new ReQL_Obj_t*[3]);
     reql_array_init(var0.get(), arr0.get(), 3);
 
     ReQL_Obj_c var1;
@@ -469,15 +469,15 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
 
   SECTION("test29") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[3]);
+    _C::CTypes::array arr0(new ReQL_Obj_t*[3]);
     reql_array_init(var0.get(), arr0.get(), 3);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<ReQL_Pair_t[]> pair1(new ReQL_Pair_t[2]);
+    _C::CTypes::pairs pair1(new ReQL_Pair_t[2]);
     reql_object_init(var1.get(), pair1.get(), 2);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[1]);
+    _C::CTypes::string buf2(new uint8_t[1]);
     const uint8_t src2[] = "a";
     reql_string_init(var2.get(), buf2.get(), 1);
     reql_string_append(var2.get(), src2, 1);
@@ -488,13 +488,13 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
     reql_object_add(var1.get(), var2.get(), var3.get());
 
     ReQL_Obj_c var4;
-    std::unique_ptr<uint8_t[]> buf4(new uint8_t[1]);
+    _C::CTypes::string buf4(new uint8_t[1]);
     const uint8_t src4[] = "b";
     reql_string_init(var4.get(), buf4.get(), 1);
     reql_string_append(var4.get(), src4, 1);
 
     ReQL_Obj_c var5;
-    std::unique_ptr<uint8_t[]> buf5(new uint8_t[1]);
+    _C::CTypes::string buf5(new uint8_t[1]);
     const uint8_t src5[] = "a";
     reql_string_init(var5.get(), buf5.get(), 1);
     reql_string_append(var5.get(), src5, 1);
@@ -504,11 +504,11 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
     reql_array_append(var0.get(), var1.get());
 
     ReQL_Obj_c var6;
-    std::unique_ptr<ReQL_Pair_t[]> pair6(new ReQL_Pair_t[2]);
+    _C::CTypes::pairs pair6(new ReQL_Pair_t[2]);
     reql_object_init(var6.get(), pair6.get(), 2);
 
     ReQL_Obj_c var7;
-    std::unique_ptr<uint8_t[]> buf7(new uint8_t[1]);
+    _C::CTypes::string buf7(new uint8_t[1]);
     const uint8_t src7[] = "a";
     reql_string_init(var7.get(), buf7.get(), 1);
     reql_string_append(var7.get(), src7, 1);
@@ -519,13 +519,13 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
     reql_object_add(var6.get(), var7.get(), var8.get());
 
     ReQL_Obj_c var9;
-    std::unique_ptr<uint8_t[]> buf9(new uint8_t[1]);
+    _C::CTypes::string buf9(new uint8_t[1]);
     const uint8_t src9[] = "b";
     reql_string_init(var9.get(), buf9.get(), 1);
     reql_string_append(var9.get(), src9, 1);
 
     ReQL_Obj_c var10;
-    std::unique_ptr<uint8_t[]> buf10(new uint8_t[1]);
+    _C::CTypes::string buf10(new uint8_t[1]);
     const uint8_t src10[] = "b";
     reql_string_init(var10.get(), buf10.get(), 1);
     reql_string_append(var10.get(), src10, 1);
@@ -535,11 +535,11 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
     reql_array_append(var0.get(), var6.get());
 
     ReQL_Obj_c var11;
-    std::unique_ptr<ReQL_Pair_t[]> pair11(new ReQL_Pair_t[2]);
+    _C::CTypes::pairs pair11(new ReQL_Pair_t[2]);
     reql_object_init(var11.get(), pair11.get(), 2);
 
     ReQL_Obj_c var12;
-    std::unique_ptr<uint8_t[]> buf12(new uint8_t[1]);
+    _C::CTypes::string buf12(new uint8_t[1]);
     const uint8_t src12[] = "a";
     reql_string_init(var12.get(), buf12.get(), 1);
     reql_string_append(var12.get(), src12, 1);
@@ -550,13 +550,13 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
     reql_object_add(var11.get(), var12.get(), var13.get());
 
     ReQL_Obj_c var14;
-    std::unique_ptr<uint8_t[]> buf14(new uint8_t[1]);
+    _C::CTypes::string buf14(new uint8_t[1]);
     const uint8_t src14[] = "b";
     reql_string_init(var14.get(), buf14.get(), 1);
     reql_string_append(var14.get(), src14, 1);
 
     ReQL_Obj_c var15;
-    std::unique_ptr<uint8_t[]> buf15(new uint8_t[1]);
+    _C::CTypes::string buf15(new uint8_t[1]);
     const uint8_t src15[] = "c";
     reql_string_init(var15.get(), buf15.get(), 1);
     reql_string_append(var15.get(), src15, 1);
@@ -568,15 +568,15 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
 
   SECTION("test30") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[3]);
+    _C::CTypes::array arr0(new ReQL_Obj_t*[3]);
     reql_array_init(var0.get(), arr0.get(), 3);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<ReQL_Pair_t[]> pair1(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair1(new ReQL_Pair_t[1]);
     reql_object_init(var1.get(), pair1.get(), 1);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[1]);
+    _C::CTypes::string buf2(new uint8_t[1]);
     const uint8_t src2[] = "a";
     reql_string_init(var2.get(), buf2.get(), 1);
     reql_string_append(var2.get(), src2, 1);
@@ -589,11 +589,11 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
     reql_array_append(var0.get(), var1.get());
 
     ReQL_Obj_c var4;
-    std::unique_ptr<ReQL_Pair_t[]> pair4(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair4(new ReQL_Pair_t[1]);
     reql_object_init(var4.get(), pair4.get(), 1);
 
     ReQL_Obj_c var5;
-    std::unique_ptr<uint8_t[]> buf5(new uint8_t[1]);
+    _C::CTypes::string buf5(new uint8_t[1]);
     const uint8_t src5[] = "a";
     reql_string_init(var5.get(), buf5.get(), 1);
     reql_string_append(var5.get(), src5, 1);
@@ -606,11 +606,11 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
     reql_array_append(var0.get(), var4.get());
 
     ReQL_Obj_c var7;
-    std::unique_ptr<ReQL_Pair_t[]> pair7(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair7(new ReQL_Pair_t[1]);
     reql_object_init(var7.get(), pair7.get(), 1);
 
     ReQL_Obj_c var8;
-    std::unique_ptr<uint8_t[]> buf8(new uint8_t[1]);
+    _C::CTypes::string buf8(new uint8_t[1]);
     const uint8_t src8[] = "a";
     reql_string_init(var8.get(), buf8.get(), 1);
     reql_string_append(var8.get(), src8, 1);
@@ -625,7 +625,7 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
 
   SECTION("test31") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[3]);
+    _C::CTypes::array arr0(new ReQL_Obj_t*[3]);
     reql_array_init(var0.get(), arr0.get(), 3);
 
     ReQL_Obj_c var1;
@@ -646,15 +646,15 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
 
   SECTION("test33") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[6]);
+    _C::CTypes::array arr0(new ReQL_Obj_t*[6]);
     reql_array_init(var0.get(), arr0.get(), 6);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<ReQL_Pair_t[]> pair1(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair1(new ReQL_Pair_t[1]);
     reql_object_init(var1.get(), pair1.get(), 1);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[1]);
+    _C::CTypes::string buf2(new uint8_t[1]);
     const uint8_t src2[] = "a";
     reql_string_init(var2.get(), buf2.get(), 1);
     reql_string_append(var2.get(), src2, 1);
@@ -667,11 +667,11 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
     reql_array_append(var0.get(), var1.get());
 
     ReQL_Obj_c var4;
-    std::unique_ptr<ReQL_Pair_t[]> pair4(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair4(new ReQL_Pair_t[1]);
     reql_object_init(var4.get(), pair4.get(), 1);
 
     ReQL_Obj_c var5;
-    std::unique_ptr<uint8_t[]> buf5(new uint8_t[1]);
+    _C::CTypes::string buf5(new uint8_t[1]);
     const uint8_t src5[] = "a";
     reql_string_init(var5.get(), buf5.get(), 1);
     reql_string_append(var5.get(), src5, 1);
@@ -684,11 +684,11 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
     reql_array_append(var0.get(), var4.get());
 
     ReQL_Obj_c var7;
-    std::unique_ptr<ReQL_Pair_t[]> pair7(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair7(new ReQL_Pair_t[1]);
     reql_object_init(var7.get(), pair7.get(), 1);
 
     ReQL_Obj_c var8;
-    std::unique_ptr<uint8_t[]> buf8(new uint8_t[1]);
+    _C::CTypes::string buf8(new uint8_t[1]);
     const uint8_t src8[] = "a";
     reql_string_init(var8.get(), buf8.get(), 1);
     reql_string_append(var8.get(), src8, 1);
@@ -701,11 +701,11 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
     reql_array_append(var0.get(), var7.get());
 
     ReQL_Obj_c var10;
-    std::unique_ptr<ReQL_Pair_t[]> pair10(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair10(new ReQL_Pair_t[1]);
     reql_object_init(var10.get(), pair10.get(), 1);
 
     ReQL_Obj_c var11;
-    std::unique_ptr<uint8_t[]> buf11(new uint8_t[1]);
+    _C::CTypes::string buf11(new uint8_t[1]);
     const uint8_t src11[] = "a";
     reql_string_init(var11.get(), buf11.get(), 1);
     reql_string_append(var11.get(), src11, 1);
@@ -718,11 +718,11 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
     reql_array_append(var0.get(), var10.get());
 
     ReQL_Obj_c var13;
-    std::unique_ptr<ReQL_Pair_t[]> pair13(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair13(new ReQL_Pair_t[1]);
     reql_object_init(var13.get(), pair13.get(), 1);
 
     ReQL_Obj_c var14;
-    std::unique_ptr<uint8_t[]> buf14(new uint8_t[1]);
+    _C::CTypes::string buf14(new uint8_t[1]);
     const uint8_t src14[] = "a";
     reql_string_init(var14.get(), buf14.get(), 1);
     reql_string_append(var14.get(), src14, 1);
@@ -735,11 +735,11 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
     reql_array_append(var0.get(), var13.get());
 
     ReQL_Obj_c var16;
-    std::unique_ptr<ReQL_Pair_t[]> pair16(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair16(new ReQL_Pair_t[1]);
     reql_object_init(var16.get(), pair16.get(), 1);
 
     ReQL_Obj_c var17;
-    std::unique_ptr<uint8_t[]> buf17(new uint8_t[1]);
+    _C::CTypes::string buf17(new uint8_t[1]);
     const uint8_t src17[] = "a";
     reql_string_init(var17.get(), buf17.get(), 1);
     reql_string_append(var17.get(), src17, 1);
@@ -754,21 +754,21 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
 
   SECTION("test34") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[6]);
+    _C::CTypes::array arr0(new ReQL_Obj_t*[6]);
     reql_array_init(var0.get(), arr0.get(), 6);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<ReQL_Pair_t[]> pair1(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair1(new ReQL_Pair_t[1]);
     reql_object_init(var1.get(), pair1.get(), 1);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[1]);
+    _C::CTypes::string buf2(new uint8_t[1]);
     const uint8_t src2[] = "b";
     reql_string_init(var2.get(), buf2.get(), 1);
     reql_string_append(var2.get(), src2, 1);
 
     ReQL_Obj_c var3;
-    std::unique_ptr<uint8_t[]> buf3(new uint8_t[1]);
+    _C::CTypes::string buf3(new uint8_t[1]);
     const uint8_t src3[] = "a";
     reql_string_init(var3.get(), buf3.get(), 1);
     reql_string_append(var3.get(), src3, 1);
@@ -778,17 +778,17 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
     reql_array_append(var0.get(), var1.get());
 
     ReQL_Obj_c var4;
-    std::unique_ptr<ReQL_Pair_t[]> pair4(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair4(new ReQL_Pair_t[1]);
     reql_object_init(var4.get(), pair4.get(), 1);
 
     ReQL_Obj_c var5;
-    std::unique_ptr<uint8_t[]> buf5(new uint8_t[1]);
+    _C::CTypes::string buf5(new uint8_t[1]);
     const uint8_t src5[] = "b";
     reql_string_init(var5.get(), buf5.get(), 1);
     reql_string_append(var5.get(), src5, 1);
 
     ReQL_Obj_c var6;
-    std::unique_ptr<uint8_t[]> buf6(new uint8_t[1]);
+    _C::CTypes::string buf6(new uint8_t[1]);
     const uint8_t src6[] = "b";
     reql_string_init(var6.get(), buf6.get(), 1);
     reql_string_append(var6.get(), src6, 1);
@@ -798,17 +798,17 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
     reql_array_append(var0.get(), var4.get());
 
     ReQL_Obj_c var7;
-    std::unique_ptr<ReQL_Pair_t[]> pair7(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair7(new ReQL_Pair_t[1]);
     reql_object_init(var7.get(), pair7.get(), 1);
 
     ReQL_Obj_c var8;
-    std::unique_ptr<uint8_t[]> buf8(new uint8_t[1]);
+    _C::CTypes::string buf8(new uint8_t[1]);
     const uint8_t src8[] = "b";
     reql_string_init(var8.get(), buf8.get(), 1);
     reql_string_append(var8.get(), src8, 1);
 
     ReQL_Obj_c var9;
-    std::unique_ptr<uint8_t[]> buf9(new uint8_t[1]);
+    _C::CTypes::string buf9(new uint8_t[1]);
     const uint8_t src9[] = "c";
     reql_string_init(var9.get(), buf9.get(), 1);
     reql_string_append(var9.get(), src9, 1);
@@ -818,17 +818,17 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
     reql_array_append(var0.get(), var7.get());
 
     ReQL_Obj_c var10;
-    std::unique_ptr<ReQL_Pair_t[]> pair10(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair10(new ReQL_Pair_t[1]);
     reql_object_init(var10.get(), pair10.get(), 1);
 
     ReQL_Obj_c var11;
-    std::unique_ptr<uint8_t[]> buf11(new uint8_t[1]);
+    _C::CTypes::string buf11(new uint8_t[1]);
     const uint8_t src11[] = "b";
     reql_string_init(var11.get(), buf11.get(), 1);
     reql_string_append(var11.get(), src11, 1);
 
     ReQL_Obj_c var12;
-    std::unique_ptr<uint8_t[]> buf12(new uint8_t[1]);
+    _C::CTypes::string buf12(new uint8_t[1]);
     const uint8_t src12[] = "a";
     reql_string_init(var12.get(), buf12.get(), 1);
     reql_string_append(var12.get(), src12, 1);
@@ -838,17 +838,17 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
     reql_array_append(var0.get(), var10.get());
 
     ReQL_Obj_c var13;
-    std::unique_ptr<ReQL_Pair_t[]> pair13(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair13(new ReQL_Pair_t[1]);
     reql_object_init(var13.get(), pair13.get(), 1);
 
     ReQL_Obj_c var14;
-    std::unique_ptr<uint8_t[]> buf14(new uint8_t[1]);
+    _C::CTypes::string buf14(new uint8_t[1]);
     const uint8_t src14[] = "b";
     reql_string_init(var14.get(), buf14.get(), 1);
     reql_string_append(var14.get(), src14, 1);
 
     ReQL_Obj_c var15;
-    std::unique_ptr<uint8_t[]> buf15(new uint8_t[1]);
+    _C::CTypes::string buf15(new uint8_t[1]);
     const uint8_t src15[] = "b";
     reql_string_init(var15.get(), buf15.get(), 1);
     reql_string_append(var15.get(), src15, 1);
@@ -858,17 +858,17 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
     reql_array_append(var0.get(), var13.get());
 
     ReQL_Obj_c var16;
-    std::unique_ptr<ReQL_Pair_t[]> pair16(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair16(new ReQL_Pair_t[1]);
     reql_object_init(var16.get(), pair16.get(), 1);
 
     ReQL_Obj_c var17;
-    std::unique_ptr<uint8_t[]> buf17(new uint8_t[1]);
+    _C::CTypes::string buf17(new uint8_t[1]);
     const uint8_t src17[] = "b";
     reql_string_init(var17.get(), buf17.get(), 1);
     reql_string_append(var17.get(), src17, 1);
 
     ReQL_Obj_c var18;
-    std::unique_ptr<uint8_t[]> buf18(new uint8_t[1]);
+    _C::CTypes::string buf18(new uint8_t[1]);
     const uint8_t src18[] = "c";
     reql_string_init(var18.get(), buf18.get(), 1);
     reql_string_append(var18.get(), src18, 1);
@@ -880,15 +880,15 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
 
   SECTION("test35") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[3]);
+    _C::CTypes::array arr0(new ReQL_Obj_t*[3]);
     reql_array_init(var0.get(), arr0.get(), 3);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<ReQL_Pair_t[]> pair1(new ReQL_Pair_t[2]);
+    _C::CTypes::pairs pair1(new ReQL_Pair_t[2]);
     reql_object_init(var1.get(), pair1.get(), 2);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[1]);
+    _C::CTypes::string buf2(new uint8_t[1]);
     const uint8_t src2[] = "a";
     reql_string_init(var2.get(), buf2.get(), 1);
     reql_string_append(var2.get(), src2, 1);
@@ -899,13 +899,13 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
     reql_object_add(var1.get(), var2.get(), var3.get());
 
     ReQL_Obj_c var4;
-    std::unique_ptr<uint8_t[]> buf4(new uint8_t[1]);
+    _C::CTypes::string buf4(new uint8_t[1]);
     const uint8_t src4[] = "b";
     reql_string_init(var4.get(), buf4.get(), 1);
     reql_string_append(var4.get(), src4, 1);
 
     ReQL_Obj_c var5;
-    std::unique_ptr<uint8_t[]> buf5(new uint8_t[1]);
+    _C::CTypes::string buf5(new uint8_t[1]);
     const uint8_t src5[] = "a";
     reql_string_init(var5.get(), buf5.get(), 1);
     reql_string_append(var5.get(), src5, 1);
@@ -915,11 +915,11 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
     reql_array_append(var0.get(), var1.get());
 
     ReQL_Obj_c var6;
-    std::unique_ptr<ReQL_Pair_t[]> pair6(new ReQL_Pair_t[2]);
+    _C::CTypes::pairs pair6(new ReQL_Pair_t[2]);
     reql_object_init(var6.get(), pair6.get(), 2);
 
     ReQL_Obj_c var7;
-    std::unique_ptr<uint8_t[]> buf7(new uint8_t[1]);
+    _C::CTypes::string buf7(new uint8_t[1]);
     const uint8_t src7[] = "a";
     reql_string_init(var7.get(), buf7.get(), 1);
     reql_string_append(var7.get(), src7, 1);
@@ -930,13 +930,13 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
     reql_object_add(var6.get(), var7.get(), var8.get());
 
     ReQL_Obj_c var9;
-    std::unique_ptr<uint8_t[]> buf9(new uint8_t[1]);
+    _C::CTypes::string buf9(new uint8_t[1]);
     const uint8_t src9[] = "b";
     reql_string_init(var9.get(), buf9.get(), 1);
     reql_string_append(var9.get(), src9, 1);
 
     ReQL_Obj_c var10;
-    std::unique_ptr<uint8_t[]> buf10(new uint8_t[1]);
+    _C::CTypes::string buf10(new uint8_t[1]);
     const uint8_t src10[] = "b";
     reql_string_init(var10.get(), buf10.get(), 1);
     reql_string_append(var10.get(), src10, 1);
@@ -946,11 +946,11 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
     reql_array_append(var0.get(), var6.get());
 
     ReQL_Obj_c var11;
-    std::unique_ptr<ReQL_Pair_t[]> pair11(new ReQL_Pair_t[2]);
+    _C::CTypes::pairs pair11(new ReQL_Pair_t[2]);
     reql_object_init(var11.get(), pair11.get(), 2);
 
     ReQL_Obj_c var12;
-    std::unique_ptr<uint8_t[]> buf12(new uint8_t[1]);
+    _C::CTypes::string buf12(new uint8_t[1]);
     const uint8_t src12[] = "a";
     reql_string_init(var12.get(), buf12.get(), 1);
     reql_string_append(var12.get(), src12, 1);
@@ -961,13 +961,13 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
     reql_object_add(var11.get(), var12.get(), var13.get());
 
     ReQL_Obj_c var14;
-    std::unique_ptr<uint8_t[]> buf14(new uint8_t[1]);
+    _C::CTypes::string buf14(new uint8_t[1]);
     const uint8_t src14[] = "b";
     reql_string_init(var14.get(), buf14.get(), 1);
     reql_string_append(var14.get(), src14, 1);
 
     ReQL_Obj_c var15;
-    std::unique_ptr<uint8_t[]> buf15(new uint8_t[1]);
+    _C::CTypes::string buf15(new uint8_t[1]);
     const uint8_t src15[] = "c";
     reql_string_init(var15.get(), buf15.get(), 1);
     reql_string_append(var15.get(), src15, 1);
@@ -979,7 +979,7 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
 
   SECTION("test36") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[10]);
+    _C::CTypes::array arr0(new ReQL_Obj_t*[10]);
     reql_array_init(var0.get(), arr0.get(), 10);
 
     ReQL_Obj_c var1;
@@ -1035,25 +1035,25 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
 
   SECTION("test38") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[6]);
+    _C::CTypes::array arr0(new ReQL_Obj_t*[6]);
     reql_array_init(var0.get(), arr0.get(), 6);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<ReQL_Pair_t[]> pair1(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair1(new ReQL_Pair_t[1]);
     reql_object_init(var1.get(), pair1.get(), 1);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[1]);
+    _C::CTypes::string buf2(new uint8_t[1]);
     const uint8_t src2[] = "b";
     reql_string_init(var2.get(), buf2.get(), 1);
     reql_string_append(var2.get(), src2, 1);
 
     ReQL_Obj_c var3;
-    std::unique_ptr<ReQL_Pair_t[]> pair3(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair3(new ReQL_Pair_t[1]);
     reql_object_init(var3.get(), pair3.get(), 1);
 
     ReQL_Obj_c var4;
-    std::unique_ptr<uint8_t[]> buf4(new uint8_t[1]);
+    _C::CTypes::string buf4(new uint8_t[1]);
     const uint8_t src4[] = "c";
     reql_string_init(var4.get(), buf4.get(), 1);
     reql_string_append(var4.get(), src4, 1);
@@ -1068,21 +1068,21 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
     reql_array_append(var0.get(), var1.get());
 
     ReQL_Obj_c var6;
-    std::unique_ptr<ReQL_Pair_t[]> pair6(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair6(new ReQL_Pair_t[1]);
     reql_object_init(var6.get(), pair6.get(), 1);
 
     ReQL_Obj_c var7;
-    std::unique_ptr<uint8_t[]> buf7(new uint8_t[1]);
+    _C::CTypes::string buf7(new uint8_t[1]);
     const uint8_t src7[] = "b";
     reql_string_init(var7.get(), buf7.get(), 1);
     reql_string_append(var7.get(), src7, 1);
 
     ReQL_Obj_c var8;
-    std::unique_ptr<ReQL_Pair_t[]> pair8(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair8(new ReQL_Pair_t[1]);
     reql_object_init(var8.get(), pair8.get(), 1);
 
     ReQL_Obj_c var9;
-    std::unique_ptr<uint8_t[]> buf9(new uint8_t[1]);
+    _C::CTypes::string buf9(new uint8_t[1]);
     const uint8_t src9[] = "c";
     reql_string_init(var9.get(), buf9.get(), 1);
     reql_string_append(var9.get(), src9, 1);
@@ -1097,21 +1097,21 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
     reql_array_append(var0.get(), var6.get());
 
     ReQL_Obj_c var11;
-    std::unique_ptr<ReQL_Pair_t[]> pair11(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair11(new ReQL_Pair_t[1]);
     reql_object_init(var11.get(), pair11.get(), 1);
 
     ReQL_Obj_c var12;
-    std::unique_ptr<uint8_t[]> buf12(new uint8_t[1]);
+    _C::CTypes::string buf12(new uint8_t[1]);
     const uint8_t src12[] = "b";
     reql_string_init(var12.get(), buf12.get(), 1);
     reql_string_append(var12.get(), src12, 1);
 
     ReQL_Obj_c var13;
-    std::unique_ptr<ReQL_Pair_t[]> pair13(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair13(new ReQL_Pair_t[1]);
     reql_object_init(var13.get(), pair13.get(), 1);
 
     ReQL_Obj_c var14;
-    std::unique_ptr<uint8_t[]> buf14(new uint8_t[1]);
+    _C::CTypes::string buf14(new uint8_t[1]);
     const uint8_t src14[] = "c";
     reql_string_init(var14.get(), buf14.get(), 1);
     reql_string_append(var14.get(), src14, 1);
@@ -1126,21 +1126,21 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
     reql_array_append(var0.get(), var11.get());
 
     ReQL_Obj_c var16;
-    std::unique_ptr<ReQL_Pair_t[]> pair16(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair16(new ReQL_Pair_t[1]);
     reql_object_init(var16.get(), pair16.get(), 1);
 
     ReQL_Obj_c var17;
-    std::unique_ptr<uint8_t[]> buf17(new uint8_t[1]);
+    _C::CTypes::string buf17(new uint8_t[1]);
     const uint8_t src17[] = "b";
     reql_string_init(var17.get(), buf17.get(), 1);
     reql_string_append(var17.get(), src17, 1);
 
     ReQL_Obj_c var18;
-    std::unique_ptr<ReQL_Pair_t[]> pair18(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair18(new ReQL_Pair_t[1]);
     reql_object_init(var18.get(), pair18.get(), 1);
 
     ReQL_Obj_c var19;
-    std::unique_ptr<uint8_t[]> buf19(new uint8_t[1]);
+    _C::CTypes::string buf19(new uint8_t[1]);
     const uint8_t src19[] = "c";
     reql_string_init(var19.get(), buf19.get(), 1);
     reql_string_append(var19.get(), src19, 1);
@@ -1155,21 +1155,21 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
     reql_array_append(var0.get(), var16.get());
 
     ReQL_Obj_c var21;
-    std::unique_ptr<ReQL_Pair_t[]> pair21(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair21(new ReQL_Pair_t[1]);
     reql_object_init(var21.get(), pair21.get(), 1);
 
     ReQL_Obj_c var22;
-    std::unique_ptr<uint8_t[]> buf22(new uint8_t[1]);
+    _C::CTypes::string buf22(new uint8_t[1]);
     const uint8_t src22[] = "b";
     reql_string_init(var22.get(), buf22.get(), 1);
     reql_string_append(var22.get(), src22, 1);
 
     ReQL_Obj_c var23;
-    std::unique_ptr<ReQL_Pair_t[]> pair23(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair23(new ReQL_Pair_t[1]);
     reql_object_init(var23.get(), pair23.get(), 1);
 
     ReQL_Obj_c var24;
-    std::unique_ptr<uint8_t[]> buf24(new uint8_t[1]);
+    _C::CTypes::string buf24(new uint8_t[1]);
     const uint8_t src24[] = "c";
     reql_string_init(var24.get(), buf24.get(), 1);
     reql_string_append(var24.get(), src24, 1);
@@ -1184,21 +1184,21 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
     reql_array_append(var0.get(), var21.get());
 
     ReQL_Obj_c var26;
-    std::unique_ptr<ReQL_Pair_t[]> pair26(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair26(new ReQL_Pair_t[1]);
     reql_object_init(var26.get(), pair26.get(), 1);
 
     ReQL_Obj_c var27;
-    std::unique_ptr<uint8_t[]> buf27(new uint8_t[1]);
+    _C::CTypes::string buf27(new uint8_t[1]);
     const uint8_t src27[] = "b";
     reql_string_init(var27.get(), buf27.get(), 1);
     reql_string_append(var27.get(), src27, 1);
 
     ReQL_Obj_c var28;
-    std::unique_ptr<ReQL_Pair_t[]> pair28(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair28(new ReQL_Pair_t[1]);
     reql_object_init(var28.get(), pair28.get(), 1);
 
     ReQL_Obj_c var29;
-    std::unique_ptr<uint8_t[]> buf29(new uint8_t[1]);
+    _C::CTypes::string buf29(new uint8_t[1]);
     const uint8_t src29[] = "c";
     reql_string_init(var29.get(), buf29.get(), 1);
     reql_string_append(var29.get(), src29, 1);
@@ -1215,17 +1215,17 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
 
   SECTION("test39") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
+    _C::CTypes::string buf1(new uint8_t[4]);
     const uint8_t src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
+    _C::CTypes::string buf2(new uint8_t[3]);
     const uint8_t src2[] = "err";
     reql_string_init(var2.get(), buf2.get(), 3);
     reql_string_append(var2.get(), src2, 3);
@@ -1235,17 +1235,17 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
 
   SECTION("test40") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
+    _C::CTypes::string buf1(new uint8_t[4]);
     const uint8_t src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
+    _C::CTypes::string buf2(new uint8_t[3]);
     const uint8_t src2[] = "err";
     reql_string_init(var2.get(), buf2.get(), 3);
     reql_string_append(var2.get(), src2, 3);
@@ -1255,7 +1255,7 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
 
   SECTION("test41") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[3]);
+    _C::CTypes::array arr0(new ReQL_Obj_t*[3]);
     reql_array_init(var0.get(), arr0.get(), 3);
 
     ReQL_Obj_c var1;
@@ -1276,21 +1276,21 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
 
   SECTION("test42") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[3]);
+    _C::CTypes::array arr0(new ReQL_Obj_t*[3]);
     reql_array_init(var0.get(), arr0.get(), 3);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<ReQL_Pair_t[]> pair1(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair1(new ReQL_Pair_t[1]);
     reql_object_init(var1.get(), pair1.get(), 1);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[1]);
+    _C::CTypes::string buf2(new uint8_t[1]);
     const uint8_t src2[] = "b";
     reql_string_init(var2.get(), buf2.get(), 1);
     reql_string_append(var2.get(), src2, 1);
 
     ReQL_Obj_c var3;
-    std::unique_ptr<uint8_t[]> buf3(new uint8_t[1]);
+    _C::CTypes::string buf3(new uint8_t[1]);
     const uint8_t src3[] = "a";
     reql_string_init(var3.get(), buf3.get(), 1);
     reql_string_append(var3.get(), src3, 1);
@@ -1300,17 +1300,17 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
     reql_array_append(var0.get(), var1.get());
 
     ReQL_Obj_c var4;
-    std::unique_ptr<ReQL_Pair_t[]> pair4(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair4(new ReQL_Pair_t[1]);
     reql_object_init(var4.get(), pair4.get(), 1);
 
     ReQL_Obj_c var5;
-    std::unique_ptr<uint8_t[]> buf5(new uint8_t[1]);
+    _C::CTypes::string buf5(new uint8_t[1]);
     const uint8_t src5[] = "b";
     reql_string_init(var5.get(), buf5.get(), 1);
     reql_string_append(var5.get(), src5, 1);
 
     ReQL_Obj_c var6;
-    std::unique_ptr<uint8_t[]> buf6(new uint8_t[1]);
+    _C::CTypes::string buf6(new uint8_t[1]);
     const uint8_t src6[] = "b";
     reql_string_init(var6.get(), buf6.get(), 1);
     reql_string_append(var6.get(), src6, 1);
@@ -1320,17 +1320,17 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
     reql_array_append(var0.get(), var4.get());
 
     ReQL_Obj_c var7;
-    std::unique_ptr<ReQL_Pair_t[]> pair7(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair7(new ReQL_Pair_t[1]);
     reql_object_init(var7.get(), pair7.get(), 1);
 
     ReQL_Obj_c var8;
-    std::unique_ptr<uint8_t[]> buf8(new uint8_t[1]);
+    _C::CTypes::string buf8(new uint8_t[1]);
     const uint8_t src8[] = "b";
     reql_string_init(var8.get(), buf8.get(), 1);
     reql_string_append(var8.get(), src8, 1);
 
     ReQL_Obj_c var9;
-    std::unique_ptr<uint8_t[]> buf9(new uint8_t[1]);
+    _C::CTypes::string buf9(new uint8_t[1]);
     const uint8_t src9[] = "c";
     reql_string_init(var9.get(), buf9.get(), 1);
     reql_string_append(var9.get(), src9, 1);
@@ -1342,15 +1342,15 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
 
   SECTION("test43") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[3]);
+    _C::CTypes::array arr0(new ReQL_Obj_t*[3]);
     reql_array_init(var0.get(), arr0.get(), 3);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<ReQL_Pair_t[]> pair1(new ReQL_Pair_t[2]);
+    _C::CTypes::pairs pair1(new ReQL_Pair_t[2]);
     reql_object_init(var1.get(), pair1.get(), 2);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[1]);
+    _C::CTypes::string buf2(new uint8_t[1]);
     const uint8_t src2[] = "a";
     reql_string_init(var2.get(), buf2.get(), 1);
     reql_string_append(var2.get(), src2, 1);
@@ -1361,13 +1361,13 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
     reql_object_add(var1.get(), var2.get(), var3.get());
 
     ReQL_Obj_c var4;
-    std::unique_ptr<uint8_t[]> buf4(new uint8_t[1]);
+    _C::CTypes::string buf4(new uint8_t[1]);
     const uint8_t src4[] = "b";
     reql_string_init(var4.get(), buf4.get(), 1);
     reql_string_append(var4.get(), src4, 1);
 
     ReQL_Obj_c var5;
-    std::unique_ptr<uint8_t[]> buf5(new uint8_t[1]);
+    _C::CTypes::string buf5(new uint8_t[1]);
     const uint8_t src5[] = "a";
     reql_string_init(var5.get(), buf5.get(), 1);
     reql_string_append(var5.get(), src5, 1);
@@ -1377,11 +1377,11 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
     reql_array_append(var0.get(), var1.get());
 
     ReQL_Obj_c var6;
-    std::unique_ptr<ReQL_Pair_t[]> pair6(new ReQL_Pair_t[2]);
+    _C::CTypes::pairs pair6(new ReQL_Pair_t[2]);
     reql_object_init(var6.get(), pair6.get(), 2);
 
     ReQL_Obj_c var7;
-    std::unique_ptr<uint8_t[]> buf7(new uint8_t[1]);
+    _C::CTypes::string buf7(new uint8_t[1]);
     const uint8_t src7[] = "a";
     reql_string_init(var7.get(), buf7.get(), 1);
     reql_string_append(var7.get(), src7, 1);
@@ -1392,13 +1392,13 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
     reql_object_add(var6.get(), var7.get(), var8.get());
 
     ReQL_Obj_c var9;
-    std::unique_ptr<uint8_t[]> buf9(new uint8_t[1]);
+    _C::CTypes::string buf9(new uint8_t[1]);
     const uint8_t src9[] = "b";
     reql_string_init(var9.get(), buf9.get(), 1);
     reql_string_append(var9.get(), src9, 1);
 
     ReQL_Obj_c var10;
-    std::unique_ptr<uint8_t[]> buf10(new uint8_t[1]);
+    _C::CTypes::string buf10(new uint8_t[1]);
     const uint8_t src10[] = "b";
     reql_string_init(var10.get(), buf10.get(), 1);
     reql_string_append(var10.get(), src10, 1);
@@ -1408,11 +1408,11 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
     reql_array_append(var0.get(), var6.get());
 
     ReQL_Obj_c var11;
-    std::unique_ptr<ReQL_Pair_t[]> pair11(new ReQL_Pair_t[2]);
+    _C::CTypes::pairs pair11(new ReQL_Pair_t[2]);
     reql_object_init(var11.get(), pair11.get(), 2);
 
     ReQL_Obj_c var12;
-    std::unique_ptr<uint8_t[]> buf12(new uint8_t[1]);
+    _C::CTypes::string buf12(new uint8_t[1]);
     const uint8_t src12[] = "a";
     reql_string_init(var12.get(), buf12.get(), 1);
     reql_string_append(var12.get(), src12, 1);
@@ -1423,13 +1423,13 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
     reql_object_add(var11.get(), var12.get(), var13.get());
 
     ReQL_Obj_c var14;
-    std::unique_ptr<uint8_t[]> buf14(new uint8_t[1]);
+    _C::CTypes::string buf14(new uint8_t[1]);
     const uint8_t src14[] = "b";
     reql_string_init(var14.get(), buf14.get(), 1);
     reql_string_append(var14.get(), src14, 1);
 
     ReQL_Obj_c var15;
-    std::unique_ptr<uint8_t[]> buf15(new uint8_t[1]);
+    _C::CTypes::string buf15(new uint8_t[1]);
     const uint8_t src15[] = "c";
     reql_string_init(var15.get(), buf15.get(), 1);
     reql_string_append(var15.get(), src15, 1);
@@ -1441,7 +1441,7 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
 
   SECTION("test44") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[3]);
+    _C::CTypes::array arr0(new ReQL_Obj_t*[3]);
     reql_array_init(var0.get(), arr0.get(), 3);
 
     ReQL_Obj_c var1;
@@ -1482,15 +1482,15 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
 
   SECTION("test49") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[1]);
+    _C::CTypes::array arr0(new ReQL_Obj_t*[1]);
     reql_array_init(var0.get(), arr0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<ReQL_Pair_t[]> pair1(new ReQL_Pair_t[2]);
+    _C::CTypes::pairs pair1(new ReQL_Pair_t[2]);
     reql_object_init(var1.get(), pair1.get(), 2);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[1]);
+    _C::CTypes::string buf2(new uint8_t[1]);
     const uint8_t src2[] = "a";
     reql_string_init(var2.get(), buf2.get(), 1);
     reql_string_append(var2.get(), src2, 1);
@@ -1501,13 +1501,13 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
     reql_object_add(var1.get(), var2.get(), var3.get());
 
     ReQL_Obj_c var4;
-    std::unique_ptr<uint8_t[]> buf4(new uint8_t[1]);
+    _C::CTypes::string buf4(new uint8_t[1]);
     const uint8_t src4[] = "b";
     reql_string_init(var4.get(), buf4.get(), 1);
     reql_string_append(var4.get(), src4, 1);
 
     ReQL_Obj_c var5;
-    std::unique_ptr<uint8_t[]> buf5(new uint8_t[1]);
+    _C::CTypes::string buf5(new uint8_t[1]);
     const uint8_t src5[] = "b";
     reql_string_init(var5.get(), buf5.get(), 1);
     reql_string_append(var5.get(), src5, 1);
@@ -1519,7 +1519,7 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
 
   SECTION("test50") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[6]);
+    _C::CTypes::array arr0(new ReQL_Obj_t*[6]);
     reql_array_init(var0.get(), arr0.get(), 6);
 
     ReQL_Obj_c var1;
@@ -1555,15 +1555,15 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
 
   SECTION("test51") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[6]);
+    _C::CTypes::array arr0(new ReQL_Obj_t*[6]);
     reql_array_init(var0.get(), arr0.get(), 6);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<ReQL_Pair_t[]> pair1(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair1(new ReQL_Pair_t[1]);
     reql_object_init(var1.get(), pair1.get(), 1);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[1]);
+    _C::CTypes::string buf2(new uint8_t[1]);
     const uint8_t src2[] = "v";
     reql_string_init(var2.get(), buf2.get(), 1);
     reql_string_append(var2.get(), src2, 1);
@@ -1576,11 +1576,11 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
     reql_array_append(var0.get(), var1.get());
 
     ReQL_Obj_c var4;
-    std::unique_ptr<ReQL_Pair_t[]> pair4(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair4(new ReQL_Pair_t[1]);
     reql_object_init(var4.get(), pair4.get(), 1);
 
     ReQL_Obj_c var5;
-    std::unique_ptr<uint8_t[]> buf5(new uint8_t[2]);
+    _C::CTypes::string buf5(new uint8_t[2]);
     const uint8_t src5[] = "v2";
     reql_string_init(var5.get(), buf5.get(), 2);
     reql_string_append(var5.get(), src5, 2);
@@ -1593,11 +1593,11 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
     reql_array_append(var0.get(), var4.get());
 
     ReQL_Obj_c var7;
-    std::unique_ptr<ReQL_Pair_t[]> pair7(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair7(new ReQL_Pair_t[1]);
     reql_object_init(var7.get(), pair7.get(), 1);
 
     ReQL_Obj_c var8;
-    std::unique_ptr<uint8_t[]> buf8(new uint8_t[1]);
+    _C::CTypes::string buf8(new uint8_t[1]);
     const uint8_t src8[] = "v";
     reql_string_init(var8.get(), buf8.get(), 1);
     reql_string_append(var8.get(), src8, 1);
@@ -1610,11 +1610,11 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
     reql_array_append(var0.get(), var7.get());
 
     ReQL_Obj_c var10;
-    std::unique_ptr<ReQL_Pair_t[]> pair10(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair10(new ReQL_Pair_t[1]);
     reql_object_init(var10.get(), pair10.get(), 1);
 
     ReQL_Obj_c var11;
-    std::unique_ptr<uint8_t[]> buf11(new uint8_t[2]);
+    _C::CTypes::string buf11(new uint8_t[2]);
     const uint8_t src11[] = "v2";
     reql_string_init(var11.get(), buf11.get(), 2);
     reql_string_append(var11.get(), src11, 2);
@@ -1627,11 +1627,11 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
     reql_array_append(var0.get(), var10.get());
 
     ReQL_Obj_c var13;
-    std::unique_ptr<ReQL_Pair_t[]> pair13(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair13(new ReQL_Pair_t[1]);
     reql_object_init(var13.get(), pair13.get(), 1);
 
     ReQL_Obj_c var14;
-    std::unique_ptr<uint8_t[]> buf14(new uint8_t[1]);
+    _C::CTypes::string buf14(new uint8_t[1]);
     const uint8_t src14[] = "v";
     reql_string_init(var14.get(), buf14.get(), 1);
     reql_string_append(var14.get(), src14, 1);
@@ -1644,11 +1644,11 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
     reql_array_append(var0.get(), var13.get());
 
     ReQL_Obj_c var16;
-    std::unique_ptr<ReQL_Pair_t[]> pair16(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair16(new ReQL_Pair_t[1]);
     reql_object_init(var16.get(), pair16.get(), 1);
 
     ReQL_Obj_c var17;
-    std::unique_ptr<uint8_t[]> buf17(new uint8_t[2]);
+    _C::CTypes::string buf17(new uint8_t[2]);
     const uint8_t src17[] = "v2";
     reql_string_init(var17.get(), buf17.get(), 2);
     reql_string_append(var17.get(), src17, 2);
@@ -1663,15 +1663,15 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
 
   SECTION("test52") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[3]);
+    _C::CTypes::array arr0(new ReQL_Obj_t*[3]);
     reql_array_init(var0.get(), arr0.get(), 3);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<ReQL_Pair_t[]> pair1(new ReQL_Pair_t[2]);
+    _C::CTypes::pairs pair1(new ReQL_Pair_t[2]);
     reql_object_init(var1.get(), pair1.get(), 2);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[1]);
+    _C::CTypes::string buf2(new uint8_t[1]);
     const uint8_t src2[] = "a";
     reql_string_init(var2.get(), buf2.get(), 1);
     reql_string_append(var2.get(), src2, 1);
@@ -1682,13 +1682,13 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
     reql_object_add(var1.get(), var2.get(), var3.get());
 
     ReQL_Obj_c var4;
-    std::unique_ptr<uint8_t[]> buf4(new uint8_t[1]);
+    _C::CTypes::string buf4(new uint8_t[1]);
     const uint8_t src4[] = "b";
     reql_string_init(var4.get(), buf4.get(), 1);
     reql_string_append(var4.get(), src4, 1);
 
     ReQL_Obj_c var5;
-    std::unique_ptr<uint8_t[]> buf5(new uint8_t[1]);
+    _C::CTypes::string buf5(new uint8_t[1]);
     const uint8_t src5[] = "a";
     reql_string_init(var5.get(), buf5.get(), 1);
     reql_string_append(var5.get(), src5, 1);
@@ -1698,11 +1698,11 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
     reql_array_append(var0.get(), var1.get());
 
     ReQL_Obj_c var6;
-    std::unique_ptr<ReQL_Pair_t[]> pair6(new ReQL_Pair_t[2]);
+    _C::CTypes::pairs pair6(new ReQL_Pair_t[2]);
     reql_object_init(var6.get(), pair6.get(), 2);
 
     ReQL_Obj_c var7;
-    std::unique_ptr<uint8_t[]> buf7(new uint8_t[1]);
+    _C::CTypes::string buf7(new uint8_t[1]);
     const uint8_t src7[] = "a";
     reql_string_init(var7.get(), buf7.get(), 1);
     reql_string_append(var7.get(), src7, 1);
@@ -1713,13 +1713,13 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
     reql_object_add(var6.get(), var7.get(), var8.get());
 
     ReQL_Obj_c var9;
-    std::unique_ptr<uint8_t[]> buf9(new uint8_t[1]);
+    _C::CTypes::string buf9(new uint8_t[1]);
     const uint8_t src9[] = "b";
     reql_string_init(var9.get(), buf9.get(), 1);
     reql_string_append(var9.get(), src9, 1);
 
     ReQL_Obj_c var10;
-    std::unique_ptr<uint8_t[]> buf10(new uint8_t[1]);
+    _C::CTypes::string buf10(new uint8_t[1]);
     const uint8_t src10[] = "b";
     reql_string_init(var10.get(), buf10.get(), 1);
     reql_string_append(var10.get(), src10, 1);
@@ -1729,11 +1729,11 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
     reql_array_append(var0.get(), var6.get());
 
     ReQL_Obj_c var11;
-    std::unique_ptr<ReQL_Pair_t[]> pair11(new ReQL_Pair_t[2]);
+    _C::CTypes::pairs pair11(new ReQL_Pair_t[2]);
     reql_object_init(var11.get(), pair11.get(), 2);
 
     ReQL_Obj_c var12;
-    std::unique_ptr<uint8_t[]> buf12(new uint8_t[1]);
+    _C::CTypes::string buf12(new uint8_t[1]);
     const uint8_t src12[] = "a";
     reql_string_init(var12.get(), buf12.get(), 1);
     reql_string_append(var12.get(), src12, 1);
@@ -1744,13 +1744,13 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
     reql_object_add(var11.get(), var12.get(), var13.get());
 
     ReQL_Obj_c var14;
-    std::unique_ptr<uint8_t[]> buf14(new uint8_t[1]);
+    _C::CTypes::string buf14(new uint8_t[1]);
     const uint8_t src14[] = "b";
     reql_string_init(var14.get(), buf14.get(), 1);
     reql_string_append(var14.get(), src14, 1);
 
     ReQL_Obj_c var15;
-    std::unique_ptr<uint8_t[]> buf15(new uint8_t[1]);
+    _C::CTypes::string buf15(new uint8_t[1]);
     const uint8_t src15[] = "c";
     reql_string_init(var15.get(), buf15.get(), 1);
     reql_string_append(var15.get(), src15, 1);
@@ -1762,15 +1762,15 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
 
   SECTION("test53") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[3]);
+    _C::CTypes::array arr0(new ReQL_Obj_t*[3]);
     reql_array_init(var0.get(), arr0.get(), 3);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<ReQL_Pair_t[]> pair1(new ReQL_Pair_t[2]);
+    _C::CTypes::pairs pair1(new ReQL_Pair_t[2]);
     reql_object_init(var1.get(), pair1.get(), 2);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[1]);
+    _C::CTypes::string buf2(new uint8_t[1]);
     const uint8_t src2[] = "a";
     reql_string_init(var2.get(), buf2.get(), 1);
     reql_string_append(var2.get(), src2, 1);
@@ -1781,13 +1781,13 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
     reql_object_add(var1.get(), var2.get(), var3.get());
 
     ReQL_Obj_c var4;
-    std::unique_ptr<uint8_t[]> buf4(new uint8_t[1]);
+    _C::CTypes::string buf4(new uint8_t[1]);
     const uint8_t src4[] = "b";
     reql_string_init(var4.get(), buf4.get(), 1);
     reql_string_append(var4.get(), src4, 1);
 
     ReQL_Obj_c var5;
-    std::unique_ptr<uint8_t[]> buf5(new uint8_t[1]);
+    _C::CTypes::string buf5(new uint8_t[1]);
     const uint8_t src5[] = "c";
     reql_string_init(var5.get(), buf5.get(), 1);
     reql_string_append(var5.get(), src5, 1);
@@ -1797,11 +1797,11 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
     reql_array_append(var0.get(), var1.get());
 
     ReQL_Obj_c var6;
-    std::unique_ptr<ReQL_Pair_t[]> pair6(new ReQL_Pair_t[2]);
+    _C::CTypes::pairs pair6(new ReQL_Pair_t[2]);
     reql_object_init(var6.get(), pair6.get(), 2);
 
     ReQL_Obj_c var7;
-    std::unique_ptr<uint8_t[]> buf7(new uint8_t[1]);
+    _C::CTypes::string buf7(new uint8_t[1]);
     const uint8_t src7[] = "a";
     reql_string_init(var7.get(), buf7.get(), 1);
     reql_string_append(var7.get(), src7, 1);
@@ -1812,13 +1812,13 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
     reql_object_add(var6.get(), var7.get(), var8.get());
 
     ReQL_Obj_c var9;
-    std::unique_ptr<uint8_t[]> buf9(new uint8_t[1]);
+    _C::CTypes::string buf9(new uint8_t[1]);
     const uint8_t src9[] = "b";
     reql_string_init(var9.get(), buf9.get(), 1);
     reql_string_append(var9.get(), src9, 1);
 
     ReQL_Obj_c var10;
-    std::unique_ptr<uint8_t[]> buf10(new uint8_t[1]);
+    _C::CTypes::string buf10(new uint8_t[1]);
     const uint8_t src10[] = "b";
     reql_string_init(var10.get(), buf10.get(), 1);
     reql_string_append(var10.get(), src10, 1);
@@ -1828,11 +1828,11 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
     reql_array_append(var0.get(), var6.get());
 
     ReQL_Obj_c var11;
-    std::unique_ptr<ReQL_Pair_t[]> pair11(new ReQL_Pair_t[2]);
+    _C::CTypes::pairs pair11(new ReQL_Pair_t[2]);
     reql_object_init(var11.get(), pair11.get(), 2);
 
     ReQL_Obj_c var12;
-    std::unique_ptr<uint8_t[]> buf12(new uint8_t[1]);
+    _C::CTypes::string buf12(new uint8_t[1]);
     const uint8_t src12[] = "a";
     reql_string_init(var12.get(), buf12.get(), 1);
     reql_string_append(var12.get(), src12, 1);
@@ -1843,13 +1843,13 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
     reql_object_add(var11.get(), var12.get(), var13.get());
 
     ReQL_Obj_c var14;
-    std::unique_ptr<uint8_t[]> buf14(new uint8_t[1]);
+    _C::CTypes::string buf14(new uint8_t[1]);
     const uint8_t src14[] = "b";
     reql_string_init(var14.get(), buf14.get(), 1);
     reql_string_append(var14.get(), src14, 1);
 
     ReQL_Obj_c var15;
-    std::unique_ptr<uint8_t[]> buf15(new uint8_t[1]);
+    _C::CTypes::string buf15(new uint8_t[1]);
     const uint8_t src15[] = "a";
     reql_string_init(var15.get(), buf15.get(), 1);
     reql_string_append(var15.get(), src15, 1);
@@ -1861,15 +1861,15 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
 
   SECTION("test54") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[2]);
+    _C::CTypes::array arr0(new ReQL_Obj_t*[2]);
     reql_array_init(var0.get(), arr0.get(), 2);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<ReQL_Pair_t[]> pair1(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair1(new ReQL_Pair_t[1]);
     reql_object_init(var1.get(), pair1.get(), 1);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[2]);
+    _C::CTypes::string buf2(new uint8_t[2]);
     const uint8_t src2[] = "-a";
     reql_string_init(var2.get(), buf2.get(), 2);
     reql_string_append(var2.get(), src2, 2);
@@ -1882,11 +1882,11 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
     reql_array_append(var0.get(), var1.get());
 
     ReQL_Obj_c var4;
-    std::unique_ptr<ReQL_Pair_t[]> pair4(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair4(new ReQL_Pair_t[1]);
     reql_object_init(var4.get(), pair4.get(), 1);
 
     ReQL_Obj_c var5;
-    std::unique_ptr<uint8_t[]> buf5(new uint8_t[2]);
+    _C::CTypes::string buf5(new uint8_t[2]);
     const uint8_t src5[] = "-a";
     reql_string_init(var5.get(), buf5.get(), 2);
     reql_string_append(var5.get(), src5, 2);
@@ -1901,7 +1901,7 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
 
   SECTION("test55") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[4]);
+    _C::CTypes::array arr0(new ReQL_Obj_t*[4]);
     reql_array_init(var0.get(), arr0.get(), 4);
 
     ReQL_Obj_c var1;
@@ -1932,7 +1932,7 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
 
   SECTION("test57") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[6]);
+    _C::CTypes::array arr0(new ReQL_Obj_t*[6]);
     reql_array_init(var0.get(), arr0.get(), 6);
 
     ReQL_Obj_c var1;
@@ -1951,11 +1951,11 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
     reql_array_append(var0.get(), var3.get());
 
     ReQL_Obj_c var4;
-    std::unique_ptr<ReQL_Pair_t[]> pair4(new ReQL_Pair_t[2]);
+    _C::CTypes::pairs pair4(new ReQL_Pair_t[2]);
     reql_object_init(var4.get(), pair4.get(), 2);
 
     ReQL_Obj_c var5;
-    std::unique_ptr<uint8_t[]> buf5(new uint8_t[1]);
+    _C::CTypes::string buf5(new uint8_t[1]);
     const uint8_t src5[] = "a";
     reql_string_init(var5.get(), buf5.get(), 1);
     reql_string_append(var5.get(), src5, 1);
@@ -1966,13 +1966,13 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
     reql_object_add(var4.get(), var5.get(), var6.get());
 
     ReQL_Obj_c var7;
-    std::unique_ptr<uint8_t[]> buf7(new uint8_t[1]);
+    _C::CTypes::string buf7(new uint8_t[1]);
     const uint8_t src7[] = "b";
     reql_string_init(var7.get(), buf7.get(), 1);
     reql_string_append(var7.get(), src7, 1);
 
     ReQL_Obj_c var8;
-    std::unique_ptr<uint8_t[]> buf8(new uint8_t[1]);
+    _C::CTypes::string buf8(new uint8_t[1]);
     const uint8_t src8[] = "a";
     reql_string_init(var8.get(), buf8.get(), 1);
     reql_string_append(var8.get(), src8, 1);
@@ -1982,11 +1982,11 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
     reql_array_append(var0.get(), var4.get());
 
     ReQL_Obj_c var9;
-    std::unique_ptr<ReQL_Pair_t[]> pair9(new ReQL_Pair_t[2]);
+    _C::CTypes::pairs pair9(new ReQL_Pair_t[2]);
     reql_object_init(var9.get(), pair9.get(), 2);
 
     ReQL_Obj_c var10;
-    std::unique_ptr<uint8_t[]> buf10(new uint8_t[1]);
+    _C::CTypes::string buf10(new uint8_t[1]);
     const uint8_t src10[] = "a";
     reql_string_init(var10.get(), buf10.get(), 1);
     reql_string_append(var10.get(), src10, 1);
@@ -1997,13 +1997,13 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
     reql_object_add(var9.get(), var10.get(), var11.get());
 
     ReQL_Obj_c var12;
-    std::unique_ptr<uint8_t[]> buf12(new uint8_t[1]);
+    _C::CTypes::string buf12(new uint8_t[1]);
     const uint8_t src12[] = "b";
     reql_string_init(var12.get(), buf12.get(), 1);
     reql_string_append(var12.get(), src12, 1);
 
     ReQL_Obj_c var13;
-    std::unique_ptr<uint8_t[]> buf13(new uint8_t[1]);
+    _C::CTypes::string buf13(new uint8_t[1]);
     const uint8_t src13[] = "b";
     reql_string_init(var13.get(), buf13.get(), 1);
     reql_string_append(var13.get(), src13, 1);
@@ -2013,11 +2013,11 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
     reql_array_append(var0.get(), var9.get());
 
     ReQL_Obj_c var14;
-    std::unique_ptr<ReQL_Pair_t[]> pair14(new ReQL_Pair_t[2]);
+    _C::CTypes::pairs pair14(new ReQL_Pair_t[2]);
     reql_object_init(var14.get(), pair14.get(), 2);
 
     ReQL_Obj_c var15;
-    std::unique_ptr<uint8_t[]> buf15(new uint8_t[1]);
+    _C::CTypes::string buf15(new uint8_t[1]);
     const uint8_t src15[] = "a";
     reql_string_init(var15.get(), buf15.get(), 1);
     reql_string_append(var15.get(), src15, 1);
@@ -2028,13 +2028,13 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
     reql_object_add(var14.get(), var15.get(), var16.get());
 
     ReQL_Obj_c var17;
-    std::unique_ptr<uint8_t[]> buf17(new uint8_t[1]);
+    _C::CTypes::string buf17(new uint8_t[1]);
     const uint8_t src17[] = "b";
     reql_string_init(var17.get(), buf17.get(), 1);
     reql_string_append(var17.get(), src17, 1);
 
     ReQL_Obj_c var18;
-    std::unique_ptr<uint8_t[]> buf18(new uint8_t[1]);
+    _C::CTypes::string buf18(new uint8_t[1]);
     const uint8_t src18[] = "c";
     reql_string_init(var18.get(), buf18.get(), 1);
     reql_string_append(var18.get(), src18, 1);
@@ -2126,7 +2126,7 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
 
   SECTION("test74") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[2]);
+    _C::CTypes::array arr0(new ReQL_Obj_t*[2]);
     reql_array_init(var0.get(), arr0.get(), 2);
 
     ReQL_Obj_c var1;
@@ -2142,17 +2142,17 @@ TEST_CASE("c Tests manipulation operations on arrays", "[c][ast]") {
 
   SECTION("test75") {
     ReQL_Obj_c var0;
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    _C::CTypes::pairs pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
     ReQL_Obj_c var1;
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
+    _C::CTypes::string buf1(new uint8_t[4]);
     const uint8_t src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     ReQL_Obj_c var2;
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
+    _C::CTypes::string buf2(new uint8_t[3]);
     const uint8_t src2[] = "err";
     reql_string_init(var2.get(), buf2.get(), 3);
     reql_string_append(var2.get(), src2, 3);
