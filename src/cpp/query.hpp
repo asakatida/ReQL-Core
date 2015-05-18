@@ -21,10 +21,6 @@ limitations under the License.
 #ifndef REQL_CPP_QUERY_HPP_
 #define REQL_CPP_QUERY_HPP_
 
-#include <map>
-#include <string>
-#include <vector>
-
 #include "./cpp/ast.hpp"
 #include "./cpp/connection.hpp"
 #include "./cpp/cursor.hpp"

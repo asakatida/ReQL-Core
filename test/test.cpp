@@ -3,8 +3,6 @@
 #define CATCH_CONFIG_MAIN
 #include "./test.hpp"
 
-#include <string>
-
 namespace ReQL {
 
 namespace _C {

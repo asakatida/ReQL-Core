@@ -23,10 +23,6 @@ limitations under the License.
 
 #include "./cpp/new.hpp"
 
-#include <map>
-#include <string>
-#include <vector>
-
 namespace ReQL {
 namespace _Internal {
     

@@ -23,6 +23,9 @@ limitations under the License.
 #include "./cpp/error.hpp"
 #include "./cpp/query.hpp"
 
+#include <algorithm>
+#include <vector>
+
 namespace ReQL {
 
 class ResultBuilder : public Parser {

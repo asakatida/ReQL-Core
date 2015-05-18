@@ -7,8 +7,6 @@
 
 #include "./ReQL.hpp"
 
-#include <string>
-
 namespace ReQL {
 
 class ReQL_Conn_c : public _C::Types::connection {

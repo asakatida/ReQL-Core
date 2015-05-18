@@ -22,9 +22,7 @@ limitations under the License.
 
 #include "./cpp/query.hpp"
 
-#include <map>
-#include <string>
-#include <vector>
+#include <algorithm>
 
 namespace ReQL {
 

@@ -22,9 +22,7 @@ limitations under the License.
 
 #include "./cpp/error.hpp"
 
-#include <map>
-#include <string>
-#include <vector>
+#include <algorithm>
 
 namespace ReQL {
 

@@ -23,6 +23,9 @@ limitations under the License.
 
 #include "./cpp/types.hpp"
 
+#include <map>
+#include <vector>
+
 namespace ReQL {
 
 namespace _C {

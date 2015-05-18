@@ -22,6 +22,7 @@ limitations under the License.
 #define REQL_CPP_TYPES_HPP_
 
 #include <map>
+#include <memory>
 #include <string>
 #include <vector>
 
