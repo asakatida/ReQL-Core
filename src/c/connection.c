@@ -302,6 +302,17 @@ reql_conn_loop(void *conn) {
   size_t rcv_size_request;
 
   reql_conn_lock(conn);
+
+  const struct timeval timeout = {0, 1};
+
+  if (setsockopt(reql_conn_socket(conn), SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(struct timeval))) {
+    reql_close_conn(conn);
+  }
+
+  if (setsockopt(reql_conn_socket(conn), SOL_SOCKET, SO_SNDTIMEO, &timeout, sizeof(struct timeval))) {
+    reql_close_conn(conn);
+  }
+
   while (reql_conn_done(conn) == 0) {
     rcv_size_request = (size > 0 ? size : 12) - pos;
     rcv_size = recvfrom(reql_conn_socket(conn), &response[pos], rcv_size_request, 0, NULL, NULL);
