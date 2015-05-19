@@ -678,7 +678,7 @@ reql_json_destroy(ReQL_Obj_t *json) {
   if (owner != NULL) {
     switch (reql_datum_type(owner)) {
       case REQL_R_ARRAY: {
-        const ReQL_Size size = reql_size(owner);
+        const ReQL_Size size = reql_alloc_size(owner);
         ReQL_Obj_t **array = reql_array(owner);
 
         ReQL_Size i;
@@ -693,7 +693,7 @@ reql_json_destroy(ReQL_Obj_t *json) {
         break;
       }
       case REQL_R_OBJECT: {
-        const ReQL_Size size = reql_size(owner);
+        const ReQL_Size size = reql_alloc_size(owner);
         ReQL_Pair_t *pair = reql_pair(owner);
 
         ReQL_Size i;
