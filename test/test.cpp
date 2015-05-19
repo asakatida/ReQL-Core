@@ -42,10 +42,12 @@ ReQL_Obj_c::ReQL_Obj_c() : _C::CTypes::object(new ReQL_Obj_t) {}
 
 ReQL_Obj_c::~ReQL_Obj_c() {}
 
-ReQL_Res_c::ReQL_Res_c(ReQL_Obj_t *ptr) : p_ptr(ptr) {}
+ReQL_Res_c::ReQL_Res_c(ReQL_Obj_t *ptr) : p_ptr(ptr) {
+  REQUIRE(ptr != nullptr);
+}
 
 ReQL_Res_c::~ReQL_Res_c() {
-  reql_json_destroy(p_ptr);
+  reql_json_destroy(p_ptr); p_ptr = nullptr;
 }
 
 std::string inspect(const Query &query) {

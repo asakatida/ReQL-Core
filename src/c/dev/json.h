@@ -38,4 +38,14 @@ reql_op_eq(const ReQL_Obj_t *l, const ReQL_Obj_t *r);
 extern ReQL_Obj_t *
 reql_obj_copy(const ReQL_Obj_t *other);
 
+/**
+ * @brief recursive free of all nodes in a query tree.
+ *
+ * This is used to reclaim memory after a query response is used.
+ *
+ * @param json ReQL object.
+ */
+extern void
+reql_json_destroy(ReQL_Obj_t *json);
+
 #endif  // REQL_C_DEV_JSON_H_

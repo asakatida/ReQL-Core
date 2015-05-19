@@ -22,6 +22,7 @@ limitations under the License.
 
 #include "./c/dev/connection.h"
 #include "./c/dev/error.h"
+#include "./c/dev/json.h"
 
 #include <stdlib.h>
 #include <string.h>
@@ -178,6 +179,8 @@ reql_cursor_set_response(ReQL_Cur_t *cur, ReQL_Obj_t *res) {
 
 static char
 reql_cursor_response_wait(ReQL_Cur_t *cur) {
+  reql_json_destroy(cur->response);
+  cur->response = NULL;
   int success = 0;
   while (reql_cursor_response(cur) == NULL && success == 0 && reql_cur_open(cur)) {
     success = pthread_cond_wait(cur->condition.next, cur->condition.mutex);
@@ -256,7 +259,6 @@ reql_cursor_next(ReQL_Cur_t *cur) {
   ReQL_Obj_t *res = NULL;
   if (reql_cursor_response_wait(cur) != 0) {
     res = reql_cursor_response(cur);
-    cur->response = NULL;
     ReQL_Obj_t key;
     ReQL_Byte buf[1];
     const ReQL_Byte *ext = (ReQL_Byte *)"t";
@@ -299,6 +301,7 @@ reql_cur_drain(ReQL_Cur_t *cur) {
     cur->cb = ^(ReQL_Obj_t *res) { (void)res; return 0; };
   }
   pthread_cond_wait(cur->condition.done, cur->condition.mutex);
+  reql_cursor_unlock(cur);
 }
 
 extern ReQL_Obj_t *
@@ -312,5 +315,6 @@ reql_cursor_to_array(ReQL_Cur_t *cur) {
     return 0;
   };
   pthread_cond_wait(cur->condition.done, cur->condition.mutex);
+  reql_cursor_unlock(cur);
   return array;
 }

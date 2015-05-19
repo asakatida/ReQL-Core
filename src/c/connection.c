@@ -21,9 +21,10 @@ limitations under the License.
 #include "./c/dev/connection.h"
 
 #include "./c/dev/cursor.h"
+#include "./c/dev/decode.h"
 #include "./c/dev/encode.h"
 #include "./c/dev/error.h"
-#include "./c/dev/decode.h"
+#include "./c/dev/json.h"
 #include "./c/util/portable_endian.h"
 
 #include <netdb.h>

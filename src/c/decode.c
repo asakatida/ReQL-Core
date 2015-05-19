@@ -22,6 +22,7 @@ limitations under the License.
 
 #include "./c/dev/char.h"
 #include "./c/dev/error.h"
+#include "./c/dev/json.h"
 
 #include <math.h>
 #include <stdlib.h>
