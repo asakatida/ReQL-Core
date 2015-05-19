@@ -105,6 +105,9 @@ ReQL::ReQL(const Types::object &object) : ReQL() {
   }
 }
 
+ReQL::ReQL(const _C::ReQL_Obj_t *val) : ReQL() {
+}
+
 ReQL::ReQL(const _C::ReQL_AST_Function &f, const Types::array &args) : ReQL() {
   if (args.size() > std::numeric_limits<_C::ReQL_Size>::max()) {
     throw ReQLDriverError();

@@ -37,6 +37,7 @@ public:
   explicit Query(const bool &val);
   explicit Query(const Types::array &val);
   explicit Query(const Types::object &val);
+  explicit Query(const _C::ReQL_Obj_t *val);
 
   Query(const Query &other);
   Query(const AST &other);

@@ -80,6 +80,8 @@ AST::AST(const Types::array &val) : Expr(val) {}
 
 AST::AST(const Types::object &val) : Expr(val) {}
 
+AST::AST(const _C::ReQL_Obj_t *val) : Expr(val) {}
+
 AST::AST(const AST &other) : Expr(other) {}
 
 AST::AST(AST &&other) : Expr(std::move(other)) {}
