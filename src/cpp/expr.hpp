@@ -44,7 +44,7 @@ protected:
   explicit Expr(const bool &val);
   explicit Expr(const Types::array &val);
   explicit Expr(const Types::object &val);
-  explicit Expr(const _C::ReQL_Obj_t *val);
+  explicit Expr(_C::ReQL_Obj_t *val);
 
   ReQL p_query;
 };

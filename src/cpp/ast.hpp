@@ -36,7 +36,7 @@ protected:
   explicit AST(const bool &val);
   explicit AST(const Types::array &val);
   explicit AST(const Types::object &val);
-  explicit AST(const _C::ReQL_Obj_t *val);
+  explicit AST(_C::ReQL_Obj_t *val);
 
   AST(const AST &other);
   AST(AST &&other);

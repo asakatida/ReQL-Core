@@ -48,7 +48,7 @@ public:
   explicit ReQL(const Types::string &val);
   explicit ReQL(const Types::array &array);
   explicit ReQL(const Types::object &object);
-  explicit ReQL(const _C::ReQL_Obj_t *object);
+  explicit ReQL(_C::ReQL_Obj_t *object);
   ReQL(const _C::ReQL_AST_Function &f, const Types::array &args);
   ReQL(const _C::ReQL_AST_Function_Kwargs &f, const Types::array &args, const Types::object &kwargs);
   ReQL(const ReQL &other);

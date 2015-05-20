@@ -42,7 +42,7 @@ Query::Query(const Types::array &val) : AST(val) {}
 
 Query::Query(const Types::object &val) : AST(val) {}
 
-Query::Query(const _C::ReQL_Obj_t *val) : AST(val) {}
+Query::Query(_C::ReQL_Obj_t *val) : AST(val) {}
   
 Query::Query(const Query &other) : AST(other) {}
 

@@ -105,7 +105,53 @@ ReQL::ReQL(const Types::object &object) : ReQL() {
   }
 }
 
-ReQL::ReQL(const _C::ReQL_Obj_t *val) : ReQL() {
+ReQL::ReQL(_C::ReQL_Obj_t *val) : ReQL() {
+  reset(val);
+  switch (_C::reql_datum_type(val)) {
+    case _C::REQL_R_ARRAY: {
+      p_array.reset(val->obj.datum.json.var.data.array);
+      p_r_array.reserve(_C::reql_size(val));
+
+      _C::ReQL_Iter_t it = _C::reql_new_iter(val);
+      _C::ReQL_Obj_t *elem = nullptr;
+
+      while ((elem = _C::reql_iter_next(&it)) != nullptr) {
+        p_r_array.push_back(ReQL(elem));
+      }
+
+      break;
+    }
+    case _C::REQL_R_BOOL: {
+      break;
+    }
+    case _C::REQL_R_JSON: {
+      break;
+    }
+    case _C::REQL_R_NULL: {
+      break;
+    }
+    case _C::REQL_R_NUM: {
+      break;
+    }
+    case _C::REQL_R_OBJECT: {
+      p_object.reset(val->obj.datum.json.var.data.pair);
+
+      _C::ReQL_Iter_t it = _C::reql_new_iter(val);
+      _C::ReQL_Obj_t *key = nullptr;
+
+      while ((key = _C::reql_iter_next(&it)) != nullptr) {
+        p_r_object.insert({ReQL(key), ReQL(_C::reql_object_get(val, key))});
+      }
+      
+      break;
+    }
+    case _C::REQL_R_REQL: {
+      break;
+    }
+    case _C::REQL_R_STR: {
+      break;
+    }
+  }
 }
 
 ReQL::ReQL(const _C::ReQL_AST_Function &f, const Types::array &args) : ReQL() {
