@@ -418,11 +418,7 @@ ReQL::operator<(const ReQL &other) const {
       case _C::REQL_R_OBJECT:
       case _C::REQL_R_REQL: return get() < other.get();
       case _C::REQL_R_STR: {
-        _C::ReQL_Obj_t *val = get();
-        _C::ReQL_Obj_t *o_val = other.get();
-        Types::string same(reinterpret_cast<char*>(reql_string_buf(val)), reql_size(val));
-        Types::string diff(reinterpret_cast<char*>(reql_string_buf(o_val)), reql_size(o_val));
-        return same < diff;
+        return p_str < other.p_str;
       }
     }
   }
