@@ -29,6 +29,9 @@ limitations under the License.
 
 extern ReQL_Term_t
 reql_term_type(const ReQL_Obj_t *obj) {
+  if (obj == NULL) {
+    return REQL_DATUM;
+  }
   return obj->tt;
 }
 
@@ -44,6 +47,9 @@ reql_kwargs(const ReQL_Obj_t *obj) {
 
 extern ReQL_Datum_t
 reql_datum_type(const ReQL_Obj_t *obj) {
+  if (obj == NULL) {
+    return REQL_R_JSON;
+  }
   if (reql_term_type(obj) != REQL_DATUM) {
     return REQL_R_REQL;
   }
@@ -82,6 +88,9 @@ reql_set_size(ReQL_Obj_t *obj, const ReQL_Size size) {
 
 extern ReQL_Size
 reql_size(const ReQL_Obj_t *obj) {
+  if (obj == NULL) {
+    return 0;
+  }
   return obj->obj.datum.json.var.size;
 }
 
@@ -116,6 +125,9 @@ reql_json_init(ReQL_Obj_t *obj, const ReQL_Datum_t dt) {
 
 extern void
 reql_term_init(ReQL_Obj_t *obj, const ReQL_Term_t tt, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
+  if (obj == NULL) {
+    return;
+  }
   memset(obj, (int)NULL, sizeof(ReQL_Obj_t));
   obj->tt = tt;
   obj->obj.args.args = NULL;
@@ -153,28 +165,44 @@ reql_set_str(ReQL_Obj_t *obj, ReQL_Byte *str) {
 
 extern void
 reql_number_init(ReQL_Obj_t *obj, const double num) {
+  if (obj == NULL) {
+    return;
+  }
   reql_json_init(obj, REQL_R_NUM);
   obj->obj.datum.json.number = num;
 }
 
 extern double
 reql_to_number(const ReQL_Obj_t *obj) {
+  if (obj == NULL) {
+    return 0;
+  }
   return obj->obj.datum.json.number;
 }
 
 extern void
 reql_string_init(ReQL_Obj_t *obj, ReQL_Byte *str, const ReQL_Size alloc_size) {
+  if (obj == NULL) {
+    return;
+  }
   reql_var_json_init(obj, REQL_R_STR, alloc_size);
   reql_set_str(obj, str);
 }
 
 extern ReQL_Byte *
 reql_string_buf(const ReQL_Obj_t *obj) {
+  if (obj == NULL) {
+    return NULL;
+  }
   return obj->obj.datum.json.var.data.str;
 }
 
 extern ReQL_Size
 reql_string_append(ReQL_Obj_t *obj, const ReQL_Byte *ext, const ReQL_Size size) {
+  if (obj == NULL) {
+    return UINT32_MAX;
+  }
+
   const ReQL_Size new_alloc = reql_ensure_space(obj, size);
 
   if (new_alloc != 0) {

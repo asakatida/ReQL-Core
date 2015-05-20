@@ -46,7 +46,9 @@ struct ReQL_Cur_s {
   char done;
   ReQL_Token token;
   struct ReQL_Conn_s *conn;
+  ReQL_Iter_t it;
   ReQL_Obj_t *response;
+  ReQL_Obj_t *old_res;
   struct ReQL_Cur_s *next;
   struct ReQL_Cur_s *prev;
   ReQL_Each_Function cb;

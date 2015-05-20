@@ -151,6 +151,11 @@ reql_cursor_conn(const ReQL_Cur_t *cur) {
   return cur->conn;
 }
 
+static char
+reql_cur_open_(ReQL_Cur_t *cur) {
+  return reql_cursor_done(cur) == 0 && reql_cursor_conn(cur) != NULL;
+}
+
 static ReQL_Obj_t *
 reql_cursor_response(const ReQL_Cur_t *cur) {
   return cur->response;
@@ -159,7 +164,7 @@ reql_cursor_response(const ReQL_Cur_t *cur) {
 extern void
 reql_cursor_set_response(ReQL_Cur_t *cur, ReQL_Obj_t *res) {
   reql_cursor_lock(cur);
-  if (reql_cur_open(cur) == 0) {
+  if (reql_cur_open_(cur) == 0) {
     reql_json_destroy(res);
     return;
   }
@@ -190,31 +195,29 @@ reql_cursor_response_wait(ReQL_Cur_t *cur) {
 
 static void
 reql_close_cur_(ReQL_Cur_t *cur) {
-  if (reql_cur_open(cur) != 0) {
+  if (reql_cur_open_(cur) != 0) {
     cur->done = 1;
-    ReQL_Cur_t *prev = cur->prev;
-    if (prev == cur) {
-      prev = NULL;
-    }
-    ReQL_Cur_t *next = cur->next;
-    if (next == cur) {
-      next = NULL;
-    }
+    ReQL_Cur_t *prev = cur->prev == cur ? cur->prev : NULL;
+    ReQL_Cur_t *next = cur->next == cur ? cur->next : NULL;
     if (next == NULL && prev == NULL) {
       if (cur->conn != NULL) {
-        cur->conn->cursors = NULL;
+        cur->conn->cursors = next;
+        cur->conn = NULL;
       }
+    } else if (prev == NULL) {
+      next->prev = next;
+    } else if (next == NULL) {
+      prev->next = prev;
     } else {
-      if (prev == NULL) {
-        next->prev = next;
-      } else if (next == NULL) {
-        prev->next = prev;
-      } else {
-        next->prev = NULL;
-        prev->next = NULL;
-      }
+      next->prev = prev;
+      prev->next = next;
     }
-    cur->conn = NULL;
+    if (cur->conn != NULL) {
+      if (cur->conn->cursors == cur) {
+        cur->conn->cursors = next;
+      }
+      cur->conn = NULL;
+    }
     pthread_cond_broadcast(cur->condition.next);
     pthread_cond_broadcast(cur->condition.done);
   }
@@ -230,7 +233,7 @@ reql_close_cur(ReQL_Cur_t *cur) {
 extern char
 reql_cur_open(ReQL_Cur_t *cur) {
   reql_cursor_lock(cur);
-  const char open = reql_cursor_done(cur) == 0 && reql_cursor_conn(cur) != NULL;
+  const char open = reql_cur_open_(cur);
   reql_cursor_unlock(cur);
   return open;
 }
@@ -239,6 +242,7 @@ extern void
 reql_cursor_init(ReQL_Cur_t *cur, ReQL_Token token) {
   memset(cur, (int)NULL, sizeof(ReQL_Cur_t));
   reql_cursor_lock(cur);
+  cur->it = reql_new_iter(NULL);
   cur->token = token;
   reql_cursor_unlock(cur);
 }
@@ -248,6 +252,8 @@ reql_cursor_destroy(ReQL_Cur_t *cur) {
   reql_close_cur(cur);
   reql_cursor_lock(cur);
   reql_json_destroy(cur->response);
+  reql_json_destroy(cur->old_res);
+  cur->it = reql_new_iter(NULL);
   cur->response = NULL;
   reql_cursor_mutex_destroy(cur);
   reql_cursor_unlock(cur);
@@ -268,7 +274,7 @@ reql_cursor_next(ReQL_Cur_t *cur) {
     if (type == NULL) {
       reql_close_cur_(cur);
     } else {
-      ReQL_Response_t r_type = (ReQL_Response_t)(reql_to_number(type));
+      int r_type = (int)(reql_to_number(type));
       switch (r_type) {
         case REQL_SUCCESS_PARTIAL: break;
         case REQL_SUCCESS_ATOM:
@@ -277,6 +283,10 @@ reql_cursor_next(ReQL_Cur_t *cur) {
         case REQL_CLIENT_ERROR:
         case REQL_COMPILE_ERROR:
         case REQL_RUNTIME_ERROR: {
+          reql_close_cur_(cur);
+          break;
+        }
+        default: {
           reql_close_cur_(cur);
           break;
         }
