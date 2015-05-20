@@ -39,7 +39,7 @@ extern "C" {
 
 namespace _Internal {
 
-ReQL::ReQL() : _C::CTypes::object(new _C::ReQL_Obj_t), p_func(nullptr), p_func_kwargs(nullptr), p_args(nullptr), p_array(nullptr), p_buf(nullptr), p_kwargs(nullptr), p_object(nullptr) {
+ReQL::ReQL() : _C::CTypes::object(new _C::ReQL_Obj_t), p_tt(_C::REQL_DATUM), p_args(nullptr), p_array(nullptr), p_buf(nullptr), p_kwargs(nullptr), p_object(nullptr) {
   reql_null_init(get());
 }
 
@@ -159,9 +159,6 @@ ReQL::ReQL(const _C::ReQL_AST_Function &f, const Types::array &args) : ReQL() {
     throw ReQLDriverError();
   }
 
-  p_func = f;
-  p_func_kwargs = nullptr;
-
   const _C::ReQL_Size args_size = static_cast<_C::ReQL_Size>(args.size());
 
   if (args_size > 0) {
@@ -186,9 +183,6 @@ ReQL::ReQL(const _C::ReQL_AST_Function_Kwargs &f, const Types::array &args, cons
   if (kwargs.size() > std::numeric_limits<_C::ReQL_Size>::max()) {
     throw ReQLDriverError();
   }
-
-  p_func = nullptr;
-  p_func_kwargs = f;
 
   const _C::ReQL_Size args_size = static_cast<_C::ReQL_Size>(args.size());
 
@@ -300,8 +294,7 @@ ReQL::~ReQL() {
 
   get()->owner = nullptr;
 
-  p_func = nullptr;
-  p_func_kwargs = nullptr;
+  p_tt = _C::REQL_DATUM;
   p_r_array.clear();
   p_r_object.clear();
   p_str.clear();
@@ -315,8 +308,7 @@ ReQL::~ReQL() {
 
 void
 ReQL::copy(const ReQL &other) {
-  p_func = other.p_func;
-  p_func_kwargs = other.p_func_kwargs;
+  p_tt = other.p_tt;
   p_r_array = other.p_r_array;
   p_r_object = other.p_r_object;
   p_str = other.p_str;
@@ -369,23 +361,17 @@ ReQL::copy(const ReQL &other) {
           reql_array_append(p_args.get(), it->get());
         }
       }
-      if (p_func == nullptr) {
-        std::size_t kwargs_size = p_r_object.size();
-        if (kwargs_size > 0) {
-          p_kwargs.reset(new _C::ReQL_Obj_t);
-          p_object.reset(new _C::ReQL_Pair_t[kwargs_size]);
-          reql_object_init(p_kwargs.get(), p_object.get(), static_cast<_C::ReQL_Size>(kwargs_size));
-          for (auto it=p_r_object.cbegin(); it != p_r_object.cend(); ++it) {
-            if (it->first._type() != _C::REQL_R_STR) throw ReQLDriverError();
-            reql_object_add(p_kwargs.get(), it->first.get(), it->second.get());
-          }
+      std::size_t kwargs_size = p_r_object.size();
+      if (kwargs_size > 0) {
+        p_kwargs.reset(new _C::ReQL_Obj_t);
+        p_object.reset(new _C::ReQL_Pair_t[kwargs_size]);
+        reql_object_init(p_kwargs.get(), p_object.get(), static_cast<_C::ReQL_Size>(kwargs_size));
+        for (auto it=p_r_object.cbegin(); it != p_r_object.cend(); ++it) {
+          if (it->first._type() != _C::REQL_R_STR) throw ReQLDriverError();
+          reql_object_add(p_kwargs.get(), it->first.get(), it->second.get());
         }
-        p_func_kwargs(get(), p_args.get(), p_kwargs.get());
-      } else if (p_func_kwargs == nullptr) {
-        p_func(get(), p_args.get());
-      } else {
-        throw ReQLDriverError();
       }
+      _C::reql_term_init(get(), p_tt, p_args.get(), p_kwargs.get());
       break;
     }
     case _C::REQL_R_STR: {
@@ -403,8 +389,7 @@ ReQL::copy(const ReQL &other) {
 
 void
 ReQL::move(ReQL &&other) {
-  p_func = std::move(other.p_func);
-  p_func_kwargs = std::move(other.p_func_kwargs);
+  p_tt = std::move(other.p_tt);
   p_r_array = std::move(other.p_r_array);
   p_r_object = std::move(other.p_r_object);
   p_str = std::move(other.p_str);

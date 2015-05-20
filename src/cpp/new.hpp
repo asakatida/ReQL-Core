@@ -67,8 +67,7 @@ private:
   void copy(const ReQL &other);
   void move(ReQL &&other);
 
-  _C::ReQL_AST_Function p_func;
-  _C::ReQL_AST_Function_Kwargs p_func_kwargs;
+  _C::ReQL_Term_t p_tt;
   std::vector<ReQL> p_r_array;
   std::map<ReQL, ReQL> p_r_object;
   Types::string p_str;
