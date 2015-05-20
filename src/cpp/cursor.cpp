@@ -136,7 +136,11 @@ bool Cursor::isOpen() const {
 
 Query
 Cursor::next() {
-  return Query(reql_cursor_next(get()));
+  _C::ReQL_Obj_t *res = reql_cursor_next(get());
+  if (res == nullptr) {
+    throw ReQLDriverError();
+  }
+  return Query(res);
 }
 
 void
