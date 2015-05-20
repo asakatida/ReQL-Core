@@ -21,6 +21,10 @@ limitations under the License.
 #ifndef REQL_C_ERROR_H_
 #define REQL_C_ERROR_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "./c/error.h"
 
 typedef enum {
@@ -41,4 +45,8 @@ reql_error_trace(void);
 extern ReQL_Error_Type_t
 reql_error_type(void);
 
-#endif  // REQL_CV_ERROR_H_
+#ifdef __cplusplus
+}
+#endif
+
+#endif  // REQL_C_ERROR_H_

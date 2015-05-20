@@ -21,6 +21,10 @@ limitations under the License.
 #ifndef REQL_AST_OBJC_H_
 #define REQL_AST_OBJC_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #import "ReQL-expr-ObjC.h"
 
 @interface libReQL_ast : libReQL_expr
@@ -901,5 +905,9 @@ year;
 zip;
 
 @end
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif  // REQL_AST_OBJC_H_

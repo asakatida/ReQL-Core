@@ -23,6 +23,10 @@ limitations under the License.
 #ifndef REQL_AST_RUBY_H_
 #define REQL_AST_RUBY_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
  */
 extern VALUE
@@ -897,5 +901,9 @@ reql_rb_year(int argn, VALUE *args, VALUE self);
  */
 extern VALUE
 reql_rb_zip(int argn, VALUE *args, VALUE self);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif  // REQL_AST_RUBY_H_

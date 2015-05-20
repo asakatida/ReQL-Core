@@ -21,7 +21,15 @@ limitations under the License.
 #ifndef REQL_C_DEV_EXPR_H_
 #define REQL_C_DEV_EXPR_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "./c/dev/ast.h"
 #include "./c/expr.h"
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif  // REQL_C_DEV_EXPR_H_

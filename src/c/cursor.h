@@ -21,6 +21,10 @@ limitations under the License.
 #ifndef REQL_C_CURSOR_H_
 #define REQL_C_CURSOR_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <pthread.h>
 #include "./c/json.h"
 
@@ -75,5 +79,9 @@ reql_cur_open(ReQL_Cur_t *cur);
 
 extern void
 reql_close_cur(ReQL_Cur_t *cur);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif  // REQL_C_CURSOR_H_

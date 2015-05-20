@@ -21,6 +21,10 @@ limitations under the License.
 #ifndef REQL_EXPR_PYTHON_H_
 #define REQL_EXPR_PYTHON_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "ReQL-new-Python.h"
 
 extern PyObject *
@@ -29,5 +33,9 @@ extern ReQL_Obj_t *
 reql_from_py(PyObject *query);
 extern PyObject *
 reql_to_py(ReQL_Obj_t *query);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif  // REQL_EXPR_PYTHON_H_

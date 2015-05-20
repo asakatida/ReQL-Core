@@ -21,6 +21,14 @@ limitations under the License.
 #ifndef REQL_C_DEV_CONNECTION_H_
 #define REQL_C_DEV_CONNECTION_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "./c/connection.h"
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif  // REQL_C_DEV_CONNECTION_H_

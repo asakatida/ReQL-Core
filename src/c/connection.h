@@ -21,6 +21,10 @@ limitations under the License.
 #ifndef REQL_C_CONNECTION_H_
 #define REQL_C_CONNECTION_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <pthread.h>
 #include "./c/cursor.h"
 
@@ -172,5 +176,9 @@ reql_conn_open(ReQL_Conn_t *conn);
  */
 extern int
 reql_run(ReQL_Cur_t *cur, const ReQL_Obj_t *query, ReQL_Conn_t *conn, ReQL_Obj_t *kwargs);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif  // REQL_C_CONNECTION_H_

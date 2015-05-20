@@ -21,6 +21,10 @@ limitations under the License.
 #ifndef REQL_AST_LUA_H_
 #define REQL_AST_LUA_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "ReQL-expr-Lua.h"
 
 /**
@@ -897,5 +901,9 @@ reql_lua_year(lua_State *L);
  */
 extern int
 reql_lua_zip(lua_State *L);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif  // REQL_AST_LUA_H_

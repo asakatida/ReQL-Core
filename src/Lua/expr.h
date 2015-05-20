@@ -21,6 +21,10 @@ limitations under the License.
 #ifndef REQL_EXPR_LUA_H_
 #define REQL_EXPR_LUA_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "ReQL-new-Lua.h"
 
 #if LUA_VERSION_NUM < 502
@@ -62,5 +66,9 @@ reql_lua_class(lua_State *L, const char *name, const int parent, const int base)
 
 extern int
 reql_lua_connect(lua_State *L);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif  // REQL_EXPR_LUA_H_

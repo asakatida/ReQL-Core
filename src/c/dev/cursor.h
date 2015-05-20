@@ -21,6 +21,10 @@ limitations under the License.
 #ifndef REQL_C_DEV_CURSOR_H_
 #define REQL_C_DEV_CURSOR_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "./c/dev/expr.h"
 #include "./c/cursor.h"
 
@@ -29,5 +33,9 @@ reql_cursor_init(ReQL_Cur_t *cur, ReQL_Token token);
 
 extern void
 reql_cursor_set_response(ReQL_Cur_t *cur, ReQL_Obj_t *res);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif  // REQL_C_DEV_CURSOR_H_

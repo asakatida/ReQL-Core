@@ -21,10 +21,18 @@ limitations under the License.
 #ifndef REQL_C_TYPES_H_
 #define REQL_C_TYPES_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stdint.h>
 
 typedef uint8_t ReQL_Byte;
 typedef uint32_t ReQL_Size;
 typedef uint64_t ReQL_Token;
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif  // REQL_C_TYPES_H_

@@ -21,6 +21,10 @@ limitations under the License.
 #ifndef REQL_EXPR_RUBY_H_
 #define REQL_EXPR_RUBY_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stdlib.h>
 
 #include "ruby.h"
@@ -33,5 +37,9 @@ extern ReQL_Obj_t *
 reql_from_rb(VALUE obj, long nesting_depth);
 extern VALUE
 reql_to_rb(ReQL_Obj_t *query);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif  // REQL_EXPR_RUBY_H_

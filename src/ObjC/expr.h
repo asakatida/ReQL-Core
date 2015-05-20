@@ -21,6 +21,10 @@ limitations under the License.
 #ifndef REQL_EXPR_OBJC_H_
 #define REQL_EXPR_OBJC_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #import <Foundation/Foundation.h>
 
 @interface libReQL_Connection : NSObject<NSCopying>
@@ -34,5 +38,9 @@ limitations under the License.
 +(instancetype)ReQLWithString:(NSString *)string;
 
 @end
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif  // REQL_EXPR_OBJC_H_

@@ -21,6 +21,10 @@ limitations under the License.
 #ifndef REQL_C_DEV_ENCODE_H_
 #define REQL_C_DEV_ENCODE_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "./c/json.h"
 
 #include "./c/types.h"
@@ -34,5 +38,9 @@ typedef struct ReQL_String_s ReQL_String_t;
 
 extern ReQL_String_t *
 reql_encode(ReQL_Obj_t *val);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif  // REQL_C_DEV_ENCODE_H_

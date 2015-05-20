@@ -21,11 +21,19 @@ limitations under the License.
 #ifndef REQL_H_
 #define REQL_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "./c/json.h"
 #include "./c/error.h"
 #include "./c/expr.h"
 #include "./c/ast.h"
 #include "./c/cursor.h"
 #include "./c/connection.h"
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif  // REQL_H_

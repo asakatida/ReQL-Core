@@ -21,6 +21,10 @@ limitations under the License.
 #ifndef REQL_C_JSON_H_
 #define REQL_C_JSON_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "./c/types.h"
 
 /**
@@ -480,5 +484,9 @@ reql_object_add(ReQL_Obj_t *obj, ReQL_Obj_t *key, ReQL_Obj_t *val);
  */
 extern ReQL_Obj_t *
 reql_object_get(const ReQL_Obj_t *obj, ReQL_Obj_t *key);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif  // REQL_C_JSON_H_

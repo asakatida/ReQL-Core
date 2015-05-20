@@ -21,6 +21,10 @@ limitations under the License.
 #ifndef REQL_NEW_LUA_H_
 #define REQL_NEW_LUA_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "ReQL.h"
 
 #include <lua.h>
@@ -45,5 +49,9 @@ extern ReQL_Obj_t *
 reql_lua_new_object(lua_State *L, uint32_t idx);
 extern ReQL_Obj_t *
 reql_lua_new_string(lua_State *L, const int idx);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif  // REQL_NEW_LUA_H_

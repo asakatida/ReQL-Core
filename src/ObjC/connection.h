@@ -21,10 +21,18 @@ limitations under the License.
 #ifndef REQL_OBJC_H_
 #define REQL_OBJC_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #import "ReQL-ast-ObjC.h"
 
 @interface libReQL : libReQL_ast
 
 @end
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif  // REQL_OBJC_H_

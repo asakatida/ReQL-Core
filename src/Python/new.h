@@ -21,6 +21,10 @@ limitations under the License.
 #ifndef REQL_NEW_PYTHON_H_
 #define REQL_NEW_PYTHON_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "ReQL.h"
 
 #define Py_LIMITED_API
@@ -45,5 +49,9 @@ extern ReQL_Obj_t *
 reql_py_new_object(uint32_t idx);
 extern ReQL_Obj_t *
 reql_py_new_string(PyObject *val);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif  // REQL_NEW_PYTHON_H_

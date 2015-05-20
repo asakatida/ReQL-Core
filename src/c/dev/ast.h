@@ -21,10 +21,18 @@ limitations under the License.
 #ifndef REQL_C_DEV_AST_H_
 #define REQL_C_DEV_AST_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "./c/json.h"
 #include "./c/ast.h"
 
 typedef void (*ReQL_AST_Function_Kwargs) (ReQL_Obj_t *, ReQL_Obj_t *, ReQL_Obj_t *);
 typedef void (*ReQL_AST_Function) (ReQL_Obj_t *, ReQL_Obj_t *);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif  // REQL_C_DEV_AST_H_

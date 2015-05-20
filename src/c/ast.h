@@ -21,6 +21,10 @@ limitations under the License.
 #ifndef REQL_C_AST_H_
 #define REQL_C_AST_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
  */
 extern void
@@ -895,5 +899,9 @@ reql_ast_year(ReQL_Obj_t *t, ReQL_Obj_t *a);
  */
 extern void
 reql_ast_zip(ReQL_Obj_t *t, ReQL_Obj_t *a);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif  // REQL_C_AST_H_

@@ -21,6 +21,10 @@ limitations under the License.
 #ifndef REQL_C_DEV_CHAR_H_
 #define REQL_C_DEV_CHAR_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "./c/types.h"
 
 enum {
@@ -52,5 +56,9 @@ reql_json_string_esc(const ReQL_Byte chr);
 
 extern ReQL_Size
 reql_json_string_esc_size(const ReQL_Byte chr);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif  // REQL_C_DEV_CHAR_H_

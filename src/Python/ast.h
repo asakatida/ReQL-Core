@@ -21,6 +21,10 @@ limitations under the License.
 #ifndef REQL_AST_PYTHON_H_
 #define REQL_AST_PYTHON_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "ReQL-expr-Python.h"
 
 /**
@@ -897,5 +901,9 @@ reql_py_year(PyObject *self, PyObject *args, PyObject *kwargs);
  */
 extern PyObject *
 reql_py_zip(PyObject *self, PyObject *args, PyObject *kwargs);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif  // REQL_AST_PYTHON_H_

@@ -21,9 +21,17 @@ limitations under the License.
 #ifndef REQL_C_DEV_ERROR_H_
 #define REQL_C_DEV_ERROR_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "./c/error.h"
 
 extern void
 reql_error_init(ReQL_Error_Type_t err, const char *msg, const char *trace);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif  // REQL_C_DEV_ERROR_H_

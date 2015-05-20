@@ -21,6 +21,10 @@ limitations under the License.
 #ifndef REQL_C_DEV_JSON_H_
 #define REQL_C_DEV_JSON_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "./c/json.h"
 
 extern void
@@ -47,5 +51,9 @@ reql_obj_copy(const ReQL_Obj_t *other);
  */
 extern void
 reql_json_destroy(ReQL_Obj_t *json);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif  // REQL_C_DEV_JSON_H_

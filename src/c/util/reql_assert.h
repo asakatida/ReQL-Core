@@ -21,6 +21,10 @@ limitations under the License.
 #ifndef REQL_C_UTIL_ASSERT_H_
 #define REQL_C_UTIL_ASSERT_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define REQL_ERROR_OCC (reql_error_type() != REQL_E_NO)
 
 #define REQL_THROW_IF_NEW(code, msg) if (REQL_ERROR_OCC) { reql_error_init((code), (msg), __func__); }
@@ -32,5 +36,9 @@ limitations under the License.
 #define REQL_ASSERT(cond, code, msg) REQL_THROW((cond), (code), (msg)) if (cond) { return; }
 
 #define REQL_ASSERT_(cond, code, msg, error) REQL_THROW((cond), (code), (msg)) if (cond) { return (error); }
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif  // REQL_C_UTIL_ASSERT_H_
