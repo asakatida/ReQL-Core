@@ -232,6 +232,7 @@ set(SOURCES
  test/cpp/polyglot/timeout.cpp
  test/cpp/polyglot/transformation.cpp
  test/cpp/connection.cpp
+ test/main.cpp
  test/test.cpp
 )
 

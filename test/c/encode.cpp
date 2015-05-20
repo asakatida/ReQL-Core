@@ -1,17 +1,12 @@
 // Copyright 2015 Adam Grandquist
 
+#include "./catch.hpp"
 #include "./test.hpp"
 
-namespace ReQL {
-namespace _C {
-extern "C" {
+#include "./ReQL.h"
 #include "./c/dev/encode.h"
-}
-}
-}  // namespace _C
 
 using namespace ReQL;
-using namespace _C;
 
 TEST_CASE("encode values", "[c][encode]") {
   ReQL_Obj_c val;

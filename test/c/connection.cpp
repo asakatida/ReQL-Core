@@ -1,19 +1,14 @@
 // Copyright 2015 Adam Grandquist
 
+#include "./catch.hpp"
 #include "./test.hpp"
 
-namespace ReQL {
-namespace _C {
-extern "C" {
+#include "./ReQL.h"
 #include "./c/dev/connection.h"
-}
-}
-}  // namespace _C
 
 #include <string>
 
 using namespace ReQL;
-using namespace _C;
 
 TEST_CASE("c connection", "[c][connection]") {
   ReQL_Conn_c c;

@@ -29,11 +29,7 @@ namespace ReQL {
 
 namespace _C {
 
-extern "C" {
-
 #include "./c/dev/json.h"
-
-}
 
 }  // namespace _C
 

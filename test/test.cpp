@@ -1,19 +1,9 @@
 // Copyright 2015 Adam Grandquist
 
-#define CATCH_CONFIG_MAIN
+#include "./catch.hpp"
 #include "./test.hpp"
-
-namespace ReQL {
-
-namespace _C {
-
-extern "C" {
-
+#include "./ReQL.hpp"
 #include "./c/dev/json.h"
-
-}
-
-}  // namespace _C
 
 using namespace ReQL;
 using namespace _C;

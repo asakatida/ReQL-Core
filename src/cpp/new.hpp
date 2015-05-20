@@ -30,11 +30,7 @@ namespace ReQL {
 
 namespace _C {
 
-extern "C" {
-
 #include "./c/dev/ast.h"
-
-}
 
 }  // namespace _C
 

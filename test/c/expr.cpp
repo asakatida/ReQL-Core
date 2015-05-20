@@ -1,11 +1,13 @@
 // Copyright 2015 Adam Grandquist
 
+#include "./catch.hpp"
 #include "./test.hpp"
+
+#include "./ReQL.h"
 
 #include <limits>
 
 using namespace ReQL;
-using namespace _C;
 
 TEST_CASE("c expr array", "[c][expr][array]") {
   ReQL_Obj_c ary;
