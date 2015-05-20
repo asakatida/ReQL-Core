@@ -30,11 +30,7 @@ namespace ReQL {
 
 namespace _C {
 
-extern "C" {
-
 #include "./ReQL.h"
-
-}
 
 namespace CTypes {
 
@@ -45,7 +41,7 @@ typedef std::unique_ptr<ReQL_Pair_t[]> pairs;
 typedef std::unique_ptr<ReQL_Conn_t> connection;
 typedef std::unique_ptr<ReQL_Cur_t> cursor;
 
-}  // namespace Types
+}  // namespace CTypes
 }  // namespace _C
 
 class Query;
