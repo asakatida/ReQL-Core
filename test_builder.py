@@ -22,16 +22,26 @@ test_names = set()
 
 test_name_shell = '{} {}'
 
-test_shell = '''// Copyright 2015 Adam Grandquist
+test_shell_cpp = '''// Copyright 2015 Adam Grandquist
 
 #include "./catch.hpp"
-#include "./test.hpp"
 #include "./ReQL.hpp"
 
 using namespace ReQL;
-using namespace _C;
 
-TEST_CASE("{}", "[{}][ast]") {{
+TEST_CASE("{}", "[cpp][ast]") {{
+{}
+}}
+'''
+
+test_shell_c = '''// Copyright 2015 Adam Grandquist
+
+#include "./catch.hpp"
+#include "./ReQL.h"
+
+#include <memory>
+
+TEST_CASE("{}", "[c][ast]") {{
 {}
 }}
 '''
@@ -187,31 +197,31 @@ class ResultBuilder(ObjectRecursor):
 
 class CResultBuilder(ResultBuilder):
     shell_string = '''
-    std::unique_ptr<ReQL_Obj_t> var{0};
-    _C::CTypes::string buf{0}(new uint8_t[{1}]);
+    std::unique_ptr<ReQL_Obj_t> var{0}(new ReQL_Obj_t);
+    std::unique_ptr<uint8_t[]> buf{0}(new uint8_t[{1}]);
     const uint8_t src{0}[] = "{2}";
     reql_string_init(var{0}.get(), buf{0}.get(), {1});
     reql_string_append(var{0}.get(), src{0}, {1});'''
 
     shell_empty_map = '''
-    std::unique_ptr<ReQL_Obj_t> var{0};
+    std::unique_ptr<ReQL_Obj_t> var{0}(new ReQL_Obj_t);
     reql_object_init(var{0}.get(), nullptr, 0);'''
 
     shell_map_start = '''
-    std::unique_ptr<ReQL_Obj_t> var{0};
-    _C::CTypes::pairs pair{0}(new ReQL_Pair_t[{1}]);
+    std::unique_ptr<ReQL_Obj_t> var{0}(new ReQL_Obj_t);
+    std::unique_ptr<ReQL_Pair_t[]> pair{0}(new ReQL_Pair_t[{1}]);
     reql_object_init(var{0}.get(), pair{0}.get(), {1});'''
 
     shell_key_val = '''
     reql_object_add(var{}.get(), var{}.get(), var{}.get());'''
 
     shell_empty_array = '''
-    std::unique_ptr<ReQL_Obj_t> var{0};
+    std::unique_ptr<ReQL_Obj_t> var{0}(new ReQL_Obj_t);
     reql_array_init(var{0}.get(), nullptr, 0);'''
 
     shell_array_start = '''
-    std::unique_ptr<ReQL_Obj_t> var{0};
-    _C::CTypes::array arr{0}(new ReQL_Obj_t*[{1}]);
+    std::unique_ptr<ReQL_Obj_t> var{0}(new ReQL_Obj_t);
+    std::unique_ptr<ReQL_Obj_t*[]> arr{0}(new ReQL_Obj_t*[{1}]);
     reql_array_init(var{0}.get(), arr{0}.get(), {1});'''
 
     shell_elem = '''
@@ -219,15 +229,15 @@ class CResultBuilder(ResultBuilder):
 
     def bool_obj(self, obj):
         return super().bool_obj('''
-    std::unique_ptr<ReQL_Obj_t> var{0};
+    std::unique_ptr<ReQL_Obj_t> var{0}(new ReQL_Obj_t);
     reql_bool_init(var{0}.get(), {1});''', 1 if obj else 0)
 
     shell_number = '''
-    std::unique_ptr<ReQL_Obj_t> var{0};
+    std::unique_ptr<ReQL_Obj_t> var{0}(new ReQL_Obj_t);
     reql_number_init(var{0}.get(), {1});'''
 
     shell_none = '''
-    std::unique_ptr<ReQL_Obj_t> var{0};
+    std::unique_ptr<ReQL_Obj_t> var{0}(new ReQL_Obj_t);
     reql_null_init(var{0}.get());'''
 
 class CPPResultBuilder(ResultBuilder):
@@ -513,9 +523,8 @@ def each_test(path, file, c_path, cpp_path):
         if test_name in test_names:
             test_name = ' '.join([test_name, str(len(test_names))])
         test_names.add(test_name)
-        ostream.write(test_shell.format(
+        ostream.write(test_shell_c.format(
             test_name,
-            'c',
             '\n'.join(convert_tests(tests, 'c'))
         ))
 
@@ -524,9 +533,8 @@ def each_test(path, file, c_path, cpp_path):
         if test_name in test_names:
             test_name = ' '.join([test_name, str(len(test_names))])
         test_names.add(test_name)
-        ostream.write(test_shell.format(
+        ostream.write(test_shell_cpp.format(
             test_name,
-            'cpp',
             '\n'.join(convert_tests(tests, 'cpp'))
         ))
 

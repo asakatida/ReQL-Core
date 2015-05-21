@@ -1,31 +1,29 @@
 // Copyright 2015 Adam Grandquist
 
 #include "./catch.hpp"
-#include "./test.hpp"
-#include "./ReQL.hpp"
+#include "./ReQL.h"
 
-using namespace ReQL;
-using namespace _C;
+#include <memory>
 
 TEST_CASE("c Test empty polygon special cases", "[c][ast]") {
 
   SECTION("test0") {
-    std::unique_ptr<ReQL_Obj_t> var0;
+    std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
     reql_bool_init(var0.get(), 0);
   }
 
   SECTION("test1") {
-    std::unique_ptr<ReQL_Obj_t> var0;
+    std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
     reql_bool_init(var0.get(), 0);
   }
 
   SECTION("test2") {
-    std::unique_ptr<ReQL_Obj_t> var0;
+    std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
     reql_bool_init(var0.get(), 0);
   }
 
   SECTION("test3") {
-    std::unique_ptr<ReQL_Obj_t> var0;
+    std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
     reql_bool_init(var0.get(), 0);
   }
 }

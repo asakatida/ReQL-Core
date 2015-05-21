@@ -1,11 +1,9 @@
 // Copyright 2015 Adam Grandquist
 
 #include "./catch.hpp"
-#include "./test.hpp"
 #include "./ReQL.hpp"
 
 using namespace ReQL;
-using namespace _C;
 
 TEST_CASE("cpp Regression test for issue 2696, delete_at with end bounds.", "[cpp][ast]") {
 

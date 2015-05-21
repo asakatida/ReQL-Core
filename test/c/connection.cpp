@@ -4,11 +4,16 @@
 #include "./test.hpp"
 #include "./ReQL.h"
 #include "./c/dev/connection.h"
+#include "./c/dev/json.h"
 
 #include <string>
 
 TEST_CASE("c connection", "[c][connection]") {
-  std::unique_ptr<ReQL_Conn_t> c;
+  std::unique_ptr<ReQL_Conn_t> c(new ReQL_Conn_t);
+
+  reql_connection_init(c.get());
+
+  REQUIRE(reql_conn_open(c.get()) == 0);
 
   SECTION("reql_connection_init") {
     REQUIRE(reql_conn_addr(c.get()) == nullptr);
@@ -56,16 +61,28 @@ TEST_CASE("c connection", "[c][connection]") {
 
     REQUIRE(reql_conn_open(c.get()) != 0);
 
-    std::unique_ptr<ReQL_Obj_t> q;
+    std::unique_ptr<ReQL_Obj_t> q(new ReQL_Obj_t);
 
     reql_number_init(q.get(), 2.72);
 
-    std::unique_ptr<ReQL_Cur_t> cur;
+    std::unique_ptr<ReQL_Cur_t> cur(new ReQL_Cur_t);
 
     reql_run(cur.get(), q.get(), c.get(), nullptr);
 
-    REQUIRE(reql_cur_open(cur.get()) != 0);
+    REQUIRE(reql_cur_open(cur.get()) != 0);/*
 
-    ReQL_Obj_t *result(reql_cursor_to_array(cur.get()));
+    ReQL_Obj_t *result = reql_cursor_to_array(cur.get());
+
+    REQUIRE(result != nullptr);
+
+    reql_json_destroy(result);*/
   }
+
+  reql_close_conn(c.get());
+
+  REQUIRE(reql_conn_open(c.get()) == 0);
+
+  reql_ensure_conn_close(c.get());
+
+  REQUIRE(reql_conn_open(c.get()) == 0);
 }

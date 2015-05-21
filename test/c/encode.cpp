@@ -6,7 +6,7 @@
 #include "./c/dev/encode.h"
 
 TEST_CASE("encode values", "[c][encode]") {
-  std::unique_ptr<ReQL_Obj_t> val;
+  std::unique_ptr<ReQL_Obj_t> val(new ReQL_Obj_t);
 
   SECTION("null") {
     reql_null_init(val.get());

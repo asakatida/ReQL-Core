@@ -1,11 +1,9 @@
 // Copyright 2015 Adam Grandquist
 
 #include "./catch.hpp"
-#include "./test.hpp"
-#include "./ReQL.hpp"
+#include "./ReQL.h"
 
-using namespace ReQL;
-using namespace _C;
+#include <memory>
 
 TEST_CASE("c Regression tests for issue 200", "[c][ast]") {
 
