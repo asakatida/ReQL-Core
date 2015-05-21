@@ -10,17 +10,17 @@ using namespace _C;
 TEST_CASE("c Regression tests for issue 182", "[c][ast]") {
 
   SECTION("test0") {
-    ReQL_Obj_c var0;
+    std::unique_ptr<ReQL_Obj_t> var0;
     reql_number_init(var0.get(), 1);
   }
 
   SECTION("test1") {
-    ReQL_Obj_c var0;
+    std::unique_ptr<ReQL_Obj_t> var0;
     reql_number_init(var0.get(), 2);
   }
 
   SECTION("test2") {
-    ReQL_Obj_c var0;
+    std::unique_ptr<ReQL_Obj_t> var0;
     reql_number_init(var0.get(), 1);
   }
 }

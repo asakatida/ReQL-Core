@@ -10,22 +10,22 @@ using namespace _C;
 TEST_CASE("c Test empty polygon special cases", "[c][ast]") {
 
   SECTION("test0") {
-    ReQL_Obj_c var0;
+    std::unique_ptr<ReQL_Obj_t> var0;
     reql_bool_init(var0.get(), 0);
   }
 
   SECTION("test1") {
-    ReQL_Obj_c var0;
+    std::unique_ptr<ReQL_Obj_t> var0;
     reql_bool_init(var0.get(), 0);
   }
 
   SECTION("test2") {
-    ReQL_Obj_c var0;
+    std::unique_ptr<ReQL_Obj_t> var0;
     reql_bool_init(var0.get(), 0);
   }
 
   SECTION("test3") {
-    ReQL_Obj_c var0;
+    std::unique_ptr<ReQL_Obj_t> var0;
     reql_bool_init(var0.get(), 0);
   }
 }

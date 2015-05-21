@@ -39,9 +39,9 @@ Parser::parse_c(_C::ReQL_Obj_t *val) {
       startArray();
 
       _C::ReQL_Iter_t it = reql_new_iter(val);
-      _C::ReQL_Obj_t *elem = NULL;
+      _C::ReQL_Obj_t *elem = nullptr;
 
-      while ((elem = reql_iter_next(&it)) != NULL) {
+      while ((elem = reql_iter_next(&it)) != nullptr) {
         startElement();
         parse_c(elem);
         endElement();
@@ -68,10 +68,10 @@ Parser::parse_c(_C::ReQL_Obj_t *val) {
       startObject();
 
       _C::ReQL_Iter_t it = reql_new_iter(val);
-      _C::ReQL_Obj_t *key = NULL;
-      _C::ReQL_Obj_t *value = NULL;
+      _C::ReQL_Obj_t *key = nullptr;
+      _C::ReQL_Obj_t *value = nullptr;
 
-      while ((key = reql_iter_next(&it)) != NULL) {
+      while ((key = reql_iter_next(&it)) != nullptr) {
         startKeyValue();
         value = reql_object_get(val, key);
         parse_c(value);

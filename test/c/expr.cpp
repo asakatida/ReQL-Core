@@ -2,15 +2,12 @@
 
 #include "./catch.hpp"
 #include "./test.hpp"
-
 #include "./ReQL.h"
 
 #include <limits>
 
-using namespace ReQL;
-
 TEST_CASE("c expr array", "[c][expr][array]") {
-  ReQL_Obj_c ary;
+  std::unique_ptr<ReQL_Obj_t> ary;
 
   const uint32_t size = 5;
 
@@ -33,7 +30,7 @@ TEST_CASE("c expr array", "[c][expr][array]") {
       REQUIRE(reql_array_append(ary.get(), elements.back().get()) == 0);
     }
 
-    ReQL_Obj_c extra;
+    std::unique_ptr<ReQL_Obj_t> extra;
 
     reql_null_init(extra.get());
 
@@ -41,19 +38,19 @@ TEST_CASE("c expr array", "[c][expr][array]") {
   }
 
   SECTION("grow and shrink") {
-    ReQL_Obj_c elem;
+    std::unique_ptr<ReQL_Obj_t> elem;
 
     reql_null_init(elem.get());
 
     reql_array_append(ary.get(), elem.get());
 
-    REQUIRE(reql_array_pop(ary.get()) != NULL);
-    REQUIRE(reql_array_last(ary.get()) == NULL);
-    REQUIRE(reql_array_pop(ary.get()) == NULL);
+    REQUIRE(reql_array_pop(ary.get()) != nullptr);
+    REQUIRE(reql_array_last(ary.get()) == nullptr);
+    REQUIRE(reql_array_pop(ary.get()) == nullptr);
   }
 
   SECTION("insert after end") {
-    ReQL_Obj_c elem;
+    std::unique_ptr<ReQL_Obj_t> elem;
 
     reql_null_init(elem.get());
 
@@ -62,9 +59,9 @@ TEST_CASE("c expr array", "[c][expr][array]") {
 }
 
 TEST_CASE("c expr object", "[c][expr][object]") {
-  ReQL_Obj_c obj;
-  ReQL_Obj_c key;
-  ReQL_Obj_c val;
+  std::unique_ptr<ReQL_Obj_t> obj;
+  std::unique_ptr<ReQL_Obj_t> key;
+  std::unique_ptr<ReQL_Obj_t> val;
 
   ReQL_Pair_t pair[1];
 
@@ -85,7 +82,7 @@ TEST_CASE("c expr object", "[c][expr][object]") {
   REQUIRE(reql_object_add(obj.get(), key.get(), val.get()) == 0);
 
   SECTION("verify insert") {
-    REQUIRE(reql_object_get(obj.get(), key.get()) != NULL);
+    REQUIRE(reql_object_get(obj.get(), key.get()) != nullptr);
 
     ReQL_Obj_t *res = reql_object_get(obj.get(), key.get());
 
@@ -94,14 +91,14 @@ TEST_CASE("c expr object", "[c][expr][object]") {
   }
 
   SECTION("reuse key") {
-    ReQL_Obj_c new_val;
+    std::unique_ptr<ReQL_Obj_t> new_val;
 
     const double num = 3.14;
 
     reql_number_init(new_val.get(), num);
 
     REQUIRE(reql_object_add(obj.get(), key.get(), new_val.get()) == 0);
-    REQUIRE(reql_object_get(obj.get(), key.get()) != NULL);
+    REQUIRE(reql_object_get(obj.get(), key.get()) != nullptr);
 
     ReQL_Obj_t *res = reql_object_get(obj.get(), key.get());
 
@@ -111,8 +108,8 @@ TEST_CASE("c expr object", "[c][expr][object]") {
   }
 
   SECTION("duplicate key") {
-    ReQL_Obj_c new_key;
-    ReQL_Obj_c new_val;
+    std::unique_ptr<ReQL_Obj_t> new_key;
+    std::unique_ptr<ReQL_Obj_t> new_val;
 
     const double num = 3.14;
 
@@ -125,7 +122,7 @@ TEST_CASE("c expr object", "[c][expr][object]") {
     reql_number_init(new_val.get(), num);
 
     REQUIRE(reql_object_add(obj.get(), new_key.get(), new_val.get()) == 0);
-    REQUIRE(reql_object_get(obj.get(), new_key.get()) != NULL);
+    REQUIRE(reql_object_get(obj.get(), new_key.get()) != nullptr);
 
     ReQL_Obj_t *res = reql_object_get(obj.get(), new_key.get());
 
@@ -136,8 +133,8 @@ TEST_CASE("c expr object", "[c][expr][object]") {
   }
 
   SECTION("out of space") {
-    ReQL_Obj_c new_key;
-    ReQL_Obj_c new_val;
+    std::unique_ptr<ReQL_Obj_t> new_key;
+    std::unique_ptr<ReQL_Obj_t> new_val;
 
     const double num = 3.14;
 
@@ -150,7 +147,7 @@ TEST_CASE("c expr object", "[c][expr][object]") {
     reql_number_init(new_val.get(), num);
 
     REQUIRE(reql_object_add(obj.get(), new_key.get(), new_val.get()) > 1);
-    REQUIRE(reql_object_get(obj.get(), new_key.get()) == NULL);
+    REQUIRE(reql_object_get(obj.get(), new_key.get()) == nullptr);
 
     ReQL_Obj_t *res = reql_object_get(obj.get(), key.get());
 
@@ -164,7 +161,7 @@ TEST_CASE("c expr object", "[c][expr][object]") {
 }
 
 TEST_CASE("c expr", "[c][expr]") {
-  ReQL_Obj_c val;
+  std::unique_ptr<ReQL_Obj_t> val;
 
   SECTION("bool") {
     reql_bool_init(val.get(), 10);

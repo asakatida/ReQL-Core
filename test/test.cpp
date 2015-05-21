@@ -2,47 +2,15 @@
 
 #include "./catch.hpp"
 #include "./test.hpp"
-#include "./ReQL.hpp"
+namespace ReQL {
+namespace _C {
 #include "./c/dev/json.h"
+}
+}
+#include "./ReQL.hpp"
 
 using namespace ReQL;
 using namespace _C;
-
-ReQL_Conn_c::ReQL_Conn_c() : _C::CTypes::connection(new ReQL_Conn_t) {
-  reql_connection_init(get());
-
-  REQUIRE(reql_conn_open(get()) == 0);
-}
-
-ReQL_Conn_c::~ReQL_Conn_c() {
-  reql_close_conn(get());
-
-  REQUIRE(reql_conn_open(get()) == 0);
-
-  reql_ensure_conn_close(get());
-
-  REQUIRE(reql_conn_open(get()) == 0);
-}
-
-ReQL_Cur_c::ReQL_Cur_c() : _C::CTypes::cursor(new ReQL_Cur_t) {}
-
-ReQL_Cur_c::~ReQL_Cur_c() {}
-
-ReQL_Obj_c::ReQL_Obj_c() : _C::CTypes::object(new ReQL_Obj_t) {}
-
-ReQL_Obj_c::~ReQL_Obj_c() {}
-
-ReQL_Res_c::ReQL_Res_c(ReQL_Obj_t *ptr) : p_ptr(ptr) {
-  REQUIRE(ptr != nullptr);
-}
-
-ReQL_Res_c::~ReQL_Res_c() {
-  reql_json_destroy(p_ptr); p_ptr = nullptr;
-}
-
-std::string inspect(const Query &query) {
-  return inspect(query._data());
-}
 
 std::string inspect(const ReQL_Obj_t *query) {
   if (query == nullptr) {
@@ -120,7 +88,10 @@ std::string inspect(const ReQL_Obj_t *query) {
     case REQL_R_STR: return std::string(reinterpret_cast<char *>(reql_string_buf(query)), reql_size(query));
   }
 
-  throw std::exception();
+  throw ReQLDriverError();
 }
 
-}  // namespace ReQL
+std::string inspect(const Query &query) {
+  return inspect(query._data());
+}
+

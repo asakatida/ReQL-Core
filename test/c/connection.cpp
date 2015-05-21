@@ -2,16 +2,13 @@
 
 #include "./catch.hpp"
 #include "./test.hpp"
-
 #include "./ReQL.h"
 #include "./c/dev/connection.h"
 
 #include <string>
 
-using namespace ReQL;
-
 TEST_CASE("c connection", "[c][connection]") {
-  ReQL_Conn_c c;
+  std::unique_ptr<ReQL_Conn_t> c;
 
   SECTION("reql_connection_init") {
     REQUIRE(reql_conn_addr(c.get()) == nullptr);
@@ -59,16 +56,16 @@ TEST_CASE("c connection", "[c][connection]") {
 
     REQUIRE(reql_conn_open(c.get()) != 0);
 
-    ReQL_Obj_c q;
+    std::unique_ptr<ReQL_Obj_t> q;
 
     reql_number_init(q.get(), 2.72);
 
-    ReQL_Cur_c cur;
+    std::unique_ptr<ReQL_Cur_t> cur;
 
     reql_run(cur.get(), q.get(), c.get(), nullptr);
 
     REQUIRE(reql_cur_open(cur.get()) != 0);
 
-    ReQL_Res_c result(reql_cursor_to_array(cur.get()));
+    ReQL_Obj_t *result(reql_cursor_to_array(cur.get()));
   }
 }

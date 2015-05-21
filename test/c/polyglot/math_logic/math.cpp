@@ -10,7 +10,7 @@ using namespace _C;
 TEST_CASE("c Tests of nested arithmetic expressions", "[c][ast]") {
 
   SECTION("test0") {
-    ReQL_Obj_c var0;
+    std::unique_ptr<ReQL_Obj_t> var0;
     reql_number_init(var0.get(), 1);
   }
 }

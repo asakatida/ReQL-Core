@@ -2,21 +2,18 @@
 
 #include "./catch.hpp"
 #include "./test.hpp"
-
 #include "./ReQL.h"
 #include "./c/dev/encode.h"
 
-using namespace ReQL;
-
 TEST_CASE("encode values", "[c][encode]") {
-  ReQL_Obj_c val;
+  std::unique_ptr<ReQL_Obj_t> val;
 
   SECTION("null") {
     reql_null_init(val.get());
 
     ReQL_String_t *str = reql_encode(val.get());
 
-    REQUIRE(str != NULL);
+    REQUIRE(str != nullptr);
 
     REQUIRE(str->size == 4);
 
@@ -29,7 +26,7 @@ TEST_CASE("encode values", "[c][encode]") {
 
     ReQL_String_t *str = reql_encode(val.get());
 
-    REQUIRE(str != NULL);
+    REQUIRE(str != nullptr);
 
     REQUIRE(str->size == 4);
 
@@ -42,7 +39,7 @@ TEST_CASE("encode values", "[c][encode]") {
 
     ReQL_String_t *str = reql_encode(val.get());
 
-    REQUIRE(str != NULL);
+    REQUIRE(str != nullptr);
 
     REQUIRE(str->size == 5);
 
@@ -55,7 +52,7 @@ TEST_CASE("encode values", "[c][encode]") {
 
     ReQL_String_t *str = reql_encode(val.get());
 
-    REQUIRE(str != NULL);
+    REQUIRE(str != nullptr);
 
     REQUIRE(str->size == 5);
 
@@ -78,7 +75,7 @@ TEST_CASE("encode values", "[c][encode]") {
 
     ReQL_String_t *str = reql_encode(val.get());
 
-    REQUIRE(str != NULL);
+    REQUIRE(str != nullptr);
 
     REQUIRE(str->size == size + 2);
 
@@ -89,11 +86,11 @@ TEST_CASE("encode values", "[c][encode]") {
   }
 
   SECTION("array") {
-    reql_array_init(val.get(), NULL, 0);
+    reql_array_init(val.get(), nullptr, 0);
 
     ReQL_String_t *str = reql_encode(val.get());
 
-    REQUIRE(str != NULL);
+    REQUIRE(str != nullptr);
 
     REQUIRE(str->size == 2);
 
@@ -102,11 +99,11 @@ TEST_CASE("encode values", "[c][encode]") {
   }
 
   SECTION("object") {
-    reql_object_init(val.get(), NULL, 0);
+    reql_object_init(val.get(), nullptr, 0);
 
     ReQL_String_t *str = reql_encode(val.get());
 
-    REQUIRE(str != NULL);
+    REQUIRE(str != nullptr);
 
     REQUIRE(str->size == 2);
 
