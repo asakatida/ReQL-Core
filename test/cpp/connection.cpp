@@ -19,12 +19,12 @@ TEST_CASE("cpp connection", "[c++][connect]") {
 
   Query res = cur.next();
 
-  REQUIRE(res._type() == REQL_R_OBJECT);
+  REQUIRE(res._type() == _C::REQL_R_OBJECT);
 
   cur = db_drop(args).run(conn);
   res = cur.next();
 
-  REQUIRE(res._type() == REQL_R_OBJECT);
+  REQUIRE(res._type() == _C::REQL_R_OBJECT);
 
   conn.close();
 
