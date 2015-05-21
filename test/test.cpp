@@ -12,6 +12,8 @@ namespace _C {
 using namespace ReQL;
 using namespace _C;
 
+std::string inspect(const ReQL_Obj_t *query);
+
 std::string inspect(const ReQL_Obj_t *query) {
   if (query == nullptr) {
     return "unknown";
@@ -94,4 +96,3 @@ std::string inspect(const ReQL_Obj_t *query) {
 std::string inspect(const Query &query) {
   return inspect(query._data());
 }
-
