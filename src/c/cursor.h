@@ -47,7 +47,6 @@ struct ReQL_Cur_s {
     pthread_cond_t *done;
     pthread_mutex_t *mutex;
   } condition;
-  char done;
   ReQL_Token token;
   struct ReQL_Conn_s *conn;
   ReQL_Iter_t it;

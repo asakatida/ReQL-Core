@@ -4,7 +4,6 @@
 #include "./test.hpp"
 #include "./ReQL.h"
 #include "./c/dev/connection.h"
-#include "./c/dev/json.h"
 
 #include <string>
 
@@ -45,7 +44,7 @@ TEST_CASE("c connection", "[c][connection]") {
 
     reql_conn_set_port(c.get(), key);
 
-    REQUIRE(reql_conn_port(c.get()) == key);
+    REQUIRE(std::strncmp(reql_conn_port(c.get()), "test", 4) == 0);
   }
 
   SECTION("reql_conn_set_timeout") {
@@ -73,9 +72,9 @@ TEST_CASE("c connection", "[c][connection]") {
 
     ReQL_Obj_t *result = reql_cursor_to_array(cur.get());
 
-    REQUIRE(result != nullptr);
+    REQUIRE(result != nullptr);*/
 
-    reql_json_destroy(result);*/
+    reql_close_cur(cur.get());
   }
 
   reql_close_conn(c.get());

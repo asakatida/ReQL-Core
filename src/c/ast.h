@@ -25,6 +25,8 @@ limitations under the License.
 extern "C" {
 #endif
 
+#include "./c/json.h"
+
 /**
  */
 extern void

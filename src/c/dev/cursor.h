@@ -25,11 +25,12 @@ limitations under the License.
 extern "C" {
 #endif
 
-#include "./c/dev/expr.h"
 #include "./c/cursor.h"
+#include "./c/connection.h"
+#include "./c/dev/expr.h"
 
 extern void
-reql_cursor_init(ReQL_Cur_t *cur, ReQL_Token token);
+reql_cursor_init(ReQL_Cur_t *cur, ReQL_Conn_t *conn, ReQL_Token token);
 
 extern void
 reql_cursor_set_response(ReQL_Cur_t *cur, ReQL_Obj_t *res);

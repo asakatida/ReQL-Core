@@ -262,15 +262,7 @@ reql_ensure_conn_close_(ReQL_Conn_t *conn) {
     pthread_cond_wait(conn->condition.done, conn->condition.mutex);
   }
   while (conn->cursors != NULL) {
-    ReQL_Cur_t *cur = conn->cursors;
-    if (cur == cur->next) {
-      conn->cursors = NULL;
-    } else {
-      conn->cursors = cur->next;
-      conn->cursors->prev = conn->cursors;
-    }
-
-    reql_close_cur(cur);
+    reql_close_cur(conn->cursors);
   }
   reql_conn_unlock(conn);
   pthread_mutex_destroy(conn->condition.mutex);
@@ -499,7 +491,7 @@ reql_ensure_conn_close(ReQL_Conn_t *conn) {
 extern char
 reql_conn_open(ReQL_Conn_t *conn) {
   reql_conn_lock(conn);
-  const char open = reql_conn_socket(conn) > 0 && !reql_conn_done(conn);
+  const char open = reql_conn_socket(conn) > 0 && reql_conn_done(conn) == 0;
   reql_conn_unlock(conn);
   return open;
 }
@@ -636,15 +628,8 @@ reql_run_(ReQL_Cur_t *cur, const ReQL_String_t *wire_query, ReQL_Conn_t *conn) {
   const ReQL_Token token = conn->max_token++;
 
   if (cur != NULL) {
-    reql_cursor_init(cur, token);
-    if (conn->cursors != NULL) {
-      cur->next = conn->cursors;
-      cur->next->prev = cur;
-    }
-
+    reql_cursor_init(cur, conn, token);
     conn->cursors = cur;
-
-    cur->conn = conn;
   }
 
   ReQL_Byte token_bytes[8];
