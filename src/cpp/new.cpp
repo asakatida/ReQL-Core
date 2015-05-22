@@ -96,7 +96,7 @@ ReQL::ReQL(const Types::object &object) : ReQL() {
 
   reql_object_init(get(), p_object.get(), static_cast<_C::ReQL_Size>(size));
   for (auto it=object.cbegin(); it != object.cend(); ++it) {
-    ReQL key = ReQL(it->first);
+    ReQL key(it->first);
     ReQL val = it->second._internal();
     p_r_object.insert({key, val});
     reql_object_add(get(), key.get(), val.get());
@@ -268,8 +268,10 @@ ReQL::~ReQL() {
             pair[i].val = nullptr;
             break;
           } else if (pair[i].key == get()) {
-            pair[i].val->owner = nullptr;
-            pair[i].val = nullptr;
+            if (pair[i].val != nullptr) {
+              pair[i].val->owner = nullptr;
+              pair[i].val = nullptr;
+            }
             pair[i].key = nullptr;
             break;
           }
