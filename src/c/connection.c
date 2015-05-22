@@ -273,6 +273,11 @@ static void
 reql_conn_set_res(const ReQL_Conn_t *conn, ReQL_Obj_t *res, const ReQL_Token token) {
   ReQL_Cur_t *cur = conn->cursors;
 
+  if (cur == NULL) {
+    reql_json_destroy(res);
+    return;
+  }
+
   while (1) {
     if (cur->token == token) {
       reql_cursor_set_response(cur, res);
@@ -293,27 +298,36 @@ reql_conn_done(const ReQL_Conn_t *conn) {
 
 static void *
 reql_conn_loop(void *conn) {
-  ReQL_Byte *response = malloc(sizeof(ReQL_Byte) * 12);
-  ReQL_Token token = 0;
-  ReQL_Size pos = 0, size = 0;
-  ssize_t rcv_size;
-  size_t rcv_size_request;
-
   reql_conn_lock(conn);
 
   const struct timeval timeout = {0, 1};
 
   if (setsockopt(reql_conn_socket(conn), SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(struct timeval))) {
-    reql_close_conn(conn);
+    reql_close_conn_(conn);
+    reql_conn_unlock(conn);
+    return NULL;
   }
 
   if (setsockopt(reql_conn_socket(conn), SOL_SOCKET, SO_SNDTIMEO, &timeout, sizeof(struct timeval))) {
-    reql_close_conn(conn);
+    reql_close_conn_(conn);
+    reql_conn_unlock(conn);
+    return NULL;
   }
 
+  ReQL_Byte *response = malloc(sizeof(ReQL_Byte) * 12);
+  ReQL_Token token = 0;
+  ReQL_Size pos = 0, size = 0;
+
   while (reql_conn_done(conn) == 0) {
-    rcv_size_request = (size > 0 ? size : 12) - pos;
-    rcv_size = recvfrom(reql_conn_socket(conn), &response[pos], rcv_size_request, 0, NULL, NULL);
+    if (((ReQL_Conn_t *)conn)->cursors == NULL) {
+      reql_conn_unlock(conn);
+      sched_yield();
+      reql_conn_lock(conn);
+      continue;
+    }
+
+    size_t rcv_size_request = (size > 0 ? size : 12) - pos;
+    ssize_t rcv_size = recvfrom(reql_conn_socket(conn), &response[pos], rcv_size_request, 0, NULL, NULL);
     reql_conn_unlock(conn);
 
     if (rcv_size < 0) {
