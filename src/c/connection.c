@@ -242,17 +242,13 @@ reql_conn_socket(const ReQL_Conn_t *conn) {
 }
 
 static void
-reql_conn_close_socket(ReQL_Conn_t *conn) {
-  if (reql_conn_socket(conn) >= 0) {
-    close(conn->socket);
-    pthread_cond_broadcast(conn->condition.done);
-  }
-  conn->socket = -1;
-}
-
-static void
 reql_close_conn_(ReQL_Conn_t *conn) {
-  conn->done = 1;
+  int sock = reql_conn_socket(conn);
+  if (sock >= 0) {
+    close(sock);
+    pthread_cond_broadcast(conn->condition.done);
+    conn->socket = -1;
+  }
 }
 
 static void
@@ -291,11 +287,6 @@ reql_conn_set_res(const ReQL_Conn_t *conn, ReQL_Obj_t *res, const ReQL_Token tok
   }
 }
 
-static char
-reql_conn_done(const ReQL_Conn_t *conn) {
-  return conn->done;
-}
-
 static void *
 reql_conn_loop(void *conn) {
   reql_conn_lock(conn);
@@ -318,7 +309,7 @@ reql_conn_loop(void *conn) {
   ReQL_Token token = 0;
   ReQL_Size pos = 0, size = 0;
 
-  while (reql_conn_done(conn) == 0) {
+  while (reql_conn_socket(conn) >= 0) {
     if (((ReQL_Conn_t *)conn)->cursors == NULL) {
       reql_conn_unlock(conn);
       sched_yield();
@@ -377,7 +368,6 @@ reql_conn_loop(void *conn) {
     reql_conn_lock(conn);
   }
 
-  reql_conn_close_socket(conn);
   reql_conn_unlock(conn);
 
   free(response);
@@ -399,19 +389,20 @@ reql_connect_(ReQL_Conn_t *conn, ReQL_Byte *buf, const ReQL_Size size) {
     return -1;
   }
 
+  int sock = -1;
+
   for (rp = result; rp != NULL; rp = rp->ai_next) {
-    conn->socket = socket(rp->ai_family, rp->ai_socktype, rp->ai_protocol);
+    sock = socket(rp->ai_family, rp->ai_socktype, rp->ai_protocol);
 
-    if (conn->socket == -1) continue;
+    if (sock == -1) continue;
 
-    if (connect(conn->socket, rp->ai_addr, rp->ai_addrlen) != -1) break;
+    if (connect(sock, rp->ai_addr, rp->ai_addrlen) != -1) break;
 
-    close(conn->socket);
+    close(sock);
   }
 
   if (rp == NULL) {
     freeaddrinfo(result);
-    conn->socket = -1;
     return -1;
   }
 
@@ -419,11 +410,11 @@ reql_connect_(ReQL_Conn_t *conn, ReQL_Byte *buf, const ReQL_Size size) {
 
   const struct timeval timeout = {(int64_t)conn->timeout, 0};
 
-  if (setsockopt(conn->socket, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(struct timeval))) {
+  if (setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(struct timeval))) {
     return -1;
   }
 
-  if (setsockopt(conn->socket, SOL_SOCKET, SO_SNDTIMEO, &timeout, sizeof(struct timeval))) {
+  if (setsockopt(sock, SOL_SOCKET, SO_SNDTIMEO, &timeout, sizeof(struct timeval))) {
     return -1;
   }
 
@@ -447,20 +438,22 @@ reql_connect_(ReQL_Conn_t *conn, ReQL_Byte *buf, const ReQL_Size size) {
   magic[3].iov_base = iov_base[2];
   magic[3].iov_len = 4;
 
-  if (writev(conn->socket, magic, 4) != (conn->auth_size + 12)) {
+  if (writev(sock, magic, 4) != (conn->auth_size + 12)) {
     return -1;
   }
 
-  const ssize_t rcv_size = recvfrom(reql_conn_socket(conn), buf, 8, 0, NULL, NULL);
+  const ssize_t rcv_size = recvfrom(sock, buf, 8, 0, NULL, NULL);
 
   if (rcv_size < 0) {
     return -1;
   } else if (rcv_size != 8) {
     return -1;
   } else if (memcmp(buf, "SUCCESS", 8) != 0) {
-    recvfrom(reql_conn_socket(conn), &buf[8], size - 8, 0, NULL, NULL);
+    recvfrom(sock, &buf[8], size - 8, 0, NULL, NULL);
     return -1;
   }
+
+  conn->socket = sock;
 
   pthread_t thread;
 
@@ -505,7 +498,7 @@ reql_ensure_conn_close(ReQL_Conn_t *conn) {
 extern char
 reql_conn_open(ReQL_Conn_t *conn) {
   reql_conn_lock(conn);
-  const char open = reql_conn_socket(conn) > 0 && reql_conn_done(conn) == 0;
+  const char open = reql_conn_socket(conn) >= 0;
   reql_conn_unlock(conn);
   return open;
 }
@@ -635,7 +628,7 @@ reql_encode_query(const ReQL_Obj_t *query, ReQL_Obj_t *kwargs) {
 
 static int
 reql_run_(ReQL_Cur_t *cur, const ReQL_String_t *wire_query, ReQL_Conn_t *conn) {
-  if (conn->socket < 0) {
+  if (reql_conn_open(conn) == 0) {
     return -1;
   }
 
@@ -665,7 +658,7 @@ reql_run_(ReQL_Cur_t *cur, const ReQL_String_t *wire_query, ReQL_Conn_t *conn) {
   magic[2].iov_base = wire_query->str;
   magic[2].iov_len = wire_query->size;
 
-  if (writev(conn->socket, magic, 3) != (wire_query->size + 12)) {
+  if (writev(reql_conn_socket(conn), magic, 3) != (wire_query->size + 12)) {
     return -1;
   }
 

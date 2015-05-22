@@ -35,8 +35,6 @@ struct ReQL_Conn_s {
   ReQL_Size auth_size;
   int socket;
 
-  char done;
-
   ReQL_Token max_token;
 
   ReQL_Token timeout;
