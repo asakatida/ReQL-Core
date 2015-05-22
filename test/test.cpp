@@ -94,5 +94,5 @@ std::string inspect(const ReQL_Obj_t *query) {
 }
 
 std::string inspect(const Query &query) {
-  return inspect(query._data());
+  return inspect(query._internal().get());
 }

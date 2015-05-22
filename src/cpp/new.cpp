@@ -77,8 +77,9 @@ ReQL::ReQL(const Types::array &array) : ReQL() {
 
   reql_array_init(get(), p_array.get(), size);
   for (auto it=array.cbegin(); it != array.cend(); ++it) {
-    p_r_array.push_back(it->_internal());
-    reql_array_append(get(), it->_data());
+    ReQL elem = it->_internal();
+    p_r_array.push_back(elem);
+    reql_array_append(get(), elem.get());
   }
 }
 
@@ -96,8 +97,9 @@ ReQL::ReQL(const Types::object &object) : ReQL() {
   reql_object_init(get(), p_object.get(), static_cast<_C::ReQL_Size>(size));
   for (auto it=object.cbegin(); it != object.cend(); ++it) {
     ReQL key = ReQL(it->first);
-    p_r_object.insert({key, it->second._internal()});
-    reql_object_add(get(), key.get(), it->second._data());
+    ReQL val = it->second._internal();
+    p_r_object.insert({key, val});
+    reql_object_add(get(), key.get(), val.get());
   }
 }
 
@@ -164,8 +166,9 @@ ReQL::ReQL(const _C::ReQL_AST_Function &f, const Types::array &args) : ReQL() {
   p_args.reset(new _C::ReQL_Obj_t);
   reql_array_init(p_args.get(), p_array.get(), args_size);
   for (auto it=args.cbegin(); it != args.cend(); ++it) {
-    p_r_array.push_back(it->_internal());
-    reql_array_append(p_args.get(), it->_data());
+    ReQL arg = it->_internal();
+    p_r_array.push_back(arg);
+    reql_array_append(p_args.get(), arg.get());
   }
 
   f(get(), p_args.get());
@@ -189,8 +192,9 @@ ReQL::ReQL(const _C::ReQL_AST_Function_Kwargs &f, const Types::array &args, cons
   p_args.reset(new _C::ReQL_Obj_t);
   reql_array_init(p_args.get(), p_array.get(), args_size);
   for (auto it=args.cbegin(); it != args.cend(); ++it) {
-    p_r_array.push_back(it->_internal());
-    reql_array_append(p_args.get(), it->_data());
+    ReQL arg = it->_internal();
+    p_r_array.push_back(arg);
+    reql_array_append(p_args.get(), arg.get());
   }
 
   const _C::ReQL_Size kwargs_size = static_cast<_C::ReQL_Size>(kwargs.size());
@@ -203,8 +207,9 @@ ReQL::ReQL(const _C::ReQL_AST_Function_Kwargs &f, const Types::array &args, cons
   reql_object_init(p_kwargs.get(), p_object.get(), kwargs_size);
   for (auto it=kwargs.cbegin(); it != kwargs.cend(); ++it) {
     ReQL key(it->first);
-    p_r_object.insert({key, it->second._internal()});
-    reql_object_add(p_kwargs.get(), key.get(), it->second._data());
+    ReQL arg = it->second._internal();
+    p_r_object.insert({key, arg});
+    reql_object_add(p_kwargs.get(), key.get(), arg.get());
   }
 
   f(get(), p_args.get(), p_kwargs.get());

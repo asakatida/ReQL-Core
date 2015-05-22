@@ -50,11 +50,6 @@ Expr::Expr(const Expr &other) : p_query(other.p_query) {}
 
 Expr::Expr(Expr &&other) : p_query(std::move(other.p_query)) {}
 
-_C::ReQL_Obj_t *
-Expr::_data() const {
-  return _internal().get();
-}
-
 _C::ReQL_Datum_t
 Expr::_type() const {
   return _internal()._type();

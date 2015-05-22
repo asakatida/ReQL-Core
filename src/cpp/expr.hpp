@@ -31,7 +31,6 @@ public:
   Expr(const Expr &other);
   Expr(Expr &&other);
 
-  _C::ReQL_Obj_t *_data() const;
   _C::ReQL_Datum_t _type() const;
   const ReQL &_internal() const;
 
