@@ -19,6 +19,21 @@ set(SOURCES
  src/cpp/new.cpp
  src/cpp/parser.cpp
  src/cpp/query.cpp
+ test/c/connection.cpp
+ test/c/decode.cpp
+ test/c/encode.cpp
+ test/c/expr.cpp
+ test/c/polyglot/aggregation.cpp
+ test/c/polyglot/arity.cpp
+ test/c/polyglot/arraylimits.cpp
+ test/c/polyglot/changefeeds/edge.cpp
+ test/c/polyglot/changefeeds/idxcopy.cpp
+ test/c/polyglot/changefeeds/include_states.cpp
+ test/c/polyglot/changefeeds/point.cpp
+ test/c/polyglot/changefeeds/sindex.cpp
+ test/c/polyglot/changefeeds/squash.cpp
+ test/c/polyglot/changefeeds/table.cpp
+ test/c/polyglot/control.cpp
  test/c/polyglot/datum/array.cpp
  test/c/polyglot/datum/binary.cpp
  test/c/polyglot/datum/bool.cpp
@@ -28,12 +43,26 @@ set(SOURCES
  test/c/polyglot/datum/string.cpp
  test/c/polyglot/datum/typeof.cpp
  test/c/polyglot/datum/uuid.cpp
+ test/c/polyglot/default.cpp
  test/c/polyglot/geo/constructors.cpp
  test/c/polyglot/geo/geojson.cpp
  test/c/polyglot/geo/indexing.cpp
  test/c/polyglot/geo/intersection_inclusion.cpp
  test/c/polyglot/geo/operations.cpp
  test/c/polyglot/geo/primitives.cpp
+ test/c/polyglot/joins.cpp
+ test/c/polyglot/json.cpp
+ test/c/polyglot/match.cpp
+ test/c/polyglot/math_logic/add.cpp
+ test/c/polyglot/math_logic/aliases.cpp
+ test/c/polyglot/math_logic/comparison.cpp
+ test/c/polyglot/math_logic/div.cpp
+ test/c/polyglot/math_logic/floor_ceil_round.cpp
+ test/c/polyglot/math_logic/logic.cpp
+ test/c/polyglot/math_logic/math.cpp
+ test/c/polyglot/math_logic/mod.cpp
+ test/c/polyglot/math_logic/mul.cpp
+ test/c/polyglot/math_logic/sub.cpp
  test/c/polyglot/meta/composite.cpp
  test/c/polyglot/meta/dbs.cpp
  test/c/polyglot/meta/table.cpp
@@ -43,29 +72,9 @@ set(SOURCES
  test/c/polyglot/mutation/replace.cpp
  test/c/polyglot/mutation/sync.cpp
  test/c/polyglot/mutation/update.cpp
- test/c/polyglot/regression/46.cpp
- test/c/polyglot/regression/309.cpp
- test/c/polyglot/regression/354.cpp
- test/c/polyglot/regression/370.cpp
- test/c/polyglot/regression/453.cpp
- test/c/polyglot/regression/469.cpp
- test/c/polyglot/regression/522.cpp
- test/c/polyglot/regression/545.cpp
- test/c/polyglot/regression/546.cpp
- test/c/polyglot/regression/568.cpp
- test/c/polyglot/regression/578.cpp
- test/c/polyglot/regression/579.cpp
- test/c/polyglot/regression/619.cpp
- test/c/polyglot/regression/632.cpp
- test/c/polyglot/regression/665.cpp
- test/c/polyglot/regression/678.cpp
- test/c/polyglot/regression/718.cpp
- test/c/polyglot/regression/730.cpp
- test/c/polyglot/regression/757.cpp
- test/c/polyglot/regression/763.cpp
- test/c/polyglot/regression/767.cpp
- test/c/polyglot/regression/779.cpp
- test/c/polyglot/regression/831.cpp
+ test/c/polyglot/polymorphism.cpp
+ test/c/polyglot/random.cpp
+ test/c/polyglot/range.cpp
  test/c/polyglot/regression/1001.cpp
  test/c/polyglot/regression/1005.cpp
  test/c/polyglot/regression/1023.cpp
@@ -89,44 +98,62 @@ set(SOURCES
  test/c/polyglot/regression/2930.cpp
  test/c/polyglot/regression/3057.cpp
  test/c/polyglot/regression/3059.cpp
+ test/c/polyglot/regression/309.cpp
  test/c/polyglot/regression/3444.cpp
  test/c/polyglot/regression/3449.cpp
+ test/c/polyglot/regression/354.cpp
  test/c/polyglot/regression/3637.cpp
+ test/c/polyglot/regression/370.cpp
  test/c/polyglot/regression/3745.cpp
  test/c/polyglot/regression/3759.cpp
+ test/c/polyglot/regression/453.cpp
+ test/c/polyglot/regression/46.cpp
+ test/c/polyglot/regression/469.cpp
+ test/c/polyglot/regression/522.cpp
+ test/c/polyglot/regression/545.cpp
+ test/c/polyglot/regression/546.cpp
+ test/c/polyglot/regression/568.cpp
+ test/c/polyglot/regression/578.cpp
+ test/c/polyglot/regression/579.cpp
+ test/c/polyglot/regression/619.cpp
+ test/c/polyglot/regression/632.cpp
+ test/c/polyglot/regression/665.cpp
+ test/c/polyglot/regression/678.cpp
+ test/c/polyglot/regression/718.cpp
+ test/c/polyglot/regression/730.cpp
+ test/c/polyglot/regression/757.cpp
+ test/c/polyglot/regression/763.cpp
+ test/c/polyglot/regression/767.cpp
+ test/c/polyglot/regression/779.cpp
+ test/c/polyglot/regression/831.cpp
+ test/c/polyglot/selection.cpp
  test/c/polyglot/sindex/api.cpp
  test/c/polyglot/sindex/status.cpp
  test/c/polyglot/sindex/truncation.cpp
+ test/c/polyglot/timeout.cpp
  test/c/polyglot/times/api.cpp
- test/c/polyglot/times/portions.cpp
- test/c/polyglot/times/timezones.cpp
  test/c/polyglot/times/constructors.cpp
- test/c/polyglot/times/shim.cpp
  test/c/polyglot/times/index.cpp
+ test/c/polyglot/times/portions.cpp
+ test/c/polyglot/times/shim.cpp
  test/c/polyglot/times/time_arith.cpp
+ test/c/polyglot/times/timezones.cpp
  test/c/polyglot/transform/array.cpp
  test/c/polyglot/transform/map.cpp
  test/c/polyglot/transform/object.cpp
- test/c/polyglot/aggregation.cpp
- test/c/polyglot/arity.cpp
- test/c/polyglot/arraylimits.cpp
- test/c/polyglot/changefeeds
- test/c/polyglot/control.cpp
- test/c/polyglot/default.cpp
- test/c/polyglot/joins.cpp
- test/c/polyglot/json.cpp
- test/c/polyglot/match.cpp
- test/c/polyglot/math_logic
- test/c/polyglot/polymorphism.cpp
- test/c/polyglot/random.cpp
- test/c/polyglot/range.cpp
- test/c/polyglot/selection.cpp
- test/c/polyglot/timeout.cpp
  test/c/polyglot/transformation.cpp
- test/c/connection.cpp
- test/c/decode.cpp
- test/c/encode.cpp
- test/c/expr.cpp
+ test/cpp/connection.cpp
+ test/cpp/polyglot/aggregation.cpp
+ test/cpp/polyglot/arity.cpp
+ test/cpp/polyglot/arraylimits.cpp
+ test/cpp/polyglot/changefeeds/edge.cpp
+ test/cpp/polyglot/changefeeds/idxcopy.cpp
+ test/cpp/polyglot/changefeeds/include_states.cpp
+ test/cpp/polyglot/changefeeds/point.cpp
+ test/cpp/polyglot/changefeeds/sindex.cpp
+ test/cpp/polyglot/changefeeds/squash.cpp
+ test/cpp/polyglot/changefeeds/table.cpp
+ test/cpp/polyglot/control.cpp
  test/cpp/polyglot/datum/array.cpp
  test/cpp/polyglot/datum/binary.cpp
  test/cpp/polyglot/datum/bool.cpp
@@ -136,12 +163,26 @@ set(SOURCES
  test/cpp/polyglot/datum/string.cpp
  test/cpp/polyglot/datum/typeof.cpp
  test/cpp/polyglot/datum/uuid.cpp
+ test/cpp/polyglot/default.cpp
  test/cpp/polyglot/geo/constructors.cpp
  test/cpp/polyglot/geo/geojson.cpp
  test/cpp/polyglot/geo/indexing.cpp
  test/cpp/polyglot/geo/intersection_inclusion.cpp
  test/cpp/polyglot/geo/operations.cpp
  test/cpp/polyglot/geo/primitives.cpp
+ test/cpp/polyglot/joins.cpp
+ test/cpp/polyglot/json.cpp
+ test/cpp/polyglot/match.cpp
+ test/cpp/polyglot/math_logic/add.cpp
+ test/cpp/polyglot/math_logic/aliases.cpp
+ test/cpp/polyglot/math_logic/comparison.cpp
+ test/cpp/polyglot/math_logic/div.cpp
+ test/cpp/polyglot/math_logic/floor_ceil_round.cpp
+ test/cpp/polyglot/math_logic/logic.cpp
+ test/cpp/polyglot/math_logic/math.cpp
+ test/cpp/polyglot/math_logic/mod.cpp
+ test/cpp/polyglot/math_logic/mul.cpp
+ test/cpp/polyglot/math_logic/sub.cpp
  test/cpp/polyglot/meta/composite.cpp
  test/cpp/polyglot/meta/dbs.cpp
  test/cpp/polyglot/meta/table.cpp
@@ -151,29 +192,9 @@ set(SOURCES
  test/cpp/polyglot/mutation/replace.cpp
  test/cpp/polyglot/mutation/sync.cpp
  test/cpp/polyglot/mutation/update.cpp
- test/cpp/polyglot/regression/46.cpp
- test/cpp/polyglot/regression/309.cpp
- test/cpp/polyglot/regression/354.cpp
- test/cpp/polyglot/regression/370.cpp
- test/cpp/polyglot/regression/453.cpp
- test/cpp/polyglot/regression/469.cpp
- test/cpp/polyglot/regression/522.cpp
- test/cpp/polyglot/regression/545.cpp
- test/cpp/polyglot/regression/546.cpp
- test/cpp/polyglot/regression/568.cpp
- test/cpp/polyglot/regression/578.cpp
- test/cpp/polyglot/regression/579.cpp
- test/cpp/polyglot/regression/619.cpp
- test/cpp/polyglot/regression/632.cpp
- test/cpp/polyglot/regression/665.cpp
- test/cpp/polyglot/regression/678.cpp
- test/cpp/polyglot/regression/718.cpp
- test/cpp/polyglot/regression/730.cpp
- test/cpp/polyglot/regression/757.cpp
- test/cpp/polyglot/regression/763.cpp
- test/cpp/polyglot/regression/767.cpp
- test/cpp/polyglot/regression/779.cpp
- test/cpp/polyglot/regression/831.cpp
+ test/cpp/polyglot/polymorphism.cpp
+ test/cpp/polyglot/random.cpp
+ test/cpp/polyglot/range.cpp
  test/cpp/polyglot/regression/1001.cpp
  test/cpp/polyglot/regression/1005.cpp
  test/cpp/polyglot/regression/1023.cpp
@@ -197,55 +218,60 @@ set(SOURCES
  test/cpp/polyglot/regression/2930.cpp
  test/cpp/polyglot/regression/3057.cpp
  test/cpp/polyglot/regression/3059.cpp
+ test/cpp/polyglot/regression/309.cpp
  test/cpp/polyglot/regression/3444.cpp
  test/cpp/polyglot/regression/3449.cpp
+ test/cpp/polyglot/regression/354.cpp
  test/cpp/polyglot/regression/3637.cpp
+ test/cpp/polyglot/regression/370.cpp
  test/cpp/polyglot/regression/3745.cpp
  test/cpp/polyglot/regression/3759.cpp
+ test/cpp/polyglot/regression/453.cpp
+ test/cpp/polyglot/regression/46.cpp
+ test/cpp/polyglot/regression/469.cpp
+ test/cpp/polyglot/regression/522.cpp
+ test/cpp/polyglot/regression/545.cpp
+ test/cpp/polyglot/regression/546.cpp
+ test/cpp/polyglot/regression/568.cpp
+ test/cpp/polyglot/regression/578.cpp
+ test/cpp/polyglot/regression/579.cpp
+ test/cpp/polyglot/regression/619.cpp
+ test/cpp/polyglot/regression/632.cpp
+ test/cpp/polyglot/regression/665.cpp
+ test/cpp/polyglot/regression/678.cpp
+ test/cpp/polyglot/regression/718.cpp
+ test/cpp/polyglot/regression/730.cpp
+ test/cpp/polyglot/regression/757.cpp
+ test/cpp/polyglot/regression/763.cpp
+ test/cpp/polyglot/regression/767.cpp
+ test/cpp/polyglot/regression/779.cpp
+ test/cpp/polyglot/regression/831.cpp
+ test/cpp/polyglot/selection.cpp
  test/cpp/polyglot/sindex/api.cpp
  test/cpp/polyglot/sindex/status.cpp
  test/cpp/polyglot/sindex/truncation.cpp
+ test/cpp/polyglot/timeout.cpp
  test/cpp/polyglot/times/api.cpp
- test/cpp/polyglot/times/portions.cpp
- test/cpp/polyglot/times/timezones.cpp
  test/cpp/polyglot/times/constructors.cpp
- test/cpp/polyglot/times/shim.cpp
  test/cpp/polyglot/times/index.cpp
+ test/cpp/polyglot/times/portions.cpp
+ test/cpp/polyglot/times/shim.cpp
  test/cpp/polyglot/times/time_arith.cpp
+ test/cpp/polyglot/times/timezones.cpp
  test/cpp/polyglot/transform/array.cpp
  test/cpp/polyglot/transform/map.cpp
  test/cpp/polyglot/transform/object.cpp
- test/cpp/polyglot/aggregation.cpp
- test/cpp/polyglot/arity.cpp
- test/cpp/polyglot/arraylimits.cpp
- test/cpp/polyglot/changefeeds
- test/cpp/polyglot/control.cpp
- test/cpp/polyglot/default.cpp
- test/cpp/polyglot/joins.cpp
- test/cpp/polyglot/json.cpp
- test/cpp/polyglot/match.cpp
- test/cpp/polyglot/math_logic
- test/cpp/polyglot/polymorphism.cpp
- test/cpp/polyglot/random.cpp
- test/cpp/polyglot/range.cpp
- test/cpp/polyglot/selection.cpp
- test/cpp/polyglot/timeout.cpp
  test/cpp/polyglot/transformation.cpp
- test/cpp/connection.cpp
  test/main.cpp
  test/test.cpp
 )
 
 set(MOC_HEADERS
+ src/ReQL.h
+ src/ReQL.hpp
  src/c/ast.h
  src/c/connection.h
  src/c/cursor.h
- src/c/error.h
- src/c/expr.h
- src/c/json.h
- src/c/types.h
- src/c/util/portable_endian.h
- src/c/util/reql_assert.h
  src/c/dev/ast.h
  src/c/dev/char.h
  src/c/dev/connection.h
@@ -255,6 +281,12 @@ set(MOC_HEADERS
  src/c/dev/error.h
  src/c/dev/expr.h
  src/c/dev/json.h
+ src/c/error.h
+ src/c/expr.h
+ src/c/json.h
+ src/c/types.h
+ src/c/util/portable_endian.h
+ src/c/util/reql_assert.h
  src/cpp/ast.hpp
  src/cpp/connection.hpp
  src/cpp/cursor.hpp
@@ -263,9 +295,7 @@ set(MOC_HEADERS
  src/cpp/new.hpp
  src/cpp/parser.hpp
  src/cpp/query.hpp
- src/ReQL.h
- src/ReQL.hpp
- test/catch.hpp
+ src/cpp/types.hpp
  test/test.hpp
 )
 
