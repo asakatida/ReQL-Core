@@ -164,7 +164,8 @@ reql_cursor_set_response(ReQL_Cur_t *cur, ReQL_Obj_t *res) {
     return;
   }
   if (cur->response != NULL) {
-    reql_json_destroy(cur->response);
+    reql_json_destroy(cur->old_res);
+    cur->old_res = cur->response;
     cur->response = NULL;
   }
   if (cur->cb != NULL) {
@@ -179,7 +180,8 @@ reql_cursor_set_response(ReQL_Cur_t *cur, ReQL_Obj_t *res) {
 
 static char
 reql_cursor_response_wait(ReQL_Cur_t *cur) {
-  reql_json_destroy(cur->response);
+  reql_json_destroy(cur->old_res);
+  cur->old_res = cur->response;
   cur->response = NULL;
   int success = 0;
   while (reql_cursor_response(cur) == NULL && success == 0 && reql_cur_open(cur)) {
