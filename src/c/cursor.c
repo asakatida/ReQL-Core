@@ -239,6 +239,9 @@ reql_cursor_init(ReQL_Cur_t *cur, ReQL_Conn_t *conn, ReQL_Token token) {
 
 extern void
 reql_cursor_destroy(ReQL_Cur_t *cur) {
+  if (cur == NULL) {
+    return;
+  }
   reql_close_cur(cur);
   reql_cursor_lock(cur);
   reql_json_destroy(cur->response);
