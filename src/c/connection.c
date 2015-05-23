@@ -29,6 +29,7 @@ limitations under the License.
 
 #include <netdb.h>
 #include <netinet/in.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/select.h>
@@ -330,8 +331,10 @@ reql_conn_loop(void *conn) {
 
     if (size > 0) {
       if (pos >= size) {
+        printf("found query response %s\n", response);
         ReQL_Obj_t *res = reql_decode(response, size);
         if (res == NULL) {
+          printf("failed to decode query response\n");
           if (reql_error_type() == REQL_E_NO) {
             reql_connection_error("Failed to decode response", __func__);
           }
@@ -357,6 +360,7 @@ reql_conn_loop(void *conn) {
         pos -= 12;
         token = reql_get_64_token(response);
         size = reql_get_32_le(&response[8]);
+        printf("found response for token %llu size %i\n", token, size);
         ReQL_Byte *buf = realloc(response, sizeof(ReQL_Byte) * size);
         if (buf == NULL) {
           reql_close_conn(conn);
@@ -657,6 +661,8 @@ reql_run_(ReQL_Cur_t *cur, const ReQL_String_t *wire_query, ReQL_Conn_t *conn) {
 
   magic[2].iov_base = wire_query->str;
   magic[2].iov_len = wire_query->size;
+
+  printf("sending query %llu, %zu, %s\n", token, magic[2].iov_len, magic[2].iov_base);
 
   if (writev(reql_conn_socket(conn), magic, 3) != (wire_query->size + 12)) {
     return -1;
