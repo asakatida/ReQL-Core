@@ -41,7 +41,7 @@ limitations under the License.
 static const ReQL_Size REQL_VERSION = 0x400c2d20;
 static const ReQL_Size REQL_PROTOCOL = 0x7e6970c7;
 
-enum {
+enum ReQL_Query_e {
   REQL_CONTINUE = 2,
   REQL_NOREPLY_WAIT = 4,
   REQL_START = 1,
@@ -57,6 +57,9 @@ typedef union {
   ReQL_Token num;
   ReQL_Byte buf[8];
 } ReQL_LE64;
+
+static int
+reql_continue_query(ReQL_Cur_t *cur, ReQL_Conn_t *conn);
 
 static void
 reql_make_32_le(ReQL_Byte *buf, const ReQL_Size magic) {
@@ -267,7 +270,7 @@ reql_ensure_conn_close_(ReQL_Conn_t *conn) {
 }
 
 static void
-reql_conn_set_res(const ReQL_Conn_t *conn, ReQL_Obj_t *res, const ReQL_Token token) {
+reql_conn_set_res(ReQL_Conn_t *conn, ReQL_Obj_t *res, const ReQL_Token token) {
   ReQL_Cur_t *cur = conn->cursors;
 
   if (cur == NULL) {
@@ -278,6 +281,9 @@ reql_conn_set_res(const ReQL_Conn_t *conn, ReQL_Obj_t *res, const ReQL_Token tok
   while (1) {
     if (cur->token == token) {
       reql_cursor_set_response(cur, res);
+      if (reql_cur_open(cur) != 0) {
+        reql_continue_query(cur, conn);
+      }
       break;
     } else if (cur->next == cur) {
       reql_json_destroy(res);
@@ -631,18 +637,7 @@ reql_encode_query(const ReQL_Obj_t *query, ReQL_Obj_t *kwargs) {
 }
 
 static int
-reql_run_(ReQL_Cur_t *cur, const ReQL_String_t *wire_query, ReQL_Conn_t *conn) {
-  if (reql_conn_open(conn) == 0) {
-    return -1;
-  }
-
-  const ReQL_Token token = conn->max_token++;
-
-  if (cur != NULL) {
-    reql_cursor_init(cur, conn, token);
-    conn->cursors = cur;
-  }
-
+reql_run__(const ReQL_String_t *wire_query, ReQL_Conn_t *conn, const ReQL_Token token) {
   ReQL_Byte token_bytes[8];
 
   reql_make_64_token(token_bytes, token);
@@ -669,6 +664,82 @@ reql_run_(ReQL_Cur_t *cur, const ReQL_String_t *wire_query, ReQL_Conn_t *conn) {
   }
 
   return 0;
+}
+
+static int
+reql_run_(ReQL_Cur_t *cur, const ReQL_String_t *wire_query, ReQL_Conn_t *conn) {
+  if (reql_conn_open(conn) == 0) {
+    return -1;
+  }
+
+  const ReQL_Token token = conn->max_token++;
+
+  if (cur != NULL) {
+    reql_cursor_init(cur, conn, token);
+    conn->cursors = cur;
+  }
+
+  return reql_run__(wire_query, conn, token);
+}
+
+static int
+reql_encode_constant_query(ReQL_String_t *wire_query, const enum ReQL_Query_e type, char *buf, ReQL_Size alloc_size) {
+  const int size = snprintf(buf, alloc_size, "[%i]", type);
+  if ((ReQL_Size)size > alloc_size || size < 3) {
+    return -1;
+  }
+  wire_query->alloc_size = alloc_size;
+  wire_query->size = (ReQL_Size)size;
+  wire_query->str = (ReQL_Byte *)buf;
+
+  return 0;
+}
+
+static int
+reql_continue_query(ReQL_Cur_t *cur, ReQL_Conn_t *conn) {
+  ReQL_String_t wire_query;
+
+  char buf[10];
+
+  if (reql_encode_constant_query(&wire_query, REQL_CONTINUE, buf, 10) != 0) {
+    return -1;
+  }
+
+  return reql_run__(&wire_query, conn, cur->token);
+}
+
+extern int
+reql_no_reply_wait_query(ReQL_Conn_t *conn) {
+  ReQL_String_t wire_query;
+
+  char buf[10];
+
+  if (reql_encode_constant_query(&wire_query, REQL_NOREPLY_WAIT, buf, 10) != 0) {
+    return -1;
+  }
+
+  reql_conn_lock(conn);
+  const int status = reql_run__(&wire_query, conn, conn->max_token++);
+  reql_conn_lock(conn);
+
+  return status;
+}
+
+extern int
+reql_stop_query(ReQL_Cur_t *cur, ReQL_Conn_t *conn) {
+  ReQL_String_t wire_query;
+
+  char buf[10];
+
+  if (reql_encode_constant_query(&wire_query, REQL_STOP, buf, 10) != 0) {
+    return -1;
+  }
+
+  reql_conn_lock(conn);
+  const int status = reql_run__(&wire_query, conn, cur->token);
+  reql_conn_unlock(conn);
+
+  return status;
 }
 
 extern int

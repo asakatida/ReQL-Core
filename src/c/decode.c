@@ -28,9 +28,13 @@ limitations under the License.
 #include <stdlib.h>
 #include <string.h>
 
-static void
+static ReQL_Size
 reql_update_array(ReQL_Obj_t *array, ReQL_Obj_t *elem) {
   ReQL_Size new_alloc = reql_array_append(array, elem);
+
+  if (reql_error_type() != REQL_E_NO) {
+    return new_alloc;
+  }
 
   if (new_alloc != 0) {
     ReQL_Obj_t **arr = array->obj.datum.json.var.data.array;
@@ -44,14 +48,20 @@ reql_update_array(ReQL_Obj_t *array, ReQL_Obj_t *elem) {
     } else {
       array->obj.datum.json.var.alloc_size = new_alloc;
       array->obj.datum.json.var.data.array = arr;
-      reql_array_append(array, elem);
+      return reql_update_array(array, elem);
     }
   }
+
+  return new_alloc;
 }
 
-static void
+static ReQL_Size
 reql_update_object(ReQL_Obj_t *obj, ReQL_Obj_t *key, ReQL_Obj_t *val) {
   ReQL_Size new_alloc = reql_object_add(obj, key, val);
+
+  if (reql_error_type() != REQL_E_NO) {
+    return new_alloc;
+  }
 
   if (new_alloc != 0) {
     ReQL_Pair_t *pair = obj->obj.datum.json.var.data.pair;
@@ -65,15 +75,21 @@ reql_update_object(ReQL_Obj_t *obj, ReQL_Obj_t *key, ReQL_Obj_t *val) {
     } else {
       obj->obj.datum.json.var.alloc_size = new_alloc;
       obj->obj.datum.json.var.data.pair = pair;
-      reql_object_add(obj, key, val);
+      return reql_update_object(obj, key, val);
     }
   }
+
+  return new_alloc;
 }
 
 static ReQL_Datum_t
 reql_bad_pair(ReQL_Obj_t *stack, ReQL_Obj_t *key, ReQL_Obj_t *val) {
-  reql_update_array(stack, key);
-  reql_update_array(stack, val);
+  if (reql_update_array(stack, key) != 0) {
+    return REQL_R_JSON;
+  }
+  if (reql_update_array(stack, val) != 0) {
+    return REQL_R_JSON;
+  }
   if (reql_datum_type(key) == REQL_R_OBJECT) {
     return REQL_R_OBJECT;
   }
@@ -96,7 +112,10 @@ reql_merge_stack_pair(ReQL_Obj_t *stack, ReQL_Obj_t *key, ReQL_Obj_t *val) {
     return reql_bad_pair(stack, key, val);
   }
 
-  reql_update_object(obj, key, val);
+  if (reql_update_object(obj, key, val) != 0) {
+    return REQL_R_JSON;
+  }
+
   return REQL_R_OBJECT;
 }
 
@@ -113,7 +132,10 @@ reql_merge_stack_val(ReQL_Obj_t *stack, ReQL_Obj_t *val) {
     return reql_merge_stack_pair(stack, reql_array_pop(stack), val);
   }
 
-  reql_update_array(arr, val);
+  if (reql_update_array(arr, val) != 0) {
+    return REQL_R_JSON;
+  }
+
   return REQL_R_ARRAY;
 }
 

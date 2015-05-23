@@ -175,6 +175,14 @@ reql_conn_open(ReQL_Conn_t *conn);
 extern int
 reql_run(ReQL_Cur_t *cur, const ReQL_Obj_t *query, ReQL_Conn_t *conn, ReQL_Obj_t *kwargs);
 
+/**
+ * @brief send a no reply wait query.
+ * @param conn connection object.
+ * @return 0 on success. Non zero otherwise.
+ */
+extern int
+reql_no_reply_wait_query(ReQL_Conn_t *conn);
+
 #ifdef __cplusplus
 }
 #endif

@@ -27,6 +27,9 @@ extern "C" {
 
 #include "./c/connection.h"
 
+extern int
+reql_stop_query(ReQL_Cur_t *cur, ReQL_Conn_t *conn);
+
 #ifdef __cplusplus
 }
 #endif
