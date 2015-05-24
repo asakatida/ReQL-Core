@@ -299,17 +299,6 @@ ReQL::~ReQL() {
   }
 
   get()->owner = nullptr;
-
-  p_tt = _C::REQL_DATUM;
-  p_r_array.clear();
-  p_r_object.clear();
-  p_str.clear();
-  p_args.reset();
-  p_array.reset();
-  p_buf.reset();
-  p_kwargs.reset();
-  p_object.reset();
-  reset();
 }
 
 void
