@@ -260,49 +260,9 @@ reql_string_decode(ReQL_Size size, ReQL_Byte *json) {
   return out;
 }
 
-static int
-reql_number_decode(ReQL_Size size, ReQL_Byte *json, double *val) {
-  double num = 0;
-  ReQL_Size i;
-  ReQL_Byte digit = '0';
-  for (i=1; i <= size; ++i) {
-    digit = json[size - i];
-    if (digit == '+') {
-    } else if (digit == '-') {
-      num *= -1;
-    } else if (digit < '0' || digit > '9') {
-      break;
-    }
-    num += (digit - '0') * pow(10, i - 1);
-  }
-  if (i <= size) {
-    ReQL_Size new_size = size - i - 1;
-    if (new_size <= 0) {
-      return -1;
-    }
-    if (digit == 'E' || digit == 'e') {
-      double exp = num;
-      if (reql_number_decode(new_size, json, &num)) {
-        return -1;
-      }
-      num = pow(num, pow(10, exp));
-    } else if (digit == '.') {
-      double dec = num;
-      if (reql_number_decode(new_size, json, &num)) {
-        return -1;
-      }
-      num += dec * pow(10, -i);
-    } else {
-      return -1;
-    }
-  }
-  *val = num;
-  return 0;
-}
-
 static ReQL_Obj_t *
 reql_decode_(ReQL_Obj_t *stack, ReQL_Byte *json, ReQL_Size size) {
-  if (json[size - 1] == 0) {
+  if (json[size - 1] == '\0') {
     --size;
   }
   ReQL_Datum_t state = REQL_R_JSON;
@@ -311,42 +271,7 @@ reql_decode_(ReQL_Obj_t *stack, ReQL_Byte *json, ReQL_Size size) {
   for (i=0; i < size; ++i) {
     switch (state) {
       case REQL_R_NUM: {
-        switch (json[i]) {
-          case '-':
-          case '0':
-          case '1':
-          case '2':
-          case '3':
-          case '4':
-          case '5':
-          case '6':
-          case '7':
-          case '8':
-          case '9':
-          case '.':
-          case '+':
-          case 'e':
-          case 'E': {
-            if (i < size - 1) {
-              break;
-            } else {
-              ++i;
-            }
-          }
-          default: {
-            double num;
-            if (reql_number_decode(i - str_start, &json[str_start], &num) != 0) {
-              return NULL;
-            }
-            ReQL_Obj_t *obj = malloc(sizeof(ReQL_Obj_t));
-            reql_number_init(obj, num);
-            reql_array_append(stack, obj);
-            state = reql_merge_stack(stack);
-            --i;
-            break;
-          }
-        }
-        break;
+        return NULL;
       }
       case REQL_R_STR: {
         switch (json[i]) {
@@ -364,7 +289,7 @@ reql_decode_(ReQL_Obj_t *stack, ReQL_Byte *json, ReQL_Size size) {
                 return NULL;
               }
 
-              reql_array_append(stack, obj);
+              reql_update_array(stack, obj);
               state = reql_merge_stack(stack);
             }
           }
@@ -426,7 +351,7 @@ reql_decode_(ReQL_Obj_t *stack, ReQL_Byte *json, ReQL_Size size) {
                 ReQL_Obj_t *obj = malloc(sizeof(ReQL_Obj_t));
                 ReQL_Obj_t **array = malloc(sizeof(ReQL_Obj_t*) * 10);
                 reql_array_init(obj, array, 10);
-                reql_array_append(stack, obj);
+                reql_update_array(stack, obj);
                 ++arr_open;
                 break;
               }
@@ -446,7 +371,7 @@ reql_decode_(ReQL_Obj_t *stack, ReQL_Byte *json, ReQL_Size size) {
                 ReQL_Obj_t *obj = malloc(sizeof(ReQL_Obj_t));
                 ReQL_Pair_t *pairs = malloc(sizeof(ReQL_Pair_t) * 10);
                 reql_object_init(obj, pairs, 10);
-                reql_array_append(stack, obj);
+                reql_update_array(stack, obj);
                 ++obj_open;
                 break;
               }
@@ -490,8 +415,16 @@ reql_decode_(ReQL_Obj_t *stack, ReQL_Byte *json, ReQL_Size size) {
           case '9': {
             switch (state) {
               case REQL_R_JSON: {
-                state = REQL_R_NUM;
-                str_start = i;
+                ReQL_Byte *str_end = NULL;
+                double num = strtod((char *)&json[i], (char **)&str_end);
+                if (str_end == NULL) {
+                  return NULL;
+                }
+                ReQL_Obj_t *obj = malloc(sizeof(ReQL_Obj_t));
+                reql_number_init(obj, num);
+                reql_update_array(stack, obj);
+                state = reql_merge_stack(stack);
+                i = (ReQL_Size)((((size_t)(str_end - json)) / sizeof(ReQL_Byte))  - 1);
                 break;
               }
               case REQL_R_ARRAY:
@@ -517,7 +450,7 @@ reql_decode_(ReQL_Obj_t *stack, ReQL_Byte *json, ReQL_Size size) {
                 if (memcmp(&json[i], json_true, 4) == 0) {
                   ReQL_Obj_t *obj = malloc(sizeof(ReQL_Obj_t));
                   reql_bool_init(obj, 1);
-                  reql_array_append(stack, obj);
+                  reql_update_array(stack, obj);
                   state = reql_merge_stack(stack);
                   i += 3;
                   break;
@@ -542,7 +475,7 @@ reql_decode_(ReQL_Obj_t *stack, ReQL_Byte *json, ReQL_Size size) {
                 if (memcmp(&json[i], json_false, 5) == 0) {
                   ReQL_Obj_t *obj = malloc(sizeof(ReQL_Obj_t));
                   reql_bool_init(obj, 0);
-                  reql_array_append(stack, obj);
+                  reql_update_array(stack, obj);
                   state = reql_merge_stack(stack);
                   i += 4;
                   break;
@@ -567,7 +500,7 @@ reql_decode_(ReQL_Obj_t *stack, ReQL_Byte *json, ReQL_Size size) {
                 if (memcmp(&json[i], json_null, 4) == 0) {
                   ReQL_Obj_t *obj = malloc(sizeof(ReQL_Obj_t));
                   reql_null_init(obj);
-                  reql_array_append(stack, obj);
+                  reql_update_array(stack, obj);
                   state = reql_merge_stack(stack);
                   i += 3;
                   break;
