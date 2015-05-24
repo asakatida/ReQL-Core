@@ -4,6 +4,7 @@
 #include "./test.hpp"
 #include "./ReQL.h"
 #include "./c/dev/decode.h"
+#include "./c/dev/json.h"
 
 #include <string>
 
@@ -46,6 +47,8 @@ TEST_CASE("decode values", "[c][decode]") {
     REQUIRE(obj != nullptr);
 
     REQUIRE(reql_datum_type(obj) == REQL_R_NULL);
+
+    reql_json_destroy(obj);
   }
 
   SECTION("true") {
@@ -56,6 +59,8 @@ TEST_CASE("decode values", "[c][decode]") {
     REQUIRE(obj != nullptr);
 
     REQUIRE(reql_datum_type(obj) == REQL_R_BOOL);
+
+    reql_json_destroy(obj);
   }
 
   SECTION("false") {
@@ -66,6 +71,8 @@ TEST_CASE("decode values", "[c][decode]") {
     REQUIRE(obj != nullptr);
 
     REQUIRE(reql_datum_type(obj) == REQL_R_BOOL);
+
+    reql_json_destroy(obj);
   }
 
   SECTION("number") {
@@ -77,6 +84,8 @@ TEST_CASE("decode values", "[c][decode]") {
 
     REQUIRE(reql_datum_type(obj) == REQL_R_NUM);
     REQUIRE(reql_to_number(obj) == Approx(12345));
+
+    reql_json_destroy(obj);
   }
 
   SECTION("string") {
@@ -92,6 +101,8 @@ TEST_CASE("decode values", "[c][decode]") {
     std::string orig("hi!");
 
     REQUIRE(orig.compare(0, 3, reinterpret_cast<char*>(reql_string_buf(obj)), reql_size(obj)) == 0);
+
+    reql_json_destroy(obj);
   }
 
   SECTION("array") {
@@ -107,6 +118,8 @@ TEST_CASE("decode values", "[c][decode]") {
 
     REQUIRE(val != nullptr);
     REQUIRE(reql_datum_type(val) == REQL_R_BOOL);
+
+    reql_json_destroy(obj);
   }
 
   SECTION("object") {
@@ -127,6 +140,8 @@ TEST_CASE("decode values", "[c][decode]") {
 
     REQUIRE(reql_object_get(obj, key.get()) != nullptr);
     REQUIRE(reql_datum_type(reql_object_get(obj, key.get())) == REQL_R_NUM);
+
+    reql_json_destroy(obj);
   }
 }
 
@@ -136,4 +151,6 @@ TEST_CASE("decode term", "[c][decode]") {
 
   ReQL_Obj_t *obj = reql_decode(src, size);
   REQUIRE(obj != nullptr);
+
+  reql_json_destroy(obj);
 }
