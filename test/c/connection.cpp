@@ -68,11 +68,11 @@ TEST_CASE("c connection", "[c][connection]") {
 
     reql_run(cur.get(), q.get(), c.get(), nullptr);
 
-    REQUIRE(reql_cur_open(cur.get()) != 0);/*
+    REQUIRE(reql_cur_open(cur.get()) != 0);
 
     ReQL_Obj_t *result = reql_cursor_to_array(cur.get());
 
-    REQUIRE(result != nullptr);*/
+    REQUIRE(result != nullptr);
 
     reql_close_cur(cur.get());
   }
