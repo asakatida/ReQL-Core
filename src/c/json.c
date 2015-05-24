@@ -535,15 +535,96 @@ reql_obj_copy(const ReQL_Obj_t *other) {
       break;
     }
     case REQL_R_REQL: {
-      reql_term_init(self, reql_term_type(other), reql_args(other), reql_kwargs(other));
+      reql_term_init(self, reql_term_type(other), reql_obj_copy(reql_args(other)), reql_obj_copy(reql_kwargs(other)));
       break;
     }
     case REQL_R_JSON: {
       free(self); self = NULL;
-      return NULL;
+      break;
     }
   }
 
+  return self;
+}
+
+extern ReQL_Obj_t *
+reql_obj_move(ReQL_Obj_t *other) {
+  ReQL_Obj_t *self = malloc(sizeof(ReQL_Obj_t));
+
+  if (self == NULL) {
+    return NULL;
+  }
+
+  switch (reql_datum_type(other)) {
+    case REQL_R_ARRAY: {
+      const ReQL_Size alloc_size = reql_alloc_size(other);
+      ReQL_Obj_t **array = reql_array(other);
+      reql_set_array(other, NULL);
+      reql_array_init(self, array, alloc_size);
+      reql_set_size(self, reql_size(other));
+      reql_set_size(other, 0);
+
+      ReQL_Size i;
+      for (i=0; i < alloc_size; ++i) {
+        if (array[i] != NULL) {
+          array[i]->owner = self;
+        }
+      }
+      break;
+    }
+    case REQL_R_BOOL: {
+      reql_bool_init(self, reql_to_bool(other));
+      break;
+    }
+    case REQL_R_NULL: {
+      reql_null_init(self);
+      break;
+    }
+    case REQL_R_NUM: {
+      reql_number_init(self, reql_to_number(other));
+      break;
+    }
+    case REQL_R_OBJECT: {
+      const ReQL_Size alloc_size = reql_alloc_size(other);
+      ReQL_Pair_t *pairs = reql_pair(other);
+      reql_set_pair(other, NULL);
+      reql_object_init(self, pairs, alloc_size);
+      reql_set_size(self, reql_size(other));
+      reql_set_size(other, 0);
+
+      ReQL_Size i;
+      for (i=0; i < alloc_size; ++i) {
+        if (pairs[i].key != NULL) {
+          pairs[i].key->owner = self;
+        }
+        if (pairs[i].val != NULL) {
+          pairs[i].val->owner = self;
+        }
+      }
+      break;
+    }
+    case REQL_R_STR: {
+      const ReQL_Size alloc_size = reql_alloc_size(other);
+      ReQL_Byte *buf = reql_string_buf(other);
+      reql_set_str(other, NULL);
+      reql_string_init(self, buf, alloc_size);
+      reql_set_size(self, reql_size(other));
+      reql_set_size(other, 0);
+      break;
+    }
+    case REQL_R_REQL: {
+      reql_args(other)->owner = NULL;
+      reql_kwargs(other)->owner = NULL;
+      reql_term_init(self, reql_term_type(other), reql_args(other), reql_kwargs(other));
+      reql_term_init(other, REQL_DATUM, NULL, NULL);
+      break;
+    }
+    case REQL_R_JSON: {
+      free(self); self = NULL;
+      break;
+    }
+  }
+  
   return self;
 }
 
