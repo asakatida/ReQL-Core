@@ -29,6 +29,8 @@ extern "C" {
 #include "./c/json.h"
 
 typedef int(^ReQL_Each_Function)(ReQL_Obj_t *);
+typedef int(^ReQL_End_Function)(void);
+typedef int(^ReQL_Error_Function)(ReQL_Obj_t *);
 
 enum ReQL_Response_e {
   REQL_CLIENT_ERROR = 16,
@@ -43,9 +45,7 @@ typedef enum ReQL_Response_e ReQL_Response_t;
 
 struct ReQL_Cur_s {
   struct {
-    pthread_cond_t *next;
-    pthread_cond_t *done;
-    pthread_mutex_t *mutex;
+    pthread_mutex_t mutex;
   } condition;
   ReQL_Token token;
   struct ReQL_Conn_s *conn;
@@ -54,7 +54,11 @@ struct ReQL_Cur_s {
   ReQL_Obj_t *old_res;
   struct ReQL_Cur_s *next;
   struct ReQL_Cur_s *prev;
-  ReQL_Each_Function cb;
+  struct {
+    ReQL_Each_Function each;
+    ReQL_End_Function end;
+    ReQL_Error_Function error;
+  } cb;
 };
 typedef struct ReQL_Cur_s ReQL_Cur_t;
 
