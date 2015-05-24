@@ -103,9 +103,8 @@ ReQL::ReQL(const Types::object &object) : ReQL() {
   }
 }
 
-ReQL::ReQL(_C::ReQL_Obj_t *val) : ReQL() {
-  reset(val);
-  switch (_C::reql_datum_type(val)) {
+ReQL::ReQL(_C::ReQL_Obj_t *val) : _C::CTypes::object(val), p_tt(_C::reql_term_type(val)) {
+  switch (_type()) {
     case _C::REQL_R_ARRAY: {
       p_array.reset(val->obj.datum.json.var.data.array);
       p_r_array.reserve(_C::reql_size(val));
@@ -172,6 +171,8 @@ ReQL::ReQL(const _C::ReQL_AST_Function &f, const Types::array &args) : ReQL() {
   }
 
   f(get(), p_args.get());
+
+  p_tt = _C::reql_term_type(get());
 }
 
 ReQL::ReQL(const _C::ReQL_AST_Function_Kwargs &f, const Types::array &args, const Types::object &kwargs) : ReQL() {
@@ -213,6 +214,8 @@ ReQL::ReQL(const _C::ReQL_AST_Function_Kwargs &f, const Types::array &args, cons
   }
 
   f(get(), p_args.get(), p_kwargs.get());
+
+  p_tt = _C::reql_term_type(get());
 }
 
 ReQL::ReQL(const ReQL &other) : ReQL() {
