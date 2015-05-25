@@ -309,7 +309,6 @@
 		1ECDD74E1AB53D80004CD31E /* new.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = new.hpp; sourceTree = "<group>"; };
 		1ECDD76E1AB53D80004CD31E /* ReQL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReQL.h; sourceTree = "<group>"; };
 		1ECDD76F1AB53D80004CD31E /* ReQL.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ReQL.hpp; sourceTree = "<group>"; };
-		1ECDD77C1AB53D80004CD31E /* connect_test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = connect_test.m; sourceTree = "<group>"; };
 		1ECDD77E1AB53D80004CD31E /* connection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = connection.cpp; sourceTree = "<group>"; };
 		1ECDD77F1AB53D80004CD31E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1ECDD7801AB53D80004CD31E /* test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = test.cpp; sourceTree = "<group>"; };
@@ -659,7 +658,6 @@
 			isa = PBXGroup;
 			children = (
 				1EAE66501AC7267A0080CBCC /* catch.hpp */,
-				1ECDD77C1AB53D80004CD31E /* connect_test.m */,
 				1ECDD77D1AB53D80004CD31E /* cpp */,
 				1ECDD77F1AB53D80004CD31E /* Info.plist */,
 				1ECDD7801AB53D80004CD31E /* test.cpp */,
@@ -1294,6 +1292,7 @@
 				8791C85A1B13968C004798D7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8791C85B1B13968C004798D7 /* Build configuration list for PBXNativeTarget "libReQLTests" */ = {
 			isa = XCConfigurationList;
@@ -1302,6 +1301,7 @@
 				8791C85D1B13968C004798D7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
