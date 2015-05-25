@@ -41,7 +41,7 @@ DerivedData
 *.user
 
 # Test objects
-libReQLtest*
+libReQLtest
 
 # Compiled Object files
 __pycache__/
