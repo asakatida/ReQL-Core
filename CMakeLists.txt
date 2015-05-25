@@ -3,14 +3,10 @@ cmake_minimum_required(VERSION 2.8)
 
 set(SOURCES
  src/c/ast.c
- src/c/char.c
  src/c/connection.c
  src/c/cursor.c
- src/c/decode.c
- src/c/encode.c
  src/c/error.c
  src/c/expr.c
- src/c/json.c
  src/cpp/ast.cpp
  src/cpp/connection.cpp
  src/cpp/cursor.cpp
@@ -19,10 +15,14 @@ set(SOURCES
  src/cpp/new.cpp
  src/cpp/parser.cpp
  src/cpp/query.cpp
- test/c/connection.cpp
- test/c/decode.cpp
- test/c/encode.cpp
- test/c/expr.cpp
+ src/reql/ast.c
+ src/reql/char.c
+ src/reql/connection.c
+ src/reql/cursor.c
+ src/reql/decode.c
+ src/reql/encode.c
+ src/reql/error.c
+ src/reql/expr.c
  test/c/polyglot/aggregation.cpp
  test/c/polyglot/arity.cpp
  test/c/polyglot/arraylimits.cpp
@@ -263,6 +263,129 @@ set(SOURCES
  test/cpp/polyglot/transform/object.cpp
  test/cpp/polyglot/transformation.cpp
  test/main.cpp
+ test/reql/connection.cpp
+ test/reql/decode.cpp
+ test/reql/encode.cpp
+ test/reql/expr.cpp
+ test/reql/polyglot/aggregation.cpp
+ test/reql/polyglot/arity.cpp
+ test/reql/polyglot/arraylimits.cpp
+ test/reql/polyglot/changefeeds/edge.cpp
+ test/reql/polyglot/changefeeds/idxcopy.cpp
+ test/reql/polyglot/changefeeds/include_states.cpp
+ test/reql/polyglot/changefeeds/point.cpp
+ test/reql/polyglot/changefeeds/sindex.cpp
+ test/reql/polyglot/changefeeds/squash.cpp
+ test/reql/polyglot/changefeeds/table.cpp
+ test/reql/polyglot/control.cpp
+ test/reql/polyglot/datum/array.cpp
+ test/reql/polyglot/datum/binary.cpp
+ test/reql/polyglot/datum/bool.cpp
+ test/reql/polyglot/datum/null.cpp
+ test/reql/polyglot/datum/number.cpp
+ test/reql/polyglot/datum/object.cpp
+ test/reql/polyglot/datum/string.cpp
+ test/reql/polyglot/datum/typeof.cpp
+ test/reql/polyglot/datum/uuid.cpp
+ test/reql/polyglot/default.cpp
+ test/reql/polyglot/geo/constructors.cpp
+ test/reql/polyglot/geo/geojson.cpp
+ test/reql/polyglot/geo/indexing.cpp
+ test/reql/polyglot/geo/intersection_inclusion.cpp
+ test/reql/polyglot/geo/operations.cpp
+ test/reql/polyglot/geo/primitives.cpp
+ test/reql/polyglot/joins.cpp
+ test/reql/polyglot/json.cpp
+ test/reql/polyglot/match.cpp
+ test/reql/polyglot/math_logic/add.cpp
+ test/reql/polyglot/math_logic/aliases.cpp
+ test/reql/polyglot/math_logic/comparison.cpp
+ test/reql/polyglot/math_logic/div.cpp
+ test/reql/polyglot/math_logic/floor_ceil_round.cpp
+ test/reql/polyglot/math_logic/logic.cpp
+ test/reql/polyglot/math_logic/math.cpp
+ test/reql/polyglot/math_logic/mod.cpp
+ test/reql/polyglot/math_logic/mul.cpp
+ test/reql/polyglot/math_logic/sub.cpp
+ test/reql/polyglot/meta/composite.cpp
+ test/reql/polyglot/meta/dbs.cpp
+ test/reql/polyglot/meta/table.cpp
+ test/reql/polyglot/mutation/atomic_get_set.cpp
+ test/reql/polyglot/mutation/delete.cpp
+ test/reql/polyglot/mutation/insert.cpp
+ test/reql/polyglot/mutation/replace.cpp
+ test/reql/polyglot/mutation/sync.cpp
+ test/reql/polyglot/mutation/update.cpp
+ test/reql/polyglot/polymorphism.cpp
+ test/reql/polyglot/random.cpp
+ test/reql/polyglot/range.cpp
+ test/reql/polyglot/regression/1001.cpp
+ test/reql/polyglot/regression/1005.cpp
+ test/reql/polyglot/regression/1023.cpp
+ test/reql/polyglot/regression/1081.cpp
+ test/reql/polyglot/regression/1132.cpp
+ test/reql/polyglot/regression/1133.cpp
+ test/reql/polyglot/regression/1155.cpp
+ test/reql/polyglot/regression/1179.cpp
+ test/reql/polyglot/regression/1468.cpp
+ test/reql/polyglot/regression/1789.cpp
+ test/reql/polyglot/regression/2052.cpp
+ test/reql/polyglot/regression/2399.cpp
+ test/reql/polyglot/regression/2696.cpp
+ test/reql/polyglot/regression/2697.cpp
+ test/reql/polyglot/regression/2709.cpp
+ test/reql/polyglot/regression/2710.cpp
+ test/reql/polyglot/regression/2766.cpp
+ test/reql/polyglot/regression/2767.cpp
+ test/reql/polyglot/regression/2774.cpp
+ test/reql/polyglot/regression/2838.cpp
+ test/reql/polyglot/regression/2930.cpp
+ test/reql/polyglot/regression/3057.cpp
+ test/reql/polyglot/regression/3059.cpp
+ test/reql/polyglot/regression/309.cpp
+ test/reql/polyglot/regression/3444.cpp
+ test/reql/polyglot/regression/3449.cpp
+ test/reql/polyglot/regression/354.cpp
+ test/reql/polyglot/regression/3637.cpp
+ test/reql/polyglot/regression/370.cpp
+ test/reql/polyglot/regression/3745.cpp
+ test/reql/polyglot/regression/3759.cpp
+ test/reql/polyglot/regression/453.cpp
+ test/reql/polyglot/regression/46.cpp
+ test/reql/polyglot/regression/469.cpp
+ test/reql/polyglot/regression/522.cpp
+ test/reql/polyglot/regression/545.cpp
+ test/reql/polyglot/regression/546.cpp
+ test/reql/polyglot/regression/568.cpp
+ test/reql/polyglot/regression/578.cpp
+ test/reql/polyglot/regression/579.cpp
+ test/reql/polyglot/regression/619.cpp
+ test/reql/polyglot/regression/632.cpp
+ test/reql/polyglot/regression/665.cpp
+ test/reql/polyglot/regression/678.cpp
+ test/reql/polyglot/regression/718.cpp
+ test/reql/polyglot/regression/730.cpp
+ test/reql/polyglot/regression/757.cpp
+ test/reql/polyglot/regression/763.cpp
+ test/reql/polyglot/regression/767.cpp
+ test/reql/polyglot/regression/779.cpp
+ test/reql/polyglot/regression/831.cpp
+ test/reql/polyglot/selection.cpp
+ test/reql/polyglot/sindex/api.cpp
+ test/reql/polyglot/sindex/status.cpp
+ test/reql/polyglot/sindex/truncation.cpp
+ test/reql/polyglot/timeout.cpp
+ test/reql/polyglot/times/api.cpp
+ test/reql/polyglot/times/constructors.cpp
+ test/reql/polyglot/times/index.cpp
+ test/reql/polyglot/times/portions.cpp
+ test/reql/polyglot/times/shim.cpp
+ test/reql/polyglot/times/time_arith.cpp
+ test/reql/polyglot/times/timezones.cpp
+ test/reql/polyglot/transform/array.cpp
+ test/reql/polyglot/transform/map.cpp
+ test/reql/polyglot/transform/object.cpp
+ test/reql/polyglot/transformation.cpp
  test/test.cpp
 )
 
@@ -272,21 +395,8 @@ set(MOC_HEADERS
  src/c/ast.h
  src/c/connection.h
  src/c/cursor.h
- src/c/dev/ast.h
- src/c/dev/char.h
- src/c/dev/connection.h
- src/c/dev/cursor.h
- src/c/dev/decode.h
- src/c/dev/encode.h
- src/c/dev/error.h
- src/c/dev/expr.h
- src/c/dev/json.h
  src/c/error.h
  src/c/expr.h
- src/c/json.h
- src/c/types.h
- src/c/util/portable_endian.h
- src/c/util/reql_assert.h
  src/cpp/ast.hpp
  src/cpp/connection.hpp
  src/cpp/cursor.hpp
@@ -296,6 +406,17 @@ set(MOC_HEADERS
  src/cpp/parser.hpp
  src/cpp/query.hpp
  src/cpp/types.hpp
+ src/reql/ast.h
+ src/reql/char.h
+ src/reql/connection.h
+ src/reql/core.h
+ src/reql/cursor.h
+ src/reql/decode.h
+ src/reql/encode.h
+ src/reql/error.h
+ src/reql/expr.h
+ src/reql/portable_endian.h
+ src/reql/types.h
  test/test.hpp
 )
 

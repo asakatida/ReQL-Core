@@ -20,7 +20,7 @@ limitations under the License.
 
 #import "ReQL-ObjC.h"
 
-#include "ReQL.h"
+#include "./reql/core.h"
 
 @implementation libReQL
 

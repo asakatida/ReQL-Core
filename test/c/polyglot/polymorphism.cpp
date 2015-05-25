@@ -1,11 +1,11 @@
 // Copyright 2015 Adam Grandquist
 
 #include "./catch.hpp"
-#include "./ReQL.h"
+#include "./reql/core.h"
 
 #include <memory>
 
-TEST_CASE("c Tests that manipulation data in tables 16", "[c][ast]") {
+TEST_CASE("c Tests that manipulation data in tables 8", "[c][ast]") {
 
   SECTION("test1") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);

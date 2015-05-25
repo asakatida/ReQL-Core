@@ -29,7 +29,7 @@ extern "C" {
 
 #include "ruby.h"
 
-#include "./ReQL.h"
+#include "./reql/core.h"
 
 extern VALUE
 reql_rb_expr(int argn, VALUE *args, VALUE self);

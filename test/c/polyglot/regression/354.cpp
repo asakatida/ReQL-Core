@@ -1,11 +1,11 @@
 // Copyright 2015 Adam Grandquist
 
 #include "./catch.hpp"
-#include "./ReQL.h"
+#include "./reql/core.h"
 
 #include <memory>
 
-TEST_CASE("c Regression tests for issue 162", "[c][ast]") {
+TEST_CASE("c Regression tests for issue 81", "[c][ast]") {
 
   SECTION("test1") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);

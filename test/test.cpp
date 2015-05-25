@@ -2,11 +2,6 @@
 
 #include "./catch.hpp"
 #include "./test.hpp"
-namespace ReQL {
-namespace _C {
-#include "./c/dev/json.h"
-}
-}
 #include "./ReQL.hpp"
 
 using namespace ReQL;

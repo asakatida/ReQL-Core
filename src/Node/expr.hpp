@@ -21,7 +21,7 @@ limitations under the License.
 #include <node.h>
 #include <v8.h>
 
-#include "ReQL.h"
+#include "./reql/core.h"
 
 #ifndef REQL_EXPR_NODE_H_
 #define REQL_EXPR_NODE_H_

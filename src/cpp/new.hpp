@@ -24,15 +24,10 @@ limitations under the License.
 #include "./cpp/types.hpp"
 
 #include <map>
+#include <memory>
 #include <vector>
 
 namespace ReQL {
-
-namespace _C {
-
-#include "./c/dev/ast.h"
-
-}  // namespace _C
 
 namespace _Internal {
 
@@ -60,17 +55,18 @@ public:
   _C::ReQL_Datum_t _type() const;
 
 private:
-  void copy(const ReQL &other);
-  void move(ReQL &&other);
+  ReQL(int dummy);
+
+  void removeOwner();
 
   _C::ReQL_Term_t p_tt;
   std::vector<ReQL> p_r_array;
   std::map<ReQL, ReQL> p_r_object;
   Types::string p_str;
-  _C::CTypes::object p_args;
+  std::unique_ptr<ReQL> p_args;
   _C::CTypes::array p_array;
   _C::CTypes::string p_buf;
-  _C::CTypes::object p_kwargs;
+  std::unique_ptr<ReQL> p_kwargs;
   _C::CTypes::pairs p_object;
 };
 

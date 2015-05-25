@@ -20,7 +20,7 @@ limitations under the License.
 
 #import "ReQL-expr-ObjC.h"
 
-#include "ReQL.h"
+#include "./reql/core.h"
 
 @implementation libReQL_Connection {
   ReQL_Conn_t *conn;

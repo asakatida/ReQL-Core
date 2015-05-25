@@ -22,7 +22,7 @@ limitations under the License.
 
 #include <cstdlib>
 
-#include "ReQL.h"
+#include "./reql/core.h"
 
 v8::Handle<v8::Value>
 reql_node_add(const v8::Arguments& args) {

@@ -1,11 +1,11 @@
 // Copyright 2015 Adam Grandquist
 
 #include "./catch.hpp"
-#include "./ReQL.h"
+#include "./reql/core.h"
 
 #include <memory>
 
-TEST_CASE("c Tests replacement of selections 104", "[c][ast]") {
+TEST_CASE("c Tests replacement of selections 52", "[c][ast]") {
 
   SECTION("test0") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);

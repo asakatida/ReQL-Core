@@ -25,7 +25,7 @@ limitations under the License.
 extern "C" {
 #endif
 
-#include "ReQL.h"
+#include "./reql/core.h"
 
 #include <lua.h>
 #include <lauxlib.h>

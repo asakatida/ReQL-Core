@@ -37,7 +37,7 @@ TEST_CASE("{}", "[cpp][ast]") {{
 test_shell_c = '''// Copyright 2015 Adam Grandquist
 
 #include "./catch.hpp"
-#include "./ReQL.h"
+#include "./reql/core.h"
 
 #include <memory>
 
@@ -506,36 +506,29 @@ def convert_tests(tests, lang):
             lang_tests.append(section_shell.format(i, '\n'.join(lang_test)))
     return lang_tests
 
-def test_loop(path, c_path, cpp_path):
+def test_loop(path, lang_path, lang):
     for file in path.glob('**/*.yaml'):
-        each_test(path, file, c_path, cpp_path)
+        each_test(path, file, lang_path, lang)
     for file in path.glob('**/*.test'):
-        each_test(path, file, c_path, cpp_path)
+        each_test(path, file, lang_path, lang)
 
-def each_test(path, file, c_path, cpp_path):
+def each_test(path, file, lang_path, lang):
     with file.open() as istream:
         tests = yaml.load(istream)
 
     test_file = file.relative_to(path)
 
-    with touch((c_path / test_file).with_suffix('.cpp')) as ostream:
-        test_name = test_name_shell.format('c', tests['desc'])
+    with touch((lang_path / test_file).with_suffix('.cpp')) as ostream:
+        test_name = test_name_shell.format(lang, tests['desc'])
         if test_name in test_names:
             test_name = ' '.join([test_name, str(len(test_names))])
         test_names.add(test_name)
-        ostream.write(test_shell_c.format(
+        ostream.write({
+            'c': test_shell_c,
+            'cpp': test_shell_cpp
+        }[lang].format(
             test_name,
-            '\n'.join(convert_tests(tests, 'c'))
-        ))
-
-    with touch((cpp_path / test_file).with_suffix('.cpp')) as ostream:
-        test_name = test_name_shell.format('cpp', tests['desc'])
-        if test_name in test_names:
-            test_name = ' '.join([test_name, str(len(test_names))])
-        test_names.add(test_name)
-        ostream.write(test_shell_cpp.format(
-            test_name,
-            '\n'.join(convert_tests(tests, 'cpp'))
+            '\n'.join(convert_tests(tests, lang))
         ))
 
 def main():
@@ -549,10 +542,17 @@ def main():
     new_test_c_path = tests_path / 'c' / 'polyglot'
     mkdir(new_test_c_path)
 
+    test_loop(polyglot_path, new_test_c_path.resolve(), 'c')
+
     new_test_cpp_path = tests_path / 'cpp' / 'polyglot'
     mkdir(new_test_cpp_path)
 
-    test_loop(polyglot_path, new_test_c_path.resolve(), new_test_cpp_path.resolve())
+    test_loop(polyglot_path, new_test_cpp_path.resolve(), 'cpp')
+
+    new_test_reql_path = tests_path / 'reql' / 'polyglot'
+    mkdir(new_test_reql_path)
+
+    test_loop(polyglot_path, new_test_reql_path.resolve(), 'c')
 
 if __name__ == '__main__':
     main()

@@ -30,7 +30,6 @@ extern "C" {
 #include "./c/cursor.h"
 #include "./c/error.h"
 #include "./c/expr.h"
-#include "./c/json.h"
 
 #ifdef __cplusplus
 }

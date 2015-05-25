@@ -317,7 +317,7 @@ extern void
 }"
 end
 
-build('src/c/ast.c', :term_imp) do |name|
+build('src/reql/ast.c', :term_imp) do |name|
   term_imp name
 end
 
@@ -329,7 +329,7 @@ extern void
 #{c_ast_name name}(ReQL_Obj_t *t, ReQL_Obj_t *a#{', ReQL_Obj_t *k' if opts? name});"
 end
 
-build('src/c/ast.h', :term_def) do |name|
+build('src/reql/ast.h', :term_def) do |name|
   term_def name
 end
 
@@ -337,7 +337,7 @@ def enum_def(name)
   "REQL_#{name} = #{RethinkDB::Term::TermType.const_get name}"
 end
 
-build('src/c/json.h', :enum_def, ",\n  ") do |name|
+build('src/reql/expr.h', :enum_def, ",\n  ") do |name|
   enum_def name
 end
 
