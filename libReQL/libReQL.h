@@ -15,5 +15,6 @@ FOUNDATION_EXPORT double libReQLVersionNumber;
 FOUNDATION_EXPORT const unsigned char libReQLVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <libReQL/PublicHeader.h>
-
-
+#import <libReQL/AST.h>
+#import <libReQL/Connection.h>
+#import <libReQL/Cursor.h>

@@ -152,6 +152,33 @@
 		8791C84A1B13968C004798D7 /* libReQL.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C8491B13968C004798D7 /* libReQL.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8791C8501B13968C004798D7 /* libReQL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8791C8451B13968C004798D7 /* libReQL.framework */; };
 		8791C8571B13968C004798D7 /* libReQLTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8791C8561B13968C004798D7 /* libReQLTests.m */; };
+		87DAA63B1B13CB69005626BF /* Connection.h in Headers */ = {isa = PBXBuildFile; fileRef = 87DAA6391B13CB69005626BF /* Connection.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		87DAA63C1B13CB69005626BF /* Connection.m in Sources */ = {isa = PBXBuildFile; fileRef = 87DAA63A1B13CB69005626BF /* Connection.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		87DAA63F1B13CB88005626BF /* Expr.h in Headers */ = {isa = PBXBuildFile; fileRef = 87DAA63D1B13CB88005626BF /* Expr.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		87DAA6401B13CB88005626BF /* Expr.m in Sources */ = {isa = PBXBuildFile; fileRef = 87DAA63E1B13CB88005626BF /* Expr.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		87DAA6431B13CB96005626BF /* Cursor.h in Headers */ = {isa = PBXBuildFile; fileRef = 87DAA6411B13CB96005626BF /* Cursor.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		87DAA6441B13CB96005626BF /* Cursor.m in Sources */ = {isa = PBXBuildFile; fileRef = 87DAA6421B13CB96005626BF /* Cursor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		87DAA6471B13CBBE005626BF /* AST.h in Headers */ = {isa = PBXBuildFile; fileRef = 87DAA6451B13CBBE005626BF /* AST.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		87DAA6481B13CBBE005626BF /* AST.m in Sources */ = {isa = PBXBuildFile; fileRef = 87DAA6461B13CBBE005626BF /* AST.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		87DAA6491B13CE01005626BF /* ast.c in Sources */ = {isa = PBXBuildFile; fileRef = 8791C7D61B138A43004798D7 /* ast.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		87DAA64A1B13CE01005626BF /* ast.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7D71B138A43004798D7 /* ast.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		87DAA64B1B13CE01005626BF /* char.c in Sources */ = {isa = PBXBuildFile; fileRef = 8791C7D81B138A43004798D7 /* char.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		87DAA64C1B13CE01005626BF /* char.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7D91B138A43004798D7 /* char.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		87DAA64D1B13CE01005626BF /* connection.c in Sources */ = {isa = PBXBuildFile; fileRef = 8791C7DA1B138A43004798D7 /* connection.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		87DAA64E1B13CE01005626BF /* connection.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7DB1B138A43004798D7 /* connection.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		87DAA64F1B13CE01005626BF /* core.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7DC1B138A43004798D7 /* core.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		87DAA6501B13CE01005626BF /* cursor.c in Sources */ = {isa = PBXBuildFile; fileRef = 8791C7DD1B138A43004798D7 /* cursor.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		87DAA6511B13CE01005626BF /* cursor.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7DE1B138A43004798D7 /* cursor.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		87DAA6521B13CE01005626BF /* decode.c in Sources */ = {isa = PBXBuildFile; fileRef = 8791C7DF1B138A43004798D7 /* decode.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		87DAA6531B13CE01005626BF /* decode.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7E01B138A43004798D7 /* decode.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		87DAA6541B13CE01005626BF /* encode.c in Sources */ = {isa = PBXBuildFile; fileRef = 8791C7E11B138A43004798D7 /* encode.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		87DAA6551B13CE01005626BF /* encode.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7E21B138A43004798D7 /* encode.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		87DAA6561B13CE01005626BF /* error.c in Sources */ = {isa = PBXBuildFile; fileRef = 8791C7E31B138A43004798D7 /* error.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		87DAA6571B13CE01005626BF /* error.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7E41B138A43004798D7 /* error.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		87DAA6581B13CE01005626BF /* expr.c in Sources */ = {isa = PBXBuildFile; fileRef = 8791C7E51B138A43004798D7 /* expr.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		87DAA6591B13CE01005626BF /* expr.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7E61B138A43004798D7 /* expr.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		87DAA65A1B13CE01005626BF /* portable_endian.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7E71B138A43004798D7 /* portable_endian.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		87DAA65B1B13CE01005626BF /* types.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7E81B138A43004798D7 /* types.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		87F3A8B61B096A9600401BCE /* parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87F3A8B41B096A9600401BCE /* parser.cpp */; };
 /* End PBXBuildFile section */
 
@@ -342,6 +369,14 @@
 		8791C84F1B13968C004798D7 /* libReQLTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = libReQLTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8791C8551B13968C004798D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8791C8561B13968C004798D7 /* libReQLTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = libReQLTests.m; sourceTree = "<group>"; };
+		87DAA6391B13CB69005626BF /* Connection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Connection.h; sourceTree = "<group>"; };
+		87DAA63A1B13CB69005626BF /* Connection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Connection.m; sourceTree = "<group>"; };
+		87DAA63D1B13CB88005626BF /* Expr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Expr.h; sourceTree = "<group>"; };
+		87DAA63E1B13CB88005626BF /* Expr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Expr.m; sourceTree = "<group>"; };
+		87DAA6411B13CB96005626BF /* Cursor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cursor.h; sourceTree = "<group>"; };
+		87DAA6421B13CB96005626BF /* Cursor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Cursor.m; sourceTree = "<group>"; };
+		87DAA6451B13CBBE005626BF /* AST.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AST.h; sourceTree = "<group>"; };
+		87DAA6461B13CBBE005626BF /* AST.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AST.m; sourceTree = "<group>"; };
 		87F3A8B21B093E8000401BCE /* error.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = error.h; sourceTree = "<group>"; };
 		87F3A8B31B0942CE00401BCE /* types.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = types.hpp; sourceTree = "<group>"; };
 		87F3A8B41B096A9600401BCE /* parser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = parser.cpp; sourceTree = "<group>"; };
@@ -706,6 +741,14 @@
 		8791C8461B13968C004798D7 /* libReQL */ = {
 			isa = PBXGroup;
 			children = (
+				87DAA6451B13CBBE005626BF /* AST.h */,
+				87DAA6461B13CBBE005626BF /* AST.m */,
+				87DAA6391B13CB69005626BF /* Connection.h */,
+				87DAA63A1B13CB69005626BF /* Connection.m */,
+				87DAA6411B13CB96005626BF /* Cursor.h */,
+				87DAA6421B13CB96005626BF /* Cursor.m */,
+				87DAA63D1B13CB88005626BF /* Expr.h */,
+				87DAA63E1B13CB88005626BF /* Expr.m */,
 				8791C8491B13968C004798D7 /* libReQL.h */,
 				8791C8471B13968C004798D7 /* Supporting Files */,
 			);
@@ -744,6 +787,21 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				87DAA6431B13CB96005626BF /* Cursor.h in Headers */,
+				87DAA6591B13CE01005626BF /* expr.h in Headers */,
+				87DAA65B1B13CE01005626BF /* types.h in Headers */,
+				87DAA63F1B13CB88005626BF /* Expr.h in Headers */,
+				87DAA64E1B13CE01005626BF /* connection.h in Headers */,
+				87DAA63B1B13CB69005626BF /* Connection.h in Headers */,
+				87DAA6531B13CE01005626BF /* decode.h in Headers */,
+				87DAA64A1B13CE01005626BF /* ast.h in Headers */,
+				87DAA64C1B13CE01005626BF /* char.h in Headers */,
+				87DAA64F1B13CE01005626BF /* core.h in Headers */,
+				87DAA6551B13CE01005626BF /* encode.h in Headers */,
+				87DAA65A1B13CE01005626BF /* portable_endian.h in Headers */,
+				87DAA6471B13CBBE005626BF /* AST.h in Headers */,
+				87DAA6511B13CE01005626BF /* cursor.h in Headers */,
+				87DAA6571B13CE01005626BF /* error.h in Headers */,
 				8791C84A1B13968C004798D7 /* libReQL.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1014,6 +1072,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				87DAA6481B13CBBE005626BF /* AST.m in Sources */,
+				87DAA6491B13CE01005626BF /* ast.c in Sources */,
+				87DAA6401B13CB88005626BF /* Expr.m in Sources */,
+				87DAA6541B13CE01005626BF /* encode.c in Sources */,
+				87DAA64D1B13CE01005626BF /* connection.c in Sources */,
+				87DAA6521B13CE01005626BF /* decode.c in Sources */,
+				87DAA6561B13CE01005626BF /* error.c in Sources */,
+				87DAA64B1B13CE01005626BF /* char.c in Sources */,
+				87DAA63C1B13CB69005626BF /* Connection.m in Sources */,
+				87DAA6441B13CB96005626BF /* Cursor.m in Sources */,
+				87DAA6581B13CE01005626BF /* expr.c in Sources */,
+				87DAA6501B13CE01005626BF /* cursor.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1110,6 +1180,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					src,
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+				);
 				INFOPLIST_FILE = libReQL/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
@@ -1159,6 +1234,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					src,
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+				);
 				INFOPLIST_FILE = libReQL/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
@@ -1175,7 +1255,7 @@
 		8791C85C1B13968C004798D7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -1212,6 +1292,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					../src,
+				);
 				INFOPLIST_FILE = libReQLTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
@@ -1224,7 +1309,7 @@
 		8791C85D1B13968C004798D7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -1255,6 +1340,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					../src,
+				);
 				INFOPLIST_FILE = libReQLTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
