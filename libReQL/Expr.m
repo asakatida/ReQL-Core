@@ -11,7 +11,6 @@
 #import "./reql/core.h"
 
 @implementation Expr {
-  ReQL_Obj_t *object;
   NSArray *array;
   NSDictionary *dict;
 }
