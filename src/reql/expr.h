@@ -489,10 +489,10 @@ extern void
 reql_term_init(ReQL_Obj_t *obj, const ReQL_Term_t tt, ReQL_Obj_t *args, ReQL_Obj_t *kwargs);
 
 extern ReQL_Obj_t *
-reql_args(const ReQL_Obj_t *obj);
+reql_term_args(const ReQL_Obj_t *obj);
 
 extern ReQL_Obj_t *
-reql_kwargs(const ReQL_Obj_t *obj);
+reql_term_kwargs(const ReQL_Obj_t *obj);
 
 extern char
 reql_op_eq(const ReQL_Obj_t *l, const ReQL_Obj_t *r);

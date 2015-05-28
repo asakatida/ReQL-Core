@@ -127,7 +127,7 @@ Cursor::operator=(Cursor &&other) {
 }
 
 Cursor::~Cursor() {
-  reql_cursor_destroy(get());
+  reql_cur_destroy(get());
 }
 
 bool Cursor::isOpen() const {
@@ -136,7 +136,7 @@ bool Cursor::isOpen() const {
 
 Query
 Cursor::next() {
-  _C::ReQL_Obj_t *res = reql_cursor_next(get());
+  _C::ReQL_Obj_t *res = reql_cur_next(get());
   if (res == nullptr) {
     throw ReQLDriverError();
   }
@@ -145,7 +145,7 @@ Cursor::next() {
 
 void
 Cursor::next(Parser &p) {
-  _C::ReQL_Obj_t *res = reql_cursor_next(get());
+  _C::ReQL_Obj_t *res = reql_cur_next(get());
   if (res != nullptr) {
     p.parse_c(res);
   }

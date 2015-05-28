@@ -174,9 +174,9 @@ ReQL::~ReQL() {
         break;
       }
       case _C::REQL_R_REQL: {
-        if (_C::reql_args(owner) == get()) {
+        if (_C::reql_term_args(owner) == get()) {
           owner->obj.args.args = nullptr;
-        } else if (_C::reql_kwargs(owner) == get()) {
+        } else if (_C::reql_term_kwargs(owner) == get()) {
           owner->obj.args.kwargs = nullptr;
         }
         break;

@@ -29,12 +29,12 @@ static void
 reql_close_cur_(ReQL_Cur_t *cur);
 
 static void
-reql_cursor_lock(ReQL_Cur_t *cur) {
+reql_cur_lock(ReQL_Cur_t *cur) {
   pthread_mutex_lock(&cur->condition.mutex);
 }
 
 static void
-reql_cursor_unlock(ReQL_Cur_t *cur) {
+reql_cur_unlock(ReQL_Cur_t *cur) {
   if (cur == NULL) {
     return;
   }
@@ -42,23 +42,23 @@ reql_cursor_unlock(ReQL_Cur_t *cur) {
 }
 
 static ReQL_Conn_t *
-reql_cursor_conn(const ReQL_Cur_t *cur) {
+reql_cur_conn(const ReQL_Cur_t *cur) {
   return cur->conn;
 }
 
 static char
 reql_cur_open_(ReQL_Cur_t *cur) {
-  return reql_cursor_conn(cur) != NULL;
+  return reql_cur_conn(cur) != NULL;
 }
 
 static ReQL_Obj_t *
-reql_cursor_response(const ReQL_Cur_t *cur) {
+reql_cur_response(const ReQL_Cur_t *cur) {
   return cur->response;
 }
 
 extern void
-reql_cursor_set_response(ReQL_Cur_t *cur, ReQL_Obj_t *res) {
-  reql_cursor_lock(cur);
+reql_cur_set_response(ReQL_Cur_t *cur, ReQL_Obj_t *res) {
+  reql_cur_lock(cur);
   if (reql_cur_open_(cur) == 0) {
     reql_json_destroy(res);
     return;
@@ -100,7 +100,7 @@ reql_cursor_set_response(ReQL_Cur_t *cur, ReQL_Obj_t *res) {
     cur->old_res = cur->response;
     cur->response = res;
   }
-  reql_cursor_unlock(cur);
+  reql_cur_unlock(cur);
 }
 
 static void
@@ -130,55 +130,55 @@ reql_close_cur_(ReQL_Cur_t *cur) {
 
 extern void
 reql_close_cur(ReQL_Cur_t *cur) {
-  reql_cursor_lock(cur);
+  reql_cur_lock(cur);
   if (cur->conn != NULL) {
     reql_stop_query(cur, cur->conn);
   }
   reql_close_cur_(cur);
-  reql_cursor_unlock(cur);
+  reql_cur_unlock(cur);
 }
 
 extern char
 reql_cur_open(ReQL_Cur_t *cur) {
-  reql_cursor_lock(cur);
+  reql_cur_lock(cur);
   const char open = reql_cur_open_(cur);
-  reql_cursor_unlock(cur);
+  reql_cur_unlock(cur);
   return open;
 }
 
 extern void
-reql_cursor_init(ReQL_Cur_t *cur, ReQL_Conn_t *conn, ReQL_Token token) {
+reql_cur_init(ReQL_Cur_t *cur, ReQL_Conn_t *conn, ReQL_Token token) {
   memset(cur, (int)NULL, sizeof(ReQL_Cur_t));
 //  cur->condition.mutex = PTHREAD_MUTEX_INITIALIZER;
-  reql_cursor_lock(cur);
+  reql_cur_lock(cur);
   cur->next = conn->cursors == NULL ? cur : conn->cursors;
   cur->next->prev = cur;
   cur->prev = cur;
   cur->conn = conn;
   cur->it = reql_new_iter(NULL);
   cur->token = token;
-  reql_cursor_unlock(cur);
+  reql_cur_unlock(cur);
 }
 
 extern void
-reql_cursor_destroy(ReQL_Cur_t *cur) {
+reql_cur_destroy(ReQL_Cur_t *cur) {
   if (cur == NULL) {
     return;
   }
   reql_close_cur(cur);
-  reql_cursor_lock(cur);
+  reql_cur_lock(cur);
   reql_json_destroy(cur->response);
   reql_json_destroy(cur->old_res);
-  reql_cursor_unlock(cur);
+  reql_cur_unlock(cur);
 }
 
 extern ReQL_Obj_t *
-reql_cursor_next(ReQL_Cur_t *cur) {
-  reql_cursor_lock(cur);
+reql_cur_next(ReQL_Cur_t *cur) {
+  reql_cur_lock(cur);
   if (reql_cur_open_(cur) == 0) {
     return NULL;
   }
-  __block ReQL_Obj_t *res = reql_cursor_response(cur);
+  __block ReQL_Obj_t *res = reql_cur_response(cur);
   pthread_cond_t done;
   cur->cb.each = ^(ReQL_Obj_t *a_res) {
     res = reql_obj_move(a_res);
@@ -190,20 +190,20 @@ reql_cursor_next(ReQL_Cur_t *cur) {
     success = pthread_cond_wait(&done, &cur->condition.mutex);
   }
   cur->cb.each = NULL;
-  reql_cursor_unlock(cur);
+  reql_cur_unlock(cur);
   return res;
 }
 
 extern void
-reql_cursor_each(ReQL_Cur_t *cur, ReQL_Each_Function cb) {
-  reql_cursor_lock(cur);
+reql_cur_each(ReQL_Cur_t *cur, ReQL_Each_Function cb) {
+  reql_cur_lock(cur);
   cur->cb.each = cb;
-  reql_cursor_unlock(cur);
+  reql_cur_unlock(cur);
 }
 
 extern void
 reql_cur_drain(ReQL_Cur_t *cur) {
-  reql_cursor_lock(cur);
+  reql_cur_lock(cur);
   if (cur->cb.each == NULL) {
     cur->cb.each = ^(ReQL_Obj_t *res) { (void)res; return 0; };
   }
@@ -222,7 +222,7 @@ reql_cur_drain(ReQL_Cur_t *cur) {
     success = pthread_cond_wait(&done, &cur->condition.mutex);
   }
   cur->cb.end = NULL;
-  reql_cursor_unlock(cur);
+  reql_cur_unlock(cur);
 }
 
 static ReQL_Size
@@ -253,16 +253,16 @@ reql_update_array(ReQL_Obj_t *array, ReQL_Obj_t *elem) {
 }
 
 extern ReQL_Obj_t *
-reql_cursor_to_array(ReQL_Cur_t *cur) {
+reql_cur_to_array(ReQL_Cur_t *cur) {
   ReQL_Obj_t *array = malloc(sizeof(ReQL_Obj_t));
   ReQL_Obj_t **arr = malloc(sizeof(ReQL_Obj_t *) * 20);
   reql_array_init(array, arr, 20);
-  reql_cursor_lock(cur);
+  reql_cur_lock(cur);
   cur->cb.each = ^(ReQL_Obj_t *res) {
     reql_update_array(array, reql_obj_move(res));
     return 0;
   };
-  reql_cursor_unlock(cur);
+  reql_cur_unlock(cur);
   reql_cur_drain(cur);
   cur->cb.each = NULL;
   return array;

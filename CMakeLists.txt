@@ -6,7 +6,6 @@ set(SOURCES
  src/c/connection.c
  src/c/cursor.c
  src/c/error.c
- src/c/expr.c
  src/cpp/ast.cpp
  src/cpp/connection.cpp
  src/cpp/cursor.cpp
@@ -396,7 +395,6 @@ set(MOC_HEADERS
  src/c/connection.h
  src/c/cursor.h
  src/c/error.h
- src/c/expr.h
  src/cpp/ast.hpp
  src/cpp/connection.hpp
  src/cpp/cursor.hpp

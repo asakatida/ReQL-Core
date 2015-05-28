@@ -65,19 +65,19 @@ struct ReQL_Cur_s {
 typedef struct ReQL_Cur_s ReQL_Cur_t;
 
 extern void
-reql_cursor_destroy(ReQL_Cur_t *cur);
+reql_cur_destroy(ReQL_Cur_t *cur);
 
 extern void
 reql_cur_drain(ReQL_Cur_t *cur);
 
 extern ReQL_Obj_t *
-reql_cursor_next(ReQL_Cur_t *cur);
+reql_cur_next(ReQL_Cur_t *cur);
 
 extern void
-reql_cursor_each(ReQL_Cur_t *cur, ReQL_Each_Function cb);
+reql_cur_each(ReQL_Cur_t *cur, ReQL_Each_Function cb);
 
 extern ReQL_Obj_t *
-reql_cursor_to_array(ReQL_Cur_t *cur);
+reql_cur_to_array(ReQL_Cur_t *cur);
 
 extern char
 reql_cur_open(ReQL_Cur_t *cur);
@@ -86,10 +86,10 @@ extern void
 reql_close_cur(ReQL_Cur_t *cur);
 
 extern void
-reql_cursor_init(ReQL_Cur_t *cur, struct ReQL_Conn_s *conn, ReQL_Token token);
+reql_cur_init(ReQL_Cur_t *cur, struct ReQL_Conn_s *conn, ReQL_Token token);
 
 extern void
-reql_cursor_set_response(ReQL_Cur_t *cur, ReQL_Obj_t *res);
+reql_cur_set_response(ReQL_Cur_t *cur, ReQL_Obj_t *res);
 
 #ifdef __cplusplus
 }

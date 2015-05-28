@@ -39,7 +39,7 @@ def cpp_keyword?(name)
 end
 
 def objc_keyword?(name)
-  /\A(AND|OR)\Z/x =~ name
+  /\A()\Z/x =~ name or c_keyword? name
 end
 
 def lua_keyword?(name)
@@ -232,22 +232,22 @@ def objc_term_def(name)
 /**
  */
 -(instancetype)
-#{mangle_objc_const name};"
+#{mangle_objc_const name}:(NSArray *)args#{' :(NSDictionary *)kwargs' if opts? name};"
 end
 
-build('src/ObjC/ast.h', :objc_term_def) do |name|
+build('libReQL/ast.h', :objc_term_def) do |name|
   objc_term_def name
 end
 
 def objc_term_imp(name)
   "
 -(instancetype)
-#{mangle_objc_const name} {
+#{mangle_objc_const name}:(NSArray *)args#{' :(NSDictionary *)kwargs' if opts? name} {
   return self;
 }"
 end
 
-build('src/ObjC/ast.m', :objc_term_imp) do |name|
+build('libReQL/ast.m', :objc_term_imp) do |name|
   objc_term_imp name
 end
 
@@ -307,6 +307,30 @@ end
 
 build('src/Ruby/ast.h', :rb_term_def) do |name|
   rb_term_def name
+end
+
+def c_term_imp(name)
+  "
+extern ReQL_t *
+reql_#{name.downcase}(ReQL_t **args#{', ReQL_t **kwargs' if opts? name}) {
+  return reql_term(REQL_#{name}, args, #{if opts? name then 'kwargs' else 'NULL' end});
+}"
+end
+
+build('src/c/ast.c', :c_term_imp) do |name|
+  c_term_imp name
+end
+
+def c_term_def(name)
+  "
+/**
+ */
+extern ReQL_t *
+reql_#{name.downcase}(ReQL_t **args#{', ReQL_t **kwargs' if opts? name});"
+end
+
+build('src/c/ast.h', :c_term_def) do |name|
+  c_term_def name
 end
 
 def term_imp(name)

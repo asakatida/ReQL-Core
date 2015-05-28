@@ -276,7 +276,7 @@ reql_conn_set_res(ReQL_Conn_t *conn, ReQL_Obj_t *res, const ReQL_Token token) {
 
   while (1) {
     if (cur->token == token) {
-      reql_cursor_set_response(cur, res);
+      reql_cur_set_response(cur, res);
       if (reql_cur_open(cur) != 0) {
         reql_continue_query(cur, conn);
       }
@@ -671,7 +671,7 @@ reql_run_(ReQL_Cur_t *cur, const ReQL_String_t *wire_query, ReQL_Conn_t *conn) {
   const ReQL_Token token = conn->max_token++;
 
   if (cur != NULL) {
-    reql_cursor_init(cur, conn, token);
+    reql_cur_init(cur, conn, token);
     conn->cursors = cur;
   }
 

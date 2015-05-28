@@ -36,12 +36,12 @@ reql_term_type(const ReQL_Obj_t *obj) {
 }
 
 extern ReQL_Obj_t *
-reql_args(const ReQL_Obj_t *obj) {
+reql_term_args(const ReQL_Obj_t *obj) {
   return obj->obj.args.args;
 }
 
 extern ReQL_Obj_t *
-reql_kwargs(const ReQL_Obj_t *obj) {
+reql_term_kwargs(const ReQL_Obj_t *obj) {
   return obj->obj.args.kwargs;
 }
 
@@ -412,9 +412,9 @@ reql_op_eq(const ReQL_Obj_t *l, const ReQL_Obj_t *r) {
         break;
       }
       case REQL_R_REQL: {
-        res = reql_op_eq(reql_args(l), reql_args(r));
+        res = reql_op_eq(reql_term_args(l), reql_term_args(r));
         if (res) {
-          res = reql_op_eq(reql_kwargs(l), reql_kwargs(r));
+          res = reql_op_eq(reql_term_kwargs(l), reql_term_kwargs(r));
         }
         break;
       }
@@ -535,7 +535,7 @@ reql_obj_copy(const ReQL_Obj_t *other) {
       break;
     }
     case REQL_R_REQL: {
-      reql_term_init(self, reql_term_type(other), reql_obj_copy(reql_args(other)), reql_obj_copy(reql_kwargs(other)));
+      reql_term_init(self, reql_term_type(other), reql_obj_copy(reql_term_args(other)), reql_obj_copy(reql_term_kwargs(other)));
       break;
     }
     case REQL_R_JSON: {
@@ -613,9 +613,9 @@ reql_obj_move(ReQL_Obj_t *other) {
       break;
     }
     case REQL_R_REQL: {
-      reql_args(other)->owner = NULL;
-      reql_kwargs(other)->owner = NULL;
-      reql_term_init(self, reql_term_type(other), reql_args(other), reql_kwargs(other));
+      reql_term_args(other)->owner = NULL;
+      reql_term_kwargs(other)->owner = NULL;
+      reql_term_init(self, reql_term_type(other), reql_term_args(other), reql_term_kwargs(other));
       reql_term_init(other, REQL_DATUM, NULL, NULL);
       break;
     }
@@ -821,9 +821,9 @@ reql_json_destroy(ReQL_Obj_t *json) {
         break;
       }
       case REQL_R_REQL: {
-        if (reql_args(owner) == json) {
+        if (reql_term_args(owner) == json) {
           owner->obj.args.args = NULL;
-        } else if (reql_kwargs(owner) == json) {
+        } else if (reql_term_kwargs(owner) == json) {
           owner->obj.args.kwargs = NULL;
         }
         break;
@@ -852,8 +852,8 @@ reql_json_destroy(ReQL_Obj_t *json) {
       break;
     }
     case REQL_R_REQL: {
-      reql_json_destroy(reql_args(json));
-      reql_json_destroy(reql_kwargs(json));
+      reql_json_destroy(reql_term_args(json));
+      reql_json_destroy(reql_term_kwargs(json));
       break;
     }
     case REQL_R_STR: {
