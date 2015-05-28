@@ -19,3 +19,14 @@ limitations under the License.
  */
 
 #include "./c/error.h"
+
+#include <stdlib.h>
+
+struct ReQL_Error_s {
+  int code;
+};
+
+extern int
+reql_error_code(ReQL_Error_t *error) {
+  return error->code;
+}

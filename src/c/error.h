@@ -25,6 +25,11 @@ limitations under the License.
 extern "C" {
 #endif
 
+typedef struct ReQL_Error_s ReQL_Error_t;
+
+extern int
+reql_error_code(ReQL_Error_t *error);
+
 #ifdef __cplusplus
 }
 #endif

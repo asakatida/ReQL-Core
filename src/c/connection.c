@@ -19,3 +19,17 @@ limitations under the License.
  */
 
 #include "./c/connection.h"
+
+#include "./reql/core.h"
+
+#include <stdlib.h>
+
+struct ReQL_Connection_s {
+  ReQL_Conn_t *connection;
+};
+
+extern void *
+reql_connection_data(ReQL_Connection_t *conn) {
+  return conn->connection;
+}
+

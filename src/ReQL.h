@@ -29,7 +29,6 @@ extern "C" {
 #include "./c/connection.h"
 #include "./c/cursor.h"
 #include "./c/error.h"
-#include "./c/expr.h"
 
 #ifdef __cplusplus
 }

@@ -25,6 +25,11 @@ limitations under the License.
 extern "C" {
 #endif
 
+typedef struct ReQL_Connection_s ReQL_Connection_t;
+
+extern void *
+reql_connection_data(ReQL_Connection_t *conn);
+
 #ifdef __cplusplus
 }
 #endif
