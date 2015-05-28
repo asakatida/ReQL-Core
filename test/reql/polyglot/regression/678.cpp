@@ -5,6 +5,6 @@
 
 #include <memory>
 
-TEST_CASE("c fix type of `limit` and `zip` on streams (#678) 336", "[c][ast]") {
+TEST_CASE("reql fix type of `limit` and `zip` on streams (#678)", "[reql][ast]") {
 
 }

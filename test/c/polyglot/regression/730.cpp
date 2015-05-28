@@ -1,9 +1,7 @@
 // Copyright 2015 Adam Grandquist
 
 #include "./catch.hpp"
-#include "./reql/core.h"
-
-#include <memory>
+#include "./ReQL.h"
 
 TEST_CASE("c Regression tests for issue 100", "[c][ast]") {
 

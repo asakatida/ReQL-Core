@@ -5,7 +5,7 @@
 
 #include <memory>
 
-TEST_CASE("c Tests for the basic usage of the multiplication operation 282", "[c][ast]") {
+TEST_CASE("reql Tests for the basic usage of the multiplication operation", "[reql][ast]") {
 
   SECTION("test0") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);

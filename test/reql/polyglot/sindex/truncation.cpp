@@ -5,6 +5,6 @@
 
 #include <memory>
 
-TEST_CASE("c sindex truncation tests 346", "[c][ast]") {
+TEST_CASE("reql sindex truncation tests", "[reql][ast]") {
 
 }

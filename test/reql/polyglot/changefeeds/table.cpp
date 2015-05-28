@@ -5,7 +5,7 @@
 
 #include <memory>
 
-TEST_CASE("c Test changefeeds on a table 258", "[c][ast]") {
+TEST_CASE("reql Test changefeeds on a table", "[reql][ast]") {
 
   SECTION("test0") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);

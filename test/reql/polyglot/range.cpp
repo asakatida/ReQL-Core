@@ -5,7 +5,7 @@
 
 #include <memory>
 
-TEST_CASE("c Tests RQL range generation 248", "[c][ast]") {
+TEST_CASE("reql Tests RQL range generation", "[reql][ast]") {
 
   SECTION("test0") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);

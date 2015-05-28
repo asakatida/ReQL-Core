@@ -5,7 +5,7 @@
 
 #include <memory>
 
-TEST_CASE("c accessing portions 350", "[c][ast]") {
+TEST_CASE("reql accessing portions", "[reql][ast]") {
 
   SECTION("test10") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);

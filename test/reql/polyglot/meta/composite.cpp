@@ -5,7 +5,7 @@
 
 #include <memory>
 
-TEST_CASE("c Tests meta operations in composite queries 284", "[c][ast]") {
+TEST_CASE("reql Tests meta operations in composite queries", "[reql][ast]") {
 
   SECTION("test0") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);

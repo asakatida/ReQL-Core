@@ -5,6 +5,6 @@
 
 #include <memory>
 
-TEST_CASE("c 2399 literal terms not removed under certain circumstances 304", "[c][ast]") {
+TEST_CASE("reql 2399 literal terms not removed under certain circumstances", "[reql][ast]") {
 
 }

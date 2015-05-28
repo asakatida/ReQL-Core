@@ -5,6 +5,6 @@
 
 #include <memory>
 
-TEST_CASE("c Test basic changefeed operations 256", "[c][ast]") {
+TEST_CASE("reql Test basic changefeed operations", "[reql][ast]") {
 
 }

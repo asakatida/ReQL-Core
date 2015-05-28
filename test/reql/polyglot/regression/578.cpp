@@ -5,7 +5,7 @@
 
 #include <memory>
 
-TEST_CASE("c Catch obvious sindex creation/dropping errors (#578) 331", "[c][ast]") {
+TEST_CASE("reql Catch obvious sindex creation/dropping errors (#578)", "[reql][ast]") {
 
   SECTION("test0") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);

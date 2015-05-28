@@ -5,7 +5,7 @@
 
 #include <memory>
 
-TEST_CASE("c 767 -- better NaN checking 341", "[c][ast]") {
+TEST_CASE("reql 767 -- better NaN checking", "[reql][ast]") {
 
   SECTION("test2") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);

@@ -5,7 +5,7 @@
 
 #include <memory>
 
-TEST_CASE("c Tests timeouts. 250", "[c][ast]") {
+TEST_CASE("reql Tests timeouts.", "[reql][ast]") {
 
   SECTION("test0") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);

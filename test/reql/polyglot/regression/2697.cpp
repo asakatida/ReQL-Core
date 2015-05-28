@@ -5,7 +5,7 @@
 
 #include <memory>
 
-TEST_CASE("c 2697 -- Array insert and splice operations don't check array size limit. 306", "[c][ast]") {
+TEST_CASE("reql 2697 -- Array insert and splice operations don't check array size limit.", "[reql][ast]") {
 
   SECTION("test1") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);

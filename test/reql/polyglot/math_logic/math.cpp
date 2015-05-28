@@ -5,7 +5,7 @@
 
 #include <memory>
 
-TEST_CASE("c Tests of nested arithmetic expressions 280", "[c][ast]") {
+TEST_CASE("reql Tests of nested arithmetic expressions", "[reql][ast]") {
 
   SECTION("test0") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);

@@ -5,7 +5,7 @@
 
 #include <memory>
 
-TEST_CASE("c date/time api (#977) 347", "[c][ast]") {
+TEST_CASE("reql date/time api (#977)", "[reql][ast]") {
 
   SECTION("test3") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);

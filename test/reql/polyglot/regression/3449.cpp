@@ -5,6 +5,6 @@
 
 #include <memory>
 
-TEST_CASE("c 3449 -- test openness and closedness of range limits under descending ordering 318", "[c][ast]") {
+TEST_CASE("reql 3449 -- test openness and closedness of range limits under descending ordering", "[reql][ast]") {
 
 }

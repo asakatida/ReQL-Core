@@ -5,7 +5,7 @@
 
 #include <memory>
 
-TEST_CASE("c Stop people treating ptypes as objects 309", "[c][ast]") {
+TEST_CASE("reql Stop people treating ptypes as objects", "[reql][ast]") {
 
   SECTION("test0") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);

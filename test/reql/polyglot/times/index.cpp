@@ -5,7 +5,7 @@
 
 #include <memory>
 
-TEST_CASE("c secondary indexes on times 349", "[c][ast]") {
+TEST_CASE("reql secondary indexes on times", "[reql][ast]") {
 
   SECTION("test8") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);

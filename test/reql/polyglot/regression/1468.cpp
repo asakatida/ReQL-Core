@@ -5,6 +5,6 @@
 
 #include <memory>
 
-TEST_CASE("c 1468 -- Empty batched_replaces_t constructed 301", "[c][ast]") {
+TEST_CASE("reql 1468 -- Empty batched_replaces_t constructed", "[reql][ast]") {
 
 }

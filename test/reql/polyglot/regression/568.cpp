@@ -5,7 +5,7 @@
 
 #include <memory>
 
-TEST_CASE("c concatmap that doesn't return stream crashes server (#568) 330", "[c][ast]") {
+TEST_CASE("reql concatmap that doesn't return stream crashes server (#568)", "[reql][ast]") {
 
   SECTION("test0") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);

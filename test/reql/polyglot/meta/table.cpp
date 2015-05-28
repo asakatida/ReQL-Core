@@ -5,7 +5,7 @@
 
 #include <memory>
 
-TEST_CASE("c Tests meta queries for creating and deleting tables 286", "[c][ast]") {
+TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][ast]") {
 
   SECTION("test1") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);

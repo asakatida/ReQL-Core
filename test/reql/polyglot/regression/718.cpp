@@ -5,6 +5,6 @@
 
 #include <memory>
 
-TEST_CASE("c 718 -- another lazy crashing bug -- changed as of 337", "[c][ast]") {
+TEST_CASE("reql 718 -- another lazy crashing bug -- changed as of", "[reql][ast]") {
 
 }

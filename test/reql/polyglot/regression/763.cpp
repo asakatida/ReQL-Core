@@ -5,6 +5,6 @@
 
 #include <memory>
 
-TEST_CASE("c issue 763 check arg count for indexCreate in JS driver 340", "[c][ast]") {
+TEST_CASE("reql issue 763 check arg count for indexCreate in JS driver", "[reql][ast]") {
 
 }

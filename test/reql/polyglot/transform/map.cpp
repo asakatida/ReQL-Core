@@ -5,7 +5,7 @@
 
 #include <memory>
 
-TEST_CASE("c Tests the RQL `map` function 355", "[c][ast]") {
+TEST_CASE("reql Tests the RQL `map` function", "[reql][ast]") {
 
   SECTION("test0") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);

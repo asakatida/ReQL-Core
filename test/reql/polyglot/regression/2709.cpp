@@ -5,7 +5,7 @@
 
 #include <memory>
 
-TEST_CASE("c 2709 -- Guarantee failed with [max_els >= min_els] 307", "[c][ast]") {
+TEST_CASE("reql 2709 -- Guarantee failed with [max_els >= min_els]", "[reql][ast]") {
 
   SECTION("test0") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);

@@ -5,7 +5,7 @@
 
 #include <memory>
 
-TEST_CASE("c Test that we do not crash on an error during a function called at unsharding 322", "[c][ast]") {
+TEST_CASE("reql Test that we do not crash on an error during a function called at unsharding", "[reql][ast]") {
 
   SECTION("test0") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);

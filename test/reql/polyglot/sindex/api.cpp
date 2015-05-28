@@ -5,7 +5,7 @@
 
 #include <memory>
 
-TEST_CASE("c sindex api (#602) 344", "[c][ast]") {
+TEST_CASE("reql sindex api (#602)", "[reql][ast]") {
 
   SECTION("test1") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);

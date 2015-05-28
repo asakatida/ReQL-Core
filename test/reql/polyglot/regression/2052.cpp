@@ -5,7 +5,7 @@
 
 #include <memory>
 
-TEST_CASE("c 2052 -- Verify that the server rejects bogus global options. 303", "[c][ast]") {
+TEST_CASE("reql 2052 -- Verify that the server rejects bogus global options.", "[reql][ast]") {
 
   SECTION("test0") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);

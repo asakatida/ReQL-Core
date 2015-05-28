@@ -5,7 +5,7 @@
 
 #include <memory>
 
-TEST_CASE("c 831 -- Empty batched_replaces_t constructed 343", "[c][ast]") {
+TEST_CASE("reql 831 -- Empty batched_replaces_t constructed", "[reql][ast]") {
 
   SECTION("test0") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);

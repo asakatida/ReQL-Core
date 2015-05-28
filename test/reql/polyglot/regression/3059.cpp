@@ -5,7 +5,7 @@
 
 #include <memory>
 
-TEST_CASE("c Use pseudotype name properly in `info` 315", "[c][ast]") {
+TEST_CASE("reql Use pseudotype name properly in `info`", "[reql][ast]") {
 
   SECTION("test0") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);

@@ -5,7 +5,7 @@
 
 #include <memory>
 
-TEST_CASE("c Sanity Check Fails, with r.table() expression inside a map (#453) 324", "[c][ast]") {
+TEST_CASE("reql Sanity Check Fails, with r.table() expression inside a map (#453)", "[reql][ast]") {
 
   SECTION("test0") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);

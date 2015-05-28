@@ -5,7 +5,7 @@
 
 #include <memory>
 
-TEST_CASE("c 1001 (null + between + sindexes) 293", "[c][ast]") {
+TEST_CASE("reql 1001 (null + between + sindexes)", "[reql][ast]") {
 
   SECTION("test0") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);

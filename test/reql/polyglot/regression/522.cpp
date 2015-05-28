@@ -5,7 +5,7 @@
 
 #include <memory>
 
-TEST_CASE("c Skip after orderby causes use-after-free (#522) 327", "[c][ast]") {
+TEST_CASE("reql Skip after orderby causes use-after-free (#522)", "[reql][ast]") {
 
   SECTION("test0") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);

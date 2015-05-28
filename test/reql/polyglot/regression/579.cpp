@@ -5,7 +5,7 @@
 
 #include <memory>
 
-TEST_CASE("c reject non-deterministic secondary indexes (#579) 332", "[c][ast]") {
+TEST_CASE("reql reject non-deterministic secondary indexes (#579)", "[reql][ast]") {
 
   SECTION("test0") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);

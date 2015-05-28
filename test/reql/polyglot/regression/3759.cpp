@@ -5,7 +5,7 @@
 
 #include <memory>
 
-TEST_CASE("c Test cleanup of cursors on the server 323", "[c][ast]") {
+TEST_CASE("reql Test cleanup of cursors on the server", "[reql][ast]") {
 
   SECTION("test0") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);

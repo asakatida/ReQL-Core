@@ -5,7 +5,7 @@
 
 #include <memory>
 
-TEST_CASE("c Tests array limit variations 240", "[c][ast]") {
+TEST_CASE("reql Tests array limit variations", "[reql][ast]") {
 
   SECTION("test0") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);

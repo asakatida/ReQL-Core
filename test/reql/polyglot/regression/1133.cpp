@@ -5,7 +5,7 @@
 
 #include <memory>
 
-TEST_CASE("c Regression tests for issue 298", "[c][ast]") {
+TEST_CASE("reql Regression tests for issue", "[reql][ast]") {
 
   SECTION("test3") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);

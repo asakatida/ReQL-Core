@@ -5,7 +5,7 @@
 
 #include <memory>
 
-TEST_CASE("c Test point changebasics 255", "[c][ast]") {
+TEST_CASE("reql Test point changebasics", "[reql][ast]") {
 
   SECTION("test0") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);

@@ -5,6 +5,6 @@
 
 #include <memory>
 
-TEST_CASE("c 779 -- NULL byte in string 342", "[c][ast]") {
+TEST_CASE("reql 779 -- NULL byte in string", "[reql][ast]") {
 
 }

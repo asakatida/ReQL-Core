@@ -5,7 +5,7 @@
 
 #include <memory>
 
-TEST_CASE("c Test geometric primitive constructors 273", "[c][ast]") {
+TEST_CASE("reql Test geometric primitive constructors", "[reql][ast]") {
 
   SECTION("test0") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);

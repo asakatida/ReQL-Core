@@ -5,7 +5,7 @@
 
 #include <memory>
 
-TEST_CASE("c 2767 -- Evaulate secondary index function with pristine env. 310", "[c][ast]") {
+TEST_CASE("reql 2767 -- Evaulate secondary index function with pristine env.", "[reql][ast]") {
 
   SECTION("test0") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);

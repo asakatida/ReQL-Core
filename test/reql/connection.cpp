@@ -69,7 +69,7 @@ TEST_CASE("c connection", "[c][connection]") {
 
     REQUIRE(reql_cur_open(cur.get()) != 0);
 
-    ReQL_Obj_t *result = reql_cursor_to_array(cur.get());
+    ReQL_Obj_t *result = reql_cur_to_array(cur.get());
 
     REQUIRE(result != nullptr);
 

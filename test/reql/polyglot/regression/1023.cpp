@@ -5,7 +5,7 @@
 
 #include <memory>
 
-TEST_CASE("c Tests key sorting of all usable types in primary indexes 295", "[c][ast]") {
+TEST_CASE("reql Tests key sorting of all usable types in primary indexes", "[reql][ast]") {
 
   SECTION("test4") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);

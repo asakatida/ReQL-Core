@@ -5,6 +5,6 @@
 
 #include <memory>
 
-TEST_CASE("c Test truncated secondary key ordering under variably sized primary keys 317", "[c][ast]") {
+TEST_CASE("reql Test truncated secondary key ordering under variably sized primary keys", "[reql][ast]") {
 
 }

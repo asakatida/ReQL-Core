@@ -5,7 +5,7 @@
 
 #include <memory>
 
-TEST_CASE("c Avoid misleading array limit error message 313", "[c][ast]") {
+TEST_CASE("reql Avoid misleading array limit error message", "[reql][ast]") {
 
   SECTION("test0") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);

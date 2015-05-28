@@ -5,7 +5,7 @@
 
 #include <memory>
 
-TEST_CASE("c Tests for basic usage of the subtraction operation 283", "[c][ast]") {
+TEST_CASE("reql Tests for basic usage of the subtraction operation", "[reql][ast]") {
 
   SECTION("test0") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);

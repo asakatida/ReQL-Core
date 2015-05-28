@@ -5,7 +5,7 @@
 
 #include <memory>
 
-TEST_CASE("c Test basic timezone manipulation 353", "[c][ast]") {
+TEST_CASE("reql Test basic timezone manipulation", "[reql][ast]") {
 
   SECTION("test14") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);

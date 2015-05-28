@@ -5,7 +5,7 @@
 
 #include <memory>
 
-TEST_CASE("c Test edge cases of changefeed operations 252", "[c][ast]") {
+TEST_CASE("reql Test edge cases of changefeed operations", "[reql][ast]") {
 
   SECTION("test1") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);

@@ -5,7 +5,7 @@
 
 #include <memory>
 
-TEST_CASE("c Test intersects and includes semantics 271", "[c][ast]") {
+TEST_CASE("reql Test intersects and includes semantics", "[reql][ast]") {
 
   SECTION("test0") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);

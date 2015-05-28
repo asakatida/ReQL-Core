@@ -5,7 +5,7 @@
 
 #include <memory>
 
-TEST_CASE("c r.js inside reduce crashes server (#545) 328", "[c][ast]") {
+TEST_CASE("reql r.js inside reduce crashes server (#545)", "[reql][ast]") {
 
   SECTION("test0") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);

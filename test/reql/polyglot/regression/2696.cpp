@@ -5,7 +5,7 @@
 
 #include <memory>
 
-TEST_CASE("c Regression test for issue 2696, delete_at with end bounds. 305", "[c][ast]") {
+TEST_CASE("reql Regression test for issue 2696, delete_at with end bounds.", "[reql][ast]") {
 
   SECTION("test0") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);

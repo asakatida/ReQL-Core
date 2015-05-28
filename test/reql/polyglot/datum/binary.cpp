@@ -5,7 +5,7 @@
 
 #include <memory>
 
-TEST_CASE("c Tests of converstion to and from the RQL binary type 260", "[c][ast]") {
+TEST_CASE("reql Tests of converstion to and from the RQL binary type", "[reql][ast]") {
 
   SECTION("test1") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);

@@ -5,7 +5,7 @@
 
 #include <memory>
 
-TEST_CASE("c Tests of conversion to and from the RQL null type 262", "[c][ast]") {
+TEST_CASE("reql Tests of conversion to and from the RQL null type", "[reql][ast]") {
 
   SECTION("test0") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);

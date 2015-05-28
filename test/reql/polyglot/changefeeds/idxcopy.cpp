@@ -5,7 +5,7 @@
 
 #include <memory>
 
-TEST_CASE("c Test duplicate indexes with squashing 253", "[c][ast]") {
+TEST_CASE("reql Test duplicate indexes with squashing", "[reql][ast]") {
 
   SECTION("test0") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);

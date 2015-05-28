@@ -5,7 +5,7 @@
 
 #include <memory>
 
-TEST_CASE("c Test the arity of every function 239", "[c][ast]") {
+TEST_CASE("reql Test the arity of every function", "[reql][ast]") {
 
   SECTION("test3") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);

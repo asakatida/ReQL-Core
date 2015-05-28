@@ -5,7 +5,7 @@
 
 #include <memory>
 
-TEST_CASE("c Tests syncing tables 291", "[c][ast]") {
+TEST_CASE("reql Tests syncing tables", "[reql][ast]") {
 
   SECTION("test0") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);

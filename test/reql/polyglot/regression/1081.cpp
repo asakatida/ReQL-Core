@@ -5,6 +5,6 @@
 
 #include <memory>
 
-TEST_CASE("c 1081 union two streams 296", "[c][ast]") {
+TEST_CASE("reql 1081 union two streams", "[reql][ast]") {
 
 }

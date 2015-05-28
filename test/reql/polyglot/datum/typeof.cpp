@@ -5,7 +5,7 @@
 
 #include <memory>
 
-TEST_CASE("c These tests test the type of command 266", "[c][ast]") {
+TEST_CASE("reql These tests test the type of command", "[reql][ast]") {
 
   SECTION("test0") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);

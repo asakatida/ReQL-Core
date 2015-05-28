@@ -5,7 +5,7 @@
 
 #include <memory>
 
-TEST_CASE("c tests for `floor`, `ceil`, and `round`, tests inspired by the Python test suite 278", "[c][ast]") {
+TEST_CASE("reql tests for `floor`, `ceil`, and `round`, tests inspired by the Python test suite", "[reql][ast]") {
 
   SECTION("test0") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
