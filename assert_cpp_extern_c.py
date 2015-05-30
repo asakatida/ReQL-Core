@@ -9,7 +9,7 @@ def main():
 (?P<cpp>
     \s+
     \#ifdef\s+__cplusplus\s+
-    extern "C" {\s+
+    extern\s+"C"\s+{\s+
     \#endif
 )?
 ''',
