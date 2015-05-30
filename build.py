@@ -8,8 +8,6 @@ try:
 except:
     print('rethinkdb not installed')
 
-from rethinkdb import ql2_pb2
-
 import collections
 import numbers
 import re
@@ -17,6 +15,7 @@ import types
 
 from datetime import datetime
 from pathlib import Path
+from rethinkdb import ql2_pb2
 
 xrange = range
 
