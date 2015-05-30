@@ -18,7 +18,7 @@ limitations under the License.
  * @copyright Apache
  */
 
-#include "./c/ast.h"
+#include "./c/query.h"
 
 #include "./reql/core.h"
 

@@ -2,10 +2,10 @@ project(libReQLtest)
 cmake_minimum_required(VERSION 2.8)
 
 set(SOURCES
- src/c/ast.c
  src/c/connection.c
  src/c/cursor.c
  src/c/error.c
+ src/c/query.c
  src/cpp/connection.cpp
  src/cpp/cursor.cpp
  src/cpp/error.cpp
@@ -389,10 +389,10 @@ set(SOURCES
 set(MOC_HEADERS
  src/ReQL.h
  src/ReQL.hpp
- src/c/ast.h
  src/c/connection.h
  src/c/cursor.h
  src/c/error.h
+ src/c/query.h
  src/cpp/connection.hpp
  src/cpp/cursor.hpp
  src/cpp/error.hpp

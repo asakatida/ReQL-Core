@@ -25,10 +25,10 @@ limitations under the License.
 extern "C" {
 #endif
 
-#include "./c/ast.h"
 #include "./c/connection.h"
 #include "./c/cursor.h"
 #include "./c/error.h"
+#include "./c/query.h"
 
 #ifdef __cplusplus
 }

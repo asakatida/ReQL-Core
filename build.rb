@@ -317,7 +317,7 @@ reql_#{name.downcase}(ReQL_t **args#{', ReQL_t **kwargs' if opts? name}) {
 }"
 end
 
-build('src/c/ast.c', :c_term_imp) do |name|
+build('src/c/query.c', :c_term_imp) do |name|
   c_term_imp name
 end
 
@@ -329,7 +329,7 @@ extern ReQL_t *
 reql_#{name.downcase}(ReQL_t **args#{', ReQL_t **kwargs' if opts? name});"
 end
 
-build('src/c/ast.h', :c_term_def) do |name|
+build('src/c/query.h', :c_term_def) do |name|
   c_term_def name
 end
 
