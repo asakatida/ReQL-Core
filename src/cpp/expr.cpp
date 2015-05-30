@@ -45,7 +45,7 @@ Expr::Expr(const Types::array &val) : p_query(val) {}
 Expr::Expr(const Types::object &val) : p_query(val) {}
 
 Expr::Expr(_C::ReQL_Obj_t *val) : p_query(val) {}
-  
+
 Expr::Expr(const Expr &other) : p_query(other.p_query) {}
 
 Expr::Expr(Expr &&other) : p_query(std::move(other.p_query)) {}
