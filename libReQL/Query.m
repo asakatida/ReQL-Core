@@ -22,50 +22,312 @@ limitations under the License.
 
 #import "./reql/core.h"
 
+#define NEW_REQL_OBJ ReQL_Obj_t *obj = malloc(sizeof(ReQL_Obj_t));\
+if (obj == NULL) {\
+  return NULL;\
+}
+
+@protocol Expr <NSObject>
+
+-(ReQL_Obj_t *)build;
+
+@end
+
+@interface ArrayExpr : NSObject <Expr> {
+  NSArray *p_data;
+}
+
+@property (atomic, readonly) NSArray *p_data;
+
+-(instancetype)init:(NSArray *)val;
+
+@end
+
+@interface BoolExpr : NSObject <Expr> {
+  BOOL p_data;
+}
+
+@property (atomic, readonly) BOOL p_data;
+
+-(instancetype)init:(BOOL)val;
+
+@end
+
+@interface NullExpr : NSObject <Expr>
+
+@end
+
+@interface NumberExpr : NSObject <Expr> {
+  NSNumber *p_data;
+}
+
+@property (atomic, readonly) NSNumber *p_data;
+
+-(instancetype)init:(NSNumber *)val;
+
+@end
+
+@interface ObjectExpr : NSObject <Expr> {
+  NSDictionary *p_data;
+}
+
+@property (atomic, readonly) NSDictionary *p_data;
+
+-(instancetype)init:(NSDictionary *)val;
+
+@end
+
+@interface StringExpr : NSObject <Expr> {
+  NSString *p_data;
+}
+
+@property (atomic, readonly) NSString *p_data;
+
+-(instancetype)init:(NSString *)val;
+
+@end
+
+@interface TermExpr : NSObject <Expr> {
+  ArrayExpr *p_args;
+  ObjectExpr *p_kwargs;
+  ReQL_Term_t p_tt;
+}
+
+-(instancetype)init:(ReQL_Term_t)tt :(NSArray *)args :(NSDictionary *)kwargs;
+
+@end
+
+@implementation ArrayExpr
+
+@synthesize p_data=p_data;
+
+-(instancetype)init:(NSArray *)val {
+  if (self = [super init]) {
+    p_data = val;
+  }
+  return self;
+}
+
+-(ReQL_Obj_t *)build {
+  NEW_REQL_OBJ;
+  NSUInteger size = [p_data count];
+  ReQL_Obj_t **buf = malloc(sizeof(ReQL_Obj_t*) * size);
+  if (buf == NULL) {
+    free(obj);
+    return NULL;
+  }
+  reql_array_init(obj, buf, (ReQL_Size)size);
+  for (Query *elem in p_data) {
+    ReQL_Obj_t *r_elem = [elem build];
+    reql_array_append(obj, r_elem);
+  }
+  return obj;
+}
+
+@end
+
+@implementation BoolExpr
+
+@synthesize p_data=p_data;
+
+-(instancetype)init:(BOOL)val {
+  if (self = [super init]) {
+    p_data = val;
+  }
+  return self;
+}
+
+-(ReQL_Obj_t *)build {
+  NEW_REQL_OBJ;
+  reql_bool_init(obj, p_data ? 1 == 1 : 0 == 1);
+  return obj;
+}
+
+@end
+
+@implementation NullExpr
+
+-(ReQL_Obj_t *)build {
+  NEW_REQL_OBJ;
+  reql_null_init(obj);
+  return obj;
+}
+
+@end
+
+@implementation NumberExpr
+
+@synthesize p_data=p_data;
+
+-(instancetype)init:(NSNumber *)val {
+  if (self = [super init]) {
+    p_data = val;
+  }
+  return self;
+}
+
+-(ReQL_Obj_t *)build {
+  NEW_REQL_OBJ;
+  reql_number_init(obj, [p_data doubleValue]);
+  return obj;
+}
+
+@end
+
+@implementation ObjectExpr
+
+@synthesize p_data=p_data;
+
+-(instancetype)init:(NSDictionary *)val {
+  if (self = [super init]) {
+    p_data = val;
+  }
+  return self;
+}
+
+-(ReQL_Obj_t *)build {
+  NEW_REQL_OBJ;
+  NSUInteger size = [p_data count];
+  ReQL_Pair_t *buf = malloc(sizeof(ReQL_Pair_t) * size);
+  if (buf == NULL) {
+    free(obj);
+    return NULL;
+  }
+  reql_object_init(obj, buf, (ReQL_Size)size);
+  NSEnumerator *enumerator = [p_data keyEnumerator];
+  NSString *key;
+  while (key = [enumerator nextObject]) {
+    Query *val = [p_data valueForKey:key];
+    StringExpr *key_ = [[StringExpr alloc] init:key];
+    ReQL_Obj_t *r_key = [key_ build];
+    [key_ release];
+    ReQL_Obj_t *r_val = [val build];
+    reql_object_add(obj, r_key, r_val);
+  }
+  return obj;
+}
+
+@end
+
+@implementation StringExpr
+
+@synthesize p_data=p_data;
+
+-(instancetype)init:(NSString *)val {
+  if (self = [super init]) {
+    p_data = val;
+  }
+  return self;
+}
+
+-(ReQL_Obj_t *)build {
+  NEW_REQL_OBJ;
+  NSUInteger size = [p_data lengthOfBytesUsingEncoding:NSUnicodeStringEncoding];
+  ReQL_Byte *buf = malloc(sizeof(ReQL_Byte) * size);
+  if (buf == NULL) {
+    free(obj);
+    return NULL;
+  }
+  reql_string_init(obj, buf, (ReQL_Size)size);
+  reql_string_append(obj, (ReQL_Byte *)[p_data cStringUsingEncoding:NSUnicodeStringEncoding], (ReQL_Size)size);
+  return obj;
+}
+
+@end
+
+@implementation TermExpr
+
+-(instancetype)init:(ReQL_Term_t)tt :(NSArray *)args :(NSDictionary *)kwargs {
+  if (self = [super init]) {
+    p_args = [[ArrayExpr alloc] init:args];
+    p_kwargs = [[ObjectExpr alloc] init:kwargs];
+  }
+  return self;
+}
+
+-(ReQL_Obj_t *)build {
+  NEW_REQL_OBJ;
+  ReQL_Obj_t *r_args = [p_args build];
+  ReQL_Obj_t *r_kwargs = [p_kwargs build];
+  reql_term_init(obj, p_tt, r_args, r_kwargs);
+  return obj;
+}
+
+@end
+
 @implementation Query {
-  NSArray *array;
-  NSDictionary *dict;
+  NSObject <Expr> *p_build;
 }
 
 -(instancetype)init {
   if (self = [super init]) {
+    p_build = [NullExpr new];
   }
   return self;
 }
 
 -(instancetype)initWithArray:(NSArray *)val {
   if (self = [super init]) {
+    p_build = [[ArrayExpr alloc] init:val];
   }
   return self;
 }
 
 -(instancetype)initWithBool:(BOOL)val {
   if (self = [super init]) {
+    p_build = [[BoolExpr alloc] init:val];
   }
   return self;
 }
 
 -(instancetype)initWithNumber:(NSNumber *)val {
   if (self = [super init]) {
+    p_build = [[NumberExpr alloc] init:val];
   }
   return self;
 }
 
 -(instancetype)initWithObject:(NSDictionary *)val {
   if (self = [super init]) {
+    p_build = [[ObjectExpr alloc] init:val];
   }
   return self;
 }
 
 -(instancetype)initWithString:(NSString *)val {
   if (self = [super init]) {
+    p_build = [[StringExpr alloc] init:val];
   }
   return self;
 }
 
+-(instancetype)init:(ReQL_Term_t)tt :(NSArray *)args :(NSDictionary *)kwargs {
+  if (self = [self init]) {
+    p_build = [[TermExpr alloc] init:tt :args :kwargs];
+  }
+  return self;
+}
+
+-(instancetype)newTerm:(ReQL_Term_t)tt :(NSArray *)args :(NSDictionary *)kwargs {
+  return [[Query alloc] init:tt :[@[self] arrayByAddingObjectsFromArray:args] :kwargs];
+}
+
+-(instancetype)newTerm:(ReQL_Term_t)tt :(NSArray *)args {
+  return [self newTerm:tt :args :[NSDictionary new]];
+}
+
+-(voidPtr)build {
+  return [p_build build];
+}
+
+-(void)dealloc {
+  [p_build release];
+  [super dealloc];
+}
+
 -(instancetype)
 add:(NSArray *)args {
-  return self;
+  return [self newTerm:REQL_ADD :args];
 }
 
 -(instancetype)
@@ -935,7 +1197,7 @@ year:(NSArray *)args {
 
 -(instancetype)
 zip:(NSArray *)args {
-  return self;
+  return [self newTerm:REQL_ZIP :args];
 }
 
 @end

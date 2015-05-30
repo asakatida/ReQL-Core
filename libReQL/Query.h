@@ -29,6 +29,8 @@ limitations under the License.
 -(instancetype)initWithObject:(NSDictionary *)val NS_DESIGNATED_INITIALIZER;
 -(instancetype)initWithString:(NSString *)val NS_DESIGNATED_INITIALIZER;
 
+-(voidPtr)build;
+
 /**
  */
 -(instancetype)
