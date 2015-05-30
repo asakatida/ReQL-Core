@@ -8,6 +8,8 @@ try:
 except:
     print('rethinkdb not installed')
 
+from rethinkdb import ql2_pb2
+
 import collections
 import numbers
 import re
@@ -566,6 +568,250 @@ def each_test(path, file, lang_path, lang):
             '\n'.join(convert_tests(tests, lang))
         ))
 
+def ast_name(lang, name):
+    return "reql_{}_{}".format(lang, name.lower())
+
+def has_opts(name):
+    return name.upper() in (
+        'CIRCLE', 'DELETE', 'DISTINCT', 'EQ_JOIN', 'FILTER', 'GET_ALL',
+        'GET_INTERSECTING', 'GET_NEAREST', 'GROUP', 'HTTP', 'INDEX_CREATE',
+        'INDEX_RENAME', 'ISO8601', 'JAVASCRIPT', 'ORDER_BY', 'RANDOM',
+        'REPLACE', 'SLICE', 'TABLE', 'TABLE_CREATE', 'UPDATE')
+
+def is_c_keyword(name):
+    return name.upper() in ()
+
+def is_cpp_keyword(name):
+    return name.upper() in (
+        'AND', 'DEFAULT', 'DELETE', 'NOT', 'OR', 'TIMEZONE', 'UNION'
+        ) or is_c_keyword(name)
+
+def is_objc_keyword(name):
+    return name.upper() in () or is_c_keyword(name)
+
+def is_lua_keyword(name):
+    return name.upper() in ('AND', 'ERROR', 'NOT', 'OR')
+
+def is_const_args_w_opts(name):
+    return name.upper() in ('TABLE',)
+
+def mangle_const(name, mangle):
+    if mangle:
+        return "{}{}".format(name.lower(), '_')
+    return name.lower()
+
+def mangle_c_const(name):
+    return mangle_const(name, is_c_keyword(name))
+
+def mangle_cpp_const(name):
+    return mangle_const(name, is_cpp_keyword(name))
+
+def mangle_lua_const(name):
+    return mangle_const(name, is_lua_keyword(name))
+
+def mangle_objc_const(name):
+    return mangle_const(name, is_objc_keyword(name))
+
+def regx(conv):
+    return re.compile(
+        "{}.*{}".format(re.escape(conv('ADD')), re.escape(conv('ZIP'))), re.S)
+
+def build_output(f_name, m, join_str, regex):
+    with open(f_name, 'w') as f:
+        f.write(m.string[:m.start()])
+        f.write(join_str.join(map(RethinkDB.Term.TermType.constants.sort(), regex)))
+        f.write(m.string[m.end():])
+
+def build(f_name, regex, join_str = "\n"):
+    m = None
+
+    with open(f_name) as f:
+        m = regx(regex).match(f.read())
+
+    if m:
+        build_output(f_name, m, join_str, regex)
+
+def cpp_term_imp(name):
+    return """{2}
+Query
+Query::{0}(const Types::array &args) const {{
+  return init(_C::{1}, this, args);
+}}
+Query
+{0}(const Types::array &args) {{
+  return init(_C::{1}, args);
+}}""".format(
+        mangle_cpp_const(name), c_ast_name(name),
+        """
+Query
+Query::{0}(const Types::array &args, const Types::object &kwargs) const {{
+  return init(_C::{1}, this, args, kwargs);
+}}
+Query
+{0}(const Types::array &args, const Types::object &kwargs) {{
+  return init(_C::{1}, args, kwargs);
+}}""".format(
+        mangle_cpp_const(name), c_ast_name(name)
+    ) if has_opts(name) else '')
+
+def cpp_term_class(name):
+    return """
+/**
+ */{}
+Query
+{}(const Types::array &args) const;""".format("""
+Query
+{}(const Types::array &args, const Types::object &kwargs) const;
+""".format(
+        mangle_cpp_const(name)) if has_opts(name) else '',
+        mangle_cpp_const(name))
+
+def cpp_term_def(name):
+    return """
+/**
+ */#{
+  "
+Query
+#{
+  mangle_cpp_const name
+}(const Types::array &args, const Types::object &kwargs);" if opts? name
+}
+Query
+#{mangle_cpp_const name}(const Types::array &args);"""
+
+def lua_term_imp(name):
+    return """
+extern int
+#{lua_ast_name name}(lua_State *L) {
+  return reql_lua_#{
+    if opts? name
+      'get_opts'
+    else
+      'ast_class'
+    end
+  }(L, #{c_ast_name name}#{
+    if opts? name
+      ''
+    else
+      ', NULL'
+    end
+  });
+}"""
+
+def lua_term_def(name):
+    return """
+/**
+ */
+extern int
+#{lua_ast_name name}(lua_State *L);"""
+
+def node_term_imp(name):
+    return """
+v8::Handle<v8::Value>
+#{node_ast_name name}(const v8::Arguments& args) {
+  v8::HandleScope scope;
+
+  v8::Local<v8::Object> obj = v8::Object::New();
+
+  if (!args[0]->IsUndefined()) {
+  }
+
+  return scope.Close(obj);
+}"""
+
+def node_term_def(name):
+    return """
+/**
+ */
+v8::Handle<v8::Value>
+#{node_ast_name name}(const v8::Arguments& args);"""
+
+def objc_term_def(name):
+    return """
+/**
+ */
+-(instancetype)
+#{mangle_objc_const name}:(NSArray *)args#{' :(NSDictionary *)kwargs' if opts? name};"""
+
+def objc_term_imp(name):
+    return """
+-(instancetype)
+#{mangle_objc_const name}:(NSArray *)args#{' :(NSDictionary *)kwargs' if opts? name} {
+  return self;
+}"""
+
+def py_term_imp(name):
+    return """
+extern PyObject *
+#{py_ast_name name}(PyObject *self, PyObject *args, PyObject *kwargs) {
+  PyObject *val;
+
+  static char *kwlist[] = {NULL};
+
+  if (!PyArg_ParseTupleAndKeywords(args, kwargs, \"o:r.#{
+        name.downcase
+      }\", kwlist, &val)) {
+    return self;
+  }
+
+  return val;
+}"""
+
+def py_term_def(name):
+    return """
+/**
+ */
+extern PyObject *
+#{py_ast_name name}(PyObject *self, PyObject *args, PyObject *kwargs);"""
+
+def rb_term_imp(name):
+    return """
+extern VALUE
+#{rb_ast_name name}(int argn, VALUE *args, VALUE self) {
+  return self;
+}"""
+
+def rb_term_def(name):
+    return """
+/**
+ */
+extern VALUE
+#{rb_ast_name name}(int argn, VALUE *args, VALUE self);"""
+
+def c_term_imp(name):
+    return """
+extern ReQL_t *
+reql_#{name.downcase}(ReQL_t **args#{', ReQL_t **kwargs' if opts? name}) {
+  return reql_term(REQL_#{name}, args, #{if opts? name then 'kwargs' else 'NULL' end});
+}"""
+
+def c_term_def(name):
+    return """
+/**
+ */
+extern ReQL_t *
+reql_#{name.downcase}(ReQL_t **args#{', ReQL_t **kwargs' if opts? name});"""
+
+def term_imp(name):
+    return """
+extern void
+#{c_ast_name name}(ReQL_Obj_t *t, ReQL_Obj_t *a#{', ReQL_Obj_t *k' if opts? name}) {
+  reql_term_init(t, REQL_#{name}, a, #{if opts? name then 'k' else 'NULL' end});
+}"""
+
+def term_def(name):
+    return """
+/**
+ */
+extern void
+#{c_ast_name name}(ReQL_Obj_t *t, ReQL_Obj_t *a#{', ReQL_Obj_t *k' if opts? name});"""
+
+def enum_def(name):
+    return "REQL_#{name} = #{RethinkDB::Term::TermType.const_get name}"
+
+def lua_lib(name):
+    return "{\"#{mangle_lua_const name}\", #{lua_ast_name name}},"
+
 def main():
     cwd_path = Path('.')
 
@@ -696,6 +942,28 @@ def main():
 
     with (Path('.') / 'CMakeLists.txt').open('w') as ostream:
         ostream.write(src)
+
+    return
+
+    build('src/Lua/ReQL.c', lua_lib, "\n  ")
+    build('src/reql/expr.h', enum_def, ",\n  ")
+    build('src/reql/ast.h', term_def)
+    build('src/reql/ast.c', term_imp)
+    build('src/c/query.h', c_term_def)
+    build('src/c/query.c', c_term_imp)
+    build('src/Ruby/ast.h', rb_term_def)
+    build('src/Ruby/ast.c', rb_term_imp)
+    build('src/Python/ast.h', py_term_def)
+    build('src/Python/ast.c', py_term_imp)
+    build('libReQL/Query.m', objc_term_imp)
+    build('libReQL/Query.h', objc_term_def)
+    build('src/Node/ast.hpp', node_term_def)
+    build('src/Node/ast.cpp', node_term_imp)
+    build('src/Lua/ast.h', lua_term_def)
+    build('src/Lua/ast.c', lua_term_imp)
+    build('src/cpp/query.hpp', cpp_term_def)
+    build('src/cpp/query.hpp', cpp_term_class)
+    build('src/cpp/query.cpp', cpp_term_imp)
 
 if __name__ == '__main__':
     main()
