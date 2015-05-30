@@ -18,8 +18,8 @@ limitations under the License.
  * @copyright Apache
  */
 
-#ifndef REQL_C_AST_H_
-#define REQL_C_AST_H_
+#ifndef REQL_C_QUERY_H_
+#define REQL_C_QUERY_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -936,4 +936,4 @@ reql_zip(ReQL_t **args);
 }
 #endif
 
-#endif  // REQL_C_AST_H_
+#endif  // REQL_C_QUERY_H_
