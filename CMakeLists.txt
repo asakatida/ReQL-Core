@@ -6,11 +6,9 @@ set(SOURCES
  src/c/connection.c
  src/c/cursor.c
  src/c/error.c
- src/cpp/ast.cpp
  src/cpp/connection.cpp
  src/cpp/cursor.cpp
  src/cpp/error.cpp
- src/cpp/expr.cpp
  src/cpp/new.cpp
  src/cpp/parser.cpp
  src/cpp/query.cpp
@@ -395,11 +393,9 @@ set(MOC_HEADERS
  src/c/connection.h
  src/c/cursor.h
  src/c/error.h
- src/cpp/ast.hpp
  src/cpp/connection.hpp
  src/cpp/cursor.hpp
  src/cpp/error.hpp
- src/cpp/expr.hpp
  src/cpp/new.hpp
  src/cpp/parser.hpp
  src/cpp/query.hpp

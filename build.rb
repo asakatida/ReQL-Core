@@ -102,25 +102,25 @@ def cpp_term_imp(name)
   "#{
 "
 Query
-AST::#{mangle_cpp_const name}(const Types::array &args, const Types::object &kwargs) const {
-  return init(#{c_ast_name name}, this, args, kwargs);
+Query::#{mangle_cpp_const name}(const Types::array &args, const Types::object &kwargs) const {
+  return init(_C::#{c_ast_name name}, this, args, kwargs);
 }
 Query
 #{mangle_cpp_const name}(const Types::array &args, const Types::object &kwargs) {
-  return init(#{c_ast_name name}, args, kwargs);
+  return init(_C::#{c_ast_name name}, args, kwargs);
 }" if opts? name
 }
 Query
-AST::#{mangle_cpp_const name}(const Types::array &args) const {
-  return init(#{c_ast_name name}, this, args);
+Query::#{mangle_cpp_const name}(const Types::array &args) const {
+  return init(_C::#{c_ast_name name}, this, args);
 }
 Query
 #{mangle_cpp_const name}(const Types::array &args) {
-  return init(#{c_ast_name name}, args);
+  return init(_C::#{c_ast_name name}, args);
 }"
 end
 
-build('src/cpp/ast.cpp', :cpp_term_imp) do |name|
+build('src/cpp/query.cpp', :cpp_term_imp) do |name|
   cpp_term_imp name
 end
 
@@ -138,7 +138,7 @@ def cpp_term_class(name)
   #{mangle_cpp_const name}(const Types::array &args) const;"
 end
 
-build('src/cpp/ast.hpp', :cpp_term_class) do |name|
+build('src/cpp/query.hpp', :cpp_term_class) do |name|
   cpp_term_class name
 end
 
@@ -156,7 +156,7 @@ Query
 #{mangle_cpp_const name}(const Types::array &args);"
 end
 
-build('src/cpp/ast.hpp', :cpp_term_def) do |name|
+build('src/cpp/query.hpp', :cpp_term_def) do |name|
   cpp_term_def name
 end
 
