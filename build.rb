@@ -235,7 +235,7 @@ def objc_term_def(name)
 #{mangle_objc_const name}:(NSArray *)args#{' :(NSDictionary *)kwargs' if opts? name};"
 end
 
-build('libReQL/ast.h', :objc_term_def) do |name|
+build('libReQL/Query.h', :objc_term_def) do |name|
   objc_term_def name
 end
 
@@ -247,7 +247,7 @@ def objc_term_imp(name)
 }"
 end
 
-build('libReQL/ast.m', :objc_term_imp) do |name|
+build('libReQL/Query.m', :objc_term_imp) do |name|
   objc_term_imp name
 end
 
