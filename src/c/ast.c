@@ -198,12 +198,13 @@ reql_string(const char *val, const unsigned long size) {
 static ReQL_Obj_t *
 reql_term_(ReQL_t *reql) {
   NEW_REQL_OBJ;
-  ReQL_t *args = ((ReQL_Args_t *)reql->data)->args;
+  ReQL_Args_t *data = (ReQL_Args_t *)reql->data;
+  ReQL_t *args = data->args;
   ReQL_Obj_t *r_args = NULL;
   if (args != NULL) {
     r_args = args->cb(args);
   }
-  ReQL_t *kwargs = ((ReQL_Args_t *)reql->data)->kwargs;
+  ReQL_t *kwargs = data->kwargs;
   ReQL_Obj_t *r_kwargs = NULL;
   if (kwargs != NULL) {
     r_kwargs = kwargs->cb(kwargs);
@@ -224,13 +225,27 @@ reql_term(ReQL_Term_t tt, ReQL_t **args, ReQL_t **kwargs) {
     data->args = NULL;
   } else {
     data->args = reql_array(args);
+    if (data->args == NULL) {
+      free(data);
+      free(reql);
+      return NULL;
+    }
   }
   if (kwargs == NULL) {
     data->kwargs = NULL;
   } else {
     data->kwargs = reql_json_object(kwargs);
+    if (data->kwargs == NULL) {
+      if (data->args != NULL) {
+        reql_destroy(data->args);
+      }
+      free(data);
+      free(reql);
+      return NULL;
+    }
   }
   reql->size = (size_t)tt;
+  reql->data = data;
   reql->cb = reql_term_;
   return reql;
 }
