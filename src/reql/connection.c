@@ -252,7 +252,7 @@ reql_conn_close_(ReQL_Conn_t *conn) {
 }
 
 static void
-reql_ensure_conn_close_(ReQL_Conn_t *conn) {
+reql_conn_ensure_close_(ReQL_Conn_t *conn) {
   reql_conn_close_(conn);
   while (reql_conn_socket(conn) > 0) {
     pthread_cond_wait(conn->condition.done, conn->condition.mutex);
@@ -468,7 +468,7 @@ reql_connect_(ReQL_Conn_t *conn, ReQL_Byte *buf, const ReQL_Size size) {
   }
 
   if (pthread_detach(thread) != 0) {
-    reql_ensure_conn_close_(conn);
+    reql_conn_ensure_close_(conn);
     pthread_join(thread, NULL);
     return -1;
   }
@@ -481,7 +481,7 @@ reql_connect(ReQL_Conn_t *conn, ReQL_Byte *buf, const ReQL_Size size) {
   reql_conn_lock(conn);
   const int status = reql_connect_(conn, buf, size);
   if (status != 0) {
-    reql_ensure_conn_close_(conn);
+    reql_conn_ensure_close_(conn);
   }
   reql_conn_unlock(conn);
   return status;
@@ -495,9 +495,9 @@ reql_conn_close(ReQL_Conn_t *conn) {
 }
 
 extern void
-reql_ensure_conn_close(ReQL_Conn_t *conn) {
+reql_conn_ensure_close(ReQL_Conn_t *conn) {
   reql_conn_lock(conn);
-  reql_ensure_conn_close_(conn);
+  reql_conn_ensure_close_(conn);
   reql_conn_unlock(conn);
 }
 

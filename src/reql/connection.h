@@ -157,7 +157,7 @@ reql_conn_close(ReQL_Conn_t *conn);
  * @param conn connection object.
  */
 extern void
-reql_ensure_conn_close(ReQL_Conn_t *conn);
+reql_conn_ensure_close(ReQL_Conn_t *conn);
 
 /**
  * @brief Check if a connection object is connected.

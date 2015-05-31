@@ -80,7 +80,7 @@ TEST_CASE("c connection", "[c][connection]") {
 
   REQUIRE(reql_conn_open(c.get()) == 0);
 
-  reql_ensure_conn_close(c.get());
+  reql_conn_ensure_close(c.get());
 
   REQUIRE(reql_conn_open(c.get()) == 0);
 }

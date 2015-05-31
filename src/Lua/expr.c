@@ -413,7 +413,7 @@ reql_lua_connect(lua_State *L) {
     return 0;
   }
 
-  reql_ensure_conn_close(conn);
+  reql_conn_ensure_close(conn);
 
   return 1;
 }
