@@ -34,7 +34,9 @@ limitations under the License.
 }
 
 -(BOOL)error:(NSError **)err {
-  *err = nil;
+  if (err != nil) {
+    *err = nil;
+  }
   return NO;
 }
 
