@@ -49,6 +49,10 @@ limitations under the License.
   return reql_conn_open(p_conn) == 0 ? NO : YES;
 }
 
+-(void)close {
+  reql_conn_close(p_conn);
+}
+
 -(void)dealloc {
   reql_conn_ensure_close(p_conn);
   free(p_conn);

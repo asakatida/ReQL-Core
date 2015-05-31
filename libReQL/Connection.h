@@ -24,4 +24,6 @@ limitations under the License.
 
 -(BOOL)isOpen;
 
+-(void)close;
+
 @end
