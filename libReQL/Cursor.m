@@ -26,4 +26,16 @@ limitations under the License.
 
 @implementation ReQLCursor
 
+-(NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(id [])buffer count:(NSUInteger)len {
+  return 0;
+}
+
+-(void)stream:(ReQLCursor *)aStream handleEvent:(NSStreamEvent)eventCode {
+}
+
+-(BOOL)error:(NSError **)err {
+  *err = nil;
+  return NO;
+}
+
 @end
