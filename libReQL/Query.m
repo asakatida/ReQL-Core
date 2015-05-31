@@ -27,6 +27,12 @@ if (obj == NULL) {\
   return NULL;\
 }
 
+@interface ReQLQuery ()
+
+-(ReQL_Obj_t *)build;
+
+@end
+
 @protocol Expr <NSObject>
 
 -(ReQL_Obj_t *)build;
@@ -326,7 +332,21 @@ if (obj == NULL) {\
   return [self newTerm:tt :args :[[NSDictionary new] autorelease]];
 }
 
--(voidPtr)build {
+-(ReQLCursor *)run:(ReQLConnection *)conn {
+  return NULL;
+}
+
+-(ReQLCursor *)run:(ReQLConnection *)conn withOpts:(NSDictionary *)opts {
+  return NULL;
+}
+
+-(void)noReply:(ReQLConnection *)conn {
+}
+
+-(void)noReply:(ReQLConnection *)conn withOpts:(NSDictionary *)opts {
+}
+
+-(ReQL_Obj_t *)build {
   return [p_build build];
 }
 

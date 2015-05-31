@@ -19,6 +19,8 @@ limitations under the License.
  */
 
 #import <Cocoa/Cocoa.h>
+#import <libReQL/Connection.h>
+#import <libReQL/Cursor.h>
 
 @interface ReQLQuery : NSObject
 
@@ -29,7 +31,10 @@ limitations under the License.
 -(instancetype)initWithObject:(NSDictionary *)val NS_DESIGNATED_INITIALIZER;
 -(instancetype)initWithString:(NSString *)val NS_DESIGNATED_INITIALIZER;
 
--(voidPtr)build;
+-(ReQLCursor *)run:(ReQLConnection *)conn;
+-(ReQLCursor *)run:(ReQLConnection *)conn withOpts:(NSDictionary *)opts;
+-(void)noReply:(ReQLConnection *)conn;
+-(void)noReply:(ReQLConnection *)conn withOpts:(NSDictionary *)opts;
 
 /**
  */
