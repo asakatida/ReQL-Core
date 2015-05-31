@@ -73,10 +73,10 @@ TEST_CASE("c connection", "[c][connection]") {
 
     REQUIRE(result != nullptr);
 
-    reql_close_cur(cur.get());
+    reql_cur_close(cur.get());
   }
 
-  reql_close_conn(c.get());
+  reql_conn_close(c.get());
 
   REQUIRE(reql_conn_open(c.get()) == 0);
 

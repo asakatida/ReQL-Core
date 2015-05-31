@@ -83,7 +83,7 @@ extern char
 reql_cur_open(ReQL_Cur_t *cur);
 
 extern void
-reql_close_cur(ReQL_Cur_t *cur);
+reql_cur_close(ReQL_Cur_t *cur);
 
 extern void
 reql_cur_init(ReQL_Cur_t *cur, struct ReQL_Conn_s *conn, ReQL_Token token);

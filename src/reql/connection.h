@@ -150,7 +150,7 @@ reql_connect(ReQL_Conn_t *conn, ReQL_Byte *buf, const ReQL_Size size);
  * @param conn connection object.
  */
 extern void
-reql_close_conn(ReQL_Conn_t *conn);
+reql_conn_close(ReQL_Conn_t *conn);
 
 /**
  * @brief Ensure a connection object is cleaned up and ready to be deallocated.

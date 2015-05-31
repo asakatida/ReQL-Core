@@ -96,7 +96,7 @@ Connection &Connection::operator=(Connection &&other) {
 
 void
 Connection::close() {
-  reql_close_conn(get());
+  reql_conn_close(get());
 }
 
 bool

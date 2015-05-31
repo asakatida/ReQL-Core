@@ -153,7 +153,7 @@ Cursor::next(Parser &p) {
 
 void
 Cursor::close() {
-  reql_close_cur(get());
+  reql_cur_close(get());
 }
 
 }  // namespace ReQL

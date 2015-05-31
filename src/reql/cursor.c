@@ -26,7 +26,7 @@ limitations under the License.
 #include <string.h>
 
 static void
-reql_close_cur_(ReQL_Cur_t *cur);
+reql_cur_close_(ReQL_Cur_t *cur);
 
 static void
 reql_cur_lock(ReQL_Cur_t *cur) {
@@ -70,7 +70,7 @@ reql_cur_set_response(ReQL_Cur_t *cur, ReQL_Obj_t *res) {
   reql_string_append(&key, ext, 1);
   ReQL_Obj_t *type = reql_object_get(res, &key);
   if (type == NULL) {
-    reql_close_cur_(cur);
+    reql_cur_close_(cur);
   } else {
     int r_type = (int)(reql_to_number(type));
     switch (r_type) {
@@ -83,11 +83,11 @@ reql_cur_set_response(ReQL_Cur_t *cur, ReQL_Obj_t *res) {
       case REQL_CLIENT_ERROR:
       case REQL_COMPILE_ERROR:
       case REQL_RUNTIME_ERROR: {
-        reql_close_cur_(cur);
+        reql_cur_close_(cur);
         break;
       }
       default: {
-        reql_close_cur_(cur);
+        reql_cur_close_(cur);
         break;
       }
     }
@@ -104,7 +104,7 @@ reql_cur_set_response(ReQL_Cur_t *cur, ReQL_Obj_t *res) {
 }
 
 static void
-reql_close_cur_(ReQL_Cur_t *cur) {
+reql_cur_close_(ReQL_Cur_t *cur) {
   if (reql_cur_open_(cur) != 0) {
     ReQL_Cur_t *prev = cur->prev == cur ? NULL : cur->prev;
     ReQL_Cur_t *next = cur->next == cur ? NULL : cur->next;
@@ -129,12 +129,12 @@ reql_close_cur_(ReQL_Cur_t *cur) {
 }
 
 extern void
-reql_close_cur(ReQL_Cur_t *cur) {
+reql_cur_close(ReQL_Cur_t *cur) {
   reql_cur_lock(cur);
   if (cur->conn != NULL) {
     reql_stop_query(cur, cur->conn);
   }
-  reql_close_cur_(cur);
+  reql_cur_close_(cur);
   reql_cur_unlock(cur);
 }
 
@@ -165,7 +165,7 @@ reql_cur_destroy(ReQL_Cur_t *cur) {
   if (cur == NULL) {
     return;
   }
-  reql_close_cur(cur);
+  reql_cur_close(cur);
   reql_cur_lock(cur);
   reql_json_destroy(cur->response);
   reql_json_destroy(cur->old_res);
@@ -213,7 +213,7 @@ reql_cur_drain(ReQL_Cur_t *cur) {
     if (end != NULL) {
       end();
     }
-    reql_close_cur_(cur);
+    reql_cur_close_(cur);
     pthread_cond_broadcast(&done);
     return 0;
   };

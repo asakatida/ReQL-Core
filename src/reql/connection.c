@@ -242,7 +242,7 @@ reql_conn_socket(const ReQL_Conn_t *conn) {
 }
 
 static void
-reql_close_conn_(ReQL_Conn_t *conn) {
+reql_conn_close_(ReQL_Conn_t *conn) {
   int sock = reql_conn_socket(conn);
   if (sock >= 0) {
     close(sock);
@@ -253,12 +253,12 @@ reql_close_conn_(ReQL_Conn_t *conn) {
 
 static void
 reql_ensure_conn_close_(ReQL_Conn_t *conn) {
-  reql_close_conn_(conn);
+  reql_conn_close_(conn);
   while (reql_conn_socket(conn) > 0) {
     pthread_cond_wait(conn->condition.done, conn->condition.mutex);
   }
   while (conn->cursors != NULL) {
-    reql_close_cur(conn->cursors);
+    reql_cur_close(conn->cursors);
   }
   reql_conn_unlock(conn);
   pthread_mutex_destroy(conn->condition.mutex);
@@ -297,13 +297,13 @@ reql_conn_loop(void *conn) {
   const struct timeval timeout = {0, 1};
 
   if (setsockopt(reql_conn_socket(conn), SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(struct timeval))) {
-    reql_close_conn_(conn);
+    reql_conn_close_(conn);
     reql_conn_unlock(conn);
     return NULL;
   }
 
   if (setsockopt(reql_conn_socket(conn), SOL_SOCKET, SO_SNDTIMEO, &timeout, sizeof(struct timeval))) {
-    reql_close_conn_(conn);
+    reql_conn_close_(conn);
     reql_conn_unlock(conn);
     return NULL;
   }
@@ -340,7 +340,7 @@ reql_conn_loop(void *conn) {
           if (reql_error_type() == REQL_E_NO) {
             reql_conn_error("Failed to decode response", __func__);
           }
-          reql_close_conn(conn);
+          reql_conn_close(conn);
         } else {
           reql_conn_lock(conn);
           reql_conn_set_res(conn, res, token);
@@ -352,7 +352,7 @@ reql_conn_loop(void *conn) {
 
         ReQL_Byte *buf = realloc(response, sizeof(ReQL_Byte) * 12);
         if (buf == NULL) {
-          reql_close_conn(conn);
+          reql_conn_close(conn);
         } else {
           response = buf;
         }
@@ -365,7 +365,7 @@ reql_conn_loop(void *conn) {
         printf("found response for token %llu size %i\n", token, size);
         ReQL_Byte *buf = realloc(response, sizeof(ReQL_Byte) * size);
         if (buf == NULL) {
-          reql_close_conn(conn);
+          reql_conn_close(conn);
         } else {
           response = buf;
         }
@@ -488,9 +488,9 @@ reql_connect(ReQL_Conn_t *conn, ReQL_Byte *buf, const ReQL_Size size) {
 }
 
 extern void
-reql_close_conn(ReQL_Conn_t *conn) {
+reql_conn_close(ReQL_Conn_t *conn) {
   reql_conn_lock(conn);
-  reql_close_conn_(conn);
+  reql_conn_close_(conn);
   reql_conn_unlock(conn);
 }
 
