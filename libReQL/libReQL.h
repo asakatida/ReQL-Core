@@ -21,7 +21,7 @@ limitations under the License.
 #import <Cocoa/Cocoa.h>
 
 //! Project version number for libReQL.
-FOUNDATION_EXPORT double libReQLVersionNumber;
+FOUNDATION_EXPORT const double libReQLVersionNumber;
 
 //! Project version string for libReQL.
 FOUNDATION_EXPORT const unsigned char libReQLVersionString[];
