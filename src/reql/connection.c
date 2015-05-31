@@ -84,22 +84,22 @@ reql_get_64_token(ReQL_Byte *buf) {
 }
 
 static void
-reql_connection_error(const char *msg, const char *trace) {
+reql_conn_error(const char *msg, const char *trace) {
   reql_error_init(REQL_E_CONNECTION, msg, trace);
 }
 
 static void
-reql_connection_memory_error(const char *trace) {
-  reql_connection_error("Insufficient memory", trace);
+reql_conn_memory_error(const char *trace) {
+  reql_conn_error("Insufficient memory", trace);
 }
 
 static void
-reql_connection_mutex_init(ReQL_Conn_t *conn) {
+reql_conn_mutex_init(ReQL_Conn_t *conn) {
   if (conn->condition.mutex == NULL) {
     pthread_mutexattr_t *attrs = malloc(sizeof(pthread_mutexattr_t));
 
     if (attrs == NULL) {
-      reql_connection_memory_error(__func__);
+      reql_conn_memory_error(__func__);
       return;
     }
 
@@ -121,7 +121,7 @@ reql_connection_mutex_init(ReQL_Conn_t *conn) {
     pthread_condattr_t *attrs = malloc(sizeof(pthread_condattr_t));
 
     if (attrs == NULL) {
-      reql_connection_memory_error(__func__);
+      reql_conn_memory_error(__func__);
       return;
     }
 
@@ -142,7 +142,7 @@ reql_connection_mutex_init(ReQL_Conn_t *conn) {
 
 static void
 reql_conn_lock(ReQL_Conn_t *conn) {
-  reql_connection_mutex_init(conn);
+  reql_conn_mutex_init(conn);
   pthread_mutex_lock(conn->condition.mutex);
 }
 
@@ -158,7 +158,7 @@ reql_conn_unlock(ReQL_Conn_t *conn) {
 }
 
 extern void
-reql_connection_init(ReQL_Conn_t *conn) {
+reql_conn_init(ReQL_Conn_t *conn) {
   memset(conn, (int)NULL, sizeof(ReQL_Conn_t));
   reql_conn_lock(conn);
   conn->socket = -1;
@@ -338,7 +338,7 @@ reql_conn_loop(void *conn) {
         if (res == NULL) {
           printf("failed to decode query response\n");
           if (reql_error_type() == REQL_E_NO) {
-            reql_connection_error("Failed to decode response", __func__);
+            reql_conn_error("Failed to decode response", __func__);
           }
           reql_close_conn(conn);
         } else {

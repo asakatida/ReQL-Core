@@ -9,11 +9,11 @@
 TEST_CASE("c connection", "[c][connection]") {
   std::unique_ptr<ReQL_Conn_t> c(new ReQL_Conn_t);
 
-  reql_connection_init(c.get());
+  reql_conn_init(c.get());
 
   REQUIRE(reql_conn_open(c.get()) == 0);
 
-  SECTION("reql_connection_init") {
+  SECTION("reql_conn_init") {
     REQUIRE(reql_conn_addr(c.get()) == nullptr);
     REQUIRE(reql_conn_auth_key(c.get()) == nullptr);
     REQUIRE(reql_conn_auth_size(c.get()) == 0);

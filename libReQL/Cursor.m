@@ -24,6 +24,6 @@ limitations under the License.
 
 #import "./reql/core.h"
 
-@implementation Cursor
+@implementation ReQLCursor
 
 @end

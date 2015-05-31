@@ -20,6 +20,6 @@ limitations under the License.
 
 #import <Cocoa/Cocoa.h>
 
-@interface Cursor : NSObject
+@interface ReQLCursor : NSObject
 
 @end

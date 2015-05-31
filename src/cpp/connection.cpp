@@ -27,7 +27,7 @@ limitations under the License.
 namespace ReQL {
 
 Connection::Connection() : _C::CTypes::connection(new _C::ReQL_Conn_t) {
-  reql_connection_init(get());
+  reql_conn_init(get());
 
   _C::ReQL_Byte buf[500];
 
@@ -37,7 +37,7 @@ Connection::Connection() : _C::CTypes::connection(new _C::ReQL_Conn_t) {
 }
 
 Connection::Connection(const Types::string &host) : _C::CTypes::connection(new _C::ReQL_Conn_t) {
-  reql_connection_init(get());
+  reql_conn_init(get());
 
   reql_conn_set_addr(get(), const_cast<char *>(host.c_str()));
 
@@ -49,7 +49,7 @@ Connection::Connection(const Types::string &host) : _C::CTypes::connection(new _
 }
 
 Connection::Connection(const Types::string &host, const std::uint16_t &port) : _C::CTypes::connection(new _C::ReQL_Conn_t) {
-  reql_connection_init(get());
+  reql_conn_init(get());
 
   reql_conn_set_addr(get(), const_cast<char *>(host.c_str()));
   reql_conn_set_port(get(), const_cast<char *>(std::to_string(port).c_str()));
@@ -62,7 +62,7 @@ Connection::Connection(const Types::string &host, const std::uint16_t &port) : _
 }
 
 Connection::Connection(const Types::string &host, const std::uint16_t &port, const Types::string &key) : _C::CTypes::connection(new _C::ReQL_Conn_t) {
-  reql_connection_init(get());
+  reql_conn_init(get());
 
   std::size_t auth_size = key.size();
 

@@ -37,8 +37,6 @@ if (obj == NULL) {\
   NSArray *p_data;
 }
 
-@property (atomic, readonly) NSArray *p_data;
-
 -(instancetype)init:(NSArray *)val;
 
 @end
@@ -46,8 +44,6 @@ if (obj == NULL) {\
 @interface BoolExpr : NSObject <Expr> {
   BOOL p_data;
 }
-
-@property (atomic, readonly) BOOL p_data;
 
 -(instancetype)init:(BOOL)val;
 
@@ -71,8 +67,6 @@ if (obj == NULL) {\
   NSDictionary *p_data;
 }
 
-@property (atomic, readonly) NSDictionary *p_data;
-
 -(instancetype)init:(NSDictionary *)val;
 
 @end
@@ -80,8 +74,6 @@ if (obj == NULL) {\
 @interface StringExpr : NSObject <Expr> {
   NSString *p_data;
 }
-
-@property (atomic, readonly) NSString *p_data;
 
 -(instancetype)init:(NSString *)val;
 
@@ -99,8 +91,6 @@ if (obj == NULL) {\
 
 @implementation ArrayExpr
 
-@synthesize p_data=p_data;
-
 -(instancetype)init:(NSArray *)val {
   if (self = [super init]) {
     p_data = val;
@@ -117,18 +107,21 @@ if (obj == NULL) {\
     return NULL;
   }
   reql_array_init(obj, buf, (ReQL_Size)size);
-  for (Query *elem in p_data) {
+  for (ReQLQuery *elem in p_data) {
     ReQL_Obj_t *r_elem = [elem build];
     reql_array_append(obj, r_elem);
   }
   return obj;
 }
 
+-(void)dealloc {
+  [p_data release];
+  [super dealloc];
+}
+
 @end
 
 @implementation BoolExpr
-
-@synthesize p_data=p_data;
 
 -(instancetype)init:(BOOL)val {
   if (self = [super init]) {
@@ -172,11 +165,14 @@ if (obj == NULL) {\
   return obj;
 }
 
+-(void)dealloc {
+  [p_data release];
+  [super dealloc];
+}
+
 @end
 
 @implementation ObjectExpr
-
-@synthesize p_data=p_data;
 
 -(instancetype)init:(NSDictionary *)val {
   if (self = [super init]) {
@@ -197,7 +193,7 @@ if (obj == NULL) {\
   NSEnumerator *enumerator = [p_data keyEnumerator];
   NSString *key;
   while (key = [enumerator nextObject]) {
-    Query *val = [p_data valueForKey:key];
+    ReQLQuery *val = [p_data valueForKey:key];
     StringExpr *key_ = [[StringExpr alloc] init:key];
     ReQL_Obj_t *r_key = [key_ build];
     [key_ release];
@@ -207,11 +203,14 @@ if (obj == NULL) {\
   return obj;
 }
 
+-(void)dealloc {
+  [p_data release];
+  [super dealloc];
+}
+
 @end
 
 @implementation StringExpr
-
-@synthesize p_data=p_data;
 
 -(instancetype)init:(NSString *)val {
   if (self = [super init]) {
@@ -231,6 +230,11 @@ if (obj == NULL) {\
   reql_string_init(obj, buf, (ReQL_Size)size);
   reql_string_append(obj, (ReQL_Byte *)[p_data cStringUsingEncoding:NSUnicodeStringEncoding], (ReQL_Size)size);
   return obj;
+}
+
+-(void)dealloc {
+  [p_data release];
+  [super dealloc];
 }
 
 @end
@@ -253,9 +257,15 @@ if (obj == NULL) {\
   return obj;
 }
 
+-(void)dealloc {
+  [p_args release];
+  [p_kwargs release];
+  [super dealloc];
+}
+
 @end
 
-@implementation Query {
+@implementation ReQLQuery {
   NSObject <Expr> *p_build;
 }
 
@@ -309,11 +319,11 @@ if (obj == NULL) {\
 }
 
 -(instancetype)newTerm:(ReQL_Term_t)tt :(NSArray *)args :(NSDictionary *)kwargs {
-  return [[Query alloc] init:tt :[@[self] arrayByAddingObjectsFromArray:args] :kwargs];
+  return [[ReQLQuery alloc] init:tt :[@[self] arrayByAddingObjectsFromArray:args] :kwargs];
 }
 
 -(instancetype)newTerm:(ReQL_Term_t)tt :(NSArray *)args {
-  return [self newTerm:tt :args :[NSDictionary new]];
+  return [self newTerm:tt :args :[[NSDictionary new] autorelease]];
 }
 
 -(voidPtr)build {
@@ -327,7 +337,9 @@ if (obj == NULL) {\
 
 -(instancetype)
 add:(NSArray *)args {
-  return [self newTerm:REQL_ADD :args];
+  @autoreleasepool {
+    return [[self newTerm:REQL_ADD :args] autorelease];
+  }
 }
 
 -(instancetype)
@@ -1197,7 +1209,7 @@ year:(NSArray *)args {
 
 -(instancetype)
 zip:(NSArray *)args {
-  return [self newTerm:REQL_ZIP :args];
+  return [[self newTerm:REQL_ZIP :args] autorelease];
 }
 
 @end

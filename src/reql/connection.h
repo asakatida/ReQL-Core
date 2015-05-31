@@ -60,7 +60,7 @@ typedef struct ReQL_Conn_s ReQL_Conn_t;
  * @param conn allocated connection object.
  */
 extern void
-reql_connection_init(ReQL_Conn_t *conn);
+reql_conn_init(ReQL_Conn_t *conn);
 
 /**
  * @brief assign an authentication key before opening a connection.

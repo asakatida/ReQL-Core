@@ -20,7 +20,7 @@ limitations under the License.
 
 #import <Cocoa/Cocoa.h>
 
-@interface Query : NSObject
+@interface ReQLQuery : NSObject
 
 -(instancetype)init NS_DESIGNATED_INITIALIZER;
 -(instancetype)initWithArray:(NSArray *)val NS_DESIGNATED_INITIALIZER;

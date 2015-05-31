@@ -20,6 +20,8 @@ limitations under the License.
 
 #import <Cocoa/Cocoa.h>
 
-@interface Connection : NSObject
+@interface ReQLConnection : NSObject
+
+-(BOOL)isOpen;
 
 @end

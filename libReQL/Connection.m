@@ -24,6 +24,34 @@ limitations under the License.
 
 #import "./reql/core.h"
 
-@implementation Connection
+@implementation ReQLConnection {
+  ReQL_Conn_t *p_conn;
+}
+
+-(instancetype)init {
+  if (self = [super init]) {
+    p_conn = malloc(sizeof(ReQL_Conn_t));
+    if (p_conn == NULL) {
+      [self release];
+      return NULL;
+    }
+    reql_conn_init(p_conn);
+    ReQL_Byte buf[500];
+    if (reql_connect(p_conn, buf, 500) != 0) {
+      [self release];
+      return NULL;
+    }
+  }
+  return self;
+}
+
+-(BOOL)isOpen {
+  return NO;
+}
+
+-(void)dealloc {
+  free(p_conn);
+  [super dealloc];
+}
 
 @end
