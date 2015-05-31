@@ -62,43 +62,33 @@ init(const _C::ReQL_AST_Function_Kwargs &f, const Query *term, const Types::arra
   return init(f, term, args, Types::object());
 }
 
-Query::Query() {}
+Query::Query() : p_build(buildNull) {}
 
-Query::Query(const _C::ReQL_AST_Function_Kwargs &f, const Types::array &args, const Types::object &kwargs) : p_query(f, args, kwargs) {}
+Query::Query(const _C::ReQL_AST_Function_Kwargs &f, const Types::array &args, const Types::object &kwargs) : p_func_kwargs(f), p_array(args), p_object(kwargs), p_build(buildTermKwargs) {}
 
-Query::Query(const _C::ReQL_AST_Function &f, const Types::array &args) : p_query(f, args) {}
+Query::Query(const _C::ReQL_AST_Function &f, const Types::array &args) : p_func(f), p_array(args), p_build(buildTerm) {}
 
-Query::Query(const Types::string &val) : p_query(val) {}
+Query::Query(const Types::string &val) : p_string(val), p_build(buildString) {}
 
-Query::Query(const double &val) : p_query(val) {}
+Query::Query(const double &val) : p_number(val), p_build(buildNumber) {}
 
-Query::Query(const bool &val) : p_query(val) {}
+Query::Query(const bool &val) : p_bool(val), p_build(buildBool) {}
 
-Query::Query(const Types::array &val) : p_query(val) {}
+Query::Query(const Types::array &val) : p_array(val), p_build(buildArray) {}
 
-Query::Query(const Types::object &val) : p_query(val) {}
+Query::Query(const Types::object &val) : p_object(val), p_build(buildObject) {}
 
-Query::Query(_C::ReQL_Obj_t *val) : p_query(val) {}
+Query::Query(_C::ReQL_Obj_t *val) {}
 
-Query::Query(const Query &other) : p_query(other.p_query) {}
+Query::Query(const Query &other) : p_array(other.p_array), p_bool(other.p_bool), p_build(other.p_build), p_func(other.p_func), p_func_kwargs(other.p_func_kwargs), p_number(other.p_number), p_object(other.p_object), p_string(other.p_string) {}
 
-Query::Query(Query &&other) : p_query(std::move(other.p_query)) {}
-
-_C::ReQL_Datum_t
-Query::_type() const {
-  return _internal()._type();
-}
-
-const _Internal::ReQL &
-Query::_internal() const {
-  return p_query;
-}
+Query::Query(Query &&other) : p_array(std::move(other.p_array)), p_bool(std::move(other.p_bool)), p_build(std::move(other.p_build)), p_func(std::move(other.p_func)), p_func_kwargs(std::move(other.p_func_kwargs)), p_number(std::move(other.p_number)), p_object(std::move(other.p_object)), p_string(std::move(other.p_string)) {}
 
 Cursor
 Query::run(const Connection &conn) const {
   Cursor cur;
 
-  reql_run(cur.get(), _internal().get(), conn.get(), nullptr);
+  reql_run(cur.get(), p_build(), conn.get(), nullptr);
 
   return cur;
 }
@@ -106,7 +96,14 @@ Query::run(const Connection &conn) const {
 Query &
 Query::operator=(const Query &other) {
   if (this != &other) {
-    p_query = other.p_query;
+    p_array = other.p_array;
+    p_bool = other.p_bool;
+    p_build = other.p_build;
+    p_func = other.p_func;
+    p_func_kwargs = other.p_func_kwargs;
+    p_number = other.p_number;
+    p_object = other.p_object;
+    p_string = other.p_string;
   }
   return *this;
 }
@@ -114,7 +111,14 @@ Query::operator=(const Query &other) {
 Query &
 Query::operator=(Query &&other) {
   if (this != &other) {
-    p_query = std::move(other.p_query);
+    p_array = std::move(other.p_array);
+    p_bool = std::move(other.p_bool);
+    p_build = std::move(other.p_build);
+    p_func = std::move(other.p_func);
+    p_func_kwargs = std::move(other.p_func_kwargs);
+    p_number = std::move(other.p_number);
+    p_object = std::move(other.p_object);
+    p_string = std::move(other.p_string);
   }
   return *this;
 }

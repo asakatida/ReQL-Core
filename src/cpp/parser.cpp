@@ -29,7 +29,7 @@ Parser::~Parser() {}
 
 void
 Parser::parse(Query &val) {
-  parse_c(val._internal().get());
+  parse_c(val.build());
 }
 
 void
@@ -86,6 +86,7 @@ Parser::parse_c(_C::ReQL_Obj_t *val) {
       break;
     }
   }
+  _C::reql_json_destroy(val);
 }
 
 Types::string

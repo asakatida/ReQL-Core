@@ -88,6 +88,6 @@ std::string inspect(const ReQL_Obj_t *query) {
   throw ReQLDriverError();
 }
 
-std::string inspect(const Query &query) {
-  return inspect(query._internal().get());
+std::string inspect(Query &query) {
+  return inspect(query.build());
 }

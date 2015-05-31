@@ -45,11 +45,33 @@ public:
   Query &operator=(const Query &other);
   Query &operator=(Query &&other);
 
+  _C::ReQL_Obj_t *build();
+
   void no_reply(const Connection &conn) const;
   void no_reply(const Connection &conn, const Types::object &kwargs) const;
   Cursor run(const Connection &conn) const;
   Cursor run(const Connection &conn, const Types::object &kwargs) const;
 
+private:
+  static _C::ReQL_Obj_t *buildArray();
+  static _C::ReQL_Obj_t *buildBool();
+  static _C::ReQL_Obj_t *buildNumber();
+  static _C::ReQL_Obj_t *buildNull();
+  static _C::ReQL_Obj_t *buildObject();
+  static _C::ReQL_Obj_t *buildString();
+  static _C::ReQL_Obj_t *buildTerm();
+  static _C::ReQL_Obj_t *buildTermKwargs();
+  typedef _C::ReQL_Obj_t *(*QueryBuilder)();
+  Types::array p_array;
+  bool p_bool;
+  QueryBuilder p_build;
+  _C::ReQL_AST_Function p_func;
+  _C::ReQL_AST_Function_Kwargs p_func_kwargs;
+  double p_number;
+  Types::object p_object;
+  Types::string p_string;
+
+public:
   /**
    */
   Query
@@ -966,12 +988,6 @@ public:
    */
   Query
   zip(const Types::array &args) const;
-
-  _C::ReQL_Datum_t _type() const;
-  const _Internal::ReQL &_internal() const;
-
-private:
-  _Internal::ReQL p_query;
 };
 
 /**

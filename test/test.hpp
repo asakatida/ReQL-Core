@@ -7,6 +7,6 @@ namespace ReQL {
   class Query;
 }
 
-std::string inspect(const ReQL::Query &query);
+std::string inspect(ReQL::Query &query);
 
 #endif  // REQL_TEST_HPP_

@@ -35,8 +35,6 @@ public:
 
   Query result() { return p_result; }
 
-  void parse(Query val) { parse_c(val._internal().get()); }
-
 private:
   void startObject() {
     p_objects.push_back(Types::object());
