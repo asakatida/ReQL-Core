@@ -24,12 +24,11 @@ limitations under the License.
 
 @interface ReQLQuery : NSObject
 
--(instancetype)init NS_DESIGNATED_INITIALIZER;
--(instancetype)initWithArray:(NSArray *)val NS_DESIGNATED_INITIALIZER;
--(instancetype)initWithBool:(BOOL)val NS_DESIGNATED_INITIALIZER;
--(instancetype)initWithNumber:(NSNumber *)val NS_DESIGNATED_INITIALIZER;
--(instancetype)initWithObject:(NSDictionary *)val NS_DESIGNATED_INITIALIZER;
--(instancetype)initWithString:(NSString *)val NS_DESIGNATED_INITIALIZER;
++(instancetype)newWithArray:(NSArray *)val;
++(instancetype)newWithBool:(BOOL)val;
++(instancetype)newWithNumber:(NSNumber *)val;
++(instancetype)newWithObject:(NSDictionary *)val;
++(instancetype)newWithString:(NSString *)val;
 
 -(ReQLCursor *)run:(ReQLConnection *)conn;
 -(ReQLCursor *)run:(ReQLConnection *)conn withOpts:(NSDictionary *)opts;
@@ -38,6 +37,8 @@ limitations under the License.
 
 /**
  */
++(instancetype)
+add:(NSArray *)args;
 -(instancetype)
 add:(NSArray *)args;
 
@@ -908,6 +909,8 @@ year:(NSArray *)args;
 
 /**
  */
++(instancetype)
+zip:(NSArray *)args;
 -(instancetype)
 zip:(NSArray *)args;
 
