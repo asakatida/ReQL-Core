@@ -32,9 +32,22 @@ struct ReQL_Result_s {
   ReQL_Obj_t *object;
 };
 
+static ReQL_Result_t *
+reql_result(ReQL_Obj_t *obj) {
+  if (obj == NULL) {
+    return NULL;
+  }
+  ReQL_Result_t *res = malloc(sizeof(ReQL_Result_t));
+  if (res == NULL) {
+    return NULL;
+  }
+  res->object = obj;
+  return res;
+}
+
 extern void
 reql_cursor_close(ReQL_Cursor_t *cur) {
-  (void)cur;
+  reql_cur_close(cur->cursor);
 }
 
 extern void *
@@ -44,14 +57,16 @@ reql_cursor_data(ReQL_Cursor_t *cur) {
 
 extern void
 reql_cursor_drain(ReQL_Cursor_t *cur) {
-  (void)cur;
+  reql_cur_drain(cur->cursor);
 }
 
 extern void
 reql_cursor_each(ReQL_Cursor_t *cur, ReQL_Each cb, void *obj) {
-  (void)cur;
-  (void)cb;
-  (void)obj;
+  ReQL_Result_t *res = NULL;
+  while ((res = reql_cursor_next(cur)) != NULL) {
+    cb(res, obj);
+    reql_result_destroy(res);
+  }
 }
 
 extern void
@@ -63,13 +78,18 @@ reql_cursor_each_async(ReQL_Cursor_t *cur, ReQL_Each cb, void *obj) {
 
 extern ReQL_Result_t *
 reql_cursor_next(ReQL_Cursor_t *cur) {
-  (void)cur;
-  return NULL;
+  ReQL_Obj_t *next = reql_cur_next(cur->cursor);
+  ReQL_Result_t *res = reql_result(next);
+  if (res == NULL) {
+    reql_json_destroy(next);
+  }
+  return res;
 }
 
 extern void
 reql_result_destroy(ReQL_Result_t *result) {
-  (void)result;
+  reql_json_destroy(result->object);
+  free(result);
 }
 
 extern ReQL_Result_t *
