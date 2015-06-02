@@ -100,10 +100,24 @@ reql_result_object_get(ReQL_Result_t *result, char *key, unsigned long key_size)
   return NULL;
 }
 
-extern ReQL_Result_t *
+extern ReQL_Result_t **
 reql_result_object_keys(ReQL_Result_t *result) {
-  (void)result;
-  return NULL;
+  if (reql_datum_type(result->object) != REQL_R_OBJECT) {
+    return NULL;
+  }
+  const ReQL_Size size = reql_size(result->object) + 1;
+  ReQL_Iter_t it = reql_new_iter(result->object);
+  ReQL_Result_t **keys = malloc(sizeof(ReQL_Result_t*) * size);
+  ReQL_Size i = 0;
+  ReQL_Obj_t *next = NULL;
+  while ((next = reql_iter_next(&it)) != NULL) {
+    keys[i++] = reql_result(next);
+  }
+  for (; i < size; ++i) {
+    keys[i] = NULL;
+  }
+  keys[size] = NULL;
+  return keys;
 }
 
 extern unsigned long
@@ -112,7 +126,7 @@ reql_result_size(ReQL_Result_t *result) {
   return 0;
 }
 
-extern ReQL_Result_t *
+extern ReQL_Result_t **
 reql_result_to_array(ReQL_Result_t *result) {
   (void)result;
   return NULL;

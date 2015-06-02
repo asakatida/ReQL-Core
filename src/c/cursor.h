@@ -53,13 +53,13 @@ reql_result_destroy(ReQL_Result_t *result);
 extern ReQL_Result_t *
 reql_result_object_get(ReQL_Result_t *result, char *key, unsigned long key_size);
 
-extern ReQL_Result_t *
+extern ReQL_Result_t **
 reql_result_object_keys(ReQL_Result_t *result);
 
 extern unsigned long
 reql_result_size(ReQL_Result_t *result);
 
-extern ReQL_Result_t *
+extern ReQL_Result_t **
 reql_result_to_array(ReQL_Result_t *result);
 
 extern int
