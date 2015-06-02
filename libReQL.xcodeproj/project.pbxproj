@@ -373,47 +373,47 @@
 		1EE680201B0C39D200C97B18 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1EE6801F1B0C39D200C97B18 /* main.cpp */; };
 		8700091C1B1A8843007EA4BA /* Connection.m in Sources */ = {isa = PBXBuildFile; fileRef = 8700091B1B1A8843007EA4BA /* Connection.m */; };
 		8728ACC81B1BEE1F00588F9A /* ast.c in Sources */ = {isa = PBXBuildFile; fileRef = 8791C7D61B138A43004798D7 /* ast.c */; };
-		8728ACC91B1BEE1F00588F9A /* ast.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7D71B138A43004798D7 /* ast.h */; };
+		8728ACC91B1BEE1F00588F9A /* ast.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7D71B138A43004798D7 /* ast.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8728ACCA1B1BEE1F00588F9A /* char.c in Sources */ = {isa = PBXBuildFile; fileRef = 8791C7D81B138A43004798D7 /* char.c */; };
-		8728ACCB1B1BEE1F00588F9A /* char.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7D91B138A43004798D7 /* char.h */; };
+		8728ACCB1B1BEE1F00588F9A /* char.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7D91B138A43004798D7 /* char.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8728ACCC1B1BEE1F00588F9A /* connection.c in Sources */ = {isa = PBXBuildFile; fileRef = 8791C7DA1B138A43004798D7 /* connection.c */; };
-		8728ACCD1B1BEE1F00588F9A /* connection.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7DB1B138A43004798D7 /* connection.h */; };
-		8728ACCE1B1BEE1F00588F9A /* core.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7DC1B138A43004798D7 /* core.h */; };
+		8728ACCD1B1BEE1F00588F9A /* connection.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7DB1B138A43004798D7 /* connection.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8728ACCE1B1BEE1F00588F9A /* core.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7DC1B138A43004798D7 /* core.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8728ACCF1B1BEE1F00588F9A /* cursor.c in Sources */ = {isa = PBXBuildFile; fileRef = 8791C7DD1B138A43004798D7 /* cursor.c */; };
-		8728ACD01B1BEE1F00588F9A /* cursor.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7DE1B138A43004798D7 /* cursor.h */; };
+		8728ACD01B1BEE1F00588F9A /* cursor.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7DE1B138A43004798D7 /* cursor.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8728ACD11B1BEE1F00588F9A /* decode.c in Sources */ = {isa = PBXBuildFile; fileRef = 8791C7DF1B138A43004798D7 /* decode.c */; };
-		8728ACD21B1BEE1F00588F9A /* decode.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7E01B138A43004798D7 /* decode.h */; };
+		8728ACD21B1BEE1F00588F9A /* decode.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7E01B138A43004798D7 /* decode.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8728ACD31B1BEE1F00588F9A /* encode.c in Sources */ = {isa = PBXBuildFile; fileRef = 8791C7E11B138A43004798D7 /* encode.c */; };
-		8728ACD41B1BEE1F00588F9A /* encode.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7E21B138A43004798D7 /* encode.h */; };
+		8728ACD41B1BEE1F00588F9A /* encode.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7E21B138A43004798D7 /* encode.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8728ACD51B1BEE1F00588F9A /* error.c in Sources */ = {isa = PBXBuildFile; fileRef = 8791C7E31B138A43004798D7 /* error.c */; };
-		8728ACD61B1BEE1F00588F9A /* error.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7E41B138A43004798D7 /* error.h */; };
+		8728ACD61B1BEE1F00588F9A /* error.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7E41B138A43004798D7 /* error.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8728ACD71B1BEE1F00588F9A /* expr.c in Sources */ = {isa = PBXBuildFile; fileRef = 8791C7E51B138A43004798D7 /* expr.c */; };
-		8728ACD81B1BEE1F00588F9A /* expr.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7E61B138A43004798D7 /* expr.h */; };
-		8728ACD91B1BEE1F00588F9A /* portable_endian.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7E71B138A43004798D7 /* portable_endian.h */; };
-		8728ACDA1B1BEE1F00588F9A /* types.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7E81B138A43004798D7 /* types.h */; };
+		8728ACD81B1BEE1F00588F9A /* expr.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7E61B138A43004798D7 /* expr.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8728ACD91B1BEE1F00588F9A /* portable_endian.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7E71B138A43004798D7 /* portable_endian.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8728ACDA1B1BEE1F00588F9A /* types.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7E81B138A43004798D7 /* types.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8728ACE31B1BEEB800588F9A /* liblibReQL-core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8728ACC41B1BEE0F00588F9A /* liblibReQL-core.dylib */; };
 		8728ACEE1B1BEEE300588F9A /* liblibReQL-core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8728ACC41B1BEE0F00588F9A /* liblibReQL-core.dylib */; };
 		8728ACF11B1BEF0400588F9A /* cursor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1E0F0CBC1AEB2606001E31C2 /* cursor.cpp */; };
-		8728ACF21B1BEF0400588F9A /* cursor.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 1E0F0CBD1AEB2606001E31C2 /* cursor.hpp */; };
+		8728ACF21B1BEF0400588F9A /* cursor.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 1E0F0CBD1AEB2606001E31C2 /* cursor.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		8728ACF31B1BEF0400588F9A /* connection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1E2FA66D1ABCDE7C00134CFA /* connection.cpp */; };
-		8728ACF41B1BEF0400588F9A /* connection.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 1E2FA66E1ABCDE7C00134CFA /* connection.hpp */; };
+		8728ACF41B1BEF0400588F9A /* connection.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 1E2FA66E1ABCDE7C00134CFA /* connection.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		8728ACF51B1BEF0400588F9A /* new.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1ECDD74D1AB53D80004CD31E /* new.cpp */; };
-		8728ACF61B1BEF0400588F9A /* new.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 1ECDD74E1AB53D80004CD31E /* new.hpp */; };
+		8728ACF61B1BEF0400588F9A /* new.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 1ECDD74E1AB53D80004CD31E /* new.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		8728ACF71B1BEF0400588F9A /* parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87F3A8B41B096A9600401BCE /* parser.cpp */; };
-		8728ACF81B1BEF0400588F9A /* parser.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 87F3A8B51B096A9600401BCE /* parser.hpp */; };
+		8728ACF81B1BEF0400588F9A /* parser.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 87F3A8B51B096A9600401BCE /* parser.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		8728ACF91B1BEF0400588F9A /* query.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1E0F0CBE1AEB2606001E31C2 /* query.cpp */; };
-		8728ACFA1B1BEF0400588F9A /* query.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 1E0F0CBF1AEB2606001E31C2 /* query.hpp */; };
+		8728ACFA1B1BEF0400588F9A /* query.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 1E0F0CBF1AEB2606001E31C2 /* query.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		8728ACFB1B1BEF0400588F9A /* error.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 878CDF871AFE6196008638B8 /* error.cpp */; };
-		8728ACFC1B1BEF0400588F9A /* error.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 878CDF881AFE6196008638B8 /* error.hpp */; };
-		8728ACFD1B1BEF0400588F9A /* types.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 87F3A8B31B0942CE00401BCE /* types.hpp */; };
+		8728ACFC1B1BEF0400588F9A /* error.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 878CDF881AFE6196008638B8 /* error.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		8728ACFD1B1BEF0400588F9A /* types.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 87F3A8B31B0942CE00401BCE /* types.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		8728ACFE1B1BEF0A00588F9A /* query.c in Sources */ = {isa = PBXBuildFile; fileRef = 1ECDD7341AB53D80004CD31E /* query.c */; };
-		8728ACFF1B1BEF0A00588F9A /* query.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ECDD7351AB53D80004CD31E /* query.h */; };
+		8728ACFF1B1BEF0A00588F9A /* query.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ECDD7351AB53D80004CD31E /* query.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8728AD001B1BEF0A00588F9A /* connection.c in Sources */ = {isa = PBXBuildFile; fileRef = 1E2FA66A1ABCDBCF00134CFA /* connection.c */; };
-		8728AD011B1BEF0A00588F9A /* connection.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E2FA66B1ABCDBCF00134CFA /* connection.h */; };
+		8728AD011B1BEF0A00588F9A /* connection.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E2FA66B1ABCDBCF00134CFA /* connection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8728AD021B1BEF0A00588F9A /* cursor.c in Sources */ = {isa = PBXBuildFile; fileRef = 1ECDD7381AB53D80004CD31E /* cursor.c */; };
-		8728AD031B1BEF0A00588F9A /* cursor.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ECDD7391AB53D80004CD31E /* cursor.h */; };
+		8728AD031B1BEF0A00588F9A /* cursor.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ECDD7391AB53D80004CD31E /* cursor.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8728AD041B1BEF0A00588F9A /* error.c in Sources */ = {isa = PBXBuildFile; fileRef = 1ECDD73E1AB53D80004CD31E /* error.c */; };
-		8728AD051B1BEF0A00588F9A /* error.h in Headers */ = {isa = PBXBuildFile; fileRef = 87F3A8B21B093E8000401BCE /* error.h */; };
+		8728AD051B1BEF0A00588F9A /* error.h in Headers */ = {isa = PBXBuildFile; fileRef = 87F3A8B21B093E8000401BCE /* error.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8728AD0C1B1BEF2C00588F9A /* liblibReQL-c.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8728ACDF1B1BEEA000588F9A /* liblibReQL-c.dylib */; };
 		8728AD0D1B1BEF2C00588F9A /* liblibReQL-core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8728ACC41B1BEE0F00588F9A /* liblibReQL-core.dylib */; };
 		8728AD0E1B1BEF2C00588F9A /* liblibReQL-cpp.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8728ACEA1B1BEEDD00588F9A /* liblibReQL-cpp.dylib */; };
@@ -437,7 +437,6 @@
 		87DAA6551B13CE01005626BF /* encode.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7E21B138A43004798D7 /* encode.h */; };
 		87DAA6571B13CE01005626BF /* error.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7E41B138A43004798D7 /* error.h */; };
 		87DAA6591B13CE01005626BF /* expr.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7E61B138A43004798D7 /* expr.h */; };
-		87DAA65A1B13CE01005626BF /* portable_endian.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7E71B138A43004798D7 /* portable_endian.h */; };
 		87DAA65B1B13CE01005626BF /* types.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7E81B138A43004798D7 /* types.h */; };
 		87E6E0D71B1E042500EECE37 /* liblibReQL-core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8728ACC41B1BEE0F00588F9A /* liblibReQL-core.dylib */; };
 /* End PBXBuildFile section */
@@ -1832,7 +1831,6 @@
 				87DAA64C1B13CE01005626BF /* char.h in Headers */,
 				87DAA64F1B13CE01005626BF /* core.h in Headers */,
 				87DAA6551B13CE01005626BF /* encode.h in Headers */,
-				87DAA65A1B13CE01005626BF /* portable_endian.h in Headers */,
 				87DAA6471B13CBBE005626BF /* Query.h in Headers */,
 				87DAA6511B13CE01005626BF /* cursor.h in Headers */,
 				87DAA6571B13CE01005626BF /* error.h in Headers */,
