@@ -428,25 +428,18 @@
 		87DAA6441B13CB96005626BF /* Cursor.m in Sources */ = {isa = PBXBuildFile; fileRef = 87DAA6421B13CB96005626BF /* Cursor.m */; };
 		87DAA6471B13CBBE005626BF /* Query.h in Headers */ = {isa = PBXBuildFile; fileRef = 87DAA6451B13CBBE005626BF /* Query.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		87DAA6481B13CBBE005626BF /* Query.m in Sources */ = {isa = PBXBuildFile; fileRef = 87DAA6461B13CBBE005626BF /* Query.m */; };
-		87DAA6491B13CE01005626BF /* ast.c in Sources */ = {isa = PBXBuildFile; fileRef = 8791C7D61B138A43004798D7 /* ast.c */; };
 		87DAA64A1B13CE01005626BF /* ast.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7D71B138A43004798D7 /* ast.h */; };
-		87DAA64B1B13CE01005626BF /* char.c in Sources */ = {isa = PBXBuildFile; fileRef = 8791C7D81B138A43004798D7 /* char.c */; };
 		87DAA64C1B13CE01005626BF /* char.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7D91B138A43004798D7 /* char.h */; };
-		87DAA64D1B13CE01005626BF /* connection.c in Sources */ = {isa = PBXBuildFile; fileRef = 8791C7DA1B138A43004798D7 /* connection.c */; };
 		87DAA64E1B13CE01005626BF /* connection.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7DB1B138A43004798D7 /* connection.h */; };
 		87DAA64F1B13CE01005626BF /* core.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7DC1B138A43004798D7 /* core.h */; };
-		87DAA6501B13CE01005626BF /* cursor.c in Sources */ = {isa = PBXBuildFile; fileRef = 8791C7DD1B138A43004798D7 /* cursor.c */; };
 		87DAA6511B13CE01005626BF /* cursor.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7DE1B138A43004798D7 /* cursor.h */; };
-		87DAA6521B13CE01005626BF /* decode.c in Sources */ = {isa = PBXBuildFile; fileRef = 8791C7DF1B138A43004798D7 /* decode.c */; };
 		87DAA6531B13CE01005626BF /* decode.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7E01B138A43004798D7 /* decode.h */; };
-		87DAA6541B13CE01005626BF /* encode.c in Sources */ = {isa = PBXBuildFile; fileRef = 8791C7E11B138A43004798D7 /* encode.c */; };
 		87DAA6551B13CE01005626BF /* encode.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7E21B138A43004798D7 /* encode.h */; };
-		87DAA6561B13CE01005626BF /* error.c in Sources */ = {isa = PBXBuildFile; fileRef = 8791C7E31B138A43004798D7 /* error.c */; };
 		87DAA6571B13CE01005626BF /* error.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7E41B138A43004798D7 /* error.h */; };
-		87DAA6581B13CE01005626BF /* expr.c in Sources */ = {isa = PBXBuildFile; fileRef = 8791C7E51B138A43004798D7 /* expr.c */; };
 		87DAA6591B13CE01005626BF /* expr.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7E61B138A43004798D7 /* expr.h */; };
 		87DAA65A1B13CE01005626BF /* portable_endian.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7E71B138A43004798D7 /* portable_endian.h */; };
 		87DAA65B1B13CE01005626BF /* types.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7E81B138A43004798D7 /* types.h */; };
+		87E6E0D71B1E042500EECE37 /* liblibReQL-core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8728ACC41B1BEE0F00588F9A /* liblibReQL-core.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -961,6 +954,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				87E6E0D71B1E042500EECE37 /* liblibReQL-core.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2441,16 +2435,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				87DAA6481B13CBBE005626BF /* Query.m in Sources */,
-				87DAA6491B13CE01005626BF /* ast.c in Sources */,
-				87DAA6541B13CE01005626BF /* encode.c in Sources */,
-				87DAA64D1B13CE01005626BF /* connection.c in Sources */,
-				87DAA6521B13CE01005626BF /* decode.c in Sources */,
-				87DAA6561B13CE01005626BF /* error.c in Sources */,
-				87DAA64B1B13CE01005626BF /* char.c in Sources */,
 				87DAA63C1B13CB69005626BF /* Connection.m in Sources */,
 				87DAA6441B13CB96005626BF /* Cursor.m in Sources */,
-				87DAA6581B13CE01005626BF /* expr.c in Sources */,
-				87DAA6501B13CE01005626BF /* cursor.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
