@@ -224,12 +224,14 @@ enum ReQL_Term_e {
 };
 typedef enum ReQL_Term_e ReQL_Term_t;
 
+typedef struct ReQL_Obj_s ReQL_Obj_t;
+
 /**
  * @brief A single key and associated value for objects.
  */
 struct ReQL_Pair_s {
-  struct ReQL_Obj_s *key;
-  struct ReQL_Obj_s *val;
+  ReQL_Obj_t *key;
+  ReQL_Obj_t *val;
 };
 typedef struct ReQL_Pair_s ReQL_Pair_t;
 
@@ -240,7 +242,7 @@ typedef struct ReQL_Pair_s ReQL_Pair_t;
  */
 struct ReQL_Iter_s {
   ReQL_Size idx;
-  const struct ReQL_Obj_s *obj;
+  const ReQL_Obj_t *obj;
 };
 typedef struct ReQL_Iter_s ReQL_Iter_t;
 
@@ -258,7 +260,7 @@ struct ReQL_Obj_s {
           ReQL_Size alloc_size;
           union {
             ReQL_Byte *str;
-            struct ReQL_Obj_s **array;
+            ReQL_Obj_t **array;
             ReQL_Pair_t *pair;
           } data;
         } var;
@@ -267,13 +269,12 @@ struct ReQL_Obj_s {
       } json;
     } datum;
     struct {
-      struct ReQL_Obj_s *args;
-      struct ReQL_Obj_s *kwargs;
+      ReQL_Obj_t *args;
+      ReQL_Obj_t *kwargs;
     } args;
   } obj;
-  struct ReQL_Obj_s *owner;
+  ReQL_Obj_t *owner;
 };
-typedef struct ReQL_Obj_s ReQL_Obj_t;
 
 /**
  * @brief get raw JSON datum type.
