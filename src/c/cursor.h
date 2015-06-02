@@ -25,9 +25,26 @@ limitations under the License.
 extern "C" {
 #endif
 
+typedef enum {
+  ReQL_Error,
+  ReQL_Start_Object,
+  ReQL_Start_Key_Value,
+  ReQL_End_Key_Value,
+  ReQL_End_Object,
+  ReQL_Start_Array,
+  ReQL_Start_Element,
+  ReQL_End_Element,
+  ReQL_End_Array,
+  ReQL_Null,
+  ReQL_Bool,
+  ReQL_Number,
+  ReQL_String
+} ReQL_Parse_Event;
+
 typedef struct ReQL_Cursor_s ReQL_Cursor_t;
 typedef struct ReQL_Result_s ReQL_Result_t;
 typedef int(*ReQL_Each)(ReQL_Result_t *result, void *obj);
+typedef int(*ReQL_Parse)(ReQL_Result_t *result, ReQL_Parse_Event e, void *obj);
 
 extern void
 reql_cursor_close(ReQL_Cursor_t *cur);
@@ -44,17 +61,14 @@ reql_cursor_each(ReQL_Cursor_t *cur, ReQL_Each cb, void *obj);
 extern void
 reql_cursor_each_async(ReQL_Cursor_t *cur, ReQL_Each cb, void *obj);
 
-extern ReQL_Result_t *
-reql_cursor_next(ReQL_Cursor_t *cur);
-
 extern void
-reql_result_destroy(ReQL_Result_t *result);
+reql_result_parse(ReQL_Result_t *result, ReQL_Parse cb, void *obj);
 
 extern ReQL_Result_t *
-reql_result_object_get(ReQL_Result_t *result, char *key, unsigned long key_size);
+reql_result_get(ReQL_Result_t *result, char *key, unsigned long key_size);
 
 extern ReQL_Result_t **
-reql_result_object_keys(ReQL_Result_t *result);
+reql_result_keys(ReQL_Result_t *result);
 
 extern unsigned long
 reql_result_size(ReQL_Result_t *result);
