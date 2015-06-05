@@ -45,23 +45,26 @@ public:
   Query &operator=(const Query &other);
   Query &operator=(Query &&other);
 
-  _C::ReQL_Obj_t *build();
-
   void no_reply(const Connection &conn) const;
   void no_reply(const Connection &conn, const Types::object &kwargs) const;
   Cursor run(const Connection &conn) const;
   Cursor run(const Connection &conn, const Types::object &kwargs) const;
 
+protected:
+  _C::ReQL_Obj_t *build();
+
 private:
-  static _C::ReQL_Obj_t *buildArray();
-  static _C::ReQL_Obj_t *buildBool();
-  static _C::ReQL_Obj_t *buildNumber();
-  static _C::ReQL_Obj_t *buildNull();
-  static _C::ReQL_Obj_t *buildObject();
-  static _C::ReQL_Obj_t *buildString();
-  static _C::ReQL_Obj_t *buildTerm();
-  static _C::ReQL_Obj_t *buildTermKwargs();
-  typedef _C::ReQL_Obj_t *(*QueryBuilder)();
+  friend _C::ReQL_Obj_t *buildArray(const Query &query);
+  friend _C::ReQL_Obj_t *buildBool(const Query &query);
+  friend _C::ReQL_Obj_t *buildNumber(const Query &query);
+  friend _C::ReQL_Obj_t *buildNull(const Query &query) ;
+  friend _C::ReQL_Obj_t *buildObject(const Query &query);
+  friend _C::ReQL_Obj_t *buildString(const Query &query);
+  friend _C::ReQL_Obj_t *buildTerm(const Query &query);
+  friend _C::ReQL_Obj_t *buildTermKwargs(const Query &query);
+
+  typedef _C::ReQL_Obj_t *(*QueryBuilder)(const Query &query);
+
   Types::array p_array;
   bool p_bool;
   QueryBuilder p_build;

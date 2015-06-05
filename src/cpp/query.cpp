@@ -26,6 +26,105 @@ limitations under the License.
 
 namespace ReQL {
 
+_C::ReQL_Obj_t *
+buildArray(const Query &query) {
+  if (query.p_array.size() > std::numeric_limits<_C::ReQL_Size>::max()) {
+    throw ReQLDriverError();
+  }
+
+  const _C::ReQL_Size size = static_cast<_C::ReQL_Size>(query.p_array.size());
+
+  _C::ReQL_Obj_t *obj = new _C::ReQL_Obj_t;
+  _C::ReQL_Obj_t **buf = nullptr;
+
+  if (size > 0) {
+    buf = new _C::ReQL_Obj_t*[size];
+  }
+
+  reql_array_init(obj, buf, size);
+  for (auto it=query.p_array.cbegin(); it != query.p_array.cend(); ++it) {
+    reql_array_append(obj, it->p_build(*it));
+  }
+  return obj;
+}
+
+_C::ReQL_Obj_t *
+buildBool(const Query &query) {
+  _C::ReQL_Obj_t *obj = new _C::ReQL_Obj_t;
+  reql_bool_init(obj, query.p_bool);
+  return obj;
+}
+
+_C::ReQL_Obj_t *
+buildNumber(const Query &query) {
+  _C::ReQL_Obj_t *obj = new _C::ReQL_Obj_t;
+  reql_number_init(obj, query.p_number);
+  return obj;
+}
+
+_C::ReQL_Obj_t *
+buildNull(const Query &query) {
+  _C::ReQL_Obj_t *obj = new _C::ReQL_Obj_t;
+  reql_null_init(obj);
+  return obj;
+}
+
+_C::ReQL_Obj_t *
+buildObject(const Query &query) {
+  if (query.p_object.size() > std::numeric_limits<_C::ReQL_Size>::max()) {
+    throw ReQLDriverError();
+  }
+
+  const _C::ReQL_Size size = static_cast<_C::ReQL_Size>(query.p_object.size());
+
+  _C::ReQL_Obj_t *obj = new _C::ReQL_Obj_t;
+  _C::ReQL_Pair_t *buf = nullptr;
+
+  if (size > 0) {
+    buf = new _C::ReQL_Pair_t[size];
+  }
+
+  reql_object_init(obj, buf, size);
+  for (auto it=query.p_object.cbegin(); it != query.p_object.cend(); ++it) {
+    reql_object_add(obj, Query(it->first).build(), it->second.p_build(it->second));
+  }
+  return obj;
+}
+
+_C::ReQL_Obj_t *
+buildString(const Query &query) {
+  if (query.p_string.size() > std::numeric_limits<_C::ReQL_Size>::max()) {
+    throw ReQLDriverError();
+  }
+
+  const _C::ReQL_Size size = static_cast<_C::ReQL_Size>(query.p_string.size());
+
+  _C::ReQL_Obj_t *obj = new _C::ReQL_Obj_t;
+  _C::ReQL_Byte *buf = nullptr;
+
+  if (size > 0) {
+    buf = new _C::ReQL_Byte[size];
+  }
+
+  reql_string_init(obj, buf, size);
+  reql_string_append(obj, reinterpret_cast<_C::ReQL_Byte*>(const_cast<char*>(query.p_string.c_str())), size);
+  return obj;
+}
+
+_C::ReQL_Obj_t *
+buildTerm(const Query &query) {
+  _C::ReQL_Obj_t *obj = new _C::ReQL_Obj_t;
+  query.p_func(obj, buildArray(query));
+  return obj;
+}
+
+_C::ReQL_Obj_t *
+buildTermKwargs(const Query &query) {
+  _C::ReQL_Obj_t *obj = new _C::ReQL_Obj_t;
+  query.p_func_kwargs(obj, buildArray(query), buildObject(query));
+  return obj;
+}
+
 static Query
 init(const _C::ReQL_AST_Function &f, const Types::array &args) {
   return Query(f, args);
@@ -88,7 +187,7 @@ Cursor
 Query::run(const Connection &conn) const {
   Cursor cur;
 
-  reql_run(cur.get(), p_build(), conn.get(), nullptr);
+  reql_run(cur.get(), p_build(*this), conn.get(), nullptr);
 
   return cur;
 }

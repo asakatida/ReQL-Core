@@ -72,11 +72,6 @@ ReQL::ReQL(const Types::array &array) : ReQL(int(0)) {
   }
 
   reql_array_init(get(), p_array.get(), size);
-  for (auto it=array.cbegin(); it != array.cend(); ++it) {
-    ReQL elem = it->_internal();
-    p_r_array.push_back(elem);
-    reql_array_append(get(), elem.get());
-  }
 }
 
 ReQL::ReQL(const Types::object &object) : ReQL(int(0)) {
@@ -91,20 +86,11 @@ ReQL::ReQL(const Types::object &object) : ReQL(int(0)) {
   }
 
   reql_object_init(get(), p_object.get(), static_cast<_C::ReQL_Size>(size));
-  for (auto it=object.cbegin(); it != object.cend(); ++it) {
-    ReQL key(it->first);
-    ReQL val = it->second._internal();
-    p_r_object.insert({key, val});
-    reql_object_add(get(), key.get(), val.get());
-  }
 }
 
 ReQL::ReQL(_C::ReQL_Obj_t *val) : _C::CTypes::object(val), p_tt(_C::reql_term_type(val)) {}
 
 ReQL::ReQL(const _C::ReQL_AST_Function &f, const Types::array &args) : _C::CTypes::object(new _C::ReQL_Obj_t), p_args(new ReQL(args)) {
-  f(get(), p_args.get()->get());
-
-  p_tt = _C::reql_term_type(get());
 }
 
 ReQL::ReQL(const _C::ReQL_AST_Function_Kwargs &f, const Types::array &args, const Types::object &kwargs) : _C::CTypes::object(new _C::ReQL_Obj_t), p_args(new ReQL(args)), p_kwargs(new ReQL(kwargs)) {
