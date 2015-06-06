@@ -64,6 +64,7 @@ buildNumber(const Query &query) {
 
 _C::ReQL_Obj_t *
 buildNull(const Query &query) {
+  (void)query;
   _C::ReQL_Obj_t *obj = new _C::ReQL_Obj_t;
   reql_null_init(obj);
   return obj;
@@ -163,21 +164,23 @@ init(const _C::ReQL_AST_Function_Kwargs &f, const Query *term, const Types::arra
 
 Query::Query() : p_build(buildNull) {}
 
-Query::Query(const _C::ReQL_AST_Function_Kwargs &f, const Types::array &args, const Types::object &kwargs) : p_func_kwargs(f), p_array(args), p_object(kwargs), p_build(buildTermKwargs) {}
+Query::Query(const _C::ReQL_AST_Function_Kwargs &f, const Types::array &args, const Types::object &kwargs) : p_array(args), p_build(buildTermKwargs), p_func_kwargs(f), p_object(kwargs) {}
 
-Query::Query(const _C::ReQL_AST_Function &f, const Types::array &args) : p_func(f), p_array(args), p_build(buildTerm) {}
+Query::Query(const _C::ReQL_AST_Function &f, const Types::array &args) : p_array(args), p_build(buildTerm), p_func(f) {}
 
-Query::Query(const Types::string &val) : p_string(val), p_build(buildString) {}
+Query::Query(const Types::string &val) : p_build(buildString), p_string(val) {}
 
-Query::Query(const double &val) : p_number(val), p_build(buildNumber) {}
+Query::Query(const double &val) : p_build(buildNumber), p_number(val) {}
 
 Query::Query(const bool &val) : p_bool(val), p_build(buildBool) {}
 
 Query::Query(const Types::array &val) : p_array(val), p_build(buildArray) {}
 
-Query::Query(const Types::object &val) : p_object(val), p_build(buildObject) {}
+Query::Query(const Types::object &val) : p_build(buildObject), p_object(val) {}
 
-Query::Query(_C::ReQL_Obj_t *val) {}
+Query::Query(_C::ReQL_Obj_t *val) {
+  (void)val;
+}
 
 Query::Query(const Query &other) : p_array(other.p_array), p_bool(other.p_bool), p_build(other.p_build), p_func(other.p_func), p_func_kwargs(other.p_func_kwargs), p_number(other.p_number), p_object(other.p_object), p_string(other.p_string) {}
 

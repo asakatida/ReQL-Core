@@ -28,7 +28,6 @@ namespace ReQL {
 class Parser {
 public:
   virtual ~Parser();
-  void parse(Query &val);
 
   virtual void startObject() = 0;
   virtual void startKeyValue() = 0;
@@ -45,10 +44,7 @@ public:
   virtual void addValue(double value) = 0;
   virtual void addValue(Types::string value) = 0;
 
-  void parse_c(_C::ReQL_Obj_t *val);
-
-private:
-  Types::string to_string(_C::ReQL_Obj_t *value);
+  void parse(_C::ReQL_Obj_t *val);
 };
 
 }  // namespace ReQL

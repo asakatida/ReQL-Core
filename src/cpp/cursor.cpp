@@ -134,19 +134,22 @@ bool Cursor::isOpen() const {
 
 Query
 Cursor::next() {
-  _C::ReQL_Obj_t *res = reql_cur_next(get());
-  if (res == nullptr) {
+  _C::ReQL_Obj_t *r_res = reql_cur_next(get());
+  if (r_res == nullptr) {
     throw ReQLDriverError();
   }
-  return Query(res);
+  Query res(r_res);
+  _C::reql_json_destroy(r_res);
+  return res;
 }
 
 void
 Cursor::next(Parser &p) {
   _C::ReQL_Obj_t *res = reql_cur_next(get());
   if (res != nullptr) {
-    p.parse_c(res);
+    p.parse(res);
   }
+  _C::reql_json_destroy(res);
 }
 
 void

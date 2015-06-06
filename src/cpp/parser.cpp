@@ -25,15 +25,18 @@ limitations under the License.
 
 namespace ReQL {
 
+Types::string
+to_string(_C::ReQL_Obj_t *value);
+
+Types::string
+to_string(_C::ReQL_Obj_t *value) {
+  return Types::string(reinterpret_cast<char*>(reql_string_buf(value)), reql_size(value));
+}
+
 Parser::~Parser() {}
 
 void
-Parser::parse(Query &val) {
-  parse_c(val.build());
-}
-
-void
-Parser::parse_c(_C::ReQL_Obj_t *val) {
+Parser::parse(_C::ReQL_Obj_t *val) {
   switch (reql_datum_type(val)) {
     case _C::REQL_R_ARRAY: {
       startArray();
@@ -43,7 +46,7 @@ Parser::parse_c(_C::ReQL_Obj_t *val) {
 
       while ((elem = reql_iter_next(&it)) != nullptr) {
         startElement();
-        parse_c(elem);
+        parse(elem);
         endElement();
       }
 
@@ -74,7 +77,7 @@ Parser::parse_c(_C::ReQL_Obj_t *val) {
       while ((key = reql_iter_next(&it)) != nullptr) {
         startKeyValue();
         value = reql_object_get(val, key);
-        parse_c(value);
+        parse(value);
         endKeyValue(to_string(key));
       }
 
@@ -86,12 +89,6 @@ Parser::parse_c(_C::ReQL_Obj_t *val) {
       break;
     }
   }
-  _C::reql_json_destroy(val);
-}
-
-Types::string
-Parser::to_string(_C::ReQL_Obj_t *value) {
-  return Types::string(reinterpret_cast<char*>(reql_string_buf(value)), reql_size(value));
 }
 
 }  // namespace ReQL

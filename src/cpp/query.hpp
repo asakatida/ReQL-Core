@@ -23,7 +23,7 @@ limitations under the License.
 
 #include "./cpp/connection.hpp"
 #include "./cpp/cursor.hpp"
-#include "./cpp/new.hpp"
+#include "./cpp/types.hpp"
 
 namespace ReQL {
 
