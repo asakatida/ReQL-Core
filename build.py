@@ -823,7 +823,7 @@ extern void
     ', ReQL_Obj_t *k' if has_opts(name) else '')
 
 def enum_def(name):
-    return "REQL_{} = {}".format(name, getattr(ql2_pb2.Term.TermType, name, None))
+    return "REQL_{} = {}".format(name, getattr(ql2_pb2.Term.TermType, name))
 
 def lua_lib(name):
     return "{{\"{}\", {}}},".format(mangle_lua_const(name), ast_name('lua', name))
