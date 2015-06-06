@@ -50,7 +50,6 @@ struct ReQL_Conn_s {
 
   struct {
     pthread_mutex_t *mutex;
-    pthread_cond_t *done;
   } condition;
 };
 typedef struct ReQL_Conn_s ReQL_Conn_t;
@@ -157,7 +156,7 @@ reql_conn_close(ReQL_Conn_t *conn);
  * @param conn connection object.
  */
 extern void
-reql_conn_ensure_close(ReQL_Conn_t *conn);
+reql_conn_destroy(ReQL_Conn_t *conn);
 
 /**
  * @brief Check if a connection object is connected.
