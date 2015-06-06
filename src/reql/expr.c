@@ -27,6 +27,22 @@ limitations under the License.
 #include <stdlib.h>
 #include <string.h>
 
+static void
+reql_json_lock(ReQL_Obj_t *obj) {
+  pthread_mutex_lock(obj->condition.mutex);
+}
+
+static void
+reql_json_unlock(ReQL_Obj_t *obj) {
+  if (obj == NULL) {
+    return;
+  }
+  if (obj->condition.mutex == NULL) {
+    return;
+  }
+  pthread_mutex_unlock(obj->condition.mutex);
+}
+
 extern ReQL_Term_t
 reql_term_type(const ReQL_Obj_t *obj) {
   if (obj == NULL) {
@@ -129,6 +145,18 @@ reql_term_init(ReQL_Obj_t *obj, const ReQL_Term_t tt, ReQL_Obj_t *args, ReQL_Obj
     return;
   }
   memset(obj, (int)NULL, sizeof(ReQL_Obj_t));
+  pthread_mutexattr_t *attrs = malloc(sizeof(pthread_mutexattr_t));
+  if (attrs == NULL) {
+    return;
+  }
+  pthread_mutexattr_init(attrs);
+  pthread_mutexattr_settype(attrs, PTHREAD_MUTEX_ERRORCHECK);
+  pthread_mutex_t *mutex = malloc(sizeof(pthread_mutex_t));
+  pthread_mutex_init(mutex, attrs);
+  obj->condition.mutex = mutex;
+  reql_json_lock(obj);
+  pthread_mutexattr_destroy(attrs);
+  free(attrs); attrs = NULL;
   obj->tt = tt;
   obj->obj.args.args = NULL;
   if (args != NULL) {
@@ -149,6 +177,7 @@ reql_term_init(ReQL_Obj_t *obj, const ReQL_Term_t tt, ReQL_Obj_t *args, ReQL_Obj
     }
   }
   obj->owner = NULL;
+  reql_json_unlock(obj);
 }
 
 static void
@@ -864,6 +893,9 @@ reql_json_destroy(ReQL_Obj_t *json) {
       break;
     }
   }
+
+  pthread_mutex_destroy(json->condition.mutex);
+  free(json->condition.mutex); json->condition.mutex = NULL;
 
   free(json);
 }

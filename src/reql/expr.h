@@ -27,6 +27,8 @@ extern "C" {
 
 #include "./reql/types.h"
 
+#include <pthread.h>
+
 /**
  * @brief JSON types.
  */
@@ -274,6 +276,9 @@ struct ReQL_Obj_s {
     } args;
   } obj;
   ReQL_Obj_t *owner;
+  struct {
+    pthread_mutex_t *mutex;
+  } condition;
 };
 
 /**
