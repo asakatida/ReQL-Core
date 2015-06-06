@@ -47,7 +47,7 @@ typedef enum ReQL_Response_e ReQL_Response_t;
 
 struct ReQL_Cur_s {
   struct {
-    pthread_mutex_t mutex;
+    pthread_mutex_t *mutex;
   } condition;
   ReQL_Token token;
   struct ReQL_Conn_s *conn;

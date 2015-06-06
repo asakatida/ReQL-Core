@@ -29,8 +29,18 @@ static void
 reql_cur_close_(ReQL_Cur_t *cur);
 
 static void
+reql_cur_error(const char *msg, const char *trace) {
+  reql_error_init(REQL_E_CURSOR, msg, trace);
+}
+
+static void
+reql_cur_memory_error(const char *trace) {
+  reql_cur_error("Insufficient memory", trace);
+}
+
+static void
 reql_cur_lock(ReQL_Cur_t *cur) {
-  pthread_mutex_lock(&cur->condition.mutex);
+  pthread_mutex_lock(cur->condition.mutex);
 }
 
 static void
@@ -38,7 +48,7 @@ reql_cur_unlock(ReQL_Cur_t *cur) {
   if (cur == NULL) {
     return;
   }
-  pthread_mutex_unlock(&cur->condition.mutex);
+  pthread_mutex_unlock(cur->condition.mutex);
 }
 
 static ReQL_Conn_t *
@@ -148,8 +158,28 @@ reql_cur_open(ReQL_Cur_t *cur) {
 
 extern void
 reql_cur_init(ReQL_Cur_t *cur, ReQL_Conn_t *conn, ReQL_Token token) {
+  pthread_mutexattr_t *attrs = malloc(sizeof(pthread_mutexattr_t));
+  if (attrs == NULL) {
+    reql_cur_memory_error(__func__);
+    return;
+  }
+  pthread_mutexattr_init(attrs);
+  pthread_mutexattr_settype(attrs, PTHREAD_MUTEX_ERRORCHECK);
+  pthread_mutex_t *mutex = malloc(sizeof(pthread_mutex_t));
+  if (mutex == NULL) {
+    pthread_mutexattr_destroy(attrs);
+    free(attrs); attrs = NULL;
+    reql_cur_memory_error(__func__);
+    return;
+  }
+  pthread_mutex_init(mutex, attrs);
+  pthread_mutexattr_destroy(attrs);
+  free(attrs); attrs = NULL;
+
   memset(cur, (int)NULL, sizeof(ReQL_Cur_t));
-//  cur->condition.mutex = PTHREAD_MUTEX_INITIALIZER;
+
+  cur->condition.mutex = mutex;
+  
   reql_cur_lock(cur);
   cur->next = conn->cursors == NULL ? cur : conn->cursors;
   cur->next->prev = cur;
@@ -187,7 +217,7 @@ reql_cur_next(ReQL_Cur_t *cur) {
   };
   int success = 0;
   while (res == NULL && success == 0 && reql_cur_open_(cur)) {
-    success = pthread_cond_wait(&done, &cur->condition.mutex);
+    success = pthread_cond_wait(&done, cur->condition.mutex);
   }
   cur->cb.each = NULL;
   reql_cur_unlock(cur);
@@ -219,7 +249,7 @@ reql_cur_drain(ReQL_Cur_t *cur) {
   };
   int success = 0;
   while (success == 0 && reql_cur_open_(cur)) {
-    success = pthread_cond_wait(&done, &cur->condition.mutex);
+    success = pthread_cond_wait(&done, cur->condition.mutex);
   }
   cur->cb.end = NULL;
   reql_cur_unlock(cur);
