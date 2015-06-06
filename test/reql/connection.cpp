@@ -25,7 +25,7 @@ TEST_CASE("c connection", "[c][connection]") {
 
     reql_conn_set_auth(c.get(), 4, key);
 
-    REQUIRE(reql_conn_auth_key(c.get()) == key);
+    REQUIRE(std::strncmp(reql_conn_auth_key(c.get()), "test", 4) == 0);
     REQUIRE(reql_conn_auth_size(c.get()) == 4);
   }
 
