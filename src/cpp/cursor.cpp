@@ -118,7 +118,6 @@ Cursor::Cursor(Cursor &&other) : _C::CTypes::cursor(std::move(other)) {}
 Cursor &
 Cursor::operator=(Cursor &&other) {
   if (this != &other) {
-    close();
     _C::CTypes::cursor::operator=(std::move(other));
   }
   return *this;
