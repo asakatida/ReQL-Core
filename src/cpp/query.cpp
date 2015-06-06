@@ -43,7 +43,7 @@ buildArray(const Query &query) {
 
   reql_array_init(obj, buf, size);
   for (auto it=query.p_array.cbegin(); it != query.p_array.cend(); ++it) {
-    reql_array_append(obj, it->p_build(*it));
+    reql_array_append(obj, it->build());
   }
   return obj;
 }
@@ -86,7 +86,7 @@ buildObject(const Query &query) {
 
   reql_object_init(obj, buf, size);
   for (auto it=query.p_object.cbegin(); it != query.p_object.cend(); ++it) {
-    reql_object_add(obj, Query(it->first).build(), it->second.p_build(it->second));
+    reql_object_add(obj, Query(it->first).build(), it->second.build());
   }
   return obj;
 }
@@ -187,7 +187,7 @@ Cursor
 Query::run(const Connection &conn) const {
   Cursor cur;
 
-  reql_run(cur.get(), p_build(*this), conn.get(), nullptr);
+  reql_run(cur.get(), build(), conn.get(), nullptr);
 
   return cur;
 }
@@ -220,6 +220,11 @@ Query::operator=(Query &&other) {
     p_string = std::move(other.p_string);
   }
   return *this;
+}
+
+_C::ReQL_Obj_t *
+Query::build() const {
+  return p_build(*this);
 }
 
 Query

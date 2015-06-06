@@ -50,10 +50,9 @@ public:
   Cursor run(const Connection &conn) const;
   Cursor run(const Connection &conn, const Types::object &kwargs) const;
 
-protected:
-  _C::ReQL_Obj_t *build();
-
 private:
+  _C::ReQL_Obj_t *build() const;
+
   friend _C::ReQL_Obj_t *buildArray(const Query &query);
   friend _C::ReQL_Obj_t *buildBool(const Query &query);
   friend _C::ReQL_Obj_t *buildNumber(const Query &query);
