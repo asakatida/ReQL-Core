@@ -67,32 +67,23 @@ TEST_CASE("cpp Tests of conversion to and from the RQL number type", "[cpp][ast]
   }
 
   SECTION("test10") {
+    double num0(123.45678901234568);
+    Query var0(num0);
+  }
+
+  SECTION("test11") {
     std::string src0("NUMBER", 6);
     Query var0(src0);
   }
 
-  SECTION("test11") {
+  SECTION("test12") {
     std::string src0("1", 1);
     Query var0(src0);
   }
 
-  SECTION("test12") {
+  SECTION("test13") {
     double num0(1);
     Query var0(num0);
-  }
-
-  SECTION("test13") {
-    Types::object map0;
-
-    std::string src1("func", 4);
-    Query var1(src1);
-
-    std::string src2("int_cmp", 7);
-    Query var2(src2);
-
-    map0.insert({src1, var2});
-
-    Query var0(map0);
   }
 
   SECTION("test14") {
@@ -110,6 +101,20 @@ TEST_CASE("cpp Tests of conversion to and from the RQL number type", "[cpp][ast]
   }
 
   SECTION("test15") {
+    Types::object map0;
+
+    std::string src1("func", 4);
+    Query var1(src1);
+
+    std::string src2("int_cmp", 7);
+    Query var2(src2);
+
+    map0.insert({src1, var2});
+
+    Query var0(map0);
+  }
+
+  SECTION("test16") {
     Types::object map0;
 
     std::string src1("func", 4);

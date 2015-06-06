@@ -64,10 +64,10 @@ TEST_CASE("reql Tests conversion to and from the RQL array type", "[reql][ast]")
 
   SECTION("test4") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf0(new uint8_t[6]);
-    const uint8_t src0[] = "[1, 2]";
-    reql_string_init(var0.get(), buf0.get(), 6);
-    reql_string_append(var0.get(), src0, 6);
+    std::unique_ptr<uint8_t[]> buf0(new uint8_t[5]);
+    const uint8_t src0[] = "[1,2]";
+    reql_string_init(var0.get(), buf0.get(), 5);
+    reql_string_append(var0.get(), src0, 5);
   }
 
   SECTION("test5") {

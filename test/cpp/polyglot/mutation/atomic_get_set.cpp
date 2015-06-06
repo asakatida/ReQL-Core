@@ -72,6 +72,28 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
     std::string src1("changes", 7);
     Query var1(src1);
 
+    Types::array arr2;
+    Query var2(arr2);
+
+    map0.insert({src1, var2});
+
+    std::string src3("first_error", 11);
+    Query var3(src3);
+
+    std::string src4("Duplicate primary key `id`:\n{\n\t\"id\":\t0\n}\n{\n\t\"id\":\t0\n}", 67);
+    Query var4(src4);
+
+    map0.insert({src3, var4});
+
+    Query var0(map0);
+  }
+
+  SECTION("test3") {
+    Types::object map0;
+
+    std::string src1("changes", 7);
+    Query var1(src1);
+
     Types::array arr2(1);
 
     Types::object map3;
@@ -129,7 +151,7 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
     Query var0(map0);
   }
 
-  SECTION("test3") {
+  SECTION("test4") {
     Types::object map0;
 
     std::string src1("changes", 7);
@@ -222,128 +244,24 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
     Query var0(map0);
   }
 
-  SECTION("test4") {
-    Types::object map0;
-
-    std::string src1("changes", 7);
-    Query var1(src1);
-
-    Types::array arr2(1);
-
-    Types::object map3;
-
-    std::string src4("new_val", 7);
-    Query var4(src4);
-
-    Types::object map5;
-
-    std::string src6("id", 2);
-    Query var6(src6);
-
-    double num7(0);
-    Query var7(num7);
-
-    map5.insert({src6, var7});
-
-    Query var5(map5);
-
-    map3.insert({src4, var5});
-
-    std::string src8("old_val", 7);
-    Query var8(src8);
-
-    Types::object map9;
-
-    std::string src10("id", 2);
-    Query var10(src10);
-
-    double num11(0);
-    Query var11(num11);
-
-    map9.insert({src10, var11});
-
-    Query var9(map9);
-
-    map3.insert({src8, var9});
-
-    Query var3(map3);
-
-    arr2.insert(arr2.end(), var3);
-
-    Query var2(arr2);
-
-    map0.insert({src1, var2});
-
-    std::string src12("first_error", 11);
-    Query var12(src12);
-
-    std::string src13("Duplicate primary key `id`:\n{\n\t\"id\":\t0\n}\n{\n\t\"id\":\t0\n}", 67);
-    Query var13(src13);
-
-    map0.insert({src12, var13});
-
-    Query var0(map0);
-  }
-
   SECTION("test5") {
     Types::object map0;
 
     std::string src1("changes", 7);
     Query var1(src1);
 
-    Types::array arr2(1);
-
-    Types::object map3;
-
-    std::string src4("new_val", 7);
-    Query var4(src4);
-
-    Types::object map5;
-
-    std::string src6("id", 2);
-    Query var6(src6);
-
-    double num7(0);
-    Query var7(num7);
-
-    map5.insert({src6, var7});
-
-    std::string src8("x", 1);
-    Query var8(src8);
-
-    double num9(1);
-    Query var9(num9);
-
-    map5.insert({src8, var9});
-
-    Query var5(map5);
-
-    map3.insert({src4, var5});
-
-    std::string src10("old_val", 7);
-    Query var10(src10);
-
-    Types::object map11;
-
-    std::string src12("id", 2);
-    Query var12(src12);
-
-    double num13(0);
-    Query var13(num13);
-
-    map11.insert({src12, var13});
-
-    Query var11(map11);
-
-    map3.insert({src10, var11});
-
-    Query var3(map3);
-
-    arr2.insert(arr2.end(), var3);
-
+    Types::array arr2;
     Query var2(arr2);
 
     map0.insert({src1, var2});
+
+    std::string src3("first_error", 11);
+    Query var3(src3);
+
+    std::string src4("Duplicate primary key `id`:\n{\n\t\"id\":\t0\n}\n{\n\t\"id\":\t0\n}", 67);
+    Query var4(src4);
+
+    map0.insert({src3, var4});
 
     Query var0(map0);
   }
@@ -396,14 +314,6 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
 
     map11.insert({src12, var13});
 
-    std::string src14("x", 1);
-    Query var14(src14);
-
-    double num15(1);
-    Query var15(num15);
-
-    map11.insert({src14, var15});
-
     Query var11(map11);
 
     map3.insert({src10, var11});
@@ -416,18 +326,32 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
 
     map0.insert({src1, var2});
 
-    std::string src16("first_error", 11);
-    Query var16(src16);
-
-    std::string src17("a", 1);
-    Query var17(src17);
-
-    map0.insert({src16, var17});
-
     Query var0(map0);
   }
 
   SECTION("test7") {
+    Types::object map0;
+
+    std::string src1("changes", 7);
+    Query var1(src1);
+
+    Types::array arr2;
+    Query var2(arr2);
+
+    map0.insert({src1, var2});
+
+    std::string src3("first_error", 11);
+    Query var3(src3);
+
+    std::string src4("a", 1);
+    Query var4(src4);
+
+    map0.insert({src3, var4});
+
+    Query var0(map0);
+  }
+
+  SECTION("test8") {
     Types::object map0;
 
     std::string src1("changes", 7);
@@ -546,7 +470,7 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
     Query var0(map0);
   }
 
-  SECTION("test8") {
+  SECTION("test9") {
     Types::object map0;
 
     std::string src1("changes", 7);
@@ -617,7 +541,29 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
     Query var0(map0);
   }
 
-  SECTION("test9") {
+  SECTION("test10") {
+    Types::object map0;
+
+    std::string src1("changes", 7);
+    Query var1(src1);
+
+    Types::array arr2;
+    Query var2(arr2);
+
+    map0.insert({src1, var2});
+
+    std::string src3("first_error", 11);
+    Query var3(src3);
+
+    std::string src4("a", 1);
+    Query var4(src4);
+
+    map0.insert({src3, var4});
+
+    Query var0(map0);
+  }
+
+  SECTION("test11") {
     Types::object map0;
 
     std::string src1("changes", 7);
@@ -696,7 +642,7 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
     Query var0(map0);
   }
 
-  SECTION("test10") {
+  SECTION("test12") {
     Types::object map0;
 
     std::string src1("changes", 7);
@@ -807,7 +753,7 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
     Query var0(map0);
   }
 
-  SECTION("test11") {
+  SECTION("test13") {
     Types::object map0;
 
     std::string src1("changes", 7);
@@ -910,7 +856,7 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
     Query var0(map0);
   }
 
-  SECTION("test14") {
+  SECTION("test22") {
     Types::object map0;
 
     std::string src1("changes", 7);
@@ -955,7 +901,7 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
     Query var0(map0);
   }
 
-  SECTION("test15") {
+  SECTION("test23") {
     Types::object map0;
 
     std::string src1("changes", 7);

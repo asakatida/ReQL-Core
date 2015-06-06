@@ -158,6 +158,7 @@ public:
    */
   Query
   circle(const Types::array &args, const Types::object &kwargs) const;
+
   Query
   circle(const Types::array &args) const;
 
@@ -245,6 +246,7 @@ public:
    */
   Query
   delete_(const Types::array &args, const Types::object &kwargs) const;
+
   Query
   delete_(const Types::array &args) const;
 
@@ -272,6 +274,7 @@ public:
    */
   Query
   distinct(const Types::array &args, const Types::object &kwargs) const;
+
   Query
   distinct(const Types::array &args) const;
 
@@ -304,6 +307,7 @@ public:
    */
   Query
   eq_join(const Types::array &args, const Types::object &kwargs) const;
+
   Query
   eq_join(const Types::array &args) const;
 
@@ -326,6 +330,7 @@ public:
    */
   Query
   filter(const Types::array &args, const Types::object &kwargs) const;
+
   Query
   filter(const Types::array &args) const;
 
@@ -373,6 +378,7 @@ public:
    */
   Query
   get_all(const Types::array &args, const Types::object &kwargs) const;
+
   Query
   get_all(const Types::array &args) const;
 
@@ -385,6 +391,7 @@ public:
    */
   Query
   get_intersecting(const Types::array &args, const Types::object &kwargs) const;
+
   Query
   get_intersecting(const Types::array &args) const;
 
@@ -392,6 +399,7 @@ public:
    */
   Query
   get_nearest(const Types::array &args, const Types::object &kwargs) const;
+
   Query
   get_nearest(const Types::array &args) const;
 
@@ -399,6 +407,7 @@ public:
    */
   Query
   group(const Types::array &args, const Types::object &kwargs) const;
+
   Query
   group(const Types::array &args) const;
 
@@ -421,6 +430,7 @@ public:
    */
   Query
   http(const Types::array &args, const Types::object &kwargs) const;
+
   Query
   http(const Types::array &args) const;
 
@@ -438,6 +448,7 @@ public:
    */
   Query
   index_create(const Types::array &args, const Types::object &kwargs) const;
+
   Query
   index_create(const Types::array &args) const;
 
@@ -455,6 +466,7 @@ public:
    */
   Query
   index_rename(const Types::array &args, const Types::object &kwargs) const;
+
   Query
   index_rename(const Types::array &args) const;
 
@@ -502,6 +514,7 @@ public:
    */
   Query
   iso8601(const Types::array &args, const Types::object &kwargs) const;
+
   Query
   iso8601(const Types::array &args) const;
 
@@ -519,6 +532,7 @@ public:
    */
   Query
   javascript(const Types::array &args, const Types::object &kwargs) const;
+
   Query
   javascript(const Types::array &args) const;
 
@@ -696,6 +710,7 @@ public:
    */
   Query
   order_by(const Types::array &args, const Types::object &kwargs) const;
+
   Query
   order_by(const Types::array &args) const;
 
@@ -733,6 +748,7 @@ public:
    */
   Query
   random(const Types::array &args, const Types::object &kwargs) const;
+
   Query
   random(const Types::array &args) const;
 
@@ -760,6 +776,7 @@ public:
    */
   Query
   replace(const Types::array &args, const Types::object &kwargs) const;
+
   Query
   replace(const Types::array &args) const;
 
@@ -817,6 +834,7 @@ public:
    */
   Query
   slice(const Types::array &args, const Types::object &kwargs) const;
+
   Query
   slice(const Types::array &args) const;
 
@@ -859,6 +877,7 @@ public:
    */
   Query
   table(const Types::array &args, const Types::object &kwargs) const;
+
   Query
   table(const Types::array &args) const;
 
@@ -866,6 +885,7 @@ public:
    */
   Query
   table_create(const Types::array &args, const Types::object &kwargs) const;
+
   Query
   table_create(const Types::array &args) const;
 
@@ -948,6 +968,7 @@ public:
    */
   Query
   update(const Types::array &args, const Types::object &kwargs) const;
+
   Query
   update(const Types::array &args) const;
 

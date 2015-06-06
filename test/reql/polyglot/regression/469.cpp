@@ -5,7 +5,7 @@
 
 #include <memory>
 
-TEST_CASE("reql Issue 326", "[reql][ast]") {
+TEST_CASE("reql Issue 335", "[reql][ast]") {
 
   SECTION("test0") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
@@ -263,10 +263,10 @@ TEST_CASE("reql Issue 326", "[reql][ast]") {
     reql_string_append(var3.get(), src3, 5);
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf4(new uint8_t[3]);
-    const uint8_t src4[] = "[1]";
-    reql_string_init(var4.get(), buf4.get(), 3);
-    reql_string_append(var4.get(), src4, 3);
+    std::unique_ptr<uint8_t[]> buf4(new uint8_t[9]);
+    const uint8_t src4[] = "[\n\t1\n]";
+    reql_string_init(var4.get(), buf4.get(), 9);
+    reql_string_append(var4.get(), src4, 9);
 
     reql_object_add(var0.get(), var3.get(), var4.get());
   }

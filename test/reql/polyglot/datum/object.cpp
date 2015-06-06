@@ -139,10 +139,10 @@ TEST_CASE("reql Tests conversion to and from the RQL object type", "[reql][ast]"
 
   SECTION("test6") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf0(new uint8_t[17]);
-    const uint8_t src0[] = "{\n\t\"a\":\t1\n}";
-    reql_string_init(var0.get(), buf0.get(), 17);
-    reql_string_append(var0.get(), src0, 17);
+    std::unique_ptr<uint8_t[]> buf0(new uint8_t[9]);
+    const uint8_t src0[] = "{\"a\":1}";
+    reql_string_init(var0.get(), buf0.get(), 9);
+    reql_string_append(var0.get(), src0, 9);
   }
 
   SECTION("test7") {

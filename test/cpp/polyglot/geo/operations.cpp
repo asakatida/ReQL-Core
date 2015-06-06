@@ -8,12 +8,12 @@ using namespace ReQL;
 TEST_CASE("cpp Test basic geometry operators", "[cpp][ast]") {
 
   SECTION("test0") {
-    std::string src0("89011.262538353315904", 21);
+    std::string src0("89011.26253835332", 17);
     Query var0(src0);
   }
 
   SECTION("test1") {
-    std::string src0("110968.30443995493988", 21);
+    std::string src0("110968.30443995494", 18);
     Query var0(src0);
   }
 
@@ -22,7 +22,7 @@ TEST_CASE("cpp Test basic geometry operators", "[cpp][ast]") {
   }
 
   SECTION("test3") {
-    std::string src0("89011.262538353315904", 21);
+    std::string src0("89011.26253835332", 17);
     Query var0(src0);
   }
 
@@ -55,7 +55,7 @@ TEST_CASE("cpp Test basic geometry operators", "[cpp][ast]") {
   }
 
   SECTION("test11") {
-    std::string src0("0.01393875509649327056", 22);
+    std::string src0("0.01393875509649327", 19);
     Query var0(src0);
   }
 
@@ -65,12 +65,12 @@ TEST_CASE("cpp Test basic geometry operators", "[cpp][ast]") {
   }
 
   SECTION("test13") {
-    std::string src0("40007862.91725089401", 20);
+    std::string src0("40007862.917250897", 18);
     Query var0(src0);
   }
 
   SECTION("test14") {
-    std::string src0("40007862.91725089401", 20);
+    std::string src0("40007862.917250897", 18);
     Query var0(src0);
   }
 
@@ -89,12 +89,12 @@ TEST_CASE("cpp Test basic geometry operators", "[cpp][ast]") {
   }
 
   SECTION("test18") {
-    std::string src0("492471.49900552548934", 21);
+    std::string src0("492471.4990055255", 17);
     Query var0(src0);
   }
 
   SECTION("test19") {
-    std::string src0("492471.49900552548934", 21);
+    std::string src0("492471.4990055255", 17);
     Query var0(src0);
   }
 

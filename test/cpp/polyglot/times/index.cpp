@@ -13,7 +13,7 @@ TEST_CASE("cpp secondary indexes on times", "[cpp][ast]") {
   }
 
   SECTION("test10") {
-    std::string src0("Duplicate primary key `id`:\n{\n\t\"id\":\t{\n\t\t\"$reql_type$\":\t\"TIME\",\n\t\t\"epoch_time\":\t1375445163.0869998932,\n\t\t\"timezone\":\t\"-07:00\"\n\t}\n}\n{\n\t\"id\":\t{\n\t\t\"$reql_type$\":\t\"TIME\",\n\t\t\"epoch_time\":\t1375445163.0869998932,\n\t\t\"timezone\":\t\"+00:00\"\n\t}\n}", 295);
+    std::string src0("Duplicate primary key `id`:\n{\n\t\"id\":\t{\n\t\t\"$reql_type$\":\t\"TIME\",\n\t\t\"epoch_time\":\t1375445163.087,\n\t\t\"timezone\":\t\"-07:00\"\n\t}\n}\n{\n\t\"id\":\t{\n\t\t\"$reql_type$\":\t\"TIME\",\n\t\t\"epoch_time\":\t1375445163.087,\n\t\t\"timezone\":\t\"+00:00\"\n\t}\n}", 281);
     Query var0(src0);
   }
 

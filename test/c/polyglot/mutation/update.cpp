@@ -9,6 +9,24 @@ TEST_CASE("c Tests updates of selections", "[c][ast]") {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  }
+
+  SECTION("test1") {
   }
 
   SECTION("test2") {
@@ -57,21 +75,27 @@ TEST_CASE("c Tests updates of selections", "[c][ast]") {
   }
 
   SECTION("test5") {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   }
 
   SECTION("test6") {
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -114,21 +138,6 @@ TEST_CASE("c Tests updates of selections", "[c][ast]") {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   }
 
   SECTION("test10") {
@@ -141,6 +150,21 @@ TEST_CASE("c Tests updates of selections", "[c][ast]") {
   }
 
   SECTION("test11") {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -177,6 +201,18 @@ TEST_CASE("c Tests updates of selections", "[c][ast]") {
   }
 
   SECTION("test14") {
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -267,6 +303,9 @@ TEST_CASE("c Tests updates of selections", "[c][ast]") {
 
 
 
+
+
+
   }
 
   SECTION("test19") {
@@ -309,27 +348,9 @@ TEST_CASE("c Tests updates of selections", "[c][ast]") {
 
 
 
-
-
-
   }
 
   SECTION("test21") {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -339,36 +360,51 @@ TEST_CASE("c Tests updates of selections", "[c][ast]") {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   }
 
   SECTION("test23") {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   }
 
-  SECTION("test24") {
+  SECTION("test26") {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
   }
 
-  SECTION("test25") {
+  SECTION("test27") {
 
 
 
@@ -431,16 +467,7 @@ TEST_CASE("c Tests updates of selections", "[c][ast]") {
 
   }
 
-  SECTION("test30") {
-
-
-
-
-
-
-
-
-
+  SECTION("test31") {
 
 
 
@@ -452,7 +479,7 @@ TEST_CASE("c Tests updates of selections", "[c][ast]") {
 
   }
 
-  SECTION("test31") {
+  SECTION("test32") {
 
 
 
@@ -474,6 +501,9 @@ TEST_CASE("c Tests updates of selections", "[c][ast]") {
   }
 
   SECTION("test33") {
+
+
+
 
 
 
@@ -510,48 +540,6 @@ TEST_CASE("c Tests updates of selections", "[c][ast]") {
 
 
 
-
-
-
-
-
-
-
-
-
-  }
-
-  SECTION("test36") {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  }
-
-  SECTION("test37") {
-
-
-
-
-
-
-  }
-
-  SECTION("test38") {
 
 
 

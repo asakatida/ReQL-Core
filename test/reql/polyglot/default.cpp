@@ -334,10 +334,10 @@ TEST_CASE("reql Tests r.default", "[reql][ast]") {
 
   SECTION("test26") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf0(new uint8_t[33]);
-    const uint8_t src0[] = "No attribute `b` in object:\n{\n}";
-    reql_string_init(var0.get(), buf0.get(), 33);
-    reql_string_append(var0.get(), src0, 33);
+    std::unique_ptr<uint8_t[]> buf0(new uint8_t[31]);
+    const uint8_t src0[] = "No attribute `b` in object:\n{}";
+    reql_string_init(var0.get(), buf0.get(), 31);
+    reql_string_append(var0.get(), src0, 31);
   }
 
   SECTION("test27") {

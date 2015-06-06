@@ -35,35 +35,9 @@ TEST_CASE("c Tests replacement of selections", "[c][ast]") {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   }
 
   SECTION("test3") {
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -107,23 +81,21 @@ TEST_CASE("c Tests replacement of selections", "[c][ast]") {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
   }
 
   SECTION("test5") {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -153,12 +125,6 @@ TEST_CASE("c Tests replacement of selections", "[c][ast]") {
 
 
 
-
-
-
-
-
-
   }
 
   SECTION("test7") {
@@ -168,43 +134,26 @@ TEST_CASE("c Tests replacement of selections", "[c][ast]") {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   }
 
   SECTION("test8") {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -254,43 +203,9 @@ TEST_CASE("c Tests replacement of selections", "[c][ast]") {
 
 
 
-
-
-
   }
 
   SECTION("test10") {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -326,6 +241,38 @@ TEST_CASE("c Tests replacement of selections", "[c][ast]") {
 
 
 
+  }
+
+  SECTION("test12") {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -336,7 +283,27 @@ TEST_CASE("c Tests replacement of selections", "[c][ast]") {
 
   }
 
-  SECTION("test14") {
+  SECTION("test13") {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -353,7 +320,24 @@ TEST_CASE("c Tests replacement of selections", "[c][ast]") {
 
   }
 
-  SECTION("test15") {
+  SECTION("test22") {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  }
+
+  SECTION("test23") {
 
 
 

@@ -253,7 +253,7 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
   }
 
   SECTION("test26") {
-    std::string src0("No attribute `b` in object:\n{\n}", 33);
+    std::string src0("No attribute `b` in object:\n{}", 31);
     Query var0(src0);
   }
 

@@ -9,18 +9,18 @@ TEST_CASE("reql Test basic geometry operators", "[reql][ast]") {
 
   SECTION("test0") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf0(new uint8_t[21]);
-    const uint8_t src0[] = "89011.262538353315904";
-    reql_string_init(var0.get(), buf0.get(), 21);
-    reql_string_append(var0.get(), src0, 21);
+    std::unique_ptr<uint8_t[]> buf0(new uint8_t[17]);
+    const uint8_t src0[] = "89011.26253835332";
+    reql_string_init(var0.get(), buf0.get(), 17);
+    reql_string_append(var0.get(), src0, 17);
   }
 
   SECTION("test1") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf0(new uint8_t[21]);
-    const uint8_t src0[] = "110968.30443995493988";
-    reql_string_init(var0.get(), buf0.get(), 21);
-    reql_string_append(var0.get(), src0, 21);
+    std::unique_ptr<uint8_t[]> buf0(new uint8_t[18]);
+    const uint8_t src0[] = "110968.30443995494";
+    reql_string_init(var0.get(), buf0.get(), 18);
+    reql_string_append(var0.get(), src0, 18);
   }
 
   SECTION("test2") {
@@ -30,10 +30,10 @@ TEST_CASE("reql Test basic geometry operators", "[reql][ast]") {
 
   SECTION("test3") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf0(new uint8_t[21]);
-    const uint8_t src0[] = "89011.262538353315904";
-    reql_string_init(var0.get(), buf0.get(), 21);
-    reql_string_append(var0.get(), src0, 21);
+    std::unique_ptr<uint8_t[]> buf0(new uint8_t[17]);
+    const uint8_t src0[] = "89011.26253835332";
+    reql_string_init(var0.get(), buf0.get(), 17);
+    reql_string_append(var0.get(), src0, 17);
   }
 
   SECTION("test4") {
@@ -73,10 +73,10 @@ TEST_CASE("reql Test basic geometry operators", "[reql][ast]") {
 
   SECTION("test11") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf0(new uint8_t[22]);
-    const uint8_t src0[] = "0.01393875509649327056";
-    reql_string_init(var0.get(), buf0.get(), 22);
-    reql_string_append(var0.get(), src0, 22);
+    std::unique_ptr<uint8_t[]> buf0(new uint8_t[19]);
+    const uint8_t src0[] = "0.01393875509649327";
+    reql_string_init(var0.get(), buf0.get(), 19);
+    reql_string_append(var0.get(), src0, 19);
   }
 
   SECTION("test12") {
@@ -89,18 +89,18 @@ TEST_CASE("reql Test basic geometry operators", "[reql][ast]") {
 
   SECTION("test13") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf0(new uint8_t[20]);
-    const uint8_t src0[] = "40007862.91725089401";
-    reql_string_init(var0.get(), buf0.get(), 20);
-    reql_string_append(var0.get(), src0, 20);
+    std::unique_ptr<uint8_t[]> buf0(new uint8_t[18]);
+    const uint8_t src0[] = "40007862.917250897";
+    reql_string_init(var0.get(), buf0.get(), 18);
+    reql_string_append(var0.get(), src0, 18);
   }
 
   SECTION("test14") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf0(new uint8_t[20]);
-    const uint8_t src0[] = "40007862.91725089401";
-    reql_string_init(var0.get(), buf0.get(), 20);
-    reql_string_append(var0.get(), src0, 20);
+    std::unique_ptr<uint8_t[]> buf0(new uint8_t[18]);
+    const uint8_t src0[] = "40007862.917250897";
+    reql_string_init(var0.get(), buf0.get(), 18);
+    reql_string_append(var0.get(), src0, 18);
   }
 
   SECTION("test15") {
@@ -126,18 +126,18 @@ TEST_CASE("reql Test basic geometry operators", "[reql][ast]") {
 
   SECTION("test18") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf0(new uint8_t[21]);
-    const uint8_t src0[] = "492471.49900552548934";
-    reql_string_init(var0.get(), buf0.get(), 21);
-    reql_string_append(var0.get(), src0, 21);
+    std::unique_ptr<uint8_t[]> buf0(new uint8_t[17]);
+    const uint8_t src0[] = "492471.4990055255";
+    reql_string_init(var0.get(), buf0.get(), 17);
+    reql_string_append(var0.get(), src0, 17);
   }
 
   SECTION("test19") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf0(new uint8_t[21]);
-    const uint8_t src0[] = "492471.49900552548934";
-    reql_string_init(var0.get(), buf0.get(), 21);
-    reql_string_append(var0.get(), src0, 21);
+    std::unique_ptr<uint8_t[]> buf0(new uint8_t[17]);
+    const uint8_t src0[] = "492471.4990055255";
+    reql_string_init(var0.get(), buf0.get(), 17);
+    reql_string_append(var0.get(), src0, 17);
   }
 
   SECTION("test20") {

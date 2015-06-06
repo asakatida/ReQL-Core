@@ -108,7 +108,7 @@ TEST_CASE("cpp Tests conversion to and from the RQL object type", "[cpp][ast]") 
   }
 
   SECTION("test6") {
-    std::string src0("{\n\t\"a\":\t1\n}", 17);
+    std::string src0("{\"a\":1}", 9);
     Query var0(src0);
   }
 

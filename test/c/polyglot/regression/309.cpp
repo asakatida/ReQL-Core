@@ -3,7 +3,7 @@
 #include "./catch.hpp"
 #include "./ReQL.h"
 
-TEST_CASE("c Regression tests for issue 78", "[c][ast]") {
+TEST_CASE("c Regression tests for issue 79", "[c][ast]") {
 
   SECTION("test0") {
 

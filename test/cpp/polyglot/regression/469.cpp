@@ -5,7 +5,7 @@
 
 using namespace ReQL;
 
-TEST_CASE("cpp Issue 207", "[cpp][ast]") {
+TEST_CASE("cpp Issue 213", "[cpp][ast]") {
 
   SECTION("test0") {
     Types::object map0;
@@ -178,7 +178,7 @@ TEST_CASE("cpp Issue 207", "[cpp][ast]") {
     std::string src3("value", 5);
     Query var3(src3);
 
-    std::string src4("[1]", 3);
+    std::string src4("[\n\t1\n]", 9);
     Query var4(src4);
 
     map0.insert({src3, var4});

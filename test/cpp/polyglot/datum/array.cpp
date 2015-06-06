@@ -60,7 +60,7 @@ TEST_CASE("cpp Tests conversion to and from the RQL array type", "[cpp][ast]") {
   }
 
   SECTION("test4") {
-    std::string src0("[1, 2]", 6);
+    std::string src0("[1,2]", 5);
     Query var0(src0);
   }
 

@@ -667,6 +667,20 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
   SECTION("test57") {
     Types::object map0;
 
+    std::string src1("result", 6);
+    Query var1(src1);
+
+    std::string src2("blank", 5);
+    Query var2(src2);
+
+    map0.insert({src1, var2});
+
+    Query var0(map0);
+  }
+
+  SECTION("test58") {
+    Types::object map0;
+
     std::string src1("deleted", 7);
     Query var1(src1);
 
@@ -735,7 +749,12 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
     Query var0(map0);
   }
 
-  SECTION("test58") {
+  SECTION("test59") {
+    double num0(1);
+    Query var0(num0);
+  }
+
+  SECTION("test60") {
     Types::object map0;
 
     std::string src1("deleted", 7);
@@ -789,7 +808,7 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
     Query var0(map0);
   }
 
-  SECTION("test59") {
+  SECTION("test61") {
     Types::object map0;
 
     std::string src1("deleted", 7);
@@ -843,34 +862,6 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
     Query var0(map0);
   }
 
-  SECTION("test60") {
-    Types::object map0;
-
-    std::string src1("func", 4);
-    Query var1(src1);
-
-    std::string src2("err", 3);
-    Query var2(src2);
-
-    map0.insert({src1, var2});
-
-    Query var0(map0);
-  }
-
-  SECTION("test61") {
-    Types::object map0;
-
-    std::string src1("func", 4);
-    Query var1(src1);
-
-    std::string src2("err", 3);
-    Query var2(src2);
-
-    map0.insert({src1, var2});
-
-    Query var0(map0);
-  }
-
   SECTION("test62") {
     Types::object map0;
 
@@ -899,144 +890,30 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
     Query var0(map0);
   }
 
-  SECTION("test65") {
+  SECTION("test64") {
     Types::object map0;
 
-    std::string src1("deleted", 7);
+    std::string src1("func", 4);
     Query var1(src1);
 
-    double num2(0.0);
-    Query var2(num2);
+    std::string src2("err", 3);
+    Query var2(src2);
 
     map0.insert({src1, var2});
-
-    std::string src3("errors", 6);
-    Query var3(src3);
-
-    double num4(0.0);
-    Query var4(num4);
-
-    map0.insert({src3, var4});
-
-    std::string src5("generated_keys", 14);
-    Query var5(src5);
-
-    Types::object map6;
-
-    std::string src7("func", 4);
-    Query var7(src7);
-
-    std::string src8("arrlen", 6);
-    Query var8(src8);
-
-    map6.insert({src7, var8});
-
-    Query var6(map6);
-
-    map0.insert({src5, var6});
-
-    std::string src9("inserted", 8);
-    Query var9(src9);
-
-    double num10(1);
-    Query var10(num10);
-
-    map0.insert({src9, var10});
-
-    std::string src11("replaced", 8);
-    Query var11(src11);
-
-    double num12(0.0);
-    Query var12(num12);
-
-    map0.insert({src11, var12});
-
-    std::string src13("skipped", 7);
-    Query var13(src13);
-
-    double num14(0.0);
-    Query var14(num14);
-
-    map0.insert({src13, var14});
-
-    std::string src15("unchanged", 9);
-    Query var15(src15);
-
-    double num16(0.0);
-    Query var16(num16);
-
-    map0.insert({src15, var16});
 
     Query var0(map0);
   }
 
-  SECTION("test66") {
+  SECTION("test65") {
     Types::object map0;
 
-    std::string src1("deleted", 7);
+    std::string src1("func", 4);
     Query var1(src1);
 
-    double num2(0.0);
-    Query var2(num2);
+    std::string src2("err", 3);
+    Query var2(src2);
 
     map0.insert({src1, var2});
-
-    std::string src3("errors", 6);
-    Query var3(src3);
-
-    double num4(0.0);
-    Query var4(num4);
-
-    map0.insert({src3, var4});
-
-    std::string src5("generated_keys", 14);
-    Query var5(src5);
-
-    Types::object map6;
-
-    std::string src7("func", 4);
-    Query var7(src7);
-
-    std::string src8("arrlen", 6);
-    Query var8(src8);
-
-    map6.insert({src7, var8});
-
-    Query var6(map6);
-
-    map0.insert({src5, var6});
-
-    std::string src9("inserted", 8);
-    Query var9(src9);
-
-    double num10(1);
-    Query var10(num10);
-
-    map0.insert({src9, var10});
-
-    std::string src11("replaced", 8);
-    Query var11(src11);
-
-    double num12(0.0);
-    Query var12(num12);
-
-    map0.insert({src11, var12});
-
-    std::string src13("skipped", 7);
-    Query var13(src13);
-
-    double num14(0.0);
-    Query var14(num14);
-
-    map0.insert({src13, var14});
-
-    std::string src15("unchanged", 9);
-    Query var15(src15);
-
-    double num16(0.0);
-    Query var16(num16);
-
-    map0.insert({src15, var16});
 
     Query var0(map0);
   }
@@ -1044,18 +921,146 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
   SECTION("test67") {
     Types::object map0;
 
-    std::string src1("func", 4);
+    std::string src1("deleted", 7);
     Query var1(src1);
 
-    std::string src2("err", 3);
-    Query var2(src2);
+    double num2(0.0);
+    Query var2(num2);
 
     map0.insert({src1, var2});
+
+    std::string src3("errors", 6);
+    Query var3(src3);
+
+    double num4(0.0);
+    Query var4(num4);
+
+    map0.insert({src3, var4});
+
+    std::string src5("generated_keys", 14);
+    Query var5(src5);
+
+    Types::object map6;
+
+    std::string src7("func", 4);
+    Query var7(src7);
+
+    std::string src8("arrlen", 6);
+    Query var8(src8);
+
+    map6.insert({src7, var8});
+
+    Query var6(map6);
+
+    map0.insert({src5, var6});
+
+    std::string src9("inserted", 8);
+    Query var9(src9);
+
+    double num10(1);
+    Query var10(num10);
+
+    map0.insert({src9, var10});
+
+    std::string src11("replaced", 8);
+    Query var11(src11);
+
+    double num12(0.0);
+    Query var12(num12);
+
+    map0.insert({src11, var12});
+
+    std::string src13("skipped", 7);
+    Query var13(src13);
+
+    double num14(0.0);
+    Query var14(num14);
+
+    map0.insert({src13, var14});
+
+    std::string src15("unchanged", 9);
+    Query var15(src15);
+
+    double num16(0.0);
+    Query var16(num16);
+
+    map0.insert({src15, var16});
 
     Query var0(map0);
   }
 
   SECTION("test68") {
+    Types::object map0;
+
+    std::string src1("deleted", 7);
+    Query var1(src1);
+
+    double num2(0.0);
+    Query var2(num2);
+
+    map0.insert({src1, var2});
+
+    std::string src3("errors", 6);
+    Query var3(src3);
+
+    double num4(0.0);
+    Query var4(num4);
+
+    map0.insert({src3, var4});
+
+    std::string src5("generated_keys", 14);
+    Query var5(src5);
+
+    Types::object map6;
+
+    std::string src7("func", 4);
+    Query var7(src7);
+
+    std::string src8("arrlen", 6);
+    Query var8(src8);
+
+    map6.insert({src7, var8});
+
+    Query var6(map6);
+
+    map0.insert({src5, var6});
+
+    std::string src9("inserted", 8);
+    Query var9(src9);
+
+    double num10(1);
+    Query var10(num10);
+
+    map0.insert({src9, var10});
+
+    std::string src11("replaced", 8);
+    Query var11(src11);
+
+    double num12(0.0);
+    Query var12(num12);
+
+    map0.insert({src11, var12});
+
+    std::string src13("skipped", 7);
+    Query var13(src13);
+
+    double num14(0.0);
+    Query var14(num14);
+
+    map0.insert({src13, var14});
+
+    std::string src15("unchanged", 9);
+    Query var15(src15);
+
+    double num16(0.0);
+    Query var16(num16);
+
+    map0.insert({src15, var16});
+
+    Query var0(map0);
+  }
+
+  SECTION("test69") {
     Types::object map0;
 
     std::string src1("func", 4);
@@ -1069,7 +1074,63 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
     Query var0(map0);
   }
 
-  SECTION("test69") {
+  SECTION("test70") {
+    Types::object map0;
+
+    std::string src1("func", 4);
+    Query var1(src1);
+
+    std::string src2("err", 3);
+    Query var2(src2);
+
+    map0.insert({src1, var2});
+
+    Query var0(map0);
+  }
+
+  SECTION("test71") {
+    Types::object map0;
+
+    std::string src1("func", 4);
+    Query var1(src1);
+
+    std::string src2("err", 3);
+    Query var2(src2);
+
+    map0.insert({src1, var2});
+
+    Query var0(map0);
+  }
+
+  SECTION("test72") {
+    Types::object map0;
+
+    std::string src1("func", 4);
+    Query var1(src1);
+
+    std::string src2("err", 3);
+    Query var2(src2);
+
+    map0.insert({src1, var2});
+
+    Query var0(map0);
+  }
+
+  SECTION("test73") {
+    Types::object map0;
+
+    std::string src1("func", 4);
+    Query var1(src1);
+
+    std::string src2("err", 3);
+    Query var2(src2);
+
+    map0.insert({src1, var2});
+
+    Query var0(map0);
+  }
+
+  SECTION("test74") {
     Types::object map0;
 
     std::string src1("func", 4);
@@ -1083,7 +1144,7 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
     Query var0(map0);
   }
 
-  SECTION("test70") {
+  SECTION("test75") {
     Types::object map0;
 
     std::string src1("result", 6);

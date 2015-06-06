@@ -3,24 +3,9 @@
 #include "./catch.hpp"
 #include "./ReQL.h"
 
-TEST_CASE("c Regression test for issue 98", "[c][ast]") {
-
-  SECTION("test0") {
-
-
-
-  }
-
-  SECTION("test1") {
-
-
-
-  }
+TEST_CASE("c test that r.union is a top level function", "[c][ast]") {
 
   SECTION("test2") {
-
-
-
 
 
 
@@ -30,9 +15,9 @@ TEST_CASE("c Regression test for issue 98", "[c][ast]") {
 
 
 
+  }
 
-
-
+  SECTION("test4") {
 
 
 
