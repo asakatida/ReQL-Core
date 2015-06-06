@@ -84,7 +84,7 @@ Connection::Connection(const Types::string &host, const std::uint16_t &port, con
 Connection::Connection(Connection &&other) : _C::CTypes::connection(std::move(other)) {}
 
 Connection::~Connection() {
-  reql_conn_ensure_close(get());
+  reql_conn_destroy(get());
 }
 
 Connection &Connection::operator=(Connection &&other) {
