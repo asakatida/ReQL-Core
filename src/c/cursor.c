@@ -81,13 +81,13 @@ reql_cursor_each(ReQL_Cursor_t *cur, ReQL_Each cb, void *obj) {
 
 extern void
 reql_cursor_each_async(ReQL_Cursor_t *cur, ReQL_Each cb, void *obj) {
-  reql_cur_each(cur->cursor, ^int(ReQL_Obj_t *res) {
+  reql_cur_each(cur->cursor, ^int(ReQL_Obj_t *res, void *data) {
     ReQL_Result_t *result = reql_result(res);
-    cb(result, obj);
+    cb(result, data);
     result->object = NULL;
     reql_result_destroy(result);
     return 0;
-  });
+  }, obj);
 }
 
 extern void

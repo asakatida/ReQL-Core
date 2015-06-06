@@ -30,9 +30,9 @@ extern "C" {
 
 #include <pthread.h>
 
-typedef int(^ReQL_Each_Function)(ReQL_Obj_t *);
-typedef int(^ReQL_End_Function)(void);
-typedef int(^ReQL_Error_Function)(ReQL_Obj_t *);
+typedef int(^ReQL_Each_Function)(ReQL_Obj_t *, void *);
+typedef int(^ReQL_End_Function)(void *);
+typedef int(^ReQL_Error_Function)(ReQL_Obj_t *, void *);
 
 enum ReQL_Response_e {
   REQL_CLIENT_ERROR = 16,
@@ -57,8 +57,11 @@ struct ReQL_Cur_s {
   struct ReQL_Cur_s *next;
   struct ReQL_Cur_s *prev;
   struct {
+    void *each_data;
     ReQL_Each_Function each;
+    void *end_data;
     ReQL_End_Function end;
+    void *error_data;
     ReQL_Error_Function error;
   } cb;
 };
@@ -74,7 +77,7 @@ extern ReQL_Obj_t *
 reql_cur_next(ReQL_Cur_t *cur);
 
 extern void
-reql_cur_each(ReQL_Cur_t *cur, ReQL_Each_Function cb);
+reql_cur_each(ReQL_Cur_t *cur, ReQL_Each_Function cb, void *arg);
 
 extern ReQL_Obj_t *
 reql_cur_to_array(ReQL_Cur_t *cur);

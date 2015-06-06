@@ -103,7 +103,7 @@ reql_cur_set_response(ReQL_Cur_t *cur, ReQL_Obj_t *res) {
     }
   }
   if (cur->cb.each != NULL) {
-    cur->cb.each(res);
+    cur->cb.each(res, cur->cb.each_data);
     reql_json_destroy(res);
   } else {
     reql_json_destroy(cur->old_res);
@@ -130,10 +130,10 @@ reql_cur_close_(ReQL_Cur_t *cur) {
     cur->conn->cursors = next;
     cur->conn = NULL;
     if (cur->cb.each != NULL) {
-      cur->cb.each(NULL);
+      cur->cb.each(NULL, cur->cb.each_data);
     }
     if (cur->cb.end != NULL) {
-      cur->cb.end();
+      cur->cb.end(cur->cb.end_data);
     }
   }
 }
@@ -208,26 +208,47 @@ reql_cur_next(ReQL_Cur_t *cur) {
   if (reql_cur_open_(cur) == 0) {
     return NULL;
   }
-  __block ReQL_Obj_t *res = reql_cur_response(cur);
-  pthread_cond_t done;
-  cur->cb.each = ^(ReQL_Obj_t *a_res) {
-    res = reql_obj_move(a_res);
-    cur->cb.each = NULL;
-    return 0;
-  };
-  int success = 0;
-  while (res == NULL && success == 0 && reql_cur_open_(cur)) {
-    success = pthread_cond_wait(&done, cur->condition.mutex);
+  ReQL_Obj_t *res = reql_cur_response(cur);
+  if (res == NULL) {
+    struct ReQL_Cur_Data_Holder {
+      ReQL_Each_Function each;
+      void *each_data;
+      pthread_cond_t *done;
+      ReQL_Obj_t *res;
+    };
+    struct ReQL_Cur_Data_Holder data;
+    data.each = cur->cb.each;
+    data.each_data = cur->cb.each_data;
+    pthread_cond_t *done = malloc(sizeof(pthread_cond_t));
+    pthread_cond_init(done, NULL);
+    data.done = done;
+    data.res = NULL;
+    cur->cb.each = ^(ReQL_Obj_t *a_res, void *arg) {
+      struct ReQL_Cur_Data_Holder *p_data = (struct ReQL_Cur_Data_Holder *)arg;
+      p_data->res = reql_obj_move(a_res);
+      cur->cb.each = p_data->each;
+      cur->cb.each_data = p_data->each_data;
+      pthread_cond_broadcast(p_data->done);
+      return 0;
+    };
+    cur->cb.each_data = &data;
+    int success = 0;
+    while (res == NULL && success == 0 && reql_cur_open_(cur)) {
+      success = pthread_cond_wait(done, cur->condition.mutex);
+    }
+    cur->cb.each = data.each;
+    cur->cb.each_data = data.each_data;
+    res = data.res;
   }
-  cur->cb.each = NULL;
   reql_cur_unlock(cur);
   return res;
 }
 
 extern void
-reql_cur_each(ReQL_Cur_t *cur, ReQL_Each_Function cb) {
+reql_cur_each(ReQL_Cur_t *cur, ReQL_Each_Function cb, void *arg) {
   reql_cur_lock(cur);
   cur->cb.each = cb;
+  cur->cb.each_data = arg;
   reql_cur_unlock(cur);
 }
 
@@ -235,13 +256,13 @@ extern void
 reql_cur_drain(ReQL_Cur_t *cur) {
   reql_cur_lock(cur);
   if (cur->cb.each == NULL) {
-    cur->cb.each = ^(ReQL_Obj_t *res) { (void)res; return 0; };
+    cur->cb.each = ^(ReQL_Obj_t *res, void *data) { (void)res; (void)data; return 0; };
   }
   __block pthread_cond_t done;
   ReQL_End_Function end = cur->cb.end;
-  cur->cb.end = ^() {
+  cur->cb.end = ^(void *data) {
     if (end != NULL) {
-      end();
+      end(data);
     }
     reql_cur_close_(cur);
     pthread_cond_broadcast(&done);
@@ -288,10 +309,11 @@ reql_cur_to_array(ReQL_Cur_t *cur) {
   ReQL_Obj_t **arr = malloc(sizeof(ReQL_Obj_t *) * 20);
   reql_array_init(array, arr, 20);
   reql_cur_lock(cur);
-  cur->cb.each = ^(ReQL_Obj_t *res) {
-    reql_update_array(array, reql_obj_move(res));
+  cur->cb.each = ^(ReQL_Obj_t *res, void *data) {
+    reql_update_array(data, reql_obj_move(res));
     return 0;
   };
+  cur->cb.each_data = array;
   reql_cur_unlock(cur);
   reql_cur_drain(cur);
   cur->cb.each = NULL;
