@@ -899,8 +899,7 @@ def main():
     headers.extend((Path('.') / 'test' / 'reql').glob('**/*.hpp'))
     headers.extend([
         Path('.') / 'src' / 'ReQL.h',
-        Path('.') / 'src' / 'ReQL.hpp',
-        Path('.') / 'test' / 'test.hpp'])
+        Path('.') / 'src' / 'ReQL.hpp'])
 
     headers = [path.relative_to(Path('.')).as_posix() for path in headers]
     headers = sorted(headers)
@@ -918,8 +917,7 @@ def main():
     sources.extend((Path('.') / 'test' / 'cpp').glob('**/*.cpp'))
     sources.extend((Path('.') / 'test' / 'reql').glob('**/*.cpp'))
     sources.extend([
-        Path('.') / 'test' / 'main.cpp',
-        Path('.') / 'test' / 'test.cpp'])
+        Path('.') / 'test' / 'main.cpp'])
 
     sources = [path.relative_to(Path('.')).as_posix() for path in sources]
     sources = sorted(sources)
