@@ -50,6 +50,7 @@ struct ReQL_Conn_s {
 
   struct {
     pthread_mutex_t *mutex;
+    pthread_t thread;
   } condition;
 };
 typedef struct ReQL_Conn_s ReQL_Conn_t;

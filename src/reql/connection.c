@@ -422,16 +422,8 @@ reql_connect_(ReQL_Conn_t *conn, ReQL_Byte *buf, const ReQL_Size size) {
 
   conn->socket = sock;
 
-  pthread_t thread;
-
-  if (pthread_create(&thread, NULL, reql_conn_loop, conn) != 0) {
+  if (pthread_create(&conn->condition.thread, NULL, reql_conn_loop, conn) != 0) {
     reql_conn_close_(conn);
-    return -1;
-  }
-
-  if (pthread_detach(thread) != 0) {
-    reql_conn_close_(conn);
-    pthread_join(thread, NULL);
     return -1;
   }
 
@@ -464,6 +456,7 @@ reql_conn_destroy(ReQL_Conn_t *conn) {
     reql_cur_close(conn->cursors);
   }
   reql_conn_unlock(conn);
+  pthread_join(conn->condition.thread, NULL);
   pthread_mutex_destroy(conn->condition.mutex);
   free(conn->condition.mutex); conn->condition.mutex = NULL;
 }
