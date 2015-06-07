@@ -51,21 +51,22 @@ struct ReQL_Cur_s {
   } condition;
   ReQL_Token token;
   struct ReQL_Conn_s *conn;
-  ReQL_Iter_t it;
-  ReQL_Obj_t *response;
-  ReQL_Obj_t *old_res;
   struct ReQL_Cur_s *next;
   struct ReQL_Cur_s *prev;
   struct {
-    void *each_data;
+    void *data[3];
     ReQL_Each_Function each;
-    void *end_data;
     ReQL_End_Function end;
-    void *error_data;
     ReQL_Error_Function error;
   } cb;
 };
 typedef struct ReQL_Cur_s ReQL_Cur_t;
+
+extern void
+reql_cur_set_end_cb(ReQL_Cur_t *cur, ReQL_End_Function cb, void *arg);
+
+extern void
+reql_cur_set_error_cb(ReQL_Cur_t *cur, ReQL_Error_Function cb, void *arg);
 
 extern void
 reql_cur_destroy(ReQL_Cur_t *cur);
