@@ -54,7 +54,7 @@ limitations under the License.
 }
 
 -(void)dealloc {
-  reql_conn_ensure_close(p_conn);
+  reql_conn_destroy(p_conn);
   free(p_conn);
   [super dealloc];
 }
