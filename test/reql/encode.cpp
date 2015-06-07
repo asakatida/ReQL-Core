@@ -1,7 +1,7 @@
 // Copyright 2015 Adam Grandquist
 
 #include "./catch.hpp"
-#include "./reql/core.h"
+#include "./reql/encode.h"
 
 TEST_CASE("encode values", "[c][encode]") {
   std::unique_ptr<ReQL_Obj_t> val(new ReQL_Obj_t);
