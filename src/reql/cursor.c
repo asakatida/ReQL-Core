@@ -93,9 +93,8 @@ reql_cur_set_response_(ReQL_Cur_t *cur, ReQL_Obj_t *res) {
   } else {
     ReQL_Obj_t key;
     ReQL_Byte buf[1];
-    const ReQL_Byte *ext = (ReQL_Byte *)"t";
     reql_string_init(&key, buf, 1);
-    reql_string_append(&key, ext, 1);
+    reql_string_append(&key, (ReQL_Byte *)"t", 1);
     ReQL_Obj_t *type = reql_object_get(res, &key);
     if (type == NULL) {
       reql_cur_close_(cur);
@@ -103,6 +102,7 @@ reql_cur_set_response_(ReQL_Cur_t *cur, ReQL_Obj_t *res) {
       int r_type = (int)(reql_to_number(type));
       switch (r_type) {
         case REQL_SUCCESS_PARTIAL: {
+          reql_continue_query(cur);
           break;
         }
         case REQL_SUCCESS_ATOM:
@@ -123,33 +123,23 @@ reql_cur_set_response_(ReQL_Cur_t *cur, ReQL_Obj_t *res) {
         }
       }
     }
-    if (cur->cb.each != NULL) {
-      if (reql_cur_open_(cur) != 0) {
-        reql_continue_query(cur);
-      }
-      ReQL_Obj_t key;
-      ReQL_Byte buf[1];
-      const ReQL_Byte *ext = (ReQL_Byte *)"r";
-      reql_string_init(&key, buf, 1);
-      reql_string_append(&key, ext, 1);
-      ReQL_Obj_t *r_res = reql_object_get(res, &key);
-      if (r_res == NULL) {
-      }
-      if (reql_datum_type(r_res) == REQL_R_ARRAY) {
-        ReQL_Iter_t it = reql_new_iter(r_res);
-        ReQL_Obj_t *elem = NULL;
-        while ((elem = reql_iter_next(&it)) != NULL) {
-          if (cur->cb.each == NULL) {
-            return;
-          }
-          cur->cb.each(elem, cur->cb.data[EACH]);
-          reql_json_destroy(elem);
+    reql_string_init(&key, buf, 1);
+    reql_string_append(&key, (ReQL_Byte *)"r", 1);
+    ReQL_Obj_t *r_res = reql_object_get(res, &key);
+    if (reql_datum_type(r_res) == REQL_R_ARRAY) {
+      ReQL_Iter_t it = reql_new_iter(r_res);
+      ReQL_Obj_t *elem = NULL;
+      while ((elem = reql_iter_next(&it)) != NULL) {
+        if (cur->cb.each == NULL) {
+          return;
         }
-      } else {
-        cur->cb.each(r_res, cur->cb.data[EACH]);
+        cur->cb.each(elem, cur->cb.data[EACH]);
+        reql_json_destroy(elem);
       }
-      reql_json_destroy(res);
+    } else {
+      cur->cb.each(r_res, cur->cb.data[EACH]);
     }
+    reql_json_destroy(res);
   }
 }
 
