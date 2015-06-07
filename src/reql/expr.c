@@ -20,7 +20,8 @@ limitations under the License.
 
 #include "./reql/expr.h"
 
-#include "./reql/core.h"
+#include "./reql/error.h"
+#include "./reql/types.h"
 
 #include <float.h>
 #include <math.h>

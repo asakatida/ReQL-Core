@@ -20,8 +20,13 @@ limitations under the License.
 
 #include "./reql/connection.h"
 
-#include "./reql/core.h"
+#include "./reql/cursor.h"
+#include "./reql/decode.h"
+#include "./reql/encode.h"
+#include "./reql/error.h"
+#include "./reql/expr.h"
 #include "./reql/portable_endian.h"
+#include "./reql/types.h"
 
 #include <netdb.h>
 #include <netinet/in.h>

@@ -28,8 +28,6 @@ extern "C" {
 #include "./reql/ast.h"
 #include "./reql/connection.h"
 #include "./reql/cursor.h"
-#include "./reql/decode.h"
-#include "./reql/encode.h"
 #include "./reql/error.h"
 #include "./reql/expr.h"
 #include "./reql/types.h"

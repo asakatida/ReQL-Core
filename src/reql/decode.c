@@ -20,8 +20,10 @@ limitations under the License.
 
 #include "./reql/decode.h"
 
-#include "./reql/core.h"
 #include "./reql/char.h"
+#include "./reql/error.h"
+#include "./reql/expr.h"
+#include "./reql/types.h"
 
 #include <math.h>
 #include <stdlib.h>

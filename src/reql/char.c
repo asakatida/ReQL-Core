@@ -20,6 +20,8 @@ limitations under the License.
 
 #include "./reql/char.h"
 
+#include "./reql/types.h"
+
 #include <stdlib.h>
 
 static const ReQL_Byte json_char_0x00[6] = {

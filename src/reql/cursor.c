@@ -20,7 +20,9 @@ limitations under the License.
 
 #include "./reql/cursor.h"
 
-#include "./reql/core.h"
+#include "./reql/connection.h"
+#include "./reql/error.h"
+#include "./reql/expr.h"
 
 #include <stdlib.h>
 #include <string.h>

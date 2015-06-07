@@ -20,7 +20,7 @@ limitations under the License.
 
 #include "./reql/ast.h"
 
-#include "./reql/core.h"
+#include "./reql/expr.h"
 
 #include <stdlib.h>
 
