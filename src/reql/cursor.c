@@ -105,6 +105,9 @@ reql_cur_set_response(ReQL_Cur_t *cur, ReQL_Obj_t *res) {
     }
   }
   if (cur->cb.each != NULL) {
+    if (reql_cur_open_(cur) != 0) {
+      reql_continue_query(cur);
+    }
     cur->cb.each(res, cur->cb.each_data);
     reql_json_destroy(res);
   } else {

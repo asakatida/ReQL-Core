@@ -59,9 +59,6 @@ typedef union {
   ReQL_Byte buf[8];
 } ReQL_LE64;
 
-static int
-reql_continue_query(ReQL_Cur_t *cur, ReQL_Conn_t *conn);
-
 static void
 reql_make_32_le(ReQL_Byte *buf, const ReQL_Size magic) {
   ReQL_LE32 convert = {htole32(magic)};
@@ -243,9 +240,6 @@ reql_conn_set_res(ReQL_Conn_t *conn, ReQL_Obj_t *res, const ReQL_Token token) {
   while (1) {
     if (cur->token == token) {
       reql_cur_set_response(cur, res);
-      if (reql_cur_open(cur) != 0) {
-        reql_continue_query(cur, conn);
-      }
       break;
     } else if (cur->next == cur) {
       reql_json_destroy(res);
@@ -425,7 +419,7 @@ reql_connect_(ReQL_Conn_t *conn, ReQL_Byte *buf, const ReQL_Size size) {
       return -1;
     }
   }
-  
+
   conn->socket = sock;
 
   pthread_t thread;
@@ -647,8 +641,8 @@ reql_encode_constant_query(ReQL_String_t *wire_query, const enum ReQL_Query_e ty
   return 0;
 }
 
-static int
-reql_continue_query(ReQL_Cur_t *cur, ReQL_Conn_t *conn) {
+extern int
+reql_continue_query(ReQL_Cur_t *cur) {
   ReQL_String_t wire_query;
   ReQL_Byte buf[10];
   wire_query.alloc_size = 10;
@@ -658,7 +652,7 @@ reql_continue_query(ReQL_Cur_t *cur, ReQL_Conn_t *conn) {
     return -1;
   }
 
-  return reql_run_(&wire_query, conn, cur->token);
+  return reql_run_(&wire_query, cur->conn, cur->token);
 }
 
 extern int
