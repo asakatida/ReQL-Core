@@ -3,7 +3,7 @@
 #include "./catch.hpp"
 #include "./reql/encode.h"
 
-TEST_CASE("encode values", "[c][encode]") {
+TEST_CASE("encode values", "[reql][encode]") {
   std::unique_ptr<ReQL_Obj_t> val(new ReQL_Obj_t);
 
   SECTION("null") {

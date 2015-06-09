@@ -5,7 +5,7 @@
 
 #include <limits>
 
-TEST_CASE("c expr array", "[c][expr][array]") {
+TEST_CASE("c expr array", "[reql][expr][array]") {
   std::unique_ptr<ReQL_Obj_t> ary(new ReQL_Obj_t);
 
   const uint32_t size = 5;
@@ -57,7 +57,7 @@ TEST_CASE("c expr array", "[c][expr][array]") {
   }
 }
 
-TEST_CASE("c expr object", "[c][expr][object]") {
+TEST_CASE("c expr object", "[reql][expr][object]") {
   std::unique_ptr<ReQL_Obj_t> obj(new ReQL_Obj_t);
   std::unique_ptr<ReQL_Obj_t> key(new ReQL_Obj_t);
   std::unique_ptr<ReQL_Obj_t> val(new ReQL_Obj_t);
@@ -159,7 +159,7 @@ TEST_CASE("c expr object", "[c][expr][object]") {
   buf.reset();
 }
 
-TEST_CASE("c expr", "[c][expr]") {
+TEST_CASE("c expr", "[reql][expr]") {
   std::unique_ptr<ReQL_Obj_t> val(new ReQL_Obj_t);
 
   SECTION("bool") {

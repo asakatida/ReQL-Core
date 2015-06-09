@@ -5,7 +5,7 @@
 
 #include <string>
 
-TEST_CASE("c connection", "[c][connection]") {
+TEST_CASE("reql connection", "[reql][connection]") {
   std::unique_ptr<ReQL_Conn_t> c(new ReQL_Conn_t);
 
   reql_conn_init(c.get());

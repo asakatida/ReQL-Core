@@ -5,7 +5,7 @@
 
 #include <string>
 
-TEST_CASE("decode errors", "[c][decode]") {
+TEST_CASE("decode errors", "[reql][decode]") {
   SECTION("empty string") {
     const uint32_t size = 1;
     uint8_t src[size] = "";
