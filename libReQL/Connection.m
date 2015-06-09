@@ -37,7 +37,7 @@ limitations under the License.
     }
     reql_conn_init(p_conn);
     ReQL_Byte buf[500];
-    if (reql_connect(p_conn, buf, 500) != 0) {
+    if (reql_conn_connect(p_conn, buf, 500) != 0) {
       [self release];
       return NULL;
     }

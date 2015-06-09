@@ -409,7 +409,7 @@ reql_lua_connect(lua_State *L) {
   reql_conn_init(conn);
   char msg[500];
 
-  if (reql_connect(conn, msg, 500)) {
+  if (reql_conn_connect(conn, msg, 500)) {
     return 0;
   }
 

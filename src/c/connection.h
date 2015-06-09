@@ -30,6 +30,15 @@ typedef struct ReQL_Connection_s ReQL_Connection_t;
 extern void *
 reql_connection_data(ReQL_Connection_t *conn);
 
+extern ReQL_Connection_t *
+reql_connect(const unsigned long timeout, const char *address, const char *port, const char *key, const unsigned long key_size);
+
+extern void
+reql_no_reply_wait(ReQL_Connection_t *conn);
+
+extern void
+reql_connection_close(ReQL_Connection_t *conn);
+
 #ifdef __cplusplus
 }
 #endif

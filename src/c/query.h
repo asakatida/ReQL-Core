@@ -33,6 +33,9 @@ typedef struct ReQL_s ReQL_t;
 extern ReQL_Cursor_t *
 reql(ReQL_t *query, ReQL_t *kwargs, ReQL_Connection_t *conn);
 
+extern void
+reql_no_reply(ReQL_t *query, ReQL_t *kwargs, ReQL_Connection_t *conn);
+  
 extern ReQL_t *
 reql_array(ReQL_t **val);
 

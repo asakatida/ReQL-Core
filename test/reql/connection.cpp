@@ -54,7 +54,7 @@ TEST_CASE("reql connection", "[reql][connection]") {
   SECTION("reql_connect") {
     std::unique_ptr<std::uint8_t> buf(new std::uint8_t[100]);
 
-    REQUIRE(reql_connect(c.get(), buf.get(), 100) == 0);
+    REQUIRE(reql_conn_connect(c.get(), buf.get(), 100) == 0);
 
     REQUIRE(reql_conn_open(c.get()) != 0);
 

@@ -31,7 +31,7 @@ Connection::Connection() : _C::CTypes::connection(new _C::ReQL_Conn_t) {
 
   _C::ReQL_Byte buf[500];
 
-  if (reql_connect(get(), buf, 500) != 0) {
+  if (reql_conn_connect(get(), buf, 500) != 0) {
     throw ReQLDriverError();
   }
 }
@@ -43,7 +43,7 @@ Connection::Connection(const Types::string &host) : _C::CTypes::connection(new _
 
   _C::ReQL_Byte buf[500];
 
-  if (reql_connect(get(), buf, 500) != 0) {
+  if (reql_conn_connect(get(), buf, 500) != 0) {
     throw ReQLDriverError();
   }
 }
@@ -56,7 +56,7 @@ Connection::Connection(const Types::string &host, const std::uint16_t &port) : _
 
   _C::ReQL_Byte buf[500];
 
-  if (reql_connect(get(), buf, 500) != 0) {
+  if (reql_conn_connect(get(), buf, 500) != 0) {
     throw ReQLDriverError();
   }
 }
@@ -76,7 +76,7 @@ Connection::Connection(const Types::string &host, const std::uint16_t &port, con
 
   _C::ReQL_Byte buf[500];
 
-  if (reql_connect(get(), buf, 500) != 0) {
+  if (reql_conn_connect(get(), buf, 500) != 0) {
     throw ReQLDriverError();
   }
 }

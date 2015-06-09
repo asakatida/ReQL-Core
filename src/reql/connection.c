@@ -430,7 +430,7 @@ reql_connect_(ReQL_Conn_t *conn, ReQL_Byte *buf, const ReQL_Size size) {
 }
 
 extern int
-reql_connect(ReQL_Conn_t *conn, ReQL_Byte *buf, const ReQL_Size size) {
+reql_conn_connect(ReQL_Conn_t *conn, ReQL_Byte *buf, const ReQL_Size size) {
   reql_conn_lock(conn);
   const int status = reql_connect_(conn, buf, size);
   reql_conn_unlock(conn);
