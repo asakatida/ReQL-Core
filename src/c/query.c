@@ -56,6 +56,17 @@ struct ReQL_Args_s {
 };
 typedef struct ReQL_Args_s ReQL_Args_t;
 
+extern ReQL_Cursor_t *
+reql(ReQL_t *query, ReQL_t *kwargs, ReQL_Connection_t *conn) {
+  ReQL_Cursor_t *cur = NULL;
+  if (kwargs == NULL) {
+    reql_run(reql_cursor_data(cur), query->cb(query), reql_connection_data(conn), NULL);
+  } else {
+    reql_run(reql_cursor_data(cur), query->cb(query), reql_connection_data(conn), kwargs->cb(kwargs));
+  }
+  return cur;
+}
+
 static ReQL_Obj_t *
 reql_array_(ReQL_t *reql) {
   NEW_REQL_OBJ;
