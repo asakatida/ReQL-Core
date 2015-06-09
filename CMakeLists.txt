@@ -19,6 +19,7 @@ set(SOURCES
  src/reql/encode.c
  src/reql/error.c
  src/reql/expr.c
+ test/c/connection.cpp
  test/c/polyglot/aggregation.cpp
  test/c/polyglot/arity.cpp
  test/c/polyglot/arraylimits.cpp
