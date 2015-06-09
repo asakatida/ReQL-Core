@@ -25,16 +25,18 @@ limitations under the License.
 extern "C" {
 #endif
 
+#include "./c/query.h"
+
 typedef struct ReQL_Connection_s ReQL_Connection_t;
 
-extern void *
-reql_connection_data(ReQL_Connection_t *conn);
-
 extern ReQL_Connection_t *
-reql_connect(const unsigned long timeout, const char *address, const char *port, const char *key, const unsigned long key_size);
+reql_connect(const unsigned long timeout, char *address, char *port, char *key, const unsigned long key_size);
 
 extern void
-reql_no_reply_wait(ReQL_Connection_t *conn);
+reql_noreply(ReQL_t *query, ReQL_t *kwargs, ReQL_Connection_t *conn);
+  
+extern void
+reql_noreply_wait(ReQL_Connection_t *conn);
 
 extern void
 reql_connection_close(ReQL_Connection_t *conn);

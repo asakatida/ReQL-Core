@@ -18,13 +18,45 @@ limitations under the License.
  * @copyright Apache
  */
 
-#include "./c/error.h"
+#ifndef REQL_C_TYPES_H_
+#define REQL_C_TYPES_H_
 
-#include "./c/types.h"
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-#include <stdlib.h>
+#include "./reql/core.h"
 
-extern int
-reql_error_code(ReQL_Error_t *error) {
-  return error->code;
+struct ReQL_s {
+  ReQL_Obj_t *(*cb)(struct ReQL_s *obj);
+  void *data;
+  size_t size;
+};
+
+struct ReQL_Args_s {
+  struct ReQL_s *args;
+  struct ReQL_s *kwargs;
+};
+typedef struct ReQL_Args_s ReQL_Args_t;
+
+struct ReQL_Connection_s {
+  ReQL_Conn_t *connection;
+};
+
+struct ReQL_Cursor_s {
+  ReQL_Cur_t *cursor;
+};
+
+struct ReQL_Error_s {
+  int code;
+};
+
+struct ReQL_Result_s {
+  ReQL_Obj_t *object;
+};
+
+#ifdef __cplusplus
 }
+#endif
+
+#endif  // REQL_C_TYPES_H_

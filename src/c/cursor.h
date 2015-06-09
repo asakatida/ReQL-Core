@@ -25,6 +25,9 @@ limitations under the License.
 extern "C" {
 #endif
 
+#include "./c/connection.h"
+#include "./c/query.h"
+
 typedef enum {
   ReQL_Error,
   ReQL_Start_Object,
@@ -46,11 +49,11 @@ typedef struct ReQL_Result_s ReQL_Result_t;
 typedef int(*ReQL_Each)(ReQL_Result_t *result, void *obj);
 typedef int(*ReQL_Parse)(ReQL_Result_t *result, ReQL_Parse_Event e, void *obj);
 
+extern ReQL_Cursor_t *
+reql_cursor(ReQL_t *query, ReQL_t *kwargs, ReQL_Connection_t *conn);
+
 extern void
 reql_cursor_close(ReQL_Cursor_t *cur);
-
-extern void *
-reql_cursor_data(ReQL_Cursor_t *cur);
 
 extern void
 reql_cursor_drain(ReQL_Cursor_t *cur);

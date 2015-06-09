@@ -419,6 +419,7 @@
 		8791C84A1B13968C004798D7 /* libReQL.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C8491B13968C004798D7 /* libReQL.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8791C8501B13968C004798D7 /* libReQL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8791C8451B13968C004798D7 /* libReQL.framework */; };
 		8791C8571B13968C004798D7 /* libReQLTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8791C8561B13968C004798D7 /* libReQLTests.m */; };
+		879C95BD1B274A6D00EF7026 /* types.h in Headers */ = {isa = PBXBuildFile; fileRef = 879C95BC1B274A6D00EF7026 /* types.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		87D94E731B26CAA300381E25 /* connection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87D94E721B26CAA300381E25 /* connection.cpp */; };
 		87DAA63B1B13CB69005626BF /* Connection.h in Headers */ = {isa = PBXBuildFile; fileRef = 87DAA6391B13CB69005626BF /* Connection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		87DAA63C1B13CB69005626BF /* Connection.m in Sources */ = {isa = PBXBuildFile; fileRef = 87DAA63A1B13CB69005626BF /* Connection.m */; };
@@ -897,6 +898,7 @@
 		8791C84F1B13968C004798D7 /* libReQLTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = libReQLTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8791C8551B13968C004798D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8791C8561B13968C004798D7 /* libReQLTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = libReQLTests.m; sourceTree = "<group>"; };
+		879C95BC1B274A6D00EF7026 /* types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
 		87D94E721B26CAA300381E25 /* connection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = connection.cpp; sourceTree = "<group>"; };
 		87DAA6391B13CB69005626BF /* Connection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Connection.h; sourceTree = "<group>"; };
 		87DAA63A1B13CB69005626BF /* Connection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Connection.m; sourceTree = "<group>"; };
@@ -1216,6 +1218,7 @@
 				1ECDD7391AB53D80004CD31E /* cursor.h */,
 				1ECDD73E1AB53D80004CD31E /* error.c */,
 				87F3A8B21B093E8000401BCE /* error.h */,
+				879C95BC1B274A6D00EF7026 /* types.h */,
 			);
 			path = c;
 			sourceTree = "<group>";
@@ -1786,6 +1789,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				879C95BD1B274A6D00EF7026 /* types.h in Headers */,
 				8728AD0F1B1BEF4F00588F9A /* ReQL.h in Headers */,
 				8728AD031B1BEF0A00588F9A /* cursor.h in Headers */,
 				8728AD011B1BEF0A00588F9A /* connection.h in Headers */,

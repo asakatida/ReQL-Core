@@ -20,17 +20,10 @@ limitations under the License.
 
 #include "./c/cursor.h"
 
+#include "./c/types.h"
 #include "./reql/core.h"
 
 #include <stdlib.h>
-
-struct ReQL_Cursor_s {
-  ReQL_Cur_t *cursor;
-};
-
-struct ReQL_Result_s {
-  ReQL_Obj_t *object;
-};
 
 static ReQL_Result_t *
 reql_result(ReQL_Obj_t *obj) {
@@ -54,11 +47,27 @@ reql_result_destroy(ReQL_Result_t *result) {
 extern void
 reql_cursor_close(ReQL_Cursor_t *cur) {
   reql_cur_close(cur->cursor);
+  free(cur->cursor);
+  free(cur);
 }
 
-extern void *
-reql_cursor_data(ReQL_Cursor_t *cur) {
-  return cur->cursor;
+extern ReQL_Cursor_t *
+reql_cursor(ReQL_t *query, ReQL_t *kwargs, ReQL_Connection_t *conn) {
+  ReQL_Cursor_t *cur = malloc(sizeof(ReQL_Cursor_t));
+  if (cur == NULL) {
+    return NULL;
+  }
+  cur->cursor = malloc(sizeof(ReQL_Cur_t));
+  if (cur->cursor == NULL) {
+    free(cur);
+    return NULL;
+  }
+  if (kwargs == NULL) {
+    reql_run(cur->cursor, query->cb(query), conn->connection, NULL);
+  } else {
+    reql_run(cur->cursor, query->cb(query), conn->connection, kwargs->cb(kwargs));
+  }
+  return cur;
 }
 
 extern void

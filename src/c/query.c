@@ -20,12 +20,11 @@ limitations under the License.
 
 #include "./c/query.h"
 
+#include "./c/types.h"
 #include "./reql/core.h"
 
 #include <stdlib.h>
 #include <string.h>
-
-typedef ReQL_Obj_t *(*ReQL_Build)(ReQL_t *obj);
 
 #define NEW_REQL ReQL_t *reql = malloc(sizeof(ReQL_t));\
 if (reql == NULL) {\
@@ -42,29 +41,6 @@ memcpy(reql->data, obj, size);
 #define NEW_REQL_OBJ ReQL_Obj_t *obj = malloc(sizeof(ReQL_Obj_t));\
 if (obj == NULL) {\
   return NULL;\
-}
-
-struct ReQL_s {
-  ReQL_Build cb;
-  void *data;
-  size_t size;
-};
-
-struct ReQL_Args_s {
-  ReQL_t *args;
-  ReQL_t *kwargs;
-};
-typedef struct ReQL_Args_s ReQL_Args_t;
-
-extern ReQL_Cursor_t *
-reql(ReQL_t *query, ReQL_t *kwargs, ReQL_Connection_t *conn) {
-  ReQL_Cursor_t *cur = NULL;
-  if (kwargs == NULL) {
-    reql_run(reql_cursor_data(cur), query->cb(query), reql_connection_data(conn), NULL);
-  } else {
-    reql_run(reql_cursor_data(cur), query->cb(query), reql_connection_data(conn), kwargs->cb(kwargs));
-  }
-  return cur;
 }
 
 static ReQL_Obj_t *

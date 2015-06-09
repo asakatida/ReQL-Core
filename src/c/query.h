@@ -25,17 +25,8 @@ limitations under the License.
 extern "C" {
 #endif
 
-#include "./c/connection.h"
-#include "./c/cursor.h"
-
 typedef struct ReQL_s ReQL_t;
 
-extern ReQL_Cursor_t *
-reql(ReQL_t *query, ReQL_t *kwargs, ReQL_Connection_t *conn);
-
-extern void
-reql_no_reply(ReQL_t *query, ReQL_t *kwargs, ReQL_Connection_t *conn);
-  
 extern ReQL_t *
 reql_array(ReQL_t **val);
 
@@ -47,9 +38,6 @@ reql_destroy(ReQL_t *reql);
 
 extern ReQL_t *
 reql_json_object(ReQL_t **val);
-
-extern void
-reql_noreply(ReQL_t *query, ReQL_t *kwargs, ReQL_Connection_t *conn);
 
 extern ReQL_t *
 reql_null(void);
