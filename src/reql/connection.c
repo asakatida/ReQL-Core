@@ -423,7 +423,6 @@ reql_connect_(ReQL_Conn_t *conn, ReQL_Byte *buf, const ReQL_Size size) {
   conn->socket = sock;
 
   if (pthread_create(&conn->condition.thread, NULL, reql_conn_loop, conn) != 0) {
-    reql_conn_close_(conn);
     return -1;
   }
 
@@ -436,7 +435,7 @@ reql_connect(ReQL_Conn_t *conn, ReQL_Byte *buf, const ReQL_Size size) {
   const int status = reql_connect_(conn, buf, size);
   reql_conn_unlock(conn);
   if (status != 0) {
-    reql_conn_destroy(conn);
+    reql_conn_close(conn);
   }
   return status;
 }
@@ -456,8 +455,16 @@ reql_conn_destroy(ReQL_Conn_t *conn) {
     reql_cur_close(conn->cursors);
   }
   reql_conn_unlock(conn);
-  pthread_join(conn->condition.thread, NULL);
-  pthread_mutex_destroy(conn->condition.mutex);
+  if (conn->condition.thread != NULL) {
+    reql_conn_unlock(conn);
+    pthread_join(conn->condition.thread, NULL);
+  } else {
+    reql_conn_unlock(conn);
+  }
+  conn->condition.thread = NULL;
+  if (conn->condition.mutex != NULL) {
+    pthread_mutex_destroy(conn->condition.mutex);
+  }
   free(conn->condition.mutex); conn->condition.mutex = NULL;
 }
 
@@ -667,7 +674,7 @@ reql_no_reply_wait_query(ReQL_Conn_t *conn) {
 }
 
 extern int
-reql_stop_query(ReQL_Cur_t *cur, ReQL_Conn_t *conn) {
+reql_stop_query(ReQL_Cur_t *cur) {
   ReQL_String_t wire_query;
   ReQL_Byte buf[10];
   wire_query.alloc_size = 10;
@@ -677,9 +684,9 @@ reql_stop_query(ReQL_Cur_t *cur, ReQL_Conn_t *conn) {
     return -1;
   }
 
-  reql_conn_lock(conn);
-  const int status = reql_run_(&wire_query, conn, cur->token);
-  reql_conn_unlock(conn);
+  reql_conn_lock(cur->conn);
+  const int status = reql_run_(&wire_query, cur->conn, cur->token);
+  reql_conn_unlock(cur->conn);
 
   return status;
 }

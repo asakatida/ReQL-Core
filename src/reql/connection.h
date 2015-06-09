@@ -187,7 +187,7 @@ extern int
 reql_no_reply_wait_query(ReQL_Conn_t *conn);
 
 extern int
-reql_stop_query(struct ReQL_Cur_s *cur, ReQL_Conn_t *conn);
+reql_stop_query(struct ReQL_Cur_s *cur);
 
 extern int
 reql_continue_query(struct ReQL_Cur_s *cur);
