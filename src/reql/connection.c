@@ -666,9 +666,25 @@ reql_no_reply_wait_query(ReQL_Conn_t *conn) {
     return -1;
   }
 
+  ReQL_Cur_t *cur = malloc(sizeof(ReQL_Cur_t));
+  if (cur == NULL) {
+    return -1;
+  }
+
   reql_conn_lock(conn);
-  const int status = reql_run_(&wire_query, conn, conn->max_token++);
-  reql_conn_lock(conn);
+  const ReQL_Token token = conn->max_token++;
+  reql_cur_init(cur, conn, token);
+  conn->cursors = cur;
+
+  const int status = reql_run_(&wire_query, conn, token);
+  reql_conn_unlock(conn);
+
+  if (status == 0) {
+    reql_cur_drain(cur);
+  }
+
+  reql_cur_destroy(cur);
+  free(cur);
 
   return status;
 }
