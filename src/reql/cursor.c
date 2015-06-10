@@ -320,6 +320,7 @@ reql_cur_drain(ReQL_Cur_t *cur) {
     pthread_cond_broadcast(p_data->done);
     return 0;
   };
+  cur->cb.data[END] = &data;
   int success = 0;
   while (success == 0 && reql_cur_open_(cur) != 0) {
     success = pthread_cond_wait(done, cur->condition.mutex);
@@ -328,7 +329,7 @@ reql_cur_drain(ReQL_Cur_t *cur) {
   free(done);
   cur->cb.end = NULL;
   cur->cb.each = NULL;
-  cur->cb.data[EACH] = NULL;
+  cur->cb.data[END] = NULL;
   reql_cur_unlock(cur);
 }
 
