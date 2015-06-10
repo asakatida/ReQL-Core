@@ -85,10 +85,99 @@ TEST_CASE("reql connection", "[reql][connection]") {
 
       reql_cur_close(cur.get());
     }
-    
+
     SECTION("reql_no_reply_wait_query") {
+      std::unique_ptr<ReQL_Obj_t> db_name(new ReQL_Obj_t);
+      ReQL_Byte buf[7];
+
+      reql_string_init(db_name.get(), buf, 7);
+      reql_string_append(db_name.get(), (ReQL_Byte *)"no_reply", 7);
+
+      std::unique_ptr<ReQL_Obj_t> db_args(new ReQL_Obj_t);
+      ReQL_Obj_t *arr[1];
+
+      reql_array_init(db_args.get(), arr, 1);
+      reql_array_append(db_args.get(), db_name.get());
+
+      std::unique_ptr<ReQL_Obj_t> db(new ReQL_Obj_t);
+
+      reql_ast_db_create(db.get(), db_args.get());
+
+      reql_run(nullptr, db.get(), c.get(), nullptr);
+
+      reql_no_reply_wait_query(c.get());
+
+      db_args.get()->owner = nullptr;
+
+      reql_ast_db(db.get(), db_args.get());
+
+      std::unique_ptr<ReQL_Obj_t> table_name(new ReQL_Obj_t);
+      ReQL_Byte buf1[7];
+
+      reql_string_init(table_name.get(), buf1, 7);
+      reql_string_append(table_name.get(), (ReQL_Byte *)"no_reply", 7);
+
+      std::unique_ptr<ReQL_Obj_t> table_args(new ReQL_Obj_t);
+      ReQL_Obj_t *arr1[2];
+
+      reql_array_init(table_args.get(), arr1, 2);
+      reql_array_append(table_args.get(), db.get());
+      reql_array_append(table_args.get(), table_name.get());
+
+      std::unique_ptr<ReQL_Obj_t> table(new ReQL_Obj_t);
+
+      reql_ast_table_create(table.get(), table_args.get(), nullptr);
+
+      reql_run(nullptr, table.get(), c.get(), nullptr);
+
+      reql_no_reply_wait_query(c.get());
+
+      table_args.get()->owner = nullptr;
+
+      reql_ast_table(table.get(), table_args.get(), nullptr);
+
+      std::unique_ptr<ReQL_Obj_t> empty(new ReQL_Obj_t);
+
+      reql_object_init(empty.get(), nullptr, 0);
+
+      std::unique_ptr<ReQL_Obj_t> insert_args(new ReQL_Obj_t);
+      ReQL_Obj_t *arr2[2];
+
+      reql_array_init(insert_args.get(), arr2, 2);
+      reql_array_append(insert_args.get(), table.get());
+      reql_array_append(insert_args.get(), empty.get());
+
+      std::unique_ptr<ReQL_Obj_t> insert(new ReQL_Obj_t);
+
+      reql_ast_insert(insert.get(), insert_args.get());
+
+      reql_run(nullptr, insert.get(), c.get(), nullptr);
+
+      reql_no_reply_wait_query(c.get());
+
+      std::unique_ptr<ReQL_Cur_t> cur(new ReQL_Cur_t);
+
+      reql_run(cur.get(), table.get(), c.get(), nullptr);
+
+      REQUIRE(reql_cur_open(cur.get()) != 0);
+
+      ReQL_Obj_t *result = reql_cur_to_array(cur.get());
+
+      REQUIRE(result != nullptr);
+      REQUIRE(reql_datum_type(result) == REQL_R_ARRAY);
+      REQUIRE(reql_size(result) == 1);
+
+      ReQL_Obj_t *elem = reql_array_last(result);
+
+      REQUIRE(elem != nullptr);
+      REQUIRE(reql_datum_type(elem) == REQL_R_NUM);
+      REQUIRE(reql_to_number(elem) == Approx(2.72));
+
+      reql_json_destroy(result);
+
+      reql_cur_close(cur.get());
     }
-    
+
     SECTION("reql_stop_query") {
     }
   }
