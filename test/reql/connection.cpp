@@ -48,41 +48,61 @@ TEST_CASE("reql connection", "[reql][connection]") {
   SECTION("reql_conn_set_timeout") {
     reql_conn_set_timeout(c.get(), 15);
 
-    REQUIRE(reql_conn_timeout(c.get()) == uint64_t(15));
+    REQUIRE(reql_conn_timeout(c.get()) == ReQL_Token(15));
   }
 
-  SECTION("reql_connect") {
+  SECTION("reql_conn_connect") {
     std::unique_ptr<std::uint8_t> buf(new std::uint8_t[100]);
 
     REQUIRE(reql_conn_connect(c.get(), buf.get(), 100) == 0);
 
     REQUIRE(reql_conn_open(c.get()) != 0);
 
-    std::unique_ptr<ReQL_Obj_t> q(new ReQL_Obj_t);
+    SECTION("reql_run") {
+      std::unique_ptr<ReQL_Obj_t> q(new ReQL_Obj_t);
 
-    reql_number_init(q.get(), 2.72);
+      reql_number_init(q.get(), 2.72);
 
-    std::unique_ptr<ReQL_Cur_t> cur(new ReQL_Cur_t);
+      std::unique_ptr<ReQL_Cur_t> cur(new ReQL_Cur_t);
 
-    reql_run(cur.get(), q.get(), c.get(), nullptr);
+      reql_run(cur.get(), q.get(), c.get(), nullptr);
 
-    REQUIRE(reql_cur_open(cur.get()) != 0);
+      REQUIRE(reql_cur_open(cur.get()) != 0);
 
-    ReQL_Obj_t *result = reql_cur_to_array(cur.get());
+      ReQL_Obj_t *result = reql_cur_to_array(cur.get());
 
-    REQUIRE(result != nullptr);
-    REQUIRE(reql_datum_type(result) == REQL_R_ARRAY);
-    REQUIRE(reql_size(result) == 1);
+      REQUIRE(result != nullptr);
+      REQUIRE(reql_datum_type(result) == REQL_R_ARRAY);
+      REQUIRE(reql_size(result) == 1);
 
-    ReQL_Obj_t *elem = reql_array_last(result);
+      ReQL_Obj_t *elem = reql_array_last(result);
 
-    REQUIRE(elem != nullptr);
-    REQUIRE(reql_datum_type(elem) == REQL_R_NUM);
-    REQUIRE(reql_to_number(elem) == Approx(2.72));
+      REQUIRE(elem != nullptr);
+      REQUIRE(reql_datum_type(elem) == REQL_R_NUM);
+      REQUIRE(reql_to_number(elem) == Approx(2.72));
 
-    reql_json_destroy(result);
+      reql_json_destroy(result);
 
-    reql_cur_close(cur.get());
+      reql_cur_close(cur.get());
+    }
+    
+    SECTION("reql_no_reply_wait_query") {
+    }
+    
+    SECTION("reql_stop_query") {
+    }
+  }
+
+  SECTION("reql_conn_close") {
+    reql_conn_close(c.get());
+
+    REQUIRE(reql_conn_open(c.get()) == 0);
+  }
+
+  SECTION("reql_conn_destroy") {
+    reql_conn_destroy(c.get());
+
+    REQUIRE(reql_conn_open(c.get()) == 0);
   }
 
   reql_conn_close(c.get());
