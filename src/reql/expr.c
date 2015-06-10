@@ -326,6 +326,9 @@ reql_array_index(const ReQL_Obj_t *obj, const ReQL_Size idx) {
 
 extern ReQL_Size
 reql_array_append(ReQL_Obj_t *obj, ReQL_Obj_t *val) {
+  if (val == NULL) {
+    return 0;
+  }
   return reql_array_insert(obj, val, reql_size(obj));
 }
 
