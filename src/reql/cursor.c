@@ -304,7 +304,9 @@ reql_cur_drain(ReQL_Cur_t *cur) {
   reql_cur_lock(cur);
   if (cur->cb.each == NULL) {
     cur->cb.each = ^(ReQL_Obj_t *res, void *data) { (void)res; (void)data; return 0; };
-    reql_cur_set_response_(cur, cur->cb.data[EACH]);
+    if (cur->cb.data[EACH] != NULL) {
+      reql_cur_set_response_(cur, cur->cb.data[EACH]);
+    }
   }
   struct ReQL_Cur_Data_Holder data;
   data.cb.end = cur->cb.end;
