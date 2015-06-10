@@ -49,7 +49,7 @@ reql_connect(const unsigned long timeout, char *address, char *port, char *key, 
   if (key_size > 0) {
     reql_conn_set_auth(conn->connection, (ReQL_Size)key_size, key);
   }
-  return NULL;
+  return conn;
 }
 
 extern void
