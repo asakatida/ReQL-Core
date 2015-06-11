@@ -32,12 +32,12 @@ public:
   Query();
   Query(const _C::ReQL_AST_Function &f, const Types::array &args);
   Query(const _C::ReQL_AST_Function_Kwargs &f, const Types::array &args, const Types::object &kwargs);
-  explicit Query(const Types::string &val);
-  explicit Query(const double &val);
-  explicit Query(const bool &val);
-  explicit Query(const Types::array &val);
-  explicit Query(const Types::object &val);
-  explicit Query(_C::ReQL_Obj_t *val);
+  Query(const Types::string &val);
+  Query(const double &val);
+  Query(const bool &val);
+  Query(const Types::array &val);
+  Query(const Types::object &val);
+  Query(_C::ReQL_Obj_t *val);
 
   Query(const Query &other);
   Query(Query &&other);
