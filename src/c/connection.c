@@ -49,6 +49,11 @@ reql_connect(const unsigned long timeout, char *address, char *port, char *key, 
   if (key_size > 0) {
     reql_conn_set_auth(conn->connection, (ReQL_Size)key_size, key);
   }
+  ReQL_Byte buf[500];
+  if (reql_conn_connect(conn->connection, buf, 500) != 0) {
+    free(conn->connection);
+    free(conn); conn = NULL;
+  }
   return conn;
 }
 
