@@ -88,10 +88,11 @@ TEST_CASE("reql connection", "[reql][connection]") {
 
     SECTION("reql_no_reply_wait_query") {
       std::unique_ptr<ReQL_Obj_t> db_name(new ReQL_Obj_t);
-      ReQL_Byte buf[7];
+      ReQL_Byte buf1[7];
+      const ReQL_Byte src[] = "no_reply";
 
-      reql_string_init(db_name.get(), buf, 7);
-      reql_string_append(db_name.get(), (ReQL_Byte *)"no_reply", 7);
+      reql_string_init(db_name.get(), buf1, 7);
+      reql_string_append(db_name.get(), src, 7);
 
       std::unique_ptr<ReQL_Obj_t> db_args(new ReQL_Obj_t);
       ReQL_Obj_t *arr[1];
@@ -112,10 +113,10 @@ TEST_CASE("reql connection", "[reql][connection]") {
       reql_ast_db(db.get(), db_args.get());
 
       std::unique_ptr<ReQL_Obj_t> table_name(new ReQL_Obj_t);
-      ReQL_Byte buf1[7];
+      ReQL_Byte buf2[7];
 
-      reql_string_init(table_name.get(), buf1, 7);
-      reql_string_append(table_name.get(), (ReQL_Byte *)"no_reply", 7);
+      reql_string_init(table_name.get(), buf2, 7);
+      reql_string_append(table_name.get(), src, 7);
 
       std::unique_ptr<ReQL_Obj_t> table_args(new ReQL_Obj_t);
       ReQL_Obj_t *arr1[2];
@@ -170,8 +171,7 @@ TEST_CASE("reql connection", "[reql][connection]") {
       ReQL_Obj_t *elem = reql_array_last(result);
 
       REQUIRE(elem != nullptr);
-      REQUIRE(reql_datum_type(elem) == REQL_R_NUM);
-      REQUIRE(reql_to_number(elem) == Approx(2.72));
+      REQUIRE(reql_datum_type(elem) == REQL_R_OBJECT);
 
       reql_json_destroy(result);
 
