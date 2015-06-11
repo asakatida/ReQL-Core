@@ -59,6 +59,9 @@ result_parse_handler(ReQL_Result_t *result, ReQL_Parse_Event e, void *obj) {
 
 int
 cursor_each_handler(ReQL_Result_t *res, void *data) {
+  if (res == NULL) {
+    return 1;
+  }
   reql_result_parse(res, result_parse_handler, data);
   return 0;
 }
