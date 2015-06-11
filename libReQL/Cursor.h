@@ -22,6 +22,6 @@ limitations under the License.
 
 @interface ReQLCursor : NSStream <NSFastEnumeration, NSStreamDelegate>
 
--(BOOL)error:(NSError **)err;
+-(BOOL)error:(NSError * __strong *)err;
 
 @end
