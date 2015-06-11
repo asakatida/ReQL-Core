@@ -265,7 +265,7 @@ reql_cur_next(ReQL_Cur_t *cur) {
       struct ReQL_Cur_Data_Holder *p_data = (struct ReQL_Cur_Data_Holder *)arg;
       cur->cb.each = p_data->cb.each;
       cur->cb.data[EACH] = p_data->cb_data;
-      p_data->cb_data = reql_obj_move(a_res);
+      p_data->cb_data = reql_json_move(a_res);
       pthread_cond_broadcast(p_data->done);
       return 0;
     };
@@ -369,7 +369,7 @@ reql_cur_to_array(ReQL_Cur_t *cur) {
   reql_array_init(array, arr, 20);
   reql_cur_lock(cur);
   cur->cb.each = ^(ReQL_Obj_t *res, void *data) {
-    reql_update_array(data, reql_obj_move(res));
+    reql_update_array(data, reql_json_move(res));
     return 0;
   };
   cur->cb.data[EACH] = array;

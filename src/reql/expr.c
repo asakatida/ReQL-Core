@@ -458,7 +458,7 @@ reql_op_eq(const ReQL_Obj_t *l, const ReQL_Obj_t *r) {
 }
 
 extern ReQL_Obj_t *
-reql_obj_copy(const ReQL_Obj_t *other) {
+reql_json_copy(const ReQL_Obj_t *other) {
   ReQL_Obj_t *self = malloc(sizeof(ReQL_Obj_t));
 
   if (self == NULL) {
@@ -482,7 +482,7 @@ reql_obj_copy(const ReQL_Obj_t *other) {
       for (i=0; i < size; ++i) {
         ReQL_Obj_t *elem = reql_array_index(other, i);
         if (elem != NULL) {
-          elem = reql_obj_copy(elem);
+          elem = reql_json_copy(elem);
           if (elem == NULL) {
             reql_json_destroy(self); self = NULL;
             return NULL;
@@ -525,14 +525,14 @@ reql_obj_copy(const ReQL_Obj_t *other) {
       ReQL_Obj_t *value = NULL;
 
       while ((key = reql_iter_next(&i)) != NULL) {
-        key = reql_obj_copy(key);
+        key = reql_json_copy(key);
         if (key == NULL) {
           reql_json_destroy(self); self = NULL;
           return NULL;
         }
         value = reql_object_get(other, key);
         if (value != NULL) {
-          value = reql_obj_copy(value);
+          value = reql_json_copy(value);
           if (value == NULL) {
             reql_json_destroy(key); key = NULL;
             reql_json_destroy(self); self = NULL;
@@ -568,7 +568,7 @@ reql_obj_copy(const ReQL_Obj_t *other) {
       break;
     }
     case REQL_R_REQL: {
-      reql_term_init(self, reql_term_type(other), reql_obj_copy(reql_term_args(other)), reql_obj_copy(reql_term_kwargs(other)));
+      reql_term_init(self, reql_term_type(other), reql_json_copy(reql_term_args(other)), reql_json_copy(reql_term_kwargs(other)));
       break;
     }
     case REQL_R_JSON: {
@@ -581,7 +581,7 @@ reql_obj_copy(const ReQL_Obj_t *other) {
 }
 
 extern ReQL_Obj_t *
-reql_obj_move(ReQL_Obj_t *other) {
+reql_json_move(ReQL_Obj_t *other) {
   ReQL_Obj_t *self = malloc(sizeof(ReQL_Obj_t));
 
   if (self == NULL) {

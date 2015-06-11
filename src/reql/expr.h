@@ -504,10 +504,10 @@ extern char
 reql_op_eq(const ReQL_Obj_t *l, const ReQL_Obj_t *r);
 
 extern ReQL_Obj_t *
-reql_obj_copy(const ReQL_Obj_t *other);
+reql_json_copy(const ReQL_Obj_t *other);
 
 extern ReQL_Obj_t *
-reql_obj_move(ReQL_Obj_t *other);
+reql_json_move(ReQL_Obj_t *other);
 
 /**
  * @brief recursive free of all nodes in a query tree.
