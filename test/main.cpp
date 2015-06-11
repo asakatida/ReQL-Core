@@ -21,6 +21,7 @@ main(int argc, char **argv) {
     
     conn.close();
   } catch (ReQL::ReQLError &e) {
+    (void)e;
   }
 
   return result;
