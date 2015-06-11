@@ -13,8 +13,8 @@ TEST_CASE("reql Regression test for issue", "[reql][ast]") {
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[12]);
-    const uint8_t src1[] = "reql_ast_obj";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[12]);
+    const ReQL_Byte src1[] = "reql_ast_obj";
     reql_string_init(var1.get(), buf1.get(), 12);
     reql_string_append(var1.get(), src1, 12);
 
@@ -23,14 +23,14 @@ TEST_CASE("reql Regression test for issue", "[reql][ast]") {
     reql_object_init(var2.get(), pair2.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf3(new uint8_t[12]);
-    const uint8_t src3[] = "reql_ast_obj";
+    std::unique_ptr<ReQL_Byte[]> buf3(new ReQL_Byte[12]);
+    const ReQL_Byte src3[] = "reql_ast_obj";
     reql_string_init(var3.get(), buf3.get(), 12);
     reql_string_append(var3.get(), src3, 12);
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf4(new uint8_t[11]);
-    const uint8_t src4[] = "TableListTL";
+    std::unique_ptr<ReQL_Byte[]> buf4(new ReQL_Byte[11]);
+    const ReQL_Byte src4[] = "TableListTL";
     reql_string_init(var4.get(), buf4.get(), 11);
     reql_string_append(var4.get(), src4, 11);
 
@@ -45,8 +45,8 @@ TEST_CASE("reql Regression test for issue", "[reql][ast]") {
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[12]);
-    const uint8_t src1[] = "reql_ast_obj";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[12]);
+    const ReQL_Byte src1[] = "reql_ast_obj";
     reql_string_init(var1.get(), buf1.get(), 12);
     reql_string_append(var1.get(), src1, 12);
 
@@ -55,14 +55,14 @@ TEST_CASE("reql Regression test for issue", "[reql][ast]") {
     reql_object_init(var2.get(), pair2.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf3(new uint8_t[12]);
-    const uint8_t src3[] = "reql_ast_obj";
+    std::unique_ptr<ReQL_Byte[]> buf3(new ReQL_Byte[12]);
+    const ReQL_Byte src3[] = "reql_ast_obj";
     reql_string_init(var3.get(), buf3.get(), 12);
     reql_string_append(var3.get(), src3, 12);
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf4(new uint8_t[13]);
-    const uint8_t src4[] = "TableCreateTL";
+    std::unique_ptr<ReQL_Byte[]> buf4(new ReQL_Byte[13]);
+    const ReQL_Byte src4[] = "TableCreateTL";
     reql_string_init(var4.get(), buf4.get(), 13);
     reql_string_append(var4.get(), src4, 13);
 
@@ -77,8 +77,8 @@ TEST_CASE("reql Regression test for issue", "[reql][ast]") {
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[12]);
-    const uint8_t src1[] = "reql_ast_obj";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[12]);
+    const ReQL_Byte src1[] = "reql_ast_obj";
     reql_string_init(var1.get(), buf1.get(), 12);
     reql_string_append(var1.get(), src1, 12);
 
@@ -87,14 +87,14 @@ TEST_CASE("reql Regression test for issue", "[reql][ast]") {
     reql_object_init(var2.get(), pair2.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf3(new uint8_t[12]);
-    const uint8_t src3[] = "reql_ast_obj";
+    std::unique_ptr<ReQL_Byte[]> buf3(new ReQL_Byte[12]);
+    const ReQL_Byte src3[] = "reql_ast_obj";
     reql_string_init(var3.get(), buf3.get(), 12);
     reql_string_append(var3.get(), src3, 12);
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf4(new uint8_t[11]);
-    const uint8_t src4[] = "TableDropTL";
+    std::unique_ptr<ReQL_Byte[]> buf4(new ReQL_Byte[11]);
+    const ReQL_Byte src4[] = "TableDropTL";
     reql_string_init(var4.get(), buf4.get(), 11);
     reql_string_append(var4.get(), src4, 11);
 
@@ -109,8 +109,8 @@ TEST_CASE("reql Regression test for issue", "[reql][ast]") {
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[12]);
-    const uint8_t src1[] = "reql_ast_obj";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[12]);
+    const ReQL_Byte src1[] = "reql_ast_obj";
     reql_string_init(var1.get(), buf1.get(), 12);
     reql_string_append(var1.get(), src1, 12);
 
@@ -119,14 +119,14 @@ TEST_CASE("reql Regression test for issue", "[reql][ast]") {
     reql_object_init(var2.get(), pair2.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf3(new uint8_t[12]);
-    const uint8_t src3[] = "reql_ast_obj";
+    std::unique_ptr<ReQL_Byte[]> buf3(new ReQL_Byte[12]);
+    const ReQL_Byte src3[] = "reql_ast_obj";
     reql_string_init(var3.get(), buf3.get(), 12);
     reql_string_append(var3.get(), src3, 12);
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf4(new uint8_t[9]);
-    const uint8_t src4[] = "TableList";
+    std::unique_ptr<ReQL_Byte[]> buf4(new ReQL_Byte[9]);
+    const ReQL_Byte src4[] = "TableList";
     reql_string_init(var4.get(), buf4.get(), 9);
     reql_string_append(var4.get(), src4, 9);
 
@@ -141,8 +141,8 @@ TEST_CASE("reql Regression test for issue", "[reql][ast]") {
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[12]);
-    const uint8_t src1[] = "reql_ast_obj";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[12]);
+    const ReQL_Byte src1[] = "reql_ast_obj";
     reql_string_init(var1.get(), buf1.get(), 12);
     reql_string_append(var1.get(), src1, 12);
 
@@ -151,14 +151,14 @@ TEST_CASE("reql Regression test for issue", "[reql][ast]") {
     reql_object_init(var2.get(), pair2.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf3(new uint8_t[12]);
-    const uint8_t src3[] = "reql_ast_obj";
+    std::unique_ptr<ReQL_Byte[]> buf3(new ReQL_Byte[12]);
+    const ReQL_Byte src3[] = "reql_ast_obj";
     reql_string_init(var3.get(), buf3.get(), 12);
     reql_string_append(var3.get(), src3, 12);
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf4(new uint8_t[11]);
-    const uint8_t src4[] = "TableCreate";
+    std::unique_ptr<ReQL_Byte[]> buf4(new ReQL_Byte[11]);
+    const ReQL_Byte src4[] = "TableCreate";
     reql_string_init(var4.get(), buf4.get(), 11);
     reql_string_append(var4.get(), src4, 11);
 
@@ -173,8 +173,8 @@ TEST_CASE("reql Regression test for issue", "[reql][ast]") {
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[12]);
-    const uint8_t src1[] = "reql_ast_obj";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[12]);
+    const ReQL_Byte src1[] = "reql_ast_obj";
     reql_string_init(var1.get(), buf1.get(), 12);
     reql_string_append(var1.get(), src1, 12);
 
@@ -183,14 +183,14 @@ TEST_CASE("reql Regression test for issue", "[reql][ast]") {
     reql_object_init(var2.get(), pair2.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf3(new uint8_t[12]);
-    const uint8_t src3[] = "reql_ast_obj";
+    std::unique_ptr<ReQL_Byte[]> buf3(new ReQL_Byte[12]);
+    const ReQL_Byte src3[] = "reql_ast_obj";
     reql_string_init(var3.get(), buf3.get(), 12);
     reql_string_append(var3.get(), src3, 12);
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf4(new uint8_t[9]);
-    const uint8_t src4[] = "TableDrop";
+    std::unique_ptr<ReQL_Byte[]> buf4(new ReQL_Byte[9]);
+    const ReQL_Byte src4[] = "TableDrop";
     reql_string_init(var4.get(), buf4.get(), 9);
     reql_string_append(var4.get(), src4, 9);
 

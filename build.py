@@ -277,8 +277,8 @@ class CPPResultBuilder(ResultBuilder):
 class ReQLResultBuilder(ResultBuilder):
     shell_string = '''
     std::unique_ptr<ReQL_Obj_t> var{0}(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf{0}(new uint8_t[{1}]);
-    const uint8_t src{0}[] = "{2}";
+    std::unique_ptr<ReQL_Byte[]> buf{0}(new ReQL_Byte[{1}]);
+    const ReQL_Byte src{0}[] = "{2}";
     reql_string_init(var{0}.get(), buf{0}.get(), {1});
     reql_string_append(var{0}.get(), src{0}, {1});'''
 

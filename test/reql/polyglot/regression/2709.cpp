@@ -13,8 +13,8 @@ TEST_CASE("reql 2709 -- Guarantee failed with [max_els >= min_els]", "[reql][ast
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[8]);
-    const uint8_t src1[] = "inserted";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[8]);
+    const ReQL_Byte src1[] = "inserted";
     reql_string_init(var1.get(), buf1.get(), 8);
     reql_string_append(var1.get(), src1, 8);
 

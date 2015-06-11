@@ -18,8 +18,8 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 3);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[2]);
-    const uint8_t src1[] = "id";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[2]);
+    const ReQL_Byte src1[] = "id";
     reql_string_init(var1.get(), buf1.get(), 2);
     reql_string_append(var1.get(), src1, 2);
 
@@ -29,28 +29,28 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_add(var0.get(), var1.get(), var2.get());
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf3(new uint8_t[4]);
-    const uint8_t src3[] = "name";
+    std::unique_ptr<ReQL_Byte[]> buf3(new ReQL_Byte[4]);
+    const ReQL_Byte src3[] = "name";
     reql_string_init(var3.get(), buf3.get(), 4);
     reql_string_append(var3.get(), src3, 4);
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf4(new uint8_t[9]);
-    const uint8_t src4[] = "rethinkdb";
+    std::unique_ptr<ReQL_Byte[]> buf4(new ReQL_Byte[9]);
+    const ReQL_Byte src4[] = "rethinkdb";
     reql_string_init(var4.get(), buf4.get(), 9);
     reql_string_append(var4.get(), src4, 9);
 
     reql_object_add(var0.get(), var3.get(), var4.get());
 
     std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf5(new uint8_t[4]);
-    const uint8_t src5[] = "type";
+    std::unique_ptr<ReQL_Byte[]> buf5(new ReQL_Byte[4]);
+    const ReQL_Byte src5[] = "type";
     reql_string_init(var5.get(), buf5.get(), 4);
     reql_string_append(var5.get(), src5, 4);
 
     std::unique_ptr<ReQL_Obj_t> var6(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf6(new uint8_t[2]);
-    const uint8_t src6[] = "DB";
+    std::unique_ptr<ReQL_Byte[]> buf6(new ReQL_Byte[2]);
+    const ReQL_Byte src6[] = "DB";
     reql_string_init(var6.get(), buf6.get(), 2);
     reql_string_append(var6.get(), src6, 2);
 
@@ -63,14 +63,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[7]);
-    const uint8_t src2[] = "partial";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[7]);
+    const ReQL_Byte src2[] = "partial";
     reql_string_init(var2.get(), buf2.get(), 7);
     reql_string_append(var2.get(), src2, 7);
 
@@ -83,14 +83,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[7]);
-    const uint8_t src2[] = "partial";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[7]);
+    const ReQL_Byte src2[] = "partial";
     reql_string_init(var2.get(), buf2.get(), 7);
     reql_string_append(var2.get(), src2, 7);
 
@@ -103,8 +103,8 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_array_init(var0.get(), arr0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[1]);
-    const uint8_t src1[] = "a";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[1]);
+    const ReQL_Byte src1[] = "a";
     reql_string_init(var1.get(), buf1.get(), 1);
     reql_string_append(var1.get(), src1, 1);
 
@@ -117,14 +117,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[7]);
-    const uint8_t src2[] = "partial";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[7]);
+    const ReQL_Byte src2[] = "partial";
     reql_string_init(var2.get(), buf2.get(), 7);
     reql_string_append(var2.get(), src2, 7);
 
@@ -137,14 +137,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
-    const uint8_t src2[] = "bag";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
+    const ReQL_Byte src2[] = "bag";
     reql_string_init(var2.get(), buf2.get(), 3);
     reql_string_append(var2.get(), src2, 3);
 
@@ -157,14 +157,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[7]);
-    const uint8_t src2[] = "partial";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[7]);
+    const ReQL_Byte src2[] = "partial";
     reql_string_init(var2.get(), buf2.get(), 7);
     reql_string_append(var2.get(), src2, 7);
 
@@ -177,8 +177,8 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_array_init(var0.get(), arr0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[1]);
-    const uint8_t src1[] = "b";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[1]);
+    const ReQL_Byte src1[] = "b";
     reql_string_init(var1.get(), buf1.get(), 1);
     reql_string_append(var1.get(), src1, 1);
 
@@ -191,14 +191,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[7]);
-    const uint8_t src2[] = "partial";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[7]);
+    const ReQL_Byte src2[] = "partial";
     reql_string_init(var2.get(), buf2.get(), 7);
     reql_string_append(var2.get(), src2, 7);
 
@@ -216,14 +216,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[7]);
-    const uint8_t src2[] = "partial";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[7]);
+    const ReQL_Byte src2[] = "partial";
     reql_string_init(var2.get(), buf2.get(), 7);
     reql_string_append(var2.get(), src2, 7);
 
@@ -236,14 +236,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[7]);
-    const uint8_t src2[] = "partial";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[7]);
+    const ReQL_Byte src2[] = "partial";
     reql_string_init(var2.get(), buf2.get(), 7);
     reql_string_append(var2.get(), src2, 7);
 
@@ -256,14 +256,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[7]);
-    const uint8_t src2[] = "partial";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[7]);
+    const ReQL_Byte src2[] = "partial";
     reql_string_init(var2.get(), buf2.get(), 7);
     reql_string_append(var2.get(), src2, 7);
 
@@ -276,14 +276,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[7]);
-    const uint8_t src2[] = "partial";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[7]);
+    const ReQL_Byte src2[] = "partial";
     reql_string_init(var2.get(), buf2.get(), 7);
     reql_string_append(var2.get(), src2, 7);
 
@@ -296,14 +296,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
-    const uint8_t src2[] = "err";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
+    const ReQL_Byte src2[] = "err";
     reql_string_init(var2.get(), buf2.get(), 3);
     reql_string_append(var2.get(), src2, 3);
 
@@ -316,14 +316,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[7]);
-    const uint8_t src2[] = "partial";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[7]);
+    const ReQL_Byte src2[] = "partial";
     reql_string_init(var2.get(), buf2.get(), 7);
     reql_string_append(var2.get(), src2, 7);
 
@@ -336,14 +336,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[7]);
-    const uint8_t src2[] = "partial";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[7]);
+    const ReQL_Byte src2[] = "partial";
     reql_string_init(var2.get(), buf2.get(), 7);
     reql_string_append(var2.get(), src2, 7);
 
@@ -356,14 +356,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[7]);
-    const uint8_t src2[] = "partial";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[7]);
+    const ReQL_Byte src2[] = "partial";
     reql_string_init(var2.get(), buf2.get(), 7);
     reql_string_append(var2.get(), src2, 7);
 
@@ -376,14 +376,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[7]);
-    const uint8_t src2[] = "partial";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[7]);
+    const ReQL_Byte src2[] = "partial";
     reql_string_init(var2.get(), buf2.get(), 7);
     reql_string_append(var2.get(), src2, 7);
 
@@ -396,14 +396,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[7]);
-    const uint8_t src2[] = "partial";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[7]);
+    const ReQL_Byte src2[] = "partial";
     reql_string_init(var2.get(), buf2.get(), 7);
     reql_string_append(var2.get(), src2, 7);
 
@@ -416,14 +416,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[7]);
-    const uint8_t src2[] = "partial";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[7]);
+    const ReQL_Byte src2[] = "partial";
     reql_string_init(var2.get(), buf2.get(), 7);
     reql_string_append(var2.get(), src2, 7);
 
@@ -436,14 +436,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[7]);
-    const uint8_t src2[] = "partial";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[7]);
+    const ReQL_Byte src2[] = "partial";
     reql_string_init(var2.get(), buf2.get(), 7);
     reql_string_append(var2.get(), src2, 7);
 
@@ -456,14 +456,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[7]);
-    const uint8_t src2[] = "partial";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[7]);
+    const ReQL_Byte src2[] = "partial";
     reql_string_init(var2.get(), buf2.get(), 7);
     reql_string_append(var2.get(), src2, 7);
 
@@ -476,14 +476,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[7]);
-    const uint8_t src2[] = "partial";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[7]);
+    const ReQL_Byte src2[] = "partial";
     reql_string_init(var2.get(), buf2.get(), 7);
     reql_string_append(var2.get(), src2, 7);
 
@@ -496,14 +496,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[7]);
-    const uint8_t src2[] = "partial";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[7]);
+    const ReQL_Byte src2[] = "partial";
     reql_string_init(var2.get(), buf2.get(), 7);
     reql_string_append(var2.get(), src2, 7);
 
@@ -516,14 +516,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
-    const uint8_t src2[] = "err";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
+    const ReQL_Byte src2[] = "err";
     reql_string_init(var2.get(), buf2.get(), 3);
     reql_string_append(var2.get(), src2, 3);
 
@@ -536,14 +536,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[7]);
-    const uint8_t src2[] = "partial";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[7]);
+    const ReQL_Byte src2[] = "partial";
     reql_string_init(var2.get(), buf2.get(), 7);
     reql_string_append(var2.get(), src2, 7);
 
@@ -556,14 +556,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
-    const uint8_t src2[] = "err";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
+    const ReQL_Byte src2[] = "err";
     reql_string_init(var2.get(), buf2.get(), 3);
     reql_string_append(var2.get(), src2, 3);
 
@@ -576,14 +576,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
-    const uint8_t src2[] = "err";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
+    const ReQL_Byte src2[] = "err";
     reql_string_init(var2.get(), buf2.get(), 3);
     reql_string_append(var2.get(), src2, 3);
 
@@ -596,14 +596,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
-    const uint8_t src2[] = "err";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
+    const ReQL_Byte src2[] = "err";
     reql_string_init(var2.get(), buf2.get(), 3);
     reql_string_append(var2.get(), src2, 3);
 
@@ -616,14 +616,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[7]);
-    const uint8_t src2[] = "partial";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[7]);
+    const ReQL_Byte src2[] = "partial";
     reql_string_init(var2.get(), buf2.get(), 7);
     reql_string_append(var2.get(), src2, 7);
 
@@ -636,14 +636,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
-    const uint8_t src2[] = "err";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
+    const ReQL_Byte src2[] = "err";
     reql_string_init(var2.get(), buf2.get(), 3);
     reql_string_append(var2.get(), src2, 3);
 
@@ -656,14 +656,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
-    const uint8_t src2[] = "err";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
+    const ReQL_Byte src2[] = "err";
     reql_string_init(var2.get(), buf2.get(), 3);
     reql_string_append(var2.get(), src2, 3);
 
@@ -676,14 +676,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
-    const uint8_t src2[] = "err";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
+    const ReQL_Byte src2[] = "err";
     reql_string_init(var2.get(), buf2.get(), 3);
     reql_string_append(var2.get(), src2, 3);
 
@@ -696,14 +696,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
-    const uint8_t src2[] = "err";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
+    const ReQL_Byte src2[] = "err";
     reql_string_init(var2.get(), buf2.get(), 3);
     reql_string_append(var2.get(), src2, 3);
 
@@ -716,14 +716,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
-    const uint8_t src2[] = "err";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
+    const ReQL_Byte src2[] = "err";
     reql_string_init(var2.get(), buf2.get(), 3);
     reql_string_append(var2.get(), src2, 3);
 
@@ -736,14 +736,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
-    const uint8_t src2[] = "err";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
+    const ReQL_Byte src2[] = "err";
     reql_string_init(var2.get(), buf2.get(), 3);
     reql_string_append(var2.get(), src2, 3);
 
@@ -756,14 +756,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[7]);
-    const uint8_t src2[] = "partial";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[7]);
+    const ReQL_Byte src2[] = "partial";
     reql_string_init(var2.get(), buf2.get(), 7);
     reql_string_append(var2.get(), src2, 7);
 
@@ -776,14 +776,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[6]);
-    const uint8_t src1[] = "result";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[6]);
+    const ReQL_Byte src1[] = "result";
     reql_string_init(var1.get(), buf1.get(), 6);
     reql_string_append(var1.get(), src1, 6);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[5]);
-    const uint8_t src2[] = "blank";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[5]);
+    const ReQL_Byte src2[] = "blank";
     reql_string_init(var2.get(), buf2.get(), 5);
     reql_string_append(var2.get(), src2, 5);
 
@@ -796,8 +796,8 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[8]);
-    const uint8_t src1[] = "inserted";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[8]);
+    const ReQL_Byte src1[] = "inserted";
     reql_string_init(var1.get(), buf1.get(), 8);
     reql_string_append(var1.get(), src1, 8);
 
@@ -813,14 +813,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[7]);
-    const uint8_t src2[] = "partial";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[7]);
+    const ReQL_Byte src2[] = "partial";
     reql_string_init(var2.get(), buf2.get(), 7);
     reql_string_append(var2.get(), src2, 7);
 
@@ -833,14 +833,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
-    const uint8_t src2[] = "err";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
+    const ReQL_Byte src2[] = "err";
     reql_string_init(var2.get(), buf2.get(), 3);
     reql_string_append(var2.get(), src2, 3);
 
@@ -853,14 +853,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[7]);
-    const uint8_t src2[] = "partial";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[7]);
+    const ReQL_Byte src2[] = "partial";
     reql_string_init(var2.get(), buf2.get(), 7);
     reql_string_append(var2.get(), src2, 7);
 
@@ -873,14 +873,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[7]);
-    const uint8_t src2[] = "partial";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[7]);
+    const ReQL_Byte src2[] = "partial";
     reql_string_init(var2.get(), buf2.get(), 7);
     reql_string_append(var2.get(), src2, 7);
 
@@ -893,14 +893,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[7]);
-    const uint8_t src2[] = "partial";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[7]);
+    const ReQL_Byte src2[] = "partial";
     reql_string_init(var2.get(), buf2.get(), 7);
     reql_string_append(var2.get(), src2, 7);
 
@@ -913,14 +913,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[7]);
-    const uint8_t src2[] = "partial";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[7]);
+    const ReQL_Byte src2[] = "partial";
     reql_string_init(var2.get(), buf2.get(), 7);
     reql_string_append(var2.get(), src2, 7);
 
@@ -933,14 +933,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[7]);
-    const uint8_t src2[] = "partial";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[7]);
+    const ReQL_Byte src2[] = "partial";
     reql_string_init(var2.get(), buf2.get(), 7);
     reql_string_append(var2.get(), src2, 7);
 
@@ -953,14 +953,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[7]);
-    const uint8_t src2[] = "partial";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[7]);
+    const ReQL_Byte src2[] = "partial";
     reql_string_init(var2.get(), buf2.get(), 7);
     reql_string_append(var2.get(), src2, 7);
 
@@ -973,14 +973,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[7]);
-    const uint8_t src2[] = "partial";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[7]);
+    const ReQL_Byte src2[] = "partial";
     reql_string_init(var2.get(), buf2.get(), 7);
     reql_string_append(var2.get(), src2, 7);
 
@@ -993,14 +993,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[6]);
-    const uint8_t src1[] = "result";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[6]);
+    const ReQL_Byte src1[] = "result";
     reql_string_init(var1.get(), buf1.get(), 6);
     reql_string_append(var1.get(), src1, 6);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[5]);
-    const uint8_t src2[] = "blank";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[5]);
+    const ReQL_Byte src2[] = "blank";
     reql_string_init(var2.get(), buf2.get(), 5);
     reql_string_append(var2.get(), src2, 5);
 
@@ -1013,14 +1013,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[6]);
-    const uint8_t src1[] = "result";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[6]);
+    const ReQL_Byte src1[] = "result";
     reql_string_init(var1.get(), buf1.get(), 6);
     reql_string_append(var1.get(), src1, 6);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[5]);
-    const uint8_t src2[] = "blank";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[5]);
+    const ReQL_Byte src2[] = "blank";
     reql_string_init(var2.get(), buf2.get(), 5);
     reql_string_append(var2.get(), src2, 5);
 
@@ -1033,14 +1033,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[6]);
-    const uint8_t src1[] = "result";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[6]);
+    const ReQL_Byte src1[] = "result";
     reql_string_init(var1.get(), buf1.get(), 6);
     reql_string_append(var1.get(), src1, 6);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[5]);
-    const uint8_t src2[] = "blank";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[5]);
+    const ReQL_Byte src2[] = "blank";
     reql_string_init(var2.get(), buf2.get(), 5);
     reql_string_append(var2.get(), src2, 5);
 
@@ -1053,14 +1053,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
-    const uint8_t src2[] = "err";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
+    const ReQL_Byte src2[] = "err";
     reql_string_init(var2.get(), buf2.get(), 3);
     reql_string_append(var2.get(), src2, 3);
 
@@ -1073,14 +1073,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
-    const uint8_t src2[] = "err";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
+    const ReQL_Byte src2[] = "err";
     reql_string_init(var2.get(), buf2.get(), 3);
     reql_string_append(var2.get(), src2, 3);
 
@@ -1093,14 +1093,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
-    const uint8_t src2[] = "err";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
+    const ReQL_Byte src2[] = "err";
     reql_string_init(var2.get(), buf2.get(), 3);
     reql_string_append(var2.get(), src2, 3);
 
@@ -1113,14 +1113,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
-    const uint8_t src2[] = "err";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
+    const ReQL_Byte src2[] = "err";
     reql_string_init(var2.get(), buf2.get(), 3);
     reql_string_append(var2.get(), src2, 3);
 
@@ -1133,14 +1133,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[7]);
-    const uint8_t src2[] = "partial";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[7]);
+    const ReQL_Byte src2[] = "partial";
     reql_string_init(var2.get(), buf2.get(), 7);
     reql_string_append(var2.get(), src2, 7);
 
@@ -1153,14 +1153,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[7]);
-    const uint8_t src2[] = "partial";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[7]);
+    const ReQL_Byte src2[] = "partial";
     reql_string_init(var2.get(), buf2.get(), 7);
     reql_string_append(var2.get(), src2, 7);
 
@@ -1173,14 +1173,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[7]);
-    const uint8_t src2[] = "partial";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[7]);
+    const ReQL_Byte src2[] = "partial";
     reql_string_init(var2.get(), buf2.get(), 7);
     reql_string_append(var2.get(), src2, 7);
 
@@ -1193,14 +1193,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[7]);
-    const uint8_t src2[] = "partial";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[7]);
+    const ReQL_Byte src2[] = "partial";
     reql_string_init(var2.get(), buf2.get(), 7);
     reql_string_append(var2.get(), src2, 7);
 
@@ -1213,14 +1213,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[7]);
-    const uint8_t src2[] = "partial";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[7]);
+    const ReQL_Byte src2[] = "partial";
     reql_string_init(var2.get(), buf2.get(), 7);
     reql_string_append(var2.get(), src2, 7);
 
@@ -1233,14 +1233,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[7]);
-    const uint8_t src2[] = "partial";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[7]);
+    const ReQL_Byte src2[] = "partial";
     reql_string_init(var2.get(), buf2.get(), 7);
     reql_string_append(var2.get(), src2, 7);
 
@@ -1253,14 +1253,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[7]);
-    const uint8_t src2[] = "partial";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[7]);
+    const ReQL_Byte src2[] = "partial";
     reql_string_init(var2.get(), buf2.get(), 7);
     reql_string_append(var2.get(), src2, 7);
 
@@ -1273,14 +1273,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[7]);
-    const uint8_t src2[] = "partial";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[7]);
+    const ReQL_Byte src2[] = "partial";
     reql_string_init(var2.get(), buf2.get(), 7);
     reql_string_append(var2.get(), src2, 7);
 
@@ -1293,28 +1293,28 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[2]);
-    const uint8_t src1[] = "db";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[2]);
+    const ReQL_Byte src1[] = "db";
     reql_string_init(var1.get(), buf1.get(), 2);
     reql_string_append(var1.get(), src1, 2);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[4]);
-    const uint8_t src2[] = "test";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[4]);
+    const ReQL_Byte src2[] = "test";
     reql_string_init(var2.get(), buf2.get(), 4);
     reql_string_append(var2.get(), src2, 4);
 
     reql_object_add(var0.get(), var1.get(), var2.get());
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf3(new uint8_t[4]);
-    const uint8_t src3[] = "name";
+    std::unique_ptr<ReQL_Byte[]> buf3(new ReQL_Byte[4]);
+    const ReQL_Byte src3[] = "name";
     reql_string_init(var3.get(), buf3.get(), 4);
     reql_string_append(var3.get(), src3, 4);
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf4(new uint8_t[5]);
-    const uint8_t src4[] = "testA";
+    std::unique_ptr<ReQL_Byte[]> buf4(new ReQL_Byte[5]);
+    const ReQL_Byte src4[] = "testA";
     reql_string_init(var4.get(), buf4.get(), 5);
     reql_string_append(var4.get(), src4, 5);
 
@@ -1327,14 +1327,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
-    const uint8_t src2[] = "err";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
+    const ReQL_Byte src2[] = "err";
     reql_string_init(var2.get(), buf2.get(), 3);
     reql_string_append(var2.get(), src2, 3);
 
@@ -1347,14 +1347,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
-    const uint8_t src2[] = "err";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
+    const ReQL_Byte src2[] = "err";
     reql_string_init(var2.get(), buf2.get(), 3);
     reql_string_append(var2.get(), src2, 3);
 
@@ -1377,14 +1377,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[4]);
-    const uint8_t src2[] = "uuid";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[4]);
+    const ReQL_Byte src2[] = "uuid";
     reql_string_init(var2.get(), buf2.get(), 4);
     reql_string_append(var2.get(), src2, 4);
 
@@ -1402,14 +1402,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[7]);
-    const uint8_t src2[] = "partial";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[7]);
+    const ReQL_Byte src2[] = "partial";
     reql_string_init(var2.get(), buf2.get(), 7);
     reql_string_append(var2.get(), src2, 7);
 
@@ -1422,14 +1422,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[7]);
-    const uint8_t src2[] = "partial";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[7]);
+    const ReQL_Byte src2[] = "partial";
     reql_string_init(var2.get(), buf2.get(), 7);
     reql_string_append(var2.get(), src2, 7);
 
@@ -1442,14 +1442,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[7]);
-    const uint8_t src2[] = "partial";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[7]);
+    const ReQL_Byte src2[] = "partial";
     reql_string_init(var2.get(), buf2.get(), 7);
     reql_string_append(var2.get(), src2, 7);
 
@@ -1462,14 +1462,14 @@ TEST_CASE("reql Tests meta queries for creating and deleting tables", "[reql][as
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[7]);
-    const uint8_t src2[] = "partial";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[7]);
+    const ReQL_Byte src2[] = "partial";
     reql_string_init(var2.get(), buf2.get(), 7);
     reql_string_append(var2.get(), src2, 7);
 

@@ -13,8 +13,8 @@ TEST_CASE("reql Test pseudo literal strings in JSON.", "[reql][ast]") {
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[1]);
-    const uint8_t src1[] = "a";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[1]);
+    const ReQL_Byte src1[] = "a";
     reql_string_init(var1.get(), buf1.get(), 1);
     reql_string_append(var1.get(), src1, 1);
 
@@ -23,8 +23,8 @@ TEST_CASE("reql Test pseudo literal strings in JSON.", "[reql][ast]") {
     reql_object_init(var2.get(), pair2.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf3(new uint8_t[1]);
-    const uint8_t src3[] = "b";
+    std::unique_ptr<ReQL_Byte[]> buf3(new ReQL_Byte[1]);
+    const ReQL_Byte src3[] = "b";
     reql_string_init(var3.get(), buf3.get(), 1);
     reql_string_append(var3.get(), src3, 1);
 

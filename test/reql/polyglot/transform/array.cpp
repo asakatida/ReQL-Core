@@ -54,8 +54,8 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_array_append(var0.get(), var3.get());
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf4(new uint8_t[1]);
-    const uint8_t src4[] = "a";
+    std::unique_ptr<ReQL_Byte[]> buf4(new ReQL_Byte[1]);
+    const ReQL_Byte src4[] = "a";
     reql_string_init(var4.get(), buf4.get(), 1);
     reql_string_append(var4.get(), src4, 1);
 
@@ -94,8 +94,8 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_array_init(var0.get(), arr0.get(), 4);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[1]);
-    const uint8_t src1[] = "a";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[1]);
+    const ReQL_Byte src1[] = "a";
     reql_string_init(var1.get(), buf1.get(), 1);
     reql_string_append(var1.get(), src1, 1);
 
@@ -475,8 +475,8 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var1.get(), pair1.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[1]);
-    const uint8_t src2[] = "a";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[1]);
+    const ReQL_Byte src2[] = "a";
     reql_string_init(var2.get(), buf2.get(), 1);
     reql_string_append(var2.get(), src2, 1);
 
@@ -486,14 +486,14 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_add(var1.get(), var2.get(), var3.get());
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf4(new uint8_t[1]);
-    const uint8_t src4[] = "b";
+    std::unique_ptr<ReQL_Byte[]> buf4(new ReQL_Byte[1]);
+    const ReQL_Byte src4[] = "b";
     reql_string_init(var4.get(), buf4.get(), 1);
     reql_string_append(var4.get(), src4, 1);
 
     std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf5(new uint8_t[1]);
-    const uint8_t src5[] = "a";
+    std::unique_ptr<ReQL_Byte[]> buf5(new ReQL_Byte[1]);
+    const ReQL_Byte src5[] = "a";
     reql_string_init(var5.get(), buf5.get(), 1);
     reql_string_append(var5.get(), src5, 1);
 
@@ -506,8 +506,8 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var6.get(), pair6.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var7(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf7(new uint8_t[1]);
-    const uint8_t src7[] = "a";
+    std::unique_ptr<ReQL_Byte[]> buf7(new ReQL_Byte[1]);
+    const ReQL_Byte src7[] = "a";
     reql_string_init(var7.get(), buf7.get(), 1);
     reql_string_append(var7.get(), src7, 1);
 
@@ -517,14 +517,14 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_add(var6.get(), var7.get(), var8.get());
 
     std::unique_ptr<ReQL_Obj_t> var9(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf9(new uint8_t[1]);
-    const uint8_t src9[] = "b";
+    std::unique_ptr<ReQL_Byte[]> buf9(new ReQL_Byte[1]);
+    const ReQL_Byte src9[] = "b";
     reql_string_init(var9.get(), buf9.get(), 1);
     reql_string_append(var9.get(), src9, 1);
 
     std::unique_ptr<ReQL_Obj_t> var10(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf10(new uint8_t[1]);
-    const uint8_t src10[] = "b";
+    std::unique_ptr<ReQL_Byte[]> buf10(new ReQL_Byte[1]);
+    const ReQL_Byte src10[] = "b";
     reql_string_init(var10.get(), buf10.get(), 1);
     reql_string_append(var10.get(), src10, 1);
 
@@ -537,8 +537,8 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var11.get(), pair11.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var12(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf12(new uint8_t[1]);
-    const uint8_t src12[] = "a";
+    std::unique_ptr<ReQL_Byte[]> buf12(new ReQL_Byte[1]);
+    const ReQL_Byte src12[] = "a";
     reql_string_init(var12.get(), buf12.get(), 1);
     reql_string_append(var12.get(), src12, 1);
 
@@ -548,14 +548,14 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_add(var11.get(), var12.get(), var13.get());
 
     std::unique_ptr<ReQL_Obj_t> var14(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf14(new uint8_t[1]);
-    const uint8_t src14[] = "b";
+    std::unique_ptr<ReQL_Byte[]> buf14(new ReQL_Byte[1]);
+    const ReQL_Byte src14[] = "b";
     reql_string_init(var14.get(), buf14.get(), 1);
     reql_string_append(var14.get(), src14, 1);
 
     std::unique_ptr<ReQL_Obj_t> var15(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf15(new uint8_t[1]);
-    const uint8_t src15[] = "c";
+    std::unique_ptr<ReQL_Byte[]> buf15(new ReQL_Byte[1]);
+    const ReQL_Byte src15[] = "c";
     reql_string_init(var15.get(), buf15.get(), 1);
     reql_string_append(var15.get(), src15, 1);
 
@@ -574,8 +574,8 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var1.get(), pair1.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[1]);
-    const uint8_t src2[] = "a";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[1]);
+    const ReQL_Byte src2[] = "a";
     reql_string_init(var2.get(), buf2.get(), 1);
     reql_string_append(var2.get(), src2, 1);
 
@@ -591,8 +591,8 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var4.get(), pair4.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf5(new uint8_t[1]);
-    const uint8_t src5[] = "a";
+    std::unique_ptr<ReQL_Byte[]> buf5(new ReQL_Byte[1]);
+    const ReQL_Byte src5[] = "a";
     reql_string_init(var5.get(), buf5.get(), 1);
     reql_string_append(var5.get(), src5, 1);
 
@@ -608,8 +608,8 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var7.get(), pair7.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var8(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf8(new uint8_t[1]);
-    const uint8_t src8[] = "a";
+    std::unique_ptr<ReQL_Byte[]> buf8(new ReQL_Byte[1]);
+    const ReQL_Byte src8[] = "a";
     reql_string_init(var8.get(), buf8.get(), 1);
     reql_string_append(var8.get(), src8, 1);
 
@@ -652,8 +652,8 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var1.get(), pair1.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[1]);
-    const uint8_t src2[] = "a";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[1]);
+    const ReQL_Byte src2[] = "a";
     reql_string_init(var2.get(), buf2.get(), 1);
     reql_string_append(var2.get(), src2, 1);
 
@@ -669,8 +669,8 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var4.get(), pair4.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf5(new uint8_t[1]);
-    const uint8_t src5[] = "a";
+    std::unique_ptr<ReQL_Byte[]> buf5(new ReQL_Byte[1]);
+    const ReQL_Byte src5[] = "a";
     reql_string_init(var5.get(), buf5.get(), 1);
     reql_string_append(var5.get(), src5, 1);
 
@@ -686,8 +686,8 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var7.get(), pair7.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var8(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf8(new uint8_t[1]);
-    const uint8_t src8[] = "a";
+    std::unique_ptr<ReQL_Byte[]> buf8(new ReQL_Byte[1]);
+    const ReQL_Byte src8[] = "a";
     reql_string_init(var8.get(), buf8.get(), 1);
     reql_string_append(var8.get(), src8, 1);
 
@@ -703,8 +703,8 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var10.get(), pair10.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var11(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf11(new uint8_t[1]);
-    const uint8_t src11[] = "a";
+    std::unique_ptr<ReQL_Byte[]> buf11(new ReQL_Byte[1]);
+    const ReQL_Byte src11[] = "a";
     reql_string_init(var11.get(), buf11.get(), 1);
     reql_string_append(var11.get(), src11, 1);
 
@@ -720,8 +720,8 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var13.get(), pair13.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var14(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf14(new uint8_t[1]);
-    const uint8_t src14[] = "a";
+    std::unique_ptr<ReQL_Byte[]> buf14(new ReQL_Byte[1]);
+    const ReQL_Byte src14[] = "a";
     reql_string_init(var14.get(), buf14.get(), 1);
     reql_string_append(var14.get(), src14, 1);
 
@@ -737,8 +737,8 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var16.get(), pair16.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var17(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf17(new uint8_t[1]);
-    const uint8_t src17[] = "a";
+    std::unique_ptr<ReQL_Byte[]> buf17(new ReQL_Byte[1]);
+    const ReQL_Byte src17[] = "a";
     reql_string_init(var17.get(), buf17.get(), 1);
     reql_string_append(var17.get(), src17, 1);
 
@@ -760,14 +760,14 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var1.get(), pair1.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[1]);
-    const uint8_t src2[] = "b";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[1]);
+    const ReQL_Byte src2[] = "b";
     reql_string_init(var2.get(), buf2.get(), 1);
     reql_string_append(var2.get(), src2, 1);
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf3(new uint8_t[1]);
-    const uint8_t src3[] = "a";
+    std::unique_ptr<ReQL_Byte[]> buf3(new ReQL_Byte[1]);
+    const ReQL_Byte src3[] = "a";
     reql_string_init(var3.get(), buf3.get(), 1);
     reql_string_append(var3.get(), src3, 1);
 
@@ -780,14 +780,14 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var4.get(), pair4.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf5(new uint8_t[1]);
-    const uint8_t src5[] = "b";
+    std::unique_ptr<ReQL_Byte[]> buf5(new ReQL_Byte[1]);
+    const ReQL_Byte src5[] = "b";
     reql_string_init(var5.get(), buf5.get(), 1);
     reql_string_append(var5.get(), src5, 1);
 
     std::unique_ptr<ReQL_Obj_t> var6(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf6(new uint8_t[1]);
-    const uint8_t src6[] = "b";
+    std::unique_ptr<ReQL_Byte[]> buf6(new ReQL_Byte[1]);
+    const ReQL_Byte src6[] = "b";
     reql_string_init(var6.get(), buf6.get(), 1);
     reql_string_append(var6.get(), src6, 1);
 
@@ -800,14 +800,14 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var7.get(), pair7.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var8(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf8(new uint8_t[1]);
-    const uint8_t src8[] = "b";
+    std::unique_ptr<ReQL_Byte[]> buf8(new ReQL_Byte[1]);
+    const ReQL_Byte src8[] = "b";
     reql_string_init(var8.get(), buf8.get(), 1);
     reql_string_append(var8.get(), src8, 1);
 
     std::unique_ptr<ReQL_Obj_t> var9(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf9(new uint8_t[1]);
-    const uint8_t src9[] = "c";
+    std::unique_ptr<ReQL_Byte[]> buf9(new ReQL_Byte[1]);
+    const ReQL_Byte src9[] = "c";
     reql_string_init(var9.get(), buf9.get(), 1);
     reql_string_append(var9.get(), src9, 1);
 
@@ -820,14 +820,14 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var10.get(), pair10.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var11(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf11(new uint8_t[1]);
-    const uint8_t src11[] = "b";
+    std::unique_ptr<ReQL_Byte[]> buf11(new ReQL_Byte[1]);
+    const ReQL_Byte src11[] = "b";
     reql_string_init(var11.get(), buf11.get(), 1);
     reql_string_append(var11.get(), src11, 1);
 
     std::unique_ptr<ReQL_Obj_t> var12(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf12(new uint8_t[1]);
-    const uint8_t src12[] = "a";
+    std::unique_ptr<ReQL_Byte[]> buf12(new ReQL_Byte[1]);
+    const ReQL_Byte src12[] = "a";
     reql_string_init(var12.get(), buf12.get(), 1);
     reql_string_append(var12.get(), src12, 1);
 
@@ -840,14 +840,14 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var13.get(), pair13.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var14(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf14(new uint8_t[1]);
-    const uint8_t src14[] = "b";
+    std::unique_ptr<ReQL_Byte[]> buf14(new ReQL_Byte[1]);
+    const ReQL_Byte src14[] = "b";
     reql_string_init(var14.get(), buf14.get(), 1);
     reql_string_append(var14.get(), src14, 1);
 
     std::unique_ptr<ReQL_Obj_t> var15(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf15(new uint8_t[1]);
-    const uint8_t src15[] = "b";
+    std::unique_ptr<ReQL_Byte[]> buf15(new ReQL_Byte[1]);
+    const ReQL_Byte src15[] = "b";
     reql_string_init(var15.get(), buf15.get(), 1);
     reql_string_append(var15.get(), src15, 1);
 
@@ -860,14 +860,14 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var16.get(), pair16.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var17(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf17(new uint8_t[1]);
-    const uint8_t src17[] = "b";
+    std::unique_ptr<ReQL_Byte[]> buf17(new ReQL_Byte[1]);
+    const ReQL_Byte src17[] = "b";
     reql_string_init(var17.get(), buf17.get(), 1);
     reql_string_append(var17.get(), src17, 1);
 
     std::unique_ptr<ReQL_Obj_t> var18(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf18(new uint8_t[1]);
-    const uint8_t src18[] = "c";
+    std::unique_ptr<ReQL_Byte[]> buf18(new ReQL_Byte[1]);
+    const ReQL_Byte src18[] = "c";
     reql_string_init(var18.get(), buf18.get(), 1);
     reql_string_append(var18.get(), src18, 1);
 
@@ -886,8 +886,8 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var1.get(), pair1.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[1]);
-    const uint8_t src2[] = "a";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[1]);
+    const ReQL_Byte src2[] = "a";
     reql_string_init(var2.get(), buf2.get(), 1);
     reql_string_append(var2.get(), src2, 1);
 
@@ -897,14 +897,14 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_add(var1.get(), var2.get(), var3.get());
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf4(new uint8_t[1]);
-    const uint8_t src4[] = "b";
+    std::unique_ptr<ReQL_Byte[]> buf4(new ReQL_Byte[1]);
+    const ReQL_Byte src4[] = "b";
     reql_string_init(var4.get(), buf4.get(), 1);
     reql_string_append(var4.get(), src4, 1);
 
     std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf5(new uint8_t[1]);
-    const uint8_t src5[] = "a";
+    std::unique_ptr<ReQL_Byte[]> buf5(new ReQL_Byte[1]);
+    const ReQL_Byte src5[] = "a";
     reql_string_init(var5.get(), buf5.get(), 1);
     reql_string_append(var5.get(), src5, 1);
 
@@ -917,8 +917,8 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var6.get(), pair6.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var7(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf7(new uint8_t[1]);
-    const uint8_t src7[] = "a";
+    std::unique_ptr<ReQL_Byte[]> buf7(new ReQL_Byte[1]);
+    const ReQL_Byte src7[] = "a";
     reql_string_init(var7.get(), buf7.get(), 1);
     reql_string_append(var7.get(), src7, 1);
 
@@ -928,14 +928,14 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_add(var6.get(), var7.get(), var8.get());
 
     std::unique_ptr<ReQL_Obj_t> var9(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf9(new uint8_t[1]);
-    const uint8_t src9[] = "b";
+    std::unique_ptr<ReQL_Byte[]> buf9(new ReQL_Byte[1]);
+    const ReQL_Byte src9[] = "b";
     reql_string_init(var9.get(), buf9.get(), 1);
     reql_string_append(var9.get(), src9, 1);
 
     std::unique_ptr<ReQL_Obj_t> var10(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf10(new uint8_t[1]);
-    const uint8_t src10[] = "b";
+    std::unique_ptr<ReQL_Byte[]> buf10(new ReQL_Byte[1]);
+    const ReQL_Byte src10[] = "b";
     reql_string_init(var10.get(), buf10.get(), 1);
     reql_string_append(var10.get(), src10, 1);
 
@@ -948,8 +948,8 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var11.get(), pair11.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var12(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf12(new uint8_t[1]);
-    const uint8_t src12[] = "a";
+    std::unique_ptr<ReQL_Byte[]> buf12(new ReQL_Byte[1]);
+    const ReQL_Byte src12[] = "a";
     reql_string_init(var12.get(), buf12.get(), 1);
     reql_string_append(var12.get(), src12, 1);
 
@@ -959,14 +959,14 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_add(var11.get(), var12.get(), var13.get());
 
     std::unique_ptr<ReQL_Obj_t> var14(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf14(new uint8_t[1]);
-    const uint8_t src14[] = "b";
+    std::unique_ptr<ReQL_Byte[]> buf14(new ReQL_Byte[1]);
+    const ReQL_Byte src14[] = "b";
     reql_string_init(var14.get(), buf14.get(), 1);
     reql_string_append(var14.get(), src14, 1);
 
     std::unique_ptr<ReQL_Obj_t> var15(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf15(new uint8_t[1]);
-    const uint8_t src15[] = "c";
+    std::unique_ptr<ReQL_Byte[]> buf15(new ReQL_Byte[1]);
+    const ReQL_Byte src15[] = "c";
     reql_string_init(var15.get(), buf15.get(), 1);
     reql_string_append(var15.get(), src15, 1);
 
@@ -1041,8 +1041,8 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var1.get(), pair1.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[1]);
-    const uint8_t src2[] = "b";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[1]);
+    const ReQL_Byte src2[] = "b";
     reql_string_init(var2.get(), buf2.get(), 1);
     reql_string_append(var2.get(), src2, 1);
 
@@ -1051,8 +1051,8 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var3.get(), pair3.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf4(new uint8_t[1]);
-    const uint8_t src4[] = "c";
+    std::unique_ptr<ReQL_Byte[]> buf4(new ReQL_Byte[1]);
+    const ReQL_Byte src4[] = "c";
     reql_string_init(var4.get(), buf4.get(), 1);
     reql_string_append(var4.get(), src4, 1);
 
@@ -1070,8 +1070,8 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var6.get(), pair6.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var7(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf7(new uint8_t[1]);
-    const uint8_t src7[] = "b";
+    std::unique_ptr<ReQL_Byte[]> buf7(new ReQL_Byte[1]);
+    const ReQL_Byte src7[] = "b";
     reql_string_init(var7.get(), buf7.get(), 1);
     reql_string_append(var7.get(), src7, 1);
 
@@ -1080,8 +1080,8 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var8.get(), pair8.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var9(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf9(new uint8_t[1]);
-    const uint8_t src9[] = "c";
+    std::unique_ptr<ReQL_Byte[]> buf9(new ReQL_Byte[1]);
+    const ReQL_Byte src9[] = "c";
     reql_string_init(var9.get(), buf9.get(), 1);
     reql_string_append(var9.get(), src9, 1);
 
@@ -1099,8 +1099,8 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var11.get(), pair11.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var12(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf12(new uint8_t[1]);
-    const uint8_t src12[] = "b";
+    std::unique_ptr<ReQL_Byte[]> buf12(new ReQL_Byte[1]);
+    const ReQL_Byte src12[] = "b";
     reql_string_init(var12.get(), buf12.get(), 1);
     reql_string_append(var12.get(), src12, 1);
 
@@ -1109,8 +1109,8 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var13.get(), pair13.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var14(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf14(new uint8_t[1]);
-    const uint8_t src14[] = "c";
+    std::unique_ptr<ReQL_Byte[]> buf14(new ReQL_Byte[1]);
+    const ReQL_Byte src14[] = "c";
     reql_string_init(var14.get(), buf14.get(), 1);
     reql_string_append(var14.get(), src14, 1);
 
@@ -1128,8 +1128,8 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var16.get(), pair16.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var17(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf17(new uint8_t[1]);
-    const uint8_t src17[] = "b";
+    std::unique_ptr<ReQL_Byte[]> buf17(new ReQL_Byte[1]);
+    const ReQL_Byte src17[] = "b";
     reql_string_init(var17.get(), buf17.get(), 1);
     reql_string_append(var17.get(), src17, 1);
 
@@ -1138,8 +1138,8 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var18.get(), pair18.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var19(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf19(new uint8_t[1]);
-    const uint8_t src19[] = "c";
+    std::unique_ptr<ReQL_Byte[]> buf19(new ReQL_Byte[1]);
+    const ReQL_Byte src19[] = "c";
     reql_string_init(var19.get(), buf19.get(), 1);
     reql_string_append(var19.get(), src19, 1);
 
@@ -1157,8 +1157,8 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var21.get(), pair21.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var22(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf22(new uint8_t[1]);
-    const uint8_t src22[] = "b";
+    std::unique_ptr<ReQL_Byte[]> buf22(new ReQL_Byte[1]);
+    const ReQL_Byte src22[] = "b";
     reql_string_init(var22.get(), buf22.get(), 1);
     reql_string_append(var22.get(), src22, 1);
 
@@ -1167,8 +1167,8 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var23.get(), pair23.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var24(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf24(new uint8_t[1]);
-    const uint8_t src24[] = "c";
+    std::unique_ptr<ReQL_Byte[]> buf24(new ReQL_Byte[1]);
+    const ReQL_Byte src24[] = "c";
     reql_string_init(var24.get(), buf24.get(), 1);
     reql_string_append(var24.get(), src24, 1);
 
@@ -1186,8 +1186,8 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var26.get(), pair26.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var27(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf27(new uint8_t[1]);
-    const uint8_t src27[] = "b";
+    std::unique_ptr<ReQL_Byte[]> buf27(new ReQL_Byte[1]);
+    const ReQL_Byte src27[] = "b";
     reql_string_init(var27.get(), buf27.get(), 1);
     reql_string_append(var27.get(), src27, 1);
 
@@ -1196,8 +1196,8 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var28.get(), pair28.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var29(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf29(new uint8_t[1]);
-    const uint8_t src29[] = "c";
+    std::unique_ptr<ReQL_Byte[]> buf29(new ReQL_Byte[1]);
+    const ReQL_Byte src29[] = "c";
     reql_string_init(var29.get(), buf29.get(), 1);
     reql_string_append(var29.get(), src29, 1);
 
@@ -1217,14 +1217,14 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
-    const uint8_t src2[] = "err";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
+    const ReQL_Byte src2[] = "err";
     reql_string_init(var2.get(), buf2.get(), 3);
     reql_string_append(var2.get(), src2, 3);
 
@@ -1237,14 +1237,14 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
-    const uint8_t src2[] = "err";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
+    const ReQL_Byte src2[] = "err";
     reql_string_init(var2.get(), buf2.get(), 3);
     reql_string_append(var2.get(), src2, 3);
 
@@ -1282,14 +1282,14 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var1.get(), pair1.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[1]);
-    const uint8_t src2[] = "b";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[1]);
+    const ReQL_Byte src2[] = "b";
     reql_string_init(var2.get(), buf2.get(), 1);
     reql_string_append(var2.get(), src2, 1);
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf3(new uint8_t[1]);
-    const uint8_t src3[] = "a";
+    std::unique_ptr<ReQL_Byte[]> buf3(new ReQL_Byte[1]);
+    const ReQL_Byte src3[] = "a";
     reql_string_init(var3.get(), buf3.get(), 1);
     reql_string_append(var3.get(), src3, 1);
 
@@ -1302,14 +1302,14 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var4.get(), pair4.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf5(new uint8_t[1]);
-    const uint8_t src5[] = "b";
+    std::unique_ptr<ReQL_Byte[]> buf5(new ReQL_Byte[1]);
+    const ReQL_Byte src5[] = "b";
     reql_string_init(var5.get(), buf5.get(), 1);
     reql_string_append(var5.get(), src5, 1);
 
     std::unique_ptr<ReQL_Obj_t> var6(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf6(new uint8_t[1]);
-    const uint8_t src6[] = "b";
+    std::unique_ptr<ReQL_Byte[]> buf6(new ReQL_Byte[1]);
+    const ReQL_Byte src6[] = "b";
     reql_string_init(var6.get(), buf6.get(), 1);
     reql_string_append(var6.get(), src6, 1);
 
@@ -1322,14 +1322,14 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var7.get(), pair7.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var8(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf8(new uint8_t[1]);
-    const uint8_t src8[] = "b";
+    std::unique_ptr<ReQL_Byte[]> buf8(new ReQL_Byte[1]);
+    const ReQL_Byte src8[] = "b";
     reql_string_init(var8.get(), buf8.get(), 1);
     reql_string_append(var8.get(), src8, 1);
 
     std::unique_ptr<ReQL_Obj_t> var9(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf9(new uint8_t[1]);
-    const uint8_t src9[] = "c";
+    std::unique_ptr<ReQL_Byte[]> buf9(new ReQL_Byte[1]);
+    const ReQL_Byte src9[] = "c";
     reql_string_init(var9.get(), buf9.get(), 1);
     reql_string_append(var9.get(), src9, 1);
 
@@ -1348,8 +1348,8 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var1.get(), pair1.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[1]);
-    const uint8_t src2[] = "a";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[1]);
+    const ReQL_Byte src2[] = "a";
     reql_string_init(var2.get(), buf2.get(), 1);
     reql_string_append(var2.get(), src2, 1);
 
@@ -1359,14 +1359,14 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_add(var1.get(), var2.get(), var3.get());
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf4(new uint8_t[1]);
-    const uint8_t src4[] = "b";
+    std::unique_ptr<ReQL_Byte[]> buf4(new ReQL_Byte[1]);
+    const ReQL_Byte src4[] = "b";
     reql_string_init(var4.get(), buf4.get(), 1);
     reql_string_append(var4.get(), src4, 1);
 
     std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf5(new uint8_t[1]);
-    const uint8_t src5[] = "a";
+    std::unique_ptr<ReQL_Byte[]> buf5(new ReQL_Byte[1]);
+    const ReQL_Byte src5[] = "a";
     reql_string_init(var5.get(), buf5.get(), 1);
     reql_string_append(var5.get(), src5, 1);
 
@@ -1379,8 +1379,8 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var6.get(), pair6.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var7(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf7(new uint8_t[1]);
-    const uint8_t src7[] = "a";
+    std::unique_ptr<ReQL_Byte[]> buf7(new ReQL_Byte[1]);
+    const ReQL_Byte src7[] = "a";
     reql_string_init(var7.get(), buf7.get(), 1);
     reql_string_append(var7.get(), src7, 1);
 
@@ -1390,14 +1390,14 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_add(var6.get(), var7.get(), var8.get());
 
     std::unique_ptr<ReQL_Obj_t> var9(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf9(new uint8_t[1]);
-    const uint8_t src9[] = "b";
+    std::unique_ptr<ReQL_Byte[]> buf9(new ReQL_Byte[1]);
+    const ReQL_Byte src9[] = "b";
     reql_string_init(var9.get(), buf9.get(), 1);
     reql_string_append(var9.get(), src9, 1);
 
     std::unique_ptr<ReQL_Obj_t> var10(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf10(new uint8_t[1]);
-    const uint8_t src10[] = "b";
+    std::unique_ptr<ReQL_Byte[]> buf10(new ReQL_Byte[1]);
+    const ReQL_Byte src10[] = "b";
     reql_string_init(var10.get(), buf10.get(), 1);
     reql_string_append(var10.get(), src10, 1);
 
@@ -1410,8 +1410,8 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var11.get(), pair11.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var12(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf12(new uint8_t[1]);
-    const uint8_t src12[] = "a";
+    std::unique_ptr<ReQL_Byte[]> buf12(new ReQL_Byte[1]);
+    const ReQL_Byte src12[] = "a";
     reql_string_init(var12.get(), buf12.get(), 1);
     reql_string_append(var12.get(), src12, 1);
 
@@ -1421,14 +1421,14 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_add(var11.get(), var12.get(), var13.get());
 
     std::unique_ptr<ReQL_Obj_t> var14(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf14(new uint8_t[1]);
-    const uint8_t src14[] = "b";
+    std::unique_ptr<ReQL_Byte[]> buf14(new ReQL_Byte[1]);
+    const ReQL_Byte src14[] = "b";
     reql_string_init(var14.get(), buf14.get(), 1);
     reql_string_append(var14.get(), src14, 1);
 
     std::unique_ptr<ReQL_Obj_t> var15(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf15(new uint8_t[1]);
-    const uint8_t src15[] = "c";
+    std::unique_ptr<ReQL_Byte[]> buf15(new ReQL_Byte[1]);
+    const ReQL_Byte src15[] = "c";
     reql_string_init(var15.get(), buf15.get(), 1);
     reql_string_append(var15.get(), src15, 1);
 
@@ -1488,8 +1488,8 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var1.get(), pair1.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[1]);
-    const uint8_t src2[] = "a";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[1]);
+    const ReQL_Byte src2[] = "a";
     reql_string_init(var2.get(), buf2.get(), 1);
     reql_string_append(var2.get(), src2, 1);
 
@@ -1499,14 +1499,14 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_add(var1.get(), var2.get(), var3.get());
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf4(new uint8_t[1]);
-    const uint8_t src4[] = "b";
+    std::unique_ptr<ReQL_Byte[]> buf4(new ReQL_Byte[1]);
+    const ReQL_Byte src4[] = "b";
     reql_string_init(var4.get(), buf4.get(), 1);
     reql_string_append(var4.get(), src4, 1);
 
     std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf5(new uint8_t[1]);
-    const uint8_t src5[] = "b";
+    std::unique_ptr<ReQL_Byte[]> buf5(new ReQL_Byte[1]);
+    const ReQL_Byte src5[] = "b";
     reql_string_init(var5.get(), buf5.get(), 1);
     reql_string_append(var5.get(), src5, 1);
 
@@ -1561,8 +1561,8 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var1.get(), pair1.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[1]);
-    const uint8_t src2[] = "v";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[1]);
+    const ReQL_Byte src2[] = "v";
     reql_string_init(var2.get(), buf2.get(), 1);
     reql_string_append(var2.get(), src2, 1);
 
@@ -1578,8 +1578,8 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var4.get(), pair4.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf5(new uint8_t[2]);
-    const uint8_t src5[] = "v2";
+    std::unique_ptr<ReQL_Byte[]> buf5(new ReQL_Byte[2]);
+    const ReQL_Byte src5[] = "v2";
     reql_string_init(var5.get(), buf5.get(), 2);
     reql_string_append(var5.get(), src5, 2);
 
@@ -1595,8 +1595,8 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var7.get(), pair7.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var8(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf8(new uint8_t[1]);
-    const uint8_t src8[] = "v";
+    std::unique_ptr<ReQL_Byte[]> buf8(new ReQL_Byte[1]);
+    const ReQL_Byte src8[] = "v";
     reql_string_init(var8.get(), buf8.get(), 1);
     reql_string_append(var8.get(), src8, 1);
 
@@ -1612,8 +1612,8 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var10.get(), pair10.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var11(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf11(new uint8_t[2]);
-    const uint8_t src11[] = "v2";
+    std::unique_ptr<ReQL_Byte[]> buf11(new ReQL_Byte[2]);
+    const ReQL_Byte src11[] = "v2";
     reql_string_init(var11.get(), buf11.get(), 2);
     reql_string_append(var11.get(), src11, 2);
 
@@ -1629,8 +1629,8 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var13.get(), pair13.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var14(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf14(new uint8_t[1]);
-    const uint8_t src14[] = "v";
+    std::unique_ptr<ReQL_Byte[]> buf14(new ReQL_Byte[1]);
+    const ReQL_Byte src14[] = "v";
     reql_string_init(var14.get(), buf14.get(), 1);
     reql_string_append(var14.get(), src14, 1);
 
@@ -1646,8 +1646,8 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var16.get(), pair16.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var17(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf17(new uint8_t[2]);
-    const uint8_t src17[] = "v2";
+    std::unique_ptr<ReQL_Byte[]> buf17(new ReQL_Byte[2]);
+    const ReQL_Byte src17[] = "v2";
     reql_string_init(var17.get(), buf17.get(), 2);
     reql_string_append(var17.get(), src17, 2);
 
@@ -1669,8 +1669,8 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var1.get(), pair1.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[1]);
-    const uint8_t src2[] = "a";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[1]);
+    const ReQL_Byte src2[] = "a";
     reql_string_init(var2.get(), buf2.get(), 1);
     reql_string_append(var2.get(), src2, 1);
 
@@ -1680,14 +1680,14 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_add(var1.get(), var2.get(), var3.get());
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf4(new uint8_t[1]);
-    const uint8_t src4[] = "b";
+    std::unique_ptr<ReQL_Byte[]> buf4(new ReQL_Byte[1]);
+    const ReQL_Byte src4[] = "b";
     reql_string_init(var4.get(), buf4.get(), 1);
     reql_string_append(var4.get(), src4, 1);
 
     std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf5(new uint8_t[1]);
-    const uint8_t src5[] = "a";
+    std::unique_ptr<ReQL_Byte[]> buf5(new ReQL_Byte[1]);
+    const ReQL_Byte src5[] = "a";
     reql_string_init(var5.get(), buf5.get(), 1);
     reql_string_append(var5.get(), src5, 1);
 
@@ -1700,8 +1700,8 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var6.get(), pair6.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var7(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf7(new uint8_t[1]);
-    const uint8_t src7[] = "a";
+    std::unique_ptr<ReQL_Byte[]> buf7(new ReQL_Byte[1]);
+    const ReQL_Byte src7[] = "a";
     reql_string_init(var7.get(), buf7.get(), 1);
     reql_string_append(var7.get(), src7, 1);
 
@@ -1711,14 +1711,14 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_add(var6.get(), var7.get(), var8.get());
 
     std::unique_ptr<ReQL_Obj_t> var9(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf9(new uint8_t[1]);
-    const uint8_t src9[] = "b";
+    std::unique_ptr<ReQL_Byte[]> buf9(new ReQL_Byte[1]);
+    const ReQL_Byte src9[] = "b";
     reql_string_init(var9.get(), buf9.get(), 1);
     reql_string_append(var9.get(), src9, 1);
 
     std::unique_ptr<ReQL_Obj_t> var10(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf10(new uint8_t[1]);
-    const uint8_t src10[] = "b";
+    std::unique_ptr<ReQL_Byte[]> buf10(new ReQL_Byte[1]);
+    const ReQL_Byte src10[] = "b";
     reql_string_init(var10.get(), buf10.get(), 1);
     reql_string_append(var10.get(), src10, 1);
 
@@ -1731,8 +1731,8 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var11.get(), pair11.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var12(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf12(new uint8_t[1]);
-    const uint8_t src12[] = "a";
+    std::unique_ptr<ReQL_Byte[]> buf12(new ReQL_Byte[1]);
+    const ReQL_Byte src12[] = "a";
     reql_string_init(var12.get(), buf12.get(), 1);
     reql_string_append(var12.get(), src12, 1);
 
@@ -1742,14 +1742,14 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_add(var11.get(), var12.get(), var13.get());
 
     std::unique_ptr<ReQL_Obj_t> var14(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf14(new uint8_t[1]);
-    const uint8_t src14[] = "b";
+    std::unique_ptr<ReQL_Byte[]> buf14(new ReQL_Byte[1]);
+    const ReQL_Byte src14[] = "b";
     reql_string_init(var14.get(), buf14.get(), 1);
     reql_string_append(var14.get(), src14, 1);
 
     std::unique_ptr<ReQL_Obj_t> var15(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf15(new uint8_t[1]);
-    const uint8_t src15[] = "c";
+    std::unique_ptr<ReQL_Byte[]> buf15(new ReQL_Byte[1]);
+    const ReQL_Byte src15[] = "c";
     reql_string_init(var15.get(), buf15.get(), 1);
     reql_string_append(var15.get(), src15, 1);
 
@@ -1768,8 +1768,8 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var1.get(), pair1.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[1]);
-    const uint8_t src2[] = "a";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[1]);
+    const ReQL_Byte src2[] = "a";
     reql_string_init(var2.get(), buf2.get(), 1);
     reql_string_append(var2.get(), src2, 1);
 
@@ -1779,14 +1779,14 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_add(var1.get(), var2.get(), var3.get());
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf4(new uint8_t[1]);
-    const uint8_t src4[] = "b";
+    std::unique_ptr<ReQL_Byte[]> buf4(new ReQL_Byte[1]);
+    const ReQL_Byte src4[] = "b";
     reql_string_init(var4.get(), buf4.get(), 1);
     reql_string_append(var4.get(), src4, 1);
 
     std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf5(new uint8_t[1]);
-    const uint8_t src5[] = "c";
+    std::unique_ptr<ReQL_Byte[]> buf5(new ReQL_Byte[1]);
+    const ReQL_Byte src5[] = "c";
     reql_string_init(var5.get(), buf5.get(), 1);
     reql_string_append(var5.get(), src5, 1);
 
@@ -1799,8 +1799,8 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var6.get(), pair6.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var7(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf7(new uint8_t[1]);
-    const uint8_t src7[] = "a";
+    std::unique_ptr<ReQL_Byte[]> buf7(new ReQL_Byte[1]);
+    const ReQL_Byte src7[] = "a";
     reql_string_init(var7.get(), buf7.get(), 1);
     reql_string_append(var7.get(), src7, 1);
 
@@ -1810,14 +1810,14 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_add(var6.get(), var7.get(), var8.get());
 
     std::unique_ptr<ReQL_Obj_t> var9(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf9(new uint8_t[1]);
-    const uint8_t src9[] = "b";
+    std::unique_ptr<ReQL_Byte[]> buf9(new ReQL_Byte[1]);
+    const ReQL_Byte src9[] = "b";
     reql_string_init(var9.get(), buf9.get(), 1);
     reql_string_append(var9.get(), src9, 1);
 
     std::unique_ptr<ReQL_Obj_t> var10(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf10(new uint8_t[1]);
-    const uint8_t src10[] = "b";
+    std::unique_ptr<ReQL_Byte[]> buf10(new ReQL_Byte[1]);
+    const ReQL_Byte src10[] = "b";
     reql_string_init(var10.get(), buf10.get(), 1);
     reql_string_append(var10.get(), src10, 1);
 
@@ -1830,8 +1830,8 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var11.get(), pair11.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var12(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf12(new uint8_t[1]);
-    const uint8_t src12[] = "a";
+    std::unique_ptr<ReQL_Byte[]> buf12(new ReQL_Byte[1]);
+    const ReQL_Byte src12[] = "a";
     reql_string_init(var12.get(), buf12.get(), 1);
     reql_string_append(var12.get(), src12, 1);
 
@@ -1841,14 +1841,14 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_add(var11.get(), var12.get(), var13.get());
 
     std::unique_ptr<ReQL_Obj_t> var14(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf14(new uint8_t[1]);
-    const uint8_t src14[] = "b";
+    std::unique_ptr<ReQL_Byte[]> buf14(new ReQL_Byte[1]);
+    const ReQL_Byte src14[] = "b";
     reql_string_init(var14.get(), buf14.get(), 1);
     reql_string_append(var14.get(), src14, 1);
 
     std::unique_ptr<ReQL_Obj_t> var15(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf15(new uint8_t[1]);
-    const uint8_t src15[] = "a";
+    std::unique_ptr<ReQL_Byte[]> buf15(new ReQL_Byte[1]);
+    const ReQL_Byte src15[] = "a";
     reql_string_init(var15.get(), buf15.get(), 1);
     reql_string_append(var15.get(), src15, 1);
 
@@ -1867,8 +1867,8 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var1.get(), pair1.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[2]);
-    const uint8_t src2[] = "-a";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[2]);
+    const ReQL_Byte src2[] = "-a";
     reql_string_init(var2.get(), buf2.get(), 2);
     reql_string_append(var2.get(), src2, 2);
 
@@ -1884,8 +1884,8 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var4.get(), pair4.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf5(new uint8_t[2]);
-    const uint8_t src5[] = "-a";
+    std::unique_ptr<ReQL_Byte[]> buf5(new ReQL_Byte[2]);
+    const ReQL_Byte src5[] = "-a";
     reql_string_init(var5.get(), buf5.get(), 2);
     reql_string_append(var5.get(), src5, 2);
 
@@ -1953,8 +1953,8 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var4.get(), pair4.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf5(new uint8_t[1]);
-    const uint8_t src5[] = "a";
+    std::unique_ptr<ReQL_Byte[]> buf5(new ReQL_Byte[1]);
+    const ReQL_Byte src5[] = "a";
     reql_string_init(var5.get(), buf5.get(), 1);
     reql_string_append(var5.get(), src5, 1);
 
@@ -1964,14 +1964,14 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_add(var4.get(), var5.get(), var6.get());
 
     std::unique_ptr<ReQL_Obj_t> var7(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf7(new uint8_t[1]);
-    const uint8_t src7[] = "b";
+    std::unique_ptr<ReQL_Byte[]> buf7(new ReQL_Byte[1]);
+    const ReQL_Byte src7[] = "b";
     reql_string_init(var7.get(), buf7.get(), 1);
     reql_string_append(var7.get(), src7, 1);
 
     std::unique_ptr<ReQL_Obj_t> var8(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf8(new uint8_t[1]);
-    const uint8_t src8[] = "a";
+    std::unique_ptr<ReQL_Byte[]> buf8(new ReQL_Byte[1]);
+    const ReQL_Byte src8[] = "a";
     reql_string_init(var8.get(), buf8.get(), 1);
     reql_string_append(var8.get(), src8, 1);
 
@@ -1984,8 +1984,8 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var9.get(), pair9.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var10(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf10(new uint8_t[1]);
-    const uint8_t src10[] = "a";
+    std::unique_ptr<ReQL_Byte[]> buf10(new ReQL_Byte[1]);
+    const ReQL_Byte src10[] = "a";
     reql_string_init(var10.get(), buf10.get(), 1);
     reql_string_append(var10.get(), src10, 1);
 
@@ -1995,14 +1995,14 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_add(var9.get(), var10.get(), var11.get());
 
     std::unique_ptr<ReQL_Obj_t> var12(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf12(new uint8_t[1]);
-    const uint8_t src12[] = "b";
+    std::unique_ptr<ReQL_Byte[]> buf12(new ReQL_Byte[1]);
+    const ReQL_Byte src12[] = "b";
     reql_string_init(var12.get(), buf12.get(), 1);
     reql_string_append(var12.get(), src12, 1);
 
     std::unique_ptr<ReQL_Obj_t> var13(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf13(new uint8_t[1]);
-    const uint8_t src13[] = "b";
+    std::unique_ptr<ReQL_Byte[]> buf13(new ReQL_Byte[1]);
+    const ReQL_Byte src13[] = "b";
     reql_string_init(var13.get(), buf13.get(), 1);
     reql_string_append(var13.get(), src13, 1);
 
@@ -2015,8 +2015,8 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var14.get(), pair14.get(), 2);
 
     std::unique_ptr<ReQL_Obj_t> var15(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf15(new uint8_t[1]);
-    const uint8_t src15[] = "a";
+    std::unique_ptr<ReQL_Byte[]> buf15(new ReQL_Byte[1]);
+    const ReQL_Byte src15[] = "a";
     reql_string_init(var15.get(), buf15.get(), 1);
     reql_string_append(var15.get(), src15, 1);
 
@@ -2026,14 +2026,14 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_add(var14.get(), var15.get(), var16.get());
 
     std::unique_ptr<ReQL_Obj_t> var17(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf17(new uint8_t[1]);
-    const uint8_t src17[] = "b";
+    std::unique_ptr<ReQL_Byte[]> buf17(new ReQL_Byte[1]);
+    const ReQL_Byte src17[] = "b";
     reql_string_init(var17.get(), buf17.get(), 1);
     reql_string_append(var17.get(), src17, 1);
 
     std::unique_ptr<ReQL_Obj_t> var18(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf18(new uint8_t[1]);
-    const uint8_t src18[] = "c";
+    std::unique_ptr<ReQL_Byte[]> buf18(new ReQL_Byte[1]);
+    const ReQL_Byte src18[] = "c";
     reql_string_init(var18.get(), buf18.get(), 1);
     reql_string_append(var18.get(), src18, 1);
 
@@ -2144,14 +2144,14 @@ TEST_CASE("reql Tests manipulation operations on arrays", "[reql][ast]") {
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[4]);
-    const uint8_t src1[] = "func";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
     reql_string_init(var1.get(), buf1.get(), 4);
     reql_string_append(var1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf2(new uint8_t[3]);
-    const uint8_t src2[] = "err";
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
+    const ReQL_Byte src2[] = "err";
     reql_string_init(var2.get(), buf2.get(), 3);
     reql_string_append(var2.get(), src2, 3);
 

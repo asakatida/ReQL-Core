@@ -14,8 +14,8 @@ TEST_CASE("reql secondary indexes on times", "[reql][ast]") {
 
   SECTION("test10") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf0(new uint8_t[281]);
-    const uint8_t src0[] = "Duplicate primary key `id`:\n{\n\t\"id\":\t{\n\t\t\"$reql_type$\":\t\"TIME\",\n\t\t\"epoch_time\":\t1375445163.087,\n\t\t\"timezone\":\t\"-07:00\"\n\t}\n}\n{\n\t\"id\":\t{\n\t\t\"$reql_type$\":\t\"TIME\",\n\t\t\"epoch_time\":\t1375445163.087,\n\t\t\"timezone\":\t\"+00:00\"\n\t}\n}";
+    std::unique_ptr<ReQL_Byte[]> buf0(new ReQL_Byte[281]);
+    const ReQL_Byte src0[] = "Duplicate primary key `id`:\n{\n\t\"id\":\t{\n\t\t\"$reql_type$\":\t\"TIME\",\n\t\t\"epoch_time\":\t1375445163.087,\n\t\t\"timezone\":\t\"-07:00\"\n\t}\n}\n{\n\t\"id\":\t{\n\t\t\"$reql_type$\":\t\"TIME\",\n\t\t\"epoch_time\":\t1375445163.087,\n\t\t\"timezone\":\t\"+00:00\"\n\t}\n}";
     reql_string_init(var0.get(), buf0.get(), 281);
     reql_string_append(var0.get(), src0, 281);
   }
@@ -61,8 +61,8 @@ TEST_CASE("reql secondary indexes on times", "[reql][ast]") {
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[7]);
-    const uint8_t src1[] = "created";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[7]);
+    const ReQL_Byte src1[] = "created";
     reql_string_init(var1.get(), buf1.get(), 7);
     reql_string_append(var1.get(), src1, 7);
 
@@ -113,8 +113,8 @@ TEST_CASE("reql secondary indexes on times", "[reql][ast]") {
     reql_object_init(var0.get(), pair0.get(), 1);
 
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf1(new uint8_t[7]);
-    const uint8_t src1[] = "created";
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[7]);
+    const ReQL_Byte src1[] = "created";
     reql_string_init(var1.get(), buf1.get(), 7);
     reql_string_append(var1.get(), src1, 7);
 
@@ -171,8 +171,8 @@ TEST_CASE("reql secondary indexes on times", "[reql][ast]") {
 
   SECTION("test38") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
-    std::unique_ptr<uint8_t[]> buf0(new uint8_t[11]);
-    const uint8_t src0[] = "PTYPE<TIME>";
+    std::unique_ptr<ReQL_Byte[]> buf0(new ReQL_Byte[11]);
+    const ReQL_Byte src0[] = "PTYPE<TIME>";
     reql_string_init(var0.get(), buf0.get(), 11);
     reql_string_append(var0.get(), src0, 11);
   }
