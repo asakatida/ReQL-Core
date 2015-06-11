@@ -31,12 +31,16 @@ if (reql == NULL) {\
   return NULL;\
 }
 
-#define SET_DATA(size, obj) reql->data = malloc(size);\
-if (reql->data == NULL) {\
-  free(reql);\
-  return NULL;\
-}\
-memcpy(reql->data, obj, size);
+#define SET_DATA(size, obj) if (size == 0) {\
+  reql->data = NULL;\
+} else {\
+  reql->data = malloc(size);\
+  if (reql->data == NULL) {\
+    free(reql);\
+    return NULL;\
+  }\
+  memcpy(reql->data, obj, size);\
+}
 
 #define NEW_REQL_OBJ ReQL_Obj_t *obj = malloc(sizeof(ReQL_Obj_t));\
 if (obj == NULL) {\
@@ -46,6 +50,10 @@ if (obj == NULL) {\
 static ReQL_Obj_t *
 reql_array_(ReQL_t *reql) {
   NEW_REQL_OBJ;
+  if (reql->data == NULL) {
+    reql_array_init(obj, NULL, 0);
+    return obj;
+  }
   ReQL_Obj_t **buf = malloc(sizeof(ReQL_Obj_t*) * reql->size);
   if (buf == NULL) {
     free(obj);
@@ -65,6 +73,7 @@ reql_array(ReQL_t **val) {
   NEW_REQL;
   reql->size = 0;
   while (val[reql->size++] != NULL) {}
+  --reql->size;
   SET_DATA(sizeof(ReQL_t*) * reql->size, val);
   reql->cb = reql_array_;
   return reql;
@@ -102,6 +111,10 @@ reql_destroy(ReQL_t *reql) {
 static ReQL_Obj_t *
 reql_json_object_(ReQL_t *reql) {
   NEW_REQL_OBJ;
+  if (reql->data == NULL) {
+    reql_object_init(obj, NULL, 0);
+    return obj;
+  }
   ReQL_Pair_t *buf = malloc(sizeof(ReQL_Pair_t) * reql->size);
   if (buf == NULL) {
     free(obj);
@@ -122,6 +135,7 @@ reql_json_object(ReQL_t **val) {
   NEW_REQL;
   reql->size = 0;
   while (val[reql->size++] != NULL) {}
+  --reql->size;
   SET_DATA(sizeof(ReQL_t*) * reql->size, val);
   reql->size /= 2;
   reql->cb = reql_json_object_;
@@ -163,6 +177,10 @@ reql_number(double val) {
 static ReQL_Obj_t *
 reql_string_(ReQL_t *reql) {
   NEW_REQL_OBJ;
+  if (reql->data == NULL) {
+    reql_string_init(obj, NULL, 0);
+    return obj;
+  }
   ReQL_Byte *buf = malloc(sizeof(ReQL_Byte) * reql->size);
   if (buf == NULL) {
     free(obj);
