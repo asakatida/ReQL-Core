@@ -28,40 +28,6 @@ extern "C" {
 #include "./reql/connection.h"
 #include "./reql/expr.h"
 
-#include <pthread.h>
-
-typedef int(^ReQL_Each_Function)(ReQL_Obj_t *, void *);
-typedef int(^ReQL_End_Function)(void *);
-typedef int(^ReQL_Error_Function)(ReQL_Obj_t *, void *);
-
-enum ReQL_Response_e {
-  REQL_CLIENT_ERROR = 16,
-  REQL_COMPILE_ERROR = 17,
-  REQL_RUNTIME_ERROR = 18,
-  REQL_SUCCESS_ATOM = 1,
-  REQL_SUCCESS_PARTIAL = 3,
-  REQL_SUCCESS_SEQUENCE = 2,
-  REQL_WAIT_COMPLETE = 4
-};
-typedef enum ReQL_Response_e ReQL_Response_t;
-
-struct ReQL_Cur_s {
-  struct {
-    pthread_mutex_t *mutex;
-  } condition;
-  ReQL_Token token;
-  struct ReQL_Conn_s *conn;
-  struct ReQL_Cur_s *next;
-  struct ReQL_Cur_s *prev;
-  struct {
-    void *data[3];
-    ReQL_Each_Function each;
-    ReQL_End_Function end;
-    ReQL_Error_Function error;
-  } cb;
-};
-typedef struct ReQL_Cur_s ReQL_Cur_t;
-
 extern void
 reql_cur_set_end_cb(ReQL_Cur_t *cur, ReQL_End_Function cb, void *arg);
 

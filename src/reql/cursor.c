@@ -24,6 +24,7 @@ limitations under the License.
 #include "./reql/error.h"
 #include "./reql/expr.h"
 
+#include <pthread.h>
 #include <stdlib.h>
 #include <string.h>
 

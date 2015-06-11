@@ -28,13 +28,6 @@ extern "C" {
 #include "./reql/expr.h"
 #include "./reql/types.h"
 
-struct ReQL_String_s {
-  ReQL_Size size;
-  ReQL_Size alloc_size;
-  ReQL_Byte *str;
-};
-typedef struct ReQL_String_s ReQL_String_t;
-
 extern ReQL_String_t *
 reql_encode(ReQL_Obj_t *val);
 

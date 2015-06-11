@@ -29,32 +29,6 @@ extern "C" {
 #include "./reql/expr.h"
 #include "./reql/types.h"
 
-#include <pthread.h>
-
-/**
- * @brief connection object
- */
-struct ReQL_Conn_s {
-  ReQL_Size auth_size;
-  int socket;
-
-  ReQL_Token max_token;
-
-  ReQL_Token timeout;
-
-  char *port;
-  char *addr;
-
-  char *auth;
-  struct ReQL_Cur_s *cursors;
-
-  struct {
-    pthread_mutex_t *mutex;
-    pthread_t thread;
-  } condition;
-};
-typedef struct ReQL_Conn_s ReQL_Conn_t;
-
 /**
  * @brief initialize connection to prepare for opening.
  * @param conn allocated connection object.
