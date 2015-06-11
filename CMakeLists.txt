@@ -401,6 +401,7 @@ set(MOC_HEADERS
  src/c/cursor.h
  src/c/error.h
  src/c/query.h
+ src/c/types.h
  src/cpp/connection.hpp
  src/cpp/cursor.hpp
  src/cpp/error.hpp
