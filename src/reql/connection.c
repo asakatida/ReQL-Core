@@ -288,14 +288,29 @@ reql_conn_loop(void *conn) {
         ReQL_Obj_t *res = reql_decode(response, size);
         if (res == NULL) {
           printf("failed to decode query response\n");
+          reql_conn_lock(conn);
+          ReQL_Cur_t *cur = ((ReQL_Conn_t *)conn)->cursors;
+          if (cur != NULL) {
+            while (1) {
+              if (cur->token == token) {
+                reql_cur_close(cur);
+                break;
+              } else if (cur->next == cur) {
+                break;
+              } else {
+                cur = cur->next;
+              }
+            }
+          }
+          reql_conn_unlock(conn);
           if (reql_error_type() == REQL_E_NO) {
             reql_conn_error("Failed to decode response", __func__);
           }
-          break;
+        } else {
+          reql_conn_lock(conn);
+          reql_conn_set_res(conn, res, token);
+          reql_conn_unlock(conn);
         }
-        reql_conn_lock(conn);
-        reql_conn_set_res(conn, res, token);
-        reql_conn_unlock(conn);
 
         pos -= size;
         size = 0;
