@@ -151,6 +151,17 @@ Cursor::next(Parser &p) {
   _C::reql_json_destroy(res);
 }
 
+Types::array
+Cursor::toVector() {
+  Types::array res;
+  _C::ReQL_Obj_t *r_res = nullptr;
+  while ((r_res = reql_cur_next(get())) != nullptr) {
+    res.insert(res.cend(), Query(r_res));
+    _C::reql_json_destroy(r_res);
+  }
+  return res;
+}
+
 void
 Cursor::close() {
   reql_cur_close(get());
