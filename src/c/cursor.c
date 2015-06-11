@@ -62,11 +62,29 @@ reql_cursor(ReQL_t *query, ReQL_t *kwargs, ReQL_Connection_t *conn) {
     free(cur);
     return NULL;
   }
-  if (kwargs == NULL) {
-    reql_run(cur->cursor, query->cb(query), conn->connection, NULL);
-  } else {
-    reql_run(cur->cursor, query->cb(query), conn->connection, kwargs->cb(kwargs));
+  ReQL_Obj_t *r_query = query->cb(query);
+  if (r_query == NULL) {
+    free(cur->cursor);
+    free(cur);
+    return NULL;
   }
+  if (kwargs == NULL) {
+    if (reql_run(cur->cursor, r_query, conn->connection, NULL) != 0) {
+      free(cur->cursor);
+      free(cur); cur = NULL;
+    }
+  } else {
+    ReQL_Obj_t *r_kwargs = kwargs->cb(kwargs);
+    if (r_kwargs == NULL) {
+      free(cur->cursor);
+      free(cur); cur = NULL;
+    } else if (reql_run(cur->cursor, r_query, conn->connection, r_kwargs) != 0) {
+      free(cur->cursor);
+      free(cur); cur = NULL;
+    }
+    reql_json_destroy(r_kwargs);
+  }
+  reql_json_destroy(r_query);
   return cur;
 }
 
