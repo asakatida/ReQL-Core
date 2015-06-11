@@ -110,7 +110,7 @@ if (obj == nil) {\
 
 -(instancetype)initTermWithArray:(NSArray *)val {
   if (self = [super init]) {
-    p_data = [val retain];
+    p_data = val;
   }
   return self;
 }
@@ -131,10 +131,6 @@ if (obj == nil) {\
   return obj;
 }
 
--(void)dealloc {
-  [p_data release];
-  [super dealloc];
-}
 
 @end
 
@@ -177,7 +173,7 @@ if (obj == nil) {\
 
 -(instancetype)initTermWithNumber:(NSNumber *)val {
   if (self = [super init]) {
-    p_data = [val retain];
+    p_data = val;
   }
   return self;
 }
@@ -188,10 +184,6 @@ if (obj == nil) {\
   return obj;
 }
 
--(void)dealloc {
-  [p_data release];
-  [super dealloc];
-}
 
 @end
 
@@ -203,7 +195,7 @@ if (obj == nil) {\
 
 -(instancetype)initTermWithObject:(NSDictionary *)val {
   if (self = [super init]) {
-    p_data = [val retain];
+    p_data = val;
   }
   return self;
 }
@@ -220,7 +212,7 @@ if (obj == nil) {\
   for (NSString *key in p_data) {
     @autoreleasepool {
       ReQLQuery *val = [p_data objectForKey:key];
-      ReQL_Obj_t *r_key = [[[StringExpr newTermFromString:key] autorelease] build];
+      ReQL_Obj_t *r_key = [[StringExpr newTermFromString:key] build];
       ReQL_Obj_t *r_val = [val build];
       reql_object_add(obj, r_key, r_val);
     }
@@ -228,10 +220,6 @@ if (obj == nil) {\
   return obj;
 }
 
--(void)dealloc {
-  [p_data release];
-  [super dealloc];
-}
 
 @end
 
@@ -243,7 +231,7 @@ if (obj == nil) {\
 
 -(instancetype)initTermWithString:(NSString *)val {
   if (self = [super init]) {
-    p_data = [val retain];
+    p_data = val;
   }
   return self;
 }
@@ -261,10 +249,6 @@ if (obj == nil) {\
   return obj;
 }
 
--(void)dealloc {
-  [p_data release];
-  [super dealloc];
-}
 
 @end
 
@@ -289,10 +273,6 @@ if (obj == nil) {\
   return obj;
 }
 
--(void)dealloc {
-  [p_args release];
-  [super dealloc];
-}
 
 @end
 
@@ -319,11 +299,6 @@ if (obj == nil) {\
   return obj;
 }
 
--(void)dealloc {
-  [p_args release];
-  [p_kwargs release];
-  [super dealloc];
-}
 
 @end
 
@@ -441,10 +416,6 @@ if (obj == nil) {\
   return [p_build build];
 }
 
--(void)dealloc {
-  [p_build release];
-  [super dealloc];
-}
 
 +(instancetype)
 add:(NSArray *)args {

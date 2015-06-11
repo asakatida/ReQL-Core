@@ -242,8 +242,19 @@ struct ReQL_Cur_Data_Holder {
     ReQL_Error_Function error;
   } cb;
   void *cb_data;
+  ReQL_Cur_t *cursor;
   pthread_cond_t *done;
 };
+
+static int
+reql_cur_next_cb(ReQL_Obj_t *a_res, void *arg) {
+  struct ReQL_Cur_Data_Holder *p_data = (struct ReQL_Cur_Data_Holder *)arg;
+  p_data->cursor->cb.each = p_data->cb.each;
+  p_data->cursor->cb.data[EACH] = p_data->cb_data;
+  p_data->cb_data = reql_json_move(a_res);
+  pthread_cond_broadcast(p_data->done);
+  return 0;
+}
 
 extern ReQL_Obj_t *
 reql_cur_next(ReQL_Cur_t *cur) {
@@ -262,14 +273,7 @@ reql_cur_next(ReQL_Cur_t *cur) {
     pthread_cond_t *done = malloc(sizeof(pthread_cond_t));
     pthread_cond_init(done, NULL);
     data.done = done;
-    cur->cb.each = ^(ReQL_Obj_t *a_res, void *arg) {
-      struct ReQL_Cur_Data_Holder *p_data = (struct ReQL_Cur_Data_Holder *)arg;
-      cur->cb.each = p_data->cb.each;
-      cur->cb.data[EACH] = p_data->cb_data;
-      p_data->cb_data = reql_json_move(a_res);
-      pthread_cond_broadcast(p_data->done);
-      return 0;
-    };
+    cur->cb.each = reql_cur_next_cb;
     cur->cb.data[EACH] = &data;
     int success = 0;
     while (data.cb_data == cur->cb.data[EACH] && success == 0 && reql_cur_open_(cur) != 0) {
@@ -300,11 +304,27 @@ reql_cur_each(ReQL_Cur_t *cur, ReQL_Each_Function cb, void *arg) {
   reql_cur_unlock(cur);
 }
 
+static int
+reql_cur_drain_blank_cb(ReQL_Obj_t *res, void *data) {
+  (void)res;
+  (void)data;
+  return 0;
+}
+
+static void
+reql_cur_drain_end_cb(void *arg) {
+  struct ReQL_Cur_Data_Holder *p_data = (struct ReQL_Cur_Data_Holder *)arg;
+  if (p_data->cb.end != NULL) {
+    p_data->cb.end(p_data->cb_data);
+  }
+  pthread_cond_broadcast(p_data->done);
+}
+
 extern void
 reql_cur_drain(ReQL_Cur_t *cur) {
   reql_cur_lock(cur);
   if (cur->cb.each == NULL) {
-    cur->cb.each = ^(ReQL_Obj_t *res, void *data) { (void)res; (void)data; return 0; };
+    cur->cb.each = reql_cur_drain_blank_cb;
     if (cur->cb.data[EACH] != NULL) {
       reql_cur_set_response_(cur, cur->cb.data[EACH]);
     }
@@ -315,14 +335,7 @@ reql_cur_drain(ReQL_Cur_t *cur) {
   pthread_cond_t *done = malloc(sizeof(pthread_cond_t));
   pthread_cond_init(done, NULL);
   data.done = done;
-  cur->cb.end = ^(void *arg) {
-    struct ReQL_Cur_Data_Holder *p_data = (struct ReQL_Cur_Data_Holder *)arg;
-    if (p_data->cb.end != NULL) {
-      p_data->cb.end(p_data->cb_data);
-    }
-    pthread_cond_broadcast(p_data->done);
-    return 0;
-  };
+  cur->cb.end = reql_cur_drain_end_cb;
   cur->cb.data[END] = &data;
   int success = 0;
   while (success == 0 && reql_cur_open_(cur) != 0) {
@@ -363,16 +376,19 @@ reql_update_array(ReQL_Obj_t *array, ReQL_Obj_t *elem) {
   return new_alloc;
 }
 
+static int
+reql_cur_to_array_cb(ReQL_Obj_t *res, void *data) {
+  reql_update_array(data, reql_json_move(res));
+  return 0;
+}
+
 extern ReQL_Obj_t *
 reql_cur_to_array(ReQL_Cur_t *cur) {
   ReQL_Obj_t *array = malloc(sizeof(ReQL_Obj_t));
   ReQL_Obj_t **arr = malloc(sizeof(ReQL_Obj_t *) * 20);
   reql_array_init(array, arr, 20);
   reql_cur_lock(cur);
-  cur->cb.each = ^(ReQL_Obj_t *res, void *data) {
-    reql_update_array(data, reql_json_move(res));
-    return 0;
-  };
+  cur->cb.each = reql_cur_to_array_cb;
   cur->cb.data[EACH] = array;
   reql_cur_unlock(cur);
   reql_cur_drain(cur);

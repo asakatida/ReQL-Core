@@ -39,9 +39,9 @@ typedef struct ReQL_Obj_s ReQL_Obj_t;
 typedef struct ReQL_Pair_s ReQL_Pair_t;
 typedef struct ReQL_String_s ReQL_String_t;
 
-typedef int(^ReQL_Each_Function)(ReQL_Obj_t *, void *);
-typedef int(^ReQL_End_Function)(void *);
-typedef int(^ReQL_Error_Function)(ReQL_Obj_t *, void *);
+typedef int(*ReQL_Each_Function)(ReQL_Obj_t *, void *);
+typedef void(*ReQL_End_Function)(void *);
+typedef void(*ReQL_Error_Function)(ReQL_Obj_t *, void *);
 
 /**
  * @brief JSON types.

@@ -106,15 +106,21 @@ reql_cursor_each(ReQL_Cursor_t *cur, ReQL_Each cb, void *obj) {
   }
 }
 
+static int
+reql_cursor_each_async_cb(ReQL_Obj_t *res, void *data) {
+  ReQL_Cursor_t *cur = (ReQL_Cursor_t *)data;
+  ReQL_Result_t *result = reql_result(res);
+  const int status = cur->cb(result, cur->data);
+  result->object = NULL;
+  reql_result_destroy(result);
+  return status;
+}
+
 extern void
 reql_cursor_each_async(ReQL_Cursor_t *cur, ReQL_Each cb, void *obj) {
-  reql_cur_each(cur->cursor, ^int(ReQL_Obj_t *res, void *data) {
-    ReQL_Result_t *result = reql_result(res);
-    cb(result, data);
-    result->object = NULL;
-    reql_result_destroy(result);
-    return 0;
-  }, obj);
+  cur->data = obj;
+  cur->cb = cb;
+  reql_cur_each(cur->cursor, reql_cursor_each_async_cb, cur);
 }
 
 extern void

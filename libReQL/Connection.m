@@ -32,13 +32,11 @@ limitations under the License.
   if (self = [super init]) {
     p_conn = malloc(sizeof(ReQL_Conn_t));
     if (p_conn == NULL) {
-      [self release];
       return NULL;
     }
     reql_conn_init(p_conn);
     ReQL_Byte buf[500];
     if (reql_conn_connect(p_conn, buf, 500) != 0) {
-      [self release];
       return NULL;
     }
   }
@@ -56,7 +54,6 @@ limitations under the License.
 -(void)dealloc {
   reql_conn_destroy(p_conn);
   free(p_conn);
-  [super dealloc];
 }
 
 @end

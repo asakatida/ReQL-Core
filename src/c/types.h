@@ -43,16 +43,18 @@ struct ReQL_Connection_s {
   ReQL_Conn_t *connection;
 };
 
+struct ReQL_Result_s {
+  ReQL_Obj_t *object;
+};
+  
 struct ReQL_Cursor_s {
   ReQL_Cur_t *cursor;
+  int (*cb)(struct ReQL_Result_s *res, void *data);
+  void *data;
 };
 
 struct ReQL_Error_s {
   int code;
-};
-
-struct ReQL_Result_s {
-  ReQL_Obj_t *object;
 };
 
 #ifdef __cplusplus
