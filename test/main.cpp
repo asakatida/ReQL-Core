@@ -9,15 +9,24 @@ main(int argc, char **argv) {
   try {
     ReQL::Connection conn;
 
-    ReQL::wait({})
-    .funcall({
+    ReQL::db_list({}).filter({
       ReQL::func({
         1.0,
-        ReQL::db({std::string("rethinkdb")})
-        .table({std::string("db_config")})
-        .delete_({})
+        ReQL::var({1.0}).ne({std::string("rethinkdb")})
       })
-    }).run(conn).toVector().clear();
+    }).for_each({
+      ReQL::func({
+        2.0,
+        ReQL::var({2.0}).db({}).wait({})
+        .funcall({
+          ReQL::func({
+            3.0,
+            ReQL::var({2.0}).db_drop({})
+          })
+        })
+      })
+    })
+    .run(conn).toVector().clear();
     
     conn.close();
   } catch (ReQL::ReQLError &e) {
