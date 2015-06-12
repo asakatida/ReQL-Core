@@ -453,21 +453,11 @@ reql_decode_(ReQL_Obj_t *stack, ReQL_Byte *json, ReQL_Size size) {
     }
   }
 
-  if (arr_open != 0) {
-    return NULL;
-  }
-  if (obj_open != 0) {
+  if (arr_open != 0 || obj_open != 0 || reql_size(stack) > 1) {
     return NULL;
   }
 
-  ReQL_Obj_t *res = reql_array_pop(stack);
-
-  if (reql_array_last(stack) != NULL) {
-    reql_json_destroy(res);
-    res = NULL;
-  }
-
-  return res;
+  return reql_array_pop(stack);
 }
 
 extern ReQL_Obj_t *
