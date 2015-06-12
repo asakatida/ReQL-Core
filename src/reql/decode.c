@@ -321,6 +321,7 @@ reql_decode_(ReQL_Obj_t *stack, ReQL_Byte *json, ReQL_Size size) {
           }
           default: return NULL;
         }
+        break;
       }
       case REQL_R_OBJECT: {
         switch (json[i]) {
@@ -336,6 +337,7 @@ reql_decode_(ReQL_Obj_t *stack, ReQL_Byte *json, ReQL_Size size) {
           }
           default: return NULL;
         }
+        break;
       }
       case REQL_R_JSON: {
         switch (json[i]) {
@@ -449,6 +451,7 @@ reql_decode_(ReQL_Obj_t *stack, ReQL_Byte *json, ReQL_Size size) {
           }
           default: return NULL;
         }
+        break;
       }
     }
   }
