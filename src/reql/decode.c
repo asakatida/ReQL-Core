@@ -130,6 +130,11 @@ reql_merge_stack_val(ReQL_Obj_t *stack, ReQL_Obj_t *val) {
     return REQL_R_JSON;
   }
 
+  if (reql_datum_type(arr) == REQL_R_OBJECT) {
+    reql_update_array(stack, val);
+    return REQL_R_OBJECT;
+  }
+
   if (reql_datum_type(arr) != REQL_R_ARRAY) {
     return reql_merge_stack_pair(stack, reql_array_pop(stack), val);
   }
