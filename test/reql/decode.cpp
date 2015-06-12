@@ -143,11 +143,23 @@ TEST_CASE("decode values", "[c][decode]") {
 }
 
 TEST_CASE("decode term", "[c][decode]") {
-  const uint32_t size = 95;
-  uint8_t src[size] = "[1, [[15, [[30], [17], [12, [13.7, 15.4, 16.8], {}]], {\"key\": \"value\", \"other\":  false}]], {}]";
+  SECTION("term fake") {
+    const uint32_t size = 95;
+    uint8_t src[size] = "[1, [[15, [[30], [17], [12, [13.7, 15.4, 16.8], {}]], {\"key\": \"value\", \"other\":  false}]], {}]";
 
-  ReQL_Obj_t *obj = reql_decode(src, size);
-  REQUIRE(obj != nullptr);
+    ReQL_Obj_t *obj = reql_decode(src, size);
+    REQUIRE(obj != nullptr);
 
-  reql_json_destroy(obj);
+    reql_json_destroy(obj);
+  }
+
+  SECTION("term one") {
+    const uint32_t size = 148;
+    uint8_t src[size] = "{\"t\":1,\"r\":[{\"config_changes\":[{\"new_val\":{\"id\":\"32f1b212-1a27-4c62-97e3-5ac85a4786d0\",\"name\":\"libReQL\"},\"old_val\":null}],\"dbs_created\":1}],\"n\":[]}";
+
+    ReQL_Obj_t *obj = reql_decode(src, size);
+    REQUIRE(obj != nullptr);
+
+    reql_json_destroy(obj);
+  }
 }
