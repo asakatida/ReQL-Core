@@ -85,76 +85,52 @@ reql_update_object(ReQL_Obj_t *obj, ReQL_Obj_t *key, ReQL_Obj_t *val) {
 }
 
 static ReQL_Datum_t
-reql_bad_pair(ReQL_Obj_t *stack, ReQL_Obj_t *key, ReQL_Obj_t *val) {
-  if (reql_update_array(stack, key) != 0) {
-    return REQL_R_JSON;
+reql_merge_stack(ReQL_Obj_t *stack) {
+  ReQL_Obj_t *val = reql_array_pop(stack);
+  if (val == NULL) {
+    return REQL_R_REQL;
   }
-  if (reql_update_array(stack, val) != 0) {
-    return REQL_R_JSON;
-  }
-  if (reql_datum_type(key) == REQL_R_OBJECT) {
-    return REQL_R_OBJECT;
-  }
-  return REQL_R_JSON;
-}
-
-static ReQL_Datum_t
-reql_merge_stack_pair(ReQL_Obj_t *stack, ReQL_Obj_t *key, ReQL_Obj_t *val) {
-  if (reql_datum_type(key) != REQL_R_STR) {
-    return reql_bad_pair(stack, key, val);
-  }
-
-  ReQL_Obj_t *obj = reql_array_last(stack);
-
-  if (obj == NULL) {
-    return reql_bad_pair(stack, key, val);
-  }
-
-  if (reql_datum_type(obj) != REQL_R_OBJECT) {
-    return reql_bad_pair(stack, key, val);
-  }
-
-  if (reql_update_object(obj, key, val) != 0) {
-    return REQL_R_JSON;
-  }
-
-  return REQL_R_OBJECT;
-}
-
-static ReQL_Datum_t
-reql_merge_stack_val(ReQL_Obj_t *stack, ReQL_Obj_t *val) {
   ReQL_Obj_t *arr = reql_array_last(stack);
-
   if (arr == NULL) {
     reql_update_array(stack, val);
     return REQL_R_JSON;
   }
-
-  if (reql_datum_type(arr) == REQL_R_OBJECT) {
-    reql_update_array(stack, val);
-    return REQL_R_OBJECT;
+  switch (reql_datum_type(arr)) {
+    case REQL_R_ARRAY: {
+      if (reql_update_array(arr, val) == 0) {
+        return REQL_R_ARRAY;
+      }
+      break;
+    }
+    case REQL_R_OBJECT: {
+      reql_update_array(stack, val);
+      if (reql_datum_type(val) == REQL_R_STR) {
+        return REQL_R_OBJECT;
+      }
+      break;
+    }
+    case REQL_R_STR: {
+      ReQL_Obj_t *key = reql_array_pop(stack);
+      ReQL_Obj_t *obj = reql_array_last(stack);
+      if (reql_datum_type(obj) == REQL_R_OBJECT) {
+        if (reql_update_object(obj, key, val) == 0) {
+          return REQL_R_OBJECT;
+        }
+      }
+      reql_update_array(stack, key);
+      reql_update_array(stack, val);
+      break;
+    }
+    case REQL_R_BOOL:
+    case REQL_R_JSON:
+    case REQL_R_NULL:
+    case REQL_R_NUM:
+    case REQL_R_REQL: {
+      reql_update_array(stack, val);
+      break;
+    }
   }
-
-  if (reql_datum_type(arr) != REQL_R_ARRAY) {
-    return reql_merge_stack_pair(stack, reql_array_pop(stack), val);
-  }
-
-  if (reql_update_array(arr, val) != 0) {
-    return REQL_R_JSON;
-  }
-
-  return REQL_R_ARRAY;
-}
-
-static ReQL_Datum_t
-reql_merge_stack(ReQL_Obj_t *stack) {
-  ReQL_Obj_t *val = reql_array_pop(stack);
-
-  if (val == NULL) {
-    return REQL_R_REQL;
-  }
-
-  return reql_merge_stack_val(stack, val);
+  return REQL_R_REQL;
 }
 
 static ReQL_Obj_t *
