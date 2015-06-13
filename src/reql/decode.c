@@ -137,7 +137,7 @@ reql_decode_(ReQL_Byte **pos, ReQL_Byte *end) {
           esc = 1;
         } else if (**pos == '"') {
           ++(*pos);
-          ReQL_Size size = (ReQL_Size)((track - start) / sizeof(ReQL_Byte));
+          ReQL_Size size = (ReQL_Size)(track - start);
           if (size == 0) {
             ReQL_Obj_t *obj = malloc(sizeof(ReQL_Obj_t));
 
