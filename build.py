@@ -279,8 +279,7 @@ class ReQLResultBuilder(ResultBuilder):
     std::unique_ptr<ReQL_Obj_t> var{0}(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf{0}(new ReQL_Byte[{1}]);
     const ReQL_Byte src{0}[] = "{2}";
-    reql_string_init(var{0}.get(), buf{0}.get(), {1});
-    reql_string_append(var{0}.get(), src{0}, {1});'''
+    reql_string_init(var{0}.get(), buf{0}.get(), src{0}, {1});'''
 
     shell_empty_map = '''
     std::unique_ptr<ReQL_Obj_t> var{0}(new ReQL_Obj_t);
@@ -786,12 +785,13 @@ def c_term_imp(name):
     return """
 extern ReQL_t *
 reql_{}(ReQL_t **args{}) {{
-  return reql_term(REQL_{}, args, {});
+  return reql_term{}({}, args{});
 }}""".format(
     name.lower(),
     ', ReQL_t **kwargs' if has_opts(name) else '',
-    name,
-    'kwargs' if has_opts(name) else 'NULL')
+    '_kwargs' if has_opts(name) else '',
+    ast_name('ast', name),
+    ', kwargs' if has_opts(name) else '')
 
 def c_term_def(name):
     return """
@@ -971,9 +971,9 @@ def main():
     build('src/Node/ast.hpp', node_term_def)
     build('src/Python/ast.c', py_term_imp)
     build('src/Python/ast.h', py_term_def)
+    build('src/reql/query.c', enum_def, ",\n  ")
     build('src/reql/query.c', term_imp)
     build('src/reql/query.h', term_def)
-    build('src/reql/query.h', enum_def, ",\n  ")
     build('src/Ruby/ast.c', rb_term_imp)
     build('src/Ruby/ast.h', rb_term_def)
 

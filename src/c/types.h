@@ -35,9 +35,16 @@ struct ReQL_s {
 
 struct ReQL_Args_s {
   struct ReQL_s *args;
-  struct ReQL_s *kwargs;
+  ReQL_AST_Function func;
 };
 typedef struct ReQL_Args_s ReQL_Args_t;
+
+struct ReQL_Kwargs_s {
+  struct ReQL_s *args;
+  struct ReQL_s *kwargs;
+  ReQL_AST_Function_Kwargs func;
+};
+typedef struct ReQL_Kwargs_s ReQL_Kwargs_t;
 
 struct ReQL_Connection_s {
   ReQL_Conn_t *connection;
@@ -46,7 +53,7 @@ struct ReQL_Connection_s {
 struct ReQL_Result_s {
   ReQL_Obj_t *object;
 };
-  
+
 struct ReQL_Cursor_s {
   ReQL_Cur_t *cursor;
   int (*cb)(struct ReQL_Result_s *res, void *data);

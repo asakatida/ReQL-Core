@@ -36,18 +36,6 @@ TEST_CASE("c expr array", "[reql][expr][array]") {
     REQUIRE(reql_array_append(ary.get(), extra.get()) != 0);
   }
 
-  SECTION("grow and shrink") {
-    std::unique_ptr<ReQL_Obj_t> elem(new ReQL_Obj_t);
-
-    reql_null_init(elem.get());
-
-    reql_array_append(ary.get(), elem.get());
-
-    REQUIRE(reql_array_pop(ary.get()) != nullptr);
-    REQUIRE(reql_array_last(ary.get()) == nullptr);
-    REQUIRE(reql_array_pop(ary.get()) == nullptr);
-  }
-
   SECTION("insert after end") {
     std::unique_ptr<ReQL_Obj_t> elem(new ReQL_Obj_t);
 
@@ -73,8 +61,7 @@ TEST_CASE("c expr object", "[reql][expr][object]") {
   std::unique_ptr<uint8_t> buf(new uint8_t[size]);
   const uint8_t string[] = "key";
 
-  reql_string_init(key.get(), buf.get(), size);
-  reql_string_append(key.get(), string, size);
+  reql_string_init(key.get(), buf.get(), string, size);
 
   reql_null_init(val.get());
 
@@ -115,8 +102,7 @@ TEST_CASE("c expr object", "[reql][expr][object]") {
     std::unique_ptr<uint8_t> new_buf(new uint8_t[size]);
     const uint8_t new_string[] = "key";
 
-    reql_string_init(new_key.get(), new_buf.get(), size);
-    reql_string_append(new_key.get(), new_string, size);
+    reql_string_init(new_key.get(), new_buf.get(), new_string, size);
 
     reql_number_init(new_val.get(), num);
 
@@ -140,8 +126,7 @@ TEST_CASE("c expr object", "[reql][expr][object]") {
     std::unique_ptr<uint8_t> new_buf(new uint8_t[size]);
     const uint8_t new_string[] = "new";
 
-    reql_string_init(new_key.get(), new_buf.get(), size);
-    reql_string_append(new_key.get(), new_string, size);
+    reql_string_init(new_key.get(), new_buf.get(), new_string, size);
 
     reql_number_init(new_val.get(), num);
 
@@ -206,8 +191,7 @@ TEST_CASE("c expr", "[reql][expr]") {
 
     std::string orig = std::string(reinterpret_cast<char*>(const_cast<std::uint8_t*>(hello)), size);
 
-    reql_string_init(val.get(), buf.get(), size);
-    reql_string_append(val.get(), hello, size);
+    reql_string_init(val.get(), buf.get(), hello, size);
 
     REQUIRE(reql_datum_type(val.get()) == REQL_R_STR);
 

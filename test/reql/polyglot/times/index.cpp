@@ -16,8 +16,7 @@ TEST_CASE("reql secondary indexes on times", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf0(new ReQL_Byte[281]);
     const ReQL_Byte src0[] = "Duplicate primary key `id`:\n{\n\t\"id\":\t{\n\t\t\"$reql_type$\":\t\"TIME\",\n\t\t\"epoch_time\":\t1375445163.087,\n\t\t\"timezone\":\t\"-07:00\"\n\t}\n}\n{\n\t\"id\":\t{\n\t\t\"$reql_type$\":\t\"TIME\",\n\t\t\"epoch_time\":\t1375445163.087,\n\t\t\"timezone\":\t\"+00:00\"\n\t}\n}";
-    reql_string_init(var0.get(), buf0.get(), 281);
-    reql_string_append(var0.get(), src0, 281);
+    reql_string_init(var0.get(), buf0.get(), src0, 281);
   }
 
   SECTION("test11") {
@@ -63,8 +62,7 @@ TEST_CASE("reql secondary indexes on times", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[7]);
     const ReQL_Byte src1[] = "created";
-    reql_string_init(var1.get(), buf1.get(), 7);
-    reql_string_append(var1.get(), src1, 7);
+    reql_string_init(var1.get(), buf1.get(), src1, 7);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     reql_number_init(var2.get(), 1);
@@ -115,8 +113,7 @@ TEST_CASE("reql secondary indexes on times", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[7]);
     const ReQL_Byte src1[] = "created";
-    reql_string_init(var1.get(), buf1.get(), 7);
-    reql_string_append(var1.get(), src1, 7);
+    reql_string_init(var1.get(), buf1.get(), src1, 7);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     reql_number_init(var2.get(), 1);
@@ -173,7 +170,6 @@ TEST_CASE("reql secondary indexes on times", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf0(new ReQL_Byte[11]);
     const ReQL_Byte src0[] = "PTYPE<TIME>";
-    reql_string_init(var0.get(), buf0.get(), 11);
-    reql_string_append(var0.get(), src0, 11);
+    reql_string_init(var0.get(), buf0.get(), src0, 11);
   }
 }

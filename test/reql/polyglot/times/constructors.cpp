@@ -11,8 +11,7 @@ TEST_CASE("reql Test basic time arithmetic", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf0(new ReQL_Byte[24]);
     const ReQL_Byte src0[] = "Sat May 30 23:34:00 1998";
-    reql_string_init(var0.get(), buf0.get(), 24);
-    reql_string_append(var0.get(), src0, 24);
+    reql_string_init(var0.get(), buf0.get(), src0, 24);
   }
 
   SECTION("test1") {
@@ -23,8 +22,7 @@ TEST_CASE("reql Test basic time arithmetic", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
     const ReQL_Byte src1[] = "more";
-    reql_string_init(var1.get(), buf1.get(), 4);
-    reql_string_append(var1.get(), src1, 4);
+    reql_string_init(var1.get(), buf1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Obj_t*[]> arr2(new ReQL_Obj_t*[1]);
@@ -33,8 +31,7 @@ TEST_CASE("reql Test basic time arithmetic", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf3(new ReQL_Byte[24]);
     const ReQL_Byte src3[] = "Tue Jul 31 09:20:40 2001";
-    reql_string_init(var3.get(), buf3.get(), 24);
-    reql_string_append(var3.get(), src3, 24);
+    reql_string_init(var3.get(), buf3.get(), src3, 24);
 
     reql_array_append(var2.get(), var3.get());
 
@@ -43,14 +40,12 @@ TEST_CASE("reql Test basic time arithmetic", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf4(new ReQL_Byte[5]);
     const ReQL_Byte src4[] = "stuff";
-    reql_string_init(var4.get(), buf4.get(), 5);
-    reql_string_append(var4.get(), src4, 5);
+    reql_string_init(var4.get(), buf4.get(), src4, 5);
 
     std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf5(new ReQL_Byte[24]);
     const ReQL_Byte src5[] = "Sat May 30 23:34:00 1998";
-    reql_string_init(var5.get(), buf5.get(), 24);
-    reql_string_append(var5.get(), src5, 24);
+    reql_string_init(var5.get(), buf5.get(), src5, 24);
 
     reql_object_add(var0.get(), var4.get(), var5.get());
   }
@@ -63,16 +58,14 @@ TEST_CASE("reql Test basic time arithmetic", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[24]);
     const ReQL_Byte src1[] = "Thu Mar 30 13:47:20 1995";
-    reql_string_init(var1.get(), buf1.get(), 24);
-    reql_string_append(var1.get(), src1, 24);
+    reql_string_init(var1.get(), buf1.get(), src1, 24);
 
     reql_array_append(var0.get(), var1.get());
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[24]);
     const ReQL_Byte src2[] = "Sat May 30 23:34:00 1998";
-    reql_string_init(var2.get(), buf2.get(), 24);
-    reql_string_append(var2.get(), src2, 24);
+    reql_string_init(var2.get(), buf2.get(), src2, 24);
 
     reql_array_append(var0.get(), var2.get());
 
@@ -83,14 +76,12 @@ TEST_CASE("reql Test basic time arithmetic", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf4(new ReQL_Byte[5]);
     const ReQL_Byte src4[] = "stuff";
-    reql_string_init(var4.get(), buf4.get(), 5);
-    reql_string_append(var4.get(), src4, 5);
+    reql_string_init(var4.get(), buf4.get(), src4, 5);
 
     std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf5(new ReQL_Byte[24]);
     const ReQL_Byte src5[] = "Tue Jul 31 09:20:40 2001";
-    reql_string_init(var5.get(), buf5.get(), 24);
-    reql_string_append(var5.get(), src5, 24);
+    reql_string_init(var5.get(), buf5.get(), src5, 24);
 
     reql_object_add(var3.get(), var4.get(), var5.get());
 
@@ -105,8 +96,7 @@ TEST_CASE("reql Test basic time arithmetic", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[6]);
     const ReQL_Byte src1[] = "nested";
-    reql_string_init(var1.get(), buf1.get(), 6);
-    reql_string_append(var1.get(), src1, 6);
+    reql_string_init(var1.get(), buf1.get(), src1, 6);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Pair_t[]> pair2(new ReQL_Pair_t[1]);
@@ -115,14 +105,12 @@ TEST_CASE("reql Test basic time arithmetic", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf3(new ReQL_Byte[4]);
     const ReQL_Byte src3[] = "time";
-    reql_string_init(var3.get(), buf3.get(), 4);
-    reql_string_append(var3.get(), src3, 4);
+    reql_string_init(var3.get(), buf3.get(), src3, 4);
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf4(new ReQL_Byte[24]);
     const ReQL_Byte src4[] = "Sat May 30 23:34:00 1998";
-    reql_string_init(var4.get(), buf4.get(), 24);
-    reql_string_append(var4.get(), src4, 24);
+    reql_string_init(var4.get(), buf4.get(), src4, 24);
 
     reql_object_add(var2.get(), var3.get(), var4.get());
 
@@ -142,8 +130,7 @@ TEST_CASE("reql Test basic time arithmetic", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
     const ReQL_Byte src2[] = "two";
-    reql_string_init(var2.get(), buf2.get(), 3);
-    reql_string_append(var2.get(), src2, 3);
+    reql_string_init(var2.get(), buf2.get(), src2, 3);
 
     reql_array_append(var0.get(), var2.get());
 
@@ -154,16 +141,14 @@ TEST_CASE("reql Test basic time arithmetic", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf4(new ReQL_Byte[1]);
     const ReQL_Byte src4[] = "a";
-    reql_string_init(var4.get(), buf4.get(), 1);
-    reql_string_append(var4.get(), src4, 1);
+    reql_string_init(var4.get(), buf4.get(), src4, 1);
 
     reql_array_append(var3.get(), var4.get());
 
     std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf5(new ReQL_Byte[24]);
     const ReQL_Byte src5[] = "Sat May 30 23:34:00 1998";
-    reql_string_init(var5.get(), buf5.get(), 24);
-    reql_string_append(var5.get(), src5, 24);
+    reql_string_init(var5.get(), buf5.get(), src5, 24);
 
     reql_array_append(var3.get(), var5.get());
 
@@ -194,8 +179,7 @@ TEST_CASE("reql Test basic time arithmetic", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf0(new ReQL_Byte[29]);
     const ReQL_Byte src0[] = "1970-01-01T00:00:01.444+00:00";
-    reql_string_init(var0.get(), buf0.get(), 29);
-    reql_string_append(var0.get(), src0, 29);
+    reql_string_init(var0.get(), buf0.get(), src0, 29);
   }
 
   SECTION("test9") {
@@ -216,14 +200,12 @@ TEST_CASE("reql Test basic time arithmetic", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
     const ReQL_Byte src1[] = "func";
-    reql_string_init(var1.get(), buf1.get(), 4);
-    reql_string_append(var1.get(), src1, 4);
+    reql_string_init(var1.get(), buf1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
     const ReQL_Byte src2[] = "err";
-    reql_string_init(var2.get(), buf2.get(), 3);
-    reql_string_append(var2.get(), src2, 3);
+    reql_string_init(var2.get(), buf2.get(), src2, 3);
 
     reql_object_add(var0.get(), var1.get(), var2.get());
   }
@@ -236,14 +218,12 @@ TEST_CASE("reql Test basic time arithmetic", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
     const ReQL_Byte src1[] = "func";
-    reql_string_init(var1.get(), buf1.get(), 4);
-    reql_string_append(var1.get(), src1, 4);
+    reql_string_init(var1.get(), buf1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
     const ReQL_Byte src2[] = "err";
-    reql_string_init(var2.get(), buf2.get(), 3);
-    reql_string_append(var2.get(), src2, 3);
+    reql_string_init(var2.get(), buf2.get(), src2, 3);
 
     reql_object_add(var0.get(), var1.get(), var2.get());
   }
@@ -266,14 +246,12 @@ TEST_CASE("reql Test basic time arithmetic", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
     const ReQL_Byte src1[] = "func";
-    reql_string_init(var1.get(), buf1.get(), 4);
-    reql_string_append(var1.get(), src1, 4);
+    reql_string_init(var1.get(), buf1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
     const ReQL_Byte src2[] = "err";
-    reql_string_init(var2.get(), buf2.get(), 3);
-    reql_string_append(var2.get(), src2, 3);
+    reql_string_init(var2.get(), buf2.get(), src2, 3);
 
     reql_object_add(var0.get(), var1.get(), var2.get());
   }

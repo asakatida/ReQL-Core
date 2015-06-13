@@ -165,8 +165,7 @@ TEST_CASE("decode values", "[c][decode]") {
       uint8_t key_buf[4];
 
       std::unique_ptr<ReQL_Obj_t> key(new ReQL_Obj_t);
-      reql_string_init(key.get(), key_buf, key_size);
-      reql_string_append(key.get(), reinterpret_cast<std::uint8_t*>(const_cast<char*>("key")), key_size);
+      reql_string_init(key.get(), key_buf, reinterpret_cast<std::uint8_t*>(const_cast<char*>("key")), key_size);
 
       REQUIRE(reql_object_get(obj, key.get()) != nullptr);
       REQUIRE(reql_datum_type(reql_object_get(obj, key.get())) == REQL_R_NUM);
@@ -182,7 +181,7 @@ TEST_CASE("decode values", "[c][decode]") {
       REQUIRE(reql_datum_type(obj) == REQL_R_OBJECT);
 
       std::unique_ptr<ReQL_Obj_t> key(new ReQL_Obj_t);
-      reql_string_init(key.get(), nullptr, 0);
+      reql_string_init(key.get(), nullptr, nullptr, 0);
 
       ReQL_Obj_t *val = reql_object_get(obj, key.get());
 

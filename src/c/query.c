@@ -178,7 +178,7 @@ static ReQL_Obj_t *
 reql_string_(ReQL_t *reql) {
   NEW_REQL_OBJ;
   if (reql->data == NULL) {
-    reql_string_init(obj, NULL, 0);
+    reql_string_init(obj, NULL, NULL, 0);
     return obj;
   }
   ReQL_Byte *buf = malloc(sizeof(ReQL_Byte) * reql->size);
@@ -186,8 +186,7 @@ reql_string_(ReQL_t *reql) {
     free(obj);
     return NULL;
   }
-  reql_string_init(obj, buf, (ReQL_Size)reql->size);
-  reql_string_append(obj, (ReQL_Byte *)reql->data, (ReQL_Size)reql->size);
+  reql_string_init(obj, buf, (ReQL_Byte *)reql->data, (ReQL_Size)reql->size);
   return obj;
 }
 
@@ -209,19 +208,56 @@ reql_term_(ReQL_t *reql) {
   if (args != NULL) {
     r_args = args->cb(args);
   }
+  data->func(obj, r_args);
+  return obj;
+}
+
+static ReQL_t *
+reql_term(ReQL_AST_Function func, ReQL_t **args) {
+  NEW_REQL;
+  ReQL_Args_t *data = malloc(sizeof(ReQL_Args_t));
+  if (data == NULL) {
+    free(reql);
+    return NULL;
+  }
+  if (args == NULL) {
+    data->args = NULL;
+  } else {
+    data->args = reql_array(args);
+    if (data->args == NULL) {
+      free(data);
+      free(reql);
+      return NULL;
+    }
+  }
+  data->func = func;
+  reql->data = data;
+  reql->cb = reql_term_;
+  return reql;
+}
+
+static ReQL_Obj_t *
+reql_term_kwargs_(ReQL_t *reql) {
+  NEW_REQL_OBJ;
+  ReQL_Kwargs_t *data = (ReQL_Kwargs_t *)reql->data;
+  ReQL_t *args = data->args;
+  ReQL_Obj_t *r_args = NULL;
+  if (args != NULL) {
+    r_args = args->cb(args);
+  }
   ReQL_t *kwargs = data->kwargs;
   ReQL_Obj_t *r_kwargs = NULL;
   if (kwargs != NULL) {
     r_kwargs = kwargs->cb(kwargs);
   }
-  reql_term_init(obj, (ReQL_Term_t)reql->size, r_args, r_kwargs);
+  data->func(obj, r_args, r_kwargs);
   return obj;
 }
 
 static ReQL_t *
-reql_term(ReQL_Term_t tt, ReQL_t **args, ReQL_t **kwargs) {
+reql_term_kwargs(ReQL_AST_Function_Kwargs func, ReQL_t **args, ReQL_t **kwargs) {
   NEW_REQL;
-  ReQL_Args_t *data = malloc(sizeof(ReQL_Args_t));
+  ReQL_Kwargs_t *data = malloc(sizeof(ReQL_Kwargs_t));
   if (data == NULL) {
     free(reql);
     return NULL;
@@ -249,883 +285,883 @@ reql_term(ReQL_Term_t tt, ReQL_t **args, ReQL_t **kwargs) {
       return NULL;
     }
   }
-  reql->size = (size_t)tt;
+  data->func = func;
   reql->data = data;
-  reql->cb = reql_term_;
+  reql->cb = reql_term_kwargs_;
   return reql;
 }
 
 extern ReQL_t *
 reql_add(ReQL_t **args) {
-  return reql_term(REQL_ADD, args, NULL);
+  return reql_term(reql_ast_add, args);
 }
 
 extern ReQL_t *
 reql_and(ReQL_t **args) {
-  return reql_term(REQL_AND, args, NULL);
+  return reql_term(reql_ast_and, args);
 }
 
 extern ReQL_t *
 reql_append(ReQL_t **args) {
-  return reql_term(REQL_APPEND, args, NULL);
+  return reql_term(reql_ast_append, args);
 }
 
 extern ReQL_t *
 reql_april(ReQL_t **args) {
-  return reql_term(REQL_APRIL, args, NULL);
+  return reql_term(reql_ast_april, args);
 }
 
 extern ReQL_t *
 reql_args(ReQL_t **args) {
-  return reql_term(REQL_ARGS, args, NULL);
+  return reql_term(reql_ast_args, args);
 }
 
 extern ReQL_t *
 reql_asc(ReQL_t **args) {
-  return reql_term(REQL_ASC, args, NULL);
+  return reql_term(reql_ast_asc, args);
 }
 
 extern ReQL_t *
 reql_august(ReQL_t **args) {
-  return reql_term(REQL_AUGUST, args, NULL);
+  return reql_term(reql_ast_august, args);
 }
 
 extern ReQL_t *
 reql_avg(ReQL_t **args) {
-  return reql_term(REQL_AVG, args, NULL);
+  return reql_term(reql_ast_avg, args);
 }
 
 extern ReQL_t *
 reql_between(ReQL_t **args) {
-  return reql_term(REQL_BETWEEN, args, NULL);
+  return reql_term(reql_ast_between, args);
 }
 
 extern ReQL_t *
 reql_between_deprecated(ReQL_t **args) {
-  return reql_term(REQL_BETWEEN_DEPRECATED, args, NULL);
+  return reql_term(reql_ast_between_deprecated, args);
 }
 
 extern ReQL_t *
 reql_binary(ReQL_t **args) {
-  return reql_term(REQL_BINARY, args, NULL);
+  return reql_term(reql_ast_binary, args);
 }
 
 extern ReQL_t *
 reql_bracket(ReQL_t **args) {
-  return reql_term(REQL_BRACKET, args, NULL);
+  return reql_term(reql_ast_bracket, args);
 }
 
 extern ReQL_t *
 reql_branch(ReQL_t **args) {
-  return reql_term(REQL_BRANCH, args, NULL);
+  return reql_term(reql_ast_branch, args);
 }
 
 extern ReQL_t *
 reql_ceil(ReQL_t **args) {
-  return reql_term(REQL_CEIL, args, NULL);
+  return reql_term(reql_ast_ceil, args);
 }
 
 extern ReQL_t *
 reql_changes(ReQL_t **args) {
-  return reql_term(REQL_CHANGES, args, NULL);
+  return reql_term(reql_ast_changes, args);
 }
 
 extern ReQL_t *
 reql_change_at(ReQL_t **args) {
-  return reql_term(REQL_CHANGE_AT, args, NULL);
+  return reql_term(reql_ast_change_at, args);
 }
 
 extern ReQL_t *
 reql_circle(ReQL_t **args, ReQL_t **kwargs) {
-  return reql_term(REQL_CIRCLE, args, kwargs);
+  return reql_term_kwargs(reql_ast_circle, args, kwargs);
 }
 
 extern ReQL_t *
 reql_coerce_to(ReQL_t **args) {
-  return reql_term(REQL_COERCE_TO, args, NULL);
+  return reql_term(reql_ast_coerce_to, args);
 }
 
 extern ReQL_t *
 reql_concat_map(ReQL_t **args) {
-  return reql_term(REQL_CONCAT_MAP, args, NULL);
+  return reql_term(reql_ast_concat_map, args);
 }
 
 extern ReQL_t *
 reql_config(ReQL_t **args) {
-  return reql_term(REQL_CONFIG, args, NULL);
+  return reql_term(reql_ast_config, args);
 }
 
 extern ReQL_t *
 reql_contains(ReQL_t **args) {
-  return reql_term(REQL_CONTAINS, args, NULL);
+  return reql_term(reql_ast_contains, args);
 }
 
 extern ReQL_t *
 reql_count(ReQL_t **args) {
-  return reql_term(REQL_COUNT, args, NULL);
+  return reql_term(reql_ast_count, args);
 }
 
 extern ReQL_t *
 reql_date(ReQL_t **args) {
-  return reql_term(REQL_DATE, args, NULL);
+  return reql_term(reql_ast_date, args);
 }
 
 extern ReQL_t *
 reql_datum(ReQL_t **args) {
-  return reql_term(REQL_DATUM, args, NULL);
+  return reql_term(reql_ast_datum, args);
 }
 
 extern ReQL_t *
 reql_day(ReQL_t **args) {
-  return reql_term(REQL_DAY, args, NULL);
+  return reql_term(reql_ast_day, args);
 }
 
 extern ReQL_t *
 reql_day_of_week(ReQL_t **args) {
-  return reql_term(REQL_DAY_OF_WEEK, args, NULL);
+  return reql_term(reql_ast_day_of_week, args);
 }
 
 extern ReQL_t *
 reql_day_of_year(ReQL_t **args) {
-  return reql_term(REQL_DAY_OF_YEAR, args, NULL);
+  return reql_term(reql_ast_day_of_year, args);
 }
 
 extern ReQL_t *
 reql_db(ReQL_t **args) {
-  return reql_term(REQL_DB, args, NULL);
+  return reql_term(reql_ast_db, args);
 }
 
 extern ReQL_t *
 reql_db_create(ReQL_t **args) {
-  return reql_term(REQL_DB_CREATE, args, NULL);
+  return reql_term(reql_ast_db_create, args);
 }
 
 extern ReQL_t *
 reql_db_drop(ReQL_t **args) {
-  return reql_term(REQL_DB_DROP, args, NULL);
+  return reql_term(reql_ast_db_drop, args);
 }
 
 extern ReQL_t *
 reql_db_list(ReQL_t **args) {
-  return reql_term(REQL_DB_LIST, args, NULL);
+  return reql_term(reql_ast_db_list, args);
 }
 
 extern ReQL_t *
 reql_december(ReQL_t **args) {
-  return reql_term(REQL_DECEMBER, args, NULL);
+  return reql_term(reql_ast_december, args);
 }
 
 extern ReQL_t *
 reql_default(ReQL_t **args) {
-  return reql_term(REQL_DEFAULT, args, NULL);
+  return reql_term(reql_ast_default, args);
 }
 
 extern ReQL_t *
 reql_delete(ReQL_t **args, ReQL_t **kwargs) {
-  return reql_term(REQL_DELETE, args, kwargs);
+  return reql_term_kwargs(reql_ast_delete, args, kwargs);
 }
 
 extern ReQL_t *
 reql_delete_at(ReQL_t **args) {
-  return reql_term(REQL_DELETE_AT, args, NULL);
+  return reql_term(reql_ast_delete_at, args);
 }
 
 extern ReQL_t *
 reql_desc(ReQL_t **args) {
-  return reql_term(REQL_DESC, args, NULL);
+  return reql_term(reql_ast_desc, args);
 }
 
 extern ReQL_t *
 reql_difference(ReQL_t **args) {
-  return reql_term(REQL_DIFFERENCE, args, NULL);
+  return reql_term(reql_ast_difference, args);
 }
 
 extern ReQL_t *
 reql_distance(ReQL_t **args) {
-  return reql_term(REQL_DISTANCE, args, NULL);
+  return reql_term(reql_ast_distance, args);
 }
 
 extern ReQL_t *
 reql_distinct(ReQL_t **args, ReQL_t **kwargs) {
-  return reql_term(REQL_DISTINCT, args, kwargs);
+  return reql_term_kwargs(reql_ast_distinct, args, kwargs);
 }
 
 extern ReQL_t *
 reql_div(ReQL_t **args) {
-  return reql_term(REQL_DIV, args, NULL);
+  return reql_term(reql_ast_div, args);
 }
 
 extern ReQL_t *
 reql_downcase(ReQL_t **args) {
-  return reql_term(REQL_DOWNCASE, args, NULL);
+  return reql_term(reql_ast_downcase, args);
 }
 
 extern ReQL_t *
 reql_during(ReQL_t **args) {
-  return reql_term(REQL_DURING, args, NULL);
+  return reql_term(reql_ast_during, args);
 }
 
 extern ReQL_t *
 reql_epoch_time(ReQL_t **args) {
-  return reql_term(REQL_EPOCH_TIME, args, NULL);
+  return reql_term(reql_ast_epoch_time, args);
 }
 
 extern ReQL_t *
 reql_eq(ReQL_t **args) {
-  return reql_term(REQL_EQ, args, NULL);
+  return reql_term(reql_ast_eq, args);
 }
 
 extern ReQL_t *
 reql_eq_join(ReQL_t **args, ReQL_t **kwargs) {
-  return reql_term(REQL_EQ_JOIN, args, kwargs);
+  return reql_term_kwargs(reql_ast_eq_join, args, kwargs);
 }
 
 extern ReQL_t *
 reql_error(ReQL_t **args) {
-  return reql_term(REQL_ERROR, args, NULL);
+  return reql_term(reql_ast_error, args);
 }
 
 extern ReQL_t *
 reql_february(ReQL_t **args) {
-  return reql_term(REQL_FEBRUARY, args, NULL);
+  return reql_term(reql_ast_february, args);
 }
 
 extern ReQL_t *
 reql_fill(ReQL_t **args) {
-  return reql_term(REQL_FILL, args, NULL);
+  return reql_term(reql_ast_fill, args);
 }
 
 extern ReQL_t *
 reql_filter(ReQL_t **args, ReQL_t **kwargs) {
-  return reql_term(REQL_FILTER, args, kwargs);
+  return reql_term_kwargs(reql_ast_filter, args, kwargs);
 }
 
 extern ReQL_t *
 reql_floor(ReQL_t **args) {
-  return reql_term(REQL_FLOOR, args, NULL);
+  return reql_term(reql_ast_floor, args);
 }
 
 extern ReQL_t *
 reql_for_each(ReQL_t **args) {
-  return reql_term(REQL_FOR_EACH, args, NULL);
+  return reql_term(reql_ast_for_each, args);
 }
 
 extern ReQL_t *
 reql_friday(ReQL_t **args) {
-  return reql_term(REQL_FRIDAY, args, NULL);
+  return reql_term(reql_ast_friday, args);
 }
 
 extern ReQL_t *
 reql_func(ReQL_t **args) {
-  return reql_term(REQL_FUNC, args, NULL);
+  return reql_term(reql_ast_func, args);
 }
 
 extern ReQL_t *
 reql_funcall(ReQL_t **args) {
-  return reql_term(REQL_FUNCALL, args, NULL);
+  return reql_term(reql_ast_funcall, args);
 }
 
 extern ReQL_t *
 reql_ge(ReQL_t **args) {
-  return reql_term(REQL_GE, args, NULL);
+  return reql_term(reql_ast_ge, args);
 }
 
 extern ReQL_t *
 reql_geojson(ReQL_t **args) {
-  return reql_term(REQL_GEOJSON, args, NULL);
+  return reql_term(reql_ast_geojson, args);
 }
 
 extern ReQL_t *
 reql_get(ReQL_t **args) {
-  return reql_term(REQL_GET, args, NULL);
+  return reql_term(reql_ast_get, args);
 }
 
 extern ReQL_t *
 reql_get_all(ReQL_t **args, ReQL_t **kwargs) {
-  return reql_term(REQL_GET_ALL, args, kwargs);
+  return reql_term_kwargs(reql_ast_get_all, args, kwargs);
 }
 
 extern ReQL_t *
 reql_get_field(ReQL_t **args) {
-  return reql_term(REQL_GET_FIELD, args, NULL);
+  return reql_term(reql_ast_get_field, args);
 }
 
 extern ReQL_t *
 reql_get_intersecting(ReQL_t **args, ReQL_t **kwargs) {
-  return reql_term(REQL_GET_INTERSECTING, args, kwargs);
+  return reql_term_kwargs(reql_ast_get_intersecting, args, kwargs);
 }
 
 extern ReQL_t *
 reql_get_nearest(ReQL_t **args, ReQL_t **kwargs) {
-  return reql_term(REQL_GET_NEAREST, args, kwargs);
+  return reql_term_kwargs(reql_ast_get_nearest, args, kwargs);
 }
 
 extern ReQL_t *
 reql_group(ReQL_t **args, ReQL_t **kwargs) {
-  return reql_term(REQL_GROUP, args, kwargs);
+  return reql_term_kwargs(reql_ast_group, args, kwargs);
 }
 
 extern ReQL_t *
 reql_gt(ReQL_t **args) {
-  return reql_term(REQL_GT, args, NULL);
+  return reql_term(reql_ast_gt, args);
 }
 
 extern ReQL_t *
 reql_has_fields(ReQL_t **args) {
-  return reql_term(REQL_HAS_FIELDS, args, NULL);
+  return reql_term(reql_ast_has_fields, args);
 }
 
 extern ReQL_t *
 reql_hours(ReQL_t **args) {
-  return reql_term(REQL_HOURS, args, NULL);
+  return reql_term(reql_ast_hours, args);
 }
 
 extern ReQL_t *
 reql_http(ReQL_t **args, ReQL_t **kwargs) {
-  return reql_term(REQL_HTTP, args, kwargs);
+  return reql_term_kwargs(reql_ast_http, args, kwargs);
 }
 
 extern ReQL_t *
 reql_implicit_var(ReQL_t **args) {
-  return reql_term(REQL_IMPLICIT_VAR, args, NULL);
+  return reql_term(reql_ast_implicit_var, args);
 }
 
 extern ReQL_t *
 reql_includes(ReQL_t **args) {
-  return reql_term(REQL_INCLUDES, args, NULL);
+  return reql_term(reql_ast_includes, args);
 }
 
 extern ReQL_t *
 reql_index_create(ReQL_t **args, ReQL_t **kwargs) {
-  return reql_term(REQL_INDEX_CREATE, args, kwargs);
+  return reql_term_kwargs(reql_ast_index_create, args, kwargs);
 }
 
 extern ReQL_t *
 reql_index_drop(ReQL_t **args) {
-  return reql_term(REQL_INDEX_DROP, args, NULL);
+  return reql_term(reql_ast_index_drop, args);
 }
 
 extern ReQL_t *
 reql_index_list(ReQL_t **args) {
-  return reql_term(REQL_INDEX_LIST, args, NULL);
+  return reql_term(reql_ast_index_list, args);
 }
 
 extern ReQL_t *
 reql_index_rename(ReQL_t **args, ReQL_t **kwargs) {
-  return reql_term(REQL_INDEX_RENAME, args, kwargs);
+  return reql_term_kwargs(reql_ast_index_rename, args, kwargs);
 }
 
 extern ReQL_t *
 reql_index_status(ReQL_t **args) {
-  return reql_term(REQL_INDEX_STATUS, args, NULL);
+  return reql_term(reql_ast_index_status, args);
 }
 
 extern ReQL_t *
 reql_index_wait(ReQL_t **args) {
-  return reql_term(REQL_INDEX_WAIT, args, NULL);
+  return reql_term(reql_ast_index_wait, args);
 }
 
 extern ReQL_t *
 reql_info(ReQL_t **args) {
-  return reql_term(REQL_INFO, args, NULL);
+  return reql_term(reql_ast_info, args);
 }
 
 extern ReQL_t *
 reql_inner_join(ReQL_t **args) {
-  return reql_term(REQL_INNER_JOIN, args, NULL);
+  return reql_term(reql_ast_inner_join, args);
 }
 
 extern ReQL_t *
 reql_insert(ReQL_t **args) {
-  return reql_term(REQL_INSERT, args, NULL);
+  return reql_term(reql_ast_insert, args);
 }
 
 extern ReQL_t *
 reql_insert_at(ReQL_t **args) {
-  return reql_term(REQL_INSERT_AT, args, NULL);
+  return reql_term(reql_ast_insert_at, args);
 }
 
 extern ReQL_t *
 reql_intersects(ReQL_t **args) {
-  return reql_term(REQL_INTERSECTS, args, NULL);
+  return reql_term(reql_ast_intersects, args);
 }
 
 extern ReQL_t *
 reql_in_timezone(ReQL_t **args) {
-  return reql_term(REQL_IN_TIMEZONE, args, NULL);
+  return reql_term(reql_ast_in_timezone, args);
 }
 
 extern ReQL_t *
 reql_iso8601(ReQL_t **args, ReQL_t **kwargs) {
-  return reql_term(REQL_ISO8601, args, kwargs);
+  return reql_term_kwargs(reql_ast_iso8601, args, kwargs);
 }
 
 extern ReQL_t *
 reql_is_empty(ReQL_t **args) {
-  return reql_term(REQL_IS_EMPTY, args, NULL);
+  return reql_term(reql_ast_is_empty, args);
 }
 
 extern ReQL_t *
 reql_january(ReQL_t **args) {
-  return reql_term(REQL_JANUARY, args, NULL);
+  return reql_term(reql_ast_january, args);
 }
 
 extern ReQL_t *
 reql_javascript(ReQL_t **args, ReQL_t **kwargs) {
-  return reql_term(REQL_JAVASCRIPT, args, kwargs);
+  return reql_term_kwargs(reql_ast_javascript, args, kwargs);
 }
 
 extern ReQL_t *
 reql_json(ReQL_t **args) {
-  return reql_term(REQL_JSON, args, NULL);
+  return reql_term(reql_ast_json, args);
 }
 
 extern ReQL_t *
 reql_july(ReQL_t **args) {
-  return reql_term(REQL_JULY, args, NULL);
+  return reql_term(reql_ast_july, args);
 }
 
 extern ReQL_t *
 reql_june(ReQL_t **args) {
-  return reql_term(REQL_JUNE, args, NULL);
+  return reql_term(reql_ast_june, args);
 }
 
 extern ReQL_t *
 reql_keys(ReQL_t **args) {
-  return reql_term(REQL_KEYS, args, NULL);
+  return reql_term(reql_ast_keys, args);
 }
 
 extern ReQL_t *
 reql_le(ReQL_t **args) {
-  return reql_term(REQL_LE, args, NULL);
+  return reql_term(reql_ast_le, args);
 }
 
 extern ReQL_t *
 reql_limit(ReQL_t **args) {
-  return reql_term(REQL_LIMIT, args, NULL);
+  return reql_term(reql_ast_limit, args);
 }
 
 extern ReQL_t *
 reql_line(ReQL_t **args) {
-  return reql_term(REQL_LINE, args, NULL);
+  return reql_term(reql_ast_line, args);
 }
 
 extern ReQL_t *
 reql_literal(ReQL_t **args) {
-  return reql_term(REQL_LITERAL, args, NULL);
+  return reql_term(reql_ast_literal, args);
 }
 
 extern ReQL_t *
 reql_lt(ReQL_t **args) {
-  return reql_term(REQL_LT, args, NULL);
+  return reql_term(reql_ast_lt, args);
 }
 
 extern ReQL_t *
 reql_make_array(ReQL_t **args) {
-  return reql_term(REQL_MAKE_ARRAY, args, NULL);
+  return reql_term(reql_ast_make_array, args);
 }
 
 extern ReQL_t *
 reql_make_obj(ReQL_t **args) {
-  return reql_term(REQL_MAKE_OBJ, args, NULL);
+  return reql_term(reql_ast_make_obj, args);
 }
 
 extern ReQL_t *
 reql_map(ReQL_t **args) {
-  return reql_term(REQL_MAP, args, NULL);
+  return reql_term(reql_ast_map, args);
 }
 
 extern ReQL_t *
 reql_march(ReQL_t **args) {
-  return reql_term(REQL_MARCH, args, NULL);
+  return reql_term(reql_ast_march, args);
 }
 
 extern ReQL_t *
 reql_match(ReQL_t **args) {
-  return reql_term(REQL_MATCH, args, NULL);
+  return reql_term(reql_ast_match, args);
 }
 
 extern ReQL_t *
 reql_max(ReQL_t **args) {
-  return reql_term(REQL_MAX, args, NULL);
+  return reql_term(reql_ast_max, args);
 }
 
 extern ReQL_t *
 reql_maxval(ReQL_t **args) {
-  return reql_term(REQL_MAXVAL, args, NULL);
+  return reql_term(reql_ast_maxval, args);
 }
 
 extern ReQL_t *
 reql_may(ReQL_t **args) {
-  return reql_term(REQL_MAY, args, NULL);
+  return reql_term(reql_ast_may, args);
 }
 
 extern ReQL_t *
 reql_merge(ReQL_t **args) {
-  return reql_term(REQL_MERGE, args, NULL);
+  return reql_term(reql_ast_merge, args);
 }
 
 extern ReQL_t *
 reql_min(ReQL_t **args) {
-  return reql_term(REQL_MIN, args, NULL);
+  return reql_term(reql_ast_min, args);
 }
 
 extern ReQL_t *
 reql_minutes(ReQL_t **args) {
-  return reql_term(REQL_MINUTES, args, NULL);
+  return reql_term(reql_ast_minutes, args);
 }
 
 extern ReQL_t *
 reql_minval(ReQL_t **args) {
-  return reql_term(REQL_MINVAL, args, NULL);
+  return reql_term(reql_ast_minval, args);
 }
 
 extern ReQL_t *
 reql_mod(ReQL_t **args) {
-  return reql_term(REQL_MOD, args, NULL);
+  return reql_term(reql_ast_mod, args);
 }
 
 extern ReQL_t *
 reql_monday(ReQL_t **args) {
-  return reql_term(REQL_MONDAY, args, NULL);
+  return reql_term(reql_ast_monday, args);
 }
 
 extern ReQL_t *
 reql_month(ReQL_t **args) {
-  return reql_term(REQL_MONTH, args, NULL);
+  return reql_term(reql_ast_month, args);
 }
 
 extern ReQL_t *
 reql_mul(ReQL_t **args) {
-  return reql_term(REQL_MUL, args, NULL);
+  return reql_term(reql_ast_mul, args);
 }
 
 extern ReQL_t *
 reql_ne(ReQL_t **args) {
-  return reql_term(REQL_NE, args, NULL);
+  return reql_term(reql_ast_ne, args);
 }
 
 extern ReQL_t *
 reql_not(ReQL_t **args) {
-  return reql_term(REQL_NOT, args, NULL);
+  return reql_term(reql_ast_not, args);
 }
 
 extern ReQL_t *
 reql_november(ReQL_t **args) {
-  return reql_term(REQL_NOVEMBER, args, NULL);
+  return reql_term(reql_ast_november, args);
 }
 
 extern ReQL_t *
 reql_now(ReQL_t **args) {
-  return reql_term(REQL_NOW, args, NULL);
+  return reql_term(reql_ast_now, args);
 }
 
 extern ReQL_t *
 reql_nth(ReQL_t **args) {
-  return reql_term(REQL_NTH, args, NULL);
+  return reql_term(reql_ast_nth, args);
 }
 
 extern ReQL_t *
 reql_object(ReQL_t **args) {
-  return reql_term(REQL_OBJECT, args, NULL);
+  return reql_term(reql_ast_object, args);
 }
 
 extern ReQL_t *
 reql_october(ReQL_t **args) {
-  return reql_term(REQL_OCTOBER, args, NULL);
+  return reql_term(reql_ast_october, args);
 }
 
 extern ReQL_t *
 reql_offsets_of(ReQL_t **args) {
-  return reql_term(REQL_OFFSETS_OF, args, NULL);
+  return reql_term(reql_ast_offsets_of, args);
 }
 
 extern ReQL_t *
 reql_or(ReQL_t **args) {
-  return reql_term(REQL_OR, args, NULL);
+  return reql_term(reql_ast_or, args);
 }
 
 extern ReQL_t *
 reql_order_by(ReQL_t **args, ReQL_t **kwargs) {
-  return reql_term(REQL_ORDER_BY, args, kwargs);
+  return reql_term_kwargs(reql_ast_order_by, args, kwargs);
 }
 
 extern ReQL_t *
 reql_outer_join(ReQL_t **args) {
-  return reql_term(REQL_OUTER_JOIN, args, NULL);
+  return reql_term(reql_ast_outer_join, args);
 }
 
 extern ReQL_t *
 reql_pluck(ReQL_t **args) {
-  return reql_term(REQL_PLUCK, args, NULL);
+  return reql_term(reql_ast_pluck, args);
 }
 
 extern ReQL_t *
 reql_point(ReQL_t **args) {
-  return reql_term(REQL_POINT, args, NULL);
+  return reql_term(reql_ast_point, args);
 }
 
 extern ReQL_t *
 reql_polygon(ReQL_t **args) {
-  return reql_term(REQL_POLYGON, args, NULL);
+  return reql_term(reql_ast_polygon, args);
 }
 
 extern ReQL_t *
 reql_polygon_sub(ReQL_t **args) {
-  return reql_term(REQL_POLYGON_SUB, args, NULL);
+  return reql_term(reql_ast_polygon_sub, args);
 }
 
 extern ReQL_t *
 reql_prepend(ReQL_t **args) {
-  return reql_term(REQL_PREPEND, args, NULL);
+  return reql_term(reql_ast_prepend, args);
 }
 
 extern ReQL_t *
 reql_random(ReQL_t **args, ReQL_t **kwargs) {
-  return reql_term(REQL_RANDOM, args, kwargs);
+  return reql_term_kwargs(reql_ast_random, args, kwargs);
 }
 
 extern ReQL_t *
 reql_range(ReQL_t **args) {
-  return reql_term(REQL_RANGE, args, NULL);
+  return reql_term(reql_ast_range, args);
 }
 
 extern ReQL_t *
 reql_rebalance(ReQL_t **args) {
-  return reql_term(REQL_REBALANCE, args, NULL);
+  return reql_term(reql_ast_rebalance, args);
 }
 
 extern ReQL_t *
 reql_reconfigure(ReQL_t **args) {
-  return reql_term(REQL_RECONFIGURE, args, NULL);
+  return reql_term(reql_ast_reconfigure, args);
 }
 
 extern ReQL_t *
 reql_reduce(ReQL_t **args) {
-  return reql_term(REQL_REDUCE, args, NULL);
+  return reql_term(reql_ast_reduce, args);
 }
 
 extern ReQL_t *
 reql_replace(ReQL_t **args, ReQL_t **kwargs) {
-  return reql_term(REQL_REPLACE, args, kwargs);
+  return reql_term_kwargs(reql_ast_replace, args, kwargs);
 }
 
 extern ReQL_t *
 reql_round(ReQL_t **args) {
-  return reql_term(REQL_ROUND, args, NULL);
+  return reql_term(reql_ast_round, args);
 }
 
 extern ReQL_t *
 reql_sample(ReQL_t **args) {
-  return reql_term(REQL_SAMPLE, args, NULL);
+  return reql_term(reql_ast_sample, args);
 }
 
 extern ReQL_t *
 reql_saturday(ReQL_t **args) {
-  return reql_term(REQL_SATURDAY, args, NULL);
+  return reql_term(reql_ast_saturday, args);
 }
 
 extern ReQL_t *
 reql_seconds(ReQL_t **args) {
-  return reql_term(REQL_SECONDS, args, NULL);
+  return reql_term(reql_ast_seconds, args);
 }
 
 extern ReQL_t *
 reql_september(ReQL_t **args) {
-  return reql_term(REQL_SEPTEMBER, args, NULL);
+  return reql_term(reql_ast_september, args);
 }
 
 extern ReQL_t *
 reql_set_difference(ReQL_t **args) {
-  return reql_term(REQL_SET_DIFFERENCE, args, NULL);
+  return reql_term(reql_ast_set_difference, args);
 }
 
 extern ReQL_t *
 reql_set_insert(ReQL_t **args) {
-  return reql_term(REQL_SET_INSERT, args, NULL);
+  return reql_term(reql_ast_set_insert, args);
 }
 
 extern ReQL_t *
 reql_set_intersection(ReQL_t **args) {
-  return reql_term(REQL_SET_INTERSECTION, args, NULL);
+  return reql_term(reql_ast_set_intersection, args);
 }
 
 extern ReQL_t *
 reql_set_union(ReQL_t **args) {
-  return reql_term(REQL_SET_UNION, args, NULL);
+  return reql_term(reql_ast_set_union, args);
 }
 
 extern ReQL_t *
 reql_skip(ReQL_t **args) {
-  return reql_term(REQL_SKIP, args, NULL);
+  return reql_term(reql_ast_skip, args);
 }
 
 extern ReQL_t *
 reql_slice(ReQL_t **args, ReQL_t **kwargs) {
-  return reql_term(REQL_SLICE, args, kwargs);
+  return reql_term_kwargs(reql_ast_slice, args, kwargs);
 }
 
 extern ReQL_t *
 reql_splice_at(ReQL_t **args) {
-  return reql_term(REQL_SPLICE_AT, args, NULL);
+  return reql_term(reql_ast_splice_at, args);
 }
 
 extern ReQL_t *
 reql_split(ReQL_t **args) {
-  return reql_term(REQL_SPLIT, args, NULL);
+  return reql_term(reql_ast_split, args);
 }
 
 extern ReQL_t *
 reql_status(ReQL_t **args) {
-  return reql_term(REQL_STATUS, args, NULL);
+  return reql_term(reql_ast_status, args);
 }
 
 extern ReQL_t *
 reql_sub(ReQL_t **args) {
-  return reql_term(REQL_SUB, args, NULL);
+  return reql_term(reql_ast_sub, args);
 }
 
 extern ReQL_t *
 reql_sum(ReQL_t **args) {
-  return reql_term(REQL_SUM, args, NULL);
+  return reql_term(reql_ast_sum, args);
 }
 
 extern ReQL_t *
 reql_sunday(ReQL_t **args) {
-  return reql_term(REQL_SUNDAY, args, NULL);
+  return reql_term(reql_ast_sunday, args);
 }
 
 extern ReQL_t *
 reql_sync(ReQL_t **args) {
-  return reql_term(REQL_SYNC, args, NULL);
+  return reql_term(reql_ast_sync, args);
 }
 
 extern ReQL_t *
 reql_table(ReQL_t **args, ReQL_t **kwargs) {
-  return reql_term(REQL_TABLE, args, kwargs);
+  return reql_term_kwargs(reql_ast_table, args, kwargs);
 }
 
 extern ReQL_t *
 reql_table_create(ReQL_t **args, ReQL_t **kwargs) {
-  return reql_term(REQL_TABLE_CREATE, args, kwargs);
+  return reql_term_kwargs(reql_ast_table_create, args, kwargs);
 }
 
 extern ReQL_t *
 reql_table_drop(ReQL_t **args) {
-  return reql_term(REQL_TABLE_DROP, args, NULL);
+  return reql_term(reql_ast_table_drop, args);
 }
 
 extern ReQL_t *
 reql_table_list(ReQL_t **args) {
-  return reql_term(REQL_TABLE_LIST, args, NULL);
+  return reql_term(reql_ast_table_list, args);
 }
 
 extern ReQL_t *
 reql_thursday(ReQL_t **args) {
-  return reql_term(REQL_THURSDAY, args, NULL);
+  return reql_term(reql_ast_thursday, args);
 }
 
 extern ReQL_t *
 reql_time(ReQL_t **args) {
-  return reql_term(REQL_TIME, args, NULL);
+  return reql_term(reql_ast_time, args);
 }
 
 extern ReQL_t *
 reql_timezone(ReQL_t **args) {
-  return reql_term(REQL_TIMEZONE, args, NULL);
+  return reql_term(reql_ast_timezone, args);
 }
 
 extern ReQL_t *
 reql_time_of_day(ReQL_t **args) {
-  return reql_term(REQL_TIME_OF_DAY, args, NULL);
+  return reql_term(reql_ast_time_of_day, args);
 }
 
 extern ReQL_t *
 reql_to_epoch_time(ReQL_t **args) {
-  return reql_term(REQL_TO_EPOCH_TIME, args, NULL);
+  return reql_term(reql_ast_to_epoch_time, args);
 }
 
 extern ReQL_t *
 reql_to_geojson(ReQL_t **args) {
-  return reql_term(REQL_TO_GEOJSON, args, NULL);
+  return reql_term(reql_ast_to_geojson, args);
 }
 
 extern ReQL_t *
 reql_to_iso8601(ReQL_t **args) {
-  return reql_term(REQL_TO_ISO8601, args, NULL);
+  return reql_term(reql_ast_to_iso8601, args);
 }
 
 extern ReQL_t *
 reql_to_json_string(ReQL_t **args) {
-  return reql_term(REQL_TO_JSON_STRING, args, NULL);
+  return reql_term(reql_ast_to_json_string, args);
 }
 
 extern ReQL_t *
 reql_tuesday(ReQL_t **args) {
-  return reql_term(REQL_TUESDAY, args, NULL);
+  return reql_term(reql_ast_tuesday, args);
 }
 
 extern ReQL_t *
 reql_type_of(ReQL_t **args) {
-  return reql_term(REQL_TYPE_OF, args, NULL);
+  return reql_term(reql_ast_type_of, args);
 }
 
 extern ReQL_t *
 reql_ungroup(ReQL_t **args) {
-  return reql_term(REQL_UNGROUP, args, NULL);
+  return reql_term(reql_ast_ungroup, args);
 }
 
 extern ReQL_t *
 reql_union(ReQL_t **args) {
-  return reql_term(REQL_UNION, args, NULL);
+  return reql_term(reql_ast_union, args);
 }
 
 extern ReQL_t *
 reql_upcase(ReQL_t **args) {
-  return reql_term(REQL_UPCASE, args, NULL);
+  return reql_term(reql_ast_upcase, args);
 }
 
 extern ReQL_t *
 reql_update(ReQL_t **args, ReQL_t **kwargs) {
-  return reql_term(REQL_UPDATE, args, kwargs);
+  return reql_term_kwargs(reql_ast_update, args, kwargs);
 }
 
 extern ReQL_t *
 reql_uuid(ReQL_t **args) {
-  return reql_term(REQL_UUID, args, NULL);
+  return reql_term(reql_ast_uuid, args);
 }
 
 extern ReQL_t *
 reql_var(ReQL_t **args) {
-  return reql_term(REQL_VAR, args, NULL);
+  return reql_term(reql_ast_var, args);
 }
 
 extern ReQL_t *
 reql_wait(ReQL_t **args) {
-  return reql_term(REQL_WAIT, args, NULL);
+  return reql_term(reql_ast_wait, args);
 }
 
 extern ReQL_t *
 reql_wednesday(ReQL_t **args) {
-  return reql_term(REQL_WEDNESDAY, args, NULL);
+  return reql_term(reql_ast_wednesday, args);
 }
 
 extern ReQL_t *
 reql_without(ReQL_t **args) {
-  return reql_term(REQL_WITHOUT, args, NULL);
+  return reql_term(reql_ast_without, args);
 }
 
 extern ReQL_t *
 reql_with_fields(ReQL_t **args) {
-  return reql_term(REQL_WITH_FIELDS, args, NULL);
+  return reql_term(reql_ast_with_fields, args);
 }
 
 extern ReQL_t *
 reql_year(ReQL_t **args) {
-  return reql_term(REQL_YEAR, args, NULL);
+  return reql_term(reql_ast_year, args);
 }
 
 extern ReQL_t *
 reql_zip(ReQL_t **args) {
-  return reql_term(REQL_ZIP, args, NULL);
+  return reql_term(reql_ast_zip, args);
 }

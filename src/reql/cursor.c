@@ -89,8 +89,7 @@ reql_cur_set_response_(ReQL_Cur_t *cur, ReQL_Obj_t *res) {
   } else {
     ReQL_Obj_t key;
     ReQL_Byte buf[1];
-    reql_string_init(&key, buf, 1);
-    reql_string_append(&key, (ReQL_Byte *)"t", 1);
+    reql_string_init(&key, buf, (ReQL_Byte *)"t", 1);
     ReQL_Obj_t *type = reql_object_get(res, &key);
     if (type == NULL) {
       reql_cur_close_(cur);
@@ -119,8 +118,7 @@ reql_cur_set_response_(ReQL_Cur_t *cur, ReQL_Obj_t *res) {
         }
       }
     }
-    reql_string_init(&key, buf, 1);
-    reql_string_append(&key, (ReQL_Byte *)"r", 1);
+    reql_string_init(&key, buf, (ReQL_Byte *)"r", 1);
     ReQL_Obj_t *r_res = reql_object_get(res, &key);
     if (reql_datum_type(r_res) == REQL_R_ARRAY) {
       ReQL_Iter_t it = reql_new_iter(r_res);

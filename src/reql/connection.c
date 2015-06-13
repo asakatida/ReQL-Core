@@ -582,8 +582,7 @@ reql_build(const ReQL_Obj_t *query) {
       }
       ReQL_Size size = reql_size(query);
       ReQL_Byte *buf = malloc(sizeof(ReQL_Byte) * size);
-      reql_string_init(obj, buf, size);
-      reql_string_append(obj, reql_string_buf(query), size);
+      reql_string_init(obj, buf, reql_string_buf(query), size);
       break;
     }
   }
@@ -615,8 +614,7 @@ reql_encode_query(const ReQL_Obj_t *query, ReQL_Obj_t *kwargs, int no_reply) {
   if (no_reply) {
     key = malloc(sizeof(ReQL_Obj_t));
     buf = malloc(sizeof(ReQL_Byte) * 7);
-    reql_string_init(key, buf, 7);
-    reql_string_append(key, (ReQL_Byte*)"noreply", 7);
+    reql_string_init(key, buf, (ReQL_Byte*)"noreply", 7);
     const ReQL_Size size = reql_size(kwargs) + 1;
     if (size == 1) {
       new_kwargs = malloc(sizeof(ReQL_Obj_t));

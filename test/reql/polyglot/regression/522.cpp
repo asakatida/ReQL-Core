@@ -15,14 +15,12 @@ TEST_CASE("reql Skip after orderby causes use-after-free (#522)", "[reql][ast]")
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[6]);
     const ReQL_Byte src1[] = "result";
-    reql_string_init(var1.get(), buf1.get(), 6);
-    reql_string_append(var1.get(), src1, 6);
+    reql_string_init(var1.get(), buf1.get(), src1, 6);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[5]);
     const ReQL_Byte src2[] = "blank";
-    reql_string_init(var2.get(), buf2.get(), 5);
-    reql_string_append(var2.get(), src2, 5);
+    reql_string_init(var2.get(), buf2.get(), src2, 5);
 
     reql_object_add(var0.get(), var1.get(), var2.get());
   }
@@ -39,8 +37,7 @@ TEST_CASE("reql Skip after orderby causes use-after-free (#522)", "[reql][ast]")
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[2]);
     const ReQL_Byte src2[] = "id";
-    reql_string_init(var2.get(), buf2.get(), 2);
-    reql_string_append(var2.get(), src2, 2);
+    reql_string_init(var2.get(), buf2.get(), src2, 2);
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
     reql_number_init(var3.get(), 1);
@@ -56,8 +53,7 @@ TEST_CASE("reql Skip after orderby causes use-after-free (#522)", "[reql][ast]")
     std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf5(new ReQL_Byte[2]);
     const ReQL_Byte src5[] = "id";
-    reql_string_init(var5.get(), buf5.get(), 2);
-    reql_string_append(var5.get(), src5, 2);
+    reql_string_init(var5.get(), buf5.get(), src5, 2);
 
     std::unique_ptr<ReQL_Obj_t> var6(new ReQL_Obj_t);
     reql_number_init(var6.get(), 2);

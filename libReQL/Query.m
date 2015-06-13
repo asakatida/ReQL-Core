@@ -244,8 +244,7 @@ if (obj == nil) {\
     free(obj);
     return nil;
   }
-  reql_string_init(obj, buf, (ReQL_Size)size);
-  reql_string_append(obj, (ReQL_Byte *)[p_data cStringUsingEncoding:NSUnicodeStringEncoding], (ReQL_Size)size);
+  reql_string_init(obj, buf, (ReQL_Byte *)[p_data cStringUsingEncoding:NSUnicodeStringEncoding], (ReQL_Size)size);
   return obj;
 }
 

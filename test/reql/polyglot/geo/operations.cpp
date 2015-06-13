@@ -11,16 +11,14 @@ TEST_CASE("reql Test basic geometry operators", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf0(new ReQL_Byte[17]);
     const ReQL_Byte src0[] = "89011.26253835332";
-    reql_string_init(var0.get(), buf0.get(), 17);
-    reql_string_append(var0.get(), src0, 17);
+    reql_string_init(var0.get(), buf0.get(), src0, 17);
   }
 
   SECTION("test1") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf0(new ReQL_Byte[18]);
     const ReQL_Byte src0[] = "110968.30443995494";
-    reql_string_init(var0.get(), buf0.get(), 18);
-    reql_string_append(var0.get(), src0, 18);
+    reql_string_init(var0.get(), buf0.get(), src0, 18);
   }
 
   SECTION("test2") {
@@ -32,8 +30,7 @@ TEST_CASE("reql Test basic geometry operators", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf0(new ReQL_Byte[17]);
     const ReQL_Byte src0[] = "89011.26253835332";
-    reql_string_init(var0.get(), buf0.get(), 17);
-    reql_string_append(var0.get(), src0, 17);
+    reql_string_init(var0.get(), buf0.get(), src0, 17);
   }
 
   SECTION("test4") {
@@ -75,48 +72,42 @@ TEST_CASE("reql Test basic geometry operators", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf0(new ReQL_Byte[19]);
     const ReQL_Byte src0[] = "0.01393875509649327";
-    reql_string_init(var0.get(), buf0.get(), 19);
-    reql_string_append(var0.get(), src0, 19);
+    reql_string_init(var0.get(), buf0.get(), src0, 19);
   }
 
   SECTION("test12") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf0(new ReQL_Byte[1]);
     const ReQL_Byte src0[] = "0";
-    reql_string_init(var0.get(), buf0.get(), 1);
-    reql_string_append(var0.get(), src0, 1);
+    reql_string_init(var0.get(), buf0.get(), src0, 1);
   }
 
   SECTION("test13") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf0(new ReQL_Byte[18]);
     const ReQL_Byte src0[] = "40007862.917250897";
-    reql_string_init(var0.get(), buf0.get(), 18);
-    reql_string_append(var0.get(), src0, 18);
+    reql_string_init(var0.get(), buf0.get(), src0, 18);
   }
 
   SECTION("test14") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf0(new ReQL_Byte[18]);
     const ReQL_Byte src0[] = "40007862.917250897";
-    reql_string_init(var0.get(), buf0.get(), 18);
-    reql_string_append(var0.get(), src0, 18);
+    reql_string_init(var0.get(), buf0.get(), src0, 18);
   }
 
   SECTION("test15") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf0(new ReQL_Byte[1]);
     const ReQL_Byte src0[] = "0";
-    reql_string_init(var0.get(), buf0.get(), 1);
-    reql_string_append(var0.get(), src0, 1);
+    reql_string_init(var0.get(), buf0.get(), src0, 1);
   }
 
   SECTION("test16") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf0(new ReQL_Byte[1]);
     const ReQL_Byte src0[] = "0";
-    reql_string_init(var0.get(), buf0.get(), 1);
-    reql_string_append(var0.get(), src0, 1);
+    reql_string_init(var0.get(), buf0.get(), src0, 1);
   }
 
   SECTION("test17") {
@@ -128,32 +119,28 @@ TEST_CASE("reql Test basic geometry operators", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf0(new ReQL_Byte[17]);
     const ReQL_Byte src0[] = "492471.4990055255";
-    reql_string_init(var0.get(), buf0.get(), 17);
-    reql_string_append(var0.get(), src0, 17);
+    reql_string_init(var0.get(), buf0.get(), src0, 17);
   }
 
   SECTION("test19") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf0(new ReQL_Byte[17]);
     const ReQL_Byte src0[] = "492471.4990055255";
-    reql_string_init(var0.get(), buf0.get(), 17);
-    reql_string_append(var0.get(), src0, 17);
+    reql_string_init(var0.get(), buf0.get(), src0, 17);
   }
 
   SECTION("test20") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf0(new ReQL_Byte[1]);
     const ReQL_Byte src0[] = "0";
-    reql_string_init(var0.get(), buf0.get(), 1);
-    reql_string_append(var0.get(), src0, 1);
+    reql_string_init(var0.get(), buf0.get(), src0, 1);
   }
 
   SECTION("test21") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf0(new ReQL_Byte[1]);
     const ReQL_Byte src0[] = "0";
-    reql_string_init(var0.get(), buf0.get(), 1);
-    reql_string_append(var0.get(), src0, 1);
+    reql_string_init(var0.get(), buf0.get(), src0, 1);
   }
 
   SECTION("test22") {
@@ -174,22 +161,19 @@ TEST_CASE("reql Test basic geometry operators", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[11]);
     const ReQL_Byte src1[] = "$reql_type$";
-    reql_string_init(var1.get(), buf1.get(), 11);
-    reql_string_append(var1.get(), src1, 11);
+    reql_string_init(var1.get(), buf1.get(), src1, 11);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[8]);
     const ReQL_Byte src2[] = "GEOMETRY";
-    reql_string_init(var2.get(), buf2.get(), 8);
-    reql_string_append(var2.get(), src2, 8);
+    reql_string_init(var2.get(), buf2.get(), src2, 8);
 
     reql_object_add(var0.get(), var1.get(), var2.get());
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf3(new ReQL_Byte[11]);
     const ReQL_Byte src3[] = "coordinates";
-    reql_string_init(var3.get(), buf3.get(), 11);
-    reql_string_append(var3.get(), src3, 11);
+    reql_string_init(var3.get(), buf3.get(), src3, 11);
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Obj_t*[]> arr4(new ReQL_Obj_t*[2]);
@@ -372,14 +356,12 @@ TEST_CASE("reql Test basic geometry operators", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var37(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf37(new ReQL_Byte[4]);
     const ReQL_Byte src37[] = "type";
-    reql_string_init(var37.get(), buf37.get(), 4);
-    reql_string_append(var37.get(), src37, 4);
+    reql_string_init(var37.get(), buf37.get(), src37, 4);
 
     std::unique_ptr<ReQL_Obj_t> var38(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf38(new ReQL_Byte[7]);
     const ReQL_Byte src38[] = "Polygon";
-    reql_string_init(var38.get(), buf38.get(), 7);
-    reql_string_append(var38.get(), src38, 7);
+    reql_string_init(var38.get(), buf38.get(), src38, 7);
 
     reql_object_add(var0.get(), var37.get(), var38.get());
   }
@@ -392,14 +374,12 @@ TEST_CASE("reql Test basic geometry operators", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
     const ReQL_Byte src1[] = "func";
-    reql_string_init(var1.get(), buf1.get(), 4);
-    reql_string_append(var1.get(), src1, 4);
+    reql_string_init(var1.get(), buf1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
     const ReQL_Byte src2[] = "err";
-    reql_string_init(var2.get(), buf2.get(), 3);
-    reql_string_append(var2.get(), src2, 3);
+    reql_string_init(var2.get(), buf2.get(), src2, 3);
 
     reql_object_add(var0.get(), var1.get(), var2.get());
   }
@@ -412,14 +392,12 @@ TEST_CASE("reql Test basic geometry operators", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
     const ReQL_Byte src1[] = "func";
-    reql_string_init(var1.get(), buf1.get(), 4);
-    reql_string_append(var1.get(), src1, 4);
+    reql_string_init(var1.get(), buf1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
     const ReQL_Byte src2[] = "err";
-    reql_string_init(var2.get(), buf2.get(), 3);
-    reql_string_append(var2.get(), src2, 3);
+    reql_string_init(var2.get(), buf2.get(), src2, 3);
 
     reql_object_add(var0.get(), var1.get(), var2.get());
   }
@@ -432,14 +410,12 @@ TEST_CASE("reql Test basic geometry operators", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
     const ReQL_Byte src1[] = "func";
-    reql_string_init(var1.get(), buf1.get(), 4);
-    reql_string_append(var1.get(), src1, 4);
+    reql_string_init(var1.get(), buf1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
     const ReQL_Byte src2[] = "err";
-    reql_string_init(var2.get(), buf2.get(), 3);
-    reql_string_append(var2.get(), src2, 3);
+    reql_string_init(var2.get(), buf2.get(), src2, 3);
 
     reql_object_add(var0.get(), var1.get(), var2.get());
   }
@@ -452,14 +428,12 @@ TEST_CASE("reql Test basic geometry operators", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
     const ReQL_Byte src1[] = "func";
-    reql_string_init(var1.get(), buf1.get(), 4);
-    reql_string_append(var1.get(), src1, 4);
+    reql_string_init(var1.get(), buf1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
     const ReQL_Byte src2[] = "err";
-    reql_string_init(var2.get(), buf2.get(), 3);
-    reql_string_append(var2.get(), src2, 3);
+    reql_string_init(var2.get(), buf2.get(), src2, 3);
 
     reql_object_add(var0.get(), var1.get(), var2.get());
   }
@@ -472,14 +446,12 @@ TEST_CASE("reql Test basic geometry operators", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
     const ReQL_Byte src1[] = "func";
-    reql_string_init(var1.get(), buf1.get(), 4);
-    reql_string_append(var1.get(), src1, 4);
+    reql_string_init(var1.get(), buf1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
     const ReQL_Byte src2[] = "err";
-    reql_string_init(var2.get(), buf2.get(), 3);
-    reql_string_append(var2.get(), src2, 3);
+    reql_string_init(var2.get(), buf2.get(), src2, 3);
 
     reql_object_add(var0.get(), var1.get(), var2.get());
   }
@@ -492,22 +464,19 @@ TEST_CASE("reql Test basic geometry operators", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[11]);
     const ReQL_Byte src1[] = "$reql_type$";
-    reql_string_init(var1.get(), buf1.get(), 11);
-    reql_string_append(var1.get(), src1, 11);
+    reql_string_init(var1.get(), buf1.get(), src1, 11);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[8]);
     const ReQL_Byte src2[] = "GEOMETRY";
-    reql_string_init(var2.get(), buf2.get(), 8);
-    reql_string_append(var2.get(), src2, 8);
+    reql_string_init(var2.get(), buf2.get(), src2, 8);
 
     reql_object_add(var0.get(), var1.get(), var2.get());
 
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf3(new ReQL_Byte[11]);
     const ReQL_Byte src3[] = "coordinates";
-    reql_string_init(var3.get(), buf3.get(), 11);
-    reql_string_append(var3.get(), src3, 11);
+    reql_string_init(var3.get(), buf3.get(), src3, 11);
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Obj_t*[]> arr4(new ReQL_Obj_t*[2]);
@@ -690,14 +659,12 @@ TEST_CASE("reql Test basic geometry operators", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var37(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf37(new ReQL_Byte[4]);
     const ReQL_Byte src37[] = "type";
-    reql_string_init(var37.get(), buf37.get(), 4);
-    reql_string_append(var37.get(), src37, 4);
+    reql_string_init(var37.get(), buf37.get(), src37, 4);
 
     std::unique_ptr<ReQL_Obj_t> var38(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf38(new ReQL_Byte[7]);
     const ReQL_Byte src38[] = "Polygon";
-    reql_string_init(var38.get(), buf38.get(), 7);
-    reql_string_append(var38.get(), src38, 7);
+    reql_string_init(var38.get(), buf38.get(), src38, 7);
 
     reql_object_add(var0.get(), var37.get(), var38.get());
   }
@@ -710,14 +677,12 @@ TEST_CASE("reql Test basic geometry operators", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
     const ReQL_Byte src1[] = "func";
-    reql_string_init(var1.get(), buf1.get(), 4);
-    reql_string_append(var1.get(), src1, 4);
+    reql_string_init(var1.get(), buf1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
     const ReQL_Byte src2[] = "err";
-    reql_string_init(var2.get(), buf2.get(), 3);
-    reql_string_append(var2.get(), src2, 3);
+    reql_string_init(var2.get(), buf2.get(), src2, 3);
 
     reql_object_add(var0.get(), var1.get(), var2.get());
   }
@@ -730,14 +695,12 @@ TEST_CASE("reql Test basic geometry operators", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
     const ReQL_Byte src1[] = "func";
-    reql_string_init(var1.get(), buf1.get(), 4);
-    reql_string_append(var1.get(), src1, 4);
+    reql_string_init(var1.get(), buf1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
     const ReQL_Byte src2[] = "err";
-    reql_string_init(var2.get(), buf2.get(), 3);
-    reql_string_append(var2.get(), src2, 3);
+    reql_string_init(var2.get(), buf2.get(), src2, 3);
 
     reql_object_add(var0.get(), var1.get(), var2.get());
   }

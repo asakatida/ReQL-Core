@@ -36,14 +36,12 @@ TEST_CASE("reql Regression tests for issue 326", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
     const ReQL_Byte src1[] = "func";
-    reql_string_init(var1.get(), buf1.get(), 4);
-    reql_string_append(var1.get(), src1, 4);
+    reql_string_init(var1.get(), buf1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
     const ReQL_Byte src2[] = "err";
-    reql_string_init(var2.get(), buf2.get(), 3);
-    reql_string_append(var2.get(), src2, 3);
+    reql_string_init(var2.get(), buf2.get(), src2, 3);
 
     reql_object_add(var0.get(), var1.get(), var2.get());
   }
@@ -56,14 +54,12 @@ TEST_CASE("reql Regression tests for issue 326", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
     const ReQL_Byte src1[] = "func";
-    reql_string_init(var1.get(), buf1.get(), 4);
-    reql_string_append(var1.get(), src1, 4);
+    reql_string_init(var1.get(), buf1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
     const ReQL_Byte src2[] = "err";
-    reql_string_init(var2.get(), buf2.get(), 3);
-    reql_string_append(var2.get(), src2, 3);
+    reql_string_init(var2.get(), buf2.get(), src2, 3);
 
     reql_object_add(var0.get(), var1.get(), var2.get());
   }
@@ -76,14 +72,12 @@ TEST_CASE("reql Regression tests for issue 326", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
     const ReQL_Byte src1[] = "func";
-    reql_string_init(var1.get(), buf1.get(), 4);
-    reql_string_append(var1.get(), src1, 4);
+    reql_string_init(var1.get(), buf1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
     const ReQL_Byte src2[] = "err";
-    reql_string_init(var2.get(), buf2.get(), 3);
-    reql_string_append(var2.get(), src2, 3);
+    reql_string_init(var2.get(), buf2.get(), src2, 3);
 
     reql_object_add(var0.get(), var1.get(), var2.get());
   }
@@ -96,14 +90,12 @@ TEST_CASE("reql Regression tests for issue 326", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
     const ReQL_Byte src1[] = "func";
-    reql_string_init(var1.get(), buf1.get(), 4);
-    reql_string_append(var1.get(), src1, 4);
+    reql_string_init(var1.get(), buf1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
     const ReQL_Byte src2[] = "err";
-    reql_string_init(var2.get(), buf2.get(), 3);
-    reql_string_append(var2.get(), src2, 3);
+    reql_string_init(var2.get(), buf2.get(), src2, 3);
 
     reql_object_add(var0.get(), var1.get(), var2.get());
   }

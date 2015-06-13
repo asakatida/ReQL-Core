@@ -145,7 +145,7 @@ reql_decode_(ReQL_Byte **pos, ReQL_Byte *end) {
               return NULL;
             }
 
-            reql_string_init(obj, NULL, 0);
+            reql_string_init(obj, NULL, NULL, 0);
             return obj;
           }
 
@@ -162,8 +162,7 @@ reql_decode_(ReQL_Byte **pos, ReQL_Byte *end) {
             return NULL;
           }
 
-          reql_string_init(out, buf, size);
-          reql_string_append(out, start, size);
+          reql_string_init(out, buf, start, size);
 
           return out;
         }

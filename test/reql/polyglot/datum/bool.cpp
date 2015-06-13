@@ -21,16 +21,14 @@ TEST_CASE("reql Tests of conversion to and from the RQL bool type", "[reql][ast]
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf0(new ReQL_Byte[4]);
     const ReQL_Byte src0[] = "BOOL";
-    reql_string_init(var0.get(), buf0.get(), 4);
-    reql_string_append(var0.get(), src0, 4);
+    reql_string_init(var0.get(), buf0.get(), src0, 4);
   }
 
   SECTION("test3") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf0(new ReQL_Byte[4]);
     const ReQL_Byte src0[] = "true";
-    reql_string_init(var0.get(), buf0.get(), 4);
-    reql_string_append(var0.get(), src0, 4);
+    reql_string_init(var0.get(), buf0.get(), src0, 4);
   }
 
   SECTION("test4") {

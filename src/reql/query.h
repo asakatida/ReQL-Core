@@ -52,7 +52,7 @@ reql_datum_type(const ReQL_Obj_t *obj);
  * @param obj any initialized ReQL object.
  * @return term type.
  */
-extern ReQL_Term_t
+extern int
 reql_term_type(const ReQL_Obj_t *obj);
 
 /**
@@ -101,17 +101,7 @@ reql_to_number(const ReQL_Obj_t *obj);
  * @param alloc_size number of bytes in buffer.
  */
 extern void
-reql_string_init(ReQL_Obj_t *obj, ReQL_Byte *buf, ReQL_Size alloc_size);
-
-/**
- * @brief append c string to JSON string.
- * @param obj ReQL string datum.
- * @param ext buffer with null bytes permited.
- * @param size number of bytes in ext buffer.
- * @return 0 if successful. Otherwise the new internal buffer size requested to allow appending ext.
- */
-extern ReQL_Size
-reql_string_append(ReQL_Obj_t *obj, const ReQL_Byte *ext, const ReQL_Size size);
+reql_string_init(ReQL_Obj_t *obj, ReQL_Byte *buf, const ReQL_Byte *ext, ReQL_Size alloc_size);
 
 /**
  * @brief get byte array from a JSON string.
@@ -174,14 +164,6 @@ extern ReQL_Size
 reql_array_append(ReQL_Obj_t *arr, ReQL_Obj_t *val);
 
 /**
- * @brief remove and return last object in array.
- * @param obj ReQL array datum.
- * @return last object or NULL.
- */
-extern ReQL_Obj_t *
-reql_array_pop(ReQL_Obj_t *obj);
-
-/**
  * @brief last object in array.
  * @param obj ReQL array datum.
  * @return last object or NULL.
@@ -239,18 +221,6 @@ reql_object_add(ReQL_Obj_t *obj, ReQL_Obj_t *key, ReQL_Obj_t *val);
  */
 extern ReQL_Obj_t *
 reql_object_get(const ReQL_Obj_t *obj, ReQL_Obj_t *key);
-
-extern void
-reql_term_init(ReQL_Obj_t *obj, const ReQL_Term_t tt, ReQL_Obj_t *args, ReQL_Obj_t *kwargs);
-
-extern ReQL_Obj_t *
-reql_term_args(const ReQL_Obj_t *obj);
-
-extern ReQL_Obj_t *
-reql_term_kwargs(const ReQL_Obj_t *obj);
-
-extern char
-reql_op_eq(const ReQL_Obj_t *l, const ReQL_Obj_t *r);
 
 extern ReQL_Obj_t *
 reql_json_copy(const ReQL_Obj_t *other);

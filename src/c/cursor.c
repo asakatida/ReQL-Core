@@ -206,8 +206,7 @@ reql_result_get(ReQL_Result_t *result, char *key, unsigned long key_size) {
     free(key_obj);
     return NULL;
   }
-  reql_string_init(key_obj, buf, (ReQL_Size)key_size);
-  reql_string_append(key_obj, (ReQL_Byte *)key, (ReQL_Size)key_size);
+  reql_string_init(key_obj, buf, (ReQL_Byte *)key, (ReQL_Size)key_size);
   ReQL_Result_t *val = reql_result(reql_object_get(result->object, key_obj));
   reql_json_destroy(key_obj);
   return val;

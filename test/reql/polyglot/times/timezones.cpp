@@ -19,8 +19,7 @@ TEST_CASE("reql Test basic timezone manipulation", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[6]);
     const ReQL_Byte src2[] = "+00:00";
-    reql_string_init(var2.get(), buf2.get(), 6);
-    reql_string_append(var2.get(), src2, 6);
+    reql_string_init(var2.get(), buf2.get(), src2, 6);
 
     reql_array_append(var1.get(), var2.get());
 
@@ -38,8 +37,7 @@ TEST_CASE("reql Test basic timezone manipulation", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf5(new ReQL_Byte[6]);
     const ReQL_Byte src5[] = "+00:00";
-    reql_string_init(var5.get(), buf5.get(), 6);
-    reql_string_append(var5.get(), src5, 6);
+    reql_string_init(var5.get(), buf5.get(), src5, 6);
 
     reql_array_append(var4.get(), var5.get());
 
@@ -57,8 +55,7 @@ TEST_CASE("reql Test basic timezone manipulation", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var8(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf8(new ReQL_Byte[6]);
     const ReQL_Byte src8[] = "+00:00";
-    reql_string_init(var8.get(), buf8.get(), 6);
-    reql_string_append(var8.get(), src8, 6);
+    reql_string_init(var8.get(), buf8.get(), src8, 6);
 
     reql_array_append(var7.get(), var8.get());
 
@@ -82,8 +79,7 @@ TEST_CASE("reql Test basic timezone manipulation", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[6]);
     const ReQL_Byte src2[] = "-00:59";
-    reql_string_init(var2.get(), buf2.get(), 6);
-    reql_string_append(var2.get(), src2, 6);
+    reql_string_init(var2.get(), buf2.get(), src2, 6);
 
     reql_array_append(var1.get(), var2.get());
 
@@ -101,8 +97,7 @@ TEST_CASE("reql Test basic timezone manipulation", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf5(new ReQL_Byte[6]);
     const ReQL_Byte src5[] = "-01:00";
-    reql_string_init(var5.get(), buf5.get(), 6);
-    reql_string_append(var5.get(), src5, 6);
+    reql_string_init(var5.get(), buf5.get(), src5, 6);
 
     reql_array_append(var4.get(), var5.get());
 
@@ -120,8 +115,7 @@ TEST_CASE("reql Test basic timezone manipulation", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var8(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf8(new ReQL_Byte[6]);
     const ReQL_Byte src8[] = "-01:01";
-    reql_string_init(var8.get(), buf8.get(), 6);
-    reql_string_append(var8.get(), src8, 6);
+    reql_string_init(var8.get(), buf8.get(), src8, 6);
 
     reql_array_append(var7.get(), var8.get());
 
@@ -145,8 +139,7 @@ TEST_CASE("reql Test basic timezone manipulation", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[6]);
     const ReQL_Byte src2[] = "+00:59";
-    reql_string_init(var2.get(), buf2.get(), 6);
-    reql_string_append(var2.get(), src2, 6);
+    reql_string_init(var2.get(), buf2.get(), src2, 6);
 
     reql_array_append(var1.get(), var2.get());
 
@@ -164,8 +157,7 @@ TEST_CASE("reql Test basic timezone manipulation", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf5(new ReQL_Byte[6]);
     const ReQL_Byte src5[] = "+01:00";
-    reql_string_init(var5.get(), buf5.get(), 6);
-    reql_string_append(var5.get(), src5, 6);
+    reql_string_init(var5.get(), buf5.get(), src5, 6);
 
     reql_array_append(var4.get(), var5.get());
 
@@ -183,8 +175,7 @@ TEST_CASE("reql Test basic timezone manipulation", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var8(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf8(new ReQL_Byte[6]);
     const ReQL_Byte src8[] = "+01:01";
-    reql_string_init(var8.get(), buf8.get(), 6);
-    reql_string_append(var8.get(), src8, 6);
+    reql_string_init(var8.get(), buf8.get(), src8, 6);
 
     reql_array_append(var7.get(), var8.get());
 
@@ -215,14 +206,12 @@ TEST_CASE("reql Test basic timezone manipulation", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
     const ReQL_Byte src1[] = "func";
-    reql_string_init(var1.get(), buf1.get(), 4);
-    reql_string_append(var1.get(), src1, 4);
+    reql_string_init(var1.get(), buf1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
     const ReQL_Byte src2[] = "err";
-    reql_string_init(var2.get(), buf2.get(), 3);
-    reql_string_append(var2.get(), src2, 3);
+    reql_string_init(var2.get(), buf2.get(), src2, 3);
 
     reql_object_add(var0.get(), var1.get(), var2.get());
   }
@@ -235,14 +224,12 @@ TEST_CASE("reql Test basic timezone manipulation", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
     const ReQL_Byte src1[] = "func";
-    reql_string_init(var1.get(), buf1.get(), 4);
-    reql_string_append(var1.get(), src1, 4);
+    reql_string_init(var1.get(), buf1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
     const ReQL_Byte src2[] = "err";
-    reql_string_init(var2.get(), buf2.get(), 3);
-    reql_string_append(var2.get(), src2, 3);
+    reql_string_init(var2.get(), buf2.get(), src2, 3);
 
     reql_object_add(var0.get(), var1.get(), var2.get());
   }
@@ -255,14 +242,12 @@ TEST_CASE("reql Test basic timezone manipulation", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
     const ReQL_Byte src1[] = "func";
-    reql_string_init(var1.get(), buf1.get(), 4);
-    reql_string_append(var1.get(), src1, 4);
+    reql_string_init(var1.get(), buf1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
     const ReQL_Byte src2[] = "err";
-    reql_string_init(var2.get(), buf2.get(), 3);
-    reql_string_append(var2.get(), src2, 3);
+    reql_string_init(var2.get(), buf2.get(), src2, 3);
 
     reql_object_add(var0.get(), var1.get(), var2.get());
   }
@@ -275,14 +260,12 @@ TEST_CASE("reql Test basic timezone manipulation", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
     const ReQL_Byte src1[] = "func";
-    reql_string_init(var1.get(), buf1.get(), 4);
-    reql_string_append(var1.get(), src1, 4);
+    reql_string_init(var1.get(), buf1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
     const ReQL_Byte src2[] = "err";
-    reql_string_init(var2.get(), buf2.get(), 3);
-    reql_string_append(var2.get(), src2, 3);
+    reql_string_init(var2.get(), buf2.get(), src2, 3);
 
     reql_object_add(var0.get(), var1.get(), var2.get());
   }
@@ -295,14 +278,12 @@ TEST_CASE("reql Test basic timezone manipulation", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
     const ReQL_Byte src1[] = "func";
-    reql_string_init(var1.get(), buf1.get(), 4);
-    reql_string_append(var1.get(), src1, 4);
+    reql_string_init(var1.get(), buf1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
     const ReQL_Byte src2[] = "err";
-    reql_string_init(var2.get(), buf2.get(), 3);
-    reql_string_append(var2.get(), src2, 3);
+    reql_string_init(var2.get(), buf2.get(), src2, 3);
 
     reql_object_add(var0.get(), var1.get(), var2.get());
   }
@@ -315,14 +296,12 @@ TEST_CASE("reql Test basic timezone manipulation", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
     const ReQL_Byte src1[] = "func";
-    reql_string_init(var1.get(), buf1.get(), 4);
-    reql_string_append(var1.get(), src1, 4);
+    reql_string_init(var1.get(), buf1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
     const ReQL_Byte src2[] = "err";
-    reql_string_init(var2.get(), buf2.get(), 3);
-    reql_string_append(var2.get(), src2, 3);
+    reql_string_init(var2.get(), buf2.get(), src2, 3);
 
     reql_object_add(var0.get(), var1.get(), var2.get());
   }
@@ -335,14 +314,12 @@ TEST_CASE("reql Test basic timezone manipulation", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
     const ReQL_Byte src1[] = "func";
-    reql_string_init(var1.get(), buf1.get(), 4);
-    reql_string_append(var1.get(), src1, 4);
+    reql_string_init(var1.get(), buf1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
     const ReQL_Byte src2[] = "err";
-    reql_string_init(var2.get(), buf2.get(), 3);
-    reql_string_append(var2.get(), src2, 3);
+    reql_string_init(var2.get(), buf2.get(), src2, 3);
 
     reql_object_add(var0.get(), var1.get(), var2.get());
   }
@@ -355,14 +332,12 @@ TEST_CASE("reql Test basic timezone manipulation", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
     const ReQL_Byte src1[] = "func";
-    reql_string_init(var1.get(), buf1.get(), 4);
-    reql_string_append(var1.get(), src1, 4);
+    reql_string_init(var1.get(), buf1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
     const ReQL_Byte src2[] = "err";
-    reql_string_init(var2.get(), buf2.get(), 3);
-    reql_string_append(var2.get(), src2, 3);
+    reql_string_init(var2.get(), buf2.get(), src2, 3);
 
     reql_object_add(var0.get(), var1.get(), var2.get());
   }
@@ -375,14 +350,12 @@ TEST_CASE("reql Test basic timezone manipulation", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
     const ReQL_Byte src1[] = "func";
-    reql_string_init(var1.get(), buf1.get(), 4);
-    reql_string_append(var1.get(), src1, 4);
+    reql_string_init(var1.get(), buf1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
     const ReQL_Byte src2[] = "err";
-    reql_string_init(var2.get(), buf2.get(), 3);
-    reql_string_append(var2.get(), src2, 3);
+    reql_string_init(var2.get(), buf2.get(), src2, 3);
 
     reql_object_add(var0.get(), var1.get(), var2.get());
   }
@@ -395,14 +368,12 @@ TEST_CASE("reql Test basic timezone manipulation", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
     const ReQL_Byte src1[] = "func";
-    reql_string_init(var1.get(), buf1.get(), 4);
-    reql_string_append(var1.get(), src1, 4);
+    reql_string_init(var1.get(), buf1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
     const ReQL_Byte src2[] = "err";
-    reql_string_init(var2.get(), buf2.get(), 3);
-    reql_string_append(var2.get(), src2, 3);
+    reql_string_init(var2.get(), buf2.get(), src2, 3);
 
     reql_object_add(var0.get(), var1.get(), var2.get());
   }
@@ -415,14 +386,12 @@ TEST_CASE("reql Test basic timezone manipulation", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
     const ReQL_Byte src1[] = "func";
-    reql_string_init(var1.get(), buf1.get(), 4);
-    reql_string_append(var1.get(), src1, 4);
+    reql_string_init(var1.get(), buf1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
     const ReQL_Byte src2[] = "err";
-    reql_string_init(var2.get(), buf2.get(), 3);
-    reql_string_append(var2.get(), src2, 3);
+    reql_string_init(var2.get(), buf2.get(), src2, 3);
 
     reql_object_add(var0.get(), var1.get(), var2.get());
   }
@@ -435,14 +404,12 @@ TEST_CASE("reql Test basic timezone manipulation", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
     const ReQL_Byte src1[] = "func";
-    reql_string_init(var1.get(), buf1.get(), 4);
-    reql_string_append(var1.get(), src1, 4);
+    reql_string_init(var1.get(), buf1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
     const ReQL_Byte src2[] = "err";
-    reql_string_init(var2.get(), buf2.get(), 3);
-    reql_string_append(var2.get(), src2, 3);
+    reql_string_init(var2.get(), buf2.get(), src2, 3);
 
     reql_object_add(var0.get(), var1.get(), var2.get());
   }

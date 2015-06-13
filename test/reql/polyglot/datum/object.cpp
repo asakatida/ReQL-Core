@@ -20,14 +20,12 @@ TEST_CASE("reql Tests conversion to and from the RQL object type", "[reql][ast]"
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[6]);
     const ReQL_Byte src1[] = "result";
-    reql_string_init(var1.get(), buf1.get(), 6);
-    reql_string_append(var1.get(), src1, 6);
+    reql_string_init(var1.get(), buf1.get(), src1, 6);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[5]);
     const ReQL_Byte src2[] = "blank";
-    reql_string_init(var2.get(), buf2.get(), 5);
-    reql_string_append(var2.get(), src2, 5);
+    reql_string_init(var2.get(), buf2.get(), src2, 5);
 
     reql_object_add(var0.get(), var1.get(), var2.get());
   }
@@ -40,14 +38,12 @@ TEST_CASE("reql Tests conversion to and from the RQL object type", "[reql][ast]"
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[6]);
     const ReQL_Byte src1[] = "result";
-    reql_string_init(var1.get(), buf1.get(), 6);
-    reql_string_append(var1.get(), src1, 6);
+    reql_string_init(var1.get(), buf1.get(), src1, 6);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[5]);
     const ReQL_Byte src2[] = "blank";
-    reql_string_init(var2.get(), buf2.get(), 5);
-    reql_string_append(var2.get(), src2, 5);
+    reql_string_init(var2.get(), buf2.get(), src2, 5);
 
     reql_object_add(var0.get(), var1.get(), var2.get());
   }
@@ -60,8 +56,7 @@ TEST_CASE("reql Tests conversion to and from the RQL object type", "[reql][ast]"
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[1]);
     const ReQL_Byte src1[] = "a";
-    reql_string_init(var1.get(), buf1.get(), 1);
-    reql_string_append(var1.get(), src1, 1);
+    reql_string_init(var1.get(), buf1.get(), src1, 1);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     reql_number_init(var2.get(), 1);
@@ -77,8 +72,7 @@ TEST_CASE("reql Tests conversion to and from the RQL object type", "[reql][ast]"
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[1]);
     const ReQL_Byte src1[] = "a";
-    reql_string_init(var1.get(), buf1.get(), 1);
-    reql_string_append(var1.get(), src1, 1);
+    reql_string_init(var1.get(), buf1.get(), src1, 1);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Pair_t[]> pair2(new ReQL_Pair_t[1]);
@@ -87,8 +81,7 @@ TEST_CASE("reql Tests conversion to and from the RQL object type", "[reql][ast]"
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf3(new ReQL_Byte[1]);
     const ReQL_Byte src3[] = "b";
-    reql_string_init(var3.get(), buf3.get(), 1);
-    reql_string_append(var3.get(), src3, 1);
+    reql_string_init(var3.get(), buf3.get(), src3, 1);
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Obj_t*[]> arr4(new ReQL_Obj_t*[3]);
@@ -101,8 +94,7 @@ TEST_CASE("reql Tests conversion to and from the RQL object type", "[reql][ast]"
     std::unique_ptr<ReQL_Obj_t> var6(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf6(new ReQL_Byte[1]);
     const ReQL_Byte src6[] = "c";
-    reql_string_init(var6.get(), buf6.get(), 1);
-    reql_string_append(var6.get(), src6, 1);
+    reql_string_init(var6.get(), buf6.get(), src6, 1);
 
     std::unique_ptr<ReQL_Obj_t> var7(new ReQL_Obj_t);
     reql_number_init(var7.get(), 2);
@@ -114,8 +106,7 @@ TEST_CASE("reql Tests conversion to and from the RQL object type", "[reql][ast]"
     std::unique_ptr<ReQL_Obj_t> var8(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf8(new ReQL_Byte[1]);
     const ReQL_Byte src8[] = "a";
-    reql_string_init(var8.get(), buf8.get(), 1);
-    reql_string_append(var8.get(), src8, 1);
+    reql_string_init(var8.get(), buf8.get(), src8, 1);
 
     reql_array_append(var4.get(), var8.get());
 
@@ -133,16 +124,14 @@ TEST_CASE("reql Tests conversion to and from the RQL object type", "[reql][ast]"
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf0(new ReQL_Byte[6]);
     const ReQL_Byte src0[] = "OBJECT";
-    reql_string_init(var0.get(), buf0.get(), 6);
-    reql_string_append(var0.get(), src0, 6);
+    reql_string_init(var0.get(), buf0.get(), src0, 6);
   }
 
   SECTION("test6") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf0(new ReQL_Byte[9]);
     const ReQL_Byte src0[] = "{\"a\":1}";
-    reql_string_init(var0.get(), buf0.get(), 9);
-    reql_string_append(var0.get(), src0, 9);
+    reql_string_init(var0.get(), buf0.get(), src0, 9);
   }
 
   SECTION("test7") {
@@ -153,8 +142,7 @@ TEST_CASE("reql Tests conversion to and from the RQL object type", "[reql][ast]"
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[1]);
     const ReQL_Byte src1[] = "a";
-    reql_string_init(var1.get(), buf1.get(), 1);
-    reql_string_append(var1.get(), src1, 1);
+    reql_string_init(var1.get(), buf1.get(), src1, 1);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     reql_number_init(var2.get(), 1);
@@ -174,8 +162,7 @@ TEST_CASE("reql Tests conversion to and from the RQL object type", "[reql][ast]"
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[1]);
     const ReQL_Byte src2[] = "a";
-    reql_string_init(var2.get(), buf2.get(), 1);
-    reql_string_append(var2.get(), src2, 1);
+    reql_string_init(var2.get(), buf2.get(), src2, 1);
 
     reql_array_append(var1.get(), var2.get());
 
@@ -195,14 +182,12 @@ TEST_CASE("reql Tests conversion to and from the RQL object type", "[reql][ast]"
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
     const ReQL_Byte src1[] = "func";
-    reql_string_init(var1.get(), buf1.get(), 4);
-    reql_string_append(var1.get(), src1, 4);
+    reql_string_init(var1.get(), buf1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[9]);
     const ReQL_Byte src2[] = "err_regex";
-    reql_string_init(var2.get(), buf2.get(), 9);
-    reql_string_append(var2.get(), src2, 9);
+    reql_string_init(var2.get(), buf2.get(), src2, 9);
 
     reql_object_add(var0.get(), var1.get(), var2.get());
   }
@@ -215,14 +200,12 @@ TEST_CASE("reql Tests conversion to and from the RQL object type", "[reql][ast]"
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
     const ReQL_Byte src1[] = "func";
-    reql_string_init(var1.get(), buf1.get(), 4);
-    reql_string_append(var1.get(), src1, 4);
+    reql_string_init(var1.get(), buf1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[9]);
     const ReQL_Byte src2[] = "err_regex";
-    reql_string_init(var2.get(), buf2.get(), 9);
-    reql_string_append(var2.get(), src2, 9);
+    reql_string_init(var2.get(), buf2.get(), src2, 9);
 
     reql_object_add(var0.get(), var1.get(), var2.get());
   }
@@ -235,14 +218,12 @@ TEST_CASE("reql Tests conversion to and from the RQL object type", "[reql][ast]"
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[6]);
     const ReQL_Byte src1[] = "result";
-    reql_string_init(var1.get(), buf1.get(), 6);
-    reql_string_append(var1.get(), src1, 6);
+    reql_string_init(var1.get(), buf1.get(), src1, 6);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[5]);
     const ReQL_Byte src2[] = "blank";
-    reql_string_init(var2.get(), buf2.get(), 5);
-    reql_string_append(var2.get(), src2, 5);
+    reql_string_init(var2.get(), buf2.get(), src2, 5);
 
     reql_object_add(var0.get(), var1.get(), var2.get());
   }
@@ -260,8 +241,7 @@ TEST_CASE("reql Tests conversion to and from the RQL object type", "[reql][ast]"
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[1]);
     const ReQL_Byte src1[] = "a";
-    reql_string_init(var1.get(), buf1.get(), 1);
-    reql_string_append(var1.get(), src1, 1);
+    reql_string_init(var1.get(), buf1.get(), src1, 1);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     reql_number_init(var2.get(), 1);
@@ -271,8 +251,7 @@ TEST_CASE("reql Tests conversion to and from the RQL object type", "[reql][ast]"
     std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf3(new ReQL_Byte[1]);
     const ReQL_Byte src3[] = "b";
-    reql_string_init(var3.get(), buf3.get(), 1);
-    reql_string_append(var3.get(), src3, 1);
+    reql_string_init(var3.get(), buf3.get(), src3, 1);
 
     std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
     reql_number_init(var4.get(), 2);
@@ -288,8 +267,7 @@ TEST_CASE("reql Tests conversion to and from the RQL object type", "[reql][ast]"
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[2]);
     const ReQL_Byte src1[] = "cd";
-    reql_string_init(var1.get(), buf1.get(), 2);
-    reql_string_append(var1.get(), src1, 2);
+    reql_string_init(var1.get(), buf1.get(), src1, 2);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     reql_number_init(var2.get(), 3);
@@ -305,14 +283,12 @@ TEST_CASE("reql Tests conversion to and from the RQL object type", "[reql][ast]"
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
     const ReQL_Byte src1[] = "func";
-    reql_string_init(var1.get(), buf1.get(), 4);
-    reql_string_append(var1.get(), src1, 4);
+    reql_string_init(var1.get(), buf1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
     const ReQL_Byte src2[] = "err";
-    reql_string_init(var2.get(), buf2.get(), 3);
-    reql_string_append(var2.get(), src2, 3);
+    reql_string_init(var2.get(), buf2.get(), src2, 3);
 
     reql_object_add(var0.get(), var1.get(), var2.get());
   }
@@ -325,14 +301,12 @@ TEST_CASE("reql Tests conversion to and from the RQL object type", "[reql][ast]"
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
     const ReQL_Byte src1[] = "func";
-    reql_string_init(var1.get(), buf1.get(), 4);
-    reql_string_append(var1.get(), src1, 4);
+    reql_string_init(var1.get(), buf1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
     const ReQL_Byte src2[] = "err";
-    reql_string_init(var2.get(), buf2.get(), 3);
-    reql_string_append(var2.get(), src2, 3);
+    reql_string_init(var2.get(), buf2.get(), src2, 3);
 
     reql_object_add(var0.get(), var1.get(), var2.get());
   }
@@ -345,14 +319,12 @@ TEST_CASE("reql Tests conversion to and from the RQL object type", "[reql][ast]"
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
     const ReQL_Byte src1[] = "func";
-    reql_string_init(var1.get(), buf1.get(), 4);
-    reql_string_append(var1.get(), src1, 4);
+    reql_string_init(var1.get(), buf1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
     const ReQL_Byte src2[] = "err";
-    reql_string_init(var2.get(), buf2.get(), 3);
-    reql_string_append(var2.get(), src2, 3);
+    reql_string_init(var2.get(), buf2.get(), src2, 3);
 
     reql_object_add(var0.get(), var1.get(), var2.get());
   }
@@ -365,14 +337,12 @@ TEST_CASE("reql Tests conversion to and from the RQL object type", "[reql][ast]"
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
     const ReQL_Byte src1[] = "func";
-    reql_string_init(var1.get(), buf1.get(), 4);
-    reql_string_append(var1.get(), src1, 4);
+    reql_string_init(var1.get(), buf1.get(), src1, 4);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
     const ReQL_Byte src2[] = "err";
-    reql_string_init(var2.get(), buf2.get(), 3);
-    reql_string_append(var2.get(), src2, 3);
+    reql_string_init(var2.get(), buf2.get(), src2, 3);
 
     reql_object_add(var0.get(), var1.get(), var2.get());
   }

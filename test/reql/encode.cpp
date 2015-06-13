@@ -65,19 +65,17 @@ TEST_CASE("encode values", "[reql][encode]") {
   SECTION("string") {
     const uint32_t size = 11;
 
-    uint8_t *buf = new uint8_t[size];
+    std::unique_ptr<uint8_t> buf(new uint8_t[size]);
+
     const uint8_t hello[] = "Hello World";
 
-    reql_string_init(val.get(), buf, size);
-    reql_string_append(val.get(), hello, size);
+    reql_string_init(val.get(), buf.get(), hello, size);
 
     ReQL_String_t *str = reql_encode(val.get());
 
     REQUIRE(str != nullptr);
 
     REQUIRE(str->size == size + 2);
-
-    delete [] buf;
 
     free(str->str);
     free(str);

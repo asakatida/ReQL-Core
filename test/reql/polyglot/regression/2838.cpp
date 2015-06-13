@@ -15,8 +15,7 @@ TEST_CASE("reql Test that return_changes fails gracefully.", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[8]);
     const ReQL_Byte src1[] = "inserted";
-    reql_string_init(var1.get(), buf1.get(), 8);
-    reql_string_append(var1.get(), src1, 8);
+    reql_string_init(var1.get(), buf1.get(), src1, 8);
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     reql_number_init(var2.get(), 99);
@@ -37,8 +36,7 @@ TEST_CASE("reql Test that return_changes fails gracefully.", "[reql][ast]") {
     std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[40]);
     const ReQL_Byte src1[] = "Too many changes, array truncated to 40.";
-    reql_string_init(var1.get(), buf1.get(), 40);
-    reql_string_append(var1.get(), src1, 40);
+    reql_string_init(var1.get(), buf1.get(), src1, 40);
 
     reql_array_append(var0.get(), var1.get());
   }

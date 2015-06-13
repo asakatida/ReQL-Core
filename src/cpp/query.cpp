@@ -107,8 +107,7 @@ buildString(const Query &query) {
     buf = new _C::ReQL_Byte[size];
   }
 
-  reql_string_init(obj, buf, size);
-  reql_string_append(obj, reinterpret_cast<_C::ReQL_Byte*>(const_cast<char*>(query.p_string.c_str())), size);
+  reql_string_init(obj, buf, reinterpret_cast<_C::ReQL_Byte*>(const_cast<char*>(query.p_string.c_str())), size);
   return obj;
 }
 
