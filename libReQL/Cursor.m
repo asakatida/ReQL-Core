@@ -24,10 +24,32 @@ limitations under the License.
 
 #import "./reql/core.h"
 
-@implementation ReQLCursor
+@implementation ReQLCursor {
+  ReQL_Cur_t *p_cur;
+}
 
--(NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(__unsafe_unretained id [])buffer count:(NSUInteger)len {
-  return 0;
+-(instancetype)init {
+  if (self = [super init]) {
+    p_cur = malloc(sizeof(ReQL_Cur_t));
+    if (p_cur == NULL) {
+      return nil;
+    }
+  }
+  return self;
+}
+
+-(void)setDelegate:(id<NSStreamDelegate>)delegate {
+  if (delegate) {
+    [super setDelegate:delegate];
+  }
+}
+
+-(void *)data {
+  return p_cur;
+}
+
+-(NSArray *)toArray {
+  return nil;
 }
 
 -(void)stream:(ReQLCursor *)aStream handleEvent:(NSStreamEvent)eventCode {
@@ -38,6 +60,15 @@ limitations under the License.
     *err = nil;
   }
   return NO;
+}
+
+-(void)close {
+  reql_cur_close(p_cur);
+}
+
+-(void)dealloc {
+  reql_cur_destroy(p_cur);
+  free(p_cur);
 }
 
 @end

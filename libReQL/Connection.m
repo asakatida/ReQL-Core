@@ -43,6 +43,10 @@ limitations under the License.
   return self;
 }
 
+-(void *)data {
+  return p_conn;
+}
+
 -(BOOL)isOpen {
   return reql_conn_open(p_conn) == 0 ? NO : YES;
 }

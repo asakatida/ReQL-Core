@@ -22,6 +22,8 @@ limitations under the License.
 
 @interface ReQLConnection : NSObject
 
+-(void *)data;
+
 -(BOOL)isOpen;
 
 -(void)close;

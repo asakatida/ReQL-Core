@@ -20,8 +20,12 @@ limitations under the License.
 
 #import <Cocoa/Cocoa.h>
 
-@interface ReQLCursor : NSStream <NSFastEnumeration, NSStreamDelegate>
+@interface ReQLCursor : NSStream <NSStreamDelegate>
+
+-(void *)data;
 
 -(BOOL)error:(NSError * __strong *)err;
+
+-(NSArray *)toArray;
 
 @end

@@ -414,7 +414,6 @@
 		8728AD101B1BEF5100588F9A /* ReQL.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 1ECDD76F1AB53D80004CD31E /* ReQL.hpp */; };
 		8791C84A1B13968C004798D7 /* libReQL.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C8491B13968C004798D7 /* libReQL.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8791C8501B13968C004798D7 /* libReQL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8791C8451B13968C004798D7 /* libReQL.framework */; };
-		8791C8571B13968C004798D7 /* libReQLTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8791C8561B13968C004798D7 /* libReQLTests.m */; };
 		879C95BD1B274A6D00EF7026 /* types.h in Headers */ = {isa = PBXBuildFile; fileRef = 879C95BC1B274A6D00EF7026 /* types.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		87CD586E1B2CADA300EA800F /* query.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CD586C1B2CADA300EA800F /* query.c */; };
 		87CD586F1B2CADA300EA800F /* query.h in Headers */ = {isa = PBXBuildFile; fileRef = 87CD586D1B2CADA300EA800F /* query.h */; };
@@ -889,7 +888,6 @@
 		8791C8491B13968C004798D7 /* libReQL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = libReQL.h; sourceTree = "<group>"; };
 		8791C84F1B13968C004798D7 /* libReQLTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = libReQLTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8791C8551B13968C004798D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8791C8561B13968C004798D7 /* libReQLTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = libReQLTests.m; sourceTree = "<group>"; };
 		879C95BC1B274A6D00EF7026 /* types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
 		87CD586C1B2CADA300EA800F /* query.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = query.c; sourceTree = "<group>"; };
 		87CD586D1B2CADA300EA800F /* query.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = query.h; sourceTree = "<group>"; };
@@ -1741,7 +1739,6 @@
 		8791C8531B13968C004798D7 /* libReQLTests */ = {
 			isa = PBXGroup;
 			children = (
-				8791C8561B13968C004798D7 /* libReQLTests.m */,
 				8791C8541B13968C004798D7 /* Supporting Files */,
 				8700091B1B1A8843007EA4BA /* Connection.m */,
 			);
@@ -2424,7 +2421,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8791C8571B13968C004798D7 /* libReQLTests.m in Sources */,
 				8700091C1B1A8843007EA4BA /* Connection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

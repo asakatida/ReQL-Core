@@ -398,17 +398,52 @@ if (obj == nil) {\
 }
 
 -(ReQLCursor *)run:(ReQLConnection *)conn {
-  return nil;
+  return [self run:conn withOpts:nil];
 }
 
 -(ReQLCursor *)run:(ReQLConnection *)conn withOpts:(NSDictionary *)opts {
-  return nil;
+  ReQLCursor *cur = [ReQLCursor new];
+  if (cur == nil) {
+    return nil;
+  }
+  ReQL_Obj_t *query = [self build];
+  if (query == NULL) {
+    return nil;
+  }
+  ReQL_Obj_t *kwargs = NULL;
+  if (opts) {
+    kwargs = [[ReQLQuery newWithObject:opts] build];
+    if (kwargs == NULL) {
+      reql_json_destroy(kwargs);
+      reql_json_destroy(query);
+      return nil;
+    }
+  }
+  reql_run([cur data], query, [conn data], kwargs);
+  reql_json_destroy(kwargs);
+  reql_json_destroy(query);
+  return cur;
 }
 
 -(void)noReply:(ReQLConnection *)conn {
+  [self noReply:conn withOpts:nil];
 }
 
 -(void)noReply:(ReQLConnection *)conn withOpts:(NSDictionary *)opts {
+  ReQL_Obj_t *query = [self build];
+  if (query != NULL) {
+    ReQL_Obj_t *kwargs = NULL;
+    if (opts) {
+      kwargs = [[ReQLQuery newWithObject:opts] build];
+      if (kwargs == NULL) {
+        reql_json_destroy(kwargs);
+        reql_json_destroy(query);
+      }
+    }
+    reql_run(NULL, query, [conn data], kwargs);
+    reql_json_destroy(kwargs);
+  }
+  reql_json_destroy(query);
 }
 
 -(ReQL_Obj_t *)build {
