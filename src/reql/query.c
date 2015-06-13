@@ -216,12 +216,12 @@ reql_term_type(const ReQL_Obj_t *obj) {
   return obj->tt;
 }
 
-extern ReQL_Obj_t *
+static ReQL_Obj_t *
 reql_term_args(const ReQL_Obj_t *obj) {
   return obj->obj.args.args;
 }
 
-extern ReQL_Obj_t *
+static ReQL_Obj_t *
 reql_term_kwargs(const ReQL_Obj_t *obj) {
   return obj->obj.args.kwargs;
 }
@@ -589,7 +589,7 @@ reql_json_copy(const ReQL_Obj_t *other) {
       break;
     }
     case REQL_R_REQL: {
-      reql_term_init(self, reql_term_type(other), reql_json_copy(reql_term_args(other)), reql_json_copy(reql_term_kwargs(other)));
+      reql_term_init(self, (ReQL_Term_t)(reql_term_type(other)), reql_json_copy(reql_term_args(other)), reql_json_copy(reql_term_kwargs(other)));
       break;
     }
     case REQL_R_JSON: {
@@ -668,7 +668,7 @@ reql_json_move(ReQL_Obj_t *other) {
     case REQL_R_REQL: {
       reql_term_args(other)->owner = NULL;
       reql_term_kwargs(other)->owner = NULL;
-      reql_term_init(self, reql_term_type(other), reql_term_args(other), reql_term_kwargs(other));
+      reql_term_init(self, (ReQL_Term_t)(reql_term_type(other)), reql_term_args(other), reql_term_kwargs(other));
       reql_term_init(other, REQL_DATUM, NULL, NULL);
       break;
     }
