@@ -24,10 +24,6 @@ limitations under the License.
 
 #import "./reql/core.h"
 
-@implementation ReQLBool
-
-@end
-
 @implementation ReQLCursor {
   ReQL_Cur_t *p_cur;
 }
@@ -61,10 +57,10 @@ limitations under the License.
       while ((elem = reql_iter_next(&it)) != NULL) {
         [array addObject:[self convert:elem]];
       }
-      return array;
+      return [NSArray arrayWithArray:array];
     }
     case REQL_R_BOOL: {
-      return [ReQLBool numberWithBool:reql_to_bool(obj)];
+      return [NSNumber numberWithBool:reql_to_bool(obj)];
     }
     case REQL_R_JSON: {
       return nil;
@@ -76,13 +72,13 @@ limitations under the License.
       return [NSNumber numberWithDouble:reql_to_number(obj)];
     }
     case REQL_R_OBJECT: {
-      NSObject *object = [NSObject new];
+      NSMutableDictionary *object = [NSMutableDictionary dictionaryWithCapacity:reql_size(obj)];
       ReQL_Iter_t it = reql_new_iter(obj);
       ReQL_Obj_t *key = NULL;
       while ((key = reql_iter_next(&it)) != NULL) {
-        [object setValue:[self convert:reql_object_get(obj, key)] forKey:[self convert:key]];
+        [object setObject:[self convert:reql_object_get(obj, key)] forKey:[self convert:key]];
       }
-      return object;
+      return [NSDictionary dictionaryWithDictionary:object];
     }
     case REQL_R_REQL: {
       return nil;

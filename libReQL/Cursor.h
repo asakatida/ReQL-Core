@@ -20,10 +20,6 @@ limitations under the License.
 
 #import <Cocoa/Cocoa.h>
 
-@interface ReQLBool : NSNumber
-
-@end
-
 @interface ReQLCursor : NSStream <NSStreamDelegate>
 
 -(void *)data;

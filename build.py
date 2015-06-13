@@ -23,6 +23,23 @@ test_names = set()
 
 test_name_shell = '{} {}'
 
+test_shell_objc = '''// Copyright 2015 Adam Grandquist
+
+#import <Cocoa/Cocoa.h>
+#import <XCTest/XCTest.h>
+#import <libReQL.h>
+
+@interface {0} : XCTestCase
+
+@end
+
+@implementation {0}
+
+{1}
+
+@end
+'''
+
 test_shell_cpp = '''// Copyright 2015 Adam Grandquist
 
 #include "./catch.hpp"
@@ -56,6 +73,15 @@ TEST_CASE("{}", "[reql][ast]") {{
 {}
 }}
 '''
+
+section_shell_objc = '''
+- (void)test{} {{
+  ReQLConnection *connection = [ReQLConnection new];
+  XCTAssert([connection isOpen]);
+{}
+  XCTAssert([var0 isEqualTo:var0]);
+  [connection close];
+}}'''
 
 section_shell = '''
   SECTION("test{}") {{{}
@@ -227,6 +253,28 @@ class CResultBuilder(ResultBuilder):
     shell_number = ''''''
 
     shell_none = ''''''
+
+class ObjCResultBuilder(ResultBuilder):
+    shell_string = '''  NSString *var{0} = @"{2}";'''
+
+    shell_empty_map = '''  NSDictionary *var{} = [NSDictionary dictionary];'''
+
+    shell_map_start = '''  NSMutableDictionary *var{} = [NSMutableDictionary dictionaryWithCapacity:{}];'''
+
+    shell_key_val = '''  [var{0} setObject:var{2} forKey:var{1}];'''
+
+    shell_empty_array = '''  NSArray *var{} = [NSArray array];'''
+
+    shell_array_start = '''  NSMutableArray *var{} = [NSMutableArray arrayWithCapacity:{}];'''
+
+    shell_elem = '''  [var{} addObject:var{}];'''
+
+    def bool_obj(self, obj):
+        return super().bool_obj('''  NSNumber *var{} = [NSNumber numberWithBool:{}];''', 'YES' if obj else 'NO')
+
+    shell_number = '''  NSNumber *var{} = @{};'''
+
+    shell_none = '''  NSNull *var{} = [NSNull null];'''
 
 class CPPResultBuilder(ResultBuilder):
     shell_string = '''
@@ -411,6 +459,8 @@ def recurse_result(res, lang):
         return CPPResultBuilder().recurse(res)
     elif lang == 'c':
         return CResultBuilder().recurse(res)
+    elif lang == 'objc':
+        return ObjCResultBuilder().recurse(res)
     elif lang == 'reql':
         return ReQLResultBuilder().recurse(res)
 
@@ -539,7 +589,10 @@ def convert_tests(tests, lang):
                 lang_test.append(eval_result(test.get('ot', {'result': 'blank'}), lang))
             except BadKeyError:
                 lang_test.append(eval_result({'result': 'error'}, lang))
-            lang_tests.append(section_shell.format(i, '\n'.join(lang_test)))
+            if lang == 'objc':
+                lang_tests.append(section_shell_objc.format(i, '\n'.join(lang_test)))
+            else:
+                lang_tests.append(section_shell.format(i, '\n'.join(lang_test)))
     return lang_tests
 
 def test_loop(path, lang_path, lang):
@@ -548,23 +601,27 @@ def test_loop(path, lang_path, lang):
     for file in path.glob('**/*.test'):
         each_test(path, file, lang_path, lang)
 
+def convert_objc_test_name(name):
+    return ''.join(map(lambda e: e if e.isalnum() else '', name.title()))
+
 def each_test(path, file, lang_path, lang):
     with file.open() as istream:
         tests = yaml.load(istream)
 
     test_file = file.relative_to(path)
 
-    with touch((lang_path / test_file).with_suffix('.cpp')) as ostream:
+    with touch((lang_path / test_file).with_suffix('.m' if lang == 'objc' else '.cpp')) as ostream:
         test_name = test_name_shell.format(lang, tests['desc'])
         if test_name in test_names:
             test_name = ' '.join([test_name, str(len(test_names))])
         test_names.add(test_name)
         ostream.write({
             'c': test_shell_c,
+            'objc': test_shell_objc,
             'cpp': test_shell_cpp,
             'reql': test_shell_reql
         }[lang].format(
-            test_name,
+            convert_objc_test_name(test_name) if lang == 'objc' else test_name,
             '\n'.join(convert_tests(tests, lang))
         ))
 
@@ -850,6 +907,11 @@ def main():
     mkdir(new_test_reql_path)
 
     test_loop(polyglot_path, new_test_reql_path.resolve(), 'reql')
+
+    new_test_objc_path = cwd_path / 'libReQLTests' / 'polyglot'
+    mkdir(new_test_objc_path)
+
+    test_loop(polyglot_path, new_test_objc_path.resolve(), 'objc')
 
     start_guard = re.compile(r'''
 \#ifndef\s+(\w+)\s+

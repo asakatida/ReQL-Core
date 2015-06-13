@@ -16,14 +16,6 @@
 
 @implementation Connection
 
-- (void)setUp {
-    [super setUp];
-}
-
-- (void)tearDown {
-    [super tearDown];
-}
-
 - (void)testExample {
   ReQLConnection *connection = [ReQLConnection new];
   XCTAssert([connection isOpen]);
