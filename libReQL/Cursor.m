@@ -24,6 +24,10 @@ limitations under the License.
 
 #import "./reql/core.h"
 
+@implementation ReQLBool
+
+@end
+
 @implementation ReQLCursor {
   ReQL_Cur_t *p_cur;
 }
@@ -48,8 +52,56 @@ limitations under the License.
   return p_cur;
 }
 
--(NSArray *)toArray {
+-(id)convert:(ReQL_Obj_t *)obj {
+  switch (reql_datum_type(obj)) {
+    case REQL_R_ARRAY: {
+      NSMutableArray *array = [NSMutableArray arrayWithCapacity:reql_size(obj)];
+      ReQL_Iter_t it = reql_new_iter(obj);
+      ReQL_Obj_t *elem = NULL;
+      while ((elem = reql_iter_next(&it)) != NULL) {
+        [array addObject:[self convert:elem]];
+      }
+      return array;
+    }
+    case REQL_R_BOOL: {
+      return [ReQLBool numberWithBool:reql_to_bool(obj)];
+    }
+    case REQL_R_JSON: {
+      return nil;
+    }
+    case REQL_R_NULL: {
+      return [NSNull null];
+    }
+    case REQL_R_NUM: {
+      return [NSNumber numberWithDouble:reql_to_number(obj)];
+    }
+    case REQL_R_OBJECT: {
+      NSObject *object = [NSObject new];
+      ReQL_Iter_t it = reql_new_iter(obj);
+      ReQL_Obj_t *key = NULL;
+      while ((key = reql_iter_next(&it)) != NULL) {
+        [object setValue:[self convert:reql_object_get(obj, key)] forKey:[self convert:key]];
+      }
+      return object;
+    }
+    case REQL_R_REQL: {
+      return nil;
+    }
+    case REQL_R_STR: {
+      return [[NSString alloc] initWithBytes:reql_string_buf(obj) length:reql_size(obj) encoding:NSUTF8StringEncoding];
+    }
+  }
   return nil;
+}
+
+-(NSArray *)toArray {
+  ReQL_Obj_t *obj = reql_cur_to_array(p_cur);
+  if (obj == NULL) {
+    return nil;
+  }
+  NSArray *array = [self convert:obj];
+  reql_json_destroy(obj);
+  return array;
 }
 
 -(void)stream:(ReQLCursor *)aStream handleEvent:(NSStreamEvent)eventCode {

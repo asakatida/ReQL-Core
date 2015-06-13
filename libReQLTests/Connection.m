@@ -32,8 +32,11 @@
   ReQLCursor *cursor = [query run:connection];
   [cursor setDelegate:nil];
   XCTAssert(cursor != nil);
+  NSArray *res = [cursor toArray];
   NSError *err;
   XCTAssert(![cursor error:&err]);
+  XCTAssert(res != nil);
+  XCTAssert([res isEqualTo:@[@4]]);
   [cursor close];
   [connection close];
 }
