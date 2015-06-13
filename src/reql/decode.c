@@ -150,7 +150,7 @@ reql_decode_(ReQL_Byte **pos, ReQL_Byte *end) {
           }
 
           ReQL_Obj_t *out = malloc(sizeof(ReQL_Obj_t));
-          
+
           if (out == NULL) {
             return NULL;
           }
