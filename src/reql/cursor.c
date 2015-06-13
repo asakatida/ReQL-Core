@@ -287,9 +287,8 @@ reql_cur_next(ReQL_Cur_t *cur) {
   return res;
 }
 
-extern void
-reql_cur_each(ReQL_Cur_t *cur, ReQL_Each_Function cb, void *arg) {
-  reql_cur_lock(cur);
+static void
+reql_cur_each_(ReQL_Cur_t *cur, ReQL_Each_Function cb, void *arg) {
   if (cur->cb.each == NULL && cur->cb.data[EACH] != NULL) {
     ReQL_Obj_t *res = cur->cb.data[EACH];
     cur->cb.each = cb;
@@ -299,6 +298,12 @@ reql_cur_each(ReQL_Cur_t *cur, ReQL_Each_Function cb, void *arg) {
     cur->cb.each = cb;
     cur->cb.data[EACH] = arg;
   }
+}
+
+extern void
+reql_cur_each(ReQL_Cur_t *cur, ReQL_Each_Function cb, void *arg) {
+  reql_cur_lock(cur);
+  reql_cur_each_(cur, cb, arg);
   reql_cur_unlock(cur);
 }
 
@@ -318,14 +323,10 @@ reql_cur_drain_end_cb(void *arg) {
   pthread_cond_broadcast(p_data->done);
 }
 
-extern void
-reql_cur_drain(ReQL_Cur_t *cur) {
-  reql_cur_lock(cur);
+static void
+reql_cur_drain_(ReQL_Cur_t *cur) {
   if (cur->cb.each == NULL) {
-    cur->cb.each = reql_cur_drain_blank_cb;
-    if (cur->cb.data[EACH] != NULL) {
-      reql_cur_set_response_(cur, cur->cb.data[EACH]);
-    }
+    reql_cur_each_(cur, reql_cur_drain_blank_cb, NULL);
   }
   struct ReQL_Cur_Data_Holder data;
   data.cb.end = cur->cb.end;
@@ -344,6 +345,12 @@ reql_cur_drain(ReQL_Cur_t *cur) {
   cur->cb.end = NULL;
   cur->cb.each = NULL;
   cur->cb.data[END] = NULL;
+}
+
+extern void
+reql_cur_drain(ReQL_Cur_t *cur) {
+  reql_cur_lock(cur);
+  reql_cur_drain_(cur);
   reql_cur_unlock(cur);
 }
 
@@ -386,9 +393,10 @@ reql_cur_to_array(ReQL_Cur_t *cur) {
   ReQL_Obj_t **arr = malloc(sizeof(ReQL_Obj_t *) * 20);
   reql_array_init(array, arr, 20);
   reql_cur_lock(cur);
-  cur->cb.each = reql_cur_to_array_cb;
-  cur->cb.data[EACH] = array;
+  reql_cur_each_(cur, reql_cur_to_array_cb, array);
+  reql_cur_drain_(cur);
+  cur->cb.each = NULL;
+  cur->cb.data[EACH] = NULL;
   reql_cur_unlock(cur);
-  reql_cur_drain(cur);
   return array;
 }
