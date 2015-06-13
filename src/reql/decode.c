@@ -30,429 +30,332 @@ limitations under the License.
 #include <stdlib.h>
 #include <string.h>
 
-static ReQL_Size
-reql_update_array(ReQL_Obj_t *array, ReQL_Obj_t *elem) {
-  ReQL_Size new_alloc = reql_array_append(array, elem);
-
-  if (reql_error_type() != REQL_E_NO) {
-    return new_alloc;
-  }
-
-  if (new_alloc != 0) {
-    ReQL_Obj_t **arr = array->obj.datum.json.var.data.array;
-
-    arr = realloc(arr, sizeof(ReQL_Obj_t*) * new_alloc);
-
-    if (arr == NULL) {
-      array->obj.datum.json.var.size = array->obj.datum.json.var.alloc_size = 0;
-      free(array->obj.datum.json.var.data.array);
-      array->obj.datum.json.var.data.array = NULL;
-    } else {
-      array->obj.datum.json.var.alloc_size = new_alloc;
-      array->obj.datum.json.var.data.array = arr;
-      return reql_update_array(array, elem);
+static int
+reql_space(ReQL_Byte **pos, ReQL_Byte *end) {
+  while (*pos != end) {
+    if (!isspace(**pos)) {
+      return 0;
     }
+    ++(*pos);
   }
-
-  return new_alloc;
+  return -1;
 }
 
-static ReQL_Size
-reql_update_object(ReQL_Obj_t *obj, ReQL_Obj_t *key, ReQL_Obj_t *val) {
-  ReQL_Size new_alloc = reql_object_add(obj, key, val);
-
-  if (reql_error_type() != REQL_E_NO) {
-    return new_alloc;
+static int
+reql_next_char(ReQL_Byte **pos, ReQL_Byte *end, ReQL_Byte expect) {
+  if (reql_space(pos, end)) {
+    return 0;
   }
-
-  if (new_alloc != 0) {
-    ReQL_Pair_t *pair = obj->obj.datum.json.var.data.pair;
-
-    pair = realloc(pair, sizeof(ReQL_Pair_t) * new_alloc);
-
-    if (pair == NULL) {
-      obj->obj.datum.json.var.size = obj->obj.datum.json.var.alloc_size = 0;
-      free(obj->obj.datum.json.var.data.pair);
-      obj->obj.datum.json.var.data.pair = NULL;
-    } else {
-      obj->obj.datum.json.var.alloc_size = new_alloc;
-      obj->obj.datum.json.var.data.pair = pair;
-      return reql_update_object(obj, key, val);
-    }
+  if (**pos == expect) {
+    ++(*pos);
+    return 1;
   }
-
-  return new_alloc;
+  return 0;
 }
 
-static ReQL_Datum_t
-reql_merge_stack(ReQL_Obj_t *stack) {
-  ReQL_Obj_t *val = reql_array_pop(stack);
-  if (val == NULL) {
-    return REQL_R_REQL;
+static void
+reql_destroy_stack(ReQL_Obj_t *obj) {
+  while (obj != NULL) {
+    ReQL_Obj_t *top = obj->owner;
+    obj->owner = NULL;
+    reql_json_destroy(obj);
+    obj = top;
   }
-  ReQL_Obj_t *arr = reql_array_last(stack);
-  if (arr == NULL) {
-    reql_update_array(stack, val);
-    return REQL_R_JSON;
-  }
-  switch (reql_datum_type(arr)) {
-    case REQL_R_ARRAY: {
-      if (reql_update_array(arr, val) == 0) {
-        return REQL_R_ARRAY;
-      }
-      break;
-    }
-    case REQL_R_OBJECT: {
-      reql_update_array(stack, val);
-      if (reql_datum_type(val) == REQL_R_STR) {
-        return REQL_R_OBJECT;
-      }
-      break;
-    }
-    case REQL_R_STR: {
-      ReQL_Obj_t *key = reql_array_pop(stack);
-      ReQL_Obj_t *obj = reql_array_last(stack);
-      if (reql_datum_type(obj) == REQL_R_OBJECT) {
-        if (reql_update_object(obj, key, val) == 0) {
-          return REQL_R_OBJECT;
-        }
-      }
-      reql_update_array(stack, key);
-      reql_update_array(stack, val);
-      break;
-    }
-    case REQL_R_BOOL:
-    case REQL_R_JSON:
-    case REQL_R_NULL:
-    case REQL_R_NUM:
-    case REQL_R_REQL: {
-      reql_update_array(stack, val);
-      break;
-    }
-  }
-  return REQL_R_REQL;
 }
 
 static ReQL_Obj_t *
-reql_string_decode(ReQL_Size size, ReQL_Byte *json) {
-  if (size == 0) {
-    ReQL_Obj_t *obj = malloc(sizeof(ReQL_Obj_t));
-
-    if (obj == NULL) {
-      return NULL;
-    }
-
-    reql_string_init(obj, NULL, 0);
-    return obj;
-  }
-
-  ReQL_Byte res;
-  ReQL_Byte *str = malloc(sizeof(ReQL_Byte) * size);
-
-  if (str == NULL) {
+reql_decode_(ReQL_Byte **pos, ReQL_Byte *end) {
+  if (reql_space(pos, end)) {
     return NULL;
   }
-
-  ReQL_Size i, j = 0;
-  for (i=0; i < size; ++i) {
-    res = json[i];
-    if (res == 0x5C) { /* \ */
-      ++i;
-      if (i >= size) {
-        free(str);
-        return NULL;
-      }
-      res = json[i];
-      switch (json[i]) {
-        case 0x08: { /* b */
-          res = 0x08;
-          break;
-        }
-        case 0x0C: { /* f */
-          res = 0x0C;
-          break;
-        }
-        case 0x0A: { /* n */
-          res = 0x0A;
-          break;
-        }
-        case 0x0D: { /* r */
-          res = 0x0D;
-          break;
-        }
-        case 't': { /* t */
-          res = '\t';
-          break;
-        }
-        case 'u': {
-          res = 'u';
-          if ((i + 4) < size) {
-            char valid = 1;
-            int8_t n;
-            for (n=1; n <= 4; ++n) {
-              res = json[i + (ReQL_Byte)n];
-              if (!((res >= '0' && res <= '9') ||
-                    (res >= 'a' && res <= 'f') ||
-                    (res >= 'A' && res <= 'F'))) {
-                valid = 0;
-              }
+  switch (**pos) {
+    case '"': {
+      ++(*pos);
+      int esc = 0;
+      ReQL_Byte *start = *pos;
+      ReQL_Byte *track = *pos;
+      ReQL_Byte res;
+      while (*pos != end) {
+        res = **pos;
+        if (esc == 1) {
+          switch (res) {
+            case 'b': { /* b */
+              res = '\b';
+              break;
             }
-            if (valid != 0) {
-              if (json[++i] != '0' || json[++i] != '0') {
-                free(str);
+            case 'f': { /* f */
+              res = '\f';
+              break;
+            }
+            case 'n': { /* n */
+              res = '\n';
+              break;
+            }
+            case 'r': { /* r */
+              res = '\r';
+              break;
+            }
+            case 't': { /* t */
+              res = '\t';
+              break;
+            }
+            case 'u': {
+              if ((*pos) + 4 >= end) {
                 return NULL;
               }
-              res = 0;
-              ReQL_Byte hex;
-              for (n=1; n >= 0; --n) {
-                hex = json[++i];
-                if (hex >= '0' && hex <= '9') {
-                  hex -= '0';
-                } else if (hex >= 'a' && hex <= 'f') {
-                  hex -= 'a' - 10;
-                } else {
-                  hex -= 'A' - 10;
-                }
-                res += hex * pow(16, n);
-              }
-            }
-          }
-          break;
-        }
-      }
-    }
-    str[j++] = res;
-  }
-
-  ReQL_Obj_t *out = malloc(sizeof(ReQL_Obj_t));
-
-  if (out != NULL) {
-    ReQL_Byte *buf = malloc(sizeof(ReQL_Byte) * j);
-
-    if (buf == NULL) {
-      free(out);
-      out = NULL;
-    } else {
-      reql_string_init(out, buf, j);
-      reql_string_append(out, str, j);
-    }
-  }
-
-  free(str);
-
-  return out;
-}
-
-static ReQL_Obj_t *
-reql_decode_(ReQL_Obj_t *stack, ReQL_Byte *json, ReQL_Size size) {
-  if (json[size - 1] == '\0') {
-    --size;
-  }
-  ReQL_Datum_t state = REQL_R_JSON;
-  char esc = 0, arr_open = 0, obj_open = 0;
-  ReQL_Size i, str_start = 0;
-  for (i=0; i < size; ++i) {
-    if (isspace(json[i])) {
-      continue;
-    }
-    switch (state) {
-      case REQL_R_BOOL:
-      case REQL_R_NULL:
-      case REQL_R_NUM:
-      case REQL_R_REQL: {
-        return NULL;
-      }
-      case REQL_R_STR: {
-        switch (json[i]) {
-          case '\\': {
-            esc = 1;
-            break;
-          }
-          case '"': {
-            if (esc == 0) {
-              ReQL_Size orig_size = i - str_start;
-
-              ReQL_Obj_t *obj = reql_string_decode(orig_size, &json[str_start]);
-
-              if (obj == NULL) {
+              if (!(*(++(*pos)) == '0' && *(++(*pos)) == '0')) {
                 return NULL;
               }
+              ++(*pos);
+              if (!(ishexnumber(*((*pos) + 1)) && ishexnumber(**pos))) {
+                return NULL;
+              }
+              ReQL_Byte hex = **pos;
+              if (hex >= '0' && hex <= '9') {
+                hex -= '0';
+              } else if (hex >= 'a' && hex <= 'f') {
+                hex -= 'a' - 10;
+              } else {
+                hex -= 'A' - 10;
+              }
+              res = hex * 16;
+              ++(*pos);
+              hex = **pos;
+              if (hex >= '0' && hex <= '9') {
+                hex -= '0';
+              } else if (hex >= 'a' && hex <= 'f') {
+                hex -= 'a' - 10;
+              } else {
+                hex -= 'A' - 10;
+              }
+              res += hex;
+              break;
+            }
+          }
+          esc = 0;
+        } else if (**pos == '\\') {
+          esc = 1;
+        } else if (**pos == '"') {
+          ++(*pos);
+          ReQL_Size size = (ReQL_Size)((track - start) / sizeof(ReQL_Byte));
+          if (size == 0) {
+            ReQL_Obj_t *obj = malloc(sizeof(ReQL_Obj_t));
 
-              reql_update_array(stack, obj);
-              state = reql_merge_stack(stack);
-            }
-          }
-          default: {
-            esc = 0;
-            break;
-          }
-        }
-        break;
-      }
-      case REQL_R_ARRAY: {
-        switch (json[i]) {
-          case ',': {
-            state = REQL_R_JSON;
-            break;
-          }
-          case ']': {
-            state = reql_merge_stack(stack);
-            --arr_open;
-            break;
-          }
-          default: return NULL;
-        }
-        break;
-      }
-      case REQL_R_OBJECT: {
-        switch (json[i]) {
-          case ',':
-          case ':': {
-            state = REQL_R_JSON;
-            break;
-          }
-          case '}': {
-            state = reql_merge_stack(stack);
-            --obj_open;
-            break;
-          }
-          default: return NULL;
-        }
-        break;
-      }
-      case REQL_R_JSON: {
-        switch (json[i]) {
-          case '[': {
-            ReQL_Obj_t *obj = malloc(sizeof(ReQL_Obj_t));
-            ReQL_Obj_t **array = malloc(sizeof(ReQL_Obj_t*) * 10);
-            reql_array_init(obj, array, 10);
-            reql_update_array(stack, obj);
-            ++arr_open;
-            break;
-          }
-          case '{': {
-            ReQL_Obj_t *obj = malloc(sizeof(ReQL_Obj_t));
-            ReQL_Pair_t *pairs = malloc(sizeof(ReQL_Pair_t) * 10);
-            reql_object_init(obj, pairs, 10);
-            reql_update_array(stack, obj);
-            ++obj_open;
-            break;
-          }
-          case '"': {
-            state = REQL_R_STR;
-            str_start = i + 1;
-            break;
-          }
-          case '-':
-          case '0':
-          case '1':
-          case '2':
-          case '3':
-          case '4':
-          case '5':
-          case '6':
-          case '7':
-          case '8':
-          case '9': {
-            ReQL_Byte *str_end = NULL;
-            double num = strtod((char *)&json[i], (char **)&str_end);
-            if (str_end == NULL) {
+            if (obj == NULL) {
               return NULL;
             }
-            ReQL_Obj_t *obj = malloc(sizeof(ReQL_Obj_t));
-            reql_number_init(obj, num);
-            reql_update_array(stack, obj);
-            state = reql_merge_stack(stack);
-            i = (ReQL_Size)((((size_t)(str_end - json)) / sizeof(ReQL_Byte))  - 1);
-            break;
+
+            reql_string_init(obj, NULL, 0);
+            return obj;
           }
-          case 't': {
-            if (size - i < 4) {
-              return NULL;
-            }
-            if (memcmp(&json[i], json_true, 4) == 0) {
-              ReQL_Obj_t *obj = malloc(sizeof(ReQL_Obj_t));
-              reql_bool_init(obj, 1);
-              reql_update_array(stack, obj);
-              state = reql_merge_stack(stack);
-              i += 3;
-              break;
-            }
+
+          ReQL_Obj_t *out = malloc(sizeof(ReQL_Obj_t));
+          
+          if (out == NULL) {
             return NULL;
           }
-          case 'f': {
-            if (size - i < 5) {
-              return NULL;
-            }
-            if (memcmp(&json[i], json_false, 5) == 0) {
-              ReQL_Obj_t *obj = malloc(sizeof(ReQL_Obj_t));
-              reql_bool_init(obj, 0);
-              reql_update_array(stack, obj);
-              state = reql_merge_stack(stack);
-              i += 4;
-              break;
-            }
+
+          ReQL_Byte *buf = malloc(sizeof(ReQL_Byte) * size);
+
+          if (buf == NULL) {
+            free(out);
             return NULL;
           }
-          case 'n': {
-            if (size - i < 4) {
-              return NULL;
-            }
-            if (memcmp(&json[i], json_null, 4) == 0) {
-              ReQL_Obj_t *obj = malloc(sizeof(ReQL_Obj_t));
-              reql_null_init(obj);
-              reql_update_array(stack, obj);
-              state = reql_merge_stack(stack);
-              i += 3;
-              break;
-            }
-            return NULL;
-          }
-          case ']': {
-            if (arr_open == 0) {
-              return NULL;
-            }
-            if (reql_datum_type(reql_array_last(stack)) != REQL_R_ARRAY) {
-              return NULL;
-            }
-            state = reql_merge_stack(stack);
-            --arr_open;
-            break;
-          }
-          case '}': {
-            if (obj_open == 0) {
-              return NULL;
-            }
-            if (reql_datum_type(reql_array_last(stack)) != REQL_R_OBJECT) {
-              return NULL;
-            }
-            state = reql_merge_stack(stack);
-            --obj_open;
-            break;
-          }
-          default: return NULL;
+
+          reql_string_init(out, buf, size);
+          reql_string_append(out, start, size);
+
+          return out;
         }
-        break;
+        *track = res;
+        ++track;
+        ++(*pos);
       }
+      break;
+    }
+    case '[': {
+      ++(*pos);
+      ReQL_Obj_t *elem = NULL;
+      ReQL_Obj_t *top = NULL;
+      ReQL_Size i = 0;
+      while (*pos != end) {
+        if (reql_next_char(pos, end, ']')) {
+          ReQL_Obj_t *obj = malloc(sizeof(ReQL_Obj_t));
+          if (obj == NULL) {
+            reql_destroy_stack(elem);
+            return NULL;
+          }
+          if (i == 0) {
+            reql_array_init(obj, NULL, 0);
+          } else  {
+            ReQL_Obj_t **array = malloc(sizeof(ReQL_Obj_t*) * i);
+            if (array == NULL) {
+              free(obj);
+              reql_destroy_stack(elem);
+              return NULL;
+            }
+            reql_array_init(obj, array, i);
+            while (elem != NULL) {
+              ReQL_Obj_t *val = elem;
+              elem = elem->owner;
+              val->owner = NULL;
+              reql_array_insert(obj, val, --i);
+            }
+          }
+          return obj;
+        }
+        top = reql_decode_(pos, end);
+        if (top == NULL) {
+          reql_destroy_stack(elem);
+          return NULL;
+        }
+        top->owner = elem;
+        elem = top;
+        if (!reql_next_char(pos, end, ',')) {
+          if (**pos != ']') {
+            reql_destroy_stack(elem);
+            return NULL;
+          }
+        }
+        ++i;
+      }
+      break;
+    }
+    case '{': {
+      ++(*pos);
+      ReQL_Obj_t *elem = NULL;
+      ReQL_Obj_t *top = NULL;
+      ReQL_Size i = 0;
+      while (*pos != end) {
+        if (reql_next_char(pos, end, '}')) {
+          ReQL_Obj_t *obj = malloc(sizeof(ReQL_Obj_t));
+          if (obj == NULL) {
+            reql_destroy_stack(elem);
+            return NULL;
+          }
+          if (i == 0) {
+            reql_object_init(obj, NULL, 0);
+          } else  {
+            ReQL_Pair_t *pair = malloc(sizeof(ReQL_Pair_t) * i);
+            if (pair == NULL) {
+              free(obj);
+              reql_destroy_stack(elem);
+              return NULL;
+            }
+            reql_object_init(obj, pair, i);
+            while (elem != NULL) {
+              if (elem->owner == NULL) {
+                reql_json_destroy(obj);
+                reql_destroy_stack(elem);
+                return NULL;
+              }
+              ReQL_Obj_t *val = elem;
+              elem = elem->owner;
+              ReQL_Obj_t *key = elem;
+              elem = elem->owner;
+              key->owner = NULL;
+              val->owner = NULL;
+              reql_object_add(obj, key, val);
+            }
+          }
+          return obj;
+        }
+        top = reql_decode_(pos, end);
+        if (top == NULL) {
+          reql_destroy_stack(elem);
+          return NULL;
+        }
+        top->owner = elem;
+        elem = top;
+        if (!reql_next_char(pos, end, ':')) {
+          reql_destroy_stack(elem);
+          return NULL;
+        }
+        top = reql_decode_(pos, end);
+        if (top == NULL) {
+          reql_destroy_stack(elem);
+          return NULL;
+        }
+        top->owner = elem;
+        elem = top;
+        if (!reql_next_char(pos, end, ',')) {
+          if (**pos != '}') {
+            reql_destroy_stack(elem);
+            return NULL;
+          }
+        }
+        ++i;
+      }
+      break;
+    }
+    case 'f': {
+      if ((*pos) + 5 >= end) {
+        return NULL;
+      }
+      if (memcmp(*pos, json_false, 5) == 0) {
+        ReQL_Obj_t *obj = malloc(sizeof(ReQL_Obj_t));
+        if (obj != NULL) {
+          reql_bool_init(obj, 0);
+          *pos += 5;
+        }
+        return obj;
+      }
+      break;
+    }
+    case 'n': {
+      if ((*pos) + 4 >= end) {
+        return NULL;
+      }
+      if (memcmp(*pos, json_null, 4) == 0) {
+        ReQL_Obj_t *obj = malloc(sizeof(ReQL_Obj_t));
+        if (obj != NULL) {
+          reql_null_init(obj);
+          *pos += 4;
+        }
+        return obj;
+      }
+      break;
+    }
+    case 't': {
+      if ((*pos) + 4 >= end) {
+        return NULL;
+      }
+      if (memcmp(*pos, json_true, 4) == 0) {
+        ReQL_Obj_t *obj = malloc(sizeof(ReQL_Obj_t));
+        if (obj != NULL) {
+          reql_bool_init(obj, 1);
+          *pos += 4;
+        }
+        return obj;
+      }
+      break;
+    }
+    case '-':
+    case '0':
+    case '1':
+    case '2':
+    case '3':
+    case '4':
+    case '5':
+    case '6':
+    case '7':
+    case '8':
+    case '9': {
+      double num = strtod((char *)*pos, (char **)pos);
+      if (pos == NULL) {
+        return NULL;
+      }
+      ReQL_Obj_t *obj = malloc(sizeof(ReQL_Obj_t));
+      if (obj != NULL) {
+        reql_number_init(obj, num);
+      }
+      return obj;
     }
   }
-
-  if (arr_open != 0 || obj_open != 0 || reql_size(stack) > 1) {
-    return NULL;
-  }
-
-  return reql_array_pop(stack);
+  return NULL;
 }
 
 extern ReQL_Obj_t *
 reql_decode(ReQL_Byte *json, ReQL_Size size) {
-  ReQL_Obj_t *stack = malloc(sizeof(ReQL_Obj_t));
-  ReQL_Obj_t **arr = malloc(sizeof(ReQL_Obj_t*) * 10);
-  reql_array_init(stack, arr, 10);
-
-  ReQL_Obj_t *val = reql_decode_(stack, json, size);
-
-  reql_json_destroy(stack);
-
-  return val;
+  return reql_decode_(&json, json + size);
 }
