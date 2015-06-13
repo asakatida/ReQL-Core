@@ -25,10 +25,9 @@ limitations under the License.
 extern "C" {
 #endif
 
-#include "./reql/ast.h"
 #include "./reql/connection.h"
 #include "./reql/cursor.h"
-#include "./reql/expr.h"
+#include "./reql/query.h"
 #include "./reql/types.h"
 
 #ifdef __cplusplus

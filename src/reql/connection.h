@@ -26,7 +26,7 @@ extern "C" {
 #endif
 
 #include "./reql/cursor.h"
-#include "./reql/expr.h"
+#include "./reql/query.h"
 #include "./reql/types.h"
 
 /**

@@ -971,9 +971,9 @@ def main():
     build('src/Node/ast.hpp', node_term_def)
     build('src/Python/ast.c', py_term_imp)
     build('src/Python/ast.h', py_term_def)
-    build('src/reql/ast.c', term_imp)
-    build('src/reql/ast.h', term_def)
-    build('src/reql/expr.h', enum_def, ",\n  ")
+    build('src/reql/query.c', term_imp)
+    build('src/reql/query.h', term_def)
+    build('src/reql/query.h', enum_def, ",\n  ")
     build('src/Ruby/ast.c', rb_term_imp)
     build('src/Ruby/ast.h', rb_term_def)
 

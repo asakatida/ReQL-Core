@@ -21,7 +21,7 @@ limitations under the License.
 #include "./reql/encode.h"
 
 #include "./reql/char.h"
-#include "./reql/expr.h"
+#include "./reql/query.h"
 #include "./reql/types.h"
 
 #include <stdio.h>

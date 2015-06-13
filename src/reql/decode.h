@@ -25,7 +25,7 @@ limitations under the License.
 extern "C" {
 #endif
 
-#include "./reql/expr.h"
+#include "./reql/query.h"
 #include "./reql/types.h"
 
 extern ReQL_Obj_t *

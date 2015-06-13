@@ -24,8 +24,8 @@ limitations under the License.
 #include "./reql/decode.h"
 #include "./reql/encode.h"
 #include "./reql/error.h"
-#include "./reql/expr.h"
 #include "./reql/portable_endian.h"
+#include "./reql/query.h"
 #include "./reql/types.h"
 
 #include <netdb.h>

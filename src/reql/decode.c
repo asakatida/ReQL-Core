@@ -22,7 +22,7 @@ limitations under the License.
 
 #include "./reql/char.h"
 #include "./reql/error.h"
-#include "./reql/expr.h"
+#include "./reql/query.h"
 #include "./reql/types.h"
 
 #include <ctype.h>

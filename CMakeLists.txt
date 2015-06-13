@@ -11,14 +11,13 @@ set(SOURCES
  src/cpp/error.cpp
  src/cpp/parser.cpp
  src/cpp/query.cpp
- src/reql/ast.c
  src/reql/char.c
  src/reql/connection.c
  src/reql/cursor.c
  src/reql/decode.c
  src/reql/encode.c
  src/reql/error.c
- src/reql/expr.c
+ src/reql/query.c
  test/c/connection.cpp
  test/c/polyglot/aggregation.cpp
  test/c/polyglot/arity.cpp
@@ -408,7 +407,6 @@ set(MOC_HEADERS
  src/cpp/parser.hpp
  src/cpp/query.hpp
  src/cpp/types.hpp
- src/reql/ast.h
  src/reql/char.h
  src/reql/connection.h
  src/reql/core.h
@@ -416,8 +414,8 @@ set(MOC_HEADERS
  src/reql/decode.h
  src/reql/encode.h
  src/reql/error.h
- src/reql/expr.h
  src/reql/portable_endian.h
+ src/reql/query.h
  src/reql/types.h
 )
 

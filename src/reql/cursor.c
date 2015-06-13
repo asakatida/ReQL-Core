@@ -22,7 +22,7 @@ limitations under the License.
 
 #include "./reql/connection.h"
 #include "./reql/error.h"
-#include "./reql/expr.h"
+#include "./reql/query.h"
 
 #include <pthread.h>
 #include <stdlib.h>

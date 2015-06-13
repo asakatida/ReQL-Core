@@ -371,8 +371,6 @@
 		1ED9DB5E1B14E3DA00B13EAD /* transformation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1ED9DA6C1B14E3DA00B13EAD /* transformation.cpp */; };
 		1EE680201B0C39D200C97B18 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1EE6801F1B0C39D200C97B18 /* main.cpp */; };
 		8700091C1B1A8843007EA4BA /* Connection.m in Sources */ = {isa = PBXBuildFile; fileRef = 8700091B1B1A8843007EA4BA /* Connection.m */; };
-		8728ACC81B1BEE1F00588F9A /* ast.c in Sources */ = {isa = PBXBuildFile; fileRef = 8791C7D61B138A43004798D7 /* ast.c */; };
-		8728ACC91B1BEE1F00588F9A /* ast.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7D71B138A43004798D7 /* ast.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8728ACCA1B1BEE1F00588F9A /* char.c in Sources */ = {isa = PBXBuildFile; fileRef = 8791C7D81B138A43004798D7 /* char.c */; };
 		8728ACCB1B1BEE1F00588F9A /* char.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7D91B138A43004798D7 /* char.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8728ACCC1B1BEE1F00588F9A /* connection.c in Sources */ = {isa = PBXBuildFile; fileRef = 8791C7DA1B138A43004798D7 /* connection.c */; };
@@ -386,8 +384,6 @@
 		8728ACD41B1BEE1F00588F9A /* encode.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7E21B138A43004798D7 /* encode.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8728ACD51B1BEE1F00588F9A /* error.c in Sources */ = {isa = PBXBuildFile; fileRef = 8791C7E31B138A43004798D7 /* error.c */; };
 		8728ACD61B1BEE1F00588F9A /* error.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7E41B138A43004798D7 /* error.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8728ACD71B1BEE1F00588F9A /* expr.c in Sources */ = {isa = PBXBuildFile; fileRef = 8791C7E51B138A43004798D7 /* expr.c */; };
-		8728ACD81B1BEE1F00588F9A /* expr.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7E61B138A43004798D7 /* expr.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8728ACD91B1BEE1F00588F9A /* portable_endian.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7E71B138A43004798D7 /* portable_endian.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8728ACDA1B1BEE1F00588F9A /* types.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7E81B138A43004798D7 /* types.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8728ACE31B1BEEB800588F9A /* liblibReQL-core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8728ACC41B1BEE0F00588F9A /* liblibReQL-core.dylib */; };
@@ -420,6 +416,8 @@
 		8791C8501B13968C004798D7 /* libReQL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8791C8451B13968C004798D7 /* libReQL.framework */; };
 		8791C8571B13968C004798D7 /* libReQLTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8791C8561B13968C004798D7 /* libReQLTests.m */; };
 		879C95BD1B274A6D00EF7026 /* types.h in Headers */ = {isa = PBXBuildFile; fileRef = 879C95BC1B274A6D00EF7026 /* types.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		87CD586E1B2CADA300EA800F /* query.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CD586C1B2CADA300EA800F /* query.c */; };
+		87CD586F1B2CADA300EA800F /* query.h in Headers */ = {isa = PBXBuildFile; fileRef = 87CD586D1B2CADA300EA800F /* query.h */; };
 		87D94E731B26CAA300381E25 /* connection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87D94E721B26CAA300381E25 /* connection.cpp */; };
 		87DAA63B1B13CB69005626BF /* Connection.h in Headers */ = {isa = PBXBuildFile; fileRef = 87DAA6391B13CB69005626BF /* Connection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		87DAA63C1B13CB69005626BF /* Connection.m in Sources */ = {isa = PBXBuildFile; fileRef = 87DAA63A1B13CB69005626BF /* Connection.m */; };
@@ -427,7 +425,6 @@
 		87DAA6441B13CB96005626BF /* Cursor.m in Sources */ = {isa = PBXBuildFile; fileRef = 87DAA6421B13CB96005626BF /* Cursor.m */; };
 		87DAA6471B13CBBE005626BF /* Query.h in Headers */ = {isa = PBXBuildFile; fileRef = 87DAA6451B13CBBE005626BF /* Query.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		87DAA6481B13CBBE005626BF /* Query.m in Sources */ = {isa = PBXBuildFile; fileRef = 87DAA6461B13CBBE005626BF /* Query.m */; };
-		87DAA64A1B13CE01005626BF /* ast.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7D71B138A43004798D7 /* ast.h */; };
 		87DAA64C1B13CE01005626BF /* char.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7D91B138A43004798D7 /* char.h */; };
 		87DAA64E1B13CE01005626BF /* connection.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7DB1B138A43004798D7 /* connection.h */; };
 		87DAA64F1B13CE01005626BF /* core.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7DC1B138A43004798D7 /* core.h */; };
@@ -435,7 +432,6 @@
 		87DAA6531B13CE01005626BF /* decode.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7E01B138A43004798D7 /* decode.h */; };
 		87DAA6551B13CE01005626BF /* encode.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7E21B138A43004798D7 /* encode.h */; };
 		87DAA6571B13CE01005626BF /* error.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7E41B138A43004798D7 /* error.h */; };
-		87DAA6591B13CE01005626BF /* expr.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7E61B138A43004798D7 /* expr.h */; };
 		87DAA65B1B13CE01005626BF /* types.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7E81B138A43004798D7 /* types.h */; };
 		87E6E0D71B1E042500EECE37 /* liblibReQL-core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8728ACC41B1BEE0F00588F9A /* liblibReQL-core.dylib */; };
 /* End PBXBuildFile section */
@@ -873,8 +869,6 @@
 		8773F1C11A6A058D001F14C5 /* libReQL-test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "libReQL-test"; sourceTree = BUILT_PRODUCTS_DIR; };
 		878CDF871AFE6196008638B8 /* error.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = error.cpp; sourceTree = "<group>"; };
 		878CDF881AFE6196008638B8 /* error.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = error.hpp; sourceTree = "<group>"; };
-		8791C7D61B138A43004798D7 /* ast.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ast.c; sourceTree = "<group>"; };
-		8791C7D71B138A43004798D7 /* ast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ast.h; sourceTree = "<group>"; };
 		8791C7D81B138A43004798D7 /* char.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = char.c; sourceTree = "<group>"; };
 		8791C7D91B138A43004798D7 /* char.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = char.h; sourceTree = "<group>"; };
 		8791C7DA1B138A43004798D7 /* connection.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = connection.c; sourceTree = "<group>"; };
@@ -888,8 +882,6 @@
 		8791C7E21B138A43004798D7 /* encode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = encode.h; sourceTree = "<group>"; };
 		8791C7E31B138A43004798D7 /* error.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = error.c; sourceTree = "<group>"; };
 		8791C7E41B138A43004798D7 /* error.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = error.h; sourceTree = "<group>"; };
-		8791C7E51B138A43004798D7 /* expr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = expr.c; sourceTree = "<group>"; };
-		8791C7E61B138A43004798D7 /* expr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = expr.h; sourceTree = "<group>"; };
 		8791C7E71B138A43004798D7 /* portable_endian.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = portable_endian.h; sourceTree = "<group>"; };
 		8791C7E81B138A43004798D7 /* types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
 		8791C8451B13968C004798D7 /* libReQL.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = libReQL.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -899,6 +891,8 @@
 		8791C8551B13968C004798D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8791C8561B13968C004798D7 /* libReQLTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = libReQLTests.m; sourceTree = "<group>"; };
 		879C95BC1B274A6D00EF7026 /* types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
+		87CD586C1B2CADA300EA800F /* query.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = query.c; sourceTree = "<group>"; };
+		87CD586D1B2CADA300EA800F /* query.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = query.h; sourceTree = "<group>"; };
 		87D94E721B26CAA300381E25 /* connection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = connection.cpp; sourceTree = "<group>"; };
 		87DAA6391B13CB69005626BF /* Connection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Connection.h; sourceTree = "<group>"; };
 		87DAA63A1B13CB69005626BF /* Connection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Connection.m; sourceTree = "<group>"; };
@@ -1699,8 +1693,6 @@
 		8791C7D51B138A43004798D7 /* reql */ = {
 			isa = PBXGroup;
 			children = (
-				8791C7D61B138A43004798D7 /* ast.c */,
-				8791C7D71B138A43004798D7 /* ast.h */,
 				8791C7D81B138A43004798D7 /* char.c */,
 				8791C7D91B138A43004798D7 /* char.h */,
 				8791C7DA1B138A43004798D7 /* connection.c */,
@@ -1714,9 +1706,9 @@
 				8791C7E21B138A43004798D7 /* encode.h */,
 				8791C7E31B138A43004798D7 /* error.c */,
 				8791C7E41B138A43004798D7 /* error.h */,
-				8791C7E51B138A43004798D7 /* expr.c */,
-				8791C7E61B138A43004798D7 /* expr.h */,
 				8791C7E71B138A43004798D7 /* portable_endian.h */,
+				87CD586C1B2CADA300EA800F /* query.c */,
+				87CD586D1B2CADA300EA800F /* query.h */,
 				8791C7E81B138A43004798D7 /* types.h */,
 			);
 			name = reql;
@@ -1774,10 +1766,9 @@
 				8728ACD91B1BEE1F00588F9A /* portable_endian.h in Headers */,
 				8728ACD41B1BEE1F00588F9A /* encode.h in Headers */,
 				8728ACCB1B1BEE1F00588F9A /* char.h in Headers */,
-				8728ACD81B1BEE1F00588F9A /* expr.h in Headers */,
+				87CD586F1B2CADA300EA800F /* query.h in Headers */,
 				8728ACCE1B1BEE1F00588F9A /* core.h in Headers */,
 				8728ACD21B1BEE1F00588F9A /* decode.h in Headers */,
-				8728ACC91B1BEE1F00588F9A /* ast.h in Headers */,
 				8728ACD01B1BEE1F00588F9A /* cursor.h in Headers */,
 				8728ACDA1B1BEE1F00588F9A /* types.h in Headers */,
 				8728ACCD1B1BEE1F00588F9A /* connection.h in Headers */,
@@ -1817,12 +1808,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				87DAA6431B13CB96005626BF /* Cursor.h in Headers */,
-				87DAA6591B13CE01005626BF /* expr.h in Headers */,
 				87DAA65B1B13CE01005626BF /* types.h in Headers */,
 				87DAA64E1B13CE01005626BF /* connection.h in Headers */,
 				87DAA63B1B13CB69005626BF /* Connection.h in Headers */,
 				87DAA6531B13CE01005626BF /* decode.h in Headers */,
-				87DAA64A1B13CE01005626BF /* ast.h in Headers */,
 				87DAA64C1B13CE01005626BF /* char.h in Headers */,
 				87DAA64F1B13CE01005626BF /* core.h in Headers */,
 				87DAA6551B13CE01005626BF /* encode.h in Headers */,
@@ -2017,13 +2006,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8728ACC81B1BEE1F00588F9A /* ast.c in Sources */,
 				8728ACD31B1BEE1F00588F9A /* encode.c in Sources */,
 				8728ACCC1B1BEE1F00588F9A /* connection.c in Sources */,
+				87CD586E1B2CADA300EA800F /* query.c in Sources */,
 				8728ACD51B1BEE1F00588F9A /* error.c in Sources */,
 				8728ACCA1B1BEE1F00588F9A /* char.c in Sources */,
 				8728ACD11B1BEE1F00588F9A /* decode.c in Sources */,
-				8728ACD71B1BEE1F00588F9A /* expr.c in Sources */,
 				8728ACCF1B1BEE1F00588F9A /* cursor.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2481,8 +2469,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
-				GCC_C_LANGUAGE_STANDARD = c11;
 				COMBINE_HIDPI_IMAGES = YES;
+				GCC_C_LANGUAGE_STANDARD = c11;
 				ONLY_ACTIVE_ARCH = YES;
 			};
 			name = Debug;
@@ -2491,8 +2479,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
-				GCC_C_LANGUAGE_STANDARD = c11;
 				COMBINE_HIDPI_IMAGES = YES;
+				GCC_C_LANGUAGE_STANDARD = c11;
 			};
 			name = Release;
 		};

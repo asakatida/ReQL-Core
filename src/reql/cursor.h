@@ -26,7 +26,7 @@ extern "C" {
 #endif
 
 #include "./reql/connection.h"
-#include "./reql/expr.h"
+#include "./reql/query.h"
 
 extern void
 reql_cur_set_end_cb(ReQL_Cur_t *cur, ReQL_End_Function cb, void *arg);
