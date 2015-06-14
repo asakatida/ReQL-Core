@@ -79,12 +79,15 @@ reql_cur_set_error_cb(ReQL_Cur_t *cur, ReQL_Error_Function cb, void *arg) {
 
 static void
 reql_cur_set_response_(ReQL_Cur_t *cur, ReQL_Obj_t *res) {
+  char close = 0;
   ReQL_Obj_t key;
   ReQL_Byte buf[1];
   reql_string_init(&key, buf, (ReQL_Byte *)"t", 1);
   ReQL_Obj_t *type = reql_object_get(res, &key);
   if (type == NULL) {
+    reql_json_destroy(res);
     reql_cur_close_(cur);
+    return;
   } else {
     int r_type = (int)(reql_to_number(type));
     switch (r_type) {
@@ -95,7 +98,7 @@ reql_cur_set_response_(ReQL_Cur_t *cur, ReQL_Obj_t *res) {
       case REQL_SUCCESS_ATOM:
       case REQL_SUCCESS_SEQUENCE:
       case REQL_WAIT_COMPLETE: {
-        reql_cur_close_(cur);
+        close = 1;
         break;
       }
       case REQL_CLIENT_ERROR:
@@ -126,6 +129,9 @@ reql_cur_set_response_(ReQL_Cur_t *cur, ReQL_Obj_t *res) {
     reql_json_destroy(elem);
   }
   reql_json_destroy(res);
+  if (close) {
+    reql_cur_close_(cur);
+  }
 }
 
 extern void
