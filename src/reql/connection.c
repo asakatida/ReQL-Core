@@ -284,10 +284,8 @@ reql_conn_loop(void *conn) {
 
     if (size > 0) {
       if (pos >= size) {
-        printf("found query response %s\n", response);
         ReQL_Obj_t *res = reql_decode(response, size);
         if (res == NULL) {
-          printf("failed to decode query response\n");
           reql_conn_lock(conn);
           ReQL_Cur_t *cur = ((ReQL_Conn_t *)conn)->cursors;
           if (cur != NULL) {
@@ -325,7 +323,6 @@ reql_conn_loop(void *conn) {
       pos -= 12;
       token = reql_get_64_token(response);
       size = reql_get_32_le(&response[8]);
-      printf("found response for token %llu size %i\n", token, size);
       ReQL_Byte *buf = realloc(response, sizeof(ReQL_Byte) * size);
       if (buf == NULL) {
         break;
@@ -652,8 +649,6 @@ reql_run_(const ReQL_String_t *wire_query, ReQL_Conn_t *conn, const ReQL_Token t
 
   magic[2].iov_base = wire_query->str;
   magic[2].iov_len = wire_query->size;
-
-  printf("sending query %llu, %zu, %s\n", token, magic[2].iov_len, magic[2].iov_base);
 
   if (writev(reql_conn_socket(conn), magic, 3) != (wire_query->size + 12)) {
     return -1;
