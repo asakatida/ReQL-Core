@@ -30,10 +30,10 @@ limitations under the License.
 
 @end
 
-int
+static int
 cursor_each_cb(ReQL_Obj_t *res, void *data);
 
-int
+static int
 cursor_each_cb(ReQL_Obj_t *res, void *data) {
   ReQLCursor *cursor = (__bridge ReQLCursor *)(data);
   [cursor setNext:res];
