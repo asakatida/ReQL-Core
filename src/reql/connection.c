@@ -494,100 +494,79 @@ reql_conn_open(ReQL_Conn_t *conn) {
 
 static ReQL_Obj_t *
 reql_build(const ReQL_Obj_t *query) {
-  ReQL_Obj_t *obj = NULL;
-
   switch (reql_datum_type(query)) {
     case REQL_R_ARRAY: {
-      obj = malloc(sizeof(ReQL_Obj_t));
-      if (obj == NULL) {
-        break;
-      }
+      ReQL_Obj_t *term = malloc(sizeof(ReQL_Obj_t));
+      reql_ast_make_array(term, NULL);
+      ReQL_Obj_t *obj = reql_build(term);
+      reql_json_destroy(term); term = NULL;
+      ReQL_Obj_t *args = malloc(sizeof(ReQL_Obj_t));
       ReQL_Size size = reql_size(query);
-      ReQL_Obj_t **arrray = malloc(sizeof(ReQL_Obj_t*) * size);
-      reql_array_init(obj, arrray, size);
+      ReQL_Obj_t **array = NULL;
+      if (size > 0) {
+        array = malloc(sizeof(ReQL_Obj_t*) * size);
+      }
+      reql_array_init(args, array, size);
       ReQL_Iter_t it = reql_new_iter(query);
-      const ReQL_Obj_t *elem;
+      ReQL_Obj_t *elem = NULL;
       while ((elem = reql_iter_next(&it)) != NULL) {
-        reql_array_append(obj, reql_build(elem));
+        reql_array_append(args, reql_build(elem));
       }
-      break;
+      ReQL_Obj_t *fake_args = reql_array_last(obj);
+      reql_array_insert(obj, args, 1);
+      reql_json_destroy(fake_args);
+      return obj;
     }
-    case REQL_R_BOOL: {
-      obj = malloc(sizeof(ReQL_Obj_t));
-      if (obj == NULL) {
-        break;
-      }
-      reql_bool_init(obj, reql_to_bool(query));
-      break;
-    }
-    case REQL_R_JSON: break;
-    case REQL_R_NULL: {
-      obj = malloc(sizeof(ReQL_Obj_t));
-      if (obj == NULL) {
-        break;
-      }
-      reql_null_init(obj);
-      break;
-    }
-    case REQL_R_NUM: {
-      obj = malloc(sizeof(ReQL_Obj_t));
-      if (obj == NULL) {
-        break;
-      }
-      reql_number_init(obj, reql_to_number(query));
-      break;
+    case REQL_R_BOOL:
+    case REQL_R_JSON:
+    case REQL_R_NULL:
+    case REQL_R_NUM:
+    case REQL_R_STR: {
+      return reql_json_copy(query);
     }
     case REQL_R_OBJECT: {
-      obj = malloc(sizeof(ReQL_Obj_t));
-      if (obj == NULL) {
-        break;
-      }
+      ReQL_Obj_t *obj = malloc(sizeof(ReQL_Obj_t));
       ReQL_Size size = reql_size(query);
-      ReQL_Pair_t *pairs = malloc(sizeof(ReQL_Pair_t) * size);
+      ReQL_Pair_t *pairs = NULL;
+      if (size > 0) {
+        pairs = malloc(sizeof(ReQL_Pair_t) * size);
+      }
       reql_object_init(obj, pairs, size);
       ReQL_Iter_t it = reql_new_iter(query);
-      ReQL_Obj_t *key;
+      ReQL_Obj_t *key = NULL;
       while ((key = reql_iter_next(&it)) != NULL) {
-        reql_object_add(obj, reql_build(key), reql_build(reql_object_get(query, key)));
+        reql_object_add(obj, reql_json_copy(key), reql_build(reql_object_get(query, key)));
       }
-      break;
+      return obj;
     }
     case REQL_R_REQL: {
-      obj = malloc(sizeof(ReQL_Obj_t));
-      if (obj == NULL) {
-        break;
-      }
-      ReQL_Obj_t **array = malloc(sizeof(ReQL_Obj_t*) * 3);
-      reql_array_init(obj, array, 3);
-
       ReQL_Obj_t *term = malloc(sizeof(ReQL_Obj_t));
-
-      reql_number_init(term, (double)(reql_term_type(query)));
-
-      reql_array_append(obj, term);
-
-      if (query->obj.args.args != NULL) {
-        reql_array_append(obj, reql_build(query->obj.args.args));
+      ReQL_Size term_size = reql_size(query->obj.args.kwargs) > 0 ? 3 : 2;
+      ReQL_Obj_t **array = malloc(sizeof(ReQL_Obj_t*) * term_size);
+      reql_array_init(term, array, term_size);
+      ReQL_Obj_t *tt = malloc(sizeof(ReQL_Obj_t));
+      reql_number_init(tt, (double)(reql_term_type(query)));
+      reql_array_append(term, tt);
+      ReQL_Obj_t *args = malloc(sizeof(ReQL_Obj_t));
+      ReQL_Size size = reql_size(query->obj.args.args);
+      ReQL_Obj_t **args_array = NULL;
+      if (size > 0) {
+        args_array = malloc(sizeof(ReQL_Obj_t*) * size);
       }
-
-      if (query->obj.args.kwargs != NULL) {
-        reql_array_append(obj, reql_build(query->obj.args.kwargs));
+      reql_array_init(args, args_array, size);
+      ReQL_Iter_t it = reql_new_iter(query->obj.args.args);
+      ReQL_Obj_t *elem = NULL;
+      while ((elem = reql_iter_next(&it)) != NULL) {
+        reql_array_append(args, reql_build(elem));
       }
-      break;
-    }
-    case REQL_R_STR: {
-      obj = malloc(sizeof(ReQL_Obj_t));
-      if (obj == NULL) {
-        break;
+      reql_array_append(term, args);
+      if (reql_size(query->obj.args.kwargs) > 0) {
+        reql_array_append(term, reql_build(query->obj.args.kwargs));
       }
-      ReQL_Size size = reql_size(query);
-      ReQL_Byte *buf = malloc(sizeof(ReQL_Byte) * size);
-      reql_string_init(obj, buf, reql_string_buf(query), size);
-      break;
+      return term;
     }
   }
-
-  return obj;
+  return NULL;
 }
 
 static ReQL_String_t *
