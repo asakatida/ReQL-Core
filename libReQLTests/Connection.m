@@ -22,7 +22,6 @@
   ReQLQuery *num = [ReQLQuery newWithNumber:@2];
   ReQLQuery *query = [num add:@[[ReQLQuery newWithNumber:@2]]];
   ReQLCursor *cursor = [query run:connection];
-  [cursor setDelegate:nil];
   XCTAssert(cursor != nil);
   NSArray *res = [cursor toArray];
   NSError *err;

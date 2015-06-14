@@ -24,9 +24,33 @@ limitations under the License.
 
 #import "./reql/core.h"
 
+@interface ReQLCursor ()
+
+-(void)setNext:(ReQL_Obj_t *)obj;
+
+@end
+
+int
+cursor_each_cb(ReQL_Obj_t *res, void *data);
+
+int
+cursor_each_cb(ReQL_Obj_t *res, void *data) {
+  ReQLCursor *cursor = (__bridge ReQLCursor *)(data);
+  [cursor setNext:res];
+  id<NSStreamDelegate> delegate = cursor.delegate;
+  if (delegate) {
+    [delegate stream:cursor handleEvent:NSStreamEventHasBytesAvailable];
+  }
+  return 0;
+}
+
 @implementation ReQLCursor {
   ReQL_Cur_t *p_cur;
+  id<NSStreamDelegate> __weak p_delegate;
+  id p_next;
 }
+
+@synthesize delegate=p_delegate;
 
 -(instancetype)init {
   if (self = [super init]) {
@@ -34,14 +58,22 @@ limitations under the License.
     if (p_cur == NULL) {
       return nil;
     }
+    p_next = nil;
+    [self setDelegate:self];
   }
   return self;
 }
 
 -(void)setDelegate:(id<NSStreamDelegate>)delegate {
   if (delegate) {
-    [super setDelegate:delegate];
+    p_delegate = delegate;
+  } else {
+    p_delegate = self;
   }
+}
+
+-(id<NSStreamDelegate>)delegate {
+  return p_delegate;
 }
 
 -(void *)data {
@@ -100,7 +132,54 @@ limitations under the License.
   return array;
 }
 
+-(void)scheduleInRunLoop:(NSRunLoop *)aRunLoop forMode:(NSString *)mode {
+  [super scheduleInRunLoop:aRunLoop forMode:mode];
+}
+
+-(void)open {
+  reql_cur_each(p_cur, cursor_each_cb, (__bridge void *)(self));
+}
+
+-(void)setNext:(ReQL_Obj_t *)obj {
+  p_next = [self convert:obj];
+}
+
+-(id)next {
+  id next = p_next;
+  p_next = nil;
+  return next;
+}
+
 -(void)stream:(ReQLCursor *)aStream handleEvent:(NSStreamEvent)eventCode {
+  switch (eventCode) {
+    case NSStreamEventEndEncountered: {
+      [aStream close];
+      [aStream removeFromRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+      aStream = nil;
+      break;
+    }
+    case NSStreamEventErrorOccurred: {
+      [aStream close];
+      break;
+    }
+    case NSStreamEventHasBytesAvailable: {
+      id next = [aStream next];
+      if (next == nil) {
+        [aStream close];
+      }
+      break;
+    }
+    case NSStreamEventHasSpaceAvailable: {
+      [aStream close];
+      break;
+    }
+    case NSStreamEventNone: {
+      break;
+    }
+    case NSStreamEventOpenCompleted: {
+      break;
+    }
+  }
 }
 
 -(BOOL)error:(NSError * __strong *)err {

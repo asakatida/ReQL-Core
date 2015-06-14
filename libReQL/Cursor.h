@@ -22,10 +22,28 @@ limitations under the License.
 
 @interface ReQLCursor : NSStream <NSStreamDelegate>
 
+@property(weak, atomic, readwrite, setter=setDelegate:, getter=delegate) id<NSStreamDelegate> delegate;
+
+-(instancetype)init;
+
+-(void)setDelegate:(id<NSStreamDelegate>)delegate;
+
+-(id<NSStreamDelegate>)delegate;
+
 -(void *)data;
 
 -(BOOL)error:(NSError * __strong *)err;
 
 -(NSArray *)toArray;
+
+-(void)scheduleInRunLoop:(NSRunLoop *)aRunLoop forMode:(NSString *)mode;
+
+-(void)open;
+
+-(id)next;
+
+-(void)stream:(ReQLCursor *)aStream handleEvent:(NSStreamEvent)eventCode;
+
+-(void)close;
 
 @end
