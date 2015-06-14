@@ -9,23 +9,33 @@ main(int argc, char **argv) {
   try {
     ReQL::Connection conn;
 
-    ReQL::db_list({}).filter({
-      ReQL::func({
-        1.0,
-        ReQL::var({1.0}).ne({std::string("rethinkdb")})
-      })
-    }).for_each({
-      ReQL::func({
-        2.0,
-        ReQL::var({2.0}).db({}).wait({})
-        .funcall({
-          ReQL::func({
-            3.0,
-            ReQL::var({2.0}).db_drop({})
-          })
-        })
-      })
-    })
+    ReQL::db_list(std::vector<ReQL::Query>())
+    .filter(std::vector<ReQL::Query>({
+      ReQL::func(std::vector<ReQL::Query>({
+        ReQL::Query(std::vector<ReQL::Query>({ReQL::Query(1.0)})),
+        ReQL::var(std::vector<ReQL::Query>({ReQL::Query(1.0)}))
+        .ne(std::vector<ReQL::Query>({
+          ReQL::Query(std::string("rethinkdb"))
+        }))
+      }))
+    }))
+    .for_each(std::vector<ReQL::Query>({
+      ReQL::func(std::vector<ReQL::Query>({
+        ReQL::Query(std::vector<ReQL::Query>({ReQL::Query(2.0)})),
+        ReQL::func(std::vector<ReQL::Query>({
+          ReQL::Query(std::vector<ReQL::Query>()),
+          ReQL::db_drop(std::vector<ReQL::Query>({
+            ReQL::var(std::vector<ReQL::Query>({ReQL::Query(2.0)}))
+          }))
+        }))
+        .funcall(std::vector<ReQL::Query>({
+          ReQL::db(std::vector<ReQL::Query>({
+            ReQL::var(std::vector<ReQL::Query>({ReQL::Query(2.0)}))
+          }))
+          .wait(std::vector<ReQL::Query>())
+        }))
+      }))
+    }))
     .run(conn).toVector().clear();
     
     conn.close();
