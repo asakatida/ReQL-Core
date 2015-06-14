@@ -16,10 +16,10 @@ TEST_CASE("cpp connection", "[c++][connect]") {
 
   REQUIRE(cur.isOpen());
 
-  Query res = cur.next();
+  Query res = cur.toVector();
 
   cur = db_drop(args).run(conn);
-  res = cur.next();
+  res = cur.toVector();
 
   conn.close();
 
