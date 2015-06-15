@@ -125,6 +125,60 @@ buildTermKwargs(const Query &query) {
   return obj;
 }
 
+static void
+reql_query_destroy(_C::ReQL_Obj_t *query) {
+  switch (_C::reql_datum_type(query)) {
+    case _C::REQL_R_ARRAY: {
+      _C::ReQL_Obj_t **arr = query->obj.datum.json.var.data.array;
+      if (arr == nullptr) {
+        break;
+      }
+
+      _C::ReQL_Size size = _C::reql_size(query);
+
+      for (size_t i = 0; i < size; ++i) {
+        reql_query_destroy(arr[i]);
+      }
+
+      delete [] arr;
+      break;
+    }
+    case _C::REQL_R_BOOL:
+    case _C::REQL_R_JSON:
+    case _C::REQL_R_NULL:
+    case _C::REQL_R_NUM: break;
+    case _C::REQL_R_OBJECT: {
+      _C::ReQL_Pair_t *pair = query->obj.datum.json.var.data.pair;
+      if (pair == nullptr) {
+        break;
+      }
+
+      _C::ReQL_Size size = _C::reql_size(query);
+
+      for (size_t i = 0; i < size; ++i) {
+        reql_query_destroy(pair[i].key);
+        reql_query_destroy(pair[i].val);
+      }
+
+      delete [] pair;
+      break;
+    }
+    case _C::REQL_R_REQL: {
+      reql_query_destroy(query->obj.args.args);
+      reql_query_destroy(query->obj.args.kwargs);
+      break;
+    }
+    case _C::REQL_R_STR: {
+      _C::ReQL_Byte *buf = _C::reql_string_buf(query);
+      if (buf != nullptr) {
+        delete [] buf;
+      }
+      break;
+    }
+  }
+  delete query;
+}
+
 static Query
 init(const _C::ReQL_AST_Function &f, const Types::array &args) {
   return Query(f, args);
@@ -187,9 +241,17 @@ Query::Query(Query &&other) : p_array(std::move(other.p_array)), p_bool(std::mov
 
 Cursor
 Query::run(const Connection &conn) const {
+  _C::ReQL_Obj_t *query = build();
+
+  if (query == nullptr) {
+    throw ReQLDriverError();
+  }
+
   Cursor cur;
 
-  reql_run(cur.get(), build(), conn.get(), nullptr);
+  reql_run(cur.get(), query, conn.get(), nullptr);
+
+  reql_query_destroy(query); query = nullptr;
 
   return cur;
 }
