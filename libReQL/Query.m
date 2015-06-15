@@ -102,6 +102,27 @@ if (obj == nil) {\
 
 @end
 
+static ReQLQuery *
+toQuery(id expr);
+
+static ReQLQuery *
+toQuery(id expr) {
+  if ([expr isKindOfClass:[ReQLQuery class]]) {
+    return expr;
+  } else if ([expr isKindOfClass:[NSArray class]]) {
+    return [ReQLQuery newWithArray:expr];
+  } else if ([expr isKindOfClass:[NSNull class]]) {
+    return [ReQLQuery new];
+  } else if ([expr isKindOfClass:[NSNumber class]]) {
+    return [ReQLQuery newWithNumber:expr];
+  } else if ([expr isKindOfClass:[NSObject class]]) {
+    return [ReQLQuery newWithObject:expr];
+  } else if ([expr isKindOfClass:[NSString class]]) {
+    return [ReQLQuery newWithString:expr];
+  }
+  return nil;
+}
+
 @implementation ArrayExpr
 
 +(instancetype)newTermFromArray:(NSArray *)val {
@@ -124,8 +145,8 @@ if (obj == nil) {\
     return nil;
   }
   reql_array_init(obj, buf, (ReQL_Size)size);
-  for (ReQLQuery *elem in p_data) {
-    ReQL_Obj_t *r_elem = [elem build];
+  for (id elem in p_data) {
+    ReQL_Obj_t *r_elem = [toQuery(elem) build];
     reql_array_append(obj, r_elem);
   }
   return obj;
@@ -209,11 +230,11 @@ if (obj == nil) {\
     return nil;
   }
   reql_object_init(obj, buf, (ReQL_Size)size);
-  for (NSString *key in p_data) {
+  for (id key in p_data) {
     @autoreleasepool {
-      ReQLQuery *val = [p_data objectForKey:key];
-      ReQL_Obj_t *r_key = [[StringExpr newTermFromString:key] build];
-      ReQL_Obj_t *r_val = [val build];
+      id val = [p_data objectForKey:key];
+      ReQL_Obj_t *r_key = [toQuery(key) build];
+      ReQL_Obj_t *r_val = [toQuery(val) build];
       reql_object_add(obj, r_key, r_val);
     }
   }

@@ -19,16 +19,17 @@
 - (void)testExample {
   ReQLConnection *connection = [ReQLConnection new];
   XCTAssert([connection isOpen]);
-  ReQLQuery *num = [ReQLQuery newWithNumber:@2];
-  ReQLQuery *query = [num add:@[[ReQLQuery newWithNumber:@2]]];
-  ReQLCursor *cursor = [query run:connection];
-  XCTAssert(cursor != nil);
-  NSArray *res = [cursor toArray];
-  NSError *err;
-  XCTAssert(![cursor error:&err]);
-  XCTAssert(res != nil);
-  XCTAssert([res isEqualTo:@[@4]]);
-  [cursor close];
+  if ([connection isOpen]) {
+    ReQLCursor *cursor = [[ReQLQuery add:@[@2, @2]] run:connection];
+    XCTAssert(cursor);
+    if (cursor) {
+      NSArray *res = [cursor toArray];
+      NSError *err;
+      XCTAssert(![cursor error:&err]);
+      XCTAssert([res isEqualTo:@[@4]]);
+    }
+    [cursor close];
+  }
   [connection close];
 }
 

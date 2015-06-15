@@ -22,33 +22,35 @@
 -(void)setUp {
   [super setUp];
   self.connection = [ReQLConnection new];
+  self.cursor = nil;
 }
 
 -(void)tearDown {
-  if (self.cursor != nil) {
-    [self.cursor close];
-  }
+  [self.cursor close];
   [self.connection close];
   [super tearDown];
 }
 
 -(void)verifyQuery:(ReQLQuery *)query result:(NSArray *)result {
-  ReQLCursor *cursor = [query run:self.connection];
-  XCTAssert(cursor != nil);
-  NSArray *res = [cursor toArray];
-  NSError *err;
-  XCTAssert(![cursor error:&err]);
-  XCTAssert(res != nil);
-  XCTAssert([res isEqualTo:result]);
+  XCTAssert([self.connection isOpen]);
+  if ([self.connection isOpen]) {
+    ReQLCursor *cursor = [query run:self.connection];
+    if (cursor) {
+      NSArray *res = [cursor toArray];
+      NSError *err;
+      XCTAssert(![cursor error:&err]);
+      XCTAssert([res isEqualTo:result]);
+    }
+  }
 }
 
 -(void)testExample {
-  [self verifyQuery:[[ReQLQuery newWithNumber:@2] add:@[[ReQLQuery newWithNumber:@2]]] result:@[@4]];
+  [self verifyQuery:[ReQLQuery add:@[@2, @2]] result:@[@4]];
 }
 
 -(void)testPerformanceExample {
   [self measureBlock:^{
-    [self verifyQuery:[[ReQLQuery newWithNumber:@2] add:@[[ReQLQuery newWithNumber:@2]]] result:@[@4]];
+    [self verifyQuery:[ReQLQuery add:@[@2, @2]] result:@[@4]];
   }];
 }
 
