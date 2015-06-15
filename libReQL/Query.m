@@ -314,7 +314,10 @@ toQuery(id expr) {
 -(ReQL_Obj_t *)build {
   NEW_REQL_OBJ;
   ReQL_Obj_t *r_args = [p_args build];
-  ReQL_Obj_t *r_kwargs = [p_kwargs build];
+  ReQL_Obj_t *r_kwargs = NULL;
+  if (p_kwargs) {
+    r_kwargs = [p_kwargs build];
+  }
   p_func(obj, r_args, r_kwargs);
   return obj;
 }
