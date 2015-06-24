@@ -17,6 +17,8 @@ from datetime import datetime
 from pathlib import Path
 from rethinkdb import ql2_pb2
 
+from . import test_definitions
+from . import test_query
 from . import test_results
 
 test_names = set()
@@ -106,23 +108,6 @@ def get_tables(test):
         pass
     return ['tbl']
 
-def eval_section(section, tables):
-    tables['null'] = None
-    try:
-        return str(eval(section, None, tables))
-    except:
-        pass
-    return ''
-
-def eval_definition(definition, tables, lang):
-    try:
-        exec(definition, None, tables)
-    except:
-        pass
-    else:
-        return str(definition)
-    return str(definition)
-
 def convert_tests(tests, lang):
     lang_tests = []
     tables = {table: test_results.TestTable(table) for table in get_tables(tests)}
@@ -130,14 +115,14 @@ def convert_tests(tests, lang):
         lang_test = []
         definitions = test.get('def')
         if definitions:
-            definitions = eval_definition(definitions, tables, lang)
-#            lang_tests.append(definitions)
+            definitions = test_definitions.eval_definition(definitions, tables, lang)
+            lang_tests.append(definitions)
         section = test.get('py', test.get('cd'))
         if section:
-#            if isinstance(section, str):
-#                lang_test.append(eval_section(section, tables))
-#            elif isinstance(section, list):
-#                lang_test.append('\n'.join([eval_section(s, tables) for s in section]))
+            if isinstance(section, str):
+                lang_test.append(test_query.eval_section(section, tables, lang))
+            elif isinstance(section, list):
+                lang_test.append('\n'.join([test_query.eval_section(s, tables, lang) for s in section]))
             try:
                 lang_test.append(test_results.eval_result(test.get('ot', {'result': 'blank'}), lang))
             except test_results.BadKeyError:
