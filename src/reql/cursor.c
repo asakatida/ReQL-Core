@@ -103,11 +103,11 @@ reql_cur_set_response_(ReQL_Cur_t *cur, ReQL_Obj_t *res) {
       }
       case REQL_CLIENT_ERROR:
       case REQL_COMPILE_ERROR:
-      case REQL_RUNTIME_ERROR: {
-        reql_cur_close_(cur);
-        return;
-      }
+      case REQL_RUNTIME_ERROR:
       default: {
+        if (cur->cb.error != NULL) {
+          cur->cb.error(res, cur->cb.data[ERROR]);
+        }
         reql_cur_close_(cur);
         return;
       }
