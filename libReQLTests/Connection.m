@@ -26,6 +26,7 @@
       NSArray *res = [cursor toArray];
       NSError *err;
       XCTAssert(![cursor error:&err]);
+      XCTAssert(!err);
       XCTAssert([res isEqualTo:@[@4]]);
     }
     [cursor close];
