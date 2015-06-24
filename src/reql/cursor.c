@@ -65,14 +65,14 @@ reql_cur_open_(ReQL_Cur_t *cur) {
   return cur->conn != NULL;
 }
 
-extern void
-reql_cur_set_end_cb(ReQL_Cur_t *cur, ReQL_End_Function cb, void *arg) {
+static void
+reql_cur_set_end_cb_(ReQL_Cur_t *cur, ReQL_End_Function cb, void *arg) {
   cur->cb.end = cb;
   cur->cb.data[END] = arg;
 }
 
-extern void
-reql_cur_set_error_cb(ReQL_Cur_t *cur, ReQL_Error_Function cb, void *arg) {
+static void
+reql_cur_set_error_cb_(ReQL_Cur_t *cur, ReQL_Error_Function cb, void *arg) {
   cur->cb.error = cb;
   cur->cb.data[ERROR] = arg;
 }
@@ -132,6 +132,20 @@ reql_cur_set_response_(ReQL_Cur_t *cur, ReQL_Obj_t *res) {
   if (close) {
     reql_cur_close_(cur);
   }
+}
+
+extern void
+reql_cur_set_end_cb(ReQL_Cur_t *cur, ReQL_End_Function cb, void *arg) {
+  reql_cur_lock(cur);
+  reql_cur_set_end_cb_(cur, cb, arg);
+  reql_cur_unlock(cur);
+}
+
+extern void
+reql_cur_set_error_cb(ReQL_Cur_t *cur, ReQL_Error_Function cb, void *arg) {
+  reql_cur_lock(cur);
+  reql_cur_set_error_cb_(cur, cb, arg);
+  reql_cur_unlock(cur);
 }
 
 extern void
