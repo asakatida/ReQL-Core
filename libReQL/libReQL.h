@@ -20,13 +20,10 @@ limitations under the License.
 
 #import <Cocoa/Cocoa.h>
 
-//! Project version number for libReQL.
 FOUNDATION_EXPORT const double libReQLVersionNumber;
 
-//! Project version string for libReQL.
 FOUNDATION_EXPORT const unsigned char libReQLVersionString[];
 
-// In this header, you should import all the public headers of your framework using statements like #import <libReQL/PublicHeader.h>
 #import <libReQL/Connection.h>
 #import <libReQL/Cursor.h>
 #import <libReQL/Query.h>
