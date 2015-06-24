@@ -115,10 +115,10 @@ toQuery(id expr) {
     return [ReQLQuery new];
   } else if ([expr isKindOfClass:[NSNumber class]]) {
     return [ReQLQuery newWithNumber:expr];
-  } else if ([expr isKindOfClass:[NSObject class]]) {
-    return [ReQLQuery newWithObject:expr];
   } else if ([expr isKindOfClass:[NSString class]]) {
     return [ReQLQuery newWithString:expr];
+  } else if ([expr isKindOfClass:[NSDictionary class]]) {
+    return [ReQLQuery newWithObject:expr];
   }
   return nil;
 }
