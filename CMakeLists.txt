@@ -266,6 +266,7 @@ set(SOURCES
  test/cpp/polyglot/transformation.cpp
  test/main.cpp
  test/reql/connection.cpp
+ test/reql/cursor.cpp
  test/reql/decode.cpp
  test/reql/encode.cpp
  test/reql/expr.cpp

@@ -412,6 +412,7 @@
 		8728AD0E1B1BEF2C00588F9A /* liblibReQL-cpp.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8728ACEA1B1BEEDD00588F9A /* liblibReQL-cpp.dylib */; };
 		8728AD0F1B1BEF4F00588F9A /* ReQL.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ECDD76E1AB53D80004CD31E /* ReQL.h */; };
 		8728AD101B1BEF5100588F9A /* ReQL.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 1ECDD76F1AB53D80004CD31E /* ReQL.hpp */; };
+		874C78181B3B31B500A656B5 /* cursor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 874C78171B3B31B500A656B5 /* cursor.cpp */; };
 		8787D3D11B2E27C30095C616 /* 4030.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8787D3CF1B2E27C30095C616 /* 4030.cpp */; };
 		8787D3D21B2E27C30095C616 /* 4146.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8787D3D01B2E27C30095C616 /* 4146.cpp */; };
 		8787D3D41B2E27DD0095C616 /* 2639.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8787D3D31B2E27DD0095C616 /* 2639.cpp */; };
@@ -997,6 +998,7 @@
 		8728ACC41B1BEE0F00588F9A /* liblibReQL-core.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "liblibReQL-core.dylib"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8728ACDF1B1BEEA000588F9A /* liblibReQL-c.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "liblibReQL-c.dylib"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8728ACEA1B1BEEDD00588F9A /* liblibReQL-cpp.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "liblibReQL-cpp.dylib"; sourceTree = BUILT_PRODUCTS_DIR; };
+		874C78171B3B31B500A656B5 /* cursor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cursor.cpp; sourceTree = "<group>"; };
 		8773F1C11A6A058D001F14C5 /* libReQL-test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "libReQL-test"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8787D3CF1B2E27C30095C616 /* 4030.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 4030.cpp; sourceTree = "<group>"; };
 		8787D3D01B2E27C30095C616 /* 4146.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 4146.cpp; sourceTree = "<group>"; };
@@ -1744,6 +1746,7 @@
 			isa = PBXGroup;
 			children = (
 				1ED9D9E71B14E3DA00B13EAD /* connection.cpp */,
+				874C78171B3B31B500A656B5 /* cursor.cpp */,
 				1ED9D9E81B14E3DA00B13EAD /* decode.cpp */,
 				1ED9D9E91B14E3DA00B13EAD /* encode.cpp */,
 				1ED9D9EA1B14E3DA00B13EAD /* expr.cpp */,
@@ -2547,6 +2550,7 @@
 				1ED9DB141B14E3DA00B13EAD /* delete.cpp in Sources */,
 				1ED9DAD71B14E3DA00B13EAD /* truncation.cpp in Sources */,
 				8787D3D41B2E27DD0095C616 /* 2639.cpp in Sources */,
+				874C78181B3B31B500A656B5 /* cursor.cpp in Sources */,
 				1ED9DA9E1B14E3DA00B13EAD /* polymorphism.cpp in Sources */,
 				1ED9DAA41B14E3DA00B13EAD /* 1081.cpp in Sources */,
 				1ED9DB281B14E3DA00B13EAD /* 2696.cpp in Sources */,
