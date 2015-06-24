@@ -176,16 +176,15 @@ reql_cur_close_(ReQL_Cur_t *cur) {
     }
     cur->conn->cursors = next;
     cur->conn = NULL;
-    if (cur->cb.each != NULL) {
-      cur->cb.each(NULL, cur->cb.data[EACH]);
-      cur->cb.data[EACH] = NULL;
-      cur->cb.each = NULL;
-    }
     if (cur->cb.end != NULL) {
       cur->cb.end(cur->cb.data[END]);
-      cur->cb.data[END] = NULL;
-      cur->cb.end = NULL;
     }
+    cur->cb.data[EACH] = NULL;
+    cur->cb.data[END] = NULL;
+    cur->cb.data[ERROR] = NULL;
+    cur->cb.each = NULL;
+    cur->cb.end = NULL;
+    cur->cb.error = NULL;
   }
 }
 
@@ -356,17 +355,13 @@ reql_cur_drain_(ReQL_Cur_t *cur) {
   pthread_cond_t *done = malloc(sizeof(pthread_cond_t));
   pthread_cond_init(done, NULL);
   data.done = done;
-  cur->cb.end = reql_cur_drain_end_cb;
-  cur->cb.data[END] = &data;
+  reql_cur_set_end_cb_(cur, reql_cur_drain_end_cb, &data);
   int success = 0;
   while (success == 0 && reql_cur_open_(cur) != 0) {
     success = pthread_cond_wait(done, cur->condition.mutex);
   }
   pthread_cond_destroy(done);
   free(done);
-  cur->cb.end = NULL;
-  cur->cb.each = NULL;
-  cur->cb.data[END] = NULL;
 }
 
 extern void
