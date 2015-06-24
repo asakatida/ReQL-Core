@@ -155,7 +155,7 @@ def test_loop(path, lang_path, lang):
         each_test(path, file, lang_path, lang)
 
 def convert_objc_test_name(name):
-    return ''.join(map(lambda e: e if e.isalnum() else '', name.title()))
+    return ''.join(s for s in name.title() if s.isalnum())
 
 def each_test(path, file, lang_path, lang):
     with file.open() as istream:
