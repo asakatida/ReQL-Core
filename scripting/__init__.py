@@ -229,7 +229,7 @@ REQL_TERM_TYPES = [e for e in dir(ql2_pb2.Term.TermType) if not e.startswith('_'
 REQL_TERM_TYPES.sort()
 
 def build_output(f_name, m, join_str, regex):
-    with open(f_name, 'w') as f:
+    with f_name.open('w') as f:
         f.write(m.string[:m.start()])
         f.write(join_str.join(map(regex, REQL_TERM_TYPES)))
         f.write(m.string[m.end():])
@@ -237,7 +237,7 @@ def build_output(f_name, m, join_str, regex):
 def build(f_name, regex, join_str = "\n"):
     m = None
 
-    with open(f_name) as f:
+    with f_name.open() as f:
         m = re.search(regx(regex), f.read(), re.S)
 
     if m:

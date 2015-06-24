@@ -10,19 +10,19 @@ def main():
     base_path = cwd_path / 'rethinkdb' / 'test'
     polyglot_path = base_path / 'rql_test' / 'src'
 
-    tests_path = cwd_path / 'test'
+    libreql_test_path = cwd_path / 'test'
 
-    new_test_c_path = tests_path / 'c' / 'polyglot'
+    new_test_c_path = libreql_test_path / 'c' / 'polyglot'
     scripting.mkdir(new_test_c_path)
 
     scripting.test_loop(polyglot_path, new_test_c_path.resolve(), 'c')
 
-    new_test_cpp_path = tests_path / 'cpp' / 'polyglot'
+    new_test_cpp_path = libreql_test_path / 'cpp' / 'polyglot'
     scripting.mkdir(new_test_cpp_path)
 
     scripting.test_loop(polyglot_path, new_test_cpp_path.resolve(), 'cpp')
 
-    new_test_reql_path = tests_path / 'reql' / 'polyglot'
+    new_test_reql_path = libreql_test_path / 'reql' / 'polyglot'
     scripting.mkdir(new_test_reql_path)
 
     scripting.test_loop(polyglot_path, new_test_reql_path.resolve(), 'reql')
@@ -32,48 +32,47 @@ def main():
 
     scripting.test_loop(polyglot_path, new_test_objc_path.resolve(), 'objc')
 
-    scripting.assert_c_header_extern_c((Path('.') / 'src').glob('**/*.h'))
+    libreql_src_path = cwd_path / 'src'
 
-    headers = list((Path('.') / 'src' / 'c').glob('**/*.h'))
-    headers.extend((Path('.') / 'src' / 'cpp').glob('**/*.h'))
-    headers.extend((Path('.') / 'src' / 'reql').glob('**/*.h'))
-    headers.extend((Path('.') / 'src' / 'c').glob('**/*.hpp'))
-    headers.extend((Path('.') / 'src' / 'cpp').glob('**/*.hpp'))
-    headers.extend((Path('.') / 'src' / 'reql').glob('**/*.hpp'))
-    headers.extend((Path('.') / 'test' / 'c').glob('**/*.h'))
-    headers.extend((Path('.') / 'test' / 'cpp').glob('**/*.h'))
-    headers.extend((Path('.') / 'test' / 'reql').glob('**/*.h'))
-    headers.extend((Path('.') / 'test' / 'c').glob('**/*.hpp'))
-    headers.extend((Path('.') / 'test' / 'cpp').glob('**/*.hpp'))
-    headers.extend((Path('.') / 'test' / 'reql').glob('**/*.hpp'))
-    headers.extend([
-        Path('.') / 'src' / 'ReQL.h',
-        Path('.') / 'src' / 'ReQL.hpp'])
+    scripting.assert_c_header_extern_c(libreql_src_path.glob('**/*.h'))
 
-    headers = [path.relative_to(Path('.')).as_posix() for path in headers]
+    headers = list((libreql_src_path / 'c').glob('**/*.h'))
+    headers.extend((libreql_src_path / 'cpp').glob('**/*.h'))
+    headers.extend((libreql_src_path / 'reql').glob('**/*.h'))
+    headers.extend((libreql_src_path / 'c').glob('**/*.hpp'))
+    headers.extend((libreql_src_path / 'cpp').glob('**/*.hpp'))
+    headers.extend((libreql_src_path / 'reql').glob('**/*.hpp'))
+    headers.extend((libreql_test_path / 'c').glob('**/*.h'))
+    headers.extend((libreql_test_path / 'cpp').glob('**/*.h'))
+    headers.extend((libreql_test_path / 'reql').glob('**/*.h'))
+    headers.extend((libreql_test_path / 'c').glob('**/*.hpp'))
+    headers.extend((libreql_test_path / 'cpp').glob('**/*.hpp'))
+    headers.extend((libreql_test_path / 'reql').glob('**/*.hpp'))
+    headers.extend([libreql_src_path / 'ReQL.h', libreql_src_path / 'ReQL.hpp'])
+
+    headers = [path.relative_to(cwd_path).as_posix() for path in headers]
     headers = sorted(headers)
 
-    sources = list((Path('.') / 'src' / 'c').glob('**/*.c'))
-    sources.extend((Path('.') / 'src' / 'cpp').glob('**/*.c'))
-    sources.extend((Path('.') / 'src' / 'reql').glob('**/*.c'))
-    sources.extend((Path('.') / 'src' / 'c').glob('**/*.cpp'))
-    sources.extend((Path('.') / 'src' / 'cpp').glob('**/*.cpp'))
-    sources.extend((Path('.') / 'src' / 'reql').glob('**/*.cpp'))
-    sources.extend((Path('.') / 'test' / 'c').glob('**/*.c'))
-    sources.extend((Path('.') / 'test' / 'cpp').glob('**/*.c'))
-    sources.extend((Path('.') / 'test' / 'reql').glob('**/*.c'))
-    sources.extend((Path('.') / 'test' / 'c').glob('**/*.cpp'))
-    sources.extend((Path('.') / 'test' / 'cpp').glob('**/*.cpp'))
-    sources.extend((Path('.') / 'test' / 'reql').glob('**/*.cpp'))
-    sources.extend([
-        Path('.') / 'test' / 'main.cpp'])
+    sources = list((libreql_src_path / 'c').glob('**/*.c'))
+    sources.extend((libreql_src_path / 'cpp').glob('**/*.c'))
+    sources.extend((libreql_src_path / 'reql').glob('**/*.c'))
+    sources.extend((libreql_src_path / 'c').glob('**/*.cpp'))
+    sources.extend((libreql_src_path / 'cpp').glob('**/*.cpp'))
+    sources.extend((libreql_src_path / 'reql').glob('**/*.cpp'))
+    sources.extend((libreql_test_path / 'c').glob('**/*.c'))
+    sources.extend((libreql_test_path / 'cpp').glob('**/*.c'))
+    sources.extend((libreql_test_path / 'reql').glob('**/*.c'))
+    sources.extend((libreql_test_path / 'c').glob('**/*.cpp'))
+    sources.extend((libreql_test_path / 'cpp').glob('**/*.cpp'))
+    sources.extend((libreql_test_path / 'reql').glob('**/*.cpp'))
+    sources.extend([libreql_test_path / 'main.cpp'])
 
-    sources = [path.relative_to(Path('.')).as_posix() for path in sources]
-    sources = sorted(sources)
+    sources = sorted(path.relative_to(cwd_path).as_posix() for path in sources)
 
-    with (Path('.') / 'CMakeLists.txt').open() as istream:
+    cmake_list_path = cwd_path / 'CMakeLists.txt'
+
+    with cmake_list_path.open() as istream:
         src = istream.read()
-
 
     src = re.sub(
         'set\(MOC_HEADERS.*?\)',
@@ -86,28 +85,30 @@ def main():
             src, 1, re.S),
         1, re.S)
 
-    with (Path('.') / 'CMakeLists.txt').open('w') as ostream:
+    with cmake_list_path.open('w') as ostream:
         ostream.write(src)
 
-    scripting.build('libReQL/Query.h', scripting.objc_term_def)
-    scripting.build('libReQL/Query.m', scripting.objc_term_imp)
-    scripting.build('src/c/query.c', scripting.c_term_imp)
-    scripting.build('src/c/query.h', scripting.c_term_def)
-    scripting.build('src/cpp/query.cpp', scripting.cpp_term_imp)
-    scripting.build('src/cpp/query.hpp', scripting.cpp_term_def)
-    scripting.build('src/cpp/query.hpp', scripting.cpp_term_class)
-    scripting.build('src/Lua/ast.c', scripting.lua_term_imp)
-    scripting.build('src/Lua/ast.h', scripting.lua_term_def)
-    scripting.build('src/Lua/ReQL.c', scripting.lua_lib, "\n  ")
-    scripting.build('src/Node/ast.cpp', scripting.node_term_imp)
-    scripting.build('src/Node/ast.hpp', scripting.node_term_def)
-    scripting.build('src/Python/ast.c', scripting.py_term_imp)
-    scripting.build('src/Python/ast.h', scripting.py_term_def)
-    scripting.build('src/reql/query.c', scripting.enum_def, ",\n  ")
-    scripting.build('src/reql/query.c', scripting.term_imp)
-    scripting.build('src/reql/query.h', scripting.term_def)
-    scripting.build('src/Ruby/ast.c', scripting.rb_term_imp)
-    scripting.build('src/Ruby/ast.h', scripting.rb_term_def)
+    objc_src_path = cwd_path / 'libReQL'
+
+    scripting.build(objc_src_path / 'Query.h', scripting.objc_term_def)
+    scripting.build(objc_src_path / 'Query.m', scripting.objc_term_imp)
+    scripting.build(libreql_src_path / 'c' / 'query.c', scripting.c_term_imp)
+    scripting.build(libreql_src_path / 'c' / 'query.h', scripting.c_term_def)
+    scripting.build(libreql_src_path / 'cpp' / 'query.cpp', scripting.cpp_term_imp)
+    scripting.build(libreql_src_path / 'cpp' / 'query.hpp', scripting.cpp_term_def)
+    scripting.build(libreql_src_path / 'cpp' / 'query.hpp', scripting.cpp_term_class)
+    scripting.build(libreql_src_path / 'Lua' / 'ast.c', scripting.lua_term_imp)
+    scripting.build(libreql_src_path / 'Lua' / 'ast.h', scripting.lua_term_def)
+    scripting.build(libreql_src_path / 'Lua' / 'ReQL.c', scripting.lua_lib, "\n  ")
+    scripting.build(libreql_src_path / 'Node' / 'ast.cpp', scripting.node_term_imp)
+    scripting.build(libreql_src_path / 'Node' / 'ast.hpp', scripting.node_term_def)
+    scripting.build(libreql_src_path / 'Python' / 'ast.c', scripting.py_term_imp)
+    scripting.build(libreql_src_path / 'Python' / 'ast.h', scripting.py_term_def)
+    scripting.build(libreql_src_path / 'reql' / 'query.c', scripting.enum_def, ",\n  ")
+    scripting.build(libreql_src_path / 'reql' / 'query.c', scripting.term_imp)
+    scripting.build(libreql_src_path / 'reql' / 'query.h', scripting.term_def)
+    scripting.build(libreql_src_path / 'Ruby' / 'ast.c', scripting.rb_term_imp)
+    scripting.build(libreql_src_path / 'Ruby' / 'ast.h', scripting.rb_term_def)
 
 if __name__ == '__main__':
     main()
