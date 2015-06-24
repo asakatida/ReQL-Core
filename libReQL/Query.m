@@ -400,14 +400,14 @@ toQuery(id expr) {
 }
 
 -(instancetype)init:(ReQL_AST_Function)func :(NSArray *)args {
-  if (self = [self init]) {
+  if (self = [super init]) {
     p_build = [TermExpr newTerm:func :args];
   }
   return self;
 }
 
 -(instancetype)init:(ReQL_AST_Function_Kwargs)func :(NSArray *)args :(NSDictionary *)kwargs {
-  if (self = [self init]) {
+  if (self = [super init]) {
     p_build = [TermKwargsExpr newTerm:func :args :kwargs];
   }
   return self;
