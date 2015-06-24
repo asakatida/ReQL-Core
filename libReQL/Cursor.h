@@ -24,8 +24,6 @@ limitations under the License.
 
 @property(weak, atomic, readwrite, setter=setDelegate:, getter=delegate) id<NSStreamDelegate> delegate;
 
--(instancetype)init;
-
 -(void)setDelegate:(id<NSStreamDelegate>)delegate;
 
 -(id<NSStreamDelegate>)delegate;
@@ -41,8 +39,6 @@ limitations under the License.
 -(void)open;
 
 -(id)next;
-
--(void)stream:(ReQLCursor *)aStream handleEvent:(NSStreamEvent)eventCode;
 
 -(void)close;
 

@@ -39,7 +39,7 @@ cursor_each_cb(ReQL_Obj_t *res, void *data) {
   [cursor setNext:res];
   id<NSStreamDelegate> delegate = cursor.delegate;
   if (delegate) {
-    [delegate stream:cursor handleEvent:NSStreamEventHasBytesAvailable];
+    [delegate stream:delegate handleEvent:NSStreamEventHasBytesAvailable];
   }
   return 0;
 }
@@ -150,7 +150,7 @@ cursor_each_cb(ReQL_Obj_t *res, void *data) {
   return next;
 }
 
--(void)stream:(ReQLCursor *)aStream handleEvent:(NSStreamEvent)eventCode {
+-(void)stream:(NSStream *)aStream handleEvent:(NSStreamEvent)eventCode {
   switch (eventCode) {
     case NSStreamEventEndEncountered: {
       [aStream close];
@@ -163,7 +163,7 @@ cursor_each_cb(ReQL_Obj_t *res, void *data) {
       break;
     }
     case NSStreamEventHasBytesAvailable: {
-      id next = [aStream next];
+      id next = [self next];
       if (next == nil) {
         [aStream close];
       }
