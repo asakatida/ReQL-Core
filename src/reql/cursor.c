@@ -91,14 +91,12 @@ reql_cur_set_response_(ReQL_Cur_t *cur, ReQL_Obj_t *res) {
   } else {
     int r_type = (int)(reql_to_number(type));
     switch (r_type) {
-      case REQL_SUCCESS_PARTIAL: {
-        reql_continue_query(cur);
-        break;
-      }
       case REQL_SUCCESS_ATOM:
       case REQL_SUCCESS_SEQUENCE:
       case REQL_WAIT_COMPLETE: {
         close = 1;
+      }
+      case REQL_SUCCESS_PARTIAL: {
         break;
       }
       case REQL_CLIENT_ERROR:
@@ -131,6 +129,8 @@ reql_cur_set_response_(ReQL_Cur_t *cur, ReQL_Obj_t *res) {
   reql_json_destroy(res);
   if (close) {
     reql_cur_close_(cur);
+  } else {
+    reql_continue_query(cur);
   }
 }
 
