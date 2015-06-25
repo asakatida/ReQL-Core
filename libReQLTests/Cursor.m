@@ -35,6 +35,7 @@
   XCTAssert([self.connection isOpen]);
   if ([self.connection isOpen]) {
     ReQLCursor *cursor = [query run:self.connection];
+    XCTAssert(cursor);
     if (cursor) {
       NSArray *res = [cursor toArray];
       NSError *err;
