@@ -614,9 +614,11 @@ reql_json_move(ReQL_Obj_t *other) {
       const ReQL_Size alloc_size = reql_alloc_size(other);
       ReQL_Obj_t **array = reql_array(other);
       reql_set_array(other, NULL);
-      reql_array_init(self, array, alloc_size);
-      reql_set_size(self, reql_size(other));
       reql_set_size(other, 0);
+
+      reql_var_json_init(self, REQL_R_ARRAY, alloc_size);
+      reql_set_array(self, array);
+      reql_set_size(self, reql_size(other));
 
       ReQL_Size i;
       for (i=0; i < alloc_size; ++i) {
