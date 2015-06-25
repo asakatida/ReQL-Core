@@ -81,10 +81,10 @@ TEST_CASE("reql cursor", "[reql][cursor]") {
   REQUIRE(reql_cur_open(c.get()) == 0);
 
   reql_conn_close(conn.get());
-  
+
   REQUIRE(reql_conn_open(conn.get()) == 0);
-  
+
   reql_conn_destroy(conn.get());
-  
+
   REQUIRE(reql_conn_open(conn.get()) == 0);
 }
