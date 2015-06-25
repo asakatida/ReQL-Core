@@ -7,12 +7,15 @@
 
 static void
 reql_test_cur_end_cb(void *data) {
-  *(int *)data = 0;
+  int *num = static_cast<int*>(data);
+  *num = 0;
 }
 
 static void
 reql_test_cur_error_cb(ReQL_Obj_t *res, void *data) {
-  *(int *)data = 0;
+  (void)res;
+  int *num = static_cast<int*>(data);
+  *num = 0;
 }
 
 TEST_CASE("reql cursor", "[reql][cursor]") {
@@ -22,9 +25,9 @@ TEST_CASE("reql cursor", "[reql][cursor]") {
 
   REQUIRE(reql_conn_open(conn.get()) == 0);
 
-  std::unique_ptr<std::uint8_t> buf(new std::uint8_t[100]);
+  ReQL_Byte buffer[100];
 
-  REQUIRE(reql_conn_connect(conn.get(), buf.get(), 100) == 0);
+  REQUIRE(reql_conn_connect(conn.get(), buffer, 100) == 0);
 
   REQUIRE(reql_conn_open(conn.get()) != 0);
 
