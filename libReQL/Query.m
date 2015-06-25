@@ -67,11 +67,11 @@ if (obj == nil) {\
 
 @end
 
-@interface ObjectExpr : NSObject <Expr> {
+@interface DictionaryExpr : NSObject <Expr> {
   NSDictionary *p_data;
 }
 
-+(instancetype)newTermFromObject:(NSDictionary *)val;
++(instancetype)newTermFromDictionary:(NSDictionary *)val;
 
 @end
 
@@ -94,7 +94,7 @@ if (obj == nil) {\
 
 @interface TermKwargsExpr : NSObject <Expr> {
   ArrayExpr *p_args;
-  ObjectExpr *p_kwargs;
+  DictionaryExpr *p_kwargs;
   ReQL_AST_Function_Kwargs p_func;
 }
 
@@ -208,13 +208,13 @@ toQuery(id expr) {
 
 @end
 
-@implementation ObjectExpr
+@implementation DictionaryExpr
 
-+(instancetype)newTermFromObject:(NSDictionary *)val {
-  return [[self alloc] initTermWithObject:val];
++(instancetype)newTermFromDictionary:(NSDictionary *)val {
+  return [[self alloc] initTermWithDictionary:val];
 }
 
--(instancetype)initTermWithObject:(NSDictionary *)val {
+-(instancetype)initTermWithDictionary:(NSDictionary *)val {
   if (self = [super init]) {
     p_data = val;
   }
@@ -259,13 +259,13 @@ toQuery(id expr) {
 
 -(ReQL_Obj_t *)build {
   NEW_REQL_OBJ;
-  NSUInteger size = [p_data lengthOfBytesUsingEncoding:NSUnicodeStringEncoding];
+  NSUInteger size = [p_data lengthOfBytesUsingEncoding:NSUTF8StringEncoding];
   ReQL_Byte *buf = malloc(sizeof(ReQL_Byte) * size);
   if (buf == nil) {
     free(obj);
     return nil;
   }
-  reql_string_init(obj, buf, (ReQL_Byte *)[p_data cStringUsingEncoding:NSUnicodeStringEncoding], (ReQL_Size)size);
+  reql_string_init(obj, buf, (ReQL_Byte *)[p_data cStringUsingEncoding:NSUTF8StringEncoding], (ReQL_Size)size);
   return obj;
 }
 
@@ -305,7 +305,7 @@ toQuery(id expr) {
 -(instancetype)initTerm:(ReQL_AST_Function_Kwargs)func :(NSArray *)args :(NSDictionary *)kwargs {
   if (self = [super init]) {
     p_args = [ArrayExpr newTermFromArray:args];
-    p_kwargs = [ObjectExpr newTermFromObject:kwargs];
+    p_kwargs = [DictionaryExpr newTermFromDictionary:kwargs];
     p_func = func;
   }
   return self;
@@ -387,7 +387,7 @@ toQuery(id expr) {
 
 -(instancetype)initTermWithObject:(NSDictionary *)val {
   if (self = [super init]) {
-    p_build = [ObjectExpr newTermFromObject:val];
+    p_build = [DictionaryExpr newTermFromDictionary:val];
   }
   return self;
 }
