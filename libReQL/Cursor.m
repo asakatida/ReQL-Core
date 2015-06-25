@@ -44,6 +44,52 @@ cursor_each_cb(ReQL_Obj_t *res, void *data) {
   return 0;
 }
 
+static id
+convert(ReQL_Obj_t *obj);
+
+static id
+convert(ReQL_Obj_t *obj) {
+  switch (reql_datum_type(obj)) {
+    case REQL_R_ARRAY: {
+      NSMutableArray *array = [NSMutableArray arrayWithCapacity:reql_size(obj)];
+      ReQL_Iter_t it = reql_new_iter(obj);
+      ReQL_Obj_t *elem = NULL;
+      while ((elem = reql_iter_next(&it)) != NULL) {
+        [array addObject:convert(elem)];
+      }
+      return [NSArray arrayWithArray:array];
+    }
+    case REQL_R_BOOL: {
+      return [NSNumber numberWithBool:reql_to_bool(obj)];
+    }
+    case REQL_R_JSON: {
+      return nil;
+    }
+    case REQL_R_NULL: {
+      return [NSNull null];
+    }
+    case REQL_R_NUM: {
+      return [NSNumber numberWithDouble:reql_to_number(obj)];
+    }
+    case REQL_R_OBJECT: {
+      NSMutableDictionary *object = [NSMutableDictionary dictionaryWithCapacity:reql_size(obj)];
+      ReQL_Iter_t it = reql_new_iter(obj);
+      ReQL_Obj_t *key = NULL;
+      while ((key = reql_iter_next(&it)) != NULL) {
+        [object setObject:convert(reql_object_get(obj, key)) forKey:convert(key)];
+      }
+      return [NSDictionary dictionaryWithDictionary:object];
+    }
+    case REQL_R_REQL: {
+      return nil;
+    }
+    case REQL_R_STR: {
+      return [[NSString alloc] initWithBytes:reql_string_buf(obj) length:reql_size(obj) encoding:NSUTF8StringEncoding];
+    }
+  }
+  return nil;
+}
+
 @implementation ReQLCursor {
   ReQL_Cur_t *p_cur;
   id<NSStreamDelegate> __weak p_delegate;
@@ -80,48 +126,6 @@ cursor_each_cb(ReQL_Obj_t *res, void *data) {
   return p_cur;
 }
 
--(id)convert:(ReQL_Obj_t *)obj {
-  switch (reql_datum_type(obj)) {
-    case REQL_R_ARRAY: {
-      NSMutableArray *array = [NSMutableArray arrayWithCapacity:reql_size(obj)];
-      ReQL_Iter_t it = reql_new_iter(obj);
-      ReQL_Obj_t *elem = NULL;
-      while ((elem = reql_iter_next(&it)) != NULL) {
-        [array addObject:[self convert:elem]];
-      }
-      return [NSArray arrayWithArray:array];
-    }
-    case REQL_R_BOOL: {
-      return [NSNumber numberWithBool:reql_to_bool(obj)];
-    }
-    case REQL_R_JSON: {
-      return nil;
-    }
-    case REQL_R_NULL: {
-      return [NSNull null];
-    }
-    case REQL_R_NUM: {
-      return [NSNumber numberWithDouble:reql_to_number(obj)];
-    }
-    case REQL_R_OBJECT: {
-      NSMutableDictionary *object = [NSMutableDictionary dictionaryWithCapacity:reql_size(obj)];
-      ReQL_Iter_t it = reql_new_iter(obj);
-      ReQL_Obj_t *key = NULL;
-      while ((key = reql_iter_next(&it)) != NULL) {
-        [object setObject:[self convert:reql_object_get(obj, key)] forKey:[self convert:key]];
-      }
-      return [NSDictionary dictionaryWithDictionary:object];
-    }
-    case REQL_R_REQL: {
-      return nil;
-    }
-    case REQL_R_STR: {
-      return [[NSString alloc] initWithBytes:reql_string_buf(obj) length:reql_size(obj) encoding:NSUTF8StringEncoding];
-    }
-  }
-  return nil;
-}
-
 -(NSArray *)toArray {
   ReQL_Obj_t *obj = reql_cur_to_array(p_cur);
   if (obj == NULL) {
@@ -141,7 +145,7 @@ cursor_each_cb(ReQL_Obj_t *res, void *data) {
 }
 
 -(void)setNext:(ReQL_Obj_t *)obj {
-  p_next = [self convert:obj];
+  p_next = convert(obj);
 }
 
 -(id)next {
