@@ -77,63 +77,6 @@ reql_cur_set_error_cb_(ReQL_Cur_t *cur, ReQL_Error_Function cb, void *arg) {
   cur->cb.data[ERROR] = arg;
 }
 
-static void
-reql_cur_set_response_(ReQL_Cur_t *cur, ReQL_Obj_t *res) {
-  char close = 0;
-  ReQL_Obj_t key;
-  ReQL_Byte buf[1];
-  reql_string_init(&key, buf, (ReQL_Byte *)"t", 1);
-  ReQL_Obj_t *type = reql_object_get(res, &key);
-  if (type == NULL) {
-    reql_json_destroy(res);
-    reql_cur_close_(cur);
-    return;
-  } else {
-    int r_type = (int)(reql_to_number(type));
-    switch (r_type) {
-      case REQL_SUCCESS_ATOM:
-      case REQL_SUCCESS_SEQUENCE:
-      case REQL_WAIT_COMPLETE: {
-        close = 1;
-      }
-      case REQL_SUCCESS_PARTIAL: {
-        break;
-      }
-      case REQL_CLIENT_ERROR:
-      case REQL_COMPILE_ERROR:
-      case REQL_RUNTIME_ERROR:
-      default: {
-        if (cur->cb.error != NULL) {
-          cur->cb.error(res, cur->cb.data[ERROR]);
-        }
-        reql_cur_close_(cur);
-        return;
-      }
-    }
-  }
-  reql_string_init(&key, buf, (ReQL_Byte *)"r", 1);
-  ReQL_Obj_t *r_res = reql_object_get(res, &key);
-  ReQL_Iter_t it = reql_new_iter(r_res);
-  ReQL_Obj_t *elem = NULL;
-  while ((elem = reql_iter_next(&it)) != NULL) {
-    if (cur->cb.each == NULL) {
-      cur->cb.data[EACH] = res;
-      return;
-    }
-    if (cur->cb.each(elem, cur->cb.data[EACH])) {
-      cur->cb.each = NULL;
-      reql_cur_close_(cur);
-    }
-    reql_json_destroy(elem);
-  }
-  reql_json_destroy(res);
-  if (close) {
-    reql_cur_close_(cur);
-  } else {
-    reql_continue_query(cur);
-  }
-}
-
 extern void
 reql_cur_set_end_cb(ReQL_Cur_t *cur, ReQL_End_Function cb, void *arg) {
   reql_cur_lock(cur);
@@ -151,12 +94,8 @@ reql_cur_set_error_cb(ReQL_Cur_t *cur, ReQL_Error_Function cb, void *arg) {
 extern void
 reql_cur_set_response(ReQL_Cur_t *cur, ReQL_Obj_t *res) {
   reql_cur_lock(cur);
-  if (cur->cb.each == NULL) {
-    reql_json_destroy(cur->cb.data[EACH]);
-    cur->cb.data[EACH] = res;
-  } else {
-    reql_cur_set_response_(cur, res);
-  }
+  reql_json_destroy(cur->response);
+  cur->response = res;
   reql_cur_unlock(cur);
 }
 
@@ -176,6 +115,9 @@ reql_cur_close_(ReQL_Cur_t *cur) {
     }
     cur->conn->cursors = next;
     cur->conn = NULL;
+    if (cur->cb.each != NULL) {
+      cur->cb.each(NULL, cur->cb.data[EACH]);
+    }
     if (cur->cb.end != NULL) {
       cur->cb.end(cur->cb.data[END]);
     }
@@ -186,6 +128,93 @@ reql_cur_close_(ReQL_Cur_t *cur) {
     cur->cb.end = NULL;
     cur->cb.error = NULL;
   }
+}
+
+static void *
+reql_cur_loop(void *data) {
+  ReQL_Cur_t *cur = (ReQL_Cur_t *)data;
+  reql_cur_lock(cur);
+  while (cur->conn != NULL) {
+    if (cur->response == NULL) {
+      reql_cur_unlock(cur);
+      sched_yield();
+      reql_cur_lock(cur);
+      continue;
+    }
+    ReQL_Obj_t *res = cur->response; cur->response = NULL;
+    reql_cur_unlock(cur);
+    char close = 0;
+    ReQL_Obj_t key;
+    ReQL_Byte buf[1];
+    reql_string_init(&key, buf, (ReQL_Byte *)"t", 1);
+    ReQL_Obj_t *type = reql_object_get(res, &key);
+    if (type == NULL) {
+      if (cur->cb.error != NULL) {
+        cur->cb.error(res, cur->cb.data[ERROR]);
+      }
+      reql_json_destroy(res);
+      reql_cur_close(cur);
+      break;
+    } else {
+      int r_type = (int)(reql_to_number(type));
+      switch (r_type) {
+        case REQL_SUCCESS_ATOM:
+        case REQL_SUCCESS_SEQUENCE:
+        case REQL_WAIT_COMPLETE: {
+          close = 1;
+          break;
+        }
+        case REQL_SUCCESS_PARTIAL: {
+          reql_cur_lock(cur);
+          if (cur->conn != NULL) {
+            reql_continue_query(cur);
+          }
+          reql_cur_unlock(cur);
+          break;
+        }
+        case REQL_CLIENT_ERROR:
+        case REQL_COMPILE_ERROR:
+        case REQL_RUNTIME_ERROR:
+        default: {
+          reql_cur_lock(cur);
+          if (cur->cb.error != NULL) {
+            cur->cb.error(res, cur->cb.data[ERROR]);
+          }
+          reql_cur_unlock(cur);
+          reql_cur_close(cur);
+        }
+      }
+    }
+    reql_string_init(&key, buf, (ReQL_Byte *)"r", 1);
+    ReQL_Obj_t *r_res = reql_object_get(res, &key);
+    ReQL_Iter_t it = reql_new_iter(r_res);
+    ReQL_Obj_t *elem = NULL;
+    while ((elem = reql_iter_next(&it)) != NULL) {
+      reql_cur_lock(cur);
+      while (cur->cb.each == NULL) {
+        reql_cur_unlock(cur);
+        if (reql_cur_open(cur) == 0) {
+          reql_json_destroy(res);
+          return NULL;
+        }
+        sched_yield();
+        reql_cur_lock(cur);
+      }
+      if (cur->cb.each(elem, cur->cb.data[EACH])) {
+        reql_cur_unlock(cur);
+        reql_cur_close(cur);
+        return NULL;
+      }
+      reql_cur_unlock(cur);
+    }
+    reql_json_destroy(res);
+    if (close) {
+      reql_cur_close(cur);
+    }
+    reql_cur_lock(cur);
+  }
+  reql_cur_unlock(cur);
+  return NULL;
 }
 
 extern void
@@ -236,6 +265,17 @@ reql_cur_init(ReQL_Cur_t *cur, ReQL_Conn_t *conn, ReQL_Token token) {
   cur->prev = cur;
   cur->conn = conn;
   cur->token = token;
+  cur->cb.each = NULL;
+  cur->cb.end = NULL;
+  cur->cb.error = NULL;
+  cur->cb.data[EACH] = NULL;
+  cur->cb.data[END] = NULL;
+  cur->cb.data[ERROR] = NULL;
+
+  if (pthread_create(&cur->condition.thread, NULL, reql_cur_loop, cur) != 0) {
+    reql_cur_memory_error(__func__);
+  }
+
   reql_cur_unlock(cur);
 }
 
@@ -246,10 +286,14 @@ reql_cur_destroy(ReQL_Cur_t *cur) {
   }
   reql_cur_lock(cur);
   reql_cur_close_(cur);
-  if (cur->cb.each == NULL) {
-    reql_json_destroy(cur->cb.data[EACH]);
+  reql_json_destroy(cur->response); cur->response = NULL;
+  if (cur->condition.thread != NULL) {
+    reql_cur_unlock(cur);
+    pthread_join(cur->condition.thread, NULL);
+    cur->condition.thread = NULL;
+  } else {
+    reql_cur_unlock(cur);
   }
-  reql_cur_unlock(cur);
 }
 
 struct ReQL_Cur_Data_Holder {
@@ -265,18 +309,21 @@ struct ReQL_Cur_Data_Holder {
 static int
 reql_cur_next_cb(ReQL_Obj_t *a_res, void *arg) {
   struct ReQL_Cur_Data_Holder *p_data = (struct ReQL_Cur_Data_Holder *)arg;
+  ReQL_Cur_t *cur = (ReQL_Cur_t*)p_data->cb_data;
+  cur->cb.each = NULL;
   p_data->cb_data = reql_json_move(a_res);
   pthread_cond_broadcast(p_data->done);
   return 0;
 }
 
+static void
+reql_cur_each_(ReQL_Cur_t *cur, ReQL_Each_Function cb, void *arg) {
+  cur->cb.each = cb;
+  cur->cb.data[EACH] = arg;
+}
+
 static ReQL_Obj_t *
 reql_cur_next_(ReQL_Cur_t *cur) {
-  if (cur->cb.each == NULL && cur->cb.data[EACH] != NULL) {
-    ReQL_Obj_t *res = cur->cb.data[EACH];
-    cur->cb.data[EACH] = NULL;
-    return res;
-  }
   if (reql_cur_open_(cur) == 0) {
     return NULL;
   }
@@ -286,11 +333,10 @@ reql_cur_next_(ReQL_Cur_t *cur) {
   pthread_cond_t *done = malloc(sizeof(pthread_cond_t));
   pthread_cond_init(done, NULL);
   data.done = done;
-  data.cb_data = NULL;
-  cur->cb.each = reql_cur_next_cb;
-  cur->cb.data[EACH] = &data;
+  data.cb_data = cur;
+  reql_cur_each_(cur, reql_cur_next_cb, &data);
   int success = 0;
-  while (data.cb_data == NULL && success == 0 && reql_cur_open_(cur) != 0) {
+  while (data.cb_data == cur && success == 0 && reql_cur_open_(cur) != 0) {
     success = pthread_cond_wait(done, cur->condition.mutex);
   }
   pthread_cond_destroy(done);
@@ -306,19 +352,6 @@ reql_cur_next(ReQL_Cur_t *cur) {
   ReQL_Obj_t *res = reql_cur_next_(cur);
   reql_cur_unlock(cur);
   return res;
-}
-
-static void
-reql_cur_each_(ReQL_Cur_t *cur, ReQL_Each_Function cb, void *arg) {
-  if (cur->cb.each == NULL && cur->cb.data[EACH] != NULL) {
-    ReQL_Obj_t *res = cur->cb.data[EACH];
-    cur->cb.each = cb;
-    cur->cb.data[EACH] = arg;
-    reql_cur_set_response_(cur, res);
-  } else {
-    cur->cb.each = cb;
-    cur->cb.data[EACH] = arg;
-  }
 }
 
 extern void
@@ -408,11 +441,7 @@ reql_cur_to_array(ReQL_Cur_t *cur) {
   ReQL_Obj_t *array = malloc(sizeof(ReQL_Obj_t));
   ReQL_Obj_t **arr = malloc(sizeof(ReQL_Obj_t *) * 20);
   reql_array_init(array, arr, 20);
-  reql_cur_lock(cur);
-  reql_cur_each_(cur, reql_cur_to_array_cb, array);
-  reql_cur_drain_(cur);
-  cur->cb.each = NULL;
-  cur->cb.data[EACH] = NULL;
-  reql_cur_unlock(cur);
+  reql_cur_each(cur, reql_cur_to_array_cb, array);
+  reql_cur_drain(cur);
   return array;
 }

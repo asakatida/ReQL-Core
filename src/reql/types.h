@@ -126,8 +126,10 @@ struct ReQL_Obj_s {
 struct ReQL_Cur_s {
   struct {
     pthread_mutex_t *mutex;
+    pthread_t thread;
   } condition;
   ReQL_Token token;
+  ReQL_Obj_t *response;
   ReQL_Conn_t *conn;
   ReQL_Cur_t *next;
   ReQL_Cur_t *prev;
