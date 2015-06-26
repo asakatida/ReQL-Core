@@ -400,8 +400,7 @@ reql_update_array(ReQL_Obj_t *array, ReQL_Obj_t *elem) {
 
 static int
 reql_cur_to_array_cb(ReQL_Obj_t *res, void *data) {
-  reql_update_array(data, reql_json_move(res));
-  return 0;
+  return (int)reql_update_array(data, reql_json_move(res));
 }
 
 extern ReQL_Obj_t *
