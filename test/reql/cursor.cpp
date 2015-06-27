@@ -100,6 +100,7 @@ TEST_CASE("reql cursor", "[reql][cursor]") {
         reql_json_destroy(res);
         ++data;
       }
+      REQUIRE(data == 100);
       REQUIRE(reql_cur_open(c.get()) == 0);
     }
 
