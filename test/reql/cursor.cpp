@@ -151,7 +151,7 @@ TEST_CASE("reql cursor", "[reql][cursor]") {
     std::unique_ptr<ReQL_Byte> buf(new ReQL_Byte[2]);
     const ReQL_Byte src[] = "\0t";
     reql_string_init(query.get(), buf.get(), src, 2);
-    reql_run(c.get(), query.get(), conn.get(), nullptr);
+    REQUIRE(reql_run(c.get(), query.get(), conn.get(), nullptr) == 0);
 
     REQUIRE(reql_cur_open(c.get()) != 0);
 
