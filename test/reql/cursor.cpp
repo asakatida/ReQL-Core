@@ -176,6 +176,16 @@ TEST_CASE("reql cursor", "[reql][cursor]") {
     reql_ast_range(query, args);
 
     REQUIRE(reql_run(c.get(), query, conn.get(), nullptr) == 0);
+
+    reql_json_destroy(query);
+
+    REQUIRE(reql_cur_open(c.get()) != 0);
+
+    ReQL_Obj_t *res = reql_cur_to_array(c.get());
+
+    REQUIRE(res != nullptr);
+
+    reql_json_destroy(res);
   }
 
   reql_cur_close(c.get());
