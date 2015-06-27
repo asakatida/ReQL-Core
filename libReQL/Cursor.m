@@ -131,7 +131,7 @@ convert(ReQL_Obj_t *obj) {
   if (obj == NULL) {
     return nil;
   }
-  NSArray *array = [self convert:obj];
+  NSArray *array = convert(obj);
   reql_json_destroy(obj);
   return array;
 }
