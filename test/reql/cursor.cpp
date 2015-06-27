@@ -12,8 +12,9 @@ reql_test_cur_end_cb(void *data) {
 
 static void
 reql_test_cur_error_cb(ReQL_Obj_t *res, void *data) {
-  (void)res;
-  *static_cast<int*>(data) = 0;
+  if (res != nullptr) {
+    *static_cast<int*>(data) = 0;
+  }
 }
 
 static int
