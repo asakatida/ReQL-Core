@@ -438,7 +438,6 @@ toQuery(id expr) {
   if (opts) {
     kwargs = [[ReQLQuery newWithObject:opts] build];
     if (kwargs == NULL) {
-      reql_json_destroy(kwargs);
       reql_json_destroy(query);
       return nil;
     }
@@ -455,18 +454,19 @@ toQuery(id expr) {
 
 -(void)noReply:(ReQLConnection *)conn withOpts:(NSDictionary *)opts {
   ReQL_Obj_t *query = [self build];
-  if (query != NULL) {
-    ReQL_Obj_t *kwargs = NULL;
-    if (opts) {
-      kwargs = [[ReQLQuery newWithObject:opts] build];
-      if (kwargs == NULL) {
-        reql_json_destroy(kwargs);
-        reql_json_destroy(query);
-      }
-    }
-    reql_run(NULL, query, [conn data], kwargs);
-    reql_json_destroy(kwargs);
+  if (query == NULL) {
+    return;
   }
+  ReQL_Obj_t *kwargs = NULL;
+  if (opts) {
+    kwargs = [[ReQLQuery newWithObject:opts] build];
+    if (kwargs == NULL) {
+      reql_json_destroy(query);
+      return;
+    }
+  }
+  reql_run(NULL, query, [conn data], kwargs);
+  reql_json_destroy(kwargs);
   reql_json_destroy(query);
 }
 
