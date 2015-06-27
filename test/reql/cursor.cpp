@@ -122,7 +122,7 @@ TEST_CASE("reql cursor", "[reql][cursor]") {
     reql_json_destroy(query);
 
     REQUIRE(reql_cur_open(c.get()) != 0);
-    
+
     SECTION("reql_cur_next") {
       int data = 0;
       ReQL_Obj_t *res = nullptr;
