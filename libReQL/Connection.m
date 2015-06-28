@@ -32,12 +32,12 @@ limitations under the License.
   if (self = [super init]) {
     p_conn = malloc(sizeof(ReQL_Conn_t));
     if (p_conn == NULL) {
-      return NULL;
+      return nil;
     }
     reql_conn_init(p_conn);
     ReQL_Byte buf[500];
     if (reql_conn_connect(p_conn, buf, 500) != 0) {
-      return NULL;
+      return nil;
     }
   }
   return self;

@@ -22,20 +22,118 @@ limitations under the License.
 
 #import "./reql/core.h"
 
-#define NEW_REQL_OBJ ReQL_Obj_t *obj = malloc(sizeof(ReQL_Obj_t));\
-if (obj == nil) {\
-  return nil;\
+@interface ReQLObject : NSObject
+
+@property(nonatomic) ReQL_Obj_t *pointer;
+
++(instancetype)newArray:(ReQL_Size)size;
+
++(instancetype)newObject:(ReQL_Size)size;
+
++(instancetype)newString:(const ReQL_Byte *)str withSize:(ReQL_Size)size;
+
+-(ReQL_Obj_t *)steal;
+
+@end
+
+@implementation ReQLObject
+
+@synthesize pointer=pointer;
+
+-(instancetype)initArray:(ReQL_Size)size {
+  if (self = [super init]) {
+    ReQL_Obj_t **array = malloc(sizeof(ReQL_Obj_t*) * size);
+    if (array == NULL) {
+      pointer = NULL;
+      return nil;
+    }
+    pointer = malloc(sizeof(ReQL_Obj_t));
+    if (pointer == NULL) {
+      free(array); array = NULL;
+      return nil;
+    }
+    reql_array_init(pointer, array, size);
+  }
+  return self;
 }
+
++(instancetype)newArray:(ReQL_Size)size {
+  return [[self alloc] initArray:size];
+}
+
+-(instancetype)initObject:(ReQL_Size)size {
+  if (self = [super init]) {
+    ReQL_Pair_t *pairs = malloc(sizeof(ReQL_Pair_t) * size);
+    if (pairs == NULL) {
+      pointer = NULL;
+      return nil;
+    }
+    pointer = malloc(sizeof(ReQL_Obj_t));
+    if (pointer == NULL) {
+      free(pairs); pairs = NULL;
+      return nil;
+    }
+    reql_object_init(pointer, pairs, size);
+  }
+  return self;
+}
+
++(instancetype)newObject:(ReQL_Size)size {
+  return [[self alloc] initObject:size];
+}
+
+-(instancetype)initString:(const ReQL_Byte *)str withSize:(ReQL_Size)size {
+  if (self = [super init]) {
+    ReQL_Byte *buf = malloc(sizeof(ReQL_Byte) * size);
+    if (buf == NULL) {
+      pointer = NULL;
+      return nil;
+    }
+    pointer = malloc(sizeof(ReQL_Obj_t));
+    if (pointer == NULL) {
+      free(buf); buf = NULL;
+      return nil;
+    }
+    reql_string_init(pointer, buf, str, size);
+  }
+  return self;
+}
+
++(instancetype)newString:(const ReQL_Byte *)str withSize:(ReQL_Size)size {
+  return [[self alloc] initString:str withSize:size];
+}
+
+-(instancetype)init {
+  if (self = [super init]) {
+    pointer = malloc(sizeof(ReQL_Obj_t));
+    if (pointer == NULL) {
+      return nil;
+    }
+  }
+  return self;
+}
+
+-(ReQL_Obj_t *)steal {
+  ReQL_Obj_t *obj = pointer;
+  pointer = NULL;
+  return obj;
+}
+
+-(void)dealloc {
+  reql_json_destroy(pointer);
+}
+
+@end
 
 @interface ReQLQuery ()
 
--(ReQL_Obj_t *)build;
+-(ReQLObject *)build;
 
 @end
 
 @protocol Expr <NSObject>
 
--(ReQL_Obj_t *)build;
+-(ReQLObject *)build;
 
 @end
 
@@ -84,7 +182,7 @@ if (obj == nil) {\
 @end
 
 @interface TermExpr : NSObject <Expr> {
-  ArrayExpr *p_args;
+  NSArray *p_args;
   ReQL_AST_Function p_func;
 }
 
@@ -93,8 +191,8 @@ if (obj == nil) {\
 @end
 
 @interface TermKwargsExpr : NSObject <Expr> {
-  ArrayExpr *p_args;
-  DictionaryExpr *p_kwargs;
+  NSArray *p_args;
+  NSDictionary *p_kwargs;
   ReQL_AST_Function_Kwargs p_func;
 }
 
@@ -136,18 +234,17 @@ toQuery(id expr) {
   return self;
 }
 
--(ReQL_Obj_t *)build {
-  NEW_REQL_OBJ;
-  NSUInteger size = [p_data count];
-  ReQL_Obj_t **buf = malloc(sizeof(ReQL_Obj_t*) * size);
-  if (buf == nil) {
-    free(obj);
+-(ReQLObject *)build {
+  ReQLObject *obj = [ReQLObject newArray:(ReQL_Size)[p_data count]];
+  if (obj == nil) {
     return nil;
   }
-  reql_array_init(obj, buf, (ReQL_Size)size);
   for (id elem in p_data) {
-    ReQL_Obj_t *r_elem = [toQuery(elem) build];
-    reql_array_append(obj, r_elem);
+    ReQLObject *r_elem = [toQuery(elem) build];
+    if (!r_elem) {
+      return nil;
+    }
+    reql_array_append(obj.pointer, [r_elem steal]);
   }
   return obj;
 }
@@ -168,9 +265,12 @@ toQuery(id expr) {
   return self;
 }
 
--(ReQL_Obj_t *)build {
-  NEW_REQL_OBJ;
-  reql_bool_init(obj, p_data ? 1 == 1 : 0 == 1);
+-(ReQLObject *)build {
+  ReQLObject *obj = [ReQLObject new];
+  if (obj == nil) {
+    return nil;
+  }
+  reql_bool_init(obj.pointer, p_data ? 1 : 0);
   return obj;
 }
 
@@ -178,9 +278,12 @@ toQuery(id expr) {
 
 @implementation NullExpr
 
--(ReQL_Obj_t *)build {
-  NEW_REQL_OBJ;
-  reql_null_init(obj);
+-(ReQLObject *)build {
+  ReQLObject *obj = [ReQLObject new];
+  if (obj == nil) {
+    return nil;
+  }
+  reql_null_init(obj.pointer);
   return obj;
 }
 
@@ -199,9 +302,12 @@ toQuery(id expr) {
   return self;
 }
 
--(ReQL_Obj_t *)build {
-  NEW_REQL_OBJ;
-  reql_number_init(obj, [p_data doubleValue]);
+-(ReQLObject *)build {
+  ReQLObject *obj = [ReQLObject new];
+  if (obj == nil) {
+    return nil;
+  }
+  reql_number_init(obj.pointer, [p_data doubleValue]);
   return obj;
 }
 
@@ -221,21 +327,20 @@ toQuery(id expr) {
   return self;
 }
 
--(ReQL_Obj_t *)build {
-  NEW_REQL_OBJ;
-  NSUInteger size = [p_data count];
-  ReQL_Pair_t *buf = malloc(sizeof(ReQL_Pair_t) * size);
-  if (buf == nil) {
-    free(obj);
+-(ReQLObject *)build {
+  ReQLObject *obj = [ReQLObject newObject:(ReQL_Size)[p_data count]];
+  if (obj == nil) {
     return nil;
   }
-  reql_object_init(obj, buf, (ReQL_Size)size);
   for (id key in p_data) {
     @autoreleasepool {
       id val = [p_data objectForKey:key];
-      ReQL_Obj_t *r_key = [toQuery(key) build];
-      ReQL_Obj_t *r_val = [toQuery(val) build];
-      reql_object_add(obj, r_key, r_val);
+      ReQLObject *r_key = [toQuery(key) build];
+      ReQLObject *r_val = [toQuery(val) build];
+      if (!(r_key && r_val)) {
+        return nil;
+      }
+      reql_object_add(obj.pointer, [r_key steal], [r_val steal]);
     }
   }
   return obj;
@@ -257,16 +362,10 @@ toQuery(id expr) {
   return self;
 }
 
--(ReQL_Obj_t *)build {
-  NEW_REQL_OBJ;
-  NSUInteger size = [p_data lengthOfBytesUsingEncoding:NSUTF8StringEncoding];
-  ReQL_Byte *buf = malloc(sizeof(ReQL_Byte) * size);
-  if (buf == nil) {
-    free(obj);
-    return nil;
-  }
-  reql_string_init(obj, buf, (ReQL_Byte *)[p_data cStringUsingEncoding:NSUTF8StringEncoding], (ReQL_Size)size);
-  return obj;
+-(ReQLObject *)build {
+  return [ReQLObject
+          newString:(const ReQL_Byte *)[p_data cStringUsingEncoding:NSUTF8StringEncoding]
+          withSize:(ReQL_Size)[p_data lengthOfBytesUsingEncoding:NSUTF8StringEncoding]];
 }
 
 
@@ -280,16 +379,22 @@ toQuery(id expr) {
 
 -(instancetype)initTerm:(ReQL_AST_Function)func :(NSArray *)args {
   if (self = [super init]) {
-    p_args = [ArrayExpr newTermFromArray:args];
+    p_args = args;
     p_func = func;
   }
   return self;
 }
 
--(ReQL_Obj_t *)build {
-  NEW_REQL_OBJ;
-  ReQL_Obj_t *r_args = [p_args build];
-  p_func(obj, r_args);
+-(ReQLObject *)build {
+  ReQLObject *obj = [ReQLObject new];
+  if (obj == nil) {
+    return nil;
+  }
+  ReQLObject *r_args = [toQuery(p_args) build];
+  if (!r_args) {
+    return nil;
+  }
+  p_func(obj.pointer, [r_args steal]);
   return obj;
 }
 
@@ -304,21 +409,30 @@ toQuery(id expr) {
 
 -(instancetype)initTerm:(ReQL_AST_Function_Kwargs)func :(NSArray *)args :(NSDictionary *)kwargs {
   if (self = [super init]) {
-    p_args = [ArrayExpr newTermFromArray:args];
-    p_kwargs = [DictionaryExpr newTermFromDictionary:kwargs];
+    p_args = args;
+    p_kwargs = kwargs;
     p_func = func;
   }
   return self;
 }
 
--(ReQL_Obj_t *)build {
-  NEW_REQL_OBJ;
-  ReQL_Obj_t *r_args = [p_args build];
-  ReQL_Obj_t *r_kwargs = NULL;
-  if (p_kwargs) {
-    r_kwargs = [p_kwargs build];
+-(ReQLObject *)build {
+  ReQLObject *obj = [ReQLObject new];
+  if (obj == nil) {
+    return nil;
   }
-  p_func(obj, r_args, r_kwargs);
+  ReQLObject *r_args = [toQuery(p_args) build];
+  if (!r_args) {
+    return nil;
+  }
+  ReQLObject *r_kwargs = nil;
+  if (p_kwargs) {
+    r_kwargs = [toQuery(p_kwargs) build];
+    if (!r_kwargs) {
+      return nil;
+    }
+  }
+  p_func(obj.pointer, [r_args steal], [r_kwargs steal]);
   return obj;
 }
 
@@ -430,21 +544,18 @@ toQuery(id expr) {
   if (cur == nil) {
     return nil;
   }
-  ReQL_Obj_t *query = [self build];
+  ReQLObject *query = [self build];
   if (query == NULL) {
     return nil;
   }
-  ReQL_Obj_t *kwargs = NULL;
+  ReQLObject *kwargs = NULL;
   if (opts) {
     kwargs = [[ReQLQuery newWithObject:opts] build];
-    if (kwargs == NULL) {
-      reql_json_destroy(query);
+    if (!kwargs) {
       return nil;
     }
   }
-  reql_run([cur data], query, [conn data], kwargs);
-  reql_json_destroy(kwargs);
-  reql_json_destroy(query);
+  reql_run([cur data], query.pointer, [conn data], kwargs.pointer);
   return cur;
 }
 
@@ -453,24 +564,21 @@ toQuery(id expr) {
 }
 
 -(void)noReply:(ReQLConnection *)conn withOpts:(NSDictionary *)opts {
-  ReQL_Obj_t *query = [self build];
+  ReQLObject *query = [self build];
   if (query == NULL) {
     return;
   }
-  ReQL_Obj_t *kwargs = NULL;
+  ReQLObject *kwargs = NULL;
   if (opts) {
     kwargs = [[ReQLQuery newWithObject:opts] build];
-    if (kwargs == NULL) {
-      reql_json_destroy(query);
+    if (!kwargs) {
       return;
     }
   }
-  reql_run(NULL, query, [conn data], kwargs);
-  reql_json_destroy(kwargs);
-  reql_json_destroy(query);
+  reql_run(NULL, query.pointer, [conn data], kwargs.pointer);
 }
 
--(ReQL_Obj_t *)build {
+-(ReQLObject *)build {
   return [p_build build];
 }
 
