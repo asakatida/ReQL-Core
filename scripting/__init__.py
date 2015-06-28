@@ -278,12 +278,11 @@ def lua_term_imp(name):
     return """
 extern int
 {}(lua_State *L) {{
-  return reql_lua_{}(L, {}{});
+  return reql_lua_{}(L, {});
 }}""".format(
     ast_name('lua', name),
     'get_opts' if has_opts(name) else 'ast_class',
-    ast_name('ast', name),
-    '' if has_opts(name) else ', NULL')
+    ast_name('ast', name))
 
 def lua_term_def(name):
     return """

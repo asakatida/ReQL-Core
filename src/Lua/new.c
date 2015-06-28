@@ -18,7 +18,7 @@ limitations under the License.
  * @copyright Apache
  */
 
-#include "ReQL-expr-Lua.h"
+#include "./Lua/expr.h"
 
 static ReQL_Obj_t *
 reql_lua_alloc_term(lua_State *L) {
@@ -47,21 +47,21 @@ reql_lua_new_bool(lua_State *L, const int idx) {
 extern ReQL_Obj_t *
 reql_lua_new_datum(lua_State *L, ReQL_Obj_t *arg) {
   ReQL_Obj_t *obj = reql_lua_alloc_term(L);
-  reql_ast_datum(obj, arg, NULL);
+  reql_ast_datum(obj, arg);
   return obj;
 }
 
 extern ReQL_Obj_t *
 reql_lua_new_make_array(lua_State *L, ReQL_Obj_t *arg) {
   ReQL_Obj_t *obj = reql_lua_alloc_term(L);
-  reql_ast_make_array(obj, arg, NULL);
+  reql_ast_make_array(obj, arg);
   return obj;
 }
 
 extern ReQL_Obj_t *
 reql_lua_new_make_obj(lua_State *L, ReQL_Obj_t *arg) {
   ReQL_Obj_t *obj = reql_lua_alloc_term(L);
-  reql_ast_make_obj(obj, NULL, arg);
+  reql_ast_make_obj(obj, arg);
   return obj;
 }
 
@@ -94,7 +94,7 @@ reql_lua_new_object(lua_State *L, uint32_t size) {
 extern ReQL_Obj_t *
 reql_lua_new_string(lua_State *L, const int idx) {
   size_t len;
-  uint8_t *str = (uint8_t *)lua_tolstring(L, idx, &len);
+  ReQL_Byte *str = (ReQL_Byte *)lua_tolstring(L, idx, &len);
 
   if (len > UINT32_MAX) {
     return NULL;
@@ -102,7 +102,7 @@ reql_lua_new_string(lua_State *L, const int idx) {
 
   ReQL_Obj_t *obj = reql_lua_alloc_term(L);
 
-  reql_string_init(obj, str, (uint32_t)len);
+  reql_string_init(obj, str, str, (ReQL_Size)len);
 
   return obj;
 }

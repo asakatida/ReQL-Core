@@ -20,7 +20,7 @@ limitations under the License.
 
 #include <stdlib.h>
 
-#include "ReQL-ast-Lua.h"
+#include "./Lua/ast.h"
 
 static const struct luaL_Reg libReQL[] = {
   {"connect", reql_lua_connect},

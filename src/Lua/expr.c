@@ -18,7 +18,7 @@ limitations under the License.
  * @copyright Apache
  */
 
-#include "ReQL-expr-Lua.h"
+#include "./Lua/expr.h"
 
 #include <string.h>
 

@@ -25,7 +25,7 @@ limitations under the License.
 extern "C" {
 #endif
 
-#include "ReQL-expr-Lua.h"
+#include "./Lua/expr.h"
 
 /**
  */
