@@ -18,9 +18,271 @@ limitations under the License.
  * @copyright Apache
  */
 
-#include "ReQL-ast-Python.h"
+#include <Python.h>
+
+#include "./Python/query.h"
 
 #include <stdlib.h>
+
+static void *
+reql_py_mem_check(void *obj) {
+  if (obj == NULL) {
+    PyGILState_STATE gil = PyGILState_Ensure();
+    PyMem_Free(obj);
+    PyGILState_Release(gil);
+    return PyErr_NoMemory();
+  }
+
+  return obj;
+}
+
+static void *
+reql_py_err_check(void *obj) {
+  if (PyErr_Occurred() == NULL) {
+    return obj;
+  }
+
+  PyGILState_STATE gil = PyGILState_Ensure();
+  PyMem_Free(obj);
+  PyGILState_Release(gil);
+  return NULL;
+}
+
+static void *
+reql_py_alloc(size_t size) {
+  PyGILState_STATE gil = PyGILState_Ensure();
+  void *obj = PyMem_Malloc(size);
+  PyGILState_Release(gil);
+
+  return reql_py_mem_check(obj);
+}
+
+static ReQL_Obj_t **
+reql_py_alloc_arr(size_t size) {
+  PyGILState_STATE gil = PyGILState_Ensure();
+  ReQL_Obj_t **obj = PyMem_New(ReQL_Obj_t *, size);
+  PyGILState_Release(gil);
+
+  return reql_py_mem_check(obj);
+}
+
+static ReQL_Pair_t *
+reql_py_alloc_pair(size_t size) {
+  PyGILState_STATE gil = PyGILState_Ensure();
+  ReQL_Pair_t *obj = PyMem_New(ReQL_Pair_t, size);
+  PyGILState_Release(gil);
+
+  return reql_py_mem_check(obj);
+}
+
+static ReQL_Obj_t *
+reql_py_alloc_term() {
+  return reql_py_alloc(sizeof(ReQL_Obj_t));
+}
+
+extern ReQL_Obj_t *
+reql_py_new_array(uint32_t size) {
+  ReQL_Obj_t *obj = reql_py_alloc_term();
+  if (obj == NULL) {
+    return NULL;
+  }
+  ReQL_Obj_t **arr = reql_py_alloc_arr(size);
+  if (arr == NULL) {
+    return NULL;
+  }
+  reql_array_init(obj, arr, size);
+  return obj;
+}
+
+extern ReQL_Obj_t *
+reql_py_new_bool(PyObject *val) {
+  ReQL_Obj_t *obj = reql_py_alloc_term();
+  if (obj == NULL) {
+    return NULL;
+  }
+  reql_bool_init(obj, PyObject_IsTrue(val));
+  return reql_py_err_check(obj);
+}
+
+extern ReQL_Obj_t *
+reql_py_new_datum(ReQL_Obj_t *arg) {
+  ReQL_Obj_t *obj = reql_py_alloc_term();
+  if (obj == NULL) {
+    return NULL;
+  }
+  reql_ast_datum(obj, arg);
+  return reql_py_err_check(obj);
+}
+
+extern ReQL_Obj_t *
+reql_py_new_make_array(ReQL_Obj_t *arg) {
+  ReQL_Obj_t *obj = reql_py_alloc_term();
+  if (obj == NULL) {
+    return NULL;
+  }
+  reql_ast_make_array(obj, arg);
+  return reql_py_err_check(obj);
+}
+
+extern ReQL_Obj_t *
+reql_py_new_make_obj(ReQL_Obj_t *arg) {
+  ReQL_Obj_t *obj = reql_py_alloc_term();
+  if (obj == NULL) {
+    return NULL;
+  }
+  reql_ast_make_obj(obj, arg);
+  return reql_py_err_check(obj);
+}
+
+extern ReQL_Obj_t *
+reql_py_new_null() {
+  ReQL_Obj_t *obj = reql_py_alloc_term();
+  if (obj == NULL) {
+    return NULL;
+  }
+  reql_null_init(obj);
+  return reql_py_err_check(obj);
+}
+
+extern ReQL_Obj_t *
+reql_py_new_number(PyObject *val) {
+  ReQL_Obj_t *obj = reql_py_alloc_term();
+  reql_number_init(obj, PyFloat_AsDouble(val));
+  return reql_py_err_check(obj);
+}
+
+extern ReQL_Obj_t *
+reql_py_new_object(uint32_t size) {
+  ReQL_Obj_t *obj = reql_py_alloc_term();
+  if (obj == NULL) {
+    return NULL;
+  }
+  ReQL_Pair_t *pair = reql_py_alloc_pair(size);
+  if (pair == NULL) {
+    return NULL;
+  }
+  reql_object_init(obj, pair, size);
+  return reql_py_err_check(obj);
+}
+
+extern ReQL_Obj_t *
+reql_py_new_string(PyObject *val) {
+  Py_ssize_t size = 0;
+
+  uint8_t *str = (uint8_t *)PyUnicode_AsUTF8AndSize(val, &size);
+  if (str == NULL || size > UINT32_MAX) {
+    return NULL;
+  }
+
+  ReQL_Obj_t *obj = reql_py_alloc_term();
+
+  reql_string_init(obj, str, str, (uint32_t)size);
+
+  return reql_py_err_check(obj);
+}
+
+extern PyObject *
+reql_py_expr(PyObject *self, PyObject *args) {
+  PyObject *val;
+  int nesting_depth = 20;
+
+  if (!PyArg_ParseTuple(args, "o|i:r.expr", &val, &nesting_depth)) {
+    return NULL;
+  }
+
+  if (nesting_depth <= 0) {
+    return NULL;
+  }
+
+  if (PyCallable_Check(val)) {
+    return NULL;
+  }
+
+  if (PyUnicode_Check(val)) {
+    return reql_to_py(reql_py_new_datum(reql_from_py(val)));
+  }
+
+  if (PyBytes_Check(val)) {
+    return NULL;
+  }
+
+  --nesting_depth;
+
+  if (PyMapping_Check(val)) {
+    PyObject *keys = PyMapping_Keys(val);
+
+    if (!keys) {
+      return NULL;
+    }
+
+    PyObject *iterator = PyObject_GetIter(keys);
+
+    if (!iterator) {
+      return NULL;
+    }
+
+    PyObject *reql_val = PyDict_New();
+
+    if (!reql_val) {
+      return NULL;
+    }
+
+    PyObject *key;
+    while ((key = PyIter_Next(iterator))) {
+      reql_py_expr(self, Py_BuildValue("Oi", key, nesting_depth));
+      Py_DECREF(key);
+    }
+
+    Py_DECREF(iterator);
+    Py_DECREF(keys);
+
+    if (PyErr_Occurred()) {
+      return NULL;
+    }
+
+    return reql_val;
+  }
+
+  if (PyIter_Check(val)) {
+    PyObject *iterator = PyObject_GetIter(val);
+
+    if (!iterator) {
+      return NULL;
+    }
+
+    PyObject *reql_val = PyList_New(0);
+
+    if (!reql_val) {
+      return NULL;
+    }
+
+    PyObject *item;
+    while ((item = PyIter_Next(iterator))) {
+      reql_py_expr(self, Py_BuildValue("Oi", item, nesting_depth));
+      Py_DECREF(item);
+    }
+
+    Py_DECREF(iterator);
+
+    if (PyErr_Occurred()) {
+      return NULL;
+    }
+
+    return reql_val;
+  }
+
+  return reql_to_py(reql_from_py(val));
+}
+
+extern ReQL_Obj_t *
+reql_from_py(PyObject *query) {
+  return NULL;
+}
+
+extern PyObject *
+reql_to_py(ReQL_Obj_t *query) {
+  return NULL;
+}
 
 extern PyObject *
 reql_py_add(PyObject *self, PyObject *args, PyObject *kwargs) {

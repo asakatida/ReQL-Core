@@ -1,5 +1,5 @@
 /*
-Copyright 2014-2015 Adam Grandquist
+Copyright 2015 Adam Grandquist
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -18,40 +18,17 @@ limitations under the License.
  * @copyright Apache
  */
 
-#ifndef REQL_NEW_PYTHON_H_
-#define REQL_NEW_PYTHON_H_
+#ifndef REQL_PYTHON_CONNECTION_H_
+#define REQL_PYTHON_CONNECTION_H_
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#include "./reql/core.h"
-
-#define Py_LIMITED_API
-
 #include <Python.h>
-
-extern ReQL_Obj_t *
-reql_py_new_array(uint32_t size);
-extern ReQL_Obj_t *
-reql_py_new_bool(PyObject *val);
-extern ReQL_Obj_t *
-reql_py_new_datum(ReQL_Obj_t *val);
-extern ReQL_Obj_t *
-reql_py_new_make_array(ReQL_Obj_t *val);
-extern ReQL_Obj_t *
-reql_py_new_make_obj(ReQL_Obj_t *val);
-extern ReQL_Obj_t *
-reql_py_new_null();
-extern ReQL_Obj_t *
-reql_py_new_number(PyObject *val);
-extern ReQL_Obj_t *
-reql_py_new_object(uint32_t idx);
-extern ReQL_Obj_t *
-reql_py_new_string(PyObject *val);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif  // REQL_NEW_PYTHON_H_
+#endif  // REQL_PYTHON_CONNECTION_H_

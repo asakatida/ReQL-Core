@@ -18,14 +18,44 @@ limitations under the License.
  * @copyright Apache
  */
 
-#ifndef REQL_AST_PYTHON_H_
-#define REQL_AST_PYTHON_H_
+#ifndef REQL_PYTHON_QUERY_H_
+#define REQL_PYTHON_QUERY_H_
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#include "ReQL-expr-Python.h"
+#include <Python.h>
+
+#include "./Python/types.h"
+
+#include "./reql/core.h"
+
+extern ReQL_Obj_t *
+reql_py_new_array(uint32_t size);
+extern ReQL_Obj_t *
+reql_py_new_bool(PyObject *val);
+extern ReQL_Obj_t *
+reql_py_new_datum(ReQL_Obj_t *val);
+extern ReQL_Obj_t *
+reql_py_new_make_array(ReQL_Obj_t *val);
+extern ReQL_Obj_t *
+reql_py_new_make_obj(ReQL_Obj_t *val);
+extern ReQL_Obj_t *
+reql_py_new_null();
+extern ReQL_Obj_t *
+reql_py_new_number(PyObject *val);
+extern ReQL_Obj_t *
+reql_py_new_object(uint32_t idx);
+extern ReQL_Obj_t *
+reql_py_new_string(PyObject *val);
+
+extern PyObject *
+reql_py_expr(PyObject *self, PyObject *args);
+extern ReQL_Obj_t *
+reql_from_py(PyObject *query);
+extern PyObject *
+reql_to_py(ReQL_Obj_t *query);
 
 /**
  */
@@ -906,4 +936,4 @@ reql_py_zip(PyObject *self, PyObject *args, PyObject *kwargs);
 }
 #endif
 
-#endif  // REQL_AST_PYTHON_H_
+#endif  // REQL_PYTHON_QUERY_H_

@@ -1,5 +1,5 @@
 /*
-Copyright 2014-2015 Adam Grandquist
+Copyright 2015 Adam Grandquist
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -18,24 +18,19 @@ limitations under the License.
  * @copyright Apache
  */
 
-#ifndef REQL_EXPR_PYTHON_H_
-#define REQL_EXPR_PYTHON_H_
+#ifndef REQL_PYTHON_TYPES_H_
+#define REQL_PYTHON_TYPES_H_
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#include "ReQL-new-Python.h"
+#include <Python.h>
 
-extern PyObject *
-reql_py_expr(PyObject *self, PyObject *args);
-extern ReQL_Obj_t *
-reql_from_py(PyObject *query);
-extern PyObject *
-reql_to_py(ReQL_Obj_t *query);
+#include "./reql/core.h"
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif  // REQL_EXPR_PYTHON_H_
+#endif  // REQL_PYTHON_TYPES_H_

@@ -18,15 +18,18 @@ limitations under the License.
  * @copyright Apache
  */
 
+#include <Python.h>
+
+#include "./Python/connection.h"
+#include "./Python/cursor.h"
+#include "./Python/query.h"
+
 #include <stdlib.h>
 
-#include "ReQL-ast-Python.h"
-
 static PyMethodDef libReQLMethods[] = {
-  {"expr", (PyCFunction)reql_py_expr, METH_VARARGS, NULL},
+  {"expr", reql_py_expr, METH_VARARGS, NULL},
   {"add", (PyCFunction)reql_py_add, METH_VARARGS | METH_KEYWORDS, NULL},
-  {"all", (PyCFunction)reql_py_all, METH_VARARGS | METH_KEYWORDS, NULL},
-  {"any", (PyCFunction)reql_py_any, METH_VARARGS | METH_KEYWORDS, NULL},
+  {"and_", (PyCFunction)reql_py_and, METH_VARARGS | METH_KEYWORDS, NULL},
   {"append", (PyCFunction)reql_py_append, METH_VARARGS | METH_KEYWORDS, NULL},
   {"april", (PyCFunction)reql_py_april, METH_VARARGS | METH_KEYWORDS, NULL},
   {"args", (PyCFunction)reql_py_args, METH_VARARGS | METH_KEYWORDS, NULL},
@@ -34,14 +37,17 @@ static PyMethodDef libReQLMethods[] = {
   {"august", (PyCFunction)reql_py_august, METH_VARARGS | METH_KEYWORDS, NULL},
   {"avg", (PyCFunction)reql_py_avg, METH_VARARGS | METH_KEYWORDS, NULL},
   {"between", (PyCFunction)reql_py_between, METH_VARARGS | METH_KEYWORDS, NULL},
+  {"between_deprecated", (PyCFunction)reql_py_between_deprecated, METH_VARARGS | METH_KEYWORDS, NULL},
   {"binary", (PyCFunction)reql_py_binary, METH_VARARGS | METH_KEYWORDS, NULL},
   {"bracket", (PyCFunction)reql_py_bracket, METH_VARARGS | METH_KEYWORDS, NULL},
   {"branch", (PyCFunction)reql_py_branch, METH_VARARGS | METH_KEYWORDS, NULL},
+  {"ceil", (PyCFunction)reql_py_ceil, METH_VARARGS | METH_KEYWORDS, NULL},
   {"changes", (PyCFunction)reql_py_changes, METH_VARARGS | METH_KEYWORDS, NULL},
   {"change_at", (PyCFunction)reql_py_change_at, METH_VARARGS | METH_KEYWORDS, NULL},
   {"circle", (PyCFunction)reql_py_circle, METH_VARARGS | METH_KEYWORDS, NULL},
   {"coerce_to", (PyCFunction)reql_py_coerce_to, METH_VARARGS | METH_KEYWORDS, NULL},
   {"concat_map", (PyCFunction)reql_py_concat_map, METH_VARARGS | METH_KEYWORDS, NULL},
+  {"config", (PyCFunction)reql_py_config, METH_VARARGS | METH_KEYWORDS, NULL},
   {"contains", (PyCFunction)reql_py_contains, METH_VARARGS | METH_KEYWORDS, NULL},
   {"count", (PyCFunction)reql_py_count, METH_VARARGS | METH_KEYWORDS, NULL},
   {"date", (PyCFunction)reql_py_date, METH_VARARGS | METH_KEYWORDS, NULL},
@@ -71,6 +77,7 @@ static PyMethodDef libReQLMethods[] = {
   {"february", (PyCFunction)reql_py_february, METH_VARARGS | METH_KEYWORDS, NULL},
   {"fill", (PyCFunction)reql_py_fill, METH_VARARGS | METH_KEYWORDS, NULL},
   {"filter", (PyCFunction)reql_py_filter, METH_VARARGS | METH_KEYWORDS, NULL},
+  {"floor", (PyCFunction)reql_py_floor, METH_VARARGS | METH_KEYWORDS, NULL},
   {"for_each", (PyCFunction)reql_py_for_each, METH_VARARGS | METH_KEYWORDS, NULL},
   {"friday", (PyCFunction)reql_py_friday, METH_VARARGS | METH_KEYWORDS, NULL},
   {"func", (PyCFunction)reql_py_func, METH_VARARGS | METH_KEYWORDS, NULL},
@@ -89,7 +96,6 @@ static PyMethodDef libReQLMethods[] = {
   {"http", (PyCFunction)reql_py_http, METH_VARARGS | METH_KEYWORDS, NULL},
   {"implicit_var", (PyCFunction)reql_py_implicit_var, METH_VARARGS | METH_KEYWORDS, NULL},
   {"includes", (PyCFunction)reql_py_includes, METH_VARARGS | METH_KEYWORDS, NULL},
-  {"indexes_of", (PyCFunction)reql_py_indexes_of, METH_VARARGS | METH_KEYWORDS, NULL},
   {"index_create", (PyCFunction)reql_py_index_create, METH_VARARGS | METH_KEYWORDS, NULL},
   {"index_drop", (PyCFunction)reql_py_index_drop, METH_VARARGS | METH_KEYWORDS, NULL},
   {"index_list", (PyCFunction)reql_py_index_list, METH_VARARGS | METH_KEYWORDS, NULL},
@@ -101,7 +107,7 @@ static PyMethodDef libReQLMethods[] = {
   {"insert", (PyCFunction)reql_py_insert, METH_VARARGS | METH_KEYWORDS, NULL},
   {"insert_at", (PyCFunction)reql_py_insert_at, METH_VARARGS | METH_KEYWORDS, NULL},
   {"intersects", (PyCFunction)reql_py_intersects, METH_VARARGS | METH_KEYWORDS, NULL},
-  {"timezone", (PyCFunction)reql_py_in_timezone, METH_VARARGS | METH_KEYWORDS, NULL},
+  {"in_timezone", (PyCFunction)reql_py_in_timezone, METH_VARARGS | METH_KEYWORDS, NULL},
   {"iso8601", (PyCFunction)reql_py_iso8601, METH_VARARGS | METH_KEYWORDS, NULL},
   {"is_empty", (PyCFunction)reql_py_is_empty, METH_VARARGS | METH_KEYWORDS, NULL},
   {"january", (PyCFunction)reql_py_january, METH_VARARGS | METH_KEYWORDS, NULL},
@@ -121,10 +127,12 @@ static PyMethodDef libReQLMethods[] = {
   {"march", (PyCFunction)reql_py_march, METH_VARARGS | METH_KEYWORDS, NULL},
   {"match", (PyCFunction)reql_py_match, METH_VARARGS | METH_KEYWORDS, NULL},
   {"max", (PyCFunction)reql_py_max, METH_VARARGS | METH_KEYWORDS, NULL},
+  {"maxval", (PyCFunction)reql_py_maxval, METH_VARARGS | METH_KEYWORDS, NULL},
   {"may", (PyCFunction)reql_py_may, METH_VARARGS | METH_KEYWORDS, NULL},
   {"merge", (PyCFunction)reql_py_merge, METH_VARARGS | METH_KEYWORDS, NULL},
   {"min", (PyCFunction)reql_py_min, METH_VARARGS | METH_KEYWORDS, NULL},
   {"minutes", (PyCFunction)reql_py_minutes, METH_VARARGS | METH_KEYWORDS, NULL},
+  {"minval", (PyCFunction)reql_py_minval, METH_VARARGS | METH_KEYWORDS, NULL},
   {"mod", (PyCFunction)reql_py_mod, METH_VARARGS | METH_KEYWORDS, NULL},
   {"monday", (PyCFunction)reql_py_monday, METH_VARARGS | METH_KEYWORDS, NULL},
   {"month", (PyCFunction)reql_py_month, METH_VARARGS | METH_KEYWORDS, NULL},
@@ -136,6 +144,8 @@ static PyMethodDef libReQLMethods[] = {
   {"nth", (PyCFunction)reql_py_nth, METH_VARARGS | METH_KEYWORDS, NULL},
   {"object", (PyCFunction)reql_py_object, METH_VARARGS | METH_KEYWORDS, NULL},
   {"october", (PyCFunction)reql_py_october, METH_VARARGS | METH_KEYWORDS, NULL},
+  {"offsets_of", (PyCFunction)reql_py_offsets_of, METH_VARARGS | METH_KEYWORDS, NULL},
+  {"or_", (PyCFunction)reql_py_or, METH_VARARGS | METH_KEYWORDS, NULL},
   {"order_by", (PyCFunction)reql_py_order_by, METH_VARARGS | METH_KEYWORDS, NULL},
   {"outer_join", (PyCFunction)reql_py_outer_join, METH_VARARGS | METH_KEYWORDS, NULL},
   {"pluck", (PyCFunction)reql_py_pluck, METH_VARARGS | METH_KEYWORDS, NULL},
@@ -145,8 +155,11 @@ static PyMethodDef libReQLMethods[] = {
   {"prepend", (PyCFunction)reql_py_prepend, METH_VARARGS | METH_KEYWORDS, NULL},
   {"random", (PyCFunction)reql_py_random, METH_VARARGS | METH_KEYWORDS, NULL},
   {"range", (PyCFunction)reql_py_range, METH_VARARGS | METH_KEYWORDS, NULL},
+  {"rebalance", (PyCFunction)reql_py_rebalance, METH_VARARGS | METH_KEYWORDS, NULL},
+  {"reconfigure", (PyCFunction)reql_py_reconfigure, METH_VARARGS | METH_KEYWORDS, NULL},
   {"reduce", (PyCFunction)reql_py_reduce, METH_VARARGS | METH_KEYWORDS, NULL},
   {"replace", (PyCFunction)reql_py_replace, METH_VARARGS | METH_KEYWORDS, NULL},
+  {"round", (PyCFunction)reql_py_round, METH_VARARGS | METH_KEYWORDS, NULL},
   {"sample", (PyCFunction)reql_py_sample, METH_VARARGS | METH_KEYWORDS, NULL},
   {"saturday", (PyCFunction)reql_py_saturday, METH_VARARGS | METH_KEYWORDS, NULL},
   {"seconds", (PyCFunction)reql_py_seconds, METH_VARARGS | METH_KEYWORDS, NULL},
@@ -159,6 +172,7 @@ static PyMethodDef libReQLMethods[] = {
   {"slice", (PyCFunction)reql_py_slice, METH_VARARGS | METH_KEYWORDS, NULL},
   {"splice_at", (PyCFunction)reql_py_splice_at, METH_VARARGS | METH_KEYWORDS, NULL},
   {"split", (PyCFunction)reql_py_split, METH_VARARGS | METH_KEYWORDS, NULL},
+  {"status", (PyCFunction)reql_py_status, METH_VARARGS | METH_KEYWORDS, NULL},
   {"sub", (PyCFunction)reql_py_sub, METH_VARARGS | METH_KEYWORDS, NULL},
   {"sum", (PyCFunction)reql_py_sum, METH_VARARGS | METH_KEYWORDS, NULL},
   {"sunday", (PyCFunction)reql_py_sunday, METH_VARARGS | METH_KEYWORDS, NULL},
@@ -183,6 +197,7 @@ static PyMethodDef libReQLMethods[] = {
   {"update", (PyCFunction)reql_py_update, METH_VARARGS | METH_KEYWORDS, NULL},
   {"uuid", (PyCFunction)reql_py_uuid, METH_VARARGS | METH_KEYWORDS, NULL},
   {"var", (PyCFunction)reql_py_var, METH_VARARGS | METH_KEYWORDS, NULL},
+  {"wait", (PyCFunction)reql_py_wait, METH_VARARGS | METH_KEYWORDS, NULL},
   {"wednesday", (PyCFunction)reql_py_wednesday, METH_VARARGS | METH_KEYWORDS, NULL},
   {"without", (PyCFunction)reql_py_without, METH_VARARGS | METH_KEYWORDS, NULL},
   {"with_fields", (PyCFunction)reql_py_with_fields, METH_VARARGS | METH_KEYWORDS, NULL},

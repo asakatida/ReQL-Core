@@ -187,6 +187,9 @@ def is_objc_keyword(name):
 def is_lua_keyword(name):
     return name.upper() in ('AND', 'ERROR', 'NOT', 'OR')
 
+def is_py_keyword(name):
+    return name.upper() in ('AND', 'NOT', 'OR')
+
 def is_const_args_w_opts(name):
     return name.upper() in ('TABLE',)
 
@@ -203,6 +206,9 @@ def mangle_cpp_const(name):
 
 def mangle_lua_const(name):
     return mangle_const(name, is_lua_keyword(name))
+
+def mangle_py_const(name):
+    return mangle_const(name, is_py_keyword(name))
 
 def mangle_objc_const(name):
     return mangle_const(name, is_objc_keyword(name))
@@ -360,6 +366,9 @@ def py_term_def(name):
  */
 extern PyObject *
 {}(PyObject *self, PyObject *args, PyObject *kwargs);""".format(ast_name('py', name))
+
+def py_lib(name):
+    return "{{\"{}\", (PyCFunction){}, METH_VARARGS | METH_KEYWORDS, NULL}},".format(mangle_py_const(name), ast_name('py', name))
 
 def rb_term_imp(name):
     return """
