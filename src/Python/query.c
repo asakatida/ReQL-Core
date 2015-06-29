@@ -18,7 +18,8 @@ limitations under the License.
  * @copyright Apache
  */
 
-#include <Python.h>
+#define Py_LIMITED_API
+#include "Python.h"
 
 #include "./Python/query.h"
 
@@ -167,16 +168,28 @@ reql_py_new_object(uint32_t size) {
 
 extern ReQL_Obj_t *
 reql_py_new_string(PyObject *val) {
+  val = PyUnicode_AsUTF8String(val);
+
+  if (val == NULL) {
+    return NULL;
+  }
+
   Py_ssize_t size = 0;
 
-  uint8_t *str = (uint8_t *)PyUnicode_AsUTF8AndSize(val, &size);
+  ReQL_Byte *str = NULL;
+  if (PyBytes_AsStringAndSize(val, (char **)&str, &size)) {
+    return NULL;
+  }
+
   if (str == NULL || size > UINT32_MAX) {
     return NULL;
   }
 
   ReQL_Obj_t *obj = reql_py_alloc_term();
 
-  reql_string_init(obj, str, str, (uint32_t)size);
+  ReQL_Byte *buf = malloc(sizeof(ReQL_Byte) * size);
+
+  reql_string_init(obj, buf, str, (uint32_t)size);
 
   return reql_py_err_check(obj);
 }
@@ -243,16 +256,13 @@ reql_py_expr(PyObject *self, PyObject *args) {
     return reql_val;
   }
 
-  if (PyIter_Check(val)) {
-    PyObject *iterator = PyObject_GetIter(val);
+  PyObject *iterator = PyObject_GetIter(val);
 
-    if (!iterator) {
-      return NULL;
-    }
-
+  if (iterator) {
     PyObject *reql_val = PyList_New(0);
 
     if (!reql_val) {
+      Py_DECREF(iterator);
       return NULL;
     }
 

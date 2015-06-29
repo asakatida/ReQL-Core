@@ -18,6 +18,7 @@ limitations under the License.
  * @copyright Apache
  */
 
-#include <Python.h>
+#define Py_LIMITED_API
+#include "Python.h"
 
 #include "./Python/cursor.h"
