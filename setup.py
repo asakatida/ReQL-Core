@@ -33,7 +33,10 @@ setup(
         'Natural Language :: English',
         'Operating System :: MacOS :: MacOS X',
         'Programming Language :: C',
+        'Programming Language :: Python :: 3.2',
+        'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
         'Topic :: Database :: Front-Ends'
     ],
     description='A Python driver for RethinkDB.',
