@@ -28,6 +28,9 @@ extern "C" {
 #define Py_LIMITED_API
 #include "Python.h"
 
+extern PyObject *
+reql_py_connect(PyObject *args, PyObject *kwargs);
+
 #ifdef __cplusplus
 }
 #endif

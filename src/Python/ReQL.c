@@ -45,6 +45,7 @@ limitations under the License.
 
 static PyMethodDef libReQLMethods[] = {
   {"expr", reql_py_expr, METH_VARARGS, NULL},
+  {"connect", (PyCFunction)reql_py_connect, METH_VARARGS | METH_KEYWORDS, NULL},
   {"add", (PyCFunction)reql_py_add, METH_VARARGS | METH_KEYWORDS, NULL},
   {"and_", (PyCFunction)reql_py_and, METH_VARARGS | METH_KEYWORDS, NULL},
   {"append", (PyCFunction)reql_py_append, METH_VARARGS | METH_KEYWORDS, NULL},
