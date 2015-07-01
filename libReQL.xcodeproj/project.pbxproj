@@ -426,6 +426,16 @@
 		8791C84A1B13968C004798D7 /* libReQL.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C8491B13968C004798D7 /* libReQL.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8791C8501B13968C004798D7 /* libReQL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8791C8451B13968C004798D7 /* libReQL.framework */; };
 		879C95BD1B274A6D00EF7026 /* types.h in Headers */ = {isa = PBXBuildFile; fileRef = 879C95BC1B274A6D00EF7026 /* types.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		879CE5BD1B436AD20068D315 /* liblibReQL-core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8728ACC41B1BEE0F00588F9A /* liblibReQL-core.dylib */; };
+		879CE5C71B436AF20068D315 /* connection.c in Sources */ = {isa = PBXBuildFile; fileRef = 879CE5BF1B436AF20068D315 /* connection.c */; };
+		879CE5C81B436AF20068D315 /* connection.h in Headers */ = {isa = PBXBuildFile; fileRef = 879CE5C01B436AF20068D315 /* connection.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		879CE5C91B436AF20068D315 /* cursor.c in Sources */ = {isa = PBXBuildFile; fileRef = 879CE5C11B436AF20068D315 /* cursor.c */; };
+		879CE5CA1B436AF20068D315 /* cursor.h in Headers */ = {isa = PBXBuildFile; fileRef = 879CE5C21B436AF20068D315 /* cursor.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		879CE5CB1B436AF20068D315 /* query.c in Sources */ = {isa = PBXBuildFile; fileRef = 879CE5C31B436AF20068D315 /* query.c */; };
+		879CE5CC1B436AF20068D315 /* query.h in Headers */ = {isa = PBXBuildFile; fileRef = 879CE5C41B436AF20068D315 /* query.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		879CE5CD1B436AF20068D315 /* ReQL.c in Sources */ = {isa = PBXBuildFile; fileRef = 879CE5C51B436AF20068D315 /* ReQL.c */; };
+		879CE5CE1B436AF20068D315 /* types.h in Headers */ = {isa = PBXBuildFile; fileRef = 879CE5C61B436AF20068D315 /* types.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		879CE5D01B436D3A0068D315 /* libpython.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 879CE5CF1B436D3A0068D315 /* libpython.dylib */; };
 		87CD586E1B2CADA300EA800F /* query.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CD586C1B2CADA300EA800F /* query.c */; };
 		87CD586F1B2CADA300EA800F /* query.h in Headers */ = {isa = PBXBuildFile; fileRef = 87CD586D1B2CADA300EA800F /* query.h */; };
 		87CD58F51B2CE04D00EA800F /* aggregation.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CD58711B2CE04D00EA800F /* aggregation.m */; };
@@ -610,6 +620,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 8791C8441B13968C004798D7;
 			remoteInfo = libReQL;
+		};
+		879CE5BB1B436AC80068D315 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1E9D4B6F1A03011100201983 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8728ACC31B1BEE0F00588F9A;
+			remoteInfo = "libReQL-core";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -1033,6 +1050,16 @@
 		8791C84F1B13968C004798D7 /* libReQLTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = libReQLTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8791C8551B13968C004798D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		879C95BC1B274A6D00EF7026 /* types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
+		879CE5B71B436ABE0068D315 /* liblibReQL-Python.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "liblibReQL-Python.dylib"; sourceTree = BUILT_PRODUCTS_DIR; };
+		879CE5BF1B436AF20068D315 /* connection.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = connection.c; sourceTree = "<group>"; };
+		879CE5C01B436AF20068D315 /* connection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = connection.h; sourceTree = "<group>"; };
+		879CE5C11B436AF20068D315 /* cursor.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cursor.c; sourceTree = "<group>"; };
+		879CE5C21B436AF20068D315 /* cursor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cursor.h; sourceTree = "<group>"; };
+		879CE5C31B436AF20068D315 /* query.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = query.c; sourceTree = "<group>"; };
+		879CE5C41B436AF20068D315 /* query.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = query.h; sourceTree = "<group>"; };
+		879CE5C51B436AF20068D315 /* ReQL.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ReQL.c; sourceTree = "<group>"; };
+		879CE5C61B436AF20068D315 /* types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
+		879CE5CF1B436D3A0068D315 /* libpython.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpython.dylib; path = usr/lib/libpython.dylib; sourceTree = SDKROOT; };
 		87CD586C1B2CADA300EA800F /* query.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = query.c; sourceTree = "<group>"; };
 		87CD586D1B2CADA300EA800F /* query.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = query.h; sourceTree = "<group>"; };
 		87CD58711B2CE04D00EA800F /* aggregation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = aggregation.m; sourceTree = "<group>"; };
@@ -1217,6 +1244,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				8791C8501B13968C004798D7 /* libReQL.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		879CE5B41B436ABE0068D315 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				879CE5D01B436D3A0068D315 /* libpython.dylib in Frameworks */,
+				879CE5BD1B436AD20068D315 /* liblibReQL-core.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1435,6 +1471,7 @@
 		1E9D4B6E1A03011100201983 = {
 			isa = PBXGroup;
 			children = (
+				879CE5CF1B436D3A0068D315 /* libpython.dylib */,
 				8791C8461B13968C004798D7 /* libReQL */,
 				8791C8531B13968C004798D7 /* libReQLTests */,
 				1E9D4B781A03011100201983 /* Products */,
@@ -1452,6 +1489,7 @@
 				8728ACC41B1BEE0F00588F9A /* liblibReQL-core.dylib */,
 				8728ACDF1B1BEEA000588F9A /* liblibReQL-c.dylib */,
 				8728ACEA1B1BEEDD00588F9A /* liblibReQL-cpp.dylib */,
+				879CE5B71B436ABE0068D315 /* liblibReQL-Python.dylib */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1461,6 +1499,7 @@
 			children = (
 				1ECDD7331AB53D80004CD31E /* c */,
 				1ECDD7481AB53D80004CD31E /* cpp */,
+				879CE5BE1B436AF20068D315 /* Python */,
 				8791C7D51B138A43004798D7 /* reql */,
 				1ECDD76E1AB53D80004CD31E /* ReQL.h */,
 				1ECDD76F1AB53D80004CD31E /* ReQL.hpp */,
@@ -2031,6 +2070,21 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		879CE5BE1B436AF20068D315 /* Python */ = {
+			isa = PBXGroup;
+			children = (
+				879CE5BF1B436AF20068D315 /* connection.c */,
+				879CE5C01B436AF20068D315 /* connection.h */,
+				879CE5C11B436AF20068D315 /* cursor.c */,
+				879CE5C21B436AF20068D315 /* cursor.h */,
+				879CE5C31B436AF20068D315 /* query.c */,
+				879CE5C41B436AF20068D315 /* query.h */,
+				879CE5C51B436AF20068D315 /* ReQL.c */,
+				879CE5C61B436AF20068D315 /* types.h */,
+			);
+			path = Python;
+			sourceTree = "<group>";
+		};
 		87CD58701B2CE04D00EA800F /* polyglot */ = {
 			isa = PBXGroup;
 			children = (
@@ -2306,6 +2360,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		879CE5B51B436ABE0068D315 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				879CE5CC1B436AF20068D315 /* query.h in Headers */,
+				879CE5CA1B436AF20068D315 /* cursor.h in Headers */,
+				879CE5CE1B436AF20068D315 /* types.h in Headers */,
+				879CE5C81B436AF20068D315 /* connection.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
@@ -2417,6 +2482,24 @@
 			productReference = 8791C84F1B13968C004798D7 /* libReQLTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		879CE5B61B436ABE0068D315 /* libReQL-Python */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 879CE5BA1B436ABF0068D315 /* Build configuration list for PBXNativeTarget "libReQL-Python" */;
+			buildPhases = (
+				879CE5B31B436ABE0068D315 /* Sources */,
+				879CE5B41B436ABE0068D315 /* Frameworks */,
+				879CE5B51B436ABE0068D315 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				879CE5BC1B436AC80068D315 /* PBXTargetDependency */,
+			);
+			name = "libReQL-Python";
+			productName = "libReQL-Python";
+			productReference = 879CE5B71B436ABE0068D315 /* liblibReQL-Python.dylib */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -2444,6 +2527,9 @@
 					8791C84E1B13968C004798D7 = {
 						CreatedOnToolsVersion = 6.3.2;
 					};
+					879CE5B61B436ABE0068D315 = {
+						CreatedOnToolsVersion = 6.3.2;
+					};
 				};
 			};
 			buildConfigurationList = 1E9D4B721A03011100201983 /* Build configuration list for PBXProject "libReQL" */;
@@ -2464,6 +2550,7 @@
 				8728ACC31B1BEE0F00588F9A /* libReQL-core */,
 				8728ACDE1B1BEEA000588F9A /* libReQL-c */,
 				8728ACE91B1BEEDD00588F9A /* libReQL-cpp */,
+				879CE5B61B436ABE0068D315 /* libReQL-Python */,
 			);
 		};
 /* End PBXProject section */
@@ -3045,6 +3132,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		879CE5B31B436ABE0068D315 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				879CE5CB1B436AF20068D315 /* query.c in Sources */,
+				879CE5C71B436AF20068D315 /* connection.c in Sources */,
+				879CE5C91B436AF20068D315 /* cursor.c in Sources */,
+				879CE5CD1B436AF20068D315 /* ReQL.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -3077,6 +3175,11 @@
 			isa = PBXTargetDependency;
 			target = 8791C8441B13968C004798D7 /* libReQL */;
 			targetProxy = 8791C8511B13968C004798D7 /* PBXContainerItemProxy */;
+		};
+		879CE5BC1B436AC80068D315 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8728ACC31B1BEE0F00588F9A /* libReQL-core */;
+			targetProxy = 879CE5BB1B436AC80068D315 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -3620,6 +3723,83 @@
 			};
 			name = Release;
 		};
+		879CE5B81B436ABF0068D315 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/System/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7,
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = src;
+			};
+			name = Debug;
+		};
+		879CE5B91B436ABF0068D315 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/System/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7,
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = src;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -3682,6 +3862,15 @@
 			buildConfigurations = (
 				8791C85C1B13968C004798D7 /* Debug */,
 				8791C85D1B13968C004798D7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		879CE5BA1B436ABF0068D315 /* Build configuration list for PBXNativeTarget "libReQL-Python" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				879CE5B81B436ABF0068D315 /* Debug */,
+				879CE5B91B436ABF0068D315 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
