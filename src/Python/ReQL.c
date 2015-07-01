@@ -22,7 +22,6 @@ limitations under the License.
 #include "Python.h"
 
 #include "./Python/connection.h"
-#include "./Python/cursor.h"
 #include "./Python/query.h"
 
 #include <stdlib.h>
