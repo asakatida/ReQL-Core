@@ -27,6 +27,22 @@ limitations under the License.
 
 #include <stdlib.h>
 
+#if PY_MAJOR_VERSION < 3
+#define ReQLModule
+#define ReQLInitFuncName initlibReQL
+#define ReQLInitCall Py_InitModule("libReQL", libReQLMethods)
+#else
+#define ReQLModule static struct PyModuleDef libReQLModule = {\
+  PyModuleDef_HEAD_INIT,\
+  "libReQL",\
+  NULL,\
+  0,\
+  libReQLMethods\
+}
+#define ReQLInitFuncName PyInit_libreql
+#define ReQLInitCall PyModule_Create(&libReQLModule)
+#endif
+
 static PyMethodDef libReQLMethods[] = {
   {"expr", reql_py_expr, METH_VARARGS, NULL},
   {"add", (PyCFunction)reql_py_add, METH_VARARGS | METH_KEYWORDS, NULL},
@@ -207,22 +223,18 @@ static PyMethodDef libReQLMethods[] = {
   {NULL, NULL, 0, NULL}
 };
 
-static struct PyModuleDef libReQLModule = {
-  PyModuleDef_HEAD_INIT,
-  "libReQL",
-  NULL,
-  0,
-  libReQLMethods
-};
+ReQLModule;
 
 PyMODINIT_FUNC
-PyInit_libreql(void) {
+ReQLInitFuncName(void) {
   PyObject* m;
-  m = PyModule_Create(&libReQLModule);
+  m = ReQLInitCall;
 
   if (!m) {
-    return NULL;
   }
 
+#if PY_MAJOR_VERSION < 3
+#else
   return m;
+#endif
 }
