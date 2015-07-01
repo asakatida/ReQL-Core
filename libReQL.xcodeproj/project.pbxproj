@@ -434,7 +434,6 @@
 		879CE5CB1B436AF20068D315 /* query.c in Sources */ = {isa = PBXBuildFile; fileRef = 879CE5C31B436AF20068D315 /* query.c */; };
 		879CE5CC1B436AF20068D315 /* query.h in Headers */ = {isa = PBXBuildFile; fileRef = 879CE5C41B436AF20068D315 /* query.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		879CE5CD1B436AF20068D315 /* ReQL.c in Sources */ = {isa = PBXBuildFile; fileRef = 879CE5C51B436AF20068D315 /* ReQL.c */; };
-		879CE5CE1B436AF20068D315 /* types.h in Headers */ = {isa = PBXBuildFile; fileRef = 879CE5C61B436AF20068D315 /* types.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		879CE5D01B436D3A0068D315 /* libpython.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 879CE5CF1B436D3A0068D315 /* libpython.dylib */; };
 		87CD586E1B2CADA300EA800F /* query.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CD586C1B2CADA300EA800F /* query.c */; };
 		87CD586F1B2CADA300EA800F /* query.h in Headers */ = {isa = PBXBuildFile; fileRef = 87CD586D1B2CADA300EA800F /* query.h */; };
@@ -1058,7 +1057,6 @@
 		879CE5C31B436AF20068D315 /* query.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = query.c; sourceTree = "<group>"; };
 		879CE5C41B436AF20068D315 /* query.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = query.h; sourceTree = "<group>"; };
 		879CE5C51B436AF20068D315 /* ReQL.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ReQL.c; sourceTree = "<group>"; };
-		879CE5C61B436AF20068D315 /* types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
 		879CE5CF1B436D3A0068D315 /* libpython.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpython.dylib; path = usr/lib/libpython.dylib; sourceTree = SDKROOT; };
 		87CD586C1B2CADA300EA800F /* query.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = query.c; sourceTree = "<group>"; };
 		87CD586D1B2CADA300EA800F /* query.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = query.h; sourceTree = "<group>"; };
@@ -2080,7 +2078,6 @@
 				879CE5C31B436AF20068D315 /* query.c */,
 				879CE5C41B436AF20068D315 /* query.h */,
 				879CE5C51B436AF20068D315 /* ReQL.c */,
-				879CE5C61B436AF20068D315 /* types.h */,
 			);
 			path = Python;
 			sourceTree = "<group>";
@@ -2366,7 +2363,6 @@
 			files = (
 				879CE5CC1B436AF20068D315 /* query.h in Headers */,
 				879CE5CA1B436AF20068D315 /* cursor.h in Headers */,
-				879CE5CE1B436AF20068D315 /* types.h in Headers */,
 				879CE5C81B436AF20068D315 /* connection.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
