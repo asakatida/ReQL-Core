@@ -194,6 +194,16 @@ reql_py_new_string(PyObject *val) {
   return reql_py_err_check(obj);
 }
 
+extern ReQL_Obj_t *
+reql_from_py(PyObject *query) {
+  return NULL;
+}
+
+extern PyObject *
+reql_to_py(ReQL_Obj_t *query) {
+  return NULL;
+}
+
 extern PyObject *
 reql_py_expr(PyObject *self, PyObject *args) {
   PyObject *val;
@@ -282,16 +292,6 @@ reql_py_expr(PyObject *self, PyObject *args) {
   }
 
   return reql_to_py(reql_from_py(val));
-}
-
-extern ReQL_Obj_t *
-reql_from_py(PyObject *query) {
-  return NULL;
-}
-
-extern PyObject *
-reql_to_py(ReQL_Obj_t *query) {
-  return NULL;
 }
 
 extern PyObject *
