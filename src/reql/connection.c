@@ -471,6 +471,7 @@ reql_conn_destroy(ReQL_Conn_t *conn) {
   if (conn->condition.thread != NULL) {
     reql_conn_unlock(conn);
     pthread_join(conn->condition.thread, NULL);
+    conn->condition.thread = NULL;
   } else {
     reql_conn_unlock(conn);
   }
