@@ -28,8 +28,6 @@ extern "C" {
 #define Py_LIMITED_API
 #include "Python.h"
 
-#include "./Python/types.h"
-
 extern PyObject *
 reql_py_expr(PyObject *self, PyObject *args);
 
