@@ -582,7 +582,6 @@ toQuery(id expr) {
   return [p_build build];
 }
 
-
 +(instancetype)
 add:(NSArray *)args {
   return [self newTerm:reql_ast_add :args];
