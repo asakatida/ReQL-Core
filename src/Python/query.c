@@ -23,6 +23,8 @@ limitations under the License.
 
 #include "./Python/query.h"
 
+#include "./reql/core.h"
+
 #include <stdlib.h>
 
 static void *
