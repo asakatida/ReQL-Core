@@ -26,11 +26,11 @@ limitations under the License.
 
 @property(nonatomic) ReQL_Obj_t *pointer;
 
-+(instancetype)newArray:(ReQL_Size)size;
++(instancetype)newArray:(NSUInteger)size;
 
-+(instancetype)newObject:(ReQL_Size)size;
++(instancetype)newObject:(NSUInteger)size;
 
-+(instancetype)newString:(const ReQL_Byte *)str withSize:(ReQL_Size)size;
++(instancetype)newString:(const char *)str withSize:(NSUInteger)size;
 
 -(ReQL_Obj_t *)steal;
 
@@ -40,66 +40,51 @@ limitations under the License.
 
 @synthesize pointer=pointer;
 
--(instancetype)initArray:(ReQL_Size)size {
-  if (self = [super init]) {
+-(instancetype)initArray:(NSUInteger)size {
+  if (self = [self init]) {
     ReQL_Obj_t **array = malloc(sizeof(ReQL_Obj_t*) * size);
     if (array == NULL) {
-      pointer = NULL;
+      free(pointer); pointer = NULL;
       return nil;
     }
-    pointer = malloc(sizeof(ReQL_Obj_t));
-    if (pointer == NULL) {
-      free(array); array = NULL;
-      return nil;
-    }
-    reql_array_init(pointer, array, size);
+    reql_array_init(pointer, array, (ReQL_Size)size);
   }
   return self;
 }
 
-+(instancetype)newArray:(ReQL_Size)size {
++(instancetype)newArray:(NSUInteger)size {
   return [[self alloc] initArray:size];
 }
 
--(instancetype)initObject:(ReQL_Size)size {
-  if (self = [super init]) {
+-(instancetype)initObject:(NSUInteger)size {
+  if (self = [self init]) {
     ReQL_Pair_t *pairs = malloc(sizeof(ReQL_Pair_t) * size);
     if (pairs == NULL) {
-      pointer = NULL;
+      free(pointer); pointer = NULL;
       return nil;
     }
-    pointer = malloc(sizeof(ReQL_Obj_t));
-    if (pointer == NULL) {
-      free(pairs); pairs = NULL;
-      return nil;
-    }
-    reql_object_init(pointer, pairs, size);
+    reql_object_init(pointer, pairs, (ReQL_Size)size);
   }
   return self;
 }
 
-+(instancetype)newObject:(ReQL_Size)size {
++(instancetype)newObject:(NSUInteger)size {
   return [[self alloc] initObject:size];
 }
 
--(instancetype)initString:(const ReQL_Byte *)str withSize:(ReQL_Size)size {
-  if (self = [super init]) {
+-(instancetype)initString:(const char *)str withSize:(NSUInteger)size {
+  if (self = [self init]) {
     ReQL_Byte *buf = malloc(sizeof(ReQL_Byte) * size);
     if (buf == NULL) {
-      pointer = NULL;
+      free(pointer); pointer = NULL;
       return nil;
     }
-    pointer = malloc(sizeof(ReQL_Obj_t));
-    if (pointer == NULL) {
-      free(buf); buf = NULL;
-      return nil;
-    }
-    reql_string_init(pointer, buf, str, size);
+    reql_string_init(pointer, buf, (const ReQL_Byte *)str, (ReQL_Size)size);
   }
   return self;
 }
 
-+(instancetype)newString:(const ReQL_Byte *)str withSize:(ReQL_Size)size {
++(instancetype)newString:(const char *)str withSize:(NSUInteger)size {
   return [[self alloc] initString:str withSize:size];
 }
 
@@ -109,6 +94,7 @@ limitations under the License.
     if (pointer == NULL) {
       return nil;
     }
+    reql_null_init(pointer);
   }
   return self;
 }
@@ -137,19 +123,11 @@ limitations under the License.
 
 @end
 
-@interface ArrayExpr : NSObject <Expr> {
-  NSArray *p_data;
-}
-
-+(instancetype)newTermFromArray:(NSArray *)val;
+@interface ArrayExpr : NSArray <Expr>
 
 @end
 
-@interface BoolExpr : NSObject <Expr> {
-  BOOL p_data;
-}
-
-+(instancetype)newTermFromBool:(BOOL)val;
+@interface BoolExpr : NSNumber <Expr>
 
 @end
 
@@ -157,32 +135,20 @@ limitations under the License.
 
 @end
 
-@interface NumberExpr : NSObject <Expr> {
-  NSNumber *p_data;
-}
-
-+(instancetype)newTermFromNumber:(NSNumber *)val;
+@interface NumberExpr : NSNumber <Expr>
 
 @end
 
-@interface DictionaryExpr : NSObject <Expr> {
-  NSDictionary *p_data;
-}
-
-+(instancetype)newTermFromDictionary:(NSDictionary *)val;
+@interface DictionaryExpr : NSDictionary <Expr>
 
 @end
 
-@interface StringExpr : NSObject <Expr> {
-  NSString *p_data;
-}
-
-+(instancetype)newTermFromString:(NSString *)val;
+@interface StringExpr : NSString <Expr>
 
 @end
 
 @interface TermExpr : NSObject <Expr> {
-  NSArray *p_args;
+  ArrayExpr *p_args;
   ReQL_AST_Function p_func;
 }
 
@@ -191,8 +157,8 @@ limitations under the License.
 @end
 
 @interface TermKwargsExpr : NSObject <Expr> {
-  NSArray *p_args;
-  NSDictionary *p_kwargs;
+  ArrayExpr *p_args;
+  DictionaryExpr *p_kwargs;
   ReQL_AST_Function_Kwargs p_func;
 }
 
@@ -223,23 +189,12 @@ toQuery(id expr) {
 
 @implementation ArrayExpr
 
-+(instancetype)newTermFromArray:(NSArray *)val {
-  return [[self alloc] initTermWithArray:val];
-}
-
--(instancetype)initTermWithArray:(NSArray *)val {
-  if (self = [super init]) {
-    p_data = val;
-  }
-  return self;
-}
-
 -(ReQLObject *)build {
-  ReQLObject *obj = [ReQLObject newArray:(ReQL_Size)[p_data count]];
+  ReQLObject *obj = [ReQLObject newArray:(ReQL_Size)[self count]];
   if (obj == nil) {
     return nil;
   }
-  for (id elem in p_data) {
+  for (id elem in self) {
     ReQLObject *r_elem = [toQuery(elem) build];
     if (!r_elem) {
       return nil;
@@ -254,23 +209,12 @@ toQuery(id expr) {
 
 @implementation BoolExpr
 
-+(instancetype)newTermFromBool:(BOOL)val {
-  return [[self alloc] initTermWithBool:val];
-}
-
--(instancetype)initTermWithBool:(BOOL)val {
-  if (self = [super init]) {
-    p_data = val;
-  }
-  return self;
-}
-
 -(ReQLObject *)build {
   ReQLObject *obj = [ReQLObject new];
   if (obj == nil) {
     return nil;
   }
-  reql_bool_init(obj.pointer, p_data ? 1 : 0);
+  reql_bool_init(obj.pointer, [self boolValue] ? 1 : 0);
   return obj;
 }
 
@@ -279,35 +223,19 @@ toQuery(id expr) {
 @implementation NullExpr
 
 -(ReQLObject *)build {
-  ReQLObject *obj = [ReQLObject new];
-  if (obj == nil) {
-    return nil;
-  }
-  reql_null_init(obj.pointer);
-  return obj;
+  return [ReQLObject new];
 }
 
 @end
 
 @implementation NumberExpr
 
-+(instancetype)newTermFromNumber:(NSNumber *)val {
-  return [[self alloc] initTermWithNumber:val];
-}
-
--(instancetype)initTermWithNumber:(NSNumber *)val {
-  if (self = [super init]) {
-    p_data = val;
-  }
-  return self;
-}
-
 -(ReQLObject *)build {
   ReQLObject *obj = [ReQLObject new];
   if (obj == nil) {
     return nil;
   }
-  reql_number_init(obj.pointer, [p_data doubleValue]);
+  reql_number_init(obj.pointer, [self doubleValue]);
   return obj;
 }
 
@@ -316,25 +244,14 @@ toQuery(id expr) {
 
 @implementation DictionaryExpr
 
-+(instancetype)newTermFromDictionary:(NSDictionary *)val {
-  return [[self alloc] initTermWithDictionary:val];
-}
-
--(instancetype)initTermWithDictionary:(NSDictionary *)val {
-  if (self = [super init]) {
-    p_data = val;
-  }
-  return self;
-}
-
 -(ReQLObject *)build {
-  ReQLObject *obj = [ReQLObject newObject:(ReQL_Size)[p_data count]];
+  ReQLObject *obj = [ReQLObject newObject:[self count]];
   if (obj == nil) {
     return nil;
   }
-  for (id key in p_data) {
+  for (id key in self) {
     @autoreleasepool {
-      id val = [p_data objectForKey:key];
+      id val = [self objectForKey:key];
       ReQLObject *r_key = [toQuery(key) build];
       ReQLObject *r_val = [toQuery(val) build];
       if (!(r_key && r_val)) {
@@ -351,21 +268,10 @@ toQuery(id expr) {
 
 @implementation StringExpr
 
-+(instancetype)newTermFromString:(NSString *)val {
-  return [[self alloc] initTermWithString:val];
-}
-
--(instancetype)initTermWithString:(NSString *)val {
-  if (self = [super init]) {
-    p_data = val;
-  }
-  return self;
-}
-
 -(ReQLObject *)build {
   return [ReQLObject
-          newString:(const ReQL_Byte *)[p_data cStringUsingEncoding:NSUTF8StringEncoding]
-          withSize:(ReQL_Size)[p_data lengthOfBytesUsingEncoding:NSUTF8StringEncoding]];
+          newString:[self cStringUsingEncoding:NSUTF8StringEncoding]
+          withSize:[self lengthOfBytesUsingEncoding:NSUTF8StringEncoding]];
 }
 
 
@@ -379,7 +285,7 @@ toQuery(id expr) {
 
 -(instancetype)initTerm:(ReQL_AST_Function)func :(NSArray *)args {
   if (self = [super init]) {
-    p_args = args;
+    p_args = [ArrayExpr arrayWithArray:args];
     p_func = func;
   }
   return self;
@@ -390,7 +296,7 @@ toQuery(id expr) {
   if (obj == nil) {
     return nil;
   }
-  ReQLObject *r_args = [toQuery(p_args) build];
+  ReQLObject *r_args = [p_args build];
   if (!r_args) {
     return nil;
   }
@@ -409,8 +315,8 @@ toQuery(id expr) {
 
 -(instancetype)initTerm:(ReQL_AST_Function_Kwargs)func :(NSArray *)args :(NSDictionary *)kwargs {
   if (self = [super init]) {
-    p_args = args;
-    p_kwargs = kwargs;
+    p_args = [ArrayExpr arrayWithArray:args];
+    p_kwargs = [DictionaryExpr dictionaryWithDictionary:kwargs];
     p_func = func;
   }
   return self;
@@ -421,18 +327,20 @@ toQuery(id expr) {
   if (obj == nil) {
     return nil;
   }
-  ReQLObject *r_args = [toQuery(p_args) build];
+  ReQLObject *r_args = [p_args build];
   if (!r_args) {
     return nil;
   }
   ReQLObject *r_kwargs = nil;
   if (p_kwargs) {
-    r_kwargs = [toQuery(p_kwargs) build];
+    r_kwargs = [p_kwargs build];
     if (!r_kwargs) {
       return nil;
     }
+    p_func(obj.pointer, [r_args steal], [r_kwargs steal]);
+  } else {
+    p_func(obj.pointer, [r_args steal], NULL);
   }
-  p_func(obj.pointer, [r_args steal], [r_kwargs steal]);
   return obj;
 }
 
@@ -441,6 +349,8 @@ toQuery(id expr) {
 
 @implementation ReQLQuery {
   NSObject <Expr> *p_build;
+  NSNumber *p_number;
+  BOOL p_bool;
 }
 
 +(instancetype)newWithArray:(NSArray *)val {
@@ -480,35 +390,38 @@ toQuery(id expr) {
 
 -(instancetype)initTermWithArray:(NSArray *)val {
   if (self = [super init]) {
-    p_build = [ArrayExpr newTermFromArray:val];
+    p_build = [ArrayExpr arrayWithArray:val];
   }
   return self;
 }
 
 -(instancetype)initTermWithBool:(BOOL)val {
   if (self = [super init]) {
-    p_build = [BoolExpr newTermFromBool:val];
+    p_build = nil;
+    p_number = nil;
+    p_bool = val;
   }
   return self;
 }
 
 -(instancetype)initTermWithNumber:(NSNumber *)val {
   if (self = [super init]) {
-    p_build = [NumberExpr newTermFromNumber:val];
+    p_build = nil;
+    p_number = val;
   }
   return self;
 }
 
 -(instancetype)initTermWithObject:(NSDictionary *)val {
   if (self = [super init]) {
-    p_build = [DictionaryExpr newTermFromDictionary:val];
+    p_build = [DictionaryExpr dictionaryWithDictionary:val];
   }
   return self;
 }
 
 -(instancetype)initTermWithString:(NSString *)val {
   if (self = [super init]) {
-    p_build = [StringExpr newTermFromString:val];
+    p_build = [StringExpr stringWithString:val];
   }
   return self;
 }
@@ -548,9 +461,9 @@ toQuery(id expr) {
   if (query == NULL) {
     return nil;
   }
-  ReQLObject *kwargs = NULL;
+  ReQLObject *kwargs = nil;
   if (opts) {
-    kwargs = [[ReQLQuery newWithObject:opts] build];
+    kwargs = [[DictionaryExpr dictionaryWithDictionary:opts] build];
     if (!kwargs) {
       return nil;
     }
@@ -565,12 +478,12 @@ toQuery(id expr) {
 
 -(void)noReply:(ReQLConnection *)conn withOpts:(NSDictionary *)opts {
   ReQLObject *query = [self build];
-  if (query == NULL) {
+  if (!query) {
     return;
   }
-  ReQLObject *kwargs = NULL;
+  ReQLObject *kwargs = nil;
   if (opts) {
-    kwargs = [[ReQLQuery newWithObject:opts] build];
+    kwargs = [[DictionaryExpr dictionaryWithDictionary:opts] build];
     if (!kwargs) {
       return;
     }
@@ -579,7 +492,13 @@ toQuery(id expr) {
 }
 
 -(ReQLObject *)build {
-  return [p_build build];
+  if (p_build) {
+    return [p_build build];
+  }
+  if (p_number) {
+    return [(NumberExpr *)[NumberExpr numberWithDouble:[p_number doubleValue]] build];
+  }
+  return [(BoolExpr *)[BoolExpr numberWithBool:p_bool] build];
 }
 
 +(instancetype)
