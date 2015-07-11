@@ -36,7 +36,7 @@ typedef struct {
 static void
 Connection_dealloc(ReQLConnection* self) {
   reql_conn_destroy(self->reql_connection);
-  self->ob_type->tp_free((PyObject*)self);
+  Py_TYPE(self)->tp_free((PyObject*)self);
 }
 
 static PyObject *
