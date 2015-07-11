@@ -78,8 +78,7 @@ static PyMethodDef Connection_methods[] = {
 };
 
 static PyTypeObject ReQLConnectionType = {
-  PyObject_HEAD_INIT(NULL)
-  0,                         /*ob_size*/
+  PyVarObject_HEAD_INIT(NULL, 0)
   "libReQL.Connection",      /*tp_name*/
   sizeof(ReQLConnection),    /*tp_basicsize*/
   0,                         /*tp_itemsize*/
