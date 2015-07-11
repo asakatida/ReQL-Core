@@ -103,6 +103,8 @@ def main():
     scripting.build(libreql_src_path / 'Node' / 'ast.cpp', scripting.node_term_imp)
     scripting.build(libreql_src_path / 'Node' / 'ast.hpp', scripting.node_term_def)
     scripting.build(libreql_src_path / 'Python' / 'query.c', scripting.py_term_imp)
+    scripting.build(libreql_src_path / 'Python' / 'query.c', scripting.py_term_method_def)
+    scripting.build(libreql_src_path / 'Python' / 'query.c', scripting.py_term_method_imp)
     scripting.build(libreql_src_path / 'Python' / 'query.h', scripting.py_term_def)
     scripting.build(libreql_src_path / 'Python' / 'ReQL.c', scripting.py_lib, "\n  ")
     scripting.build(libreql_src_path / 'reql' / 'query.c', scripting.enum_def, ",\n  ")

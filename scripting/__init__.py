@@ -345,16 +345,36 @@ def objc_term_imp(name):
     ast_name('ast', name),
     ' :kwargs' if has_opts(name) else '')
 
+def py_term_method_imp(name):
+    return """  {{"{}", (PyCFunction){}_method, METH_VARARGS | METH_KEYWORDS, ""}},""".format(name.lower(), ast_name('py', name))
+
+def py_term_method_def(name):
+    return """static PyObject *
+{}_method(PyObject *self, PyObject *args, PyObject *kwargs);""".format(ast_name('py', name))
+
 def py_term_imp(name):
     return """
-extern PyObject *
-{}(PyObject *self, PyObject *args, PyObject *kwargs) {{
+static PyObject *
+{0}_method(PyObject *self, PyObject *args, PyObject *kwargs) {{
   PyObject *val;
 
   static char *kwlist[] = {{NULL}};
 
-  if (!PyArg_ParseTupleAndKeywords(args, kwargs, \"o:r.{}\", kwlist, &val)) {{
+  if (!PyArg_ParseTupleAndKeywords(args, kwargs, "o:r.{1}", kwlist, &val)) {{
     return self;
+  }}
+
+  return val;
+}}
+
+extern PyObject *
+{0}(PyObject *args, PyObject *kwargs) {{
+  PyObject *val;
+
+  static char *kwlist[] = {{NULL}};
+
+  if (!PyArg_ParseTupleAndKeywords(args, kwargs, \"o:r.{1}\", kwlist, &val)) {{
+    return NULL;
   }}
 
   return val;
@@ -365,7 +385,7 @@ def py_term_def(name):
 /**
  */
 extern PyObject *
-{}(PyObject *self, PyObject *args, PyObject *kwargs);""".format(ast_name('py', name))
+{}(PyObject *args, PyObject *kwargs);""".format(ast_name('py', name))
 
 def py_lib(name):
     return "{{\"{}\", (PyCFunction){}, METH_VARARGS | METH_KEYWORDS, NULL}},".format(mangle_py_const(name), ast_name('py', name))
