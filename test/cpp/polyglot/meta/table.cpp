@@ -382,7 +382,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
     std::string src1("func", 4);
     Query var1(src1);
 
-    std::string src2("partial", 7);
+    std::string src2("err", 3);
     Query var2(src2);
 
     map0.insert({src1, var2});
@@ -410,7 +410,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
     std::string src1("func", 4);
     Query var1(src1);
 
-    std::string src2("err", 3);
+    std::string src2("partial", 7);
     Query var2(src2);
 
     map0.insert({src1, var2});
@@ -424,7 +424,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
     std::string src1("func", 4);
     Query var1(src1);
 
-    std::string src2("err", 3);
+    std::string src2("partial", 7);
     Query var2(src2);
 
     map0.insert({src1, var2});
@@ -466,7 +466,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
     std::string src1("func", 4);
     Query var1(src1);
 
-    std::string src2("err", 3);
+    std::string src2("partial", 7);
     Query var2(src2);
 
     map0.insert({src1, var2});
@@ -522,7 +522,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
     std::string src1("func", 4);
     Query var1(src1);
 
-    std::string src2("err", 3);
+    std::string src2("partial", 7);
     Query var2(src2);
 
     map0.insert({src1, var2});
@@ -536,7 +536,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
     std::string src1("func", 4);
     Query var1(src1);
 
-    std::string src2("partial", 7);
+    std::string src2("err", 3);
     Query var2(src2);
 
     map0.insert({src1, var2});
@@ -547,10 +547,10 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   SECTION("test40") {
     Types::object map0;
 
-    std::string src1("result", 6);
+    std::string src1("func", 4);
     Query var1(src1);
 
-    std::string src2("blank", 5);
+    std::string src2("err", 3);
     Query var2(src2);
 
     map0.insert({src1, var2});
@@ -561,11 +561,11 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   SECTION("test41") {
     Types::object map0;
 
-    std::string src1("inserted", 8);
+    std::string src1("func", 4);
     Query var1(src1);
 
-    double num2(4);
-    Query var2(num2);
+    std::string src2("err", 3);
+    Query var2(src2);
 
     map0.insert({src1, var2});
 
@@ -578,7 +578,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
     std::string src1("func", 4);
     Query var1(src1);
 
-    std::string src2("partial", 7);
+    std::string src2("err", 3);
     Query var2(src2);
 
     map0.insert({src1, var2});
@@ -606,7 +606,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
     std::string src1("func", 4);
     Query var1(src1);
 
-    std::string src2("partial", 7);
+    std::string src2("err", 3);
     Query var2(src2);
 
     map0.insert({src1, var2});
@@ -620,7 +620,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
     std::string src1("func", 4);
     Query var1(src1);
 
-    std::string src2("partial", 7);
+    std::string src2("err", 3);
     Query var2(src2);
 
     map0.insert({src1, var2});
@@ -634,7 +634,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
     std::string src1("func", 4);
     Query var1(src1);
 
-    std::string src2("partial", 7);
+    std::string src2("err", 3);
     Query var2(src2);
 
     map0.insert({src1, var2});
@@ -648,7 +648,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
     std::string src1("func", 4);
     Query var1(src1);
 
-    std::string src2("partial", 7);
+    std::string src2("err", 3);
     Query var2(src2);
 
     map0.insert({src1, var2});
@@ -662,7 +662,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
     std::string src1("func", 4);
     Query var1(src1);
 
-    std::string src2("partial", 7);
+    std::string src2("err", 3);
     Query var2(src2);
 
     map0.insert({src1, var2});
@@ -676,7 +676,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
     std::string src1("func", 4);
     Query var1(src1);
 
-    std::string src2("partial", 7);
+    std::string src2("err", 3);
     Query var2(src2);
 
     map0.insert({src1, var2});
@@ -715,11 +715,11 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   SECTION("test52") {
     Types::object map0;
 
-    std::string src1("result", 6);
+    std::string src1("inserted", 8);
     Query var1(src1);
 
-    std::string src2("blank", 5);
-    Query var2(src2);
+    double num2(4);
+    Query var2(num2);
 
     map0.insert({src1, var2});
 
@@ -729,10 +729,10 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   SECTION("test53") {
     Types::object map0;
 
-    std::string src1("result", 6);
+    std::string src1("func", 4);
     Query var1(src1);
 
-    std::string src2("blank", 5);
+    std::string src2("partial", 7);
     Query var2(src2);
 
     map0.insert({src1, var2});
@@ -760,7 +760,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
     std::string src1("func", 4);
     Query var1(src1);
 
-    std::string src2("err", 3);
+    std::string src2("partial", 7);
     Query var2(src2);
 
     map0.insert({src1, var2});
@@ -774,7 +774,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
     std::string src1("func", 4);
     Query var1(src1);
 
-    std::string src2("err", 3);
+    std::string src2("partial", 7);
     Query var2(src2);
 
     map0.insert({src1, var2});
@@ -788,7 +788,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
     std::string src1("func", 4);
     Query var1(src1);
 
-    std::string src2("err", 3);
+    std::string src2("partial", 7);
     Query var2(src2);
 
     map0.insert({src1, var2});
@@ -855,10 +855,24 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   SECTION("test62") {
     Types::object map0;
 
-    std::string src1("func", 4);
+    std::string src1("result", 6);
     Query var1(src1);
 
-    std::string src2("partial", 7);
+    std::string src2("blank", 5);
+    Query var2(src2);
+
+    map0.insert({src1, var2});
+
+    Query var0(map0);
+  }
+
+  SECTION("test63") {
+    Types::object map0;
+
+    std::string src1("result", 6);
+    Query var1(src1);
+
+    std::string src2("blank", 5);
     Query var2(src2);
 
     map0.insert({src1, var2});
@@ -869,10 +883,10 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   SECTION("test64") {
     Types::object map0;
 
-    std::string src1("func", 4);
+    std::string src1("result", 6);
     Query var1(src1);
 
-    std::string src2("partial", 7);
+    std::string src2("blank", 5);
     Query var2(src2);
 
     map0.insert({src1, var2});
@@ -886,7 +900,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
     std::string src1("func", 4);
     Query var1(src1);
 
-    std::string src2("partial", 7);
+    std::string src2("err", 3);
     Query var2(src2);
 
     map0.insert({src1, var2});
@@ -900,7 +914,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
     std::string src1("func", 4);
     Query var1(src1);
 
-    std::string src2("partial", 7);
+    std::string src2("err", 3);
     Query var2(src2);
 
     map0.insert({src1, var2});
@@ -911,21 +925,13 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   SECTION("test67") {
     Types::object map0;
 
-    std::string src1("db", 2);
+    std::string src1("func", 4);
     Query var1(src1);
 
-    std::string src2("test", 4);
+    std::string src2("err", 3);
     Query var2(src2);
 
     map0.insert({src1, var2});
-
-    std::string src3("name", 4);
-    Query var3(src3);
-
-    std::string src4("testA", 5);
-    Query var4(src4);
-
-    map0.insert({src3, var4});
 
     Query var0(map0);
   }
@@ -950,7 +956,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
     std::string src1("func", 4);
     Query var1(src1);
 
-    std::string src2("err", 3);
+    std::string src2("partial", 7);
     Query var2(src2);
 
     map0.insert({src1, var2});
@@ -959,11 +965,31 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test70") {
-    Query var0(true);
+    Types::object map0;
+
+    std::string src1("func", 4);
+    Query var1(src1);
+
+    std::string src2("partial", 7);
+    Query var2(src2);
+
+    map0.insert({src1, var2});
+
+    Query var0(map0);
   }
 
   SECTION("test71") {
-    Query var0(true);
+    Types::object map0;
+
+    std::string src1("func", 4);
+    Query var1(src1);
+
+    std::string src2("partial", 7);
+    Query var2(src2);
+
+    map0.insert({src1, var2});
+
+    Query var0(map0);
   }
 
   SECTION("test72") {
@@ -972,7 +998,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
     std::string src1("func", 4);
     Query var1(src1);
 
-    std::string src2("uuid", 4);
+    std::string src2("partial", 7);
     Query var2(src2);
 
     map0.insert({src1, var2});
@@ -981,11 +1007,6 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test73") {
-    double num0(0);
-    Query var0(num0);
-  }
-
-  SECTION("test74") {
     Types::object map0;
 
     std::string src1("func", 4);
@@ -1028,6 +1049,139 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test77") {
+    Types::object map0;
+
+    std::string src1("func", 4);
+    Query var1(src1);
+
+    std::string src2("partial", 7);
+    Query var2(src2);
+
+    map0.insert({src1, var2});
+
+    Query var0(map0);
+  }
+
+  SECTION("test78") {
+    Types::object map0;
+
+    std::string src1("db", 2);
+    Query var1(src1);
+
+    std::string src2("test", 4);
+    Query var2(src2);
+
+    map0.insert({src1, var2});
+
+    std::string src3("name", 4);
+    Query var3(src3);
+
+    std::string src4("testA", 5);
+    Query var4(src4);
+
+    map0.insert({src3, var4});
+
+    Query var0(map0);
+  }
+
+  SECTION("test79") {
+    Types::object map0;
+
+    std::string src1("func", 4);
+    Query var1(src1);
+
+    std::string src2("err", 3);
+    Query var2(src2);
+
+    map0.insert({src1, var2});
+
+    Query var0(map0);
+  }
+
+  SECTION("test80") {
+    Types::object map0;
+
+    std::string src1("func", 4);
+    Query var1(src1);
+
+    std::string src2("err", 3);
+    Query var2(src2);
+
+    map0.insert({src1, var2});
+
+    Query var0(map0);
+  }
+
+  SECTION("test81") {
+    Query var0(true);
+  }
+
+  SECTION("test82") {
+    Query var0(true);
+  }
+
+  SECTION("test83") {
+    Types::object map0;
+
+    std::string src1("func", 4);
+    Query var1(src1);
+
+    std::string src2("uuid", 4);
+    Query var2(src2);
+
+    map0.insert({src1, var2});
+
+    Query var0(map0);
+  }
+
+  SECTION("test84") {
+    double num0(0);
+    Query var0(num0);
+  }
+
+  SECTION("test85") {
+    Types::object map0;
+
+    std::string src1("func", 4);
+    Query var1(src1);
+
+    std::string src2("partial", 7);
+    Query var2(src2);
+
+    map0.insert({src1, var2});
+
+    Query var0(map0);
+  }
+
+  SECTION("test86") {
+    Types::object map0;
+
+    std::string src1("func", 4);
+    Query var1(src1);
+
+    std::string src2("partial", 7);
+    Query var2(src2);
+
+    map0.insert({src1, var2});
+
+    Query var0(map0);
+  }
+
+  SECTION("test87") {
+    Types::object map0;
+
+    std::string src1("func", 4);
+    Query var1(src1);
+
+    std::string src2("partial", 7);
+    Query var2(src2);
+
+    map0.insert({src1, var2});
+
+    Query var0(map0);
+  }
+
+  SECTION("test88") {
     Types::object map0;
 
     std::string src1("func", 4);

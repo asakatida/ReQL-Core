@@ -22,6 +22,11 @@ TEST_CASE("cpp test that r.union is a top level function", "[cpp][ast]") {
   }
 
   SECTION("test3") {
+    double num0(6);
+    Query var0(num0);
+  }
+
+  SECTION("test4") {
     Types::object map0;
 
     std::string src1("func", 4);
@@ -35,13 +40,13 @@ TEST_CASE("cpp test that r.union is a top level function", "[cpp][ast]") {
     Query var0(map0);
   }
 
-  SECTION("test4") {
+  SECTION("test5") {
     Types::object map0;
 
-    std::string src1("result", 6);
+    std::string src1("func", 4);
     Query var1(src1);
 
-    std::string src2("blank", 5);
+    std::string src2("bag", 3);
     Query var2(src2);
 
     map0.insert({src1, var2});

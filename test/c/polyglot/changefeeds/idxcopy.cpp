@@ -40,4 +40,10 @@ TEST_CASE("c Test duplicate indexes with squashing", "[c][ast]") {
 
 
   }
+
+  SECTION("test6") {
+
+
+
+  }
 }

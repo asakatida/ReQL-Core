@@ -15,21 +15,6 @@ TEST_CASE("c 2767 -- Evaulate secondary index function with pristine env.", "[c]
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   }
 
   SECTION("test2") {
@@ -75,6 +60,27 @@ TEST_CASE("c 2767 -- Evaulate secondary index function with pristine env.", "[c]
   }
 
   SECTION("test4") {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  }
+
+  SECTION("test5") {
 
 
 

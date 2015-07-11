@@ -375,6 +375,12 @@ TEST_CASE("c Tests meta queries for creating and deleting tables", "[c][ast]") {
 
   }
 
+  SECTION("test63") {
+
+
+
+  }
+
   SECTION("test64") {
 
 
@@ -397,9 +403,6 @@ TEST_CASE("c Tests meta queries for creating and deleting tables", "[c][ast]") {
 
 
 
-
-
-
   }
 
   SECTION("test68") {
@@ -415,9 +418,15 @@ TEST_CASE("c Tests meta queries for creating and deleting tables", "[c][ast]") {
   }
 
   SECTION("test70") {
+
+
+
   }
 
   SECTION("test71") {
+
+
+
   }
 
   SECTION("test72") {
@@ -427,9 +436,6 @@ TEST_CASE("c Tests meta queries for creating and deleting tables", "[c][ast]") {
   }
 
   SECTION("test73") {
-  }
-
-  SECTION("test74") {
 
 
 
@@ -448,6 +454,66 @@ TEST_CASE("c Tests meta queries for creating and deleting tables", "[c][ast]") {
   }
 
   SECTION("test77") {
+
+
+
+  }
+
+  SECTION("test78") {
+
+
+
+
+
+
+  }
+
+  SECTION("test79") {
+
+
+
+  }
+
+  SECTION("test80") {
+
+
+
+  }
+
+  SECTION("test81") {
+  }
+
+  SECTION("test82") {
+  }
+
+  SECTION("test83") {
+
+
+
+  }
+
+  SECTION("test84") {
+  }
+
+  SECTION("test85") {
+
+
+
+  }
+
+  SECTION("test86") {
+
+
+
+  }
+
+  SECTION("test87") {
+
+
+
+  }
+
+  SECTION("test88") {
 
 
 

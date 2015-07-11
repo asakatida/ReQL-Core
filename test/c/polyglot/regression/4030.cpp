@@ -12,12 +12,15 @@ TEST_CASE("c test that r.union is a top level function", "[c][ast]") {
   }
 
   SECTION("test3") {
+  }
+
+  SECTION("test4") {
 
 
 
   }
 
-  SECTION("test4") {
+  SECTION("test5") {
 
 
 

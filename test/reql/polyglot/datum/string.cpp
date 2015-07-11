@@ -2506,7 +2506,7 @@ TEST_CASE("reql Tests of converstion to and from the RQL string type", "[reql][a
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[4]);
-    const ReQL_Byte src2[] = "\u00e9";
+    const ReQL_Byte src2[] = "\xe9";
     reql_string_init(var2.get(), buf2.get(), src2, 4);
 
     reql_array_append(var0.get(), var2.get());

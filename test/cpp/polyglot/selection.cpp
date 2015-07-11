@@ -296,7 +296,49 @@ TEST_CASE("cpp Tests that manipulation data in tables 133", "[cpp][ast]") {
     Query var0(num0);
   }
 
+  SECTION("test14") {
+    Types::object map0;
+
+    std::string src1("func", 4);
+    Query var1(src1);
+
+    std::string src2("err", 3);
+    Query var2(src2);
+
+    map0.insert({src1, var2});
+
+    Query var0(map0);
+  }
+
   SECTION("test15") {
+    Types::object map0;
+
+    std::string src1("func", 4);
+    Query var1(src1);
+
+    std::string src2("err", 3);
+    Query var2(src2);
+
+    map0.insert({src1, var2});
+
+    Query var0(map0);
+  }
+
+  SECTION("test16") {
+    Types::object map0;
+
+    std::string src1("func", 4);
+    Query var1(src1);
+
+    std::string src2("err", 3);
+    Query var2(src2);
+
+    map0.insert({src1, var2});
+
+    Query var0(map0);
+  }
+
+  SECTION("test18") {
     Types::object map0;
 
     std::string src1("a", 1);
@@ -318,11 +360,11 @@ TEST_CASE("cpp Tests that manipulation data in tables 133", "[cpp][ast]") {
     Query var0(map0);
   }
 
-  SECTION("test16") {
+  SECTION("test19") {
     Query var0;
   }
 
-  SECTION("test19") {
+  SECTION("test22") {
     Types::object map0;
 
     std::string src1("func", 4);
@@ -336,7 +378,7 @@ TEST_CASE("cpp Tests that manipulation data in tables 133", "[cpp][ast]") {
     Query var0(map0);
   }
 
-  SECTION("test20") {
+  SECTION("test23") {
     Types::object map0;
 
     std::string src1("deleted", 7);
@@ -390,7 +432,7 @@ TEST_CASE("cpp Tests that manipulation data in tables 133", "[cpp][ast]") {
     Query var0(map0);
   }
 
-  SECTION("test21") {
+  SECTION("test24") {
     Types::object map0;
 
     std::string src1("a", 1);
@@ -412,21 +454,6 @@ TEST_CASE("cpp Tests that manipulation data in tables 133", "[cpp][ast]") {
     Query var0(map0);
   }
 
-  SECTION("test22") {
-    std::string src0("TABLE_SLICE", 11);
-    Query var0(src0);
-  }
-
-  SECTION("test23") {
-    std::string src0("TABLE_SLICE", 11);
-    Query var0(src0);
-  }
-
-  SECTION("test24") {
-    std::string src0("TABLE_SLICE", 11);
-    Query var0(src0);
-  }
-
   SECTION("test25") {
     std::string src0("TABLE_SLICE", 11);
     Query var0(src0);
@@ -438,100 +465,81 @@ TEST_CASE("cpp Tests that manipulation data in tables 133", "[cpp][ast]") {
   }
 
   SECTION("test27") {
-    double num0(9);
-    Query var0(num0);
+    std::string src0("TABLE_SLICE", 11);
+    Query var0(src0);
   }
 
   SECTION("test28") {
-    double num0(9);
-    Query var0(num0);
+    std::string src0("TABLE_SLICE", 11);
+    Query var0(src0);
   }
 
   SECTION("test29") {
-    double num0(20);
-    Query var0(num0);
+    std::string src0("TABLE_SLICE", 11);
+    Query var0(src0);
   }
 
   SECTION("test30") {
-    double num0(100);
+    double num0(9);
     Query var0(num0);
   }
 
   SECTION("test31") {
-    double num0(10);
-    Query var0(num0);
-  }
-
-  SECTION("test32") {
-    double num0(10);
-    Query var0(num0);
-  }
-
-  SECTION("test33") {
-    double num0(20);
-    Query var0(num0);
-  }
-
-  SECTION("test34") {
-    double num0(100);
-    Query var0(num0);
-  }
-
-  SECTION("test35") {
-    double num0(8);
-    Query var0(num0);
-  }
-
-  SECTION("test36") {
     double num0(9);
     Query var0(num0);
   }
 
+  SECTION("test32") {
+    double num0(20);
+    Query var0(num0);
+  }
+
+  SECTION("test33") {
+    double num0(100);
+    Query var0(num0);
+  }
+
+  SECTION("test34") {
+    double num0(10);
+    Query var0(num0);
+  }
+
+  SECTION("test35") {
+    double num0(10);
+    Query var0(num0);
+  }
+
+  SECTION("test36") {
+    double num0(20);
+    Query var0(num0);
+  }
+
   SECTION("test37") {
-    double num0(19);
+    double num0(100);
     Query var0(num0);
   }
 
   SECTION("test38") {
-    double num0(100);
+    double num0(8);
     Query var0(num0);
   }
 
   SECTION("test39") {
-    Types::object map0;
-
-    std::string src1("func", 4);
-    Query var1(src1);
-
-    std::string src2("err", 3);
-    Query var2(src2);
-
-    map0.insert({src1, var2});
-
-    Query var0(map0);
+    double num0(9);
+    Query var0(num0);
   }
 
   SECTION("test40") {
-    double num0(2);
+    double num0(19);
     Query var0(num0);
   }
 
   SECTION("test41") {
-    double num0(3);
+    double num0(100);
     Query var0(num0);
   }
 
   SECTION("test42") {
-    double num0(2);
-    Query var0(num0);
-  }
-
-  SECTION("test43") {
-    double num0(98);
-    Query var0(num0);
-  }
-
-  SECTION("test45") {
     Types::object map0;
 
     std::string src1("func", 4);
@@ -545,27 +553,61 @@ TEST_CASE("cpp Tests that manipulation data in tables 133", "[cpp][ast]") {
     Query var0(map0);
   }
 
-  SECTION("test46") {
-    double num0(1);
+  SECTION("test43") {
+    double num0(2);
     Query var0(num0);
   }
 
-  SECTION("test47") {
-    double num0(0);
+  SECTION("test44") {
+    double num0(3);
+    Query var0(num0);
+  }
+
+  SECTION("test45") {
+    double num0(2);
+    Query var0(num0);
+  }
+
+  SECTION("test46") {
+    double num0(98);
     Query var0(num0);
   }
 
   SECTION("test48") {
-    double num0(25);
-    Query var0(num0);
+    Types::object map0;
+
+    std::string src1("func", 4);
+    Query var1(src1);
+
+    std::string src2("err", 3);
+    Query var2(src2);
+
+    map0.insert({src1, var2});
+
+    Query var0(map0);
   }
 
   SECTION("test49") {
-    double num0(100);
+    double num0(1);
     Query var0(num0);
   }
 
   SECTION("test50") {
+    double num0(0);
+    Query var0(num0);
+  }
+
+  SECTION("test51") {
+    double num0(25);
+    Query var0(num0);
+  }
+
+  SECTION("test52") {
+    double num0(100);
+    Query var0(num0);
+  }
+
+  SECTION("test53") {
     Types::array arr0(2);
 
     double num1(4);
@@ -581,111 +623,111 @@ TEST_CASE("cpp Tests that manipulation data in tables 133", "[cpp][ast]") {
     Query var0(arr0);
   }
 
-  SECTION("test52") {
-    Types::array arr0(2);
-
-    Types::array arr1(2);
-
-    double num2(3);
-    Query var2(num2);
-
-    arr1.insert(arr1.end(), var2);
-
-    double num3(4);
-    Query var3(num3);
-
-    arr1.insert(arr1.end(), var3);
-
-    Query var1(arr1);
-
-    arr0.insert(arr0.end(), var1);
-
-    Types::array arr4(2);
-
-    double num5(5);
-    Query var5(num5);
-
-    arr4.insert(arr4.end(), var5);
-
-    double num6(6);
-    Query var6(num6);
-
-    arr4.insert(arr4.end(), var6);
-
-    Query var4(arr4);
-
-    arr0.insert(arr0.end(), var4);
-
-    Query var0(arr0);
-  }
-
-  SECTION("test53") {
-    Types::array arr0(2);
-
-    Types::array arr1(2);
-
-    double num2(3);
-    Query var2(num2);
-
-    arr1.insert(arr1.end(), var2);
-
-    double num3(4);
-    Query var3(num3);
-
-    arr1.insert(arr1.end(), var3);
-
-    Query var1(arr1);
-
-    arr0.insert(arr0.end(), var1);
-
-    Types::array arr4(2);
-
-    double num5(5);
-    Query var5(num5);
-
-    arr4.insert(arr4.end(), var5);
-
-    double num6(6);
-    Query var6(num6);
-
-    arr4.insert(arr4.end(), var6);
-
-    Query var4(arr4);
-
-    arr0.insert(arr0.end(), var4);
-
-    Query var0(arr0);
-  }
-
-  SECTION("test54") {
-    Types::object map0;
-
-    std::string src1("func", 4);
-    Query var1(src1);
-
-    std::string src2("err", 3);
-    Query var2(src2);
-
-    map0.insert({src1, var2});
-
-    Query var0(map0);
-  }
-
   SECTION("test55") {
-    Types::object map0;
+    Types::array arr0(2);
 
-    std::string src1("func", 4);
-    Query var1(src1);
+    Types::array arr1(2);
 
-    std::string src2("err", 3);
-    Query var2(src2);
+    double num2(3);
+    Query var2(num2);
 
-    map0.insert({src1, var2});
+    arr1.insert(arr1.end(), var2);
 
-    Query var0(map0);
+    double num3(4);
+    Query var3(num3);
+
+    arr1.insert(arr1.end(), var3);
+
+    Query var1(arr1);
+
+    arr0.insert(arr0.end(), var1);
+
+    Types::array arr4(2);
+
+    double num5(5);
+    Query var5(num5);
+
+    arr4.insert(arr4.end(), var5);
+
+    double num6(6);
+    Query var6(num6);
+
+    arr4.insert(arr4.end(), var6);
+
+    Query var4(arr4);
+
+    arr0.insert(arr0.end(), var4);
+
+    Query var0(arr0);
   }
 
   SECTION("test56") {
+    Types::array arr0(2);
+
+    Types::array arr1(2);
+
+    double num2(3);
+    Query var2(num2);
+
+    arr1.insert(arr1.end(), var2);
+
+    double num3(4);
+    Query var3(num3);
+
+    arr1.insert(arr1.end(), var3);
+
+    Query var1(arr1);
+
+    arr0.insert(arr0.end(), var1);
+
+    Types::array arr4(2);
+
+    double num5(5);
+    Query var5(num5);
+
+    arr4.insert(arr4.end(), var5);
+
+    double num6(6);
+    Query var6(num6);
+
+    arr4.insert(arr4.end(), var6);
+
+    Query var4(arr4);
+
+    arr0.insert(arr0.end(), var4);
+
+    Query var0(arr0);
+  }
+
+  SECTION("test57") {
+    Types::object map0;
+
+    std::string src1("func", 4);
+    Query var1(src1);
+
+    std::string src2("err", 3);
+    Query var2(src2);
+
+    map0.insert({src1, var2});
+
+    Query var0(map0);
+  }
+
+  SECTION("test58") {
+    Types::object map0;
+
+    std::string src1("func", 4);
+    Query var1(src1);
+
+    std::string src2("err", 3);
+    Query var2(src2);
+
+    map0.insert({src1, var2});
+
+    Query var0(map0);
+  }
+
+  SECTION("test59") {
     Types::array arr0(1);
 
     Types::object map1;
@@ -721,7 +763,7 @@ TEST_CASE("cpp Tests that manipulation data in tables 133", "[cpp][ast]") {
     Query var0(arr0);
   }
 
-  SECTION("test57") {
+  SECTION("test60") {
     Types::array arr0(2);
 
     Types::object map1;
@@ -787,7 +829,7 @@ TEST_CASE("cpp Tests that manipulation data in tables 133", "[cpp][ast]") {
     Query var0(arr0);
   }
 
-  SECTION("test58") {
+  SECTION("test61") {
     Types::array arr0(1);
 
     Types::object map1;
@@ -823,27 +865,27 @@ TEST_CASE("cpp Tests that manipulation data in tables 133", "[cpp][ast]") {
     Query var0(arr0);
   }
 
-  SECTION("test59") {
+  SECTION("test62") {
     Types::array arr0;
     Query var0(arr0);
   }
 
-  SECTION("test60") {
+  SECTION("test63") {
     double num0(25);
     Query var0(num0);
   }
 
-  SECTION("test62") {
+  SECTION("test65") {
     double num0(2);
     Query var0(num0);
   }
 
-  SECTION("test63") {
+  SECTION("test66") {
     double num0(2);
     Query var0(num0);
   }
 
-  SECTION("test64") {
+  SECTION("test67") {
     Types::object map0;
 
     std::string src1("func", 4);
@@ -857,7 +899,7 @@ TEST_CASE("cpp Tests that manipulation data in tables 133", "[cpp][ast]") {
     Query var0(map0);
   }
 
-  SECTION("test65") {
+  SECTION("test68") {
     Types::object map0;
 
     std::string src1("func", 4);

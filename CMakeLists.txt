@@ -105,6 +105,7 @@ set(SOURCES
  test/c/polyglot/regression/3759.cpp
  test/c/polyglot/regression/4030.cpp
  test/c/polyglot/regression/4146.cpp
+ test/c/polyglot/regression/4501.cpp
  test/c/polyglot/regression/453.cpp
  test/c/polyglot/regression/46.cpp
  test/c/polyglot/regression/469.cpp
@@ -228,6 +229,7 @@ set(SOURCES
  test/cpp/polyglot/regression/3759.cpp
  test/cpp/polyglot/regression/4030.cpp
  test/cpp/polyglot/regression/4146.cpp
+ test/cpp/polyglot/regression/4501.cpp
  test/cpp/polyglot/regression/453.cpp
  test/cpp/polyglot/regression/46.cpp
  test/cpp/polyglot/regression/469.cpp
@@ -356,6 +358,7 @@ set(SOURCES
  test/reql/polyglot/regression/3759.cpp
  test/reql/polyglot/regression/4030.cpp
  test/reql/polyglot/regression/4146.cpp
+ test/reql/polyglot/regression/4501.cpp
  test/reql/polyglot/regression/453.cpp
  test/reql/polyglot/regression/46.cpp
  test/reql/polyglot/regression/469.cpp

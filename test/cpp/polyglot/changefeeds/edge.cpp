@@ -105,7 +105,7 @@ TEST_CASE("cpp Test edge cases of changefeed operations", "[cpp][ast]") {
     Query var0(map0);
   }
 
-  SECTION("test12") {
+  SECTION("test8") {
     Types::object map0;
 
     std::string src1("result", 6);
@@ -175,7 +175,7 @@ TEST_CASE("cpp Test edge cases of changefeed operations", "[cpp][ast]") {
     Query var0(map0);
   }
 
-  SECTION("test21") {
+  SECTION("test17") {
     Types::object map0;
 
     std::string src1("result", 6);
@@ -231,13 +231,13 @@ TEST_CASE("cpp Test edge cases of changefeed operations", "[cpp][ast]") {
     Query var0(map0);
   }
 
-  SECTION("test27") {
+  SECTION("test25") {
     Types::object map0;
 
-    std::string src1("func", 4);
+    std::string src1("result", 6);
     Query var1(src1);
 
-    std::string src2("err", 3);
+    std::string src2("blank", 5);
     Query var2(src2);
 
     map0.insert({src1, var2});
@@ -248,6 +248,20 @@ TEST_CASE("cpp Test edge cases of changefeed operations", "[cpp][ast]") {
   SECTION("test28") {
     Types::object map0;
 
+    std::string src1("func", 4);
+    Query var1(src1);
+
+    std::string src2("err", 3);
+    Query var2(src2);
+
+    map0.insert({src1, var2});
+
+    Query var0(map0);
+  }
+
+  SECTION("test29") {
+    Types::object map0;
+
     std::string src1("result", 6);
     Query var1(src1);
 
@@ -259,7 +273,7 @@ TEST_CASE("cpp Test edge cases of changefeed operations", "[cpp][ast]") {
     Query var0(map0);
   }
 
-  SECTION("test29") {
+  SECTION("test30") {
     Types::object map0;
 
     std::string src1("func", 4);
@@ -273,7 +287,7 @@ TEST_CASE("cpp Test edge cases of changefeed operations", "[cpp][ast]") {
     Query var0(map0);
   }
 
-  SECTION("test30") {
+  SECTION("test31") {
     Types::object map0;
 
     std::string src1("result", 6);
@@ -287,7 +301,7 @@ TEST_CASE("cpp Test edge cases of changefeed operations", "[cpp][ast]") {
     Query var0(map0);
   }
 
-  SECTION("test31") {
+  SECTION("test32") {
     Types::object map0;
 
     std::string src1("deleted", 7);
@@ -341,7 +355,7 @@ TEST_CASE("cpp Test edge cases of changefeed operations", "[cpp][ast]") {
     Query var0(map0);
   }
 
-  SECTION("test32") {
+  SECTION("test33") {
     Types::object map0;
 
     std::string src1("func", 4);
@@ -355,7 +369,7 @@ TEST_CASE("cpp Test edge cases of changefeed operations", "[cpp][ast]") {
     Query var0(map0);
   }
 
-  SECTION("test33") {
+  SECTION("test34") {
     Types::object map0;
 
     std::string src1("func", 4);
@@ -369,27 +383,13 @@ TEST_CASE("cpp Test edge cases of changefeed operations", "[cpp][ast]") {
     Query var0(map0);
   }
 
-  SECTION("test34") {
-    Types::object map0;
-
-    std::string src1("func", 4);
-    Query var1(src1);
-
-    std::string src2("post", 4);
-    Query var2(src2);
-
-    map0.insert({src1, var2});
-
-    Query var0(map0);
-  }
-
   SECTION("test35") {
     Types::object map0;
 
     std::string src1("func", 4);
     Query var1(src1);
 
-    std::string src2("erroredres", 10);
+    std::string src2("post", 4);
     Query var2(src2);
 
     map0.insert({src1, var2});
@@ -417,7 +417,7 @@ TEST_CASE("cpp Test edge cases of changefeed operations", "[cpp][ast]") {
     std::string src1("func", 4);
     Query var1(src1);
 
-    std::string src2("err", 3);
+    std::string src2("erroredres", 10);
     Query var2(src2);
 
     map0.insert({src1, var2});
@@ -459,7 +459,7 @@ TEST_CASE("cpp Test edge cases of changefeed operations", "[cpp][ast]") {
     std::string src1("func", 4);
     Query var1(src1);
 
-    std::string src2("erroredres", 10);
+    std::string src2("err", 3);
     Query var2(src2);
 
     map0.insert({src1, var2});
@@ -510,6 +510,20 @@ TEST_CASE("cpp Test edge cases of changefeed operations", "[cpp][ast]") {
   }
 
   SECTION("test44") {
+    Types::object map0;
+
+    std::string src1("func", 4);
+    Query var1(src1);
+
+    std::string src2("erroredres", 10);
+    Query var2(src2);
+
+    map0.insert({src1, var2});
+
+    Query var0(map0);
+  }
+
+  SECTION("test45") {
     Query var0(true);
   }
 }

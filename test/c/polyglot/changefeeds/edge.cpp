@@ -47,7 +47,7 @@ TEST_CASE("c Test edge cases of changefeed operations", "[c][ast]") {
 
   }
 
-  SECTION("test12") {
+  SECTION("test8") {
 
 
 
@@ -77,7 +77,7 @@ TEST_CASE("c Test edge cases of changefeed operations", "[c][ast]") {
 
   }
 
-  SECTION("test21") {
+  SECTION("test17") {
 
 
 
@@ -101,7 +101,7 @@ TEST_CASE("c Test edge cases of changefeed operations", "[c][ast]") {
 
   }
 
-  SECTION("test27") {
+  SECTION("test25") {
 
 
 
@@ -129,24 +129,24 @@ TEST_CASE("c Test edge cases of changefeed operations", "[c][ast]") {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   }
 
   SECTION("test32") {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -219,5 +219,11 @@ TEST_CASE("c Test edge cases of changefeed operations", "[c][ast]") {
   }
 
   SECTION("test44") {
+
+
+
+  }
+
+  SECTION("test45") {
   }
 }
