@@ -150,7 +150,8 @@ struct ReQL_Conn_s {
 
   ReQL_Token max_token;
 
-  ReQL_Token timeout;
+  ReQL_Token timeout_s;
+  ReQL_Token timeout_us;
 
   char *port;
   char *addr;

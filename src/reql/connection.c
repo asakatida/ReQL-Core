@@ -141,7 +141,7 @@ reql_conn_init(ReQL_Conn_t *conn) {
 
   reql_conn_lock(conn);
   conn->socket = -1;
-  conn->timeout = 20;
+  conn->timeout_s = 20;
   conn->port = "28015";
   reql_conn_unlock(conn);
 }
@@ -201,16 +201,17 @@ reql_conn_port(ReQL_Conn_t *conn) {
 }
 
 extern void
-reql_conn_set_timeout(ReQL_Conn_t *conn, const ReQL_Token timeout) {
+reql_conn_set_timeout(ReQL_Conn_t *conn, const ReQL_Token s, const ReQL_Token us) {
   reql_conn_lock(conn);
-  conn->timeout = timeout;
+  conn->timeout_s = s;
+  conn->timeout_us = us;
   reql_conn_unlock(conn);
 }
 
 extern ReQL_Token
 reql_conn_timeout(ReQL_Conn_t *conn) {
   reql_conn_lock(conn);
-  const ReQL_Token timeout = conn->timeout;
+  const ReQL_Token timeout = conn->timeout_s;
   reql_conn_unlock(conn);
   return timeout;
 }
@@ -375,7 +376,7 @@ reql_connect_(ReQL_Conn_t *conn, ReQL_Byte *buf, const ReQL_Size size) {
   freeaddrinfo(result);
 
   {
-    const struct timeval timeout = {(int64_t)conn->timeout, 0};
+    const struct timeval timeout = {(time_t)conn->timeout_s, (suseconds_t)conn->timeout_us};
 
     if (setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(struct timeval))) {
       return -1;

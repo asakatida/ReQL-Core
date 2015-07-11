@@ -38,7 +38,7 @@ reql_connect(const unsigned long timeout, char *address, char *port, char *key, 
   }
   reql_conn_init(conn->connection);
   if (timeout > 0) {
-    reql_conn_set_timeout(conn->connection, (ReQL_Token)timeout);
+    reql_conn_set_timeout(conn->connection, (ReQL_Token)timeout, 0);
   }
   if (address != NULL) {
     reql_conn_set_addr(conn->connection, address);

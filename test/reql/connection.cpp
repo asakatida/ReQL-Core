@@ -46,7 +46,7 @@ TEST_CASE("reql connection", "[reql][connection]") {
   }
 
   SECTION("reql_conn_set_timeout") {
-    reql_conn_set_timeout(c.get(), 15);
+    reql_conn_set_timeout(c.get(), 15, 0);
 
     REQUIRE(reql_conn_timeout(c.get()) == ReQL_Token(15));
   }

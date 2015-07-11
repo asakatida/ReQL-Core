@@ -96,10 +96,11 @@ reql_conn_port(ReQL_Conn_t *conn);
 /**
  * @brief assign a timeout to a connection.
  * @param conn connection object.
- * @param timeout timout in seconds.
+ * @param s timout in seconds.
+ * @param us timout in microseconds.
  */
 extern void
-reql_conn_set_timeout(ReQL_Conn_t *conn, const ReQL_Token timeout);
+reql_conn_set_timeout(ReQL_Conn_t *conn, const ReQL_Token s, const ReQL_Token us);
 
 /**
  * @brief get timeout used on connection.
