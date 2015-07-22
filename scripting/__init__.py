@@ -348,13 +348,9 @@ def objc_term_imp(name):
 def py_term_method_imp(name):
     return """  {{"{}", (PyCFunction){}_method, METH_VARARGS | METH_KEYWORDS, ""}},""".format(name.lower(), ast_name('py', name))
 
-def py_term_method_def(name):
-    return """static PyObject *
-{}_method(PyObject *self, PyObject *args, PyObject *kwargs);""".format(ast_name('py', name))
-
 def py_term_imp(name):
     return """
-static PyObject *
+extern PyObject *
 {0}_method(PyObject *self, PyObject *args, PyObject *kwargs) {{
   PyObject *val;
 
@@ -385,7 +381,9 @@ def py_term_def(name):
 /**
  */
 extern PyObject *
-{}(PyObject *args, PyObject *kwargs);""".format(ast_name('py', name))
+{0}(PyObject *args, PyObject *kwargs);
+extern PyObject *
+{0}_method(PyObject *self, PyObject *args, PyObject *kwargs);""".format(ast_name('py', name))
 
 def py_lib(name):
     return "{{\"{}\", (PyCFunction){}, METH_VARARGS | METH_KEYWORDS, NULL}},".format(mangle_py_const(name), ast_name('py', name))

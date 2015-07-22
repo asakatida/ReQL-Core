@@ -24,17 +24,10 @@ limitations under the License.
 
 #include "./Python/query.h"
 
+#include "./Python/types.h"
 #include "./reql/core.h"
 
 #include <stdlib.h>
-
-typedef struct {
-  PyObject_HEAD
-  PyObject *reql_data;
-  ReQL_AST_Function reql_func;
-  ReQL_AST_Function_Kwargs reql_func_kwargs;
-  ReQL_Obj_t *(*reql_build)(PyObject *data);
-} ReQLQuery;
 
 static ReQL_Obj_t *
 reql_py_build(ReQLQuery *query) {
@@ -47,18 +40,18 @@ reql_py_build(ReQLQuery *query) {
   return query->reql_build(query->reql_data);
 }
 
-static void
+extern void
 Query_dealloc(ReQLQuery* self) {
   Py_CLEAR(self->reql_data);
-  Py_TYPE(self)->tp_free((PyObject*)self);
+  reql_py_dealloc((PyObject*)self);
 }
 
-static PyObject *
+extern PyObject *
 Query_new(PyTypeObject *type, PyObject *args, PyObject *kwargs) {
-  return type->tp_alloc(type, 0);
+  return PyType_GenericNew(type, args, kwargs);
 }
 
-static int
+extern int
 Query_init(ReQLQuery *self, PyObject *args, PyObject *kwargs) {
   static char *kwlist[] = {NULL};
 
@@ -69,587 +62,10 @@ Query_init(ReQLQuery *self, PyObject *args, PyObject *kwargs) {
   return 0;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_run(PyObject *self, PyObject *args, PyObject *kwargs) {
   return NULL;
 }
-
-static PyMemberDef Query_members[] = {
-  {"_data", T_OBJECT, offsetof(ReQLQuery, reql_data), 0, ""},
-  {NULL}  /* Sentinel */
-};
-
-static PyObject *
-reql_py_add_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_and_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_append_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_april_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_args_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_asc_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_august_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_avg_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_between_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_between_deprecated_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_binary_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_bracket_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_branch_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_ceil_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_changes_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_change_at_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_circle_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_coerce_to_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_concat_map_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_config_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_contains_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_count_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_date_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_datum_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_day_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_day_of_week_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_day_of_year_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_db_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_db_create_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_db_drop_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_db_list_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_december_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_default_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_delete_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_delete_at_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_desc_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_difference_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_distance_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_distinct_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_div_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_downcase_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_during_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_epoch_time_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_eq_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_eq_join_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_error_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_february_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_fill_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_filter_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_floor_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_for_each_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_friday_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_func_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_funcall_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_ge_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_geojson_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_get_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_get_all_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_get_field_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_get_intersecting_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_get_nearest_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_group_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_gt_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_has_fields_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_hours_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_http_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_implicit_var_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_includes_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_index_create_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_index_drop_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_index_list_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_index_rename_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_index_status_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_index_wait_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_info_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_inner_join_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_insert_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_insert_at_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_intersects_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_in_timezone_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_iso8601_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_is_empty_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_january_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_javascript_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_json_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_july_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_june_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_keys_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_le_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_limit_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_line_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_literal_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_lt_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_make_array_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_make_obj_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_map_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_march_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_match_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_max_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_maxval_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_may_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_merge_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_min_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_minutes_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_minval_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_mod_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_monday_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_month_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_mul_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_ne_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_not_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_november_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_now_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_nth_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_object_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_october_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_offsets_of_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_or_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_order_by_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_outer_join_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_pluck_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_point_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_polygon_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_polygon_sub_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_prepend_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_random_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_range_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_rebalance_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_reconfigure_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_reduce_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_replace_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_round_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_sample_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_saturday_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_seconds_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_september_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_set_difference_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_set_insert_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_set_intersection_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_set_union_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_skip_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_slice_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_splice_at_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_split_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_status_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_sub_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_sum_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_sunday_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_sync_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_table_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_table_create_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_table_drop_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_table_list_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_thursday_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_time_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_timezone_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_time_of_day_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_to_epoch_time_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_to_geojson_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_to_iso8601_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_to_json_string_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_tuesday_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_type_of_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_ungroup_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_union_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_upcase_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_update_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_uuid_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_var_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_wait_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_wednesday_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_without_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_with_fields_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_year_method(PyObject *self, PyObject *args, PyObject *kwargs);
-static PyObject *
-reql_py_zip_method(PyObject *self, PyObject *args, PyObject *kwargs);
-
-static PyMethodDef Query_methods[] = {
-  {"run", (PyCFunction)reql_py_run, METH_VARARGS | METH_KEYWORDS, ""},
-  {"add", (PyCFunction)reql_py_add_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"and", (PyCFunction)reql_py_and_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"append", (PyCFunction)reql_py_append_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"april", (PyCFunction)reql_py_april_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"args", (PyCFunction)reql_py_args_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"asc", (PyCFunction)reql_py_asc_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"august", (PyCFunction)reql_py_august_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"avg", (PyCFunction)reql_py_avg_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"between", (PyCFunction)reql_py_between_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"between_deprecated", (PyCFunction)reql_py_between_deprecated_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"binary", (PyCFunction)reql_py_binary_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"bracket", (PyCFunction)reql_py_bracket_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"branch", (PyCFunction)reql_py_branch_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"ceil", (PyCFunction)reql_py_ceil_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"changes", (PyCFunction)reql_py_changes_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"change_at", (PyCFunction)reql_py_change_at_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"circle", (PyCFunction)reql_py_circle_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"coerce_to", (PyCFunction)reql_py_coerce_to_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"concat_map", (PyCFunction)reql_py_concat_map_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"config", (PyCFunction)reql_py_config_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"contains", (PyCFunction)reql_py_contains_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"count", (PyCFunction)reql_py_count_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"date", (PyCFunction)reql_py_date_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"datum", (PyCFunction)reql_py_datum_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"day", (PyCFunction)reql_py_day_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"day_of_week", (PyCFunction)reql_py_day_of_week_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"day_of_year", (PyCFunction)reql_py_day_of_year_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"db", (PyCFunction)reql_py_db_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"db_create", (PyCFunction)reql_py_db_create_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"db_drop", (PyCFunction)reql_py_db_drop_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"db_list", (PyCFunction)reql_py_db_list_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"december", (PyCFunction)reql_py_december_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"default", (PyCFunction)reql_py_default_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"delete", (PyCFunction)reql_py_delete_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"delete_at", (PyCFunction)reql_py_delete_at_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"desc", (PyCFunction)reql_py_desc_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"difference", (PyCFunction)reql_py_difference_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"distance", (PyCFunction)reql_py_distance_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"distinct", (PyCFunction)reql_py_distinct_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"div", (PyCFunction)reql_py_div_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"downcase", (PyCFunction)reql_py_downcase_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"during", (PyCFunction)reql_py_during_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"epoch_time", (PyCFunction)reql_py_epoch_time_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"eq", (PyCFunction)reql_py_eq_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"eq_join", (PyCFunction)reql_py_eq_join_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"error", (PyCFunction)reql_py_error_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"february", (PyCFunction)reql_py_february_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"fill", (PyCFunction)reql_py_fill_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"filter", (PyCFunction)reql_py_filter_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"floor", (PyCFunction)reql_py_floor_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"for_each", (PyCFunction)reql_py_for_each_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"friday", (PyCFunction)reql_py_friday_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"func", (PyCFunction)reql_py_func_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"funcall", (PyCFunction)reql_py_funcall_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"ge", (PyCFunction)reql_py_ge_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"geojson", (PyCFunction)reql_py_geojson_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"get", (PyCFunction)reql_py_get_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"get_all", (PyCFunction)reql_py_get_all_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"get_field", (PyCFunction)reql_py_get_field_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"get_intersecting", (PyCFunction)reql_py_get_intersecting_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"get_nearest", (PyCFunction)reql_py_get_nearest_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"group", (PyCFunction)reql_py_group_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"gt", (PyCFunction)reql_py_gt_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"has_fields", (PyCFunction)reql_py_has_fields_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"hours", (PyCFunction)reql_py_hours_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"http", (PyCFunction)reql_py_http_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"implicit_var", (PyCFunction)reql_py_implicit_var_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"includes", (PyCFunction)reql_py_includes_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"index_create", (PyCFunction)reql_py_index_create_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"index_drop", (PyCFunction)reql_py_index_drop_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"index_list", (PyCFunction)reql_py_index_list_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"index_rename", (PyCFunction)reql_py_index_rename_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"index_status", (PyCFunction)reql_py_index_status_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"index_wait", (PyCFunction)reql_py_index_wait_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"info", (PyCFunction)reql_py_info_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"inner_join", (PyCFunction)reql_py_inner_join_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"insert", (PyCFunction)reql_py_insert_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"insert_at", (PyCFunction)reql_py_insert_at_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"intersects", (PyCFunction)reql_py_intersects_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"in_timezone", (PyCFunction)reql_py_in_timezone_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"iso8601", (PyCFunction)reql_py_iso8601_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"is_empty", (PyCFunction)reql_py_is_empty_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"january", (PyCFunction)reql_py_january_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"javascript", (PyCFunction)reql_py_javascript_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"json", (PyCFunction)reql_py_json_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"july", (PyCFunction)reql_py_july_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"june", (PyCFunction)reql_py_june_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"keys", (PyCFunction)reql_py_keys_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"le", (PyCFunction)reql_py_le_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"limit", (PyCFunction)reql_py_limit_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"line", (PyCFunction)reql_py_line_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"literal", (PyCFunction)reql_py_literal_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"lt", (PyCFunction)reql_py_lt_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"make_array", (PyCFunction)reql_py_make_array_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"make_obj", (PyCFunction)reql_py_make_obj_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"map", (PyCFunction)reql_py_map_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"march", (PyCFunction)reql_py_march_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"match", (PyCFunction)reql_py_match_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"max", (PyCFunction)reql_py_max_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"maxval", (PyCFunction)reql_py_maxval_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"may", (PyCFunction)reql_py_may_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"merge", (PyCFunction)reql_py_merge_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"min", (PyCFunction)reql_py_min_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"minutes", (PyCFunction)reql_py_minutes_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"minval", (PyCFunction)reql_py_minval_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"mod", (PyCFunction)reql_py_mod_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"monday", (PyCFunction)reql_py_monday_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"month", (PyCFunction)reql_py_month_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"mul", (PyCFunction)reql_py_mul_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"ne", (PyCFunction)reql_py_ne_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"not", (PyCFunction)reql_py_not_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"november", (PyCFunction)reql_py_november_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"now", (PyCFunction)reql_py_now_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"nth", (PyCFunction)reql_py_nth_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"object", (PyCFunction)reql_py_object_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"october", (PyCFunction)reql_py_october_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"offsets_of", (PyCFunction)reql_py_offsets_of_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"or", (PyCFunction)reql_py_or_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"order_by", (PyCFunction)reql_py_order_by_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"outer_join", (PyCFunction)reql_py_outer_join_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"pluck", (PyCFunction)reql_py_pluck_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"point", (PyCFunction)reql_py_point_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"polygon", (PyCFunction)reql_py_polygon_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"polygon_sub", (PyCFunction)reql_py_polygon_sub_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"prepend", (PyCFunction)reql_py_prepend_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"random", (PyCFunction)reql_py_random_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"range", (PyCFunction)reql_py_range_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"rebalance", (PyCFunction)reql_py_rebalance_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"reconfigure", (PyCFunction)reql_py_reconfigure_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"reduce", (PyCFunction)reql_py_reduce_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"replace", (PyCFunction)reql_py_replace_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"round", (PyCFunction)reql_py_round_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"sample", (PyCFunction)reql_py_sample_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"saturday", (PyCFunction)reql_py_saturday_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"seconds", (PyCFunction)reql_py_seconds_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"september", (PyCFunction)reql_py_september_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"set_difference", (PyCFunction)reql_py_set_difference_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"set_insert", (PyCFunction)reql_py_set_insert_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"set_intersection", (PyCFunction)reql_py_set_intersection_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"set_union", (PyCFunction)reql_py_set_union_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"skip", (PyCFunction)reql_py_skip_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"slice", (PyCFunction)reql_py_slice_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"splice_at", (PyCFunction)reql_py_splice_at_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"split", (PyCFunction)reql_py_split_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"status", (PyCFunction)reql_py_status_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"sub", (PyCFunction)reql_py_sub_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"sum", (PyCFunction)reql_py_sum_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"sunday", (PyCFunction)reql_py_sunday_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"sync", (PyCFunction)reql_py_sync_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"table", (PyCFunction)reql_py_table_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"table_create", (PyCFunction)reql_py_table_create_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"table_drop", (PyCFunction)reql_py_table_drop_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"table_list", (PyCFunction)reql_py_table_list_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"thursday", (PyCFunction)reql_py_thursday_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"time", (PyCFunction)reql_py_time_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"timezone", (PyCFunction)reql_py_timezone_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"time_of_day", (PyCFunction)reql_py_time_of_day_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"to_epoch_time", (PyCFunction)reql_py_to_epoch_time_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"to_geojson", (PyCFunction)reql_py_to_geojson_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"to_iso8601", (PyCFunction)reql_py_to_iso8601_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"to_json_string", (PyCFunction)reql_py_to_json_string_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"tuesday", (PyCFunction)reql_py_tuesday_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"type_of", (PyCFunction)reql_py_type_of_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"ungroup", (PyCFunction)reql_py_ungroup_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"union", (PyCFunction)reql_py_union_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"upcase", (PyCFunction)reql_py_upcase_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"update", (PyCFunction)reql_py_update_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"uuid", (PyCFunction)reql_py_uuid_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"var", (PyCFunction)reql_py_var_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"wait", (PyCFunction)reql_py_wait_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"wednesday", (PyCFunction)reql_py_wednesday_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"without", (PyCFunction)reql_py_without_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"with_fields", (PyCFunction)reql_py_with_fields_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"year", (PyCFunction)reql_py_year_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {"zip", (PyCFunction)reql_py_zip_method, METH_VARARGS | METH_KEYWORDS, ""},
-  {NULL}  /* Sentinel */
-};
-
-static PyTypeObject ReQLQueryType = {
-  PyVarObject_HEAD_INIT(NULL, 0)
-  "libReQL.Query",           /*tp_name*/
-  sizeof(ReQLQuery),         /*tp_basicsize*/
-  0,                         /*tp_itemsize*/
-  (destructor)Query_dealloc, /*tp_dealloc*/
-  0,                         /*tp_print*/
-  0,                         /*tp_getattr*/
-  0,                         /*tp_setattr*/
-  0,                         /*tp_compare*/
-  0,                         /*tp_repr*/
-  0,                         /*tp_as_number*/
-  0,                         /*tp_as_sequence*/
-  0,                         /*tp_as_mapping*/
-  0,                         /*tp_hash */
-  0,                         /*tp_call*/
-  0,                         /*tp_str*/
-  0,                         /*tp_getattro*/
-  0,                         /*tp_setattro*/
-  0,                         /*tp_as_buffer*/
-  Py_TPFLAGS_DEFAULT | Py_TPFLAGS_BASETYPE, /*tp_flags*/
-  "",                        /* tp_doc */
-  0,                         /* tp_traverse */
-  0,                         /* tp_clear */
-  0,                         /* tp_richcompare */
-  0,                         /* tp_weaklistoffset */
-  0,                         /* tp_iter */
-  0,                         /* tp_iternext */
-  Query_methods,             /* tp_methods */
-  Query_members,             /* tp_members */
-  0,                         /* tp_getset */
-  0,                         /* tp_base */
-  0,                         /* tp_dict */
-  0,                         /* tp_descr_get */
-  0,                         /* tp_descr_set */
-  0,                         /* tp_dictoffset */
-  (initproc)Query_init,      /* tp_init */
-  0,                         /* tp_alloc */
-  Query_new,                 /* tp_new */
-};
 
 static ReQL_Obj_t *
 reql_py_alloc_term() {
@@ -889,10 +305,10 @@ reql_py_build_term_kwargs(PyObject *data) {
   }
   ReQL_Obj_t *r_args = NULL;
   ReQL_Obj_t *r_kwargs = NULL;
-  Py_ssize_t size = PyTuple_GET_SIZE(args_data);
+  Py_ssize_t size = PySequence_Size(args_data);
   switch (size) {
     case 2: {
-      ReQLQuery *kwargs = (ReQLQuery *)PyTuple_GET_ITEM(args_data, 1);
+      ReQLQuery *kwargs = (ReQLQuery *)PySequence_GetItem(args_data, 1);
       r_kwargs = reql_py_build((ReQLQuery *)kwargs);
       if (r_kwargs == NULL) {
         PyGILState_STATE gil = PyGILState_Ensure();
@@ -902,7 +318,7 @@ reql_py_build_term_kwargs(PyObject *data) {
       }
     }
     case 1: {
-      ReQLQuery *args = (ReQLQuery *)PyTuple_GET_ITEM(args_data, 0);
+      ReQLQuery *args = (ReQLQuery *)PySequence_GetItem(args_data, 0);
       r_args = reql_py_build((ReQLQuery *)args);
       if (r_args == NULL) {
         PyGILState_STATE gil = PyGILState_Ensure();
@@ -938,7 +354,7 @@ reql_py_expr(PyObject *self, PyObject *args) {
   }
 
   if (PyCallable_Check(val)) {
-    ReQLQuery *result = (ReQLQuery *)PyObject_New(ReQLQuery, &ReQLQueryType);
+    ReQLQuery *result = PyObject_New(ReQLQuery, reql_py_query_type());
     if (result == NULL) {
       return NULL;
     }
@@ -946,7 +362,7 @@ reql_py_expr(PyObject *self, PyObject *args) {
   }
 
   if (PyUnicode_Check(val)) {
-    ReQLQuery *result = (ReQLQuery *)PyObject_New(ReQLQuery, &ReQLQueryType);
+    ReQLQuery *result = PyObject_New(ReQLQuery, reql_py_query_type());
     if (result == NULL) {
       return NULL;
     }
@@ -954,7 +370,7 @@ reql_py_expr(PyObject *self, PyObject *args) {
   }
 
   if (PyBytes_Check(val)) {
-    ReQLQuery *result = (ReQLQuery *)PyObject_New(ReQLQuery, &ReQLQueryType);
+    ReQLQuery *result = PyObject_New(ReQLQuery, reql_py_query_type());
     if (result == NULL) {
       return NULL;
     }
@@ -999,7 +415,7 @@ reql_py_expr(PyObject *self, PyObject *args) {
       return NULL;
     }
 
-    ReQLQuery *result = (ReQLQuery *)PyObject_New(ReQLQuery, &ReQLQueryType);
+    ReQLQuery *result = PyObject_New(ReQLQuery, reql_py_query_type());
     if (result == NULL) {
       return NULL;
     }
@@ -1029,21 +445,21 @@ reql_py_expr(PyObject *self, PyObject *args) {
       return NULL;
     }
 
-    ReQLQuery *result = (ReQLQuery *)PyObject_New(ReQLQuery, &ReQLQueryType);
+    ReQLQuery *result = PyObject_New(ReQLQuery, reql_py_query_type());
     if (result == NULL) {
       return NULL;
     }
     return (PyObject *)result;
   }
 
-  ReQLQuery *result = (ReQLQuery *)PyObject_New(ReQLQuery, &ReQLQueryType);
+  ReQLQuery *result = PyObject_New(ReQLQuery, reql_py_query_type());
   if (result == NULL) {
     return NULL;
   }
   return (PyObject *)result;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_add_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -1069,7 +485,7 @@ reql_py_add(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_and_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -1095,7 +511,7 @@ reql_py_and(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_append_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -1121,7 +537,7 @@ reql_py_append(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_april_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -1147,7 +563,7 @@ reql_py_april(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_args_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -1173,7 +589,7 @@ reql_py_args(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_asc_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -1199,7 +615,7 @@ reql_py_asc(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_august_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -1225,7 +641,7 @@ reql_py_august(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_avg_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -1251,7 +667,7 @@ reql_py_avg(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_between_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -1277,7 +693,7 @@ reql_py_between(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_between_deprecated_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -1303,7 +719,7 @@ reql_py_between_deprecated(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_binary_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -1329,7 +745,7 @@ reql_py_binary(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_bracket_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -1355,7 +771,7 @@ reql_py_bracket(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_branch_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -1381,7 +797,7 @@ reql_py_branch(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_ceil_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -1407,7 +823,7 @@ reql_py_ceil(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_changes_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -1433,7 +849,7 @@ reql_py_changes(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_change_at_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -1459,7 +875,7 @@ reql_py_change_at(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_circle_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -1485,7 +901,7 @@ reql_py_circle(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_coerce_to_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -1511,7 +927,7 @@ reql_py_coerce_to(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_concat_map_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -1537,7 +953,7 @@ reql_py_concat_map(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_config_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -1563,7 +979,7 @@ reql_py_config(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_contains_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -1589,7 +1005,7 @@ reql_py_contains(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_count_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -1615,7 +1031,7 @@ reql_py_count(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_date_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -1641,7 +1057,7 @@ reql_py_date(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_datum_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -1667,7 +1083,7 @@ reql_py_datum(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_day_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -1693,7 +1109,7 @@ reql_py_day(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_day_of_week_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -1719,7 +1135,7 @@ reql_py_day_of_week(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_day_of_year_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -1745,7 +1161,7 @@ reql_py_day_of_year(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_db_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -1771,7 +1187,7 @@ reql_py_db(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_db_create_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -1797,7 +1213,7 @@ reql_py_db_create(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_db_drop_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -1823,7 +1239,7 @@ reql_py_db_drop(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_db_list_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -1849,7 +1265,7 @@ reql_py_db_list(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_december_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -1875,7 +1291,7 @@ reql_py_december(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_default_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -1901,7 +1317,7 @@ reql_py_default(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_delete_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -1927,7 +1343,7 @@ reql_py_delete(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_delete_at_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -1953,7 +1369,7 @@ reql_py_delete_at(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_desc_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -1979,7 +1395,7 @@ reql_py_desc(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_difference_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -2005,7 +1421,7 @@ reql_py_difference(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_distance_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -2031,7 +1447,7 @@ reql_py_distance(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_distinct_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -2057,7 +1473,7 @@ reql_py_distinct(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_div_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -2083,7 +1499,7 @@ reql_py_div(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_downcase_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -2109,7 +1525,7 @@ reql_py_downcase(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_during_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -2135,7 +1551,7 @@ reql_py_during(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_epoch_time_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -2161,7 +1577,7 @@ reql_py_epoch_time(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_eq_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -2187,7 +1603,7 @@ reql_py_eq(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_eq_join_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -2213,7 +1629,7 @@ reql_py_eq_join(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_error_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -2239,7 +1655,7 @@ reql_py_error(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_february_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -2265,7 +1681,7 @@ reql_py_february(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_fill_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -2291,7 +1707,7 @@ reql_py_fill(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_filter_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -2317,7 +1733,7 @@ reql_py_filter(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_floor_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -2343,7 +1759,7 @@ reql_py_floor(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_for_each_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -2369,7 +1785,7 @@ reql_py_for_each(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_friday_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -2395,7 +1811,7 @@ reql_py_friday(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_func_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -2421,7 +1837,7 @@ reql_py_func(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_funcall_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -2447,7 +1863,7 @@ reql_py_funcall(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_ge_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -2473,7 +1889,7 @@ reql_py_ge(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_geojson_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -2499,7 +1915,7 @@ reql_py_geojson(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_get_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -2525,7 +1941,7 @@ reql_py_get(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_get_all_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -2551,7 +1967,7 @@ reql_py_get_all(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_get_field_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -2577,7 +1993,7 @@ reql_py_get_field(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_get_intersecting_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -2603,7 +2019,7 @@ reql_py_get_intersecting(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_get_nearest_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -2629,7 +2045,7 @@ reql_py_get_nearest(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_group_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -2655,7 +2071,7 @@ reql_py_group(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_gt_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -2681,7 +2097,7 @@ reql_py_gt(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_has_fields_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -2707,7 +2123,7 @@ reql_py_has_fields(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_hours_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -2733,7 +2149,7 @@ reql_py_hours(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_http_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -2759,7 +2175,7 @@ reql_py_http(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_implicit_var_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -2785,7 +2201,7 @@ reql_py_implicit_var(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_includes_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -2811,7 +2227,7 @@ reql_py_includes(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_index_create_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -2837,7 +2253,7 @@ reql_py_index_create(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_index_drop_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -2863,7 +2279,7 @@ reql_py_index_drop(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_index_list_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -2889,7 +2305,7 @@ reql_py_index_list(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_index_rename_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -2915,7 +2331,7 @@ reql_py_index_rename(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_index_status_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -2941,7 +2357,7 @@ reql_py_index_status(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_index_wait_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -2967,7 +2383,7 @@ reql_py_index_wait(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_info_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -2993,7 +2409,7 @@ reql_py_info(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_inner_join_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -3019,7 +2435,7 @@ reql_py_inner_join(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_insert_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -3045,7 +2461,7 @@ reql_py_insert(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_insert_at_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -3071,7 +2487,7 @@ reql_py_insert_at(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_intersects_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -3097,7 +2513,7 @@ reql_py_intersects(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_in_timezone_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -3123,7 +2539,7 @@ reql_py_in_timezone(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_iso8601_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -3149,7 +2565,7 @@ reql_py_iso8601(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_is_empty_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -3175,7 +2591,7 @@ reql_py_is_empty(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_january_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -3201,7 +2617,7 @@ reql_py_january(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_javascript_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -3227,7 +2643,7 @@ reql_py_javascript(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_json_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -3253,7 +2669,7 @@ reql_py_json(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_july_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -3279,7 +2695,7 @@ reql_py_july(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_june_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -3305,7 +2721,7 @@ reql_py_june(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_keys_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -3331,7 +2747,7 @@ reql_py_keys(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_le_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -3357,7 +2773,7 @@ reql_py_le(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_limit_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -3383,7 +2799,7 @@ reql_py_limit(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_line_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -3409,7 +2825,7 @@ reql_py_line(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_literal_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -3435,7 +2851,7 @@ reql_py_literal(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_lt_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -3461,7 +2877,7 @@ reql_py_lt(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_make_array_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -3487,7 +2903,7 @@ reql_py_make_array(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_make_obj_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -3513,7 +2929,7 @@ reql_py_make_obj(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_map_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -3539,7 +2955,7 @@ reql_py_map(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_march_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -3565,7 +2981,7 @@ reql_py_march(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_match_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -3591,7 +3007,7 @@ reql_py_match(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_max_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -3617,7 +3033,7 @@ reql_py_max(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_maxval_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -3643,7 +3059,7 @@ reql_py_maxval(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_may_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -3669,7 +3085,7 @@ reql_py_may(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_merge_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -3695,7 +3111,7 @@ reql_py_merge(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_min_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -3721,7 +3137,7 @@ reql_py_min(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_minutes_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -3747,7 +3163,7 @@ reql_py_minutes(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_minval_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -3773,7 +3189,7 @@ reql_py_minval(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_mod_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -3799,7 +3215,7 @@ reql_py_mod(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_monday_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -3825,7 +3241,7 @@ reql_py_monday(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_month_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -3851,7 +3267,7 @@ reql_py_month(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_mul_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -3877,7 +3293,7 @@ reql_py_mul(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_ne_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -3903,7 +3319,7 @@ reql_py_ne(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_not_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -3929,7 +3345,7 @@ reql_py_not(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_november_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -3955,7 +3371,7 @@ reql_py_november(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_now_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -3981,7 +3397,7 @@ reql_py_now(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_nth_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -4007,7 +3423,7 @@ reql_py_nth(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_object_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -4033,7 +3449,7 @@ reql_py_object(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_october_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -4059,7 +3475,7 @@ reql_py_october(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_offsets_of_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -4085,7 +3501,7 @@ reql_py_offsets_of(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_or_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -4111,7 +3527,7 @@ reql_py_or(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_order_by_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -4137,7 +3553,7 @@ reql_py_order_by(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_outer_join_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -4163,7 +3579,7 @@ reql_py_outer_join(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_pluck_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -4189,7 +3605,7 @@ reql_py_pluck(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_point_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -4215,7 +3631,7 @@ reql_py_point(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_polygon_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -4241,7 +3657,7 @@ reql_py_polygon(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_polygon_sub_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -4267,7 +3683,7 @@ reql_py_polygon_sub(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_prepend_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -4293,7 +3709,7 @@ reql_py_prepend(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_random_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -4319,7 +3735,7 @@ reql_py_random(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_range_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -4345,7 +3761,7 @@ reql_py_range(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_rebalance_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -4371,7 +3787,7 @@ reql_py_rebalance(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_reconfigure_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -4397,7 +3813,7 @@ reql_py_reconfigure(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_reduce_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -4423,7 +3839,7 @@ reql_py_reduce(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_replace_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -4449,7 +3865,7 @@ reql_py_replace(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_round_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -4475,7 +3891,7 @@ reql_py_round(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_sample_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -4501,7 +3917,7 @@ reql_py_sample(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_saturday_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -4527,7 +3943,7 @@ reql_py_saturday(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_seconds_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -4553,7 +3969,7 @@ reql_py_seconds(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_september_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -4579,7 +3995,7 @@ reql_py_september(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_set_difference_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -4605,7 +4021,7 @@ reql_py_set_difference(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_set_insert_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -4631,7 +4047,7 @@ reql_py_set_insert(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_set_intersection_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -4657,7 +4073,7 @@ reql_py_set_intersection(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_set_union_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -4683,7 +4099,7 @@ reql_py_set_union(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_skip_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -4709,7 +4125,7 @@ reql_py_skip(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_slice_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -4735,7 +4151,7 @@ reql_py_slice(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_splice_at_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -4761,7 +4177,7 @@ reql_py_splice_at(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_split_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -4787,7 +4203,7 @@ reql_py_split(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_status_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -4813,7 +4229,7 @@ reql_py_status(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_sub_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -4839,7 +4255,7 @@ reql_py_sub(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_sum_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -4865,7 +4281,7 @@ reql_py_sum(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_sunday_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -4891,7 +4307,7 @@ reql_py_sunday(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_sync_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -4917,7 +4333,7 @@ reql_py_sync(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_table_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -4943,7 +4359,7 @@ reql_py_table(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_table_create_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -4969,7 +4385,7 @@ reql_py_table_create(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_table_drop_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -4995,7 +4411,7 @@ reql_py_table_drop(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_table_list_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -5021,7 +4437,7 @@ reql_py_table_list(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_thursday_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -5047,7 +4463,7 @@ reql_py_thursday(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_time_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -5073,7 +4489,7 @@ reql_py_time(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_timezone_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -5099,7 +4515,7 @@ reql_py_timezone(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_time_of_day_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -5125,7 +4541,7 @@ reql_py_time_of_day(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_to_epoch_time_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -5151,7 +4567,7 @@ reql_py_to_epoch_time(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_to_geojson_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -5177,7 +4593,7 @@ reql_py_to_geojson(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_to_iso8601_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -5203,7 +4619,7 @@ reql_py_to_iso8601(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_to_json_string_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -5229,7 +4645,7 @@ reql_py_to_json_string(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_tuesday_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -5255,7 +4671,7 @@ reql_py_tuesday(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_type_of_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -5281,7 +4697,7 @@ reql_py_type_of(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_ungroup_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -5307,7 +4723,7 @@ reql_py_ungroup(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_union_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -5333,7 +4749,7 @@ reql_py_union(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_upcase_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -5359,7 +4775,7 @@ reql_py_upcase(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_update_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -5385,7 +4801,7 @@ reql_py_update(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_uuid_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -5411,7 +4827,7 @@ reql_py_uuid(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_var_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -5437,7 +4853,7 @@ reql_py_var(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_wait_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -5463,7 +4879,7 @@ reql_py_wait(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_wednesday_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -5489,7 +4905,7 @@ reql_py_wednesday(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_without_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -5515,7 +4931,7 @@ reql_py_without(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_with_fields_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -5541,7 +4957,7 @@ reql_py_with_fields(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_year_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 
@@ -5567,7 +4983,7 @@ reql_py_year(PyObject *args, PyObject *kwargs) {
   return val;
 }
 
-static PyObject *
+extern PyObject *
 reql_py_zip_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 

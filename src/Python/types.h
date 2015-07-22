@@ -18,8 +18,8 @@ limitations under the License.
  * @copyright Apache
  */
 
-#ifndef REQL_PYTHON_CONNECTION_H_
-#define REQL_PYTHON_CONNECTION_H_
+#ifndef REQL_PYTHON_TYPES_H_
+#define REQL_PYTHON_TYPES_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -28,25 +28,32 @@ extern "C" {
 #define Py_LIMITED_API
 #include "Python.h"
 
-#include "./Python/types.h"
+#include "./reql/core.h"
+
+typedef struct {
+  PyObject_HEAD
+  ReQL_Conn_t *reql_connection;
+} ReQLConnection;
+
+typedef struct {
+  PyObject_HEAD
+  PyObject *reql_data;
+  ReQL_AST_Function reql_func;
+  ReQL_AST_Function_Kwargs reql_func_kwargs;
+  ReQL_Obj_t *(*reql_build)(PyObject *data);
+} ReQLQuery;
 
 extern void
-Connection_dealloc(ReQLConnection* self);
+reql_py_dealloc(PyObject* self);
 
-extern PyObject *
-Connection_new(PyTypeObject *type, PyObject *args, PyObject *kwargs);
+PyTypeObject *
+reql_py_connection_type();
 
-extern int
-Connection_init(ReQLConnection *self, PyObject *args, PyObject *kwargs);
-
-extern PyObject *
-Connection_name(ReQLConnection* self);
-
-extern PyObject *
-reql_py_connect(PyObject *args, PyObject *kwargs);
+PyTypeObject *
+reql_py_query_type();
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif  // REQL_PYTHON_CONNECTION_H_
+#endif  // REQL_PYTHON_TYPES_H_

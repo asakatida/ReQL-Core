@@ -427,6 +427,8 @@
 		8787D3DE1B2E28470095C616 /* 4146.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8787D3DC1B2E28470095C616 /* 4146.cpp */; };
 		8787D3E01B2E28590095C616 /* 2639.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8787D3DF1B2E28590095C616 /* 2639.cpp */; };
 		8787D3E21B2E35F50095C616 /* Cursor.m in Sources */ = {isa = PBXBuildFile; fileRef = 8787D3E11B2E35F50095C616 /* Cursor.m */; };
+		878B54A81B5ED2BF00AFAF6D /* types.c in Sources */ = {isa = PBXBuildFile; fileRef = 878B54A61B5ED2BF00AFAF6D /* types.c */; };
+		878B54A91B5ED2BF00AFAF6D /* types.h in Headers */ = {isa = PBXBuildFile; fileRef = 878B54A71B5ED2BF00AFAF6D /* types.h */; };
 		8791C84A1B13968C004798D7 /* libReQL.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C8491B13968C004798D7 /* libReQL.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8791C8501B13968C004798D7 /* libReQL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8791C8451B13968C004798D7 /* libReQL.framework */; };
 		879C95BD1B274A6D00EF7026 /* types.h in Headers */ = {isa = PBXBuildFile; fileRef = 879C95BC1B274A6D00EF7026 /* types.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -1034,6 +1036,8 @@
 		8787D3DC1B2E28470095C616 /* 4146.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 4146.cpp; sourceTree = "<group>"; };
 		8787D3DF1B2E28590095C616 /* 2639.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 2639.cpp; sourceTree = "<group>"; };
 		8787D3E11B2E35F50095C616 /* Cursor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Cursor.m; sourceTree = "<group>"; };
+		878B54A61B5ED2BF00AFAF6D /* types.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = types.c; sourceTree = "<group>"; };
+		878B54A71B5ED2BF00AFAF6D /* types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
 		878CDF871AFE6196008638B8 /* error.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = error.cpp; sourceTree = "<group>"; };
 		878CDF881AFE6196008638B8 /* error.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = error.hpp; sourceTree = "<group>"; };
 		8791C7D81B138A43004798D7 /* char.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = char.c; sourceTree = "<group>"; };
@@ -2089,6 +2093,8 @@
 				879CE5C31B436AF20068D315 /* query.c */,
 				879CE5C41B436AF20068D315 /* query.h */,
 				879CE5C51B436AF20068D315 /* ReQL.c */,
+				878B54A61B5ED2BF00AFAF6D /* types.c */,
+				878B54A71B5ED2BF00AFAF6D /* types.h */,
 			);
 			path = Python;
 			sourceTree = "<group>";
@@ -2375,6 +2381,7 @@
 			files = (
 				879CE5CC1B436AF20068D315 /* query.h in Headers */,
 				879CE5CA1B436AF20068D315 /* cursor.h in Headers */,
+				878B54A91B5ED2BF00AFAF6D /* types.h in Headers */,
 				879CE5C81B436AF20068D315 /* connection.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3151,6 +3158,7 @@
 				879CE5CB1B436AF20068D315 /* query.c in Sources */,
 				879CE5C71B436AF20068D315 /* connection.c in Sources */,
 				879CE5C91B436AF20068D315 /* cursor.c in Sources */,
+				878B54A81B5ED2BF00AFAF6D /* types.c in Sources */,
 				879CE5CD1B436AF20068D315 /* ReQL.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
