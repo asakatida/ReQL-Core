@@ -37,6 +37,9 @@ PyTypeObject *
 reql_py_connection_type();
 
 PyTypeObject *
+reql_py_cursor_type();
+  
+PyTypeObject *
 reql_py_query_type();
 
 #ifdef __cplusplus
