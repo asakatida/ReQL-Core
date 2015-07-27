@@ -4,11 +4,11 @@
 #import <XCTest/XCTest.h>
 #import <libReQL.h>
 
-@interface ObjcTestsThatManipulationDataInTables371 : XCTestCase
+@interface ObjcTestsThatManipulationDataInTables374 : XCTestCase
 
 @end
 
-@implementation ObjcTestsThatManipulationDataInTables371
+@implementation ObjcTestsThatManipulationDataInTables374
 
 
 - (void)test0 {

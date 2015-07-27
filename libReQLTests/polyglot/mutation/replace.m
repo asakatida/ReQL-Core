@@ -4,11 +4,11 @@
 #import <XCTest/XCTest.h>
 #import <libReQL.h>
 
-@interface ObjcTestsReplacementOfSelections418 : XCTestCase
+@interface ObjcTestsReplacementOfSelections421 : XCTestCase
 
 @end
 
-@implementation ObjcTestsReplacementOfSelections418
+@implementation ObjcTestsReplacementOfSelections421
 
 
 - (void)test0 {

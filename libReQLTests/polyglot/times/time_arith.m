@@ -4,11 +4,11 @@
 #import <XCTest/XCTest.h>
 #import <libReQL.h>
 
-@interface ObjcTestBasicTimeArithmetic483 : XCTestCase
+@interface ObjcTestBasicTimeArithmetic487 : XCTestCase
 
 @end
 
-@implementation ObjcTestBasicTimeArithmetic483
+@implementation ObjcTestBasicTimeArithmetic487
 
 
 - (void)test10 {

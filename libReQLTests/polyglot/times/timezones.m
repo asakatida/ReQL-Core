@@ -231,4 +231,20 @@
   [connection close];
 }
 
+- (void)test30 {
+  ReQLConnection *connection = [ReQLConnection new];
+  XCTAssert([connection isOpen]);
+  NSString *var0 = @"2015-07-08T00:00:00-08:00";
+  XCTAssert([var0 isEqualTo:var0]);
+  [connection close];
+}
+
+- (void)test31 {
+  ReQLConnection *connection = [ReQLConnection new];
+  XCTAssert([connection isOpen]);
+  NSString *var0 = @"2015-07-09T00:00:00-07:00";
+  XCTAssert([var0 isEqualTo:var0]);
+  [connection close];
+}
+
 @end

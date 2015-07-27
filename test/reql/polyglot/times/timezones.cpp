@@ -413,4 +413,18 @@ TEST_CASE("reql Test basic timezone manipulation", "[reql][ast]") {
 
     reql_object_add(var0.get(), var1.get(), var2.get());
   }
+
+  SECTION("test30") {
+    std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
+    std::unique_ptr<ReQL_Byte[]> buf0(new ReQL_Byte[25]);
+    const ReQL_Byte src0[] = "2015-07-08T00:00:00-08:00";
+    reql_string_init(var0.get(), buf0.get(), src0, 25);
+  }
+
+  SECTION("test31") {
+    std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
+    std::unique_ptr<ReQL_Byte[]> buf0(new ReQL_Byte[25]);
+    const ReQL_Byte src0[] = "2015-07-09T00:00:00-07:00";
+    reql_string_init(var0.get(), buf0.get(), src0, 25);
+  }
 }

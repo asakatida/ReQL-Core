@@ -583,6 +583,11 @@ TEST_CASE("cpp Test the arity of every function", "[cpp][ast]") {
   }
 
   SECTION("test48") {
+    double num0(1);
+    Query var0(num0);
+  }
+
+  SECTION("test49") {
     Types::object map0;
 
     std::string src1("func", 4);
@@ -594,34 +599,6 @@ TEST_CASE("cpp Test the arity of every function", "[cpp][ast]") {
     map0.insert({src1, var2});
 
     Query var0(map0);
-  }
-
-  SECTION("test49") {
-    Types::array arr0(1);
-
-    Types::object map1;
-
-    std::string src2("group", 5);
-    Query var2(src2);
-
-    double num3(0);
-    Query var3(num3);
-
-    map1.insert({src2, var3});
-
-    std::string src4("reduction", 9);
-    Query var4(src4);
-
-    double num5(1);
-    Query var5(num5);
-
-    map1.insert({src4, var5});
-
-    Query var1(map1);
-
-    arr0.insert(arr0.end(), var1);
-
-    Query var0(arr0);
   }
 
   SECTION("test50") {
@@ -653,6 +630,34 @@ TEST_CASE("cpp Test the arity of every function", "[cpp][ast]") {
   }
 
   SECTION("test51") {
+    Types::array arr0(1);
+
+    Types::object map1;
+
+    std::string src2("group", 5);
+    Query var2(src2);
+
+    double num3(0);
+    Query var3(num3);
+
+    map1.insert({src2, var3});
+
+    std::string src4("reduction", 9);
+    Query var4(src4);
+
+    double num5(1);
+    Query var5(num5);
+
+    map1.insert({src4, var5});
+
+    Query var1(map1);
+
+    arr0.insert(arr0.end(), var1);
+
+    Query var0(arr0);
+  }
+
+  SECTION("test52") {
     Types::object map0;
 
     std::string src1("a", 1);
@@ -669,20 +674,6 @@ TEST_CASE("cpp Test the arity of every function", "[cpp][ast]") {
     map2.insert({src3, var4});
 
     Query var2(map2);
-
-    map0.insert({src1, var2});
-
-    Query var0(map0);
-  }
-
-  SECTION("test52") {
-    Types::object map0;
-
-    std::string src1("func", 4);
-    Query var1(src1);
-
-    std::string src2("err", 3);
-    Query var2(src2);
 
     map0.insert({src1, var2});
 
@@ -746,6 +737,20 @@ TEST_CASE("cpp Test the arity of every function", "[cpp][ast]") {
   }
 
   SECTION("test57") {
+    Types::object map0;
+
+    std::string src1("func", 4);
+    Query var1(src1);
+
+    std::string src2("err", 3);
+    Query var2(src2);
+
+    map0.insert({src1, var2});
+
+    Query var0(map0);
+  }
+
+  SECTION("test58") {
     Types::object map0;
 
     std::string src1("func", 4);

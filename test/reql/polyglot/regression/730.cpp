@@ -5,6 +5,6 @@
 
 #include <memory>
 
-TEST_CASE("reql Regression tests for issue 347", "[reql][ast]") {
+TEST_CASE("reql Regression tests for issue 350", "[reql][ast]") {
 
 }

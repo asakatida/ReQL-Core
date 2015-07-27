@@ -5,7 +5,7 @@
 
 using namespace ReQL;
 
-TEST_CASE("cpp Test basic time arithmetic 239", "[cpp][ast]") {
+TEST_CASE("cpp Test basic time arithmetic 241", "[cpp][ast]") {
 
   SECTION("test10") {
     Query var0(true);

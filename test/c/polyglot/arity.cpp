@@ -255,17 +255,9 @@ TEST_CASE("c Test the arity of every function", "[c][ast]") {
   }
 
   SECTION("test48") {
-
-
-
   }
 
   SECTION("test49") {
-
-
-
-
-
 
 
 
@@ -289,9 +281,14 @@ TEST_CASE("c Test the arity of every function", "[c][ast]") {
 
 
 
+
+
   }
 
   SECTION("test52") {
+
+
+
 
 
 
@@ -322,6 +319,12 @@ TEST_CASE("c Test the arity of every function", "[c][ast]") {
   }
 
   SECTION("test57") {
+
+
+
+  }
+
+  SECTION("test58") {
 
 
 

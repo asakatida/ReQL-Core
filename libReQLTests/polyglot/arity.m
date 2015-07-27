@@ -478,10 +478,7 @@
 - (void)test48 {
   ReQLConnection *connection = [ReQLConnection new];
   XCTAssert([connection isOpen]);
-  NSMutableDictionary *var0 = [NSMutableDictionary dictionaryWithCapacity:1];
-  NSString *var1 = @"func";
-  NSString *var2 = @"err";
-  [var0 setObject:var2 forKey:var1];
+  NSNumber *var0 = @1;
   XCTAssert([var0 isEqualTo:var0]);
   [connection close];
 }
@@ -489,15 +486,10 @@
 - (void)test49 {
   ReQLConnection *connection = [ReQLConnection new];
   XCTAssert([connection isOpen]);
-  NSMutableArray *var0 = [NSMutableArray arrayWithCapacity:1];
-  NSMutableDictionary *var1 = [NSMutableDictionary dictionaryWithCapacity:2];
-  NSString *var2 = @"group";
-  NSNumber *var3 = @0;
-  [var1 setObject:var3 forKey:var2];
-  NSString *var4 = @"reduction";
-  NSNumber *var5 = @1;
-  [var1 setObject:var5 forKey:var4];
-  [var0 addObject:var1];
+  NSMutableDictionary *var0 = [NSMutableDictionary dictionaryWithCapacity:1];
+  NSString *var1 = @"func";
+  NSString *var2 = @"err";
+  [var0 setObject:var2 forKey:var1];
   XCTAssert([var0 isEqualTo:var0]);
   [connection close];
 }
@@ -521,13 +513,15 @@
 - (void)test51 {
   ReQLConnection *connection = [ReQLConnection new];
   XCTAssert([connection isOpen]);
-  NSMutableDictionary *var0 = [NSMutableDictionary dictionaryWithCapacity:1];
-  NSString *var1 = @"a";
-  NSMutableDictionary *var2 = [NSMutableDictionary dictionaryWithCapacity:1];
-  NSString *var3 = @"c";
-  NSNumber *var4 = @1;
-  [var2 setObject:var4 forKey:var3];
-  [var0 setObject:var2 forKey:var1];
+  NSMutableArray *var0 = [NSMutableArray arrayWithCapacity:1];
+  NSMutableDictionary *var1 = [NSMutableDictionary dictionaryWithCapacity:2];
+  NSString *var2 = @"group";
+  NSNumber *var3 = @0;
+  [var1 setObject:var3 forKey:var2];
+  NSString *var4 = @"reduction";
+  NSNumber *var5 = @1;
+  [var1 setObject:var5 forKey:var4];
+  [var0 addObject:var1];
   XCTAssert([var0 isEqualTo:var0]);
   [connection close];
 }
@@ -536,8 +530,11 @@
   ReQLConnection *connection = [ReQLConnection new];
   XCTAssert([connection isOpen]);
   NSMutableDictionary *var0 = [NSMutableDictionary dictionaryWithCapacity:1];
-  NSString *var1 = @"func";
-  NSString *var2 = @"err";
+  NSString *var1 = @"a";
+  NSMutableDictionary *var2 = [NSMutableDictionary dictionaryWithCapacity:1];
+  NSString *var3 = @"c";
+  NSNumber *var4 = @1;
+  [var2 setObject:var4 forKey:var3];
   [var0 setObject:var2 forKey:var1];
   XCTAssert([var0 isEqualTo:var0]);
   [connection close];
@@ -588,6 +585,17 @@
 }
 
 - (void)test57 {
+  ReQLConnection *connection = [ReQLConnection new];
+  XCTAssert([connection isOpen]);
+  NSMutableDictionary *var0 = [NSMutableDictionary dictionaryWithCapacity:1];
+  NSString *var1 = @"func";
+  NSString *var2 = @"err";
+  [var0 setObject:var2 forKey:var1];
+  XCTAssert([var0 isEqualTo:var0]);
+  [connection close];
+}
+
+- (void)test58 {
   ReQLConnection *connection = [ReQLConnection new];
   XCTAssert([connection isOpen]);
   NSMutableDictionary *var0 = [NSMutableDictionary dictionaryWithCapacity:1];

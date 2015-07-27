@@ -347,4 +347,14 @@ TEST_CASE("cpp Test basic timezone manipulation", "[cpp][ast]") {
 
     Query var0(map0);
   }
+
+  SECTION("test30") {
+    std::string src0("2015-07-08T00:00:00-08:00", 25);
+    Query var0(src0);
+  }
+
+  SECTION("test31") {
+    std::string src0("2015-07-09T00:00:00-07:00", 25);
+    Query var0(src0);
+  }
 }
