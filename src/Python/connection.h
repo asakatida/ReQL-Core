@@ -30,6 +30,13 @@ extern "C" {
 
 #include "./Python/types.h"
 
+#include "./reql/core.h"
+
+typedef struct {
+  PyObject_HEAD
+  ReQL_Conn_t *reql_connection;
+} ReQLConnection;
+  
 extern void
 Connection_dealloc(ReQLConnection* self);
 

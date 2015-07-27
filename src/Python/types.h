@@ -30,19 +30,6 @@ extern "C" {
 
 #include "./reql/core.h"
 
-typedef struct {
-  PyObject_HEAD
-  ReQL_Conn_t *reql_connection;
-} ReQLConnection;
-
-typedef struct {
-  PyObject_HEAD
-  PyObject *reql_data;
-  ReQL_AST_Function reql_func;
-  ReQL_AST_Function_Kwargs reql_func_kwargs;
-  ReQL_Obj_t *(*reql_build)(PyObject *data);
-} ReQLQuery;
-
 extern void
 reql_py_dealloc(PyObject* self);
 
