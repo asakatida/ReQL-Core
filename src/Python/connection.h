@@ -47,9 +47,6 @@ extern int
 Connection_init(ReQLConnection *self, PyObject *args, PyObject *kwargs);
 
 extern PyObject *
-Connection_name(ReQLConnection* self);
-
-extern PyObject *
 reql_py_connect(PyObject *args, PyObject *kwargs);
 
 #ifdef __cplusplus

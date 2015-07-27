@@ -58,11 +58,6 @@ Connection_init(ReQLConnection *self, PyObject *args, PyObject *kwargs) {
 }
 
 extern PyObject *
-Connection_name(ReQLConnection* self) {
-  return NULL;
-}
-
-extern PyObject *
 reql_py_connect(PyObject *args, PyObject *kwargs) {
   return (PyObject *)PyObject_New(ReQLConnection, reql_py_connection_type());
 }

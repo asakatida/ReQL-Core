@@ -38,12 +38,15 @@ reql_py_dealloc(PyObject* self) {
 }
 
 static PyMemberDef Connection_members[] = {
-  {"data", T_OBJECT_EX, offsetof(ReQLConnection, reql_connection), 0, ""},
   {NULL}  /* Sentinel */
 };
 
 static PyMethodDef Connection_methods[] = {
-  {"name", (PyCFunction)Connection_name, METH_NOARGS, ""},
+  {"close", (PyCFunction)NULL, METH_NOARGS, ""},
+  {"noreply_wait", (PyCFunction)NULL, METH_NOARGS, ""},
+  {"reconnect", (PyCFunction)NULL, METH_NOARGS, ""},
+  {"repl", (PyCFunction)NULL, METH_NOARGS, ""},
+  {"use", (PyCFunction)NULL, METH_NOARGS, ""},
   {NULL}  /* Sentinel */
 };
 
