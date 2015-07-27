@@ -20,9 +20,40 @@ limitations under the License.
 
 #define Py_LIMITED_API
 #include "Python.h"
+#include "structmember.h"
 
 #include "./Python/cursor.h"
 
+#include "./Python/types.h"
 #include "./reql/core.h"
 
 #include <stdlib.h>
+
+extern void
+Cursor_dealloc(ReQLCursor* self) {
+  reql_cur_destroy(self->reql_cursor);
+  reql_py_dealloc((PyObject*)self);
+}
+
+extern PyObject *
+Cursor_new(PyTypeObject *type, PyObject *args, PyObject *kwargs) {
+  ReQLCursor *self = (ReQLCursor *)PyType_GenericNew(type, args, kwargs);
+
+  if (self != NULL) {
+    self->reql_cursor = NULL;
+  }
+
+  return (PyObject *)self;
+}
+
+extern int
+Cursor_init(ReQLCursor *self, PyObject *args, PyObject *kwargs) {
+  static char *kwlist[] = {NULL};
+
+  if (!PyArg_ParseTupleAndKeywords(args, kwargs, "", kwlist)) {
+    return -1;
+  }
+
+  return 0;
+}
+

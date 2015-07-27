@@ -28,6 +28,22 @@ extern "C" {
 #define Py_LIMITED_API
 #include "Python.h"
 
+#include "./reql/core.h"
+
+typedef struct {
+  PyObject_HEAD
+  ReQL_Cur_t *reql_cursor;
+} ReQLCursor;
+  
+extern void
+Cursor_dealloc(ReQLCursor* self);
+
+extern PyObject *
+Cursor_new(PyTypeObject *type, PyObject *args, PyObject *kwargs);
+
+extern int
+Cursor_init(ReQLCursor *self, PyObject *args, PyObject *kwargs);
+
 #ifdef __cplusplus
 }
 #endif
