@@ -1336,7 +1336,7 @@
   NSMutableArray *var0 = [NSMutableArray arrayWithCapacity:4];
   NSString *var1 = @"f";
   [var0 addObject:var1];
-  NSString *var2 = @"\xe9";
+  NSString *var2 = @"\u00e9";
   [var0 addObject:var2];
   NSString *var3 = @"o";
   [var0 addObject:var3];
