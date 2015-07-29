@@ -13,6 +13,7 @@ libReQL = Extension(
         'src/Python/cursor.c',
         'src/Python/query.c',
         'src/Python/ReQL.c',
+        'src/Python/types.c',
         'src/reql/char.c',
         'src/reql/connection.c',
         'src/reql/cursor.c',
