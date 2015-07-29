@@ -18,9 +18,17 @@ limitations under the License.
  * @copyright Apache
  */
 
-#include <stdlib.h>
+#include "./Lua/connection.h"
+#include "./Lua/cursor.h"
+#include "./Lua/query.h"
 
-#include "./Lua/ast.h"
+#include "./reql/core.h"
+
+#include <lua.h>
+#include <lauxlib.h>
+#include <lualib.h>
+
+#include <stdlib.h>
 
 static const struct luaL_Reg libReQL[] = {
   {"connect", reql_lua_connect},

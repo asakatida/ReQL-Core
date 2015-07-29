@@ -23,9 +23,9 @@ build = {
   modules = {
     libReQL = {
       sources = {
-        'src/Lua/ast.c',
-        'src/Lua/expr.c',
-        'src/Lua/new.c',
+        'src/Lua/connection.c',
+        'src/Lua/cursor.c',
+        'src/Lua/query.c',
         'src/Lua/ReQL.c',
         'src/reql/char.c',
         'src/reql/connection.c',

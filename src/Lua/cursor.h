@@ -1,5 +1,5 @@
 /*
-Copyright 2014-2015 Adam Grandquist
+Copyright 2015 Adam Grandquist
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -18,8 +18,8 @@ limitations under the License.
  * @copyright Apache
  */
 
-#ifndef REQL_NEW_LUA_H_
-#define REQL_NEW_LUA_H_
+#ifndef REQL_LUA_CONNECTION_H_
+#define REQL_LUA_CONNECTION_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -31,27 +31,8 @@ extern "C" {
 #include <lauxlib.h>
 #include <lualib.h>
 
-extern ReQL_Obj_t *
-reql_lua_new_array(lua_State *L, uint32_t size);
-extern ReQL_Obj_t *
-reql_lua_new_bool(lua_State *L, const int idx);
-extern ReQL_Obj_t *
-reql_lua_new_datum(lua_State *L, ReQL_Obj_t *arg);
-extern ReQL_Obj_t *
-reql_lua_new_make_array(lua_State *L, ReQL_Obj_t *arg);
-extern ReQL_Obj_t *
-reql_lua_new_make_obj(lua_State *L, ReQL_Obj_t *arg);
-extern ReQL_Obj_t *
-reql_lua_new_null(lua_State *L);
-extern ReQL_Obj_t *
-reql_lua_new_number(lua_State *L, const int idx);
-extern ReQL_Obj_t *
-reql_lua_new_object(lua_State *L, uint32_t idx);
-extern ReQL_Obj_t *
-reql_lua_new_string(lua_State *L, const int idx);
-
 #ifdef __cplusplus
 }
 #endif
 
-#endif  // REQL_NEW_LUA_H_
+#endif  // REQL_LUA_CONNECTION_H_

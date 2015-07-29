@@ -18,14 +18,74 @@ limitations under the License.
  * @copyright Apache
  */
 
-#ifndef REQL_AST_LUA_H_
-#define REQL_AST_LUA_H_
+#ifndef REQL_LUA_QUERY_H_
+#define REQL_LUA_QUERY_H_
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#include "./Lua/expr.h"
+#include "./reql/core.h"
+
+#include <lua.h>
+#include <lauxlib.h>
+#include <lualib.h>
+
+#if LUA_VERSION_NUM < 502
+#define lua_rawlen lua_objlen
+#endif
+
+extern ReQL_Obj_t *
+reql_lua_new_array(lua_State *L, uint32_t size);
+extern ReQL_Obj_t *
+reql_lua_new_bool(lua_State *L, const int idx);
+extern ReQL_Obj_t *
+reql_lua_new_datum(lua_State *L, ReQL_Obj_t *arg);
+extern ReQL_Obj_t *
+reql_lua_new_make_array(lua_State *L, ReQL_Obj_t *arg);
+extern ReQL_Obj_t *
+reql_lua_new_make_obj(lua_State *L, ReQL_Obj_t *arg);
+extern ReQL_Obj_t *
+reql_lua_new_null(lua_State *L);
+extern ReQL_Obj_t *
+reql_lua_new_number(lua_State *L, const int idx);
+extern ReQL_Obj_t *
+reql_lua_new_object(lua_State *L, uint32_t idx);
+extern ReQL_Obj_t *
+reql_lua_new_string(lua_State *L, const int idx);
+
+extern int
+reql_lua_expr(lua_State *L);
+extern int
+reql_lua_is_instance(lua_State *L);
+extern ReQL_Obj_t *
+reql_from_lua(lua_State *L, const int idx, long nesting_depth);
+extern void
+reql_to_lua(lua_State *L, ReQL_Obj_t *query);
+
+extern int
+reql_lua_intsp(lua_State *L);
+extern int
+reql_lua_kved(lua_State *L);
+
+extern int
+reql_lua_intspallargs(lua_State *L);
+extern int
+reql_luareqlqueryprinter__init(lua_State *L);
+extern int
+reql_luareqlqueryprinter_print_query(lua_State *L);
+extern int
+reql_luareqlqueryprinter_compose_term(lua_State *L);
+extern int
+reql_luareqlqueryprinter_join_tree(lua_State *L);
+extern int
+reql_lua_ast(lua_State *L);
+extern int
+reql_lua___call(lua_State *L);
+extern int
+reql_lua___index(lua_State *L);
+extern void
+reql_lua_class(lua_State *L, const char *name, const int parent, const int base);
 
 /**
  */
@@ -906,4 +966,4 @@ reql_lua_zip(lua_State *L);
 }
 #endif
 
-#endif  // REQL_AST_LUA_H_
+#endif  // REQL_LUA_QUERY_H_
