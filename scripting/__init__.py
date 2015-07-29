@@ -113,16 +113,16 @@ def convert_tests(tests, lang):
     tables = {table: test_results.TestTable(table) for table in get_tables(tests)}
     for i, test in enumerate(tests['tests']):
         lang_test = []
-        definitions = test.get('def')
-        if definitions:
-            definitions = test_definitions.eval_definition(definitions, tables, lang)
-            lang_tests.append(definitions)
+#        definitions = test.get('def')
+#        if definitions:
+#            definitions = test_definitions.eval_definition(definitions, tables, lang)
+#            lang_tests.append(definitions)
         section = test.get('py', test.get('cd'))
         if section:
-            if isinstance(section, str):
-                lang_test.append(test_query.eval_section(section, tables, lang))
-            elif isinstance(section, list):
-                lang_test.append('\n'.join([test_query.eval_section(s, tables, lang) for s in section]))
+#            if isinstance(section, str):
+#                lang_test.append(test_query.eval_section(section, tables, lang))
+#            elif isinstance(section, list):
+#                lang_test.append('\n'.join([test_query.eval_section(s, tables, lang) for s in section]))
             try:
                 lang_test.append(test_results.eval_result(test.get('ot', {'result': 'blank'}), lang))
             except test_results.BadKeyError:
