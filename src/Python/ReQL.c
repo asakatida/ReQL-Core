@@ -228,8 +228,7 @@ ReQLModule;
 
 PyMODINIT_FUNC
 ReQLInitFuncName(void) {
-  PyObject* m;
-  m = ReQLInitCall;
+  PyObject* m = ReQLInitCall;
 
   if (!m) {
   }
