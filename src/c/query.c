@@ -191,7 +191,7 @@ reql_function_destroy(ReQL_t *reql) {
 }
 
 extern ReQL_t *
-reql_function(ReQL_t *(*val)(ReQL_t **args), const int nargs) {
+reql_function(ReQL_Function val, const unsigned int nargs) {
   NEW_REQL;
   reql->data = val;
   reql->size = (size_t)nargs;

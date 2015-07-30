@@ -26,6 +26,7 @@ extern "C" {
 #endif
 
 typedef struct ReQL_s ReQL_t;
+typedef ReQL_t *(*ReQL_Function)(ReQL_t **args, const unsigned int nargs);
 
 extern ReQL_t *
 reql_array(ReQL_t **val);
@@ -45,7 +46,7 @@ extern void
 reql_increment(ReQL_t *reql);
 
 extern ReQL_t *
-reql_function(ReQL_t *(*val)(ReQL_t **args), const int nargs);
+reql_function(ReQL_Function val, const unsigned int nargs);
 
 extern ReQL_t *
 reql_json_object(ReQL_t **val);
