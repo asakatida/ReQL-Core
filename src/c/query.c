@@ -48,7 +48,7 @@ pthread_mutex_init(mutex, attrs);\
 pthread_mutexattr_destroy(attrs);\
 free(attrs); attrs = NULL;\
 reql->mutex = mutex;\
-reql->refc = 0;
+reql->refc = 1;
 
 #define SET_DATA(size, obj) if (size == 0) {\
   reql->data = NULL;\
@@ -61,28 +61,29 @@ reql->refc = 0;
   memcpy(reql->data, obj, size);\
 }
 
-#define REQL_DECREMENT(val) if (val) {\
-  pthread_mutex_lock((val)->mutex);\
-  if ((val)->refc <= 1) {\
-    reql_destroy(&(val));\
-  } else {\
-    --((val)->refc);\
-    pthread_mutex_unlock((val)->mutex);\
-  }\
-}
-
-#define REQL_INCREMENT(val) if (val) {\
-  pthread_mutex_lock((val)->mutex);\
-  ++((val)->refc);\
-  pthread_mutex_unlock((val)->mutex);\
-}
-
 #define NEW_REQL_OBJ ReQL_Obj_t *obj = malloc(sizeof(ReQL_Obj_t));\
 if (obj == NULL) {\
   return NULL;\
 }
 
 #define REQL_BUILD(val) (val)->cb(val)
+
+static ReQL_Obj_t *
+reql_destroy_cb(ReQL_t *reql) {
+  (void)reql;
+  return NULL;
+}
+
+static void
+reql_destroy_(ReQL_t *reql) {
+  if (reql) {
+    reql->cb = reql_destroy_cb;
+    reql->free(reql);
+    pthread_mutex_destroy(reql->mutex);
+    free(reql->mutex);
+    free(reql);
+  }
+}
 
 static ReQL_Obj_t *
 reql_array_(ReQL_t *reql) {
@@ -107,7 +108,7 @@ reql_array_(ReQL_t *reql) {
 static void
 reql_array_destroy(ReQL_t *reql) {
   for (size_t i=0; i<reql->size; ++i) {
-    REQL_DECREMENT(((ReQL_t**)reql->data)[i]);
+    reql_decrement(((ReQL_t**)reql->data)[i]);
   }
   free(reql->data); reql->data = NULL;
 }
@@ -120,7 +121,7 @@ reql_array(ReQL_t **val) {
   --reql->size;
   SET_DATA(sizeof(ReQL_t*) * reql->size, val);
   for (size_t i=0; i<reql->size; ++i) {
-    REQL_INCREMENT(((ReQL_t**)reql->data)[i]);
+    reql_increment(((ReQL_t**)reql->data)[i]);
   }
   reql->free = reql_array_destroy;
   reql->cb = reql_array_;
@@ -155,27 +156,27 @@ reql_c_string(const char *val) {
   return reql_string(val, (unsigned long)size);
 }
 
-static ReQL_Obj_t *
-reql_destroy_cb(ReQL_t *reql) {
-  (void)reql;
-  return NULL;
-}
-
-static void
-reql_destroy_(ReQL_t *reql) {
+extern int
+_reql_decrement(ReQL_t *reql) {
   if (reql) {
-    reql->cb = reql_destroy_cb;
-    reql->free(reql);
-    pthread_mutex_destroy(reql->mutex);
-    free(reql->mutex);
-    free(reql);
+    pthread_mutex_lock(reql->mutex);
+    if (reql->refc <= 1) {
+      reql_destroy_(reql);
+      return -1;
+    } else {\
+      --(reql->refc);\
+      pthread_mutex_unlock(reql->mutex);
+    }
   }
+  return 0;
 }
 
 extern void
-reql_destroy(ReQL_t **reql) {
+reql_increment(ReQL_t *reql) {
   if (reql) {
-    reql_destroy_(*reql); *reql = NULL;
+    pthread_mutex_lock(reql->mutex);
+    ++(reql->refc);
+    pthread_mutex_unlock(reql->mutex);
   }
 }
 
@@ -224,7 +225,7 @@ reql_json_object_(ReQL_t *reql) {
 static void
 reql_json_object_destroy(ReQL_t *reql) {
   for (size_t i=0; i<reql->size; ++i) {
-    REQL_DECREMENT(((ReQL_t**)reql->data)[i]);
+    reql_decrement(((ReQL_t**)reql->data)[i]);
   }
   free(reql->data); reql->data = NULL;
 }
@@ -237,7 +238,7 @@ reql_json_object(ReQL_t **val) {
   --reql->size;
   SET_DATA(sizeof(ReQL_t*) * reql->size, val);
   for (size_t i=0; i<reql->size; ++i) {
-    REQL_INCREMENT(((ReQL_t**)reql->data)[i]);
+    reql_increment(((ReQL_t**)reql->data)[i]);
   }
   reql->free = reql_json_object_destroy;
   reql->cb = reql_json_object_;
@@ -335,7 +336,7 @@ reql_term_(ReQL_t *reql) {
 static void
 reql_term_destroy(ReQL_t *reql) {
   ReQL_Args_t *data = (ReQL_Args_t *)reql->data; reql->data = NULL;
-  REQL_DECREMENT(data->args);
+  reql_decrement(data->args);
   free(data);
 }
 
@@ -385,8 +386,8 @@ reql_term_kwargs_(ReQL_t *reql) {
 static void
 reql_term_kwargs_destroy(ReQL_t *reql) {
   ReQL_Kwargs_t *data = (ReQL_Kwargs_t *)reql->data; reql->data = NULL;
-  REQL_DECREMENT(data->args);
-  REQL_DECREMENT(data->kwargs);
+  reql_decrement(data->args);
+  reql_decrement(data->kwargs);
   free(data);
 }
 
@@ -407,19 +408,17 @@ reql_term_kwargs(ReQL_AST_Function_Kwargs func, ReQL_t **args, ReQL_t **kwargs) 
       free(reql);
       return NULL;
     }
-    REQL_INCREMENT(data->args);
   }
   if (kwargs == NULL) {
     data->kwargs = NULL;
   } else {
     data->kwargs = reql_json_object(kwargs);
     if (data->kwargs == NULL) {
-      REQL_DECREMENT(data->args);
+      reql_decrement(data->args);
       free(data);
       free(reql);
       return NULL;
     }
-    REQL_INCREMENT(data->kwargs);
   }
   data->func = func;
   reql->data = data;

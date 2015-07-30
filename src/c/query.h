@@ -35,13 +35,18 @@ reql_bool(const int val);
 
 extern ReQL_t *
 reql_c_string(const char *val);
-  
+
+extern int
+_reql_decrement(ReQL_t *reql);
+
+#define reql_decrement(val) if (_reql_decrement(val) != 0) { (val) = NULL; }
+
 extern void
-reql_destroy(ReQL_t **reql);
+reql_increment(ReQL_t *reql);
 
 extern ReQL_t *
 reql_function(ReQL_t *(*val)(ReQL_t **args), const int nargs);
-  
+
 extern ReQL_t *
 reql_json_object(ReQL_t **val);
 
