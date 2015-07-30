@@ -194,6 +194,7 @@ reql_function_(ReQL_t *reql) {
 
 static void
 reql_function_destroy(ReQL_t *reql) {
+  (void)reql;
 }
 
 extern ReQL_t *
