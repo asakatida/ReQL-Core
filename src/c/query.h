@@ -34,7 +34,7 @@ extern ReQL_t *
 reql_bool(const int val);
 
 extern void
-reql_destroy(ReQL_t *reql);
+reql_destroy(ReQL_t **reql);
 
 extern ReQL_t *
 reql_json_object(ReQL_t **val);

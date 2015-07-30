@@ -68,6 +68,11 @@ reql_array_(ReQL_t *reql) {
   return obj;
 }
 
+static void
+reql_array_destroy(ReQL_t *reql) {
+  free(reql->data); reql->data = NULL;
+}
+
 extern ReQL_t *
 reql_array(ReQL_t **val) {
   NEW_REQL;
@@ -75,6 +80,7 @@ reql_array(ReQL_t **val) {
   while (val[reql->size++] != NULL) {}
   --reql->size;
   SET_DATA(sizeof(ReQL_t*) * reql->size, val);
+  reql->free = reql_array_destroy;
   reql->cb = reql_array_;
   return reql;
 }
@@ -86,26 +92,43 @@ reql_bool_(ReQL_t *reql) {
   return obj;
 }
 
+static void
+reql_bool_destroy(ReQL_t *reql) {
+  (void)reql;
+}
+
 extern ReQL_t *
 reql_bool(const int val) {
   NEW_REQL;
   reql->data = NULL;
   reql->size = (size_t)val;
+  reql->free = reql_bool_destroy;
   reql->cb = reql_bool_;
   return reql;
 }
 
 static ReQL_Obj_t *
-reql_destroy_(ReQL_t *reql) {
+reql_destroy_cb(ReQL_t *reql) {
   (void)reql;
   return NULL;
 }
 
+static void
+reql_destroy_(ReQL_t *reql) {
+  if (reql) {
+    reql->cb = reql_destroy_cb;
+    reql->free(reql);
+    pthread_mutex_destroy(reql->mutex);
+    free(reql->mutex);
+    free(reql);
+  }
+}
+
 extern void
-reql_destroy(ReQL_t *reql) {
-  reql->cb = reql_destroy_;
-  free(reql->data); reql->data = NULL;
-  free(reql);
+reql_destroy(ReQL_t **reql) {
+  if (reql) {
+    reql_destroy_(*reql); *reql = NULL;
+  }
 }
 
 static ReQL_Obj_t *
@@ -130,6 +153,11 @@ reql_json_object_(ReQL_t *reql) {
   return obj;
 }
 
+static void
+reql_json_object_destroy(ReQL_t *reql) {
+  free(reql->data); reql->data = NULL;
+}
+
 extern ReQL_t *
 reql_json_object(ReQL_t **val) {
   NEW_REQL;
@@ -138,6 +166,7 @@ reql_json_object(ReQL_t **val) {
   --reql->size;
   SET_DATA(sizeof(ReQL_t*) * reql->size, val);
   reql->size /= 2;
+  reql->free = reql_json_object_destroy;
   reql->cb = reql_json_object_;
   return reql;
 }
@@ -150,11 +179,17 @@ reql_null_(ReQL_t *reql) {
   return obj;
 }
 
+static void
+reql_null_destroy(ReQL_t *reql) {
+  (void)reql;
+}
+
 extern ReQL_t *
 reql_null() {
   NEW_REQL;
   reql->data = NULL;
   reql->size = 0;
+  reql->free = reql_null_destroy;
   reql->cb = reql_null_;
   return reql;
 }
@@ -166,10 +201,16 @@ reql_number_(ReQL_t *reql) {
   return obj;
 }
 
+static void
+reql_number_destroy(ReQL_t *reql) {
+  free(reql->data); reql->data = NULL;
+}
+
 extern ReQL_t *
 reql_number(double val) {
   NEW_REQL;
   SET_DATA(sizeof(double), &val);
+  reql->free = reql_number_destroy;
   reql->cb = reql_number_;
   return reql;
 }
@@ -190,11 +231,17 @@ reql_string_(ReQL_t *reql) {
   return obj;
 }
 
+static void
+reql_string_destroy(ReQL_t *reql) {
+  free(reql->data); reql->data = NULL;
+}
+
 extern ReQL_t *
 reql_string(const char *val, const unsigned long size) {
   NEW_REQL;
   reql->size = (size_t)size;
   SET_DATA(sizeof(char) * reql->size, val);
+  reql->free = reql_string_destroy;
   reql->cb = reql_string_;
   return reql;
 }
@@ -210,6 +257,12 @@ reql_term_(ReQL_t *reql) {
   }
   data->func(obj, r_args);
   return obj;
+}
+
+static void
+reql_term_destroy(ReQL_t *reql) {
+  ReQL_Args_t *data = (ReQL_Args_t *)reql->data; reql->data = NULL;
+  free(data);
 }
 
 static ReQL_t *
@@ -232,6 +285,7 @@ reql_term(ReQL_AST_Function func, ReQL_t **args) {
   }
   data->func = func;
   reql->data = data;
+  reql->free = reql_term_destroy;
   reql->cb = reql_term_;
   return reql;
 }
@@ -252,6 +306,10 @@ reql_term_kwargs_(ReQL_t *reql) {
   }
   data->func(obj, r_args, r_kwargs);
   return obj;
+}
+
+static void
+reql_term_kwargs_destroy(ReQL_t *reql) {
 }
 
 static ReQL_t *
@@ -287,6 +345,7 @@ reql_term_kwargs(ReQL_AST_Function_Kwargs func, ReQL_t **args, ReQL_t **kwargs) 
   }
   data->func = func;
   reql->data = data;
+  reql->free = reql_term_kwargs_destroy;
   reql->cb = reql_term_kwargs_;
   return reql;
 }

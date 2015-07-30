@@ -29,6 +29,7 @@ extern "C" {
 
 struct ReQL_s {
   ReQL_Obj_t *(*cb)(struct ReQL_s *obj);
+  void (*free)(struct ReQL_s *obj);
   void *data;
   size_t size;
 };
