@@ -194,13 +194,19 @@ reql_function_(ReQL_t *reql) {
 
 static void
 reql_function_destroy(ReQL_t *reql) {
-  (void)reql;
+  free(reql->data);
 }
 
 extern ReQL_t *
 reql_function(ReQL_Function val, const unsigned int nargs) {
   NEW_REQL;
-  reql->data = val;
+  ReQL_Func_Data_t *data = malloc(sizeof(ReQL_Func_Data_t));
+  if (data == NULL) {
+    free(reql);
+    return NULL;
+  }
+  data->func = val;
+  reql->data = data;
   reql->size = (size_t)nargs;
   reql->free = reql_function_destroy;
   reql->cb = reql_function_;

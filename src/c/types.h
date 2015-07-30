@@ -27,6 +27,8 @@ extern "C" {
 
 #include "./reql/core.h"
 
+#include "./c/query.h"
+
 #include <pthread.h>
 
 struct ReQL_s {
@@ -37,6 +39,11 @@ struct ReQL_s {
   size_t refc;
   pthread_mutex_t *mutex;
 };
+
+struct ReQL_Func_Data_s {
+  ReQL_Function func;
+};
+typedef struct ReQL_Func_Data_s ReQL_Func_Data_t;
 
 struct ReQL_Args_s {
   struct ReQL_s *args;
