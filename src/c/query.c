@@ -100,7 +100,12 @@ reql_array_(ReQL_t *reql) {
   reql_array_init(obj, buf, (ReQL_Size)reql->size);
   unsigned long i;
   for (i = 0; i < reql->size; ++i) {
-    reql_array_append(obj, REQL_BUILD(((ReQL_t**)reql->data)[i]));
+    ReQL_Obj_t *elem = REQL_BUILD(((ReQL_t**)reql->data)[i]);
+    if (elem == NULL) {
+      reql_json_destroy(obj);
+      return NULL;
+    }
+    reql_array_append(obj, elem);
   }
   return obj;
 }
