@@ -33,9 +33,15 @@ reql_array(ReQL_t **val);
 extern ReQL_t *
 reql_bool(const int val);
 
+extern ReQL_t *
+reql_c_string(const char *val);
+  
 extern void
 reql_destroy(ReQL_t **reql);
 
+extern ReQL_t *
+reql_function(ReQL_t *(*val)(ReQL_t **args), const int nargs);
+  
 extern ReQL_t *
 reql_json_object(ReQL_t **val);
 

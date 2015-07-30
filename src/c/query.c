@@ -107,6 +107,12 @@ reql_bool(const int val) {
   return reql;
 }
 
+extern ReQL_t *
+reql_c_string(const char *val) {
+  size_t size = strlen(val);
+  return reql_string(val, (unsigned long)size);
+}
+
 static ReQL_Obj_t *
 reql_destroy_cb(ReQL_t *reql) {
   (void)reql;
@@ -129,6 +135,26 @@ reql_destroy(ReQL_t **reql) {
   if (reql) {
     reql_destroy_(*reql); *reql = NULL;
   }
+}
+
+static ReQL_Obj_t *
+reql_function_(ReQL_t *reql) {
+  NEW_REQL_OBJ;
+  return obj;
+}
+
+static void
+reql_function_destroy(ReQL_t *reql) {
+}
+
+extern ReQL_t *
+reql_function(ReQL_t *(*val)(ReQL_t **args), const int nargs) {
+  NEW_REQL;
+  reql->data = val;
+  reql->size = (size_t)nargs;
+  reql->free = reql_function_destroy;
+  reql->cb = reql_function_;
+  return reql;
 }
 
 static ReQL_Obj_t *
