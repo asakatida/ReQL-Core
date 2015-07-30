@@ -52,7 +52,7 @@ if (obj == NULL) {\
 static ReQL_Obj_t *
 reql_array_(ReQL_t *reql) {
   NEW_REQL_OBJ;
-  if (reql->data == NULL) {
+  if (reql->data == NULL || reql->size == 0) {
     reql_array_init(obj, NULL, 0);
     return obj;
   }
@@ -161,11 +161,11 @@ reql_function(ReQL_t *(*val)(ReQL_t **args), const int nargs) {
 static ReQL_Obj_t *
 reql_json_object_(ReQL_t *reql) {
   NEW_REQL_OBJ;
-  if (reql->data == NULL) {
+  if (reql->data == NULL || reql->size <= 1) {
     reql_object_init(obj, NULL, 0);
     return obj;
   }
-  ReQL_Pair_t *buf = malloc(sizeof(ReQL_Pair_t) * reql->size);
+  ReQL_Pair_t *buf = malloc(sizeof(ReQL_Pair_t) * reql->size / 2);
   if (buf == NULL) {
     free(obj);
     return NULL;
@@ -244,7 +244,7 @@ reql_number(double val) {
 static ReQL_Obj_t *
 reql_string_(ReQL_t *reql) {
   NEW_REQL_OBJ;
-  if (reql->data == NULL) {
+  if (reql->data == NULL || reql->size == 0) {
     reql_string_init(obj, NULL, NULL, 0);
     return obj;
   }
