@@ -47,6 +47,8 @@ if (obj == NULL) {\
   return NULL;\
 }
 
+#define REQL_BUILD(val) (val)->cb(val)
+
 static ReQL_Obj_t *
 reql_array_(ReQL_t *reql) {
   NEW_REQL_OBJ;
@@ -61,9 +63,8 @@ reql_array_(ReQL_t *reql) {
   }
   reql_array_init(obj, buf, (ReQL_Size)reql->size);
   unsigned long i;
-  for (i = 0; i < reql->size;) {
-    ReQL_t *val = ((ReQL_t**)reql->data)[i++];
-    reql_array_append(obj, val->cb(val));
+  for (i = 0; i < reql->size; ++i) {
+    reql_array_append(obj, REQL_BUILD(((ReQL_t**)reql->data)[i]));
   }
   return obj;
 }
@@ -171,10 +172,10 @@ reql_json_object_(ReQL_t *reql) {
   }
   reql_object_init(obj, buf, (ReQL_Size)reql->size);
   unsigned long i;
-  for (i = 0; i < reql->size;) {
-    ReQL_t *key = ((ReQL_t**)reql->data)[i++];
-    ReQL_t *val = ((ReQL_t**)reql->data)[i++];
-    reql_object_add(obj, key->cb(key), val->cb(val));
+  for (i = 1; i < reql->size; i += 2) {
+    reql_object_add(obj,
+                    REQL_BUILD(((ReQL_t**)reql->data)[i-1]),
+                    REQL_BUILD(((ReQL_t**)reql->data)[i]));
   }
   return obj;
 }
@@ -191,7 +192,6 @@ reql_json_object(ReQL_t **val) {
   while (val[reql->size++] != NULL) {}
   --reql->size;
   SET_DATA(sizeof(ReQL_t*) * reql->size, val);
-  reql->size /= 2;
   reql->free = reql_json_object_destroy;
   reql->cb = reql_json_object_;
   return reql;
@@ -279,7 +279,7 @@ reql_term_(ReQL_t *reql) {
   ReQL_t *args = data->args;
   ReQL_Obj_t *r_args = NULL;
   if (args != NULL) {
-    r_args = args->cb(args);
+    r_args = REQL_BUILD(args);
   }
   data->func(obj, r_args);
   return obj;
@@ -323,12 +323,12 @@ reql_term_kwargs_(ReQL_t *reql) {
   ReQL_t *args = data->args;
   ReQL_Obj_t *r_args = NULL;
   if (args != NULL) {
-    r_args = args->cb(args);
+    r_args = REQL_BUILD(args);
   }
   ReQL_t *kwargs = data->kwargs;
   ReQL_Obj_t *r_kwargs = NULL;
   if (kwargs != NULL) {
-    r_kwargs = kwargs->cb(kwargs);
+    r_kwargs = REQL_BUILD(kwargs);
   }
   data->func(obj, r_args, r_kwargs);
   return obj;
