@@ -125,7 +125,8 @@ reql_array(ReQL_t **val) {
   while (val[reql->size++] != NULL) {}
   --reql->size;
   SET_DATA(sizeof(ReQL_t*) * reql->size, val);
-  for (size_t i=0; i<reql->size; ++i) {
+  size_t i;
+  for (i = 0; i < reql->size; ++i) {
     reql_increment(((ReQL_t**)reql->data)[i]);
   }
   reql->free = reql_array_destroy;
@@ -242,7 +243,8 @@ reql_json_object(ReQL_t **val) {
   while (val[reql->size++] != NULL) {}
   --reql->size;
   SET_DATA(sizeof(ReQL_t*) * reql->size, val);
-  for (size_t i=0; i<reql->size; ++i) {
+  size_t i;
+  for (i = 0; i < reql->size; ++i) {
     reql_increment(((ReQL_t**)reql->data)[i]);
   }
   reql->free = reql_json_object_destroy;
