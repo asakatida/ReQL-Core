@@ -29,7 +29,26 @@ limitations under the License.
 #define NEW_REQL ReQL_t *reql = malloc(sizeof(ReQL_t));\
 if (reql == NULL) {\
   return NULL;\
-}
+}\
+pthread_mutexattr_t *attrs = malloc(sizeof(pthread_mutexattr_t));\
+if (attrs == NULL) {\
+  free(reql);\
+  return NULL;\
+}\
+pthread_mutexattr_init(attrs);\
+pthread_mutexattr_settype(attrs, PTHREAD_MUTEX_ERRORCHECK);\
+pthread_mutex_t *mutex = malloc(sizeof(pthread_mutex_t));\
+if (mutex == NULL) {\
+  pthread_mutexattr_destroy(attrs);\
+  free(attrs);\
+  free(reql);\
+  return NULL;\
+}\
+pthread_mutex_init(mutex, attrs);\
+pthread_mutexattr_destroy(attrs);\
+free(attrs); attrs = NULL;\
+reql->mutex = mutex;\
+reql->refc = 0;
 
 #define SET_DATA(size, obj) if (size == 0) {\
   reql->data = NULL;\
@@ -40,6 +59,22 @@ if (reql == NULL) {\
     return NULL;\
   }\
   memcpy(reql->data, obj, size);\
+}
+
+#define REQL_DECREMENT(val) if (val) {\
+  pthread_mutex_lock((val)->mutex);\
+  if ((val)->refc <= 1) {\
+    reql_destroy(&(val));\
+  } else {\
+    --((val)->refc);\
+    pthread_mutex_unlock((val)->mutex);\
+  }\
+}
+
+#define REQL_INCREMENT(val) if (val) {\
+  pthread_mutex_lock((val)->mutex);\
+  ++((val)->refc);\
+  pthread_mutex_unlock((val)->mutex);\
 }
 
 #define NEW_REQL_OBJ ReQL_Obj_t *obj = malloc(sizeof(ReQL_Obj_t));\
@@ -71,6 +106,9 @@ reql_array_(ReQL_t *reql) {
 
 static void
 reql_array_destroy(ReQL_t *reql) {
+  for (size_t i=0; i<reql->size; ++i) {
+    REQL_DECREMENT(((ReQL_t**)reql->data)[i]);
+  }
   free(reql->data); reql->data = NULL;
 }
 
@@ -81,6 +119,9 @@ reql_array(ReQL_t **val) {
   while (val[reql->size++] != NULL) {}
   --reql->size;
   SET_DATA(sizeof(ReQL_t*) * reql->size, val);
+  for (size_t i=0; i<reql->size; ++i) {
+    REQL_INCREMENT(((ReQL_t**)reql->data)[i]);
+  }
   reql->free = reql_array_destroy;
   reql->cb = reql_array_;
   return reql;
@@ -182,6 +223,9 @@ reql_json_object_(ReQL_t *reql) {
 
 static void
 reql_json_object_destroy(ReQL_t *reql) {
+  for (size_t i=0; i<reql->size; ++i) {
+    REQL_DECREMENT(((ReQL_t**)reql->data)[i]);
+  }
   free(reql->data); reql->data = NULL;
 }
 
@@ -192,6 +236,9 @@ reql_json_object(ReQL_t **val) {
   while (val[reql->size++] != NULL) {}
   --reql->size;
   SET_DATA(sizeof(ReQL_t*) * reql->size, val);
+  for (size_t i=0; i<reql->size; ++i) {
+    REQL_INCREMENT(((ReQL_t**)reql->data)[i]);
+  }
   reql->free = reql_json_object_destroy;
   reql->cb = reql_json_object_;
   return reql;
@@ -288,6 +335,7 @@ reql_term_(ReQL_t *reql) {
 static void
 reql_term_destroy(ReQL_t *reql) {
   ReQL_Args_t *data = (ReQL_Args_t *)reql->data; reql->data = NULL;
+  REQL_DECREMENT(data->args);
   free(data);
 }
 
@@ -336,6 +384,10 @@ reql_term_kwargs_(ReQL_t *reql) {
 
 static void
 reql_term_kwargs_destroy(ReQL_t *reql) {
+  ReQL_Kwargs_t *data = (ReQL_Kwargs_t *)reql->data; reql->data = NULL;
+  REQL_DECREMENT(data->args);
+  REQL_DECREMENT(data->kwargs);
+  free(data);
 }
 
 static ReQL_t *
@@ -355,19 +407,19 @@ reql_term_kwargs(ReQL_AST_Function_Kwargs func, ReQL_t **args, ReQL_t **kwargs) 
       free(reql);
       return NULL;
     }
+    REQL_INCREMENT(data->args);
   }
   if (kwargs == NULL) {
     data->kwargs = NULL;
   } else {
     data->kwargs = reql_json_object(kwargs);
     if (data->kwargs == NULL) {
-      if (data->args != NULL) {
-        reql_destroy(data->args);
-      }
+      REQL_DECREMENT(data->args);
       free(data);
       free(reql);
       return NULL;
     }
+    REQL_INCREMENT(data->kwargs);
   }
   data->func = func;
   reql->data = data;

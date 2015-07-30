@@ -27,11 +27,15 @@ extern "C" {
 
 #include "./reql/core.h"
 
+#include <pthread.h>
+
 struct ReQL_s {
   ReQL_Obj_t *(*cb)(struct ReQL_s *obj);
   void (*free)(struct ReQL_s *obj);
   void *data;
   size_t size;
+  size_t refc;
+  pthread_mutex_t *mutex;
 };
 
 struct ReQL_Args_s {
