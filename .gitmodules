@@ -1,3 +1,6 @@
 [submodule "rethinkdb"]
 	path = rethinkdb
 	url = https://github.com/rethinkdb/rethinkdb.git
+[submodule "libReQL/ReactiveCocoa"]
+	path = libReQL/ReactiveCocoa
+	url = https://github.com/ReactiveCocoa/ReactiveCocoa.git
