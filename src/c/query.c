@@ -66,8 +66,6 @@ if (obj == NULL) {\
   return NULL;\
 }
 
-#define REQL_BUILD(val) (val)->cb(val)
-
 static ReQL_Obj_t *
 reql_destroy_cb(ReQL_t *reql) {
   (void)reql;

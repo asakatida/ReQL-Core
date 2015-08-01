@@ -632,7 +632,7 @@ reql_encode_query(const ReQL_Obj_t *query, ReQL_Obj_t *kwargs, int no_reply) {
 }
 
 static int
-reql_run_(const ReQL_String_t *wire_query, ReQL_Conn_t *conn, const ReQL_Token token) {
+reql_run_query_(const ReQL_String_t *wire_query, ReQL_Conn_t *conn, const ReQL_Token token) {
   ReQL_Byte token_bytes[8];
 
   reql_make_64_token(token_bytes, token);
@@ -682,7 +682,7 @@ reql_continue_query(ReQL_Cur_t *cur) {
     return -1;
   }
 
-  return reql_run_(&wire_query, cur->conn, cur->token);
+  return reql_run_query_(&wire_query, cur->conn, cur->token);
 }
 
 extern int
@@ -706,7 +706,7 @@ reql_no_reply_wait_query(ReQL_Conn_t *conn) {
   reql_cur_init(cur, conn, token);
   conn->cursors = cur;
 
-  const int status = reql_run_(&wire_query, conn, token);
+  const int status = reql_run_query_(&wire_query, conn, token);
   reql_conn_unlock(conn);
 
   if (status == 0) {
@@ -731,14 +731,14 @@ reql_stop_query(ReQL_Cur_t *cur) {
   }
 
   reql_conn_lock(cur->conn);
-  const int status = reql_run_(&wire_query, cur->conn, cur->token);
+  const int status = reql_run_query_(&wire_query, cur->conn, cur->token);
   reql_conn_unlock(cur->conn);
 
   return status;
 }
 
 extern int
-reql_run(ReQL_Cur_t *cur, const ReQL_Obj_t *query, ReQL_Conn_t *conn, ReQL_Obj_t *kwargs) {
+reql_run_query(ReQL_Cur_t *cur, const ReQL_Obj_t *query, ReQL_Conn_t *conn, ReQL_Obj_t *kwargs) {
   ReQL_String_t *wire_query = reql_encode_query(query, kwargs, cur == NULL);
 
   if (wire_query == NULL) {
@@ -755,7 +755,7 @@ reql_run(ReQL_Cur_t *cur, const ReQL_Obj_t *query, ReQL_Conn_t *conn, ReQL_Obj_t
       conn->cursors = cur;
     }
 
-    status = reql_run_(wire_query, conn, token);
+    status = reql_run_query_(wire_query, conn, token);
   }
   reql_conn_unlock(conn);
 

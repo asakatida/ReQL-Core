@@ -51,43 +51,6 @@ reql_cursor_close(ReQL_Cursor_t *cur) {
   free(cur);
 }
 
-extern ReQL_Cursor_t *
-reql_cursor(ReQL_t *query, ReQL_t *kwargs, ReQL_Connection_t *conn) {
-  ReQL_Cursor_t *cur = malloc(sizeof(ReQL_Cursor_t));
-  if (cur == NULL) {
-    return NULL;
-  }
-  cur->cursor = malloc(sizeof(ReQL_Cur_t));
-  if (cur->cursor == NULL) {
-    free(cur);
-    return NULL;
-  }
-  ReQL_Obj_t *r_query = query->cb(query);
-  if (r_query == NULL) {
-    free(cur->cursor);
-    free(cur);
-    return NULL;
-  }
-  if (kwargs == NULL) {
-    if (reql_run(cur->cursor, r_query, conn->connection, NULL) != 0) {
-      free(cur->cursor);
-      free(cur); cur = NULL;
-    }
-  } else {
-    ReQL_Obj_t *r_kwargs = kwargs->cb(kwargs);
-    if (r_kwargs == NULL) {
-      free(cur->cursor);
-      free(cur); cur = NULL;
-    } else if (reql_run(cur->cursor, r_query, conn->connection, r_kwargs) != 0) {
-      free(cur->cursor);
-      free(cur); cur = NULL;
-    }
-    reql_json_destroy(r_kwargs);
-  }
-  reql_json_destroy(r_query);
-  return cur;
-}
-
 extern void
 reql_cursor_drain(ReQL_Cursor_t *cur) {
   reql_cur_drain(cur->cursor);

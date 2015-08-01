@@ -57,13 +57,67 @@ reql_connect(const unsigned long timeout, char *address, char *port, char *key, 
   return conn;
 }
 
-extern void
-reql_noreply(ReQL_t *query, ReQL_t *kwargs, ReQL_Connection_t *conn) {
-  if (kwargs == NULL) {
-    reql_run(NULL, query->cb(query), conn->connection, NULL);
-  } else {
-    reql_run(NULL, query->cb(query), conn->connection, kwargs->cb(kwargs));
+extern ReQL_Cursor_t *
+reql_run(ReQL_t *query, ReQL_t *kwargs, ReQL_Connection_t *conn) {
+  ReQL_Cursor_t *cur = malloc(sizeof(ReQL_Cursor_t));
+  if (cur == NULL) {
+    return NULL;
   }
+  cur->cursor = malloc(sizeof(ReQL_Cur_t));
+  if (cur->cursor == NULL) {
+    free(cur);
+    return NULL;
+  }
+  ReQL_Obj_t *r_query = REQL_BUILD(query);
+  if (r_query == NULL) {
+    free(cur->cursor);
+    free(cur);
+    return NULL;
+  }
+  ReQL_Obj_t *r_kwargs = NULL;
+  if (kwargs != NULL) {
+    ReQL_Obj_t *r_kwargs = REQL_BUILD(kwargs);
+    if (r_kwargs == NULL) {
+      reql_json_destroy(r_query);
+      free(cur->cursor);
+      free(cur);
+      return NULL;
+    }
+  }
+  if (reql_run_query(cur->cursor, r_query, conn->connection, r_kwargs) != 0) {
+    reql_json_destroy(r_kwargs);
+    reql_json_destroy(r_query);
+    reql_cur_destroy(cur->cursor);
+    free(cur);
+    return NULL;
+  }
+  reql_json_destroy(r_kwargs);
+  reql_json_destroy(r_query);
+  return cur;
+}
+
+extern int
+reql_noreply(ReQL_t *query, ReQL_t *kwargs, ReQL_Connection_t *conn) {
+  ReQL_Obj_t *r_query = REQL_BUILD(query);
+  if (r_query == NULL) {
+    return -1;
+  }
+  ReQL_Obj_t *r_kwargs = NULL;
+  if (kwargs != NULL) {
+    ReQL_Obj_t *r_kwargs = REQL_BUILD(kwargs);
+    if (r_kwargs == NULL) {
+      reql_json_destroy(r_query);
+      return -1;
+    }
+  }
+  if (reql_run_query(NULL, r_query, conn->connection, r_kwargs) != 0) {
+    reql_json_destroy(r_kwargs);
+    reql_json_destroy(r_query);
+    return -1;
+  }
+  reql_json_destroy(r_kwargs);
+  reql_json_destroy(r_query);
+  return 0;
 }
 
 extern void
@@ -73,7 +127,6 @@ reql_noreply_wait(ReQL_Connection_t *conn) {
 
 extern void
 reql_connection_close(ReQL_Connection_t *conn) {
-  reql_conn_close(conn->connection);
   reql_conn_destroy(conn->connection);
   free(conn->connection);
   free(conn);

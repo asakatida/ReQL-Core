@@ -249,7 +249,7 @@ Query::run(const Connection &conn) const {
 
   Cursor cur;
 
-  reql_run(cur.get(), query, conn.get(), nullptr);
+  reql_run_query(cur.get(), query, conn.get(), nullptr);
 
   reql_query_destroy(query); query = nullptr;
 

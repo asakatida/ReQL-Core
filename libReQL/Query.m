@@ -468,7 +468,7 @@ toQuery(id expr) {
       return nil;
     }
   }
-  reql_run([cur data], query.pointer, [conn data], kwargs.pointer);
+  reql_run_query([cur data], query.pointer, [conn data], kwargs.pointer);
   return cur;
 }
 
@@ -488,7 +488,7 @@ toQuery(id expr) {
       return;
     }
   }
-  reql_run(NULL, query.pointer, [conn data], kwargs.pointer);
+  reql_run_query(NULL, query.pointer, [conn data], kwargs.pointer);
 }
 
 -(ReQLObject *)build {

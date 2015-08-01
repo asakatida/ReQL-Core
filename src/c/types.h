@@ -31,6 +31,8 @@ extern "C" {
 
 #include <pthread.h>
 
+#define REQL_BUILD(val) (val)->cb(val)
+
 struct ReQL_s {
   ReQL_Obj_t *(*cb)(struct ReQL_s *obj);
   void (*free)(struct ReQL_s *obj);
