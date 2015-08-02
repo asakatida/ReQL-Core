@@ -48,7 +48,7 @@ pthread_mutex_init(mutex, attrs);\
 pthread_mutexattr_destroy(attrs);\
 free(attrs); attrs = NULL;\
 reql->mutex = mutex;\
-reql->refc = 1;
+reql->refc = 0;
 
 #define SET_DATA(size, obj) if (size == 0) {\
   reql->data = NULL;\
