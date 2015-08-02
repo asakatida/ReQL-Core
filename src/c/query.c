@@ -186,8 +186,29 @@ reql_increment(ReQL_t *reql) {
 
 static ReQL_Obj_t *
 reql_function_(ReQL_t *reql) {
-  NEW_REQL_OBJ;
-  return obj;
+  ReQL_Func_Data_t *data = (ReQL_Func_Data_t *)reql->data;
+  ReQL_t **buf = malloc(sizeof(ReQL_t*) * reql->size);
+  if (buf == NULL) {
+    return NULL;
+  }
+  ReQL_t *expr = data->func(buf, (unsigned int)reql->size);
+  if (expr == NULL) {
+    free(buf);
+    return NULL;
+  }
+  ReQL_t *var_args = reql_array(buf);
+  ReQL_t *args[3] = {
+    var_args,
+    NULL,
+    NULL
+  };
+  ReQL_t *func = reql_funcall(args);
+  free(buf);
+  if (func == NULL) {
+    reql_decrement(expr);
+    return NULL;
+  }
+  return REQL_BUILD(func);
 }
 
 static void
