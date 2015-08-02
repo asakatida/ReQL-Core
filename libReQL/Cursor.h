@@ -20,13 +20,9 @@ limitations under the License.
 
 #import <Cocoa/Cocoa.h>
 
-@interface ReQLCursor : NSStream <NSStreamDelegate>
+#import "ReactiveCocoa/ReactiveCocoa.h"
 
-@property(weak, atomic, readwrite, setter=setDelegate:, getter=delegate) id<NSStreamDelegate> delegate;
-
--(void)setDelegate:(id<NSStreamDelegate>)delegate;
-
--(id<NSStreamDelegate>)delegate;
+@interface ReQLCursor : RACSequence
 
 -(void *)data;
 
@@ -34,11 +30,7 @@ limitations under the License.
 
 -(NSArray *)toArray;
 
--(void)scheduleInRunLoop:(NSRunLoop *)aRunLoop forMode:(NSString *)mode;
-
 -(void)open;
-
--(id)next;
 
 -(void)close;
 

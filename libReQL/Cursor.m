@@ -37,10 +37,6 @@ static int
 cursor_each_cb(ReQL_Obj_t *res, void *data) {
   ReQLCursor *cursor = (__bridge ReQLCursor *)(data);
   [cursor setNext:res];
-  id<NSStreamDelegate> delegate = cursor.delegate;
-  if (delegate) {
-    [delegate stream:delegate handleEvent:NSStreamEventHasBytesAvailable];
-  }
   return 0;
 }
 
@@ -92,11 +88,8 @@ convert(ReQL_Obj_t *obj) {
 
 @implementation ReQLCursor {
   ReQL_Cur_t *p_cur;
-  id<NSStreamDelegate> __weak p_delegate;
   id p_next;
 }
-
-@synthesize delegate=p_delegate;
 
 -(instancetype)init {
   if (self = [super init]) {
@@ -105,21 +98,8 @@ convert(ReQL_Obj_t *obj) {
       return nil;
     }
     p_next = nil;
-    [self setDelegate:self];
   }
   return self;
-}
-
--(void)setDelegate:(id<NSStreamDelegate>)delegate {
-  if (delegate) {
-    p_delegate = delegate;
-  } else {
-    p_delegate = self;
-  }
-}
-
--(id<NSStreamDelegate>)delegate {
-  return p_delegate;
 }
 
 -(void *)data {
@@ -134,10 +114,6 @@ convert(ReQL_Obj_t *obj) {
   NSArray *array = convert(obj);
   reql_json_destroy(obj);
   return array;
-}
-
--(void)scheduleInRunLoop:(NSRunLoop *)aRunLoop forMode:(NSString *)mode {
-  [super scheduleInRunLoop:aRunLoop forMode:mode];
 }
 
 -(void)open {
