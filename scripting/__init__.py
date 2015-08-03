@@ -360,7 +360,12 @@ extern PyObject *
     return self;
   }}
 
-  return val;
+  ReQLQuery *result = PyObject_New(ReQLQuery, reql_py_query_type());
+  if (result == NULL) {{
+    return NULL;
+  }}
+  result->reql_build = reql_py_build_term{2};
+  return (PyObject *)result;
 }}
 
 extern PyObject *
@@ -373,8 +378,13 @@ extern PyObject *
     return NULL;
   }}
 
-  return val;
-}}""".format(ast_name('py', name), name.lower())
+  ReQLQuery *result = PyObject_New(ReQLQuery, reql_py_query_type());
+  if (result == NULL) {{
+    return NULL;
+  }}
+  result->reql_build = reql_py_build_term{2};
+  return (PyObject *)result;
+}}""".format(ast_name('py', name), name.lower(), '_kwargs' if has_opts(name) else '')
 
 def py_term_def(name):
     return """
