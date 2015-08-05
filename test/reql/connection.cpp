@@ -65,7 +65,7 @@ TEST_CASE("reql connection", "[reql][connection]") {
 
       std::unique_ptr<ReQL_Cur_t> cur(new ReQL_Cur_t);
 
-      reql_run(cur.get(), q.get(), c.get(), nullptr);
+      reql_run_query(cur.get(), q.get(), c.get(), nullptr);
 
       REQUIRE(reql_cur_open(cur.get()) != 0);
 
@@ -103,7 +103,7 @@ TEST_CASE("reql connection", "[reql][connection]") {
 
       reql_ast_db_create(db.get(), db_args.get());
 
-      reql_run(nullptr, db.get(), c.get(), nullptr);
+      reql_run_query(nullptr, db.get(), c.get(), nullptr);
 
       reql_no_reply_wait_query(c.get());
 
@@ -127,7 +127,7 @@ TEST_CASE("reql connection", "[reql][connection]") {
 
       reql_ast_table_create(table.get(), table_args.get(), nullptr);
 
-      reql_run(nullptr, table.get(), c.get(), nullptr);
+      reql_run_query(nullptr, table.get(), c.get(), nullptr);
 
       reql_no_reply_wait_query(c.get());
 
@@ -150,13 +150,13 @@ TEST_CASE("reql connection", "[reql][connection]") {
 
       reql_ast_insert(insert.get(), insert_args.get());
 
-      reql_run(nullptr, insert.get(), c.get(), nullptr);
+      reql_run_query(nullptr, insert.get(), c.get(), nullptr);
 
       reql_no_reply_wait_query(c.get());
 
       std::unique_ptr<ReQL_Cur_t> cur(new ReQL_Cur_t);
 
-      reql_run(cur.get(), table.get(), c.get(), nullptr);
+      reql_run_query(cur.get(), table.get(), c.get(), nullptr);
 
       REQUIRE(reql_cur_open(cur.get()) != 0);
 
@@ -193,7 +193,7 @@ TEST_CASE("reql connection", "[reql][connection]") {
 
       reql_ast_db_create(db.get(), db_args.get());
 
-      reql_run(nullptr, db.get(), c.get(), nullptr);
+      reql_run_query(nullptr, db.get(), c.get(), nullptr);
 
       reql_no_reply_wait_query(c.get());
 
@@ -217,7 +217,7 @@ TEST_CASE("reql connection", "[reql][connection]") {
 
       reql_ast_table_create(table.get(), table_args.get(), nullptr);
 
-      reql_run(nullptr, table.get(), c.get(), nullptr);
+      reql_run_query(nullptr, table.get(), c.get(), nullptr);
 
       reql_no_reply_wait_query(c.get());
 
@@ -240,13 +240,13 @@ TEST_CASE("reql connection", "[reql][connection]") {
 
       reql_ast_insert(insert.get(), insert_args.get());
 
-      reql_run(nullptr, insert.get(), c.get(), nullptr);
+      reql_run_query(nullptr, insert.get(), c.get(), nullptr);
 
       reql_no_reply_wait_query(c.get());
 
       std::unique_ptr<ReQL_Cur_t> cur(new ReQL_Cur_t);
 
-      reql_run(cur.get(), table.get(), c.get(), nullptr);
+      reql_run_query(cur.get(), table.get(), c.get(), nullptr);
 
       REQUIRE(reql_cur_open(cur.get()) != 0);
 
