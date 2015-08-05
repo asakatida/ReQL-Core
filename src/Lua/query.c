@@ -28,6 +28,12 @@ limitations under the License.
 
 #include <string.h>
 
+static void
+reql_to_lua(lua_State *L, ReQL_Obj_t *query);
+
+static ReQL_Obj_t *
+reql_from_lua(lua_State *L, const int idx, long nesting_depth);
+
 static ReQL_Obj_t *
 reql_lua_alloc_term(lua_State *L) {
   return lua_newuserdata(L, sizeof(ReQL_Obj_t));
@@ -345,7 +351,7 @@ reql_lua_class(lua_State *L, const char *name, const int parent, const int base)
   }
 }
 
-extern ReQL_Obj_t *
+static ReQL_Obj_t *
 reql_from_lua(lua_State *L, const int idx, long nesting_depth) {
   if (nesting_depth <= 0) {
     luaL_error(L, "Nesting depth limit exceeded");
@@ -434,7 +440,7 @@ reql_from_lua(lua_State *L, const int idx, long nesting_depth) {
   return NULL;
 }
 
-extern void
+static void
 reql_to_lua(lua_State *L, ReQL_Obj_t *query) {
   switch (reql_datum_type(query)) {
     case REQL_R_ARRAY: {
