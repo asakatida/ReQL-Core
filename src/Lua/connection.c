@@ -36,7 +36,7 @@ reql_lua_connect(lua_State *L) {
   ReQL_Byte msg[500];
 
   if (reql_conn_connect(conn, msg, 500) != 0) {
-    lua_pop(L);
+    lua_pop(L, 1);
     return 0;
   }
 
