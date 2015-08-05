@@ -74,13 +74,13 @@ TEST_CASE("c connection", "[c][connect]") {
   ReQL_t *db_name = reql_string("libReQLc", 8);
 
   REQUIRE(db_name != nullptr);
-  
+
   ReQL_t **args = {&db_name};
   ReQL_t *query = reql_db_create(args);
 
   REQUIRE(query != nullptr);
-  
-  ReQL_Cursor_t *cur = reql_cursor(query, nullptr, conn);
+
+  ReQL_Cursor_t *cur = reql_run(query, nullptr, conn);
 
   REQUIRE(cur != nullptr);
 
