@@ -24,6 +24,8 @@ limitations under the License.
 
 #import "./reql/core.h"
 
+#import <libReQL/libReQL-Swift.h>
+
 @interface ReQLCursor ()
 
 -(void)setNext:(ReQL_Obj_t *)obj;
@@ -33,15 +35,15 @@ limitations under the License.
 static int
 cursor_each_cb(ReQL_Obj_t *res, void *data);
 
+static id
+convert(ReQL_Obj_t *obj);
+
 static int
 cursor_each_cb(ReQL_Obj_t *res, void *data) {
   ReQLCursor *cursor = (__bridge ReQLCursor *)(data);
   [cursor setNext:res];
   return 0;
 }
-
-static id
-convert(ReQL_Obj_t *obj);
 
 static id
 convert(ReQL_Obj_t *obj) {
@@ -88,7 +90,7 @@ convert(ReQL_Obj_t *obj) {
 
 @implementation ReQLCursor {
   ReQL_Cur_t *p_cur;
-  id p_next;
+  Cursor *p_stream;
 }
 
 -(instancetype)init {
@@ -97,7 +99,7 @@ convert(ReQL_Obj_t *obj) {
     if (p_cur == NULL) {
       return nil;
     }
-    p_next = nil;
+    p_stream = [Cursor new];
   }
   return self;
 }
@@ -111,69 +113,48 @@ convert(ReQL_Obj_t *obj) {
   if (obj == NULL) {
     return nil;
   }
-  NSArray *array = convert(obj);
+  id array = convert(obj);
   reql_json_destroy(obj);
-  return array;
+  if (array == nil) {
+    return nil;
+  }
+  if (![array isMemberOfClass:[NSArray class]]) {
+    return nil;
+  }
+  return (NSArray *)array;
 }
 
--(void)open {
+-(void)start {
   reql_cur_each(p_cur, cursor_each_cb, (__bridge void *)(self));
 }
 
 -(void)setNext:(ReQL_Obj_t *)obj {
-  p_next = convert(obj);
+  [p_stream next:convert(obj)];
 }
 
--(id)next {
-  id next = p_next;
-  p_next = nil;
-  return next;
+-(BOOL)isOpen {
+  return reql_cur_open(p_cur) == 0 ? NO : YES;
 }
 
--(void)stream:(NSStream *)aStream handleEvent:(NSStreamEvent)eventCode {
-  switch (eventCode) {
-    case NSStreamEventEndEncountered: {
-      [aStream close];
-      [aStream removeFromRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-      aStream = nil;
-      break;
-    }
-    case NSStreamEventErrorOccurred: {
-      [aStream close];
-      break;
-    }
-    case NSStreamEventHasBytesAvailable: {
-      id next = [self next];
-      if (next == nil) {
-        [aStream close];
-      }
-      break;
-    }
-    case NSStreamEventHasSpaceAvailable: {
-      [aStream close];
-      break;
-    }
-    case NSStreamEventNone: {
-      break;
-    }
-    case NSStreamEventOpenCompleted: {
-      break;
-    }
-  }
+-(void)observe:(void (^ __nullable)(id __nonnull))next error:(void (^ __nullable)(NSError * __nonnull))error completed:(void (^ __nullable)(void))completed interrupted:(void (^ __nullable)(void))interrupted {
+  [p_stream observe:^(ReQLError *err){ error(err.nsError); } completed:completed interrupted:interrupted next:next];
 }
 
--(BOOL)error:(NSError * __strong *)err {
-  if (err != nil) {
-    *err = nil;
-  }
-  return NO;
+-(void)observe:(void (^ __nonnull)(id __nonnull))next error:(void (^ __nonnull)(NSError * __nonnull))error {
+  [self observe:next error:error completed:nil interrupted:nil];
+}
+
+-(void)observe:(void (^ __nonnull)(id __nonnull))next {
+  [self observe:next error:nil completed:nil interrupted:nil];
 }
 
 -(void)close {
+  [p_stream close];
   reql_cur_close(p_cur);
 }
 
 -(void)dealloc {
+  [p_stream close];
   reql_cur_destroy(p_cur);
   free(p_cur);
 }

@@ -20,17 +20,21 @@ limitations under the License.
 
 #import <Cocoa/Cocoa.h>
 
-#import "ReactiveCocoa/ReactiveCocoa.h"
+@interface ReQLCursor : NSObject
 
-@interface ReQLCursor : RACSequence
+-(void * __nonnull)data;
 
--(void *)data;
+-(BOOL)isOpen;
 
--(BOOL)error:(NSError * __strong *)err;
+-(void)observe:(void (^ __nullable)(id __nonnull))next error:(void (^ __nullable)(NSError * __nonnull))error completed:(void (^ __nullable)(void))completed interrupted:(void (^ __nullable)(void))interrupted;
 
--(NSArray *)toArray;
+-(void)observe:(void (^ __nonnull)(id __nonnull))next error:(void (^ __nonnull)(NSError * __nonnull))error;
 
--(void)open;
+-(void)observe:(void (^ __nonnull)(id __nonnull))next;
+
+-(NSArray * __nullable)toArray;
+
+-(void)start;
 
 -(void)close;
 
