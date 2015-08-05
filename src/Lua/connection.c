@@ -33,13 +33,12 @@ reql_lua_connect(lua_State *L) {
   ReQL_Conn_t *conn = lua_newuserdata(L, sizeof(ReQL_Conn_t));
 
   reql_conn_init(conn);
-  char msg[500];
+  ReQL_Byte msg[500];
 
-  if (reql_conn_connect(conn, msg, 500)) {
+  if (reql_conn_connect(conn, msg, 500) != 0) {
+    lua_pop(L);
     return 0;
   }
-
-  reql_conn_ensure_close(conn);
 
   return 1;
 }

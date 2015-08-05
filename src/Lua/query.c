@@ -438,9 +438,9 @@ extern void
 reql_to_lua(lua_State *L, ReQL_Obj_t *query) {
   switch (reql_datum_type(query)) {
     case REQL_R_ARRAY: {
-      uint32_t size = reql_array_size(query);
+      const ReQL_Size size = reql_size(query);
 
-      int trunc_size = (int)size;
+      const int trunc_size = (int)size;
       int i;
 
       lua_createtable(L, trunc_size, trunc_size);
@@ -487,7 +487,7 @@ reql_to_lua(lua_State *L, ReQL_Obj_t *query) {
       break;
     }
     case REQL_R_STR: {
-      lua_pushlstring(L, (char *)reql_string_buf(query), reql_string_size(query));
+      lua_pushlstring(L, (char *)reql_string_buf(query), (size_t)reql_size(query));
       break;
     }
   }
