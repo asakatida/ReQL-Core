@@ -76,7 +76,7 @@ reql_run(ReQL_t *query, ReQL_t *kwargs, ReQL_Connection_t *conn) {
   }
   ReQL_Obj_t *r_kwargs = NULL;
   if (kwargs != NULL) {
-    ReQL_Obj_t *r_kwargs = REQL_BUILD(kwargs);
+    r_kwargs = REQL_BUILD(kwargs);
     if (r_kwargs == NULL) {
       reql_json_destroy(r_query);
       free(cur->cursor);
@@ -104,7 +104,7 @@ reql_noreply(ReQL_t *query, ReQL_t *kwargs, ReQL_Connection_t *conn) {
   }
   ReQL_Obj_t *r_kwargs = NULL;
   if (kwargs != NULL) {
-    ReQL_Obj_t *r_kwargs = REQL_BUILD(kwargs);
+    r_kwargs = REQL_BUILD(kwargs);
     if (r_kwargs == NULL) {
       reql_json_destroy(r_query);
       return -1;
