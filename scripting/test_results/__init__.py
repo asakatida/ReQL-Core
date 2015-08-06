@@ -203,7 +203,8 @@ class ResultBuilder(ObjectRecursor):
             return self.recurse({'reql_ast_obj': obj.__name__})
 
     def string_obj(self, obj):
-        obj = obj.encode('unicode_escape').replace(b'"', b'\\"')
+        obj = obj.encode('unicode_escape').replace(b'"', b'\\"').replace(
+            b'\\x', b'\\u00')
         return self.shell_string.format(
             self.next_obj_id(), len(obj), obj.decode())
 
