@@ -3,7 +3,7 @@
 #include "./catch.hpp"
 #include "./ReQL.h"
 
-TEST_CASE("c Test basic time arithmetic 118", "[c][ast]") {
+TEST_CASE("c Test basic time arithmetic 120", "[c][ast]") {
 
   SECTION("test10") {
   }

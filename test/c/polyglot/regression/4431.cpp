@@ -3,7 +3,7 @@
 #include "./catch.hpp"
 #include "./ReQL.h"
 
-TEST_CASE("c Regression test for issue 101", "[c][ast]") {
+TEST_CASE("c 4431 -- detect `use_outdated` optarg", "[c][ast]") {
 
   SECTION("test0") {
 
@@ -12,27 +12,6 @@ TEST_CASE("c Regression test for issue 101", "[c][ast]") {
   }
 
   SECTION("test1") {
-
-
-
-  }
-
-  SECTION("test2") {
-
-
-
-
-
-
-  }
-
-  SECTION("test3") {
-
-
-
-
-
-
 
 
 

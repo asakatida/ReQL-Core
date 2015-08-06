@@ -5,7 +5,7 @@
 
 using namespace ReQL;
 
-TEST_CASE("cpp Regression tests for issue 205", "[cpp][ast]") {
+TEST_CASE("cpp Regression tests for issue 207", "[cpp][ast]") {
 
   SECTION("test1") {
     Types::array arr0(3);

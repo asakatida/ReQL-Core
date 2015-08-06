@@ -11,12 +11,6 @@ TEST_CASE("c Test the arity of every function", "[c][ast]") {
 
   }
 
-  SECTION("test4") {
-
-
-
-  }
-
   SECTION("test5") {
 
 
@@ -35,7 +29,7 @@ TEST_CASE("c Test the arity of every function", "[c][ast]") {
 
   }
 
-  SECTION("test9") {
+  SECTION("test8") {
 
 
 
@@ -209,13 +203,13 @@ TEST_CASE("c Test the arity of every function", "[c][ast]") {
 
   }
 
-  SECTION("test39") {
+  SECTION("test38") {
+
+
+
   }
 
   SECTION("test40") {
-
-
-
   }
 
   SECTION("test41") {
@@ -249,6 +243,9 @@ TEST_CASE("c Test the arity of every function", "[c][ast]") {
   }
 
   SECTION("test46") {
+
+
+
   }
 
   SECTION("test47") {
@@ -258,17 +255,9 @@ TEST_CASE("c Test the arity of every function", "[c][ast]") {
   }
 
   SECTION("test49") {
-
-
-
   }
 
   SECTION("test50") {
-
-
-
-
-
 
 
 
@@ -292,9 +281,14 @@ TEST_CASE("c Test the arity of every function", "[c][ast]") {
 
 
 
+
+
   }
 
   SECTION("test53") {
+
+
+
 
 
 
@@ -325,6 +319,12 @@ TEST_CASE("c Test the arity of every function", "[c][ast]") {
   }
 
   SECTION("test58") {
+
+
+
+  }
+
+  SECTION("test59") {
 
 
 

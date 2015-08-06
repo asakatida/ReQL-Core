@@ -84,6 +84,7 @@ set(SOURCES
  test/c/polyglot/regression/2052.cpp
  test/c/polyglot/regression/2399.cpp
  test/c/polyglot/regression/2639.cpp
+ test/c/polyglot/regression/2639.rb.cpp
  test/c/polyglot/regression/2696.cpp
  test/c/polyglot/regression/2697.cpp
  test/c/polyglot/regression/2709.cpp
@@ -105,8 +106,10 @@ set(SOURCES
  test/c/polyglot/regression/3759.cpp
  test/c/polyglot/regression/4030.cpp
  test/c/polyglot/regression/4146.cpp
+ test/c/polyglot/regression/4431.cpp
  test/c/polyglot/regression/4501.cpp
  test/c/polyglot/regression/453.cpp
+ test/c/polyglot/regression/4591.cpp
  test/c/polyglot/regression/46.cpp
  test/c/polyglot/regression/469.cpp
  test/c/polyglot/regression/522.cpp
@@ -208,6 +211,7 @@ set(SOURCES
  test/cpp/polyglot/regression/2052.cpp
  test/cpp/polyglot/regression/2399.cpp
  test/cpp/polyglot/regression/2639.cpp
+ test/cpp/polyglot/regression/2639.rb.cpp
  test/cpp/polyglot/regression/2696.cpp
  test/cpp/polyglot/regression/2697.cpp
  test/cpp/polyglot/regression/2709.cpp
@@ -229,8 +233,10 @@ set(SOURCES
  test/cpp/polyglot/regression/3759.cpp
  test/cpp/polyglot/regression/4030.cpp
  test/cpp/polyglot/regression/4146.cpp
+ test/cpp/polyglot/regression/4431.cpp
  test/cpp/polyglot/regression/4501.cpp
  test/cpp/polyglot/regression/453.cpp
+ test/cpp/polyglot/regression/4591.cpp
  test/cpp/polyglot/regression/46.cpp
  test/cpp/polyglot/regression/469.cpp
  test/cpp/polyglot/regression/522.cpp
@@ -337,6 +343,7 @@ set(SOURCES
  test/reql/polyglot/regression/2052.cpp
  test/reql/polyglot/regression/2399.cpp
  test/reql/polyglot/regression/2639.cpp
+ test/reql/polyglot/regression/2639.rb.cpp
  test/reql/polyglot/regression/2696.cpp
  test/reql/polyglot/regression/2697.cpp
  test/reql/polyglot/regression/2709.cpp
@@ -358,8 +365,10 @@ set(SOURCES
  test/reql/polyglot/regression/3759.cpp
  test/reql/polyglot/regression/4030.cpp
  test/reql/polyglot/regression/4146.cpp
+ test/reql/polyglot/regression/4431.cpp
  test/reql/polyglot/regression/4501.cpp
  test/reql/polyglot/regression/453.cpp
+ test/reql/polyglot/regression/4591.cpp
  test/reql/polyglot/regression/46.cpp
  test/reql/polyglot/regression/469.cpp
  test/reql/polyglot/regression/522.cpp

@@ -3,14 +3,11 @@
 #include "./catch.hpp"
 #include "./ReQL.h"
 
-TEST_CASE("c Regression tests for issue 97", "[c][ast]") {
+TEST_CASE("c Test that using r.args with order_by doesn't crash the server.", "[c][ast]") {
 
   SECTION("test0") {
-  }
 
-  SECTION("test1") {
-  }
 
-  SECTION("test2") {
+
   }
 }

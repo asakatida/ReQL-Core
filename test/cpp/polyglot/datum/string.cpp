@@ -1938,7 +1938,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
 
     arr0.insert(arr0.end(), var1);
 
-    std::string src2("\u00e9", 4);
+    std::string src2("\u00e9", 6);
     Query var2(src2);
 
     arr0.insert(arr0.end(), var2);

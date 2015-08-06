@@ -53,6 +53,30 @@ TEST_CASE("c Test edge cases of changefeed operations", "[c][ast]") {
 
   }
 
+  SECTION("test9") {
+
+
+
+  }
+
+  SECTION("test10") {
+
+
+
+  }
+
+  SECTION("test11") {
+
+
+
+  }
+
+  SECTION("test12") {
+
+
+
+  }
+
   SECTION("test13") {
 
 
@@ -83,6 +107,18 @@ TEST_CASE("c Test edge cases of changefeed operations", "[c][ast]") {
 
   }
 
+  SECTION("test20") {
+
+
+
+  }
+
+  SECTION("test21") {
+
+
+
+  }
+
   SECTION("test22") {
 
 
@@ -99,9 +135,36 @@ TEST_CASE("c Test edge cases of changefeed operations", "[c][ast]") {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   }
 
   SECTION("test25") {
+
+
+
+  }
+
+  SECTION("test26") {
+
+
+
+  }
+
+  SECTION("test27") {
 
 
 
@@ -135,21 +198,6 @@ TEST_CASE("c Test edge cases of changefeed operations", "[c][ast]") {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   }
 
   SECTION("test33") {
@@ -174,56 +222,5 @@ TEST_CASE("c Test edge cases of changefeed operations", "[c][ast]") {
 
 
 
-  }
-
-  SECTION("test37") {
-
-
-
-  }
-
-  SECTION("test38") {
-
-
-
-  }
-
-  SECTION("test39") {
-
-
-
-  }
-
-  SECTION("test40") {
-
-
-
-  }
-
-  SECTION("test41") {
-
-
-
-  }
-
-  SECTION("test42") {
-
-
-
-  }
-
-  SECTION("test43") {
-
-
-
-  }
-
-  SECTION("test44") {
-
-
-
-  }
-
-  SECTION("test45") {
   }
 }

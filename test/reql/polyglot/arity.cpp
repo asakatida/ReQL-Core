@@ -25,24 +25,6 @@ TEST_CASE("reql Test the arity of every function", "[reql][ast]") {
     reql_object_add(var0.get(), var1.get(), var2.get());
   }
 
-  SECTION("test4") {
-    std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
-    reql_object_init(var0.get(), pair0.get(), 1);
-
-    std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
-    const ReQL_Byte src1[] = "func";
-    reql_string_init(var1.get(), buf1.get(), src1, 4);
-
-    std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
-    const ReQL_Byte src2[] = "err";
-    reql_string_init(var2.get(), buf2.get(), src2, 3);
-
-    reql_object_add(var0.get(), var1.get(), var2.get());
-  }
-
   SECTION("test5") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
@@ -97,7 +79,7 @@ TEST_CASE("reql Test the arity of every function", "[reql][ast]") {
     reql_object_add(var0.get(), var1.get(), var2.get());
   }
 
-  SECTION("test9") {
+  SECTION("test8") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
@@ -619,12 +601,7 @@ TEST_CASE("reql Test the arity of every function", "[reql][ast]") {
     reql_object_add(var0.get(), var1.get(), var2.get());
   }
 
-  SECTION("test39") {
-    std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
-    reql_number_init(var0.get(), 10);
-  }
-
-  SECTION("test40") {
+  SECTION("test38") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
@@ -636,10 +613,15 @@ TEST_CASE("reql Test the arity of every function", "[reql][ast]") {
 
     std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
-    const ReQL_Byte src2[] = "bag";
+    const ReQL_Byte src2[] = "err";
     reql_string_init(var2.get(), buf2.get(), src2, 3);
 
     reql_object_add(var0.get(), var1.get(), var2.get());
+  }
+
+  SECTION("test40") {
+    std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
+    reql_number_init(var0.get(), 10);
   }
 
   SECTION("test41") {
@@ -734,7 +716,20 @@ TEST_CASE("reql Test the arity of every function", "[reql][ast]") {
 
   SECTION("test46") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
-    reql_number_init(var0.get(), 1);
+    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    reql_object_init(var0.get(), pair0.get(), 1);
+
+    std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
+    reql_string_init(var1.get(), buf1.get(), src1, 4);
+
+    std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
+    const ReQL_Byte src2[] = "bag";
+    reql_string_init(var2.get(), buf2.get(), src2, 3);
+
+    reql_object_add(var0.get(), var1.get(), var2.get());
   }
 
   SECTION("test47") {
@@ -748,6 +743,11 @@ TEST_CASE("reql Test the arity of every function", "[reql][ast]") {
   }
 
   SECTION("test49") {
+    std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
+    reql_number_init(var0.get(), 1);
+  }
+
+  SECTION("test50") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
@@ -763,38 +763,6 @@ TEST_CASE("reql Test the arity of every function", "[reql][ast]") {
     reql_string_init(var2.get(), buf2.get(), src2, 3);
 
     reql_object_add(var0.get(), var1.get(), var2.get());
-  }
-
-  SECTION("test50") {
-    std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[1]);
-    reql_array_init(var0.get(), arr0.get(), 1);
-
-    std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Pair_t[]> pair1(new ReQL_Pair_t[2]);
-    reql_object_init(var1.get(), pair1.get(), 2);
-
-    std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[5]);
-    const ReQL_Byte src2[] = "group";
-    reql_string_init(var2.get(), buf2.get(), src2, 5);
-
-    std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
-    reql_number_init(var3.get(), 0);
-
-    reql_object_add(var1.get(), var2.get(), var3.get());
-
-    std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Byte[]> buf4(new ReQL_Byte[9]);
-    const ReQL_Byte src4[] = "reduction";
-    reql_string_init(var4.get(), buf4.get(), src4, 9);
-
-    std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
-    reql_number_init(var5.get(), 1);
-
-    reql_object_add(var1.get(), var4.get(), var5.get());
-
-    reql_array_append(var0.get(), var1.get());
   }
 
   SECTION("test51") {
@@ -831,6 +799,38 @@ TEST_CASE("reql Test the arity of every function", "[reql][ast]") {
 
   SECTION("test52") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
+    std::unique_ptr<ReQL_Obj_t*[]> arr0(new ReQL_Obj_t*[1]);
+    reql_array_init(var0.get(), arr0.get(), 1);
+
+    std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
+    std::unique_ptr<ReQL_Pair_t[]> pair1(new ReQL_Pair_t[2]);
+    reql_object_init(var1.get(), pair1.get(), 2);
+
+    std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[5]);
+    const ReQL_Byte src2[] = "group";
+    reql_string_init(var2.get(), buf2.get(), src2, 5);
+
+    std::unique_ptr<ReQL_Obj_t> var3(new ReQL_Obj_t);
+    reql_number_init(var3.get(), 0);
+
+    reql_object_add(var1.get(), var2.get(), var3.get());
+
+    std::unique_ptr<ReQL_Obj_t> var4(new ReQL_Obj_t);
+    std::unique_ptr<ReQL_Byte[]> buf4(new ReQL_Byte[9]);
+    const ReQL_Byte src4[] = "reduction";
+    reql_string_init(var4.get(), buf4.get(), src4, 9);
+
+    std::unique_ptr<ReQL_Obj_t> var5(new ReQL_Obj_t);
+    reql_number_init(var5.get(), 1);
+
+    reql_object_add(var1.get(), var4.get(), var5.get());
+
+    reql_array_append(var0.get(), var1.get());
+  }
+
+  SECTION("test53") {
+    std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
 
@@ -852,24 +852,6 @@ TEST_CASE("reql Test the arity of every function", "[reql][ast]") {
     reql_number_init(var4.get(), 1);
 
     reql_object_add(var2.get(), var3.get(), var4.get());
-
-    reql_object_add(var0.get(), var1.get(), var2.get());
-  }
-
-  SECTION("test53") {
-    std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
-    reql_object_init(var0.get(), pair0.get(), 1);
-
-    std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
-    const ReQL_Byte src1[] = "func";
-    reql_string_init(var1.get(), buf1.get(), src1, 4);
-
-    std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
-    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
-    const ReQL_Byte src2[] = "err";
-    reql_string_init(var2.get(), buf2.get(), src2, 3);
 
     reql_object_add(var0.get(), var1.get(), var2.get());
   }
@@ -947,6 +929,24 @@ TEST_CASE("reql Test the arity of every function", "[reql][ast]") {
   }
 
   SECTION("test58") {
+    std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
+    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    reql_object_init(var0.get(), pair0.get(), 1);
+
+    std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
+    reql_string_init(var1.get(), buf1.get(), src1, 4);
+
+    std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
+    const ReQL_Byte src2[] = "err";
+    reql_string_init(var2.get(), buf2.get(), src2, 3);
+
+    reql_object_add(var0.get(), var1.get(), var2.get());
+  }
+
+  SECTION("test59") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);
