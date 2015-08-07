@@ -81,40 +81,132 @@ reql_py_alloc_term() {
 }
 
 static void
+reql_py_arr_destroy(ReQL_Obj_t **arr, ReQL_Size size) {
+  if (arr == NULL) {
+    return;
+  }
+
+  ReQL_Size i;
+
+  for (i=0; i < size; ++i) {
+    reql_json_destroy(arr[i]);
+  }
+
+  PyGILState_STATE gil = PyGILState_Ensure();
+  PyMem_Free(arr);
+  PyGILState_Release(gil);
+}
+
+static void
+reql_py_pair_destroy(ReQL_Pair_t *pair, ReQL_Size size) {
+  if (pair == NULL) {
+    return;
+  }
+
+  ReQL_Size i;
+
+  for (i=0; i < size; ++i) {
+    reql_json_destroy(pair[i].key);
+    reql_json_destroy(pair[i].val);
+  }
+
+  PyGILState_STATE gil = PyGILState_Ensure();
+  PyMem_Free(pair);
+  PyGILState_Release(gil);
+}
+
+static void
 reql_py_destroy(ReQL_Obj_t *obj) {
   if (obj == NULL) {
     return;
   }
-  PyGILState_STATE gil = PyGILState_Ensure();
+
+  ReQL_Obj_t *owner = obj->owner;
+  obj->owner = NULL;
+
+  if (owner != NULL) {
+    switch (reql_datum_type(owner)) {
+      case REQL_R_ARRAY: {
+        const ReQL_Size size = owner->obj.datum.json.var.alloc_size;
+        ReQL_Obj_t **array = owner->obj.datum.json.var.data.array;
+
+        ReQL_Size i;
+
+        for (i=0; i < size; ++i) {
+          if (array[i] == obj) {
+            array[i] = NULL;
+            break;
+          }
+        }
+
+        break;
+      }
+      case REQL_R_OBJECT: {
+        const ReQL_Size size = owner->obj.datum.json.var.alloc_size;
+        ReQL_Pair_t *pair = owner->obj.datum.json.var.data.pair;
+
+        ReQL_Size i;
+
+        for (i=0; i < size; ++i) {
+          if (pair[i].val == obj) {
+            pair[i].val = NULL;
+            break;
+          } else if (pair[i].key == obj) {
+            reql_json_destroy(pair[i].val); pair[i].val = NULL;
+            pair[i].key = NULL;
+            break;
+          }
+        }
+
+        break;
+      }
+      case REQL_R_REQL: {
+        if (owner->obj.args.args == obj) {
+          owner->obj.args.args = NULL;
+        } else if (owner->obj.args.kwargs == obj) {
+          owner->obj.args.kwargs = NULL;
+        }
+        break;
+      }
+      case REQL_R_BOOL:
+      case REQL_R_JSON:
+      case REQL_R_NULL:
+      case REQL_R_NUM:
+      case REQL_R_STR: break;
+    }
+  }
+
   switch (reql_datum_type(obj)) {
     case REQL_R_ARRAY: {
-      PyMem_Free(reql_string_buf(obj));
+      reql_py_arr_destroy(obj->obj.datum.json.var.data.array,
+                          obj->obj.datum.json.var.alloc_size);
       break;
     }
-    case REQL_R_BOOL: {
-      break;
-    }
-    case REQL_R_JSON: {
-      break;
-    }
-    case REQL_R_NULL: {
-      break;
-    }
-    case REQL_R_NUM: {
-      break;
-    }
+    case REQL_R_BOOL:
+    case REQL_R_JSON:
+    case REQL_R_NULL:
+    case REQL_R_NUM: break;
     case REQL_R_OBJECT: {
-      PyMem_Free(reql_string_buf(obj));
+      reql_py_pair_destroy(obj->obj.datum.json.var.data.pair,
+                           obj->obj.datum.json.var.alloc_size);
       break;
     }
     case REQL_R_REQL: {
+      reql_json_destroy(obj->obj.args.args);
+      reql_json_destroy(obj->obj.args.kwargs);
       break;
     }
     case REQL_R_STR: {
-      PyMem_Free(reql_string_buf(obj));
+      ReQL_Byte *buf = obj->obj.datum.json.var.data.str;
+      if (buf != NULL) {
+        PyGILState_STATE gil = PyGILState_Ensure();
+        PyMem_Free(buf);
+        PyGILState_Release(gil);
+      }
       break;
     }
   }
+  PyGILState_STATE gil = PyGILState_Ensure();
   PyMem_Free(obj);
   PyGILState_Release(gil);
 }
@@ -388,7 +480,7 @@ reql_py_expr(PyObject *self, PyObject *args) {
     result->reql_build = reql_py_build_bool;
     return (PyObject *)result;
   }
-  
+
   if (PyNumber_Check(val)) {
     ReQLQuery *result = PyObject_New(ReQLQuery, reql_py_query_type());
     if (result == NULL) {
