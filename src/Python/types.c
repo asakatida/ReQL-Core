@@ -27,6 +27,8 @@ limitations under the License.
 #include "./Python/cursor.h"
 #include "./Python/query.h"
 
+#include "./reql/core.h"
+
 #include <stdlib.h>
 
 extern void

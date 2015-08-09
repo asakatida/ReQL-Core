@@ -28,8 +28,6 @@ extern "C" {
 #define Py_LIMITED_API
 #include "Python.h"
 
-#include "./Python/types.h"
-
 #include "./reql/core.h"
 
 typedef struct {

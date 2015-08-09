@@ -28,8 +28,6 @@ extern "C" {
 #define Py_LIMITED_API
 #include "Python.h"
 
-#include "./reql/core.h"
-
 extern void
 reql_py_dealloc(PyObject* self);
 
