@@ -37,7 +37,7 @@ typedef struct {
   ReQL_AST_Function_Kwargs reql_func_kwargs;
   ReQL_Obj_t *(*reql_build)(PyObject *data);
 } ReQLQuery;
-  
+
 extern void
 Query_dealloc(ReQLQuery* self);
 

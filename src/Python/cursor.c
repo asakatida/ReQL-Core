@@ -25,6 +25,7 @@ limitations under the License.
 #include "./Python/cursor.h"
 
 #include "./Python/types.h"
+
 #include "./reql/core.h"
 
 #include <stdlib.h>
@@ -56,4 +57,3 @@ Cursor_init(ReQLCursor *self, PyObject *args, PyObject *kwargs) {
 
   return 0;
 }
-

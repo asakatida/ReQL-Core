@@ -34,7 +34,7 @@ typedef struct {
   PyObject_HEAD
   ReQL_Cur_t *reql_cursor;
 } ReQLCursor;
-  
+
 extern void
 Cursor_dealloc(ReQLCursor* self);
 
