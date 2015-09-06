@@ -28,7 +28,7 @@ limitations under the License.
 
 @interface ReQLCursor ()
 
--(void)setNext:(ReQL_Obj_t *)obj;
+-(int)setNext:(ReQL_Obj_t *)obj;
 
 @end
 
@@ -40,9 +40,7 @@ convert(ReQL_Obj_t *obj);
 
 static int
 cursor_each_cb(ReQL_Obj_t *res, void *data) {
-  ReQLCursor *cursor = (__bridge ReQLCursor *)(data);
-  [cursor setNext:res];
-  return 0;
+  return [(__bridge ReQLCursor *)(data) setNext:res];
 }
 
 static id
@@ -128,8 +126,12 @@ convert(ReQL_Obj_t *obj) {
   reql_cur_each(p_cur, cursor_each_cb, (__bridge void *)(self));
 }
 
--(void)setNext:(ReQL_Obj_t *)obj {
-  [p_stream next:convert(obj)];
+-(int)setNext:(ReQL_Obj_t *)obj {
+  id res = convert(obj);
+  if (res == nil) {
+    return 1;
+  }
+  return (int)[p_stream next:res];
 }
 
 -(BOOL)isOpen {

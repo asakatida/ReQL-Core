@@ -34,8 +34,9 @@ import Foundation
   public class func new() -> Cursor {
     return Cursor()
   }
-  public func next (value: AnyObject) {
+  public func next (value: AnyObject) -> Int {
     sendNext(sink, value)
+    return 0;
   }
   public func error (error: ReQLError) {
     sendError(sink, error)
