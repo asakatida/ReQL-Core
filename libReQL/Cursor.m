@@ -142,12 +142,32 @@ convert(ReQL_Obj_t *obj) {
   [p_stream observe:^(ReQLError *err){ error(err.nsError); } completed:completed interrupted:interrupted next:next];
 }
 
+-(void)observe:(void (^ __nonnull)(id __nonnull))next {
+  [self observe:next error:nil completed:nil interrupted:nil];
+}
+
+-(void)observe:(void (^ __nonnull)(id __nonnull))next completed:(void (^ __nonnull)(void))completed {
+  [self observe:next error:nil completed:completed interrupted:nil];
+}
+
+-(void)observe:(void (^ __nonnull)(id __nonnull))next completed:(void (^ __nonnull)(void))completed interrupted:(void (^ __nonnull)(void))interrupted {
+  [self observe:next error:nil completed:completed interrupted:interrupted];
+}
+
 -(void)observe:(void (^ __nonnull)(id __nonnull))next error:(void (^ __nonnull)(NSError * __nonnull))error {
   [self observe:next error:error completed:nil interrupted:nil];
 }
 
--(void)observe:(void (^ __nonnull)(id __nonnull))next {
-  [self observe:next error:nil completed:nil interrupted:nil];
+-(void)observe:(void (^ __nonnull)(id __nonnull))next error:(void (^ __nonnull)(NSError * __nonnull))error completed:(void (^ __nonnull)(void))completed {
+  [self observe:next error:error completed:completed interrupted:nil];
+}
+
+-(void)observe:(void (^ __nonnull)(id __nonnull))next error:(void (^ __nonnull)(NSError * __nonnull))error interrupted:(void (^ __nonnull)(void))interrupted {
+  [self observe:next error:error completed:nil interrupted:interrupted];
+}
+
+-(void)observe:(void (^ __nonnull)(id __nonnull))next interrupted:(void (^ __nonnull)(void))interrupted {
+  [self observe:next error:nil completed:nil interrupted:interrupted];
 }
 
 -(void)close {
