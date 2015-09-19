@@ -40,7 +40,7 @@ convert(ReQL_Obj_t *obj);
 
 static int
 cursor_each_cb(ReQL_Obj_t *res, void *data) {
-  return [(__bridge ReQLCursor *)(data) setNext:res];
+  return [((__bridge ReQLCursor *)data) setNext:res];
 }
 
 static id
@@ -138,36 +138,8 @@ convert(ReQL_Obj_t *obj) {
   return reql_cur_open(p_cur) == 0 ? NO : YES;
 }
 
--(void)observe:(void (^ __nullable)(id __nonnull))next error:(void (^ __nullable)(NSError * __nonnull))error completed:(void (^ __nullable)(void))completed interrupted:(void (^ __nullable)(void))interrupted {
-  [p_stream observe:^(ReQLError *err){ error(err.nsError); } completed:completed interrupted:interrupted next:next];
-}
-
--(void)observe:(void (^ __nonnull)(id __nonnull))next {
-  [self observe:next error:nil completed:nil interrupted:nil];
-}
-
--(void)observe:(void (^ __nonnull)(id __nonnull))next completed:(void (^ __nonnull)(void))completed {
-  [self observe:next error:nil completed:completed interrupted:nil];
-}
-
--(void)observe:(void (^ __nonnull)(id __nonnull))next completed:(void (^ __nonnull)(void))completed interrupted:(void (^ __nonnull)(void))interrupted {
-  [self observe:next error:nil completed:completed interrupted:interrupted];
-}
-
--(void)observe:(void (^ __nonnull)(id __nonnull))next error:(void (^ __nonnull)(NSError * __nonnull))error {
-  [self observe:next error:error completed:nil interrupted:nil];
-}
-
--(void)observe:(void (^ __nonnull)(id __nonnull))next error:(void (^ __nonnull)(NSError * __nonnull))error completed:(void (^ __nonnull)(void))completed {
-  [self observe:next error:error completed:completed interrupted:nil];
-}
-
--(void)observe:(void (^ __nonnull)(id __nonnull))next error:(void (^ __nonnull)(NSError * __nonnull))error interrupted:(void (^ __nonnull)(void))interrupted {
-  [self observe:next error:error completed:nil interrupted:interrupted];
-}
-
--(void)observe:(void (^ __nonnull)(id __nonnull))next interrupted:(void (^ __nonnull)(void))interrupted {
-  [self observe:next error:nil completed:nil interrupted:interrupted];
+-(void)observe:(void (^ __nonnull)(id __nullable, NSError * __nullable))next {
+  [self observe:next];
 }
 
 -(void)close {

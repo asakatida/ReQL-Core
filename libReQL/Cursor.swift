@@ -22,18 +22,15 @@ import ReactiveCocoa
 
 import Foundation
 
-@objc public class ReQLError: ErrorType {
+public class ReQLError: NSObject, ErrorType {
   public var nsError: NSError {
-    return NSError()
+    return NSError(domain: "", code: 0, userInfo: nil)
   }
 }
 
-@objc public class Cursor {
+public class Cursor: NSObject {
   let (signal, sink) = Signal<AnyObject, ReQLError>.pipe()
   var disposable: Disposable?
-  public class func new() -> Cursor {
-    return Cursor()
-  }
   public func next (value: AnyObject) -> Int {
     sendNext(sink, value)
     return 0;
@@ -47,8 +44,8 @@ import Foundation
   public func interupted () {
     sendInterrupted(sink)
   }
-  public func observe (error: (ReQLError -> ())?, completed: (() -> ())?, interrupted: (() -> ())?, next: (AnyObject -> ())?) {
-    disposable = signal.observe(error: error, completed: completed, interrupted: interrupted, next: next)
+  public func observe (next: (Event<AnyObject, ReQLError> -> ())) {
+    disposable = signal.observe(next)
   }
   public func close () {
     disposable?.dispose()

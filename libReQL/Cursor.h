@@ -26,21 +26,7 @@ limitations under the License.
 
 -(BOOL)isOpen;
 
--(void)observe:(void (^ __nullable)(id __nonnull))next error:(void (^ __nullable)(NSError * __nonnull))error completed:(void (^ __nullable)(void))completed interrupted:(void (^ __nullable)(void))interrupted;
-
--(void)observe:(void (^ __nonnull)(id __nonnull))next;
-
--(void)observe:(void (^ __nonnull)(id __nonnull))next completed:(void (^ __nonnull)(void))completed;
-
--(void)observe:(void (^ __nonnull)(id __nonnull))next completed:(void (^ __nonnull)(void))completed interrupted:(void (^ __nonnull)(void))interrupted;
-
--(void)observe:(void (^ __nonnull)(id __nonnull))next error:(void (^ __nonnull)(NSError * __nonnull))error;
-
--(void)observe:(void (^ __nonnull)(id __nonnull))next error:(void (^ __nonnull)(NSError * __nonnull))error completed:(void (^ __nonnull)(void))completed;
-
--(void)observe:(void (^ __nonnull)(id __nonnull))next error:(void (^ __nonnull)(NSError * __nonnull))error interrupted:(void (^ __nonnull)(void))interrupted;
-
--(void)observe:(void (^ __nonnull)(id __nonnull))next interrupted:(void (^ __nonnull)(void))interrupted;
+-(void)observe:(void (^ __nonnull)(id __nullable, NSError * __nullable))next;
 
 -(NSArray * __nullable)toArray;
 
