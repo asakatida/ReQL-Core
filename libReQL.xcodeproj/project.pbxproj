@@ -454,7 +454,7 @@
 		879CE5CB1B436AF20068D315 /* query.c in Sources */ = {isa = PBXBuildFile; fileRef = 879CE5C31B436AF20068D315 /* query.c */; };
 		879CE5CC1B436AF20068D315 /* query.h in Headers */ = {isa = PBXBuildFile; fileRef = 879CE5C41B436AF20068D315 /* query.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		879CE5CD1B436AF20068D315 /* ReQL.c in Sources */ = {isa = PBXBuildFile; fileRef = 879CE5C51B436AF20068D315 /* ReQL.c */; };
-		879CE5D01B436D3A0068D315 /* libpython.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 879CE5CF1B436D3A0068D315 /* libpython.dylib */; };
+		87A780EB1BADF96600C4E652 /* libpython.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 87A780EA1BADF96600C4E652 /* libpython.tbd */; };
 		87CD586E1B2CADA300EA800F /* query.c in Sources */ = {isa = PBXBuildFile; fileRef = 87CD586C1B2CADA300EA800F /* query.c */; };
 		87CD586F1B2CADA300EA800F /* query.h in Headers */ = {isa = PBXBuildFile; fileRef = 87CD586D1B2CADA300EA800F /* query.h */; };
 		87CD58F51B2CE04D00EA800F /* aggregation.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CD58711B2CE04D00EA800F /* aggregation.m */; };
@@ -1297,7 +1297,7 @@
 		879CE5C31B436AF20068D315 /* query.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = query.c; sourceTree = "<group>"; };
 		879CE5C41B436AF20068D315 /* query.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = query.h; sourceTree = "<group>"; };
 		879CE5C51B436AF20068D315 /* ReQL.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ReQL.c; sourceTree = "<group>"; };
-		879CE5CF1B436D3A0068D315 /* libpython.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpython.dylib; path = usr/lib/libpython.dylib; sourceTree = SDKROOT; };
+		87A780EA1BADF96600C4E652 /* libpython.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libpython.tbd; path = usr/lib/libpython.tbd; sourceTree = SDKROOT; };
 		87CD586C1B2CADA300EA800F /* query.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = query.c; sourceTree = "<group>"; };
 		87CD586D1B2CADA300EA800F /* query.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = query.h; sourceTree = "<group>"; };
 		87CD58711B2CE04D00EA800F /* aggregation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = aggregation.m; sourceTree = "<group>"; };
@@ -1490,7 +1490,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				879CE5D01B436D3A0068D315 /* libpython.dylib in Frameworks */,
+				87A780EB1BADF96600C4E652 /* libpython.tbd in Frameworks */,
 				879CE5BD1B436AD20068D315 /* liblibReQL-core.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1714,7 +1714,7 @@
 		1E9D4B6E1A03011100201983 = {
 			isa = PBXGroup;
 			children = (
-				879CE5CF1B436D3A0068D315 /* libpython.dylib */,
+				87A780EA1BADF96600C4E652 /* libpython.tbd */,
 				8791C8461B13968C004798D7 /* libReQL */,
 				8791C8531B13968C004798D7 /* libReQLTests */,
 				1E9D4B781A03011100201983 /* Products */,
