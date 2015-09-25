@@ -151,7 +151,7 @@ reql_conn_open(ReQL_Conn_t *conn);
  * @return 0 on success. Non zero otherwise.
  */
 extern int
-reql_run_query(struct ReQL_Cur_s *cur, const ReQL_Obj_t *query, ReQL_Conn_t *conn, ReQL_Obj_t *kwargs);
+reql_run_query(ReQL_Cur_t *cur, ReQL_Obj_t *query, ReQL_Conn_t *conn, ReQL_Obj_t *kwargs);
 
 /**
  * @brief send a no reply wait query.
@@ -162,10 +162,10 @@ extern int
 reql_no_reply_wait_query(ReQL_Conn_t *conn);
 
 extern int
-reql_stop_query(struct ReQL_Cur_s *cur);
+reql_stop_query(ReQL_Cur_t *cur);
 
 extern int
-reql_continue_query(struct ReQL_Cur_s *cur);
+reql_continue_query(ReQL_Cur_t *cur);
 
 #ifdef __cplusplus
 }

@@ -56,7 +56,7 @@ extern void
 reql_cur_close(ReQL_Cur_t *cur);
 
 extern void
-reql_cur_init(ReQL_Cur_t *cur, struct ReQL_Conn_s *conn, ReQL_Token token);
+reql_cur_init(ReQL_Cur_t *cur, ReQL_Conn_t *conn, ReQL_Token token);
 
 extern void
 reql_cur_set_response(ReQL_Cur_t *cur, ReQL_Obj_t *res);

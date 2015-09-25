@@ -491,146 +491,6 @@ reql_conn_open(ReQL_Conn_t *conn) {
   return open;
 }
 
-static ReQL_Obj_t *
-reql_build(const ReQL_Obj_t *query) {
-  switch (reql_datum_type(query)) {
-    case REQL_R_ARRAY: {
-      ReQL_Obj_t *term = malloc(sizeof(ReQL_Obj_t));
-      reql_ast_make_array(term, NULL);
-      ReQL_Obj_t *obj = reql_build(term);
-      reql_json_destroy(term); term = NULL;
-      ReQL_Obj_t *args = malloc(sizeof(ReQL_Obj_t));
-      ReQL_Size size = reql_size(query);
-      ReQL_Obj_t **array = NULL;
-      if (size > 0) {
-        array = malloc(sizeof(ReQL_Obj_t*) * size);
-      }
-      reql_array_init(args, array, size);
-      ReQL_Iter_t it = reql_new_iter(query);
-      ReQL_Obj_t *elem = NULL;
-      while ((elem = reql_iter_next(&it)) != NULL) {
-        reql_array_append(args, reql_build(elem));
-      }
-      ReQL_Obj_t *fake_args = reql_array_last(obj);
-      reql_array_insert(obj, args, 1);
-      reql_json_destroy(fake_args);
-      return obj;
-    }
-    case REQL_R_BOOL:
-    case REQL_R_JSON:
-    case REQL_R_NULL:
-    case REQL_R_NUM:
-    case REQL_R_STR: {
-      return reql_json_copy(query);
-    }
-    case REQL_R_OBJECT: {
-      ReQL_Obj_t *obj = malloc(sizeof(ReQL_Obj_t));
-      ReQL_Size size = reql_size(query);
-      ReQL_Pair_t *pairs = NULL;
-      if (size > 0) {
-        pairs = malloc(sizeof(ReQL_Pair_t) * size);
-      }
-      reql_object_init(obj, pairs, size);
-      ReQL_Iter_t it = reql_new_iter(query);
-      ReQL_Obj_t *key = NULL;
-      while ((key = reql_iter_next(&it)) != NULL) {
-        reql_object_add(obj, reql_json_copy(key), reql_build(reql_object_get(query, key)));
-      }
-      return obj;
-    }
-    case REQL_R_REQL: {
-      ReQL_Obj_t *term = malloc(sizeof(ReQL_Obj_t));
-      ReQL_Size term_size = reql_size(query->obj.args.kwargs) > 0 ? 3 : 2;
-      ReQL_Obj_t **array = malloc(sizeof(ReQL_Obj_t*) * term_size);
-      reql_array_init(term, array, term_size);
-      ReQL_Obj_t *tt = malloc(sizeof(ReQL_Obj_t));
-      reql_number_init(tt, (double)(reql_term_type(query)));
-      reql_array_append(term, tt);
-      ReQL_Obj_t *args = malloc(sizeof(ReQL_Obj_t));
-      ReQL_Size size = reql_size(query->obj.args.args);
-      ReQL_Obj_t **args_array = NULL;
-      if (size > 0) {
-        args_array = malloc(sizeof(ReQL_Obj_t*) * size);
-      }
-      reql_array_init(args, args_array, size);
-      ReQL_Iter_t it = reql_new_iter(query->obj.args.args);
-      ReQL_Obj_t *elem = NULL;
-      while ((elem = reql_iter_next(&it)) != NULL) {
-        reql_array_append(args, reql_build(elem));
-      }
-      reql_array_append(term, args);
-      if (reql_size(query->obj.args.kwargs) > 0) {
-        reql_array_append(term, reql_build(query->obj.args.kwargs));
-      }
-      return term;
-    }
-  }
-  return NULL;
-}
-
-static ReQL_String_t *
-reql_encode_query(const ReQL_Obj_t *query, ReQL_Obj_t *kwargs, int no_reply) {
-  ReQL_Obj_t start;
-
-  ReQL_Obj_t array;
-  ReQL_Obj_t *arr[3];
-
-  reql_number_init(&start, REQL_START);
-  reql_array_init(&array, arr, 3);
-  reql_array_append(&array, &start);
-
-  ReQL_Obj_t *build = reql_build(query);
-
-  reql_array_append(&array, build);
-
-  ReQL_Obj_t *new_kwargs = NULL;
-  ReQL_Pair_t *pair = NULL;
-  ReQL_Obj_t *key = NULL;
-  ReQL_Byte *buf = NULL;
-  ReQL_Obj_t *no_reply_true = NULL;
-
-  if (no_reply) {
-    key = malloc(sizeof(ReQL_Obj_t));
-    buf = malloc(sizeof(ReQL_Byte) * 7);
-    reql_string_init(key, buf, (ReQL_Byte*)"noreply", 7);
-    const ReQL_Size size = reql_size(kwargs) + 1;
-    if (size == 1) {
-      new_kwargs = malloc(sizeof(ReQL_Obj_t));
-      pair = malloc(sizeof(ReQL_Pair_t) * size);
-      reql_object_init(new_kwargs, pair, size);
-    } else {
-      if (reql_object_get(kwargs, key) == NULL) {
-        new_kwargs = malloc(sizeof(ReQL_Obj_t));
-        pair = malloc(sizeof(ReQL_Pair_t) * size);
-        reql_object_init(new_kwargs, pair, size);
-        ReQL_Iter_t it = reql_new_iter(kwargs);
-        ReQL_Obj_t *old_key = NULL;
-        while ((old_key = reql_iter_next(&it)) != NULL) {
-          reql_object_add(new_kwargs, reql_json_copy(old_key), reql_json_copy(reql_object_get(kwargs, old_key)));
-        }
-      }
-    }
-    if (new_kwargs == NULL) {
-      reql_array_append(&array, kwargs);
-    } else {
-      no_reply_true = malloc(sizeof(ReQL_Obj_t));
-      reql_bool_init(no_reply_true, 1);
-      reql_object_add(new_kwargs, key, no_reply_true);
-      reql_array_append(&array, new_kwargs);
-    }
-  } else {
-    reql_array_append(&array, kwargs);
-  }
-
-  ReQL_String_t *wire_query = reql_encode(&array);
-
-  reql_json_destroy(key);
-  reql_json_destroy(new_kwargs);
-  reql_json_destroy(build);
-
-  return wire_query;
-}
-
 static int
 reql_run_query_(const ReQL_String_t *wire_query, ReQL_Conn_t *conn, const ReQL_Token token) {
   ReQL_Byte token_bytes[8];
@@ -652,9 +512,17 @@ reql_run_query_(const ReQL_String_t *wire_query, ReQL_Conn_t *conn, const ReQL_T
   magic[2].iov_base = wire_query->str;
   magic[2].iov_len = wire_query->size;
 
-  if (writev(reql_conn_socket(conn), magic, 3) != (wire_query->size + 12)) {
+  reql_conn_lock(conn);
+  int sock = reql_conn_socket(conn);
+  if (sock < 0) {
+    reql_conn_unlock(conn);
     return -1;
   }
+  if (writev(sock, magic, 3) != (wire_query->size + 12)) {
+    reql_conn_unlock(conn);
+    return -1;
+  }
+  reql_conn_unlock(conn);
 
   return 0;
 }
@@ -705,9 +573,9 @@ reql_no_reply_wait_query(ReQL_Conn_t *conn) {
   const ReQL_Token token = conn->max_token++;
   reql_cur_init(cur, conn, token);
   conn->cursors = cur;
+  reql_conn_unlock(conn);
 
   const int status = reql_run_query_(&wire_query, conn, token);
-  reql_conn_unlock(conn);
 
   if (status == 0) {
     reql_cur_drain(cur);
@@ -730,34 +598,40 @@ reql_stop_query(ReQL_Cur_t *cur) {
     return -1;
   }
 
-  reql_conn_lock(cur->conn);
-  const int status = reql_run_query_(&wire_query, cur->conn, cur->token);
-  reql_conn_unlock(cur->conn);
-
-  return status;
+  return reql_run_query_(&wire_query, cur->conn, cur->token);
 }
 
 extern int
-reql_run_query(ReQL_Cur_t *cur, const ReQL_Obj_t *query, ReQL_Conn_t *conn, ReQL_Obj_t *kwargs) {
-  ReQL_String_t *wire_query = reql_encode_query(query, kwargs, cur == NULL);
+reql_run_query(ReQL_Cur_t *cur, ReQL_Obj_t *query, ReQL_Conn_t *conn, ReQL_Obj_t *kwargs) {
+  ReQL_Obj_t start;
+
+  ReQL_Obj_t array;
+  ReQL_Obj_t *arr[3];
+
+  reql_number_init(&start, REQL_START);
+  reql_array_init(&array, arr, 3);
+  reql_array_append(&array, &start);
+
+  reql_array_append(&array, query);
+
+  reql_array_append(&array, kwargs);
+
+  ReQL_String_t *wire_query = reql_encode(&array);
 
   if (wire_query == NULL) {
     return -1;
   }
 
-  reql_conn_lock(conn);
-  int status = -1;
-  if (reql_conn_socket(conn) >= 0) {
-    const ReQL_Token token = conn->max_token++;
+  const ReQL_Token token = conn->max_token++;
 
-    if (cur != NULL) {
-      reql_cur_init(cur, conn, token);
-      conn->cursors = cur;
-    }
-
-    status = reql_run_query_(wire_query, conn, token);
+  if (cur != NULL) {
+    reql_conn_lock(conn);
+    reql_cur_init(cur, conn, token);
+    conn->cursors = cur;
+    reql_conn_unlock(conn);
   }
-  reql_conn_unlock(conn);
+
+  const int status = reql_run_query_(wire_query, conn, token);
 
   free(wire_query->str); wire_query->str = NULL;
   free(wire_query); wire_query = NULL;
