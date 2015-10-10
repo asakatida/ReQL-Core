@@ -483,6 +483,20 @@ TEST_CASE("cpp Test the arity of every function", "[cpp][ast]") {
     Query var0(map0);
   }
 
+  SECTION("test39") {
+    Types::object map0;
+
+    std::string src1("func", 4);
+    Query var1(src1);
+
+    std::string src2("err", 3);
+    Query var2(src2);
+
+    map0.insert({src1, var2});
+
+    Query var0(map0);
+  }
+
   SECTION("test40") {
     double num0(10);
     Query var0(num0);

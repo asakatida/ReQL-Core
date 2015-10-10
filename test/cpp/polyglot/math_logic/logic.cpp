@@ -99,6 +99,24 @@ TEST_CASE("cpp These tests are aimed at &&, ||, and !", "[cpp][ast]") {
     Query var0(false);
   }
 
+  SECTION("test18") {
+    Types::object map0;
+
+    std::string src1("func", 4);
+    Query var1(src1);
+
+    std::string src2("err", 3);
+    Query var2(src2);
+
+    map0.insert({src1, var2});
+
+    Query var0(map0);
+  }
+
+  SECTION("test19") {
+    Query var0(false);
+  }
+
   SECTION("test20") {
     Query var0(true);
   }

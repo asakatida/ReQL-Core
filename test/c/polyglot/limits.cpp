@@ -109,4 +109,58 @@ TEST_CASE("c Tests array limit variations", "[c][ast]") {
 
 
   }
+
+  SECTION("test13") {
+  }
+
+  SECTION("test14") {
+
+
+
+  }
+
+  SECTION("test15") {
+  }
+
+  SECTION("test16") {
+
+
+
+  }
+
+  SECTION("test17") {
+  }
+
+  SECTION("test18") {
+
+
+
+  }
+
+  SECTION("test19") {
+  }
+
+  SECTION("test20") {
+
+
+
+  }
+
+  SECTION("test21") {
+  }
+
+  SECTION("test22") {
+
+
+
+  }
+
+  SECTION("test23") {
+  }
+
+  SECTION("test24") {
+
+
+
+  }
 }

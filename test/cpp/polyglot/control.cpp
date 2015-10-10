@@ -81,6 +81,20 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
     Query var0(num0);
   }
 
+  SECTION("test9") {
+    Types::object map0;
+
+    std::string src1("func", 4);
+    Query var1(src1);
+
+    std::string src2("err", 3);
+    Query var2(src2);
+
+    map0.insert({src1, var2});
+
+    Query var0(map0);
+  }
+
   SECTION("test10") {
     Types::object map0;
 
@@ -253,6 +267,34 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
   }
 
   SECTION("test28") {
+    Types::object map0;
+
+    std::string src1("func", 4);
+    Query var1(src1);
+
+    std::string src2("err", 3);
+    Query var2(src2);
+
+    map0.insert({src1, var2});
+
+    Query var0(map0);
+  }
+
+  SECTION("test29") {
+    Types::object map0;
+
+    std::string src1("func", 4);
+    Query var1(src1);
+
+    std::string src2("err", 3);
+    Query var2(src2);
+
+    map0.insert({src1, var2});
+
+    Query var0(map0);
+  }
+
+  SECTION("test30") {
     Types::object map0;
 
     std::string src1("func", 4);
@@ -1137,20 +1179,6 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
     Query var1(src1);
 
     std::string src2("partial", 7);
-    Query var2(src2);
-
-    map0.insert({src1, var2});
-
-    Query var0(map0);
-  }
-
-  SECTION("test75") {
-    Types::object map0;
-
-    std::string src1("result", 6);
-    Query var1(src1);
-
-    std::string src2("blank", 5);
     Query var2(src2);
 
     map0.insert({src1, var2});

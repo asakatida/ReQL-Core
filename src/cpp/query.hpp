@@ -980,6 +980,11 @@ public:
   /**
    */
   Query
+  values(const Types::array &args) const;
+
+  /**
+   */
+  Query
   var(const Types::array &args) const;
 
   /**
@@ -1894,6 +1899,11 @@ update(const Types::array &args);
  */
 Query
 uuid(const Types::array &args);
+
+/**
+ */
+Query
+values(const Types::array &args);
 
 /**
  */

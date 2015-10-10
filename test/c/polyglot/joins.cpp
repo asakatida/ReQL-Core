@@ -3,7 +3,7 @@
 #include "./catch.hpp"
 #include "./ReQL.h"
 
-TEST_CASE("c Tests that manipulation data in tables 5", "[c][ast]") {
+TEST_CASE("c Tests that manipulation data in tables 4", "[c][ast]") {
 
   SECTION("test0") {
 

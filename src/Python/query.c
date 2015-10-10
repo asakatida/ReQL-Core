@@ -6620,6 +6620,42 @@ reql_py_uuid(PyObject *args, PyObject *kwargs) {
 }
 
 extern PyObject *
+reql_py_values_method(PyObject *self, PyObject *args, PyObject *kwargs) {
+  PyObject *val;
+
+  static char *kwlist[] = {NULL};
+
+  if (!PyArg_ParseTupleAndKeywords(args, kwargs, "o:r.values", kwlist, &val)) {
+    return self;
+  }
+
+  ReQLQuery *result = PyObject_New(ReQLQuery, reql_py_query_type());
+  if (result == NULL) {
+    return NULL;
+  }
+  result->reql_build = reql_py_build_term;
+  return (PyObject *)result;
+}
+
+extern PyObject *
+reql_py_values(PyObject *args, PyObject *kwargs) {
+  PyObject *val;
+
+  static char *kwlist[] = {NULL};
+
+  if (!PyArg_ParseTupleAndKeywords(args, kwargs, "o:r.values", kwlist, &val)) {
+    return NULL;
+  }
+
+  ReQLQuery *result = PyObject_New(ReQLQuery, reql_py_query_type());
+  if (result == NULL) {
+    return NULL;
+  }
+  result->reql_build = reql_py_build_term;
+  return (PyObject *)result;
+}
+
+extern PyObject *
 reql_py_var_method(PyObject *self, PyObject *args, PyObject *kwargs) {
   PyObject *val;
 

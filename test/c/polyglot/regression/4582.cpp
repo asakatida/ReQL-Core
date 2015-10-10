@@ -3,14 +3,23 @@
 #include "./catch.hpp"
 #include "./ReQL.h"
 
-TEST_CASE("c Regression tests for issue 98", "[c][ast]") {
+TEST_CASE("c 4582 -- non-deterministic arguments to `replace` and `update`.", "[c][ast]") {
 
   SECTION("test0") {
+
+
+
   }
 
   SECTION("test1") {
+
+
+
   }
 
   SECTION("test2") {
+
+
+
   }
 }

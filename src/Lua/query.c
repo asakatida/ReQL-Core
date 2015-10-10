@@ -1396,6 +1396,11 @@ reql_lua_uuid(lua_State *L) {
 }
 
 extern int
+reql_lua_values(lua_State *L) {
+  return reql_lua_ast_class(L, reql_ast_values);
+}
+
+extern int
 reql_lua_var(lua_State *L) {
   return reql_lua_ast_class(L, reql_ast_var);
 }

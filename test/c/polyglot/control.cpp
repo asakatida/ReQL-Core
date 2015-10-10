@@ -40,6 +40,12 @@ TEST_CASE("c Tests RQL control flow structures", "[c][ast]") {
   SECTION("test6") {
   }
 
+  SECTION("test9") {
+
+
+
+  }
+
   SECTION("test10") {
 
 
@@ -122,6 +128,18 @@ TEST_CASE("c Tests RQL control flow structures", "[c][ast]") {
   }
 
   SECTION("test28") {
+
+
+
+  }
+
+  SECTION("test29") {
+
+
+
+  }
+
+  SECTION("test30") {
 
 
 
@@ -489,12 +507,6 @@ TEST_CASE("c Tests RQL control flow structures", "[c][ast]") {
   }
 
   SECTION("test74") {
-
-
-
-  }
-
-  SECTION("test75") {
 
 
 

@@ -143,6 +143,12 @@ TEST_CASE("c Tests that manipulation data in tables 11", "[c][ast]") {
 
   }
 
+  SECTION("test17") {
+
+
+
+  }
+
   SECTION("test18") {
 
 
@@ -153,6 +159,18 @@ TEST_CASE("c Tests that manipulation data in tables 11", "[c][ast]") {
   }
 
   SECTION("test19") {
+  }
+
+  SECTION("test20") {
+
+
+
+  }
+
+  SECTION("test21") {
+
+
+
   }
 
   SECTION("test22") {
@@ -258,6 +276,12 @@ TEST_CASE("c Tests that manipulation data in tables 11", "[c][ast]") {
   }
 
   SECTION("test46") {
+  }
+
+  SECTION("test47") {
+
+
+
   }
 
   SECTION("test48") {
@@ -399,6 +423,9 @@ TEST_CASE("c Tests that manipulation data in tables 11", "[c][ast]") {
   }
 
   SECTION("test68") {
+  }
+
+  SECTION("test69") {
 
 
 

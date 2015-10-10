@@ -234,6 +234,17 @@
   [connection close];
 }
 
+- (void)test17 {
+  ReQLConnection *connection = [ReQLConnection new];
+  XCTAssert([connection isOpen]);
+  NSMutableDictionary *var0 = [NSMutableDictionary dictionaryWithCapacity:1];
+  NSString *var1 = @"func";
+  NSString *var2 = @"err";
+  [var0 setObject:var2 forKey:var1];
+  XCTAssert([var0 isEqualTo:var0]);
+  [connection close];
+}
+
 - (void)test18 {
   ReQLConnection *connection = [ReQLConnection new];
   XCTAssert([connection isOpen]);
@@ -252,6 +263,28 @@
   ReQLConnection *connection = [ReQLConnection new];
   XCTAssert([connection isOpen]);
   NSNull *var0 = [NSNull null];
+  XCTAssert([var0 isEqualTo:var0]);
+  [connection close];
+}
+
+- (void)test20 {
+  ReQLConnection *connection = [ReQLConnection new];
+  XCTAssert([connection isOpen]);
+  NSMutableDictionary *var0 = [NSMutableDictionary dictionaryWithCapacity:1];
+  NSString *var1 = @"func";
+  NSString *var2 = @"err";
+  [var0 setObject:var2 forKey:var1];
+  XCTAssert([var0 isEqualTo:var0]);
+  [connection close];
+}
+
+- (void)test21 {
+  ReQLConnection *connection = [ReQLConnection new];
+  XCTAssert([connection isOpen]);
+  NSMutableDictionary *var0 = [NSMutableDictionary dictionaryWithCapacity:1];
+  NSString *var1 = @"func";
+  NSString *var2 = @"err";
+  [var0 setObject:var2 forKey:var1];
   XCTAssert([var0 isEqualTo:var0]);
   [connection close];
 }
@@ -486,6 +519,17 @@
   [connection close];
 }
 
+- (void)test47 {
+  ReQLConnection *connection = [ReQLConnection new];
+  XCTAssert([connection isOpen]);
+  NSMutableDictionary *var0 = [NSMutableDictionary dictionaryWithCapacity:1];
+  NSString *var1 = @"func";
+  NSString *var2 = @"err";
+  [var0 setObject:var2 forKey:var1];
+  XCTAssert([var0 isEqualTo:var0]);
+  [connection close];
+}
+
 - (void)test48 {
   ReQLConnection *connection = [ReQLConnection new];
   XCTAssert([connection isOpen]);
@@ -715,6 +759,14 @@
 }
 
 - (void)test68 {
+  ReQLConnection *connection = [ReQLConnection new];
+  XCTAssert([connection isOpen]);
+  NSString *var0 = @"SELECTION<STREAM>";
+  XCTAssert([var0 isEqualTo:var0]);
+  [connection close];
+}
+
+- (void)test69 {
   ReQLConnection *connection = [ReQLConnection new];
   XCTAssert([connection isOpen]);
   NSMutableDictionary *var0 = [NSMutableDictionary dictionaryWithCapacity:1];

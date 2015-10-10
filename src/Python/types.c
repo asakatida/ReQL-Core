@@ -325,6 +325,7 @@ static PyMethodDef Query_methods[] = {
   {"upcase", (PyCFunction)reql_py_upcase_method, METH_VARARGS | METH_KEYWORDS, ""},
   {"update", (PyCFunction)reql_py_update_method, METH_VARARGS | METH_KEYWORDS, ""},
   {"uuid", (PyCFunction)reql_py_uuid_method, METH_VARARGS | METH_KEYWORDS, ""},
+  {"values", (PyCFunction)reql_py_values_method, METH_VARARGS | METH_KEYWORDS, ""},
   {"var", (PyCFunction)reql_py_var_method, METH_VARARGS | METH_KEYWORDS, ""},
   {"wait", (PyCFunction)reql_py_wait_method, METH_VARARGS | METH_KEYWORDS, ""},
   {"wednesday", (PyCFunction)reql_py_wednesday_method, METH_VARARGS | METH_KEYWORDS, ""},

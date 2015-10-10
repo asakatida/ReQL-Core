@@ -903,6 +903,11 @@ reql_uuid(ReQL_t **args);
 /**
  */
 extern ReQL_t *
+reql_values(ReQL_t **args);
+
+/**
+ */
+extern ReQL_t *
 reql_var(ReQL_t **args);
 
 /**

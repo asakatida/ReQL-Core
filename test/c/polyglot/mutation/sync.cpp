@@ -79,6 +79,18 @@ TEST_CASE("c Tests syncing tables", "[c][ast]") {
 
   }
 
+  SECTION("test11") {
+
+
+
+  }
+
+  SECTION("test12") {
+
+
+
+  }
+
   SECTION("test14") {
 
 

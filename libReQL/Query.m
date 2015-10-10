@@ -2182,6 +2182,16 @@ uuid:(NSArray *)args {
 }
 
 +(instancetype)
+values:(NSArray *)args {
+  return [self newTerm:reql_ast_values :args];
+}
+
+-(instancetype)
+values:(NSArray *)args {
+  return [self newTerm:reql_ast_values :args];
+}
+
++(instancetype)
 var:(NSArray *)args {
   return [self newTerm:reql_ast_var :args];
 }

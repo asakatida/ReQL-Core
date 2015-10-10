@@ -21,7 +21,6 @@ set(SOURCES
  test/c/connection.cpp
  test/c/polyglot/aggregation.cpp
  test/c/polyglot/arity.cpp
- test/c/polyglot/arraylimits.cpp
  test/c/polyglot/changefeeds/edge.cpp
  test/c/polyglot/changefeeds/idxcopy.cpp
  test/c/polyglot/changefeeds/include_states.cpp
@@ -48,6 +47,7 @@ set(SOURCES
  test/c/polyglot/geo/primitives.cpp
  test/c/polyglot/joins.cpp
  test/c/polyglot/json.cpp
+ test/c/polyglot/limits.cpp
  test/c/polyglot/match.cpp
  test/c/polyglot/math_logic/add.cpp
  test/c/polyglot/math_logic/aliases.cpp
@@ -83,7 +83,6 @@ set(SOURCES
  test/c/polyglot/regression/1789.cpp
  test/c/polyglot/regression/2052.cpp
  test/c/polyglot/regression/2399.cpp
- test/c/polyglot/regression/2639.cpp
  test/c/polyglot/regression/2639.rb.cpp
  test/c/polyglot/regression/2696.cpp
  test/c/polyglot/regression/2697.cpp
@@ -109,6 +108,7 @@ set(SOURCES
  test/c/polyglot/regression/4431.cpp
  test/c/polyglot/regression/4501.cpp
  test/c/polyglot/regression/453.cpp
+ test/c/polyglot/regression/4582.cpp
  test/c/polyglot/regression/4591.cpp
  test/c/polyglot/regression/46.cpp
  test/c/polyglot/regression/469.cpp
@@ -119,13 +119,12 @@ set(SOURCES
  test/c/polyglot/regression/578.cpp
  test/c/polyglot/regression/579.cpp
  test/c/polyglot/regression/619.cpp
- test/c/polyglot/regression/632.cpp
  test/c/polyglot/regression/665.cpp
  test/c/polyglot/regression/678.cpp
  test/c/polyglot/regression/718.cpp
  test/c/polyglot/regression/730.cpp
  test/c/polyglot/regression/757.cpp
- test/c/polyglot/regression/763.cpp
+ test/c/polyglot/regression/763.js.cpp
  test/c/polyglot/regression/767.cpp
  test/c/polyglot/regression/779.cpp
  test/c/polyglot/regression/831.cpp
@@ -148,7 +147,6 @@ set(SOURCES
  test/cpp/connection.cpp
  test/cpp/polyglot/aggregation.cpp
  test/cpp/polyglot/arity.cpp
- test/cpp/polyglot/arraylimits.cpp
  test/cpp/polyglot/changefeeds/edge.cpp
  test/cpp/polyglot/changefeeds/idxcopy.cpp
  test/cpp/polyglot/changefeeds/include_states.cpp
@@ -175,6 +173,7 @@ set(SOURCES
  test/cpp/polyglot/geo/primitives.cpp
  test/cpp/polyglot/joins.cpp
  test/cpp/polyglot/json.cpp
+ test/cpp/polyglot/limits.cpp
  test/cpp/polyglot/match.cpp
  test/cpp/polyglot/math_logic/add.cpp
  test/cpp/polyglot/math_logic/aliases.cpp
@@ -210,7 +209,6 @@ set(SOURCES
  test/cpp/polyglot/regression/1789.cpp
  test/cpp/polyglot/regression/2052.cpp
  test/cpp/polyglot/regression/2399.cpp
- test/cpp/polyglot/regression/2639.cpp
  test/cpp/polyglot/regression/2639.rb.cpp
  test/cpp/polyglot/regression/2696.cpp
  test/cpp/polyglot/regression/2697.cpp
@@ -236,6 +234,7 @@ set(SOURCES
  test/cpp/polyglot/regression/4431.cpp
  test/cpp/polyglot/regression/4501.cpp
  test/cpp/polyglot/regression/453.cpp
+ test/cpp/polyglot/regression/4582.cpp
  test/cpp/polyglot/regression/4591.cpp
  test/cpp/polyglot/regression/46.cpp
  test/cpp/polyglot/regression/469.cpp
@@ -246,13 +245,12 @@ set(SOURCES
  test/cpp/polyglot/regression/578.cpp
  test/cpp/polyglot/regression/579.cpp
  test/cpp/polyglot/regression/619.cpp
- test/cpp/polyglot/regression/632.cpp
  test/cpp/polyglot/regression/665.cpp
  test/cpp/polyglot/regression/678.cpp
  test/cpp/polyglot/regression/718.cpp
  test/cpp/polyglot/regression/730.cpp
  test/cpp/polyglot/regression/757.cpp
- test/cpp/polyglot/regression/763.cpp
+ test/cpp/polyglot/regression/763.js.cpp
  test/cpp/polyglot/regression/767.cpp
  test/cpp/polyglot/regression/779.cpp
  test/cpp/polyglot/regression/831.cpp
@@ -280,7 +278,6 @@ set(SOURCES
  test/reql/expr.cpp
  test/reql/polyglot/aggregation.cpp
  test/reql/polyglot/arity.cpp
- test/reql/polyglot/arraylimits.cpp
  test/reql/polyglot/changefeeds/edge.cpp
  test/reql/polyglot/changefeeds/idxcopy.cpp
  test/reql/polyglot/changefeeds/include_states.cpp
@@ -307,6 +304,7 @@ set(SOURCES
  test/reql/polyglot/geo/primitives.cpp
  test/reql/polyglot/joins.cpp
  test/reql/polyglot/json.cpp
+ test/reql/polyglot/limits.cpp
  test/reql/polyglot/match.cpp
  test/reql/polyglot/math_logic/add.cpp
  test/reql/polyglot/math_logic/aliases.cpp
@@ -342,7 +340,6 @@ set(SOURCES
  test/reql/polyglot/regression/1789.cpp
  test/reql/polyglot/regression/2052.cpp
  test/reql/polyglot/regression/2399.cpp
- test/reql/polyglot/regression/2639.cpp
  test/reql/polyglot/regression/2639.rb.cpp
  test/reql/polyglot/regression/2696.cpp
  test/reql/polyglot/regression/2697.cpp
@@ -368,6 +365,7 @@ set(SOURCES
  test/reql/polyglot/regression/4431.cpp
  test/reql/polyglot/regression/4501.cpp
  test/reql/polyglot/regression/453.cpp
+ test/reql/polyglot/regression/4582.cpp
  test/reql/polyglot/regression/4591.cpp
  test/reql/polyglot/regression/46.cpp
  test/reql/polyglot/regression/469.cpp
@@ -378,13 +376,12 @@ set(SOURCES
  test/reql/polyglot/regression/578.cpp
  test/reql/polyglot/regression/579.cpp
  test/reql/polyglot/regression/619.cpp
- test/reql/polyglot/regression/632.cpp
  test/reql/polyglot/regression/665.cpp
  test/reql/polyglot/regression/678.cpp
  test/reql/polyglot/regression/718.cpp
  test/reql/polyglot/regression/730.cpp
  test/reql/polyglot/regression/757.cpp
- test/reql/polyglot/regression/763.cpp
+ test/reql/polyglot/regression/763.js.cpp
  test/reql/polyglot/regression/767.cpp
  test/reql/polyglot/regression/779.cpp
  test/reql/polyglot/regression/831.cpp

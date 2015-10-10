@@ -92,6 +92,24 @@ TEST_CASE("c Test ReQL interface to geo indexes", "[c][ast]") {
 
   }
 
+  SECTION("test13") {
+
+
+
+  }
+
+  SECTION("test14") {
+
+
+
+  }
+
+  SECTION("test15") {
+
+
+
+  }
+
   SECTION("test16") {
 
 
@@ -153,6 +171,24 @@ TEST_CASE("c Test ReQL interface to geo indexes", "[c][ast]") {
   }
 
   SECTION("test33") {
+
+
+
+  }
+
+  SECTION("test34") {
+
+
+
+  }
+
+  SECTION("test35") {
+
+
+
+  }
+
+  SECTION("test36") {
 
 
 

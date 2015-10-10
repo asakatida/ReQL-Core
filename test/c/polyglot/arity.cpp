@@ -209,6 +209,12 @@ TEST_CASE("c Test the arity of every function", "[c][ast]") {
 
   }
 
+  SECTION("test39") {
+
+
+
+  }
+
   SECTION("test40") {
   }
 

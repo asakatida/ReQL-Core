@@ -2041,6 +2041,18 @@ reql_node_uuid(const v8::Arguments& args) {
 }
 
 v8::Handle<v8::Value>
+reql_node_values(const v8::Arguments& args) {
+  v8::HandleScope scope;
+
+  v8::Local<v8::Object> obj = v8::Object::New();
+
+  if (!args[0]->IsUndefined()) {
+  }
+
+  return scope.Close(obj);
+}
+
+v8::Handle<v8::Value>
 reql_node_var(const v8::Arguments& args) {
   v8::HandleScope scope;
 

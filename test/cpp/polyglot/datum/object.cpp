@@ -179,10 +179,10 @@ TEST_CASE("cpp Tests conversion to and from the RQL object type", "[cpp][ast]") 
   SECTION("test13") {
     Types::object map0;
 
-    std::string src1("result", 6);
+    std::string src1("func", 4);
     Query var1(src1);
 
-    std::string src2("blank", 5);
+    std::string src2("err", 3);
     Query var2(src2);
 
     map0.insert({src1, var2});

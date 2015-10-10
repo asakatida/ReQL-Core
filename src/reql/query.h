@@ -1081,6 +1081,11 @@ reql_ast_uuid(ReQL_Obj_t *t, ReQL_Obj_t *a);
 /**
  */
 extern void
+reql_ast_values(ReQL_Obj_t *t, ReQL_Obj_t *a);
+
+/**
+ */
+extern void
 reql_ast_var(ReQL_Obj_t *t, ReQL_Obj_t *a);
 
 /**

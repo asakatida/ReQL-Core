@@ -1214,6 +1214,13 @@ uuid:(NSArray *)args;
 /**
  */
 +(instancetype)
+values:(NSArray *)args;
+-(instancetype)
+values:(NSArray *)args;
+
+/**
+ */
++(instancetype)
 var:(NSArray *)args;
 -(instancetype)
 var:(NSArray *)args;

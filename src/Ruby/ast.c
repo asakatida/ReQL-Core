@@ -861,6 +861,11 @@ reql_rb_uuid(int argn, VALUE *args, VALUE self) {
 }
 
 extern VALUE
+reql_rb_values(int argn, VALUE *args, VALUE self) {
+  return self;
+}
+
+extern VALUE
 reql_rb_var(int argn, VALUE *args, VALUE self) {
   return self;
 }

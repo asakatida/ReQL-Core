@@ -214,6 +214,7 @@ static PyMethodDef libReQLMethods[] = {
   {"upcase", (PyCFunction)reql_py_upcase, METH_VARARGS | METH_KEYWORDS, NULL},
   {"update", (PyCFunction)reql_py_update, METH_VARARGS | METH_KEYWORDS, NULL},
   {"uuid", (PyCFunction)reql_py_uuid, METH_VARARGS | METH_KEYWORDS, NULL},
+  {"values", (PyCFunction)reql_py_values, METH_VARARGS | METH_KEYWORDS, NULL},
   {"var", (PyCFunction)reql_py_var, METH_VARARGS | METH_KEYWORDS, NULL},
   {"wait", (PyCFunction)reql_py_wait, METH_VARARGS | METH_KEYWORDS, NULL},
   {"wednesday", (PyCFunction)reql_py_wednesday, METH_VARARGS | METH_KEYWORDS, NULL},

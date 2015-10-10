@@ -1972,6 +1972,15 @@ uuid(const Types::array &args) {
 }
 
 Query
+Query::values(const Types::array &args) const {
+  return init(_C::reql_ast_values, this, args);
+}
+Query
+values(const Types::array &args) {
+  return init(_C::reql_ast_values, args);
+}
+
+Query
 Query::var(const Types::array &args) const {
   return init(_C::reql_ast_var, this, args);
 }

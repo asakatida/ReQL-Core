@@ -202,6 +202,7 @@ static const struct luaL_Reg libReQL[] = {
   {"upcase", reql_lua_upcase},
   {"update", reql_lua_update},
   {"uuid", reql_lua_uuid},
+  {"values", reql_lua_values},
   {"var", reql_lua_var},
   {"wait", reql_lua_wait},
   {"wednesday", reql_lua_wednesday},

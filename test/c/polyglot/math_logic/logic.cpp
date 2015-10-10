@@ -65,6 +65,15 @@ TEST_CASE("c These tests are aimed at &&, ||, and !", "[c][ast]") {
   SECTION("test17") {
   }
 
+  SECTION("test18") {
+
+
+
+  }
+
+  SECTION("test19") {
+  }
+
   SECTION("test20") {
   }
 

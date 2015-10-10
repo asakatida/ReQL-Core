@@ -263,6 +263,60 @@ TEST_CASE("reql Test ReQL interface to geo indexes", "[reql][ast]") {
     reql_object_add(var0.get(), var1.get(), var2.get());
   }
 
+  SECTION("test13") {
+    std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
+    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    reql_object_init(var0.get(), pair0.get(), 1);
+
+    std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
+    reql_string_init(var1.get(), buf1.get(), src1, 4);
+
+    std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
+    const ReQL_Byte src2[] = "err";
+    reql_string_init(var2.get(), buf2.get(), src2, 3);
+
+    reql_object_add(var0.get(), var1.get(), var2.get());
+  }
+
+  SECTION("test14") {
+    std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
+    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    reql_object_init(var0.get(), pair0.get(), 1);
+
+    std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
+    reql_string_init(var1.get(), buf1.get(), src1, 4);
+
+    std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
+    const ReQL_Byte src2[] = "err";
+    reql_string_init(var2.get(), buf2.get(), src2, 3);
+
+    reql_object_add(var0.get(), var1.get(), var2.get());
+  }
+
+  SECTION("test15") {
+    std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
+    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    reql_object_init(var0.get(), pair0.get(), 1);
+
+    std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
+    reql_string_init(var1.get(), buf1.get(), src1, 4);
+
+    std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
+    const ReQL_Byte src2[] = "err";
+    reql_string_init(var2.get(), buf2.get(), src2, 3);
+
+    reql_object_add(var0.get(), var1.get(), var2.get());
+  }
+
   SECTION("test16") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
@@ -394,6 +448,60 @@ TEST_CASE("reql Test ReQL interface to geo indexes", "[reql][ast]") {
   }
 
   SECTION("test33") {
+    std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
+    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    reql_object_init(var0.get(), pair0.get(), 1);
+
+    std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
+    reql_string_init(var1.get(), buf1.get(), src1, 4);
+
+    std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
+    const ReQL_Byte src2[] = "err";
+    reql_string_init(var2.get(), buf2.get(), src2, 3);
+
+    reql_object_add(var0.get(), var1.get(), var2.get());
+  }
+
+  SECTION("test34") {
+    std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
+    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    reql_object_init(var0.get(), pair0.get(), 1);
+
+    std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
+    reql_string_init(var1.get(), buf1.get(), src1, 4);
+
+    std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
+    const ReQL_Byte src2[] = "err";
+    reql_string_init(var2.get(), buf2.get(), src2, 3);
+
+    reql_object_add(var0.get(), var1.get(), var2.get());
+  }
+
+  SECTION("test35") {
+    std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
+    std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
+    reql_object_init(var0.get(), pair0.get(), 1);
+
+    std::unique_ptr<ReQL_Obj_t> var1(new ReQL_Obj_t);
+    std::unique_ptr<ReQL_Byte[]> buf1(new ReQL_Byte[4]);
+    const ReQL_Byte src1[] = "func";
+    reql_string_init(var1.get(), buf1.get(), src1, 4);
+
+    std::unique_ptr<ReQL_Obj_t> var2(new ReQL_Obj_t);
+    std::unique_ptr<ReQL_Byte[]> buf2(new ReQL_Byte[3]);
+    const ReQL_Byte src2[] = "err";
+    reql_string_init(var2.get(), buf2.get(), src2, 3);
+
+    reql_object_add(var0.get(), var1.get(), var2.get());
+  }
+
+  SECTION("test36") {
     std::unique_ptr<ReQL_Obj_t> var0(new ReQL_Obj_t);
     std::unique_ptr<ReQL_Pair_t[]> pair0(new ReQL_Pair_t[1]);
     reql_object_init(var0.get(), pair0.get(), 1);

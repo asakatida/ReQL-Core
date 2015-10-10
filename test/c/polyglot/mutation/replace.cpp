@@ -260,6 +260,18 @@ TEST_CASE("c Tests replacement of selections 52", "[c][ast]") {
 
   }
 
+  SECTION("test14") {
+
+
+
+  }
+
+  SECTION("test15") {
+
+
+
+  }
+
   SECTION("test16") {
 
 

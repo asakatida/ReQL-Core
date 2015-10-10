@@ -866,6 +866,11 @@ reql_node_uuid(const v8::Arguments& args);
 /**
  */
 v8::Handle<v8::Value>
+reql_node_values(const v8::Arguments& args);
+
+/**
+ */
+v8::Handle<v8::Value>
 reql_node_var(const v8::Arguments& args);
 
 /**

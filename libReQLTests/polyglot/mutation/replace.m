@@ -336,6 +336,28 @@
   [connection close];
 }
 
+- (void)test14 {
+  ReQLConnection *connection = [ReQLConnection new];
+  XCTAssert([connection isOpen]);
+  NSMutableDictionary *var0 = [NSMutableDictionary dictionaryWithCapacity:1];
+  NSString *var1 = @"func";
+  NSString *var2 = @"err";
+  [var0 setObject:var2 forKey:var1];
+  XCTAssert([var0 isEqualTo:var0]);
+  [connection close];
+}
+
+- (void)test15 {
+  ReQLConnection *connection = [ReQLConnection new];
+  XCTAssert([connection isOpen]);
+  NSMutableDictionary *var0 = [NSMutableDictionary dictionaryWithCapacity:1];
+  NSString *var1 = @"func";
+  NSString *var2 = @"err";
+  [var0 setObject:var2 forKey:var1];
+  XCTAssert([var0 isEqualTo:var0]);
+  [connection close];
+}
+
 - (void)test16 {
   ReQLConnection *connection = [ReQLConnection new];
   XCTAssert([connection isOpen]);

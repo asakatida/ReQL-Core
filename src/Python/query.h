@@ -1232,6 +1232,13 @@ reql_py_uuid_method(PyObject *self, PyObject *args, PyObject *kwargs);
 /**
  */
 extern PyObject *
+reql_py_values(PyObject *args, PyObject *kwargs);
+extern PyObject *
+reql_py_values_method(PyObject *self, PyObject *args, PyObject *kwargs);
+
+/**
+ */
+extern PyObject *
 reql_py_var(PyObject *args, PyObject *kwargs);
 extern PyObject *
 reql_py_var_method(PyObject *self, PyObject *args, PyObject *kwargs);

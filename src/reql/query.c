@@ -198,6 +198,7 @@ enum ReQL_Term_e {
   REQL_UPCASE = 141,
   REQL_UPDATE = 53,
   REQL_UUID = 169,
+  REQL_VALUES = 186,
   REQL_VAR = 10,
   REQL_WAIT = 177,
   REQL_WEDNESDAY = 109,
@@ -1761,6 +1762,11 @@ reql_ast_update(ReQL_Obj_t *t, ReQL_Obj_t *a, ReQL_Obj_t *k) {
 extern void
 reql_ast_uuid(ReQL_Obj_t *t, ReQL_Obj_t *a) {
   reql_term_init(t, REQL_UUID, a, NULL);
+}
+
+extern void
+reql_ast_values(ReQL_Obj_t *t, ReQL_Obj_t *a) {
+  reql_term_init(t, REQL_VALUES, a, NULL);
 }
 
 extern void
