@@ -197,18 +197,21 @@ reql_function_(ReQL_t *reql) {
     return NULL;
   }
   ReQL_t *var_args = reql_array(buf);
+  free(buf);
   ReQL_t *args[3] = {
     var_args,
     NULL,
     NULL
   };
   ReQL_t *func = reql_funcall(args);
-  free(buf);
   if (func == NULL) {
     reql_decrement(expr);
+    reql_decrement(var_args);
     return NULL;
   }
-  return REQL_BUILD(func);
+  ReQL_Obj_t *res = REQL_BUILD(func);
+  reql_decrement(func);
+  return res;
 }
 
 static void
