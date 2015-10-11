@@ -29,186 +29,6 @@ limitations under the License.
 #include <stdlib.h>
 #include <string.h>
 
-enum ReQL_Term_e {
-  REQL_ADD = 24,
-  REQL_AND = 67,
-  REQL_APPEND = 29,
-  REQL_APRIL = 117,
-  REQL_ARGS = 154,
-  REQL_ASC = 73,
-  REQL_AUGUST = 121,
-  REQL_AVG = 146,
-  REQL_BETWEEN = 182,
-  REQL_BETWEEN_DEPRECATED = 36,
-  REQL_BINARY = 155,
-  REQL_BRACKET = 170,
-  REQL_BRANCH = 65,
-  REQL_CEIL = 184,
-  REQL_CHANGES = 152,
-  REQL_CHANGE_AT = 84,
-  REQL_CIRCLE = 165,
-  REQL_COERCE_TO = 51,
-  REQL_CONCAT_MAP = 40,
-  REQL_CONFIG = 174,
-  REQL_CONTAINS = 93,
-  REQL_COUNT = 43,
-  REQL_DATE = 106,
-  REQL_DATUM = 1,
-  REQL_DAY = 130,
-  REQL_DAY_OF_WEEK = 131,
-  REQL_DAY_OF_YEAR = 132,
-  REQL_DB = 14,
-  REQL_DB_CREATE = 57,
-  REQL_DB_DROP = 58,
-  REQL_DB_LIST = 59,
-  REQL_DECEMBER = 125,
-  REQL_DEFAULT = 92,
-  REQL_DELETE = 54,
-  REQL_DELETE_AT = 83,
-  REQL_DESC = 74,
-  REQL_DIFFERENCE = 95,
-  REQL_DISTANCE = 162,
-  REQL_DISTINCT = 42,
-  REQL_DIV = 27,
-  REQL_DOWNCASE = 142,
-  REQL_DURING = 105,
-  REQL_EPOCH_TIME = 101,
-  REQL_EQ = 17,
-  REQL_EQ_JOIN = 50,
-  REQL_ERROR = 12,
-  REQL_FEBRUARY = 115,
-  REQL_FILL = 167,
-  REQL_FILTER = 39,
-  REQL_FLOOR = 183,
-  REQL_FOR_EACH = 68,
-  REQL_FRIDAY = 111,
-  REQL_FUNC = 69,
-  REQL_FUNCALL = 64,
-  REQL_GE = 22,
-  REQL_GEOJSON = 157,
-  REQL_GET = 16,
-  REQL_GET_ALL = 78,
-  REQL_GET_FIELD = 31,
-  REQL_GET_INTERSECTING = 166,
-  REQL_GET_NEAREST = 168,
-  REQL_GROUP = 144,
-  REQL_GT = 21,
-  REQL_HAS_FIELDS = 32,
-  REQL_HOURS = 133,
-  REQL_HTTP = 153,
-  REQL_IMPLICIT_VAR = 13,
-  REQL_INCLUDES = 164,
-  REQL_INDEX_CREATE = 75,
-  REQL_INDEX_DROP = 76,
-  REQL_INDEX_LIST = 77,
-  REQL_INDEX_RENAME = 156,
-  REQL_INDEX_STATUS = 139,
-  REQL_INDEX_WAIT = 140,
-  REQL_INFO = 79,
-  REQL_INNER_JOIN = 48,
-  REQL_INSERT = 56,
-  REQL_INSERT_AT = 82,
-  REQL_INTERSECTS = 163,
-  REQL_IN_TIMEZONE = 104,
-  REQL_ISO8601 = 99,
-  REQL_IS_EMPTY = 86,
-  REQL_JANUARY = 114,
-  REQL_JAVASCRIPT = 11,
-  REQL_JSON = 98,
-  REQL_JULY = 120,
-  REQL_JUNE = 119,
-  REQL_KEYS = 94,
-  REQL_LE = 20,
-  REQL_LIMIT = 71,
-  REQL_LINE = 160,
-  REQL_LITERAL = 137,
-  REQL_LT = 19,
-  REQL_MAKE_ARRAY = 2,
-  REQL_MAKE_OBJ = 3,
-  REQL_MAP = 38,
-  REQL_MARCH = 116,
-  REQL_MATCH = 97,
-  REQL_MAX = 148,
-  REQL_MAXVAL = 181,
-  REQL_MAY = 118,
-  REQL_MERGE = 35,
-  REQL_MIN = 147,
-  REQL_MINUTES = 134,
-  REQL_MINVAL = 180,
-  REQL_MOD = 28,
-  REQL_MONDAY = 107,
-  REQL_MONTH = 129,
-  REQL_MUL = 26,
-  REQL_NE = 18,
-  REQL_NOT = 23,
-  REQL_NOVEMBER = 124,
-  REQL_NOW = 103,
-  REQL_NTH = 45,
-  REQL_OBJECT = 143,
-  REQL_OCTOBER = 123,
-  REQL_OFFSETS_OF = 87,
-  REQL_OR = 66,
-  REQL_ORDER_BY = 41,
-  REQL_OUTER_JOIN = 49,
-  REQL_PLUCK = 33,
-  REQL_POINT = 159,
-  REQL_POLYGON = 161,
-  REQL_POLYGON_SUB = 171,
-  REQL_PREPEND = 80,
-  REQL_RANDOM = 151,
-  REQL_RANGE = 173,
-  REQL_REBALANCE = 179,
-  REQL_RECONFIGURE = 176,
-  REQL_REDUCE = 37,
-  REQL_REPLACE = 55,
-  REQL_ROUND = 185,
-  REQL_SAMPLE = 81,
-  REQL_SATURDAY = 112,
-  REQL_SECONDS = 135,
-  REQL_SEPTEMBER = 122,
-  REQL_SET_DIFFERENCE = 91,
-  REQL_SET_INSERT = 88,
-  REQL_SET_INTERSECTION = 89,
-  REQL_SET_UNION = 90,
-  REQL_SKIP = 70,
-  REQL_SLICE = 30,
-  REQL_SPLICE_AT = 85,
-  REQL_SPLIT = 149,
-  REQL_STATUS = 175,
-  REQL_SUB = 25,
-  REQL_SUM = 145,
-  REQL_SUNDAY = 113,
-  REQL_SYNC = 138,
-  REQL_TABLE = 15,
-  REQL_TABLE_CREATE = 60,
-  REQL_TABLE_DROP = 61,
-  REQL_TABLE_LIST = 62,
-  REQL_THURSDAY = 110,
-  REQL_TIME = 136,
-  REQL_TIMEZONE = 127,
-  REQL_TIME_OF_DAY = 126,
-  REQL_TO_EPOCH_TIME = 102,
-  REQL_TO_GEOJSON = 158,
-  REQL_TO_ISO8601 = 100,
-  REQL_TO_JSON_STRING = 172,
-  REQL_TUESDAY = 108,
-  REQL_TYPE_OF = 52,
-  REQL_UNGROUP = 150,
-  REQL_UNION = 44,
-  REQL_UPCASE = 141,
-  REQL_UPDATE = 53,
-  REQL_UUID = 169,
-  REQL_VALUES = 186,
-  REQL_VAR = 10,
-  REQL_WAIT = 177,
-  REQL_WEDNESDAY = 109,
-  REQL_WITHOUT = 34,
-  REQL_WITH_FIELDS = 96,
-  REQL_YEAR = 128,
-  REQL_ZIP = 72
-};
-typedef enum ReQL_Term_e ReQL_Term_t;
-
 extern int
 reql_term_type(const ReQL_Obj_t *obj) {
   if (obj == NULL) {
@@ -287,7 +107,7 @@ reql_owner(ReQL_Obj_t *obj) {
 static ReQL_Size
 reql_ensure_space(const ReQL_Obj_t *obj, ReQL_Size size) {
   if (reql_alloc_size(obj) < size) {
-    const ReQL_Size min_size = (ReQL_Size)((double)(reql_size(obj) + size) * 1.1);
+    const ReQL_Size min_size = static_cast<ReQL_Size>(static_cast<double>(reql_size(obj) + size) * 1.1);
 
     if (min_size < size) {
       return UINT32_MAX;
@@ -304,7 +124,7 @@ reql_term_init(ReQL_Obj_t *obj, const ReQL_Term_t tt, ReQL_Obj_t *args, ReQL_Obj
   if (obj == NULL) {
     return;
   }
-  memset(obj, (int)NULL, sizeof(ReQL_Obj_t));
+  memset(obj, static_cast<int>(NULL), sizeof(ReQL_Obj_t));
   obj->tt = tt;
   obj->obj.args.args = NULL;
   if (args != NULL) {
@@ -413,7 +233,7 @@ reql_iter_next(ReQL_Iter_t *obj) {
 
 extern void
 reql_array_init(ReQL_Obj_t *obj, ReQL_Obj_t **arr, const ReQL_Size alloc_size) {
-  memset(arr, (int)NULL, sizeof(ReQL_Obj_t*) * alloc_size);
+  memset(arr, static_cast<int>(NULL), sizeof(ReQL_Obj_t*) * alloc_size);
   reql_var_json_init(obj, REQL_R_ARRAY, alloc_size);
   reql_set_array(obj, arr);
 }
@@ -480,16 +300,16 @@ reql_array_last(ReQL_Obj_t *obj) {
 
 extern void
 reql_object_init(ReQL_Obj_t *obj, ReQL_Pair_t *pairs, const ReQL_Size alloc_size) {
-  memset(pairs, (int)NULL, sizeof(ReQL_Pair_t) * alloc_size);
+  memset(pairs, static_cast<int>(NULL), sizeof(ReQL_Pair_t) * alloc_size);
   reql_var_json_init(obj, REQL_R_OBJECT, alloc_size);
   reql_set_pair(obj, pairs);
 }
 
 extern ReQL_Obj_t *
 reql_json_copy(const ReQL_Obj_t *other) {
-  ReQL_Obj_t *self = malloc(sizeof(ReQL_Obj_t));
-
-  if (self == NULL) {
+  try {
+    ReQL_Obj_t *self = new ReQL_Obj_t;
+  } catch (std::bad_alloc&) {
     return NULL;
   }
 
@@ -497,9 +317,9 @@ reql_json_copy(const ReQL_Obj_t *other) {
     case REQL_R_ARRAY: {
       const ReQL_Size size = reql_size(other);
 
-      ReQL_Obj_t **array = malloc(size * sizeof(ReQL_Obj_t*));
-
-      if (array == NULL) {
+      try {
+        ReQL_Obj_t **array = new ReQL_Obj_t*[size];
+      } catch (std::bad_alloc&) {
         free(self); self = NULL;
         return NULL;
       }
@@ -538,9 +358,9 @@ reql_json_copy(const ReQL_Obj_t *other) {
     case REQL_R_OBJECT: {
       const ReQL_Size size = reql_size(other);
 
-      ReQL_Pair_t *pairs = malloc(size * sizeof(ReQL_Pair_t));
-
-      if (pairs == NULL) {
+      try {
+        ReQL_Pair_t *pairs = new ReQL_Pair_t[size];
+      } catch (std::bad_alloc&) {
         free(self); self = NULL;
         return NULL;
       }
@@ -578,10 +398,9 @@ reql_json_copy(const ReQL_Obj_t *other) {
     }
     case REQL_R_STR: {
       const ReQL_Size size = reql_size(other);
-
-      ReQL_Byte *buf = malloc(size * sizeof(ReQL_Byte));
-
-      if (buf == NULL) {
+      try {
+        ReQL_Byte *buf = new ReQL_Byte[size];
+      } catch (std::bad_alloc&) {
         free(self); self = NULL;
         return NULL;
       }
@@ -590,7 +409,7 @@ reql_json_copy(const ReQL_Obj_t *other) {
       break;
     }
     case REQL_R_REQL: {
-      reql_term_init(self, (ReQL_Term_t)(reql_term_type(other)), reql_json_copy(reql_term_args(other)), reql_json_copy(reql_term_kwargs(other)));
+      reql_term_init(self, reql_term_type(other), reql_json_copy(reql_term_args(other)), reql_json_copy(reql_term_kwargs(other)));
       break;
     }
     case REQL_R_JSON: {
@@ -604,9 +423,9 @@ reql_json_copy(const ReQL_Obj_t *other) {
 
 extern ReQL_Obj_t *
 reql_json_move(ReQL_Obj_t *other) {
-  ReQL_Obj_t *self = malloc(sizeof(ReQL_Obj_t));
-
-  if (self == NULL) {
+  try {
+    ReQL_Obj_t *self = new ReQL_Obj_t;
+  } catch (std::bad_alloc&) {
     return NULL;
   }
 
@@ -671,12 +490,12 @@ reql_json_move(ReQL_Obj_t *other) {
     case REQL_R_REQL: {
       reql_term_args(other)->owner = NULL;
       reql_term_kwargs(other)->owner = NULL;
-      reql_term_init(self, (ReQL_Term_t)(reql_term_type(other)), reql_term_args(other), reql_term_kwargs(other));
+      reql_term_init(self, reql_term_type(other), reql_term_args(other), reql_term_kwargs(other));
       reql_term_init(other, REQL_DATUM, NULL, NULL);
       break;
     }
     case REQL_R_JSON: {
-      free(self); self = NULL;
+      delete self;
       break;
     }
   }
@@ -693,9 +512,9 @@ reql_key_sort(const void *l, const void *r) {
   } else if (r == NULL) {
     return 1;
   }
-  const ReQL_Pair_t *lobj = l;
+  const ReQL_Pair_t *lobj = reinterpret_cast<const ReQL_Pair_t *>(l);
   const ReQL_Obj_t *lkey = lobj->key;
-  const ReQL_Pair_t *robj = r;
+  const ReQL_Pair_t *robj = reinterpret_cast<const ReQL_Pair_t *>(r);
   const ReQL_Obj_t *rkey = robj->key;
   if (lkey == NULL && rkey == NULL) {
     return 0;
@@ -716,7 +535,7 @@ reql_key_sort(const void *l, const void *r) {
 
 static ReQL_Pair_t *
 reql_object_find(const ReQL_Obj_t *obj, const ReQL_Pair_t *key) {
-  return bsearch(key, reql_pair(obj), reql_size(obj), sizeof(ReQL_Pair_t), reql_key_sort);
+  return reinterpret_cast<ReQL_Pair_t *>(bsearch(key, reql_pair(obj), reql_size(obj), sizeof(ReQL_Pair_t), reql_key_sort));
 }
 
 extern ReQL_Size
