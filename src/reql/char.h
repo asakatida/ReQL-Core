@@ -35,7 +35,7 @@ enum {
   char_colon = 0x3A,
   char_comma = 0x2C,
   char_quotation = 0x22,
-  char_reverse_solidus = 0x5C,
+  char_reverse_solidus = 0x5C
 };
 
 static const ReQL_Byte left_square_bracket = char_left_square_bracket;
