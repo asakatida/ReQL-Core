@@ -130,7 +130,7 @@ reql_json_string_esc(const ReQL_Byte chr) {
     case 0x1F: return json_char_0x1F;
     case 0x22: return json_char_quotation;
     case 0x5C: return json_char_reverse_solidus;
-    default: return NULL;
+    default: return nullptr;
   }
 }
 

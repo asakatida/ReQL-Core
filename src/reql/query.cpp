@@ -23,6 +23,8 @@ limitations under the License.
 #include "./reql/error.h"
 #include "./reql/types.h"
 
+#include <memory>
+
 #include <float.h>
 #include <math.h>
 #include <pthread.h>
@@ -31,7 +33,7 @@ limitations under the License.
 
 extern int
 reql_term_type(const ReQL_Obj_t *obj) {
-  if (obj == NULL) {
+  if (obj == nullptr) {
     return REQL_DATUM;
   }
   return obj->tt;
@@ -49,7 +51,7 @@ reql_term_kwargs(const ReQL_Obj_t *obj) {
 
 extern ReQL_Datum_t
 reql_datum_type(const ReQL_Obj_t *obj) {
-  if (obj == NULL) {
+  if (obj == nullptr) {
     return REQL_R_JSON;
   }
   if (reql_term_type(obj) != REQL_DATUM) {
@@ -90,7 +92,7 @@ reql_set_size(ReQL_Obj_t *obj, const ReQL_Size size) {
 
 extern ReQL_Size
 reql_size(const ReQL_Obj_t *obj) {
-  if (obj == NULL) {
+  if (obj == nullptr) {
     return 0;
   }
   return obj->obj.datum.json.var.size;
@@ -98,8 +100,8 @@ reql_size(const ReQL_Obj_t *obj) {
 
 static ReQL_Obj_t *
 reql_owner(ReQL_Obj_t *obj) {
-  if (obj == NULL) {
-    return NULL;
+  if (obj == nullptr) {
+    return nullptr;
   }
   return obj->owner;
 }
@@ -121,35 +123,35 @@ reql_ensure_space(const ReQL_Obj_t *obj, ReQL_Size size) {
 
 static void
 reql_term_init(ReQL_Obj_t *obj, const ReQL_Term_t tt, ReQL_Obj_t *args, ReQL_Obj_t *kwargs) {
-  if (obj == NULL) {
+  if (obj == nullptr) {
     return;
   }
   memset(obj, static_cast<int>(NULL), sizeof(ReQL_Obj_t));
   obj->tt = tt;
-  obj->obj.args.args = NULL;
-  if (args != NULL) {
-    if (reql_owner(args) == NULL) {
+  obj->obj.args.args = nullptr;
+  if (args != nullptr) {
+    if (reql_owner(args) == nullptr) {
       obj->obj.args.args = args;
       args->owner = obj;
     } else {
       reql_error_init(REQL_E_JSON, "args array is already owned", __func__);
     }
   }
-  obj->obj.args.kwargs = NULL;
-  if (kwargs != NULL) {
-    if (reql_owner(kwargs) == NULL) {
+  obj->obj.args.kwargs = nullptr;
+  if (kwargs != nullptr) {
+    if (reql_owner(kwargs) == nullptr) {
       obj->obj.args.kwargs = kwargs;
       kwargs->owner = obj;
     } else {
       reql_error_init(REQL_E_JSON, "kwargs object is already owned", __func__);
     }
   }
-  obj->owner = NULL;
+  obj->owner = nullptr;
 }
 
 static void
 reql_json_init(ReQL_Obj_t *obj, const ReQL_Datum_t dt) {
-  reql_term_init(obj, REQL_DATUM, NULL, NULL);
+  reql_term_init(obj, REQL_DATUM, nullptr, nullptr);
   obj->obj.datum.dt = dt;
 }
 
@@ -167,7 +169,7 @@ reql_set_str(ReQL_Obj_t *obj, ReQL_Byte *str) {
 
 extern void
 reql_number_init(ReQL_Obj_t *obj, const double num) {
-  if (obj == NULL) {
+  if (obj == nullptr) {
     return;
   }
   reql_json_init(obj, REQL_R_NUM);
@@ -176,7 +178,7 @@ reql_number_init(ReQL_Obj_t *obj, const double num) {
 
 extern double
 reql_to_number(const ReQL_Obj_t *obj) {
-  if (obj == NULL) {
+  if (obj == nullptr) {
     return 0;
   }
   return obj->obj.datum.json.number;
@@ -184,7 +186,7 @@ reql_to_number(const ReQL_Obj_t *obj) {
 
 extern void
 reql_string_init(ReQL_Obj_t *obj, ReQL_Byte *str, const ReQL_Byte *ext, const ReQL_Size alloc_size) {
-  if (obj == NULL) {
+  if (obj == nullptr) {
     return;
   }
   reql_var_json_init(obj, REQL_R_STR, alloc_size);
@@ -195,8 +197,8 @@ reql_string_init(ReQL_Obj_t *obj, ReQL_Byte *str, const ReQL_Byte *ext, const Re
 
 extern ReQL_Byte *
 reql_string_buf(const ReQL_Obj_t *obj) {
-  if (obj == NULL) {
-    return NULL;
+  if (obj == nullptr) {
+    return nullptr;
   }
   return obj->obj.datum.json.var.data.str;
 }
@@ -211,7 +213,7 @@ reql_new_iter(const ReQL_Obj_t *obj) {
 
 extern ReQL_Obj_t *
 reql_iter_next(ReQL_Iter_t *obj) {
-  ReQL_Obj_t *next = NULL;
+  ReQL_Obj_t *next = nullptr;
 
   if (reql_size(obj->obj) > obj->idx) {
     if (reql_datum_type(obj->obj) == REQL_R_ARRAY) {
@@ -219,11 +221,11 @@ reql_iter_next(ReQL_Iter_t *obj) {
     } else if (reql_datum_type(obj->obj) == REQL_R_OBJECT) {
       next = reql_pair(obj->obj)[obj->idx].key;
     } else {
-      return NULL;
+      return nullptr;
     }
     ++obj->idx;
 
-    if (next == NULL) {
+    if (next == nullptr) {
       return reql_iter_next(obj);
     }
   }
@@ -240,7 +242,7 @@ reql_array_init(ReQL_Obj_t *obj, ReQL_Obj_t **arr, const ReQL_Size alloc_size) {
 
 extern ReQL_Size
 reql_array_insert(ReQL_Obj_t *obj, ReQL_Obj_t *val, const ReQL_Size idx) {
-  if (reql_owner(val) != NULL) {
+  if (reql_owner(val) != nullptr) {
     reql_error_init(REQL_E_JSON, "element already owned", __func__);
     return UINT32_MAX;
   }
@@ -259,7 +261,7 @@ reql_array_insert(ReQL_Obj_t *obj, ReQL_Obj_t *val, const ReQL_Size idx) {
   ReQL_Obj_t **arr = reql_array(obj);
 
   arr[idx] = val;
-  if (val != NULL) {
+  if (val != nullptr) {
     val->owner = obj;
   }
 
@@ -269,7 +271,7 @@ reql_array_insert(ReQL_Obj_t *obj, ReQL_Obj_t *val, const ReQL_Size idx) {
 extern ReQL_Obj_t *
 reql_array_index(const ReQL_Obj_t *obj, const ReQL_Size idx) {
   if (reql_alloc_size(obj) <= idx) {
-    return NULL;
+    return nullptr;
   }
 
   return reql_array(obj)[idx];
@@ -277,7 +279,7 @@ reql_array_index(const ReQL_Obj_t *obj, const ReQL_Size idx) {
 
 extern ReQL_Size
 reql_array_append(ReQL_Obj_t *obj, ReQL_Obj_t *val) {
-  if (val == NULL) {
+  if (val == nullptr) {
     return 0;
   }
   return reql_array_insert(obj, val, reql_size(obj));
@@ -289,13 +291,13 @@ reql_array_last(ReQL_Obj_t *obj) {
   if (size > 0) {
     --size;
     ReQL_Obj_t *res = reql_array_index(obj, size);
-    if (res == NULL) {
+    if (res == nullptr) {
       reql_set_size(obj, size);
       res = reql_array_last(obj);
     }
     return res;
   }
-  return NULL;
+  return nullptr;
 }
 
 extern void
@@ -307,21 +309,23 @@ reql_object_init(ReQL_Obj_t *obj, ReQL_Pair_t *pairs, const ReQL_Size alloc_size
 
 extern ReQL_Obj_t *
 reql_json_copy(const ReQL_Obj_t *other) {
+  ReQL_Obj_t *self;
   try {
-    ReQL_Obj_t *self = new ReQL_Obj_t;
+    self = new ReQL_Obj_t;
   } catch (std::bad_alloc&) {
-    return NULL;
+    return nullptr;
   }
 
   switch (reql_datum_type(other)) {
     case REQL_R_ARRAY: {
       const ReQL_Size size = reql_size(other);
 
+      ReQL_Obj_t **array;
       try {
-        ReQL_Obj_t **array = new ReQL_Obj_t*[size];
+        array = new ReQL_Obj_t*[size];
       } catch (std::bad_alloc&) {
-        free(self); self = NULL;
-        return NULL;
+        delete self;
+        return nullptr;
       }
 
       reql_array_init(self, array, size);
@@ -329,16 +333,16 @@ reql_json_copy(const ReQL_Obj_t *other) {
       ReQL_Size i;
       for (i=0; i < size; ++i) {
         ReQL_Obj_t *elem = reql_array_index(other, i);
-        if (elem != NULL) {
+        if (elem != nullptr) {
           elem = reql_json_copy(elem);
-          if (elem == NULL) {
-            reql_json_destroy(self); self = NULL;
-            return NULL;
+          if (elem == nullptr) {
+            reql_json_destroy(self); self = nullptr;
+            return nullptr;
           }
         }
         if (reql_array_insert(self, elem, i) != 0) {
-          reql_json_destroy(self); self = NULL;
-          return NULL;
+          reql_json_destroy(self); self = nullptr;
+          return nullptr;
         }
       }
       break;
@@ -358,51 +362,53 @@ reql_json_copy(const ReQL_Obj_t *other) {
     case REQL_R_OBJECT: {
       const ReQL_Size size = reql_size(other);
 
+      ReQL_Pair_t *pairs;
       try {
-        ReQL_Pair_t *pairs = new ReQL_Pair_t[size];
+        pairs = new ReQL_Pair_t[size];
       } catch (std::bad_alloc&) {
-        free(self); self = NULL;
-        return NULL;
+        delete self;
+        return nullptr;
       }
 
       reql_object_init(self, pairs, size);
 
       ReQL_Iter_t it = reql_new_iter(other);
 
-      ReQL_Obj_t *key = NULL;
-      ReQL_Obj_t *value = NULL;
+      ReQL_Obj_t *key = nullptr;
+      ReQL_Obj_t *value = nullptr;
 
-      while ((key = reql_iter_next(&it)) != NULL) {
+      while ((key = reql_iter_next(&it)) != nullptr) {
         key = reql_json_copy(key);
-        if (key == NULL) {
-          reql_json_destroy(self); self = NULL;
-          return NULL;
+        if (key == nullptr) {
+          reql_json_destroy(self); self = nullptr;
+          return nullptr;
         }
         value = reql_object_get(other, key);
-        if (value != NULL) {
+        if (value != nullptr) {
           value = reql_json_copy(value);
-          if (value == NULL) {
-            reql_json_destroy(key); key = NULL;
-            reql_json_destroy(self); self = NULL;
-            return NULL;
+          if (value == nullptr) {
+            reql_json_destroy(key); key = nullptr;
+            reql_json_destroy(self); self = nullptr;
+            return nullptr;
           }
         }
         if (reql_object_add(self, key, value) != 0) {
-          reql_json_destroy(key); key = NULL;
-          reql_json_destroy(value); value = NULL;
-          reql_json_destroy(self); self = NULL;
-          return NULL;
+          reql_json_destroy(key); key = nullptr;
+          reql_json_destroy(value); value = nullptr;
+          reql_json_destroy(self); self = nullptr;
+          return nullptr;
         }
       }
       break;
     }
     case REQL_R_STR: {
       const ReQL_Size size = reql_size(other);
+      ReQL_Byte *buf;
       try {
-        ReQL_Byte *buf = new ReQL_Byte[size];
+        buf = new ReQL_Byte[size];
       } catch (std::bad_alloc&) {
-        free(self); self = NULL;
-        return NULL;
+        delete self;
+        return nullptr;
       }
 
       reql_string_init(self, buf, reql_string_buf(other), size);
@@ -413,8 +419,8 @@ reql_json_copy(const ReQL_Obj_t *other) {
       break;
     }
     case REQL_R_JSON: {
-      free(self); self = NULL;
-      break;
+      delete self;
+      return nullptr;
     }
   }
 
@@ -423,17 +429,18 @@ reql_json_copy(const ReQL_Obj_t *other) {
 
 extern ReQL_Obj_t *
 reql_json_move(ReQL_Obj_t *other) {
+  ReQL_Obj_t *self;
   try {
-    ReQL_Obj_t *self = new ReQL_Obj_t;
+    self = new ReQL_Obj_t;
   } catch (std::bad_alloc&) {
-    return NULL;
+    return nullptr;
   }
 
   switch (reql_datum_type(other)) {
     case REQL_R_ARRAY: {
       const ReQL_Size alloc_size = reql_alloc_size(other);
       ReQL_Obj_t **array = reql_array(other);
-      reql_set_array(other, NULL);
+      reql_set_array(other, nullptr);
       reql_set_size(other, 0);
 
       reql_var_json_init(self, REQL_R_ARRAY, alloc_size);
@@ -442,7 +449,7 @@ reql_json_move(ReQL_Obj_t *other) {
 
       ReQL_Size i;
       for (i=0; i < alloc_size; ++i) {
-        if (array[i] != NULL) {
+        if (array[i] != nullptr) {
           array[i]->owner = self;
         }
       }
@@ -463,17 +470,17 @@ reql_json_move(ReQL_Obj_t *other) {
     case REQL_R_OBJECT: {
       const ReQL_Size alloc_size = reql_alloc_size(other);
       ReQL_Pair_t *pairs = reql_pair(other);
-      reql_set_pair(other, NULL);
+      reql_set_pair(other, nullptr);
       reql_object_init(self, pairs, alloc_size);
       reql_set_size(self, reql_size(other));
       reql_set_size(other, 0);
 
       ReQL_Size i;
       for (i=0; i < alloc_size; ++i) {
-        if (pairs[i].key != NULL) {
+        if (pairs[i].key != nullptr) {
           pairs[i].key->owner = self;
         }
-        if (pairs[i].val != NULL) {
+        if (pairs[i].val != nullptr) {
           pairs[i].val->owner = self;
         }
       }
@@ -483,20 +490,20 @@ reql_json_move(ReQL_Obj_t *other) {
       reql_var_json_init(self, REQL_R_STR, reql_alloc_size(other));
       reql_set_str(self, reql_string_buf(other));
       reql_set_size(self, reql_size(other));
-      reql_set_str(other, NULL);
+      reql_set_str(other, nullptr);
       reql_set_size(other, 0);
       break;
     }
     case REQL_R_REQL: {
-      reql_term_args(other)->owner = NULL;
-      reql_term_kwargs(other)->owner = NULL;
+      reql_term_args(other)->owner = nullptr;
+      reql_term_kwargs(other)->owner = nullptr;
       reql_term_init(self, reql_term_type(other), reql_term_args(other), reql_term_kwargs(other));
-      reql_term_init(other, REQL_DATUM, NULL, NULL);
+      reql_term_init(other, REQL_DATUM, nullptr, nullptr);
       break;
     }
     case REQL_R_JSON: {
       delete self;
-      break;
+      return nullptr;
     }
   }
 
@@ -505,22 +512,22 @@ reql_json_move(ReQL_Obj_t *other) {
 
 static int
 reql_key_sort(const void *l, const void *r) {
-  if (l == NULL && r == NULL) {
+  if (l == nullptr && r == nullptr) {
     return 0;
-  } else if (l == NULL) {
+  } else if (l == nullptr) {
     return -1;
-  } else if (r == NULL) {
+  } else if (r == nullptr) {
     return 1;
   }
   const ReQL_Pair_t *lobj = reinterpret_cast<const ReQL_Pair_t *>(l);
   const ReQL_Obj_t *lkey = lobj->key;
   const ReQL_Pair_t *robj = reinterpret_cast<const ReQL_Pair_t *>(r);
   const ReQL_Obj_t *rkey = robj->key;
-  if (lkey == NULL && rkey == NULL) {
+  if (lkey == nullptr && rkey == nullptr) {
     return 0;
-  } else if (lkey == NULL) {
+  } else if (lkey == nullptr) {
     return -1;
-  } else if (rkey == NULL) {
+  } else if (rkey == nullptr) {
     return 1;
   }
   const ReQL_Size lsize = reql_size(lkey);
@@ -540,23 +547,23 @@ reql_object_find(const ReQL_Obj_t *obj, const ReQL_Pair_t *key) {
 
 extern ReQL_Size
 reql_object_add(ReQL_Obj_t *obj, ReQL_Obj_t *key, ReQL_Obj_t *val) {
-  if (reql_owner(key) != NULL && reql_owner(key) != obj) {
+  if (reql_owner(key) != nullptr && reql_owner(key) != obj) {
     reql_error_init(REQL_E_JSON, "key already owned", __func__);
     return UINT32_MAX;
   }
-  if (reql_owner(val) != NULL) {
+  if (reql_owner(val) != nullptr) {
     reql_error_init(REQL_E_JSON, "element already owned", __func__);
     return UINT32_MAX;
   }
 
-  ReQL_Pair_t test = {key, NULL};
+  ReQL_Pair_t test = {key, nullptr};
   ReQL_Pair_t *pair = reql_object_find(obj, &test);
 
-  if (pair == NULL) {
+  if (pair == nullptr) {
     ReQL_Size size = reql_size(obj);
     pair = reql_pair(obj);
 
-    if (pair[size].key != NULL) {
+    if (pair[size].key != nullptr) {
       size += 1;
 
       ReQL_Size new_alloc = reql_ensure_space(obj, size);
@@ -572,7 +579,7 @@ reql_object_add(ReQL_Obj_t *obj, ReQL_Obj_t *key, ReQL_Obj_t *val) {
 
     key->owner = obj;
 
-    if (val != NULL) {
+    if (val != nullptr) {
       val->owner = obj;
     }
 
@@ -584,7 +591,7 @@ reql_object_add(ReQL_Obj_t *obj, ReQL_Obj_t *key, ReQL_Obj_t *val) {
   } else {
     pair->val = val;
 
-    if (val != NULL) {
+    if (val != nullptr) {
       val->owner = obj;
     }
   }
@@ -594,11 +601,11 @@ reql_object_add(ReQL_Obj_t *obj, ReQL_Obj_t *key, ReQL_Obj_t *val) {
 
 extern ReQL_Obj_t *
 reql_object_get(const ReQL_Obj_t *obj, ReQL_Obj_t *key) {
-  const ReQL_Pair_t test = {key, NULL};
+  const ReQL_Pair_t test = {key, nullptr};
   ReQL_Pair_t *pair = reql_object_find(obj, &test);
 
-  if (pair == NULL) {
-    return NULL;
+  if (pair == nullptr) {
+    return nullptr;
   }
 
   return pair->val;
@@ -622,7 +629,7 @@ reql_to_bool(const ReQL_Obj_t *obj) {
 
 static void
 reql_arr_destroy(ReQL_Obj_t **arr, ReQL_Size size) {
-  if (arr == NULL) {
+  if (arr == nullptr) {
     return;
   }
 
@@ -632,12 +639,12 @@ reql_arr_destroy(ReQL_Obj_t **arr, ReQL_Size size) {
     reql_json_destroy(arr[i]);
   }
 
-  free(arr);
+  delete arr;
 }
 
 static void
 reql_pair_destroy(ReQL_Pair_t *pair, ReQL_Size size) {
-  if (pair == NULL) {
+  if (pair == nullptr) {
     return;
   }
 
@@ -648,18 +655,18 @@ reql_pair_destroy(ReQL_Pair_t *pair, ReQL_Size size) {
     reql_json_destroy(pair[i].val);
   }
 
-  free(pair);
+  delete pair;
 }
 
 extern void
 reql_json_destroy(ReQL_Obj_t *json) {
-  if (json == NULL) {
+  if (json == nullptr) {
     return;
   }
 
   ReQL_Obj_t *owner = reql_owner(json);
 
-  if (owner != NULL) {
+  if (owner != nullptr) {
     switch (reql_datum_type(owner)) {
       case REQL_R_ARRAY: {
         const ReQL_Size size = reql_alloc_size(owner);
@@ -669,7 +676,7 @@ reql_json_destroy(ReQL_Obj_t *json) {
 
         for (i=0; i < size; ++i) {
           if (array[i] == json) {
-            array[i] = NULL;
+            array[i] = nullptr;
             break;
           }
         }
@@ -684,11 +691,11 @@ reql_json_destroy(ReQL_Obj_t *json) {
 
         for (i=0; i < size; ++i) {
           if (pair[i].val == json) {
-            pair[i].val = NULL;
+            pair[i].val = nullptr;
             break;
           } else if (pair[i].key == json) {
-            reql_json_destroy(pair[i].val); pair[i].val = NULL;
-            pair[i].key = NULL;
+            reql_json_destroy(pair[i].val); pair[i].val = nullptr;
+            pair[i].key = nullptr;
             break;
           }
         }
@@ -697,9 +704,9 @@ reql_json_destroy(ReQL_Obj_t *json) {
       }
       case REQL_R_REQL: {
         if (reql_term_args(owner) == json) {
-          owner->obj.args.args = NULL;
+          owner->obj.args.args = nullptr;
         } else if (reql_term_kwargs(owner) == json) {
-          owner->obj.args.kwargs = NULL;
+          owner->obj.args.kwargs = nullptr;
         }
         break;
       }
@@ -711,7 +718,7 @@ reql_json_destroy(ReQL_Obj_t *json) {
     }
   }
 
-  json->owner = NULL;
+  json->owner = nullptr;
 
   switch (reql_datum_type(json)) {
     case REQL_R_ARRAY: {
@@ -733,94 +740,94 @@ reql_json_destroy(ReQL_Obj_t *json) {
     }
     case REQL_R_STR: {
       ReQL_Byte *buf = reql_string_buf(json);
-      if (buf != NULL) {
-        free(buf);
+      if (buf != nullptr) {
+        delete buf;
       }
       break;
     }
   }
 
-  free(json);
+  delete json;
 }
 
 extern void
 reql_ast_add(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_ADD, a, NULL);
+  reql_term_init(t, REQL_ADD, a, nullptr);
 }
 
 extern void
 reql_ast_and(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_AND, a, NULL);
+  reql_term_init(t, REQL_AND, a, nullptr);
 }
 
 extern void
 reql_ast_append(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_APPEND, a, NULL);
+  reql_term_init(t, REQL_APPEND, a, nullptr);
 }
 
 extern void
 reql_ast_april(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_APRIL, a, NULL);
+  reql_term_init(t, REQL_APRIL, a, nullptr);
 }
 
 extern void
 reql_ast_args(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_ARGS, a, NULL);
+  reql_term_init(t, REQL_ARGS, a, nullptr);
 }
 
 extern void
 reql_ast_asc(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_ASC, a, NULL);
+  reql_term_init(t, REQL_ASC, a, nullptr);
 }
 
 extern void
 reql_ast_august(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_AUGUST, a, NULL);
+  reql_term_init(t, REQL_AUGUST, a, nullptr);
 }
 
 extern void
 reql_ast_avg(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_AVG, a, NULL);
+  reql_term_init(t, REQL_AVG, a, nullptr);
 }
 
 extern void
 reql_ast_between(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_BETWEEN, a, NULL);
+  reql_term_init(t, REQL_BETWEEN, a, nullptr);
 }
 
 extern void
 reql_ast_between_deprecated(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_BETWEEN_DEPRECATED, a, NULL);
+  reql_term_init(t, REQL_BETWEEN_DEPRECATED, a, nullptr);
 }
 
 extern void
 reql_ast_binary(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_BINARY, a, NULL);
+  reql_term_init(t, REQL_BINARY, a, nullptr);
 }
 
 extern void
 reql_ast_bracket(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_BRACKET, a, NULL);
+  reql_term_init(t, REQL_BRACKET, a, nullptr);
 }
 
 extern void
 reql_ast_branch(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_BRANCH, a, NULL);
+  reql_term_init(t, REQL_BRANCH, a, nullptr);
 }
 
 extern void
 reql_ast_ceil(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_CEIL, a, NULL);
+  reql_term_init(t, REQL_CEIL, a, nullptr);
 }
 
 extern void
 reql_ast_changes(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_CHANGES, a, NULL);
+  reql_term_init(t, REQL_CHANGES, a, nullptr);
 }
 
 extern void
 reql_ast_change_at(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_CHANGE_AT, a, NULL);
+  reql_term_init(t, REQL_CHANGE_AT, a, nullptr);
 }
 
 extern void
@@ -830,82 +837,82 @@ reql_ast_circle(ReQL_Obj_t *t, ReQL_Obj_t *a, ReQL_Obj_t *k) {
 
 extern void
 reql_ast_coerce_to(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_COERCE_TO, a, NULL);
+  reql_term_init(t, REQL_COERCE_TO, a, nullptr);
 }
 
 extern void
 reql_ast_concat_map(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_CONCAT_MAP, a, NULL);
+  reql_term_init(t, REQL_CONCAT_MAP, a, nullptr);
 }
 
 extern void
 reql_ast_config(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_CONFIG, a, NULL);
+  reql_term_init(t, REQL_CONFIG, a, nullptr);
 }
 
 extern void
 reql_ast_contains(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_CONTAINS, a, NULL);
+  reql_term_init(t, REQL_CONTAINS, a, nullptr);
 }
 
 extern void
 reql_ast_count(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_COUNT, a, NULL);
+  reql_term_init(t, REQL_COUNT, a, nullptr);
 }
 
 extern void
 reql_ast_date(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_DATE, a, NULL);
+  reql_term_init(t, REQL_DATE, a, nullptr);
 }
 
 extern void
 reql_ast_datum(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_DATUM, a, NULL);
+  reql_term_init(t, REQL_DATUM, a, nullptr);
 }
 
 extern void
 reql_ast_day(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_DAY, a, NULL);
+  reql_term_init(t, REQL_DAY, a, nullptr);
 }
 
 extern void
 reql_ast_day_of_week(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_DAY_OF_WEEK, a, NULL);
+  reql_term_init(t, REQL_DAY_OF_WEEK, a, nullptr);
 }
 
 extern void
 reql_ast_day_of_year(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_DAY_OF_YEAR, a, NULL);
+  reql_term_init(t, REQL_DAY_OF_YEAR, a, nullptr);
 }
 
 extern void
 reql_ast_db(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_DB, a, NULL);
+  reql_term_init(t, REQL_DB, a, nullptr);
 }
 
 extern void
 reql_ast_db_create(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_DB_CREATE, a, NULL);
+  reql_term_init(t, REQL_DB_CREATE, a, nullptr);
 }
 
 extern void
 reql_ast_db_drop(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_DB_DROP, a, NULL);
+  reql_term_init(t, REQL_DB_DROP, a, nullptr);
 }
 
 extern void
 reql_ast_db_list(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_DB_LIST, a, NULL);
+  reql_term_init(t, REQL_DB_LIST, a, nullptr);
 }
 
 extern void
 reql_ast_december(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_DECEMBER, a, NULL);
+  reql_term_init(t, REQL_DECEMBER, a, nullptr);
 }
 
 extern void
 reql_ast_default(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_DEFAULT, a, NULL);
+  reql_term_init(t, REQL_DEFAULT, a, nullptr);
 }
 
 extern void
@@ -915,22 +922,22 @@ reql_ast_delete(ReQL_Obj_t *t, ReQL_Obj_t *a, ReQL_Obj_t *k) {
 
 extern void
 reql_ast_delete_at(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_DELETE_AT, a, NULL);
+  reql_term_init(t, REQL_DELETE_AT, a, nullptr);
 }
 
 extern void
 reql_ast_desc(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_DESC, a, NULL);
+  reql_term_init(t, REQL_DESC, a, nullptr);
 }
 
 extern void
 reql_ast_difference(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_DIFFERENCE, a, NULL);
+  reql_term_init(t, REQL_DIFFERENCE, a, nullptr);
 }
 
 extern void
 reql_ast_distance(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_DISTANCE, a, NULL);
+  reql_term_init(t, REQL_DISTANCE, a, nullptr);
 }
 
 extern void
@@ -940,27 +947,27 @@ reql_ast_distinct(ReQL_Obj_t *t, ReQL_Obj_t *a, ReQL_Obj_t *k) {
 
 extern void
 reql_ast_div(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_DIV, a, NULL);
+  reql_term_init(t, REQL_DIV, a, nullptr);
 }
 
 extern void
 reql_ast_downcase(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_DOWNCASE, a, NULL);
+  reql_term_init(t, REQL_DOWNCASE, a, nullptr);
 }
 
 extern void
 reql_ast_during(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_DURING, a, NULL);
+  reql_term_init(t, REQL_DURING, a, nullptr);
 }
 
 extern void
 reql_ast_epoch_time(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_EPOCH_TIME, a, NULL);
+  reql_term_init(t, REQL_EPOCH_TIME, a, nullptr);
 }
 
 extern void
 reql_ast_eq(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_EQ, a, NULL);
+  reql_term_init(t, REQL_EQ, a, nullptr);
 }
 
 extern void
@@ -970,17 +977,17 @@ reql_ast_eq_join(ReQL_Obj_t *t, ReQL_Obj_t *a, ReQL_Obj_t *k) {
 
 extern void
 reql_ast_error(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_ERROR, a, NULL);
+  reql_term_init(t, REQL_ERROR, a, nullptr);
 }
 
 extern void
 reql_ast_february(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_FEBRUARY, a, NULL);
+  reql_term_init(t, REQL_FEBRUARY, a, nullptr);
 }
 
 extern void
 reql_ast_fill(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_FILL, a, NULL);
+  reql_term_init(t, REQL_FILL, a, nullptr);
 }
 
 extern void
@@ -990,42 +997,42 @@ reql_ast_filter(ReQL_Obj_t *t, ReQL_Obj_t *a, ReQL_Obj_t *k) {
 
 extern void
 reql_ast_floor(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_FLOOR, a, NULL);
+  reql_term_init(t, REQL_FLOOR, a, nullptr);
 }
 
 extern void
 reql_ast_for_each(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_FOR_EACH, a, NULL);
+  reql_term_init(t, REQL_FOR_EACH, a, nullptr);
 }
 
 extern void
 reql_ast_friday(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_FRIDAY, a, NULL);
+  reql_term_init(t, REQL_FRIDAY, a, nullptr);
 }
 
 extern void
 reql_ast_func(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_FUNC, a, NULL);
+  reql_term_init(t, REQL_FUNC, a, nullptr);
 }
 
 extern void
 reql_ast_funcall(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_FUNCALL, a, NULL);
+  reql_term_init(t, REQL_FUNCALL, a, nullptr);
 }
 
 extern void
 reql_ast_ge(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_GE, a, NULL);
+  reql_term_init(t, REQL_GE, a, nullptr);
 }
 
 extern void
 reql_ast_geojson(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_GEOJSON, a, NULL);
+  reql_term_init(t, REQL_GEOJSON, a, nullptr);
 }
 
 extern void
 reql_ast_get(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_GET, a, NULL);
+  reql_term_init(t, REQL_GET, a, nullptr);
 }
 
 extern void
@@ -1035,7 +1042,7 @@ reql_ast_get_all(ReQL_Obj_t *t, ReQL_Obj_t *a, ReQL_Obj_t *k) {
 
 extern void
 reql_ast_get_field(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_GET_FIELD, a, NULL);
+  reql_term_init(t, REQL_GET_FIELD, a, nullptr);
 }
 
 extern void
@@ -1055,17 +1062,17 @@ reql_ast_group(ReQL_Obj_t *t, ReQL_Obj_t *a, ReQL_Obj_t *k) {
 
 extern void
 reql_ast_gt(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_GT, a, NULL);
+  reql_term_init(t, REQL_GT, a, nullptr);
 }
 
 extern void
 reql_ast_has_fields(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_HAS_FIELDS, a, NULL);
+  reql_term_init(t, REQL_HAS_FIELDS, a, nullptr);
 }
 
 extern void
 reql_ast_hours(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_HOURS, a, NULL);
+  reql_term_init(t, REQL_HOURS, a, nullptr);
 }
 
 extern void
@@ -1075,12 +1082,12 @@ reql_ast_http(ReQL_Obj_t *t, ReQL_Obj_t *a, ReQL_Obj_t *k) {
 
 extern void
 reql_ast_implicit_var(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_IMPLICIT_VAR, a, NULL);
+  reql_term_init(t, REQL_IMPLICIT_VAR, a, nullptr);
 }
 
 extern void
 reql_ast_includes(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_INCLUDES, a, NULL);
+  reql_term_init(t, REQL_INCLUDES, a, nullptr);
 }
 
 extern void
@@ -1090,12 +1097,12 @@ reql_ast_index_create(ReQL_Obj_t *t, ReQL_Obj_t *a, ReQL_Obj_t *k) {
 
 extern void
 reql_ast_index_drop(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_INDEX_DROP, a, NULL);
+  reql_term_init(t, REQL_INDEX_DROP, a, nullptr);
 }
 
 extern void
 reql_ast_index_list(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_INDEX_LIST, a, NULL);
+  reql_term_init(t, REQL_INDEX_LIST, a, nullptr);
 }
 
 extern void
@@ -1105,42 +1112,42 @@ reql_ast_index_rename(ReQL_Obj_t *t, ReQL_Obj_t *a, ReQL_Obj_t *k) {
 
 extern void
 reql_ast_index_status(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_INDEX_STATUS, a, NULL);
+  reql_term_init(t, REQL_INDEX_STATUS, a, nullptr);
 }
 
 extern void
 reql_ast_index_wait(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_INDEX_WAIT, a, NULL);
+  reql_term_init(t, REQL_INDEX_WAIT, a, nullptr);
 }
 
 extern void
 reql_ast_info(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_INFO, a, NULL);
+  reql_term_init(t, REQL_INFO, a, nullptr);
 }
 
 extern void
 reql_ast_inner_join(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_INNER_JOIN, a, NULL);
+  reql_term_init(t, REQL_INNER_JOIN, a, nullptr);
 }
 
 extern void
 reql_ast_insert(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_INSERT, a, NULL);
+  reql_term_init(t, REQL_INSERT, a, nullptr);
 }
 
 extern void
 reql_ast_insert_at(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_INSERT_AT, a, NULL);
+  reql_term_init(t, REQL_INSERT_AT, a, nullptr);
 }
 
 extern void
 reql_ast_intersects(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_INTERSECTS, a, NULL);
+  reql_term_init(t, REQL_INTERSECTS, a, nullptr);
 }
 
 extern void
 reql_ast_in_timezone(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_IN_TIMEZONE, a, NULL);
+  reql_term_init(t, REQL_IN_TIMEZONE, a, nullptr);
 }
 
 extern void
@@ -1150,12 +1157,12 @@ reql_ast_iso8601(ReQL_Obj_t *t, ReQL_Obj_t *a, ReQL_Obj_t *k) {
 
 extern void
 reql_ast_is_empty(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_IS_EMPTY, a, NULL);
+  reql_term_init(t, REQL_IS_EMPTY, a, nullptr);
 }
 
 extern void
 reql_ast_january(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_JANUARY, a, NULL);
+  reql_term_init(t, REQL_JANUARY, a, nullptr);
 }
 
 extern void
@@ -1165,172 +1172,172 @@ reql_ast_javascript(ReQL_Obj_t *t, ReQL_Obj_t *a, ReQL_Obj_t *k) {
 
 extern void
 reql_ast_json(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_JSON, a, NULL);
+  reql_term_init(t, REQL_JSON, a, nullptr);
 }
 
 extern void
 reql_ast_july(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_JULY, a, NULL);
+  reql_term_init(t, REQL_JULY, a, nullptr);
 }
 
 extern void
 reql_ast_june(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_JUNE, a, NULL);
+  reql_term_init(t, REQL_JUNE, a, nullptr);
 }
 
 extern void
 reql_ast_keys(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_KEYS, a, NULL);
+  reql_term_init(t, REQL_KEYS, a, nullptr);
 }
 
 extern void
 reql_ast_le(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_LE, a, NULL);
+  reql_term_init(t, REQL_LE, a, nullptr);
 }
 
 extern void
 reql_ast_limit(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_LIMIT, a, NULL);
+  reql_term_init(t, REQL_LIMIT, a, nullptr);
 }
 
 extern void
 reql_ast_line(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_LINE, a, NULL);
+  reql_term_init(t, REQL_LINE, a, nullptr);
 }
 
 extern void
 reql_ast_literal(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_LITERAL, a, NULL);
+  reql_term_init(t, REQL_LITERAL, a, nullptr);
 }
 
 extern void
 reql_ast_lt(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_LT, a, NULL);
+  reql_term_init(t, REQL_LT, a, nullptr);
 }
 
 extern void
 reql_ast_make_array(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_MAKE_ARRAY, a, NULL);
+  reql_term_init(t, REQL_MAKE_ARRAY, a, nullptr);
 }
 
 extern void
 reql_ast_make_obj(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_MAKE_OBJ, a, NULL);
+  reql_term_init(t, REQL_MAKE_OBJ, a, nullptr);
 }
 
 extern void
 reql_ast_map(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_MAP, a, NULL);
+  reql_term_init(t, REQL_MAP, a, nullptr);
 }
 
 extern void
 reql_ast_march(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_MARCH, a, NULL);
+  reql_term_init(t, REQL_MARCH, a, nullptr);
 }
 
 extern void
 reql_ast_match(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_MATCH, a, NULL);
+  reql_term_init(t, REQL_MATCH, a, nullptr);
 }
 
 extern void
 reql_ast_max(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_MAX, a, NULL);
+  reql_term_init(t, REQL_MAX, a, nullptr);
 }
 
 extern void
 reql_ast_maxval(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_MAXVAL, a, NULL);
+  reql_term_init(t, REQL_MAXVAL, a, nullptr);
 }
 
 extern void
 reql_ast_may(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_MAY, a, NULL);
+  reql_term_init(t, REQL_MAY, a, nullptr);
 }
 
 extern void
 reql_ast_merge(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_MERGE, a, NULL);
+  reql_term_init(t, REQL_MERGE, a, nullptr);
 }
 
 extern void
 reql_ast_min(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_MIN, a, NULL);
+  reql_term_init(t, REQL_MIN, a, nullptr);
 }
 
 extern void
 reql_ast_minutes(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_MINUTES, a, NULL);
+  reql_term_init(t, REQL_MINUTES, a, nullptr);
 }
 
 extern void
 reql_ast_minval(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_MINVAL, a, NULL);
+  reql_term_init(t, REQL_MINVAL, a, nullptr);
 }
 
 extern void
 reql_ast_mod(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_MOD, a, NULL);
+  reql_term_init(t, REQL_MOD, a, nullptr);
 }
 
 extern void
 reql_ast_monday(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_MONDAY, a, NULL);
+  reql_term_init(t, REQL_MONDAY, a, nullptr);
 }
 
 extern void
 reql_ast_month(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_MONTH, a, NULL);
+  reql_term_init(t, REQL_MONTH, a, nullptr);
 }
 
 extern void
 reql_ast_mul(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_MUL, a, NULL);
+  reql_term_init(t, REQL_MUL, a, nullptr);
 }
 
 extern void
 reql_ast_ne(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_NE, a, NULL);
+  reql_term_init(t, REQL_NE, a, nullptr);
 }
 
 extern void
 reql_ast_not(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_NOT, a, NULL);
+  reql_term_init(t, REQL_NOT, a, nullptr);
 }
 
 extern void
 reql_ast_november(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_NOVEMBER, a, NULL);
+  reql_term_init(t, REQL_NOVEMBER, a, nullptr);
 }
 
 extern void
 reql_ast_now(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_NOW, a, NULL);
+  reql_term_init(t, REQL_NOW, a, nullptr);
 }
 
 extern void
 reql_ast_nth(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_NTH, a, NULL);
+  reql_term_init(t, REQL_NTH, a, nullptr);
 }
 
 extern void
 reql_ast_object(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_OBJECT, a, NULL);
+  reql_term_init(t, REQL_OBJECT, a, nullptr);
 }
 
 extern void
 reql_ast_october(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_OCTOBER, a, NULL);
+  reql_term_init(t, REQL_OCTOBER, a, nullptr);
 }
 
 extern void
 reql_ast_offsets_of(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_OFFSETS_OF, a, NULL);
+  reql_term_init(t, REQL_OFFSETS_OF, a, nullptr);
 }
 
 extern void
 reql_ast_or(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_OR, a, NULL);
+  reql_term_init(t, REQL_OR, a, nullptr);
 }
 
 extern void
@@ -1340,32 +1347,32 @@ reql_ast_order_by(ReQL_Obj_t *t, ReQL_Obj_t *a, ReQL_Obj_t *k) {
 
 extern void
 reql_ast_outer_join(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_OUTER_JOIN, a, NULL);
+  reql_term_init(t, REQL_OUTER_JOIN, a, nullptr);
 }
 
 extern void
 reql_ast_pluck(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_PLUCK, a, NULL);
+  reql_term_init(t, REQL_PLUCK, a, nullptr);
 }
 
 extern void
 reql_ast_point(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_POINT, a, NULL);
+  reql_term_init(t, REQL_POINT, a, nullptr);
 }
 
 extern void
 reql_ast_polygon(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_POLYGON, a, NULL);
+  reql_term_init(t, REQL_POLYGON, a, nullptr);
 }
 
 extern void
 reql_ast_polygon_sub(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_POLYGON_SUB, a, NULL);
+  reql_term_init(t, REQL_POLYGON_SUB, a, nullptr);
 }
 
 extern void
 reql_ast_prepend(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_PREPEND, a, NULL);
+  reql_term_init(t, REQL_PREPEND, a, nullptr);
 }
 
 extern void
@@ -1375,22 +1382,22 @@ reql_ast_random(ReQL_Obj_t *t, ReQL_Obj_t *a, ReQL_Obj_t *k) {
 
 extern void
 reql_ast_range(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_RANGE, a, NULL);
+  reql_term_init(t, REQL_RANGE, a, nullptr);
 }
 
 extern void
 reql_ast_rebalance(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_REBALANCE, a, NULL);
+  reql_term_init(t, REQL_REBALANCE, a, nullptr);
 }
 
 extern void
 reql_ast_reconfigure(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_RECONFIGURE, a, NULL);
+  reql_term_init(t, REQL_RECONFIGURE, a, nullptr);
 }
 
 extern void
 reql_ast_reduce(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_REDUCE, a, NULL);
+  reql_term_init(t, REQL_REDUCE, a, nullptr);
 }
 
 extern void
@@ -1400,52 +1407,52 @@ reql_ast_replace(ReQL_Obj_t *t, ReQL_Obj_t *a, ReQL_Obj_t *k) {
 
 extern void
 reql_ast_round(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_ROUND, a, NULL);
+  reql_term_init(t, REQL_ROUND, a, nullptr);
 }
 
 extern void
 reql_ast_sample(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_SAMPLE, a, NULL);
+  reql_term_init(t, REQL_SAMPLE, a, nullptr);
 }
 
 extern void
 reql_ast_saturday(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_SATURDAY, a, NULL);
+  reql_term_init(t, REQL_SATURDAY, a, nullptr);
 }
 
 extern void
 reql_ast_seconds(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_SECONDS, a, NULL);
+  reql_term_init(t, REQL_SECONDS, a, nullptr);
 }
 
 extern void
 reql_ast_september(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_SEPTEMBER, a, NULL);
+  reql_term_init(t, REQL_SEPTEMBER, a, nullptr);
 }
 
 extern void
 reql_ast_set_difference(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_SET_DIFFERENCE, a, NULL);
+  reql_term_init(t, REQL_SET_DIFFERENCE, a, nullptr);
 }
 
 extern void
 reql_ast_set_insert(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_SET_INSERT, a, NULL);
+  reql_term_init(t, REQL_SET_INSERT, a, nullptr);
 }
 
 extern void
 reql_ast_set_intersection(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_SET_INTERSECTION, a, NULL);
+  reql_term_init(t, REQL_SET_INTERSECTION, a, nullptr);
 }
 
 extern void
 reql_ast_set_union(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_SET_UNION, a, NULL);
+  reql_term_init(t, REQL_SET_UNION, a, nullptr);
 }
 
 extern void
 reql_ast_skip(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_SKIP, a, NULL);
+  reql_term_init(t, REQL_SKIP, a, nullptr);
 }
 
 extern void
@@ -1455,37 +1462,37 @@ reql_ast_slice(ReQL_Obj_t *t, ReQL_Obj_t *a, ReQL_Obj_t *k) {
 
 extern void
 reql_ast_splice_at(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_SPLICE_AT, a, NULL);
+  reql_term_init(t, REQL_SPLICE_AT, a, nullptr);
 }
 
 extern void
 reql_ast_split(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_SPLIT, a, NULL);
+  reql_term_init(t, REQL_SPLIT, a, nullptr);
 }
 
 extern void
 reql_ast_status(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_STATUS, a, NULL);
+  reql_term_init(t, REQL_STATUS, a, nullptr);
 }
 
 extern void
 reql_ast_sub(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_SUB, a, NULL);
+  reql_term_init(t, REQL_SUB, a, nullptr);
 }
 
 extern void
 reql_ast_sum(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_SUM, a, NULL);
+  reql_term_init(t, REQL_SUM, a, nullptr);
 }
 
 extern void
 reql_ast_sunday(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_SUNDAY, a, NULL);
+  reql_term_init(t, REQL_SUNDAY, a, nullptr);
 }
 
 extern void
 reql_ast_sync(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_SYNC, a, NULL);
+  reql_term_init(t, REQL_SYNC, a, nullptr);
 }
 
 extern void
@@ -1500,77 +1507,77 @@ reql_ast_table_create(ReQL_Obj_t *t, ReQL_Obj_t *a, ReQL_Obj_t *k) {
 
 extern void
 reql_ast_table_drop(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_TABLE_DROP, a, NULL);
+  reql_term_init(t, REQL_TABLE_DROP, a, nullptr);
 }
 
 extern void
 reql_ast_table_list(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_TABLE_LIST, a, NULL);
+  reql_term_init(t, REQL_TABLE_LIST, a, nullptr);
 }
 
 extern void
 reql_ast_thursday(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_THURSDAY, a, NULL);
+  reql_term_init(t, REQL_THURSDAY, a, nullptr);
 }
 
 extern void
 reql_ast_time(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_TIME, a, NULL);
+  reql_term_init(t, REQL_TIME, a, nullptr);
 }
 
 extern void
 reql_ast_timezone(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_TIMEZONE, a, NULL);
+  reql_term_init(t, REQL_TIMEZONE, a, nullptr);
 }
 
 extern void
 reql_ast_time_of_day(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_TIME_OF_DAY, a, NULL);
+  reql_term_init(t, REQL_TIME_OF_DAY, a, nullptr);
 }
 
 extern void
 reql_ast_to_epoch_time(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_TO_EPOCH_TIME, a, NULL);
+  reql_term_init(t, REQL_TO_EPOCH_TIME, a, nullptr);
 }
 
 extern void
 reql_ast_to_geojson(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_TO_GEOJSON, a, NULL);
+  reql_term_init(t, REQL_TO_GEOJSON, a, nullptr);
 }
 
 extern void
 reql_ast_to_iso8601(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_TO_ISO8601, a, NULL);
+  reql_term_init(t, REQL_TO_ISO8601, a, nullptr);
 }
 
 extern void
 reql_ast_to_json_string(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_TO_JSON_STRING, a, NULL);
+  reql_term_init(t, REQL_TO_JSON_STRING, a, nullptr);
 }
 
 extern void
 reql_ast_tuesday(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_TUESDAY, a, NULL);
+  reql_term_init(t, REQL_TUESDAY, a, nullptr);
 }
 
 extern void
 reql_ast_type_of(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_TYPE_OF, a, NULL);
+  reql_term_init(t, REQL_TYPE_OF, a, nullptr);
 }
 
 extern void
 reql_ast_ungroup(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_UNGROUP, a, NULL);
+  reql_term_init(t, REQL_UNGROUP, a, nullptr);
 }
 
 extern void
 reql_ast_union(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_UNION, a, NULL);
+  reql_term_init(t, REQL_UNION, a, nullptr);
 }
 
 extern void
 reql_ast_upcase(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_UPCASE, a, NULL);
+  reql_term_init(t, REQL_UPCASE, a, nullptr);
 }
 
 extern void
@@ -1580,45 +1587,45 @@ reql_ast_update(ReQL_Obj_t *t, ReQL_Obj_t *a, ReQL_Obj_t *k) {
 
 extern void
 reql_ast_uuid(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_UUID, a, NULL);
+  reql_term_init(t, REQL_UUID, a, nullptr);
 }
 
 extern void
 reql_ast_values(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_VALUES, a, NULL);
+  reql_term_init(t, REQL_VALUES, a, nullptr);
 }
 
 extern void
 reql_ast_var(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_VAR, a, NULL);
+  reql_term_init(t, REQL_VAR, a, nullptr);
 }
 
 extern void
 reql_ast_wait(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_WAIT, a, NULL);
+  reql_term_init(t, REQL_WAIT, a, nullptr);
 }
 
 extern void
 reql_ast_wednesday(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_WEDNESDAY, a, NULL);
+  reql_term_init(t, REQL_WEDNESDAY, a, nullptr);
 }
 
 extern void
 reql_ast_without(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_WITHOUT, a, NULL);
+  reql_term_init(t, REQL_WITHOUT, a, nullptr);
 }
 
 extern void
 reql_ast_with_fields(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_WITH_FIELDS, a, NULL);
+  reql_term_init(t, REQL_WITH_FIELDS, a, nullptr);
 }
 
 extern void
 reql_ast_year(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_YEAR, a, NULL);
+  reql_term_init(t, REQL_YEAR, a, nullptr);
 }
 
 extern void
 reql_ast_zip(ReQL_Obj_t *t, ReQL_Obj_t *a) {
-  reql_term_init(t, REQL_ZIP, a, NULL);
+  reql_term_init(t, REQL_ZIP, a, nullptr);
 }

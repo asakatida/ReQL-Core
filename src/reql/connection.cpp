@@ -28,6 +28,8 @@ limitations under the License.
 #include "./reql/query.h"
 #include "./reql/types.h"
 
+#include <memory>
+
 #include <netdb.h>
 #include <netinet/in.h>
 #include <pthread.h>
@@ -63,26 +65,26 @@ typedef union {
 static void
 reql_make_32_le(ReQL_Byte *buf, const ReQL_Size magic) {
   ReQL_LE32 convert = {htole32(magic)};
-  memcpy(buf, convert.buf, 4);
+  memcpy(buf, convert.buf, sizeof(ReQL_Byte) * 4);
 }
 
 static void
 reql_make_64_token(ReQL_Byte *buf, const ReQL_Token magic) {
   ReQL_LE64 convert = {htole64(magic)};
-  memcpy(buf, convert.buf, 8);
+  memcpy(buf, convert.buf, sizeof(ReQL_Byte) * 8);
 }
 
 static ReQL_Size
 reql_get_32_le(ReQL_Byte *buf) {
   ReQL_LE32 convert = {0};
-  memcpy(convert.buf, buf, 4);
+  memcpy(convert.buf, buf, sizeof(ReQL_Byte) * 4);
   return le32toh(convert.num);
 }
 
 static ReQL_Token
 reql_get_64_token(ReQL_Byte *buf) {
   ReQL_LE64 convert = {0};
-  memcpy(convert.buf, buf, 8);
+  memcpy(convert.buf, buf, sizeof(ReQL_Byte) * 8);
   return le64toh(convert.num);
 }
 
@@ -98,7 +100,7 @@ reql_conn_memory_error(const char *trace) {
 
 static void
 reql_conn_lock(ReQL_Conn_t *conn) {
-  if (conn->condition.mutex == NULL) {
+  if (conn->condition.mutex == nullptr) {
     return;
   }
   pthread_mutex_lock(conn->condition.mutex);
@@ -106,10 +108,10 @@ reql_conn_lock(ReQL_Conn_t *conn) {
 
 static void
 reql_conn_unlock(ReQL_Conn_t *conn) {
-  if (conn == NULL) {
+  if (conn == nullptr) {
     return;
   }
-  if (conn->condition.mutex == NULL) {
+  if (conn->condition.mutex == nullptr) {
     return;
   }
   pthread_mutex_unlock(conn->condition.mutex);
@@ -117,32 +119,35 @@ reql_conn_unlock(ReQL_Conn_t *conn) {
 
 extern void
 reql_conn_init(ReQL_Conn_t *conn) {
-  pthread_mutexattr_t *attrs = malloc(sizeof(pthread_mutexattr_t));
-  if (attrs == NULL) {
+  pthread_mutexattr_t *attrs;
+  try {
+    attrs = new pthread_mutexattr_t;
+  } catch (std::bad_alloc&) {
+    reql_conn_memory_error(__func__);
+    return;
+  }
+  pthread_mutex_t *mutex;
+  try {
+    mutex = new pthread_mutex_t;
+  } catch (std::bad_alloc&) {
+    delete attrs;
     reql_conn_memory_error(__func__);
     return;
   }
   pthread_mutexattr_init(attrs);
   pthread_mutexattr_settype(attrs, PTHREAD_MUTEX_ERRORCHECK);
-  pthread_mutex_t *mutex = malloc(sizeof(pthread_mutex_t));
-  if (mutex == NULL) {
-    pthread_mutexattr_destroy(attrs);
-    free(attrs); attrs = NULL;
-    reql_conn_memory_error(__func__);
-    return;
-  }
   pthread_mutex_init(mutex, attrs);
   pthread_mutexattr_destroy(attrs);
-  free(attrs); attrs = NULL;
+  delete attrs;
 
-  memset(conn, (int)NULL, sizeof(ReQL_Conn_t));
+  memset(conn, static_cast<int>(NULL), sizeof(ReQL_Conn_t));
 
   conn->condition.mutex = mutex;
 
   reql_conn_lock(conn);
   conn->socket = -1;
   conn->timeout_s = 20;
-  conn->port = "28015";
+  conn->port = reinterpret_cast<void *>(const_cast<char *>("28015"));
   reql_conn_unlock(conn);
 }
 
@@ -195,7 +200,7 @@ reql_conn_set_port(ReQL_Conn_t *conn, char *port) {
 extern char *
 reql_conn_port(ReQL_Conn_t *conn) {
   reql_conn_lock(conn);
-  char *port = conn->port;
+  char *port = reinterpret_cast<char *>(conn->port);
   reql_conn_unlock(conn);
   return port;
 }
@@ -234,7 +239,7 @@ static void
 reql_conn_set_res(ReQL_Conn_t *conn, ReQL_Obj_t *res, const ReQL_Token token) {
   ReQL_Cur_t *cur = conn->cursors;
 
-  if (cur == NULL) {
+  if (cur == nullptr) {
     reql_json_destroy(res);
     return;
   }
@@ -253,19 +258,22 @@ reql_conn_set_res(ReQL_Conn_t *conn, ReQL_Obj_t *res, const ReQL_Token token) {
 }
 
 static void *
-reql_conn_loop(void *conn) {
-  ReQL_Byte *response = malloc(sizeof(ReQL_Byte) * 12);
+reql_conn_loop(void *data) {
+  ReQL_Conn_t *conn = reinterpret_cast<ReQL_Conn_t *>(data);
   ReQL_Token token = 0;
   ReQL_Size pos = 0, size = 0;
 
   reql_conn_lock(conn);
 
-  if (response == NULL) {
+  ReQL_Byte *response;
+  try {
+    response = new ReQL_Byte[12];
+  } catch (std::bad_alloc&) {
     reql_conn_close_(conn);
   }
 
   while (reql_conn_socket(conn) >= 0) {
-    if (((ReQL_Conn_t *)conn)->cursors == NULL) {
+    if (conn->cursors == nullptr) {
       reql_conn_unlock(conn);
       sched_yield();
       reql_conn_lock(conn);
@@ -273,11 +281,11 @@ reql_conn_loop(void *conn) {
     }
 
     size_t rcv_size_request = (size > 0 ? size : 12) - pos;
-    ssize_t rcv_size = recvfrom(reql_conn_socket(conn), &response[pos], rcv_size_request, 0, NULL, NULL);
+    ssize_t rcv_size = recvfrom(reql_conn_socket(conn), &response[pos], rcv_size_request, 0, nullptr, nullptr);
     reql_conn_unlock(conn);
 
     if (rcv_size < 0) {
-    } else if ((size_t)rcv_size == rcv_size_request) {
+    } else if (static_cast<size_t>(rcv_size) == rcv_size_request) {
       pos += rcv_size;
     } else {
       pos += rcv_size;
@@ -286,10 +294,10 @@ reql_conn_loop(void *conn) {
     if (size > 0) {
       if (pos >= size) {
         ReQL_Obj_t *res = reql_decode(response, size);
-        if (res == NULL) {
+        if (res == nullptr) {
           reql_conn_lock(conn);
-          ReQL_Cur_t *cur = ((ReQL_Conn_t *)conn)->cursors;
-          if (cur != NULL) {
+          ReQL_Cur_t *cur = conn->cursors;
+          if (cur != nullptr) {
             while (1) {
               if (cur->token == token) {
                 reql_cur_close(cur);
@@ -312,22 +320,31 @@ reql_conn_loop(void *conn) {
         }
 
         pos -= size;
-        size = 0;
 
-        ReQL_Byte *buf = realloc(response, sizeof(ReQL_Byte) * 12);
-        if (buf == NULL) {
+        ReQL_Byte *buf;
+        try {
+          buf = new ReQL_Byte[12];
+        } catch (std::bad_alloc&) {
           break;
         }
+        memcpy(buf, &response[size], sizeof(ReQL_Byte) * pos);
+        delete []response;
         response = buf;
+
+        size = 0;
       }
     } else if (pos >= 12) {
       pos -= 12;
       token = reql_get_64_token(response);
       size = reql_get_32_le(&response[8]);
-      ReQL_Byte *buf = realloc(response, sizeof(ReQL_Byte) * size);
-      if (buf == NULL) {
+      ReQL_Byte *buf;
+      try {
+        buf = new ReQL_Byte[size];
+      } catch (std::bad_alloc&) {
         break;
       }
+      memcpy(buf, &response[12], sizeof(ReQL_Byte) * pos);
+      delete []response;
       response = buf;
     }
     reql_conn_lock(conn);
@@ -337,9 +354,9 @@ reql_conn_loop(void *conn) {
 
   reql_conn_unlock(conn);
 
-  free(response);
+  delete []response;
 
-  return NULL;
+  return nullptr;
 }
 
 static int
@@ -352,13 +369,13 @@ reql_connect_(ReQL_Conn_t *conn, ReQL_Byte *buf, const ReQL_Size size) {
   hints.ai_flags = 0;
   hints.ai_protocol = IPPROTO_TCP;
 
-  if (getaddrinfo(conn->addr, conn->port, &hints, &result) != 0) {
+  if (getaddrinfo(conn->addr, reinterpret_cast<char *>(conn->port), &hints, &result) != 0) {
     return -1;
   }
 
   int sock = -1;
 
-  for (rp = result; rp != NULL; rp = rp->ai_next) {
+  for (rp = result; rp != nullptr; rp = rp->ai_next) {
     sock = socket(rp->ai_family, rp->ai_socktype, rp->ai_protocol);
 
     if (sock == -1) continue;
@@ -368,7 +385,7 @@ reql_connect_(ReQL_Conn_t *conn, ReQL_Byte *buf, const ReQL_Size size) {
     close(sock);
   }
 
-  if (rp == NULL) {
+  if (rp == nullptr) {
     freeaddrinfo(result);
     return -1;
   }
@@ -376,7 +393,7 @@ reql_connect_(ReQL_Conn_t *conn, ReQL_Byte *buf, const ReQL_Size size) {
   freeaddrinfo(result);
 
   {
-    const struct timeval timeout = {(time_t)conn->timeout_s, (suseconds_t)conn->timeout_us};
+    const struct timeval timeout = {static_cast<time_t>(conn->timeout_s), static_cast<suseconds_t>(conn->timeout_us)};
 
     if (setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(struct timeval))) {
       return -1;
@@ -411,14 +428,14 @@ reql_connect_(ReQL_Conn_t *conn, ReQL_Byte *buf, const ReQL_Size size) {
     return -1;
   }
 
-  const ssize_t rcv_size = recvfrom(sock, buf, 8, 0, NULL, NULL);
+  const ssize_t rcv_size = recvfrom(sock, buf, 8, 0, nullptr, nullptr);
 
   if (rcv_size < 0) {
     return -1;
   } else if (rcv_size != 8) {
     return -1;
   } else if (memcmp(buf, "SUCCESS", 8) != 0) {
-    recvfrom(sock, &buf[8], size - 8, 0, NULL, NULL);
+    recvfrom(sock, &buf[8], size - 8, 0, nullptr, nullptr);
     return -1;
   }
 
@@ -436,7 +453,7 @@ reql_connect_(ReQL_Conn_t *conn, ReQL_Byte *buf, const ReQL_Size size) {
 
   conn->socket = sock;
 
-  if (pthread_create(&conn->condition.thread, NULL, reql_conn_loop, conn) != 0) {
+  if (pthread_create(&conn->condition.thread, nullptr, reql_conn_loop, conn) != 0) {
     return -1;
   }
 
@@ -465,22 +482,19 @@ extern void
 reql_conn_destroy(ReQL_Conn_t *conn) {
   reql_conn_lock(conn);
   reql_conn_close_(conn);
-  while (conn->cursors != NULL) {
+  while (conn->cursors != nullptr) {
     reql_cur_close(conn->cursors);
   }
   reql_conn_unlock(conn);
-  if (conn->condition.thread != NULL) {
-    reql_conn_unlock(conn);
-    pthread_join(conn->condition.thread, NULL);
-    conn->condition.thread = NULL;
-  } else {
-    reql_conn_unlock(conn);
+  if (conn->condition.thread != nullptr) {
+    pthread_join(conn->condition.thread, nullptr);
+    conn->condition.thread = nullptr;
   }
-  conn->condition.thread = NULL;
-  if (conn->condition.mutex != NULL) {
+  conn->condition.thread = nullptr;
+  if (conn->condition.mutex != nullptr) {
     pthread_mutex_destroy(conn->condition.mutex);
   }
-  free(conn->condition.mutex); conn->condition.mutex = NULL;
+  delete conn->condition.mutex; conn->condition.mutex = nullptr;
 }
 
 extern char
@@ -529,12 +543,12 @@ reql_run_query_(const ReQL_String_t *wire_query, ReQL_Conn_t *conn, const ReQL_T
 
 static int
 reql_encode_constant_query(ReQL_String_t *wire_query, const enum ReQL_Query_e type) {
-  const int size = snprintf((char *)wire_query->str, (size_t)wire_query->alloc_size, "[%i]", (int)type);
-  if ((ReQL_Size)size > wire_query->alloc_size || size < 3) {
+  const int size = snprintf(reinterpret_cast<char *>(wire_query->str), static_cast<size_t>(wire_query->alloc_size), "[%i]", static_cast<int>(type));
+  if (static_cast<ReQL_Size>(size) > wire_query->alloc_size || size < 3) {
     wire_query->size = 0;
     return -1;
   }
-  wire_query->size = (ReQL_Size)size;
+  wire_query->size = static_cast<ReQL_Size>(size);
 
   return 0;
 }
@@ -564,8 +578,10 @@ reql_no_reply_wait_query(ReQL_Conn_t *conn) {
     return -1;
   }
 
-  ReQL_Cur_t *cur = malloc(sizeof(ReQL_Cur_t));
-  if (cur == NULL) {
+  ReQL_Cur_t *cur;
+  try {
+    cur = new ReQL_Cur_t;
+  } catch (std::bad_alloc&) {
     return -1;
   }
 
@@ -582,7 +598,7 @@ reql_no_reply_wait_query(ReQL_Conn_t *conn) {
   }
 
   reql_cur_destroy(cur);
-  free(cur);
+  delete cur;
 
   return status;
 }
@@ -618,13 +634,13 @@ reql_run_query(ReQL_Cur_t *cur, ReQL_Obj_t *query, ReQL_Conn_t *conn, ReQL_Obj_t
 
   ReQL_String_t *wire_query = reql_encode(&array);
 
-  if (wire_query == NULL) {
+  if (wire_query == nullptr) {
     return -1;
   }
 
   const ReQL_Token token = conn->max_token++;
 
-  if (cur != NULL) {
+  if (cur != nullptr) {
     reql_conn_lock(conn);
     reql_cur_init(cur, conn, token);
     conn->cursors = cur;
@@ -633,8 +649,8 @@ reql_run_query(ReQL_Cur_t *cur, ReQL_Obj_t *query, ReQL_Conn_t *conn, ReQL_Obj_t
 
   const int status = reql_run_query_(wire_query, conn, token);
 
-  free(wire_query->str); wire_query->str = NULL;
-  free(wire_query); wire_query = NULL;
+  delete []wire_query->str ;
+  delete wire_query ;
 
   return status;
 }

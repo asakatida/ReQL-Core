@@ -24,6 +24,8 @@ limitations under the License.
 #include "./reql/query.h"
 #include "./reql/types.h"
 
+#include <memory>
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -33,12 +35,11 @@ reql_string_t_append(ReQL_String_t *obj, const ReQL_Byte *ext, const ReQL_Size s
   if (obj->alloc_size <= (obj->size + size)) {
     obj->alloc_size += size;
     obj->alloc_size *= 1.1;
-
-    ReQL_Byte *str = realloc(obj->str, sizeof(ReQL_Byte) * obj->alloc_size);
-
-    if (str == NULL) {
-      free(obj->str);
-      obj->str = NULL;
+    ReQL_Byte *str;
+    try {
+      str = new ReQL_Byte[obj->alloc_size];
+    } catch (std::bad_alloc&) {
+      delete obj->str; obj->str = nullptr;
       obj->alloc_size = 0;
       obj->size = 0;
       return -1;
@@ -88,9 +89,9 @@ reql_encode_(ReQL_Obj_t *obj, ReQL_String_t *json) {
       ReQL_Iter_t iter = reql_new_iter(obj);
 
       char first = 1;
-      ReQL_Obj_t *elem = NULL;
+      ReQL_Obj_t *elem = nullptr;
 
-      while ((elem = reql_iter_next(&iter)) != NULL) {
+      while ((elem = reql_iter_next(&iter)) != nullptr) {
         if (first == 0) {
           if (reql_string_t_append_(json, comma) != 0) {
             return -1;
@@ -112,9 +113,10 @@ reql_encode_(ReQL_Obj_t *obj, ReQL_String_t *json) {
     case REQL_R_JSON: return -1;
     case REQL_R_NULL: return reql_string_t_append(json, json_null, 4);
     case REQL_R_NUM: {
-      char *str = malloc(sizeof(char));
-
-      if (str == NULL) {
+      char *str;
+      try {
+        str = new char[1];
+      } catch (std::bad_alloc&) {
         return -1;
       }
 
@@ -123,24 +125,25 @@ reql_encode_(ReQL_Obj_t *obj, ReQL_String_t *json) {
       const int size = snprintf(str, 0, "%g", val);
       const int size_w_null = size + 1;
 
-      if ((size_t)size_w_null > UINT32_MAX || size_w_null < 0) {
-        free(str);
+      if (static_cast<size_t>(size_w_null) > UINT32_MAX || size_w_null < 0) {
+        delete []str;
         return -1;
       }
 
-      str = realloc(str, sizeof(char) * (size_t)size_w_null);
-
-      if (str == NULL) {
+      delete []str;
+      try {
+        str = new char[size_w_null];
+      } catch (std::bad_alloc&) {
         return -1;
       }
 
       int err = -1;
 
       if (size == snprintf(str, size_w_null, "%g", val)) {
-        err = reql_string_t_append(json, (ReQL_Byte *)str, (ReQL_Size)size);
+        err = reql_string_t_append(json, reinterpret_cast<ReQL_Byte *>(str), static_cast<ReQL_Size>(size));
       }
 
-      free(str);
+      delete []str;
 
       return err;
     }
@@ -152,9 +155,9 @@ reql_encode_(ReQL_Obj_t *obj, ReQL_String_t *json) {
       ReQL_Iter_t iter = reql_new_iter(obj);
 
       char first = 1;
-      ReQL_Obj_t *key = NULL;
+      ReQL_Obj_t *key = nullptr;
 
-      while ((key = reql_iter_next(&iter)) != NULL) {
+      while ((key = reql_iter_next(&iter)) != nullptr) {
         if (first == 0) {
           if (reql_string_t_append_(json, comma) != 0) {
             return -1;
@@ -177,10 +180,10 @@ reql_encode_(ReQL_Obj_t *obj, ReQL_String_t *json) {
       if (reql_string_t_append_(json, left_square_bracket) != 0) {
         return -1;
       }
-
-      char *str = malloc(sizeof(char));
-
-      if (str == NULL) {
+      char *str;
+      try {
+        str = new char[1];
+      } catch (std::bad_alloc&) {
         return -1;
       }
 
@@ -189,24 +192,25 @@ reql_encode_(ReQL_Obj_t *obj, ReQL_String_t *json) {
       const int size = snprintf(str, 0, "%d", val) + 1;
       const int size_w_null = size + 1;
 
-      if ((size_t)size_w_null > UINT32_MAX || size_w_null < 0) {
-        free(str);
+      if (static_cast<size_t>(size_w_null) > UINT32_MAX || size_w_null < 0) {
+        delete []str;
         return -1;
       }
 
-      str = realloc(str, sizeof(char) * (size_t)size_w_null);
-
-      if (str == NULL) {
+      delete []str;
+      try {
+        str = new char[size_w_null];
+      } catch (std::bad_alloc&) {
         return -1;
       }
 
       int err = -1;
 
       if (size == snprintf(str, size_w_null, "%d", val)) {
-        err = reql_string_t_append(json, (ReQL_Byte *)str, (ReQL_Size)size);
+        err = reql_string_t_append(json, reinterpret_cast<ReQL_Byte *>(str), static_cast<ReQL_Size>(size));
       }
-      
-      free(str);
+
+      delete []str;
 
       if (err != 0) {
         return err;
@@ -225,26 +229,27 @@ reql_encode_(ReQL_Obj_t *obj, ReQL_String_t *json) {
 
 extern ReQL_String_t *
 reql_encode(ReQL_Obj_t *val) {
-  ReQL_String_t *json = malloc(sizeof(ReQL_String_t));
-
-  if (json == NULL) {
-    return NULL;
+  ReQL_String_t *json;
+  try {
+    json = new ReQL_String_t;
+  } catch (std::bad_alloc&) {
+    return nullptr;
   }
 
-  json->str = malloc(sizeof(ReQL_Byte) * 100);
-
-  if (json->str == NULL) {
-    free(json);
-    return NULL;
+  try {
+    json->str = new ReQL_Byte[100];
+  } catch (std::bad_alloc&) {
+    delete json;
+    return nullptr;
   }
 
   json->size = 0;
   json->alloc_size = 100;
 
   if (reql_encode_(val, json) != 0) {
-    free(json->str);
-    free(json);
-    return NULL;
+    delete json->str;
+    delete json;
+    return nullptr;
   }
 
   return json;
