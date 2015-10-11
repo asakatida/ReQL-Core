@@ -333,7 +333,7 @@ struct ReQL_Conn_s {
   ReQL_Token timeout_s;
   ReQL_Token timeout_us;
 
-  char *port;
+  void *port;
   char *addr;
 
   char *auth;

@@ -31,7 +31,7 @@ limitations under the License.
 #include <stdlib.h>
 #include <string.h>
 
-extern int
+extern ReQL_Term_t
 reql_term_type(const ReQL_Obj_t *obj) {
   if (obj == nullptr) {
     return REQL_DATUM;

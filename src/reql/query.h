@@ -52,7 +52,7 @@ reql_datum_type(const ReQL_Obj_t *obj);
  * @param obj any initialized ReQL object.
  * @return term type.
  */
-extern int
+extern ReQL_Term_t
 reql_term_type(const ReQL_Obj_t *obj);
 
 /**
