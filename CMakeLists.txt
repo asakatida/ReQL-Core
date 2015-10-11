@@ -11,13 +11,13 @@ set(SOURCES
  src/cpp/error.cpp
  src/cpp/parser.cpp
  src/cpp/query.cpp
- src/reql/char.c
- src/reql/connection.c
- src/reql/cursor.c
- src/reql/decode.c
- src/reql/encode.c
- src/reql/error.c
- src/reql/query.c
+ src/reql/char.cpp
+ src/reql/connection.cpp
+ src/reql/cursor.cpp
+ src/reql/decode.cpp
+ src/reql/encode.cpp
+ src/reql/error.cpp
+ src/reql/query.cpp
  test/c/connection.cpp
  test/c/polyglot/aggregation.cpp
  test/c/polyglot/arity.cpp
