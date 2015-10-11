@@ -2,8 +2,8 @@
 // I, Mathias Panzenböck, place this file hereby into the public domain. Use it at your own risk for whatever you like.
 // Pruned by Adam Grandquist to define minimum conversion for ReQL protocol communication.
 
-#ifndef PORTABLE_ENDIAN_H__
-#define PORTABLE_ENDIAN_H__
+#ifndef PORTABLE_ENDIAN_H_
+#define PORTABLE_ENDIAN_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -79,4 +79,4 @@ extern "C" {
 }
 #endif
 
-#endif  // PORTABLE_ENDIAN_H__
+#endif  // PORTABLE_ENDIAN_H_
