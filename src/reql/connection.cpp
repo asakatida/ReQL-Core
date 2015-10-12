@@ -20,9 +20,10 @@ limitations under the License.
 
 #include "./reql/connection.h"
 
+#include "./reql/decode.hpp"
+#include "./reql/encode.hpp"
+
 #include "./reql/cursor.h"
-#include "./reql/decode.h"
-#include "./reql/encode.h"
 #include "./reql/error.h"
 #include "./reql/portable_endian.h"
 #include "./reql/query.h"

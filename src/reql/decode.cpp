@@ -18,9 +18,10 @@ limitations under the License.
  * @copyright Apache
  */
 
-#include "./reql/decode.h"
+#include "./reql/decode.hpp"
 
-#include "./reql/char.h"
+#include "./reql/char.hpp"
+
 #include "./reql/error.h"
 #include "./reql/query.h"
 #include "./reql/types.h"

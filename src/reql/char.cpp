@@ -18,7 +18,7 @@ limitations under the License.
  * @copyright Apache
  */
 
-#include "./reql/char.h"
+#include "./reql/char.hpp"
 
 #include "./reql/types.h"
 
