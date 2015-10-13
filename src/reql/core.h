@@ -27,6 +27,7 @@ extern "C" {
 
 #include "./reql/connection.h"
 #include "./reql/cursor.h"
+#include "./reql/error.h"
 #include "./reql/query.h"
 #include "./reql/types.h"
 

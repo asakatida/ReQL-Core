@@ -27,8 +27,6 @@ limitations under the License.
 #include <memory>
 
 #include <pthread.h>
-#include <stdlib.h>
-#include <string.h>
 
 enum {
   EACH,

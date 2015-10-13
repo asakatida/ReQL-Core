@@ -23,13 +23,8 @@ limitations under the License.
 #include "./reql/error.h"
 #include "./reql/types.h"
 
+#include <cstdlib>
 #include <memory>
-
-#include <float.h>
-#include <math.h>
-#include <pthread.h>
-#include <stdlib.h>
-#include <string.h>
 
 extern ReQL_Term_t
 reql_term_type(const ReQL_Obj_t *obj) {

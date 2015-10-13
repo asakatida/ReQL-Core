@@ -21,18 +21,12 @@ limitations under the License.
 #ifndef REQL_REQL_ENCODE_H_
 #define REQL_REQL_ENCODE_H_
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #include "./reql/query.h"
 #include "./reql/types.h"
 
-extern ReQL_String_t *
-reql_encode(ReQL_Obj_t *val);
+#include <string>
 
-#ifdef __cplusplus
-}
-#endif
+const std::string
+reql_encode(const ReQL_Obj_t *val);
 
 #endif  // REQL_REQL_ENCODE_H_

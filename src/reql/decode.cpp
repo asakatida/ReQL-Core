@@ -26,15 +26,14 @@ limitations under the License.
 #include "./reql/query.h"
 #include "./reql/types.h"
 
-#include <ctype.h>
-#include <math.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cctype>
+#include <locale>
+#include <memory>
 
 static int
 reql_space(ReQL_Byte **pos, ReQL_Byte *end) {
   while (*pos != end) {
-    if (!isspace(**pos)) {
+    if (!std::isspace(static_cast<char>(**pos), std::locale("en_US.UTF8"))) {
       return 0;
     }
     ++(*pos);
@@ -367,7 +366,7 @@ reql_decode_(ReQL_Byte **pos, ReQL_Byte *end) {
   return nullptr;
 }
 
-extern ReQL_Obj_t *
+ReQL_Obj_t *
 reql_decode(ReQL_Byte *json, ReQL_Size size) {
   return reql_decode_(&json, json + size);
 }

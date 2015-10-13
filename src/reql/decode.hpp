@@ -21,18 +21,10 @@ limitations under the License.
 #ifndef REQL_REQL_DECODE_H_
 #define REQL_REQL_DECODE_H_
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #include "./reql/query.h"
 #include "./reql/types.h"
 
-extern ReQL_Obj_t *
+ReQL_Obj_t *
 reql_decode(ReQL_Byte *json, ReQL_Size size);
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif  // REQL_REQL_DECODE_H_

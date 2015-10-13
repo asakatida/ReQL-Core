@@ -1,7 +1,7 @@
 // Copyright 2015 Adam Grandquist
 
 #include "./catch.hpp"
-#include "./reql/decode.h"
+#include "./reql/decode.hpp"
 
 #include <string>
 

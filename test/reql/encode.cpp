@@ -1,7 +1,7 @@
 // Copyright 2015 Adam Grandquist
 
 #include "./catch.hpp"
-#include "./reql/encode.h"
+#include "./reql/encode.hpp"
 
 TEST_CASE("encode values", "[reql][encode]") {
   std::unique_ptr<ReQL_Obj_t> val(new ReQL_Obj_t);
@@ -9,57 +9,37 @@ TEST_CASE("encode values", "[reql][encode]") {
   SECTION("null") {
     reql_null_init(val.get());
 
-    ReQL_String_t *str = reql_encode(val.get());
+    auto str = reql_encode(val.get());
 
-    REQUIRE(str != nullptr);
-
-    REQUIRE(str->size == 4);
-
-    free(str->str);
-    free(str);
+    REQUIRE(str.size() == 4);
   }
 
   SECTION("true") {
     reql_bool_init(val.get(), 1 == 1);
 
-    ReQL_String_t *str = reql_encode(val.get());
+    auto str = reql_encode(val.get());
 
-    REQUIRE(str != nullptr);
-
-    REQUIRE(str->size == 4);
-
-    free(str->str);
-    free(str);
+    REQUIRE(str.size() == 4);
   }
 
   SECTION("false") {
     reql_bool_init(val.get(), 0 == 1);
 
-    ReQL_String_t *str = reql_encode(val.get());
+    auto str = reql_encode(val.get());
 
-    REQUIRE(str != nullptr);
-
-    REQUIRE(str->size == 5);
-
-    free(str->str);
-    free(str);
+    REQUIRE(str.size() == 5);
   }
 
   SECTION("number") {
     reql_number_init(val.get(), 1.125);
 
-    ReQL_String_t *str = reql_encode(val.get());
+    auto str = reql_encode(val.get());
 
-    REQUIRE(str != nullptr);
+    REQUIRE(str.size() == 5);
 
-    REQUIRE(str->size == 5);
+    std::string comp("1.125", 0, str.size());
 
-    std::string comp("1.125", 0, str->size);
-
-    REQUIRE(comp.compare(0, str->size, reinterpret_cast<char*>(str->str)) == 0);
-
-    free(str->str);
-    free(str);
+    REQUIRE(comp == str);
   }
 
   SECTION("string") {
@@ -71,39 +51,24 @@ TEST_CASE("encode values", "[reql][encode]") {
 
     reql_string_init(val.get(), buf.get(), hello, size);
 
-    ReQL_String_t *str = reql_encode(val.get());
+    auto str = reql_encode(val.get());
 
-    REQUIRE(str != nullptr);
-
-    REQUIRE(str->size == size + 2);
-
-    free(str->str);
-    free(str);
+    REQUIRE(str.size() == size + 2);
   }
 
   SECTION("array") {
     reql_array_init(val.get(), nullptr, 0);
 
-    ReQL_String_t *str = reql_encode(val.get());
+    auto str = reql_encode(val.get());
 
-    REQUIRE(str != nullptr);
-
-    REQUIRE(str->size == 2);
-
-    free(str->str);
-    free(str);
+    REQUIRE(str.size() == 2);
   }
 
   SECTION("object") {
     reql_object_init(val.get(), nullptr, 0);
 
-    ReQL_String_t *str = reql_encode(val.get());
+    auto str = reql_encode(val.get());
 
-    REQUIRE(str != nullptr);
-
-    REQUIRE(str->size == 2);
-
-    free(str->str);
-    free(str);
+    REQUIRE(str.size() == 2);
   }
 }

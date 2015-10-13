@@ -37,7 +37,6 @@ typedef struct ReQL_Cur_s ReQL_Cur_t;
 typedef struct ReQL_Iter_s ReQL_Iter_t;
 typedef struct ReQL_Obj_s ReQL_Obj_t;
 typedef struct ReQL_Pair_s ReQL_Pair_t;
-typedef struct ReQL_String_s ReQL_String_t;
 
 typedef int(*ReQL_Each_Function)(ReQL_Obj_t *, void *);
 typedef void(*ReQL_End_Function)(void *);
@@ -248,12 +247,6 @@ enum ReQL_Response_e {
   REQL_WAIT_COMPLETE = 4
 };
 typedef enum ReQL_Response_e ReQL_Response_t;
-
-struct ReQL_String_s {
-  ReQL_Size size;
-  ReQL_Size alloc_size;
-  ReQL_Byte *str;
-};
 
 /**
  * @brief A single key and associated value for objects.

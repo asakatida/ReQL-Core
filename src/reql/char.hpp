@@ -21,44 +21,25 @@ limitations under the License.
 #ifndef REQL_REQL_CHAR_H_
 #define REQL_REQL_CHAR_H_
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #include "./reql/types.h"
 
-enum {
-  char_left_square_bracket = 0x5B,
-  char_right_square_bracket = 0x5D,
-  char_left_curly_bracket = 0x7B,
-  char_right_curly_bracket = 0x7D,
-  char_colon = 0x3A,
-  char_comma = 0x2C,
-  char_quotation = 0x22,
-  char_reverse_solidus = 0x5C
-};
+static const char char_left_square_bracket = '[';
+static const char char_right_square_bracket = ']';
+static const char char_left_curly_bracket = '{';
+static const char char_right_curly_bracket = '}';
+static const char char_colon = ':';
+static const char char_comma = ',';
+static const char char_quotation = '"';
+static const char char_reverse_solidus = '\\';
 
-static const ReQL_Byte left_square_bracket = char_left_square_bracket;
-static const ReQL_Byte right_square_bracket = char_right_square_bracket;
-static const ReQL_Byte left_curly_bracket = char_left_curly_bracket;
-static const ReQL_Byte right_curly_bracket = char_right_curly_bracket;
-static const ReQL_Byte colon = char_colon;
-static const ReQL_Byte comma = char_comma;
-static const ReQL_Byte quotation = char_quotation;
-static const ReQL_Byte reverse_solidus = char_reverse_solidus;
+static const char json_true[] = "true";
+static const char json_false[] = "false";
+static const char json_null[] = "null";
 
-static const ReQL_Byte json_true[4] = {0x74, 0x72, 0x75, 0x65};
-static const ReQL_Byte json_false[5] = {0x66, 0x61, 0x6C, 0x73, 0x65};
-static const ReQL_Byte json_null[4] = {0x6E, 0x75, 0x6C, 0x6C};
-
-extern const ReQL_Byte *
+const char *
 reql_json_string_esc(const ReQL_Byte chr);
 
-extern ReQL_Size
+ReQL_Size
 reql_json_string_esc_size(const ReQL_Byte chr);
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif  // REQL_REQL_CHAR_H_

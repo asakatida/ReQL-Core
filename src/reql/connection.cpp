@@ -30,13 +30,12 @@ limitations under the License.
 #include "./reql/types.h"
 
 #include <memory>
+#include <sstream>
+#include <string>
 
 #include <netdb.h>
 #include <netinet/in.h>
 #include <pthread.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include <sys/select.h>
 #include <sys/socket.h>
 #include <sys/types.h>
@@ -507,25 +506,30 @@ reql_conn_open(ReQL_Conn_t *conn) {
 }
 
 static int
-reql_run_query_(const ReQL_String_t *wire_query, ReQL_Conn_t *conn, const ReQL_Token token) {
+reql_run_query_(const std::string &wire_query, ReQL_Conn_t *conn, const ReQL_Token token) {
+  auto size = wire_query.size();
+
+  if (size > UINT32_MAX) {
+    return -1;
+  }
+
   ReQL_Byte token_bytes[8];
 
   reql_make_64_token(token_bytes, token);
-
-  ReQL_Byte size[4];
-
-  reql_make_32_le(size, wire_query->size);
+  
+  ReQL_Byte size_buf[4];
+  reql_make_32_le(size_buf, static_cast<ReQL_Size>(size));
 
   struct iovec magic[3];
 
   magic[0].iov_base = token_bytes;
   magic[0].iov_len = 8;
 
-  magic[1].iov_base = size;
+  magic[1].iov_base = size_buf;
   magic[1].iov_len = 4;
 
-  magic[2].iov_base = wire_query->str;
-  magic[2].iov_len = wire_query->size;
+  magic[2].iov_base = std::unique_ptr<char>(new char[size]).get();
+  magic[2].iov_len = wire_query.size();
 
   reql_conn_lock(conn);
   int sock = reql_conn_socket(conn);
@@ -533,49 +537,39 @@ reql_run_query_(const ReQL_String_t *wire_query, ReQL_Conn_t *conn, const ReQL_T
     reql_conn_unlock(conn);
     return -1;
   }
-  if (writev(sock, magic, 3) != (wire_query->size + 12)) {
+  if (writev(sock, magic, 3) != static_cast<ssize_t>(size + 12)) {
     reql_conn_unlock(conn);
     return -1;
   }
   reql_conn_unlock(conn);
-
+  
   return 0;
 }
 
-static int
-reql_encode_constant_query(ReQL_String_t *wire_query, const enum ReQL_Query_e type) {
-  const int size = snprintf(reinterpret_cast<char *>(wire_query->str), static_cast<size_t>(wire_query->alloc_size), "[%i]", static_cast<int>(type));
-  if (static_cast<ReQL_Size>(size) > wire_query->alloc_size || size < 3) {
-    wire_query->size = 0;
-    return -1;
-  }
-  wire_query->size = static_cast<ReQL_Size>(size);
-
-  return 0;
+static void
+reql_encode_constant_query(std::stringstream &wire_query, const enum ReQL_Query_e type) {
+  wire_query << "[" << type << "]";
 }
 
 extern int
 reql_continue_query(ReQL_Cur_t *cur) {
-  ReQL_String_t wire_query;
-  ReQL_Byte buf[10];
-  wire_query.alloc_size = 10;
-  wire_query.str = buf;
+  std::stringstream wire_query;
 
-  if (reql_encode_constant_query(&wire_query, REQL_CONTINUE) != 0) {
+  try {
+    reql_encode_constant_query(wire_query, REQL_CONTINUE);
+  } catch (std::exception) {
     return -1;
   }
 
-  return reql_run_query_(&wire_query, cur->conn, cur->token);
+  return reql_run_query_(wire_query.str(), cur->conn, cur->token);
 }
 
 extern int
 reql_no_reply_wait_query(ReQL_Conn_t *conn) {
-  ReQL_String_t wire_query;
-  ReQL_Byte buf[10];
-  wire_query.alloc_size = 10;
-  wire_query.str = buf;
-
-  if (reql_encode_constant_query(&wire_query, REQL_NOREPLY_WAIT) != 0) {
+  std::stringstream wire_query;
+  try {
+    reql_encode_constant_query(wire_query, REQL_NOREPLY_WAIT);
+  } catch (std::exception) {
     return -1;
   }
 
@@ -592,7 +586,7 @@ reql_no_reply_wait_query(ReQL_Conn_t *conn) {
   conn->cursors = cur;
   reql_conn_unlock(conn);
 
-  const int status = reql_run_query_(&wire_query, conn, token);
+  const int status = reql_run_query_(wire_query.str(), conn, token);
 
   if (status == 0) {
     reql_cur_drain(cur);
@@ -606,16 +600,13 @@ reql_no_reply_wait_query(ReQL_Conn_t *conn) {
 
 extern int
 reql_stop_query(ReQL_Cur_t *cur) {
-  ReQL_String_t wire_query;
-  ReQL_Byte buf[10];
-  wire_query.alloc_size = 10;
-  wire_query.str = buf;
-
-  if (reql_encode_constant_query(&wire_query, REQL_STOP) != 0) {
+  std::stringstream wire_query;
+  try {
+    reql_encode_constant_query(wire_query, REQL_STOP);
+  } catch (std::exception) {
     return -1;
   }
-
-  return reql_run_query_(&wire_query, cur->conn, cur->token);
+  return reql_run_query_(wire_query.str(), cur->conn, cur->token);
 }
 
 extern int
@@ -633,25 +624,22 @@ reql_run_query(ReQL_Cur_t *cur, ReQL_Obj_t *query, ReQL_Conn_t *conn, ReQL_Obj_t
 
   reql_array_append(&array, kwargs);
 
-  ReQL_String_t *wire_query = reql_encode(&array);
-
-  if (wire_query == nullptr) {
+  std::string wire_query;
+  try {
+    wire_query = reql_encode(&array);
+  } catch (std::exception) {
     return -1;
   }
 
+  reql_conn_lock(conn);
   const ReQL_Token token = conn->max_token++;
-
   if (cur != nullptr) {
-    reql_conn_lock(conn);
     reql_cur_init(cur, conn, token);
     conn->cursors = cur;
-    reql_conn_unlock(conn);
   }
+  reql_conn_unlock(conn);
 
   const int status = reql_run_query_(wire_query, conn, token);
-
-  delete []wire_query->str ;
-  delete wire_query ;
 
   return status;
 }
