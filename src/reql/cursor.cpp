@@ -20,11 +20,14 @@ limitations under the License.
 
 #include "./reql/cursor.h"
 
+#include "./reql/decode.hpp"
+
 #include "./reql/connection.h"
 #include "./reql/error.h"
 #include "./reql/query.h"
 
 #include <memory>
+#include <future>
 
 #include <pthread.h>
 
@@ -92,10 +95,10 @@ reql_cur_set_error_cb(ReQL_Cur_t *cur, ReQL_Error_Function cb, void *arg) {
 }
 
 extern void
-reql_cur_set_response(ReQL_Cur_t *cur, ReQL_Obj_t *res) {
+reql_cur_set_response(ReQL_Cur_t *cur, const ReQL_Byte *res, ReQL_Size length) {
   reql_cur_lock(cur);
-  reql_json_destroy(cur->response);
-  cur->response = res;
+  ReQL_Parse_t parser = cur->get_parser();
+  reql_decode(std::basic_string<ReQL_Byte>(res, length), &parser);
   reql_cur_unlock(cur);
 }
 
@@ -141,73 +144,53 @@ reql_cur_loop(void *data) {
       reql_cur_lock(cur);
       continue;
     }
-    ReQL_Obj_t *res = cur->response; cur->response = nullptr;
+    void *res = cur->response; cur->response = nullptr;
+    int r_type = cur->r_type;
     reql_cur_unlock(cur);
-    char close = 0;
-    ReQL_Obj_t key;
-    ReQL_Byte buf[1];
-    reql_string_init(&key, buf, reinterpret_cast<ReQL_Byte *>(const_cast<char *>("t")), 1);
-    ReQL_Obj_t *type = reql_object_get(res, &key);
-    if (type == nullptr) {
-      if (cur->cb.error != nullptr) {
-        cur->cb.error(res, cur->cb.data[ERROR]);
+    auto close = false;
+    switch (r_type) {
+      case REQL_SUCCESS_ATOM:
+      case REQL_SUCCESS_SEQUENCE:
+      case REQL_WAIT_COMPLETE: {
+        close = true;
+        break;
       }
-      reql_json_destroy(res);
-      reql_cur_close(cur);
-      break;
-    } else {
-      int r_type = static_cast<int>(reql_to_number(type));
-      switch (r_type) {
-        case REQL_SUCCESS_ATOM:
-        case REQL_SUCCESS_SEQUENCE:
-        case REQL_WAIT_COMPLETE: {
-          close = 1;
-          break;
-        }
-        case REQL_SUCCESS_PARTIAL: {
-          reql_cur_lock(cur);
-          if (cur->conn != nullptr) {
-            reql_continue_query(cur);
-          }
-          reql_cur_unlock(cur);
-          break;
-        }
-        case REQL_CLIENT_ERROR:
-        case REQL_COMPILE_ERROR:
-        case REQL_RUNTIME_ERROR:
-        default: {
-          reql_cur_lock(cur);
-          if (cur->cb.error != nullptr) {
-            cur->cb.error(res, cur->cb.data[ERROR]);
-          }
-          reql_cur_unlock(cur);
-          reql_cur_close(cur);
-        }
-      }
-    }
-    reql_string_init(&key, buf, reinterpret_cast<ReQL_Byte *>(const_cast<char *>("r")), 1);
-    ReQL_Obj_t *r_res = reql_object_get(res, &key);
-    ReQL_Iter_t it = reql_new_iter(r_res);
-    ReQL_Obj_t *elem = nullptr;
-    while ((elem = reql_iter_next(&it)) != nullptr) {
-      reql_cur_lock(cur);
-      while (cur->cb.each == nullptr) {
-        reql_cur_unlock(cur);
-        if (reql_cur_open(cur) == 0) {
-          reql_json_destroy(res);
-          return nullptr;
-        }
-        sched_yield();
+      case REQL_SUCCESS_PARTIAL: {
         reql_cur_lock(cur);
+        if (cur->conn != nullptr) {
+          reql_continue_query(cur);
+        }
+        reql_cur_unlock(cur);
+        break;
       }
-      if (cur->cb.each(elem, cur->cb.data[EACH])) {
+      case REQL_CLIENT_ERROR:
+      case REQL_COMPILE_ERROR:
+      case REQL_RUNTIME_ERROR:
+      default: {
+        reql_cur_lock(cur);
+        if (cur->cb.error != nullptr) {
+          cur->cb.error(cur->cb.data[ERROR], res);
+        }
         reql_cur_unlock(cur);
         reql_cur_close(cur);
+      }
+    }
+    reql_cur_lock(cur);
+    while (cur->cb.each == nullptr) {
+      reql_cur_unlock(cur);
+      if (reql_cur_open(cur) == 0) {
         return nullptr;
       }
-      reql_cur_unlock(cur);
+      sched_yield();
+      reql_cur_lock(cur);
+      continue;
     }
-    reql_json_destroy(res);
+    if (cur->cb.each(cur->cb.data[EACH], res) != 0) {
+      reql_cur_unlock(cur);
+      reql_cur_close(cur);
+      return nullptr;
+    }
+    reql_cur_unlock(cur);
     if (close) {
       reql_cur_close(cur);
     }
@@ -289,7 +272,7 @@ reql_cur_destroy(ReQL_Cur_t *cur) {
   }
   reql_cur_lock(cur);
   reql_cur_close_(cur);
-  reql_json_destroy(cur->response); cur->response = nullptr;
+  cur->response = nullptr;
   if (cur->condition.thread != nullptr) {
     reql_cur_unlock(cur);
     pthread_join(cur->condition.thread, nullptr);
@@ -299,23 +282,32 @@ reql_cur_destroy(ReQL_Cur_t *cur) {
   }
 }
 
-struct ReQL_Cur_Data_Holder {
-  union {
-    ReQL_Each_Function each;
-    ReQL_End_Function end;
-    ReQL_Error_Function error;
-  } cb;
-  void *cb_data;
-  pthread_cond_t *done;
+class ReQL_Cur_Next_Data_Holder {
+public:
+  ReQL_Cur_Next_Data_Holder(void *data) : p_data(data), p_done() {}
+  void *data() {
+    return p_data;
+  }
+  void *get() {
+    return p_done.get_future().get();
+  }
+  void set(void *val) {
+    return p_done.set_value(val);
+  }
+  void wait() {
+    return p_done.get_future().wait();
+  }
+private:
+  void *p_data;
+  std::promise<void *> p_done;
 };
 
 static int
-reql_cur_next_cb(ReQL_Obj_t *a_res, void *arg) {
-  struct ReQL_Cur_Data_Holder *p_data = reinterpret_cast<struct ReQL_Cur_Data_Holder *>(arg);
-  ReQL_Cur_t *cur = reinterpret_cast<ReQL_Cur_t*>(p_data->cb_data);
+reql_cur_next_cb(void *arg, void *a_res) {
+  auto p_data = reinterpret_cast<ReQL_Cur_Next_Data_Holder *>(arg);
+  auto cur = reinterpret_cast<ReQL_Cur_t*>(p_data->data());
   cur->cb.each = nullptr;
-  p_data->cb_data = reql_json_move(a_res);
-  pthread_cond_broadcast(p_data->done);
+  p_data->set(a_res);
   return 0;
 }
 
@@ -325,39 +317,25 @@ reql_cur_each_(ReQL_Cur_t *cur, ReQL_Each_Function cb, void *arg) {
   cur->cb.data[EACH] = arg;
 }
 
-static ReQL_Obj_t *
+static void *
 reql_cur_next_(ReQL_Cur_t *cur) {
   if (reql_cur_open_(cur) == 0) {
     return nullptr;
   }
-  ReQL_Each_Function each = cur->cb.each;
-  void *cb_data = cur->cb.data[EACH];
-  struct ReQL_Cur_Data_Holder data;
-  pthread_cond_t *done;
-  try {
-    done = new pthread_cond_t;
-  } catch (std::bad_alloc&) {
-    return nullptr;
-  }
-  pthread_cond_init(done, nullptr);
-  data.done = done;
-  data.cb_data = cur;
+  auto each = std::move(cur->cb.each);
+  auto cb_data = std::move(cur->cb.data[EACH]);
+  ReQL_Cur_Next_Data_Holder data(cur);
   reql_cur_each_(cur, reql_cur_next_cb, &data);
-  int success = 0;
-  while (data.cb_data == cur && success == 0 && reql_cur_open_(cur) != 0) {
-    success = pthread_cond_wait(done, cur->condition.mutex);
-  }
-  pthread_cond_destroy(done);
-  delete done;
-  cur->cb.each = each;
-  cur->cb.data[EACH] = cb_data;
-  return reinterpret_cast<ReQL_Obj_t *>(data.cb_data);
+  data.wait();
+  std::swap(cur->cb.each, each);
+  std::swap(cur->cb.data[EACH], cb_data);
+  return data.get();
 }
 
-extern ReQL_Obj_t *
+extern void *
 reql_cur_next(ReQL_Cur_t *cur) {
   reql_cur_lock(cur);
-  ReQL_Obj_t *res = reql_cur_next_(cur);
+  void *res = reql_cur_next_(cur);
   reql_cur_unlock(cur);
   return res;
 }
@@ -370,19 +348,55 @@ reql_cur_each(ReQL_Cur_t *cur, ReQL_Each_Function cb, void *arg) {
 }
 
 static int
-reql_cur_drain_blank_cb(ReQL_Obj_t *res, void *data) {
-  (void)res;
-  (void)data;
+reql_cur_drain_blank_cb(void *, void *) {
   return 0;
 }
 
+class ReQL_Cur_Drain_Data_Holder {
+public:
+  ReQL_Cur_Drain_Data_Holder(void *data, ReQL_End_Function end) : p_data(data), p_done() {
+    p_cb.end = end;
+  }
+  void *data() {
+    return p_data;
+  }
+  ReQL_Each_Function each() {
+    return p_cb.each;
+  }
+  ReQL_End_Function end() {
+    return p_cb.end;
+  }
+  ReQL_Error_Function error() {
+    return p_cb.error;
+  }
+  void *get() {
+    return p_done.get_future().get();
+  }
+  void set(void *val) {
+    return p_done.set_value(val);
+  }
+  void wait() {
+    return p_done.get_future().wait();
+  }
+private:
+  union {
+    ReQL_Each_Function each;
+    ReQL_End_Function end;
+    ReQL_Error_Function error;
+  } p_cb;
+  void *p_data;
+  std::promise<void *> p_done;
+};
+
 static void
 reql_cur_drain_end_cb(void *arg) {
-  struct ReQL_Cur_Data_Holder *p_data = reinterpret_cast<struct ReQL_Cur_Data_Holder *>(arg);
-  if (p_data->cb.end != nullptr) {
-    p_data->cb.end(p_data->cb_data);
+  auto p_data = reinterpret_cast<ReQL_Cur_Drain_Data_Holder *>(arg);
+  auto end = p_data->end();
+  if (end != nullptr) {
+    end(p_data->data());
   }
-  pthread_cond_broadcast(p_data->done);
+  p_data->set(nullptr);
+  return 0;
 }
 
 static void
@@ -390,24 +404,10 @@ reql_cur_drain_(ReQL_Cur_t *cur) {
   if (cur->cb.each == nullptr) {
     reql_cur_each_(cur, reql_cur_drain_blank_cb, nullptr);
   }
-  struct ReQL_Cur_Data_Holder data;
-  data.cb.end = cur->cb.end;
-  data.cb_data = cur->cb.data[END];
-  pthread_cond_t *done;
-  try {
-    done = new pthread_cond_t;
-  } catch (std::bad_alloc&) {
-    return;
-  }
-  pthread_cond_init(done, nullptr);
-  data.done = done;
+  ReQL_Cur_Drain_Data_Holder data(cur->cb.data[END], cur->cb.end);
   reql_cur_set_end_cb_(cur, reql_cur_drain_end_cb, &data);
-  int success = 0;
-  while (success == 0 && reql_cur_open_(cur) != 0) {
-    success = pthread_cond_wait(done, cur->condition.mutex);
-  }
-  pthread_cond_destroy(done);
-  delete done;
+  data.wait();
+  cur->cb.end = nullptr;
 }
 
 extern void
@@ -415,57 +415,4 @@ reql_cur_drain(ReQL_Cur_t *cur) {
   reql_cur_lock(cur);
   reql_cur_drain_(cur);
   reql_cur_unlock(cur);
-}
-
-static ReQL_Size
-reql_update_array(ReQL_Obj_t *array, ReQL_Obj_t *elem) {
-  ReQL_Size new_alloc = reql_array_append(array, elem);
-
-  if (reql_error_type() != REQL_E_NO) {
-    return new_alloc;
-  }
-
-  if (new_alloc != 0) {
-    ReQL_Obj_t **arr;
-    try {
-      arr = new ReQL_Obj_t*[new_alloc];
-      array->obj.datum.json.var.alloc_size = new_alloc;
-      memcpy(arr, array->obj.datum.json.var.data.array, sizeof(ReQL_Obj_t*) * array->obj.datum.json.var.size);
-      delete []array->obj.datum.json.var.data.array;
-      array->obj.datum.json.var.data.array = arr;
-      return reql_update_array(array, elem);
-    } catch (std::bad_alloc&) {
-      array->obj.datum.json.var.size = array->obj.datum.json.var.alloc_size = 0;
-      delete []array->obj.datum.json.var.data.array;
-      array->obj.datum.json.var.data.array = nullptr;
-    }
-  }
-
-  return new_alloc;
-}
-
-static int
-reql_cur_to_array_cb(ReQL_Obj_t *res, void *data) {
-  return static_cast<int>(reql_update_array(reinterpret_cast<ReQL_Obj_t *>(data), reql_json_move(res)));
-}
-
-extern ReQL_Obj_t *
-reql_cur_to_array(ReQL_Cur_t *cur) {
-  ReQL_Obj_t *array;
-  try {
-    array = new ReQL_Obj_t;
-  } catch (std::bad_alloc&) {
-    return nullptr;
-  }
-  ReQL_Obj_t **arr;
-  try {
-    arr = new ReQL_Obj_t*[20];
-  } catch (std::bad_alloc&) {
-    delete array;
-    return nullptr;
-  }
-  reql_array_init(array, arr, 20);
-  reql_cur_each(cur, reql_cur_to_array_cb, array);
-  reql_cur_drain(cur);
-  return array;
 }

@@ -24,7 +24,9 @@ limitations under the License.
 #include "./reql/query.h"
 #include "./reql/types.h"
 
-ReQL_Obj_t *
-reql_decode(ReQL_Byte *json, ReQL_Size size);
+#include <string>
+
+void
+reql_decode(std::basic_string<ReQL_Byte> json, ReQL_Parse_t *p);
 
 #endif  // REQL_REQL_DECODE_H_

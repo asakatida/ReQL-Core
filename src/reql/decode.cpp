@@ -30,87 +30,79 @@ limitations under the License.
 #include <locale>
 #include <memory>
 
-static int
-reql_space(ReQL_Byte **pos, ReQL_Byte *end) {
-  while (*pos != end) {
-    if (!std::isspace(static_cast<char>(**pos), std::locale("en_US.UTF8"))) {
-      return 0;
+template <class iter>
+static auto
+reql_space(iter &it, const iter &end) {
+  while (std::isspace(static_cast<char>(*it), std::locale("en_US.UTF8"))) {
+    if (it == end) {
+      return -1;
     }
-    ++(*pos);
+    ++it;
   }
-  return -1;
+  return 0;
 }
 
-static int
-reql_next_char(ReQL_Byte **pos, ReQL_Byte *end, ReQL_Byte expect) {
-  if (reql_space(pos, end)) {
+template <class iter>
+static auto
+reql_next_char(iter &it, const iter &end, const typename iter::value_type &expect) {
+  if (reql_space(it, end) != 0) {
     return 0;
   }
-  if (**pos == expect) {
-    ++(*pos);
+  if (*it == expect) {
+    ++it;
     return 1;
   }
   return 0;
 }
 
-static void
-reql_destroy_stack(ReQL_Obj_t *obj) {
-  while (obj != nullptr) {
-    ReQL_Obj_t *top = obj->owner;
-    obj->owner = nullptr;
-    reql_json_destroy(obj);
-    obj = top;
+template <class s>
+static int
+reql_decode_(s &json, typename s::iterator it, typename s::iterator end, ReQL_Parse_t *p) {
+  if (reql_space(it, end) != 0) {
+    return -1;
   }
-}
-
-static ReQL_Obj_t *
-reql_decode_(ReQL_Byte **pos, ReQL_Byte *end) {
-  if (reql_space(pos, end)) {
-    return nullptr;
-  }
-  switch (**pos) {
+  switch (*it) {
     case '"': {
-      ++(*pos);
-      int esc = 0;
-      ReQL_Byte *start = *pos;
-      ReQL_Byte *track = *pos;
-      ReQL_Byte res;
-      while (*pos != end) {
-        res = **pos;
-        if (esc == 1) {
+      ++it;
+      auto esc = false;
+      auto start = it;
+      auto track = it;
+      while (it != end) {
+        auto res = *it;
+        if (esc) {
           switch (res) {
-            case 'b': { /* b */
+            case 'b': {
               res = '\b';
               break;
             }
-            case 'f': { /* f */
+            case 'f': {
               res = '\f';
               break;
             }
-            case 'n': { /* n */
+            case 'n': {
               res = '\n';
               break;
             }
-            case 'r': { /* r */
+            case 'r': {
               res = '\r';
               break;
             }
-            case 't': { /* t */
+            case 't': {
               res = '\t';
               break;
             }
             case 'u': {
-              if ((*pos) + 4 >= end) {
-                return nullptr;
+              if (it + 4 >= end) {
+                return -1;
               }
-              if (!(*(++(*pos)) == '0' && *(++(*pos)) == '0')) {
-                return nullptr;
+              if (!(*(++it) == '0' && *(++it) == '0')) {
+                return -1;
               }
-              ++(*pos);
-              if (!(ishexnumber(*((*pos) + 1)) && ishexnumber(**pos))) {
-                return nullptr;
+              ++it;
+              if (!(ishexnumber(*(it + 1)) && ishexnumber(*it))) {
+                return -1;
               }
-              ReQL_Byte hex = **pos;
+              auto hex = *it;
               if (hex >= '0' && hex <= '9') {
                 hex -= '0';
               } else if (hex >= 'a' && hex <= 'f') {
@@ -119,8 +111,8 @@ reql_decode_(ReQL_Byte **pos, ReQL_Byte *end) {
                 hex -= 'A' - 10;
               }
               res = hex * 16;
-              ++(*pos);
-              hex = **pos;
+              ++it;
+              hex = *it;
               if (hex >= '0' && hex <= '9') {
                 hex -= '0';
               } else if (hex >= 'a' && hex <= 'f') {
@@ -132,209 +124,98 @@ reql_decode_(ReQL_Byte **pos, ReQL_Byte *end) {
               break;
             }
           }
-          esc = 0;
-        } else if (**pos == '\\') {
-          esc = 1;
-        } else if (**pos == '"') {
-          ++(*pos);
-          ReQL_Size size = static_cast<ReQL_Size>(track - start);
-          ReQL_Obj_t *obj;
-          try {
-            obj = new ReQL_Obj_t;
-          } catch (std::bad_alloc&) {
-            return nullptr;
-          }
-
-          ReQL_Byte *buf = nullptr;
-          if (size != 0) {
-            try {
-              buf = new ReQL_Byte[size];
-            } catch (std::bad_alloc&) {
-              delete obj;
-              return nullptr;
-            }
-          }
-
-          reql_string_init(obj, buf, start, size);
-          return obj;
+          esc = false;
+        } else if (*it == '\\') {
+          esc = true;
+        } else if (*it == '"') {
+          ++it;
+          return p->add_string(p, reinterpret_cast<const char *>(&*start), static_cast<size_t>(track - start));
         }
-        *track = res;
         ++track;
-        ++(*pos);
+        ++it;
       }
       break;
     }
     case '[': {
-      ++(*pos);
-      ReQL_Obj_t *elem = nullptr;
-      ReQL_Obj_t *top = nullptr;
-      ReQL_Size i = 0;
-      while (*pos != end) {
-        if (reql_next_char(pos, end, ']')) {
-          ReQL_Obj_t *obj;
-          try {
-            obj = new ReQL_Obj_t;
-          } catch (std::bad_alloc&) {
-            reql_destroy_stack(elem);
-            return nullptr;
-          }
-          if (i == 0) {
-            reql_array_init(obj, nullptr, 0);
-          } else  {
-            ReQL_Obj_t **array;
-            try {
-              array = new ReQL_Obj_t*[i];
-            } catch (std::bad_alloc&) {
-              delete obj;
-              reql_destroy_stack(elem);
-              return nullptr;
-            }
-            reql_array_init(obj, array, i);
-            while (elem != nullptr) {
-              ReQL_Obj_t *val = elem;
-              elem = elem->owner;
-              val->owner = nullptr;
-              reql_array_insert(obj, val, --i);
-            }
-          }
-          return obj;
+      if (p->start_array(p) != 0) {
+        return -1;
+      }
+      ++it;
+      while (it != end) {
+        if (reql_next_char(it, end, ']') != 0) {
+          return p->end_array(p);
         }
-        top = reql_decode_(pos, end);
-        if (top == nullptr) {
-          reql_destroy_stack(elem);
-          return nullptr;
+        if (p->start_element(p) != 0) {
+          return -1;
         }
-        top->owner = elem;
-        elem = top;
-        if (!reql_next_char(pos, end, ',')) {
-          if (**pos != ']') {
-            reql_destroy_stack(elem);
-            return nullptr;
+        if (reql_decode_(json, it, end, p) != 0) {
+          return -1;
+        }
+        if (p->end_element(p) != 0) {
+          return -1;
+        }
+        if (reql_next_char(it, end, ',') == 0) {
+          if (*it != ']') {
+            return -1;
           }
         }
-        ++i;
       }
       break;
     }
     case '{': {
-      ++(*pos);
+      p->start_object(p);
+      ++it;
       ReQL_Obj_t *elem = nullptr;
       ReQL_Obj_t *top = nullptr;
       ReQL_Size i = 0;
-      while (*pos != end) {
-        if (reql_next_char(pos, end, '}')) {
-          ReQL_Obj_t *obj;
-          try {
-            obj = new ReQL_Obj_t;
-          } catch (std::bad_alloc&) {
-            reql_destroy_stack(elem);
-            return nullptr;
-          }
-          if (i == 0) {
-            reql_object_init(obj, nullptr, 0);
-          } else  {
-            ReQL_Pair_t *pair;
-            try {
-              pair = new ReQL_Pair_t[i];
-            } catch (std::bad_alloc&) {
-              delete obj;
-              reql_destroy_stack(elem);
-              return nullptr;
-            }
-            reql_object_init(obj, pair, i);
-            while (elem != nullptr) {
-              if (elem->owner == nullptr) {
-                reql_json_destroy(obj);
-                reql_destroy_stack(elem);
-                return nullptr;
-              }
-              ReQL_Obj_t *val = elem;
-              elem = elem->owner;
-              ReQL_Obj_t *key = elem;
-              elem = elem->owner;
-              key->owner = nullptr;
-              val->owner = nullptr;
-              reql_object_add(obj, key, val);
-            }
-          }
-          return obj;
+      while (it != end) {
+        if (reql_next_char(it, end, '}') != 0) {
+          return p->end_object(p);
         }
-        top = reql_decode_(pos, end);
-        if (top == nullptr) {
-          reql_destroy_stack(elem);
-          return nullptr;
+        if (p->start_key_value(p)) {
+          return -1;
         }
-        top->owner = elem;
-        elem = top;
-        if (!reql_next_char(pos, end, ':')) {
-          reql_destroy_stack(elem);
-          return nullptr;
+        if (reql_decode_(json, it, end, p) != 0) {
+          return -1;
         }
-        top = reql_decode_(pos, end);
-        if (top == nullptr) {
-          reql_destroy_stack(elem);
-          return nullptr;
+        if (reql_next_char(it, end, ':') == 0) {
+          return -1;
         }
-        top->owner = elem;
-        elem = top;
-        if (!reql_next_char(pos, end, ',')) {
-          if (**pos != '}') {
-            reql_destroy_stack(elem);
-            return nullptr;
+        if (reql_decode_(json, it, end, p) != 0) {
+          return -1;
+        }
+        if (reql_next_char(it, end, ',') == 0) {
+          if (*it != '}') {
+            return -1;
           }
         }
-        ++i;
       }
       break;
     }
     case 'f': {
-      if ((*pos) + 5 >= end) {
-        return nullptr;
+      if (it + 5 >= end) {
+        return -1;
       }
-      if (memcmp(*pos, json_false, 5) == 0) {
-        ReQL_Obj_t *obj;
-        try {
-          obj = new ReQL_Obj_t;
-        } catch (std::bad_alloc&) {
-          return nullptr;
-        }
-        reql_bool_init(obj, 0);
-        *pos += 5;
-        return obj;
+      if (memcmp(reinterpret_cast<const void *>(&*it), json_false, 5) == 0) {
+        return p->add_bool(p, 0);
       }
       break;
     }
     case 'n': {
-      if ((*pos) + 4 >= end) {
-        return nullptr;
+      if (it + 4 >= end) {
+        return -1;
       }
-      if (memcmp(*pos, json_null, 4) == 0) {
-        ReQL_Obj_t *obj;
-        try {
-          obj = new ReQL_Obj_t;
-        } catch (std::bad_alloc&) {
-          return nullptr;
-        }
-        reql_null_init(obj);
-        *pos += 4;
-        return obj;
+      if (memcmp(reinterpret_cast<const void *>(&*it), json_null, 4) == 0) {
+        return p->add_null(p);
       }
       break;
     }
     case 't': {
-      if ((*pos) + 4 >= end) {
-        return nullptr;
+      if (it + 4 >= end) {
+        return -1;
       }
-      if (memcmp(*pos, json_true, 4) == 0) {
-        ReQL_Obj_t *obj;
-        try {
-          obj = new ReQL_Obj_t;
-        } catch (std::bad_alloc&) {
-          return nullptr;
-        }
-        reql_bool_init(obj, 1);
-        *pos += 4;
-        return obj;
+      if (memcmp(reinterpret_cast<const void *>(&*it), json_true, 4) == 0) {
+        return p->add_bool(p, 1);
       }
       break;
     }
@@ -349,24 +230,23 @@ reql_decode_(ReQL_Byte **pos, ReQL_Byte *end) {
     case '7':
     case '8':
     case '9': {
-      double num = strtod(reinterpret_cast<char *>(*pos), reinterpret_cast<char **>(pos));
-      if (pos == nullptr) {
-        return nullptr;
+      char *end_ptr = nullptr;
+      double num = strtod(reinterpret_cast<const char *>(&*it), &end_ptr);
+      if (end_ptr == nullptr) {
+        return -1;
       }
-      ReQL_Obj_t *obj;
-      try {
-        obj = new ReQL_Obj_t;
-      } catch (std::bad_alloc&) {
-        return nullptr;
-      }
-      reql_number_init(obj, num);
-      return obj;
+      return p->add_number(p, num);
     }
   }
-  return nullptr;
+  return -1;
 }
 
-ReQL_Obj_t *
-reql_decode(ReQL_Byte *json, ReQL_Size size) {
-  return reql_decode_(&json, json + size);
+void
+reql_decode(std::basic_string<ReQL_Byte> json, ReQL_Parse_t *p) {
+  p->start_parse(p);
+  if (reql_decode_(json, json.begin(), json.end(), p) != 0) {
+    p->error(p);
+  } else {
+    p->end_parse(p);
+  }
 }

@@ -20,7 +20,6 @@ limitations under the License.
 
 #include "./reql/connection.h"
 
-#include "./reql/decode.hpp"
 #include "./reql/encode.hpp"
 
 #include "./reql/cursor.h"
@@ -235,28 +234,6 @@ reql_conn_close_(ReQL_Conn_t *conn) {
   }
 }
 
-static void
-reql_conn_set_res(ReQL_Conn_t *conn, ReQL_Obj_t *res, const ReQL_Token token) {
-  ReQL_Cur_t *cur = conn->cursors;
-
-  if (cur == nullptr) {
-    reql_json_destroy(res);
-    return;
-  }
-
-  while (1) {
-    if (cur->token == token) {
-      reql_cur_set_response(cur, res);
-      break;
-    } else if (cur->next == cur) {
-      reql_json_destroy(res);
-      break;
-    } else {
-      cur = cur->next;
-    }
-  }
-}
-
 static void *
 reql_conn_loop(void *data) {
   ReQL_Conn_t *conn = reinterpret_cast<ReQL_Conn_t *>(data);
@@ -293,31 +270,23 @@ reql_conn_loop(void *data) {
 
     if (size > 0) {
       if (pos >= size) {
-        ReQL_Obj_t *res = reql_decode(response, size);
-        if (res == nullptr) {
-          reql_conn_lock(conn);
-          ReQL_Cur_t *cur = conn->cursors;
-          if (cur != nullptr) {
-            while (1) {
-              if (cur->token == token) {
-                reql_cur_close(cur);
-                break;
-              } else if (cur->next == cur) {
-                break;
-              } else {
-                cur = cur->next;
-              }
-            }
-          }
-          reql_conn_unlock(conn);
-          if (reql_error_type() == REQL_E_NO) {
-            reql_conn_error("Failed to decode response", __func__);
-          }
-        } else {
-          reql_conn_lock(conn);
-          reql_conn_set_res(conn, res, token);
-          reql_conn_unlock(conn);
+        reql_conn_lock(conn);
+        ReQL_Cur_t *cur = conn->cursors;
+        if (cur == nullptr) {
+          break;
         }
+        while (1) {
+          if (cur->token == token) {
+            reql_cur_set_response(cur, response, size);
+            break;
+          } else if (cur->next == cur) {
+            reql_conn_close_(conn);
+            break;
+          } else {
+            cur = cur->next;
+          }
+        }
+        reql_conn_unlock(conn);
 
         pos -= size;
 
@@ -516,7 +485,7 @@ reql_run_query_(const std::string &wire_query, ReQL_Conn_t *conn, const ReQL_Tok
   ReQL_Byte token_bytes[8];
 
   reql_make_64_token(token_bytes, token);
-  
+
   ReQL_Byte size_buf[4];
   reql_make_32_le(size_buf, static_cast<ReQL_Size>(size));
 
@@ -542,7 +511,7 @@ reql_run_query_(const std::string &wire_query, ReQL_Conn_t *conn, const ReQL_Tok
     return -1;
   }
   reql_conn_unlock(conn);
-  
+
   return 0;
 }
 

@@ -37,10 +37,11 @@ typedef struct ReQL_Cur_s ReQL_Cur_t;
 typedef struct ReQL_Iter_s ReQL_Iter_t;
 typedef struct ReQL_Obj_s ReQL_Obj_t;
 typedef struct ReQL_Pair_s ReQL_Pair_t;
+typedef struct ReQL_Parse_s ReQL_Parse_t;
 
-typedef int(*ReQL_Each_Function)(ReQL_Obj_t *, void *);
+typedef int(*ReQL_Each_Function)(void *, void *);
 typedef void(*ReQL_End_Function)(void *);
-typedef void(*ReQL_Error_Function)(ReQL_Obj_t *, void *);
+typedef void(*ReQL_Error_Function)(void *, void *);
 
 /**
  * @brief JSON types.
@@ -296,13 +297,34 @@ struct ReQL_Obj_s {
   ReQL_Obj_t *owner;
 };
 
+struct ReQL_Parse_s {
+  void *data;
+  int(*start_parse)(ReQL_Parse_t *);
+  int(*end_parse)(ReQL_Parse_t *);
+  int(*start_object)(ReQL_Parse_t *);
+  int(*start_key_value)(ReQL_Parse_t *);
+  int(*end_key_value)(ReQL_Parse_t *, const char *, size_t);
+  int(*end_object)(ReQL_Parse_t *);
+  int(*start_array)(ReQL_Parse_t *);
+  int(*start_element)(ReQL_Parse_t *);
+  int(*end_element)(ReQL_Parse_t *);
+  int(*end_array)(ReQL_Parse_t *);
+  int(*add_null)(ReQL_Parse_t *);
+  int(*add_bool)(ReQL_Parse_t *, char);
+  int(*add_number)(ReQL_Parse_t *, double);
+  int(*add_string)(ReQL_Parse_t *, const char *, size_t);
+  void(*error)(ReQL_Parse_t *);
+};
+
 struct ReQL_Cur_s {
   struct {
     pthread_mutex_t *mutex;
     pthread_t thread;
   } condition;
   ReQL_Token token;
-  ReQL_Obj_t *response;
+  void *response;
+  int r_type;
+  ReQL_Parse_t(*get_parser)();
   ReQL_Conn_t *conn;
   ReQL_Cur_t *next;
   ReQL_Cur_t *prev;
