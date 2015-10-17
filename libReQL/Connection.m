@@ -24,9 +24,15 @@ limitations under the License.
 
 #import "./reql/core.h"
 
-@implementation ReQLConnection {
-  ReQL_Conn_t *p_conn;
-}
+@interface ReQLConnection ()
+
+@property ReQL_Conn_t *conn;
+
+@end
+
+@implementation ReQLConnection
+
+@synthesize conn=p_conn;
 
 -(instancetype)init {
   if ((self = [super init])) {
@@ -44,15 +50,15 @@ limitations under the License.
 }
 
 -(void *)data {
-  return p_conn;
+  return self.conn;
 }
 
 -(BOOL)isOpen {
-  return reql_conn_open(p_conn) == 0 ? NO : YES;
+  return reql_conn_open(self.conn) == 0 ? NO : YES;
 }
 
 -(void)close {
-  reql_conn_close(p_conn);
+  reql_conn_close(self.conn);
 }
 
 -(void)dealloc {

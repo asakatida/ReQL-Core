@@ -100,8 +100,8 @@ limitations under the License.
 }
 
 -(ReQL_Obj_t *)steal {
-  ReQL_Obj_t *obj = pointer;
-  pointer = NULL;
+  ReQL_Obj_t *obj = self.pointer;
+  self.pointer = NULL;
   return obj;
 }
 
@@ -147,20 +147,20 @@ limitations under the License.
 
 @end
 
-@interface TermExpr : NSObject <Expr> {
-  ArrayExpr *p_args;
-  ReQL_AST_Function p_func;
-}
+@interface TermExpr : NSObject <Expr>
+
+@property ArrayExpr *args;
+@property ReQL_AST_Function func;
 
 +(instancetype)newTerm:(ReQL_AST_Function)func :(NSArray *)args;
 
 @end
 
-@interface TermKwargsExpr : NSObject <Expr> {
-  ArrayExpr *p_args;
-  DictionaryExpr *p_kwargs;
-  ReQL_AST_Function_Kwargs p_func;
-}
+@interface TermKwargsExpr : NSObject <Expr>
+
+@property ArrayExpr *args;
+@property DictionaryExpr *kwargs;
+@property ReQL_AST_Function_Kwargs func;
 
 +(instancetype)newTerm:(ReQL_AST_Function_Kwargs)func :(NSArray *)args :(NSDictionary *)kwargs;
 
@@ -279,6 +279,9 @@ toQuery(id expr) {
 
 @implementation TermExpr
 
+@synthesize args=p_args;
+@synthesize func=p_func;
+
 +(instancetype)newTerm:(ReQL_AST_Function)func :(NSArray *)args {
   return [[self alloc] initTerm:func :args];
 }
@@ -296,11 +299,11 @@ toQuery(id expr) {
   if (obj == nil) {
     return nil;
   }
-  ReQLObject *r_args = [p_args build];
+  ReQLObject *r_args = [self.args build];
   if (!r_args) {
     return nil;
   }
-  p_func(obj.pointer, [r_args steal]);
+  self.func(obj.pointer, [r_args steal]);
   return obj;
 }
 
@@ -308,6 +311,10 @@ toQuery(id expr) {
 @end
 
 @implementation TermKwargsExpr
+
+@synthesize args=p_args;
+@synthesize kwargs=p_kwargs;
+@synthesize func=p_func;
 
 +(instancetype)newTerm:(ReQL_AST_Function_Kwargs)func :(NSArray *)args :(NSDictionary *)kwargs {
   return [[self alloc] initTerm:func :args :kwargs];
@@ -327,19 +334,19 @@ toQuery(id expr) {
   if (obj == nil) {
     return nil;
   }
-  ReQLObject *r_args = [p_args build];
+  ReQLObject *r_args = [self.args build];
   if (!r_args) {
     return nil;
   }
   ReQLObject *r_kwargs = nil;
-  if (p_kwargs) {
-    r_kwargs = [p_kwargs build];
+  if (self.kwargs) {
+    r_kwargs = [self.kwargs build];
     if (!r_kwargs) {
       return nil;
     }
-    p_func(obj.pointer, [r_args steal], [r_kwargs steal]);
+    self.func(obj.pointer, [r_args steal], [r_kwargs steal]);
   } else {
-    p_func(obj.pointer, [r_args steal], NULL);
+    self.func(obj.pointer, [r_args steal], NULL);
   }
   return obj;
 }
@@ -347,11 +354,19 @@ toQuery(id expr) {
 
 @end
 
-@implementation ReQLQuery {
-  NSObject <Expr> *p_build;
-  NSNumber *p_number;
-  BOOL p_bool;
-}
+@interface ReQLQuery ()
+
+@property NSObject <Expr> *i_build;
+@property NSNumber *number;
+@property BOOL b;
+
+@end
+
+@implementation ReQLQuery
+
+@synthesize i_build=p_build;
+@synthesize number=p_number;
+@synthesize b=p_bool;
 
 +(instancetype)newWithArray:(NSArray *)val {
   return [[self alloc] initTermWithArray:val];
@@ -492,13 +507,13 @@ toQuery(id expr) {
 }
 
 -(ReQLObject *)build {
-  if (p_build) {
-    return [p_build build];
+  if (self.i_build) {
+    return [self.i_build build];
   }
-  if (p_number) {
-    return [(NumberExpr *)[NumberExpr numberWithDouble:[p_number doubleValue]] build];
+  if (self.number) {
+    return [(NumberExpr *)[NumberExpr numberWithDouble:[self.number doubleValue]] build];
   }
-  return [(BoolExpr *)[BoolExpr numberWithBool:p_bool] build];
+  return [(BoolExpr *)[BoolExpr numberWithBool:self.b] build];
 }
 
 +(instancetype)

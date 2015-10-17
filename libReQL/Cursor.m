@@ -86,10 +86,17 @@ convert(ReQL_Obj_t *obj) {
   return nil;
 }
 
-@implementation ReQLCursor {
-  ReQL_Cur_t *p_cur;
-  Cursor *p_stream;
-}
+@interface ReQLCursor ()
+
+@property ReQL_Cur_t *cur;
+@property Cursor *stream;
+
+@end
+
+@implementation ReQLCursor
+
+@synthesize cur=p_cur;
+@synthesize stream=p_stream;
 
 -(instancetype)init {
   if ((self = [super init])) {
@@ -103,7 +110,7 @@ convert(ReQL_Obj_t *obj) {
 }
 
 -(void *)data {
-  return p_cur;
+  return self.cur;
 }
 
 -(NSArray *)toArray {
@@ -111,7 +118,7 @@ convert(ReQL_Obj_t *obj) {
 }
 
 -(void)start {
-  reql_cur_each(p_cur, cursor_each_cb, (__bridge void *)(self));
+  reql_cur_each(self.cur, cursor_each_cb, (__bridge void *)(self));
 }
 
 -(int)setNext:(ReQL_Obj_t *)obj {
@@ -120,9 +127,9 @@ convert(ReQL_Obj_t *obj) {
     return 1;
   }
   @try {
-    [p_stream next:res];
+    [self.stream next:res];
   }
-  @catch (NSException *exception) {
+  @catch (NSException *) {
     return 1;
   }
   @finally {
@@ -131,7 +138,7 @@ convert(ReQL_Obj_t *obj) {
 }
 
 -(BOOL)isOpen {
-  return reql_cur_open(p_cur) == 0 ? NO : YES;
+  return reql_cur_open(self.cur) == 0 ? NO : YES;
 }
 
 -(void)observe:(void (^ __nonnull)(id __nullable, NSError * __nullable))next {
@@ -139,8 +146,8 @@ convert(ReQL_Obj_t *obj) {
 }
 
 -(void)close {
-  [p_stream close];
-  reql_cur_close(p_cur);
+  [self.stream close];
+  reql_cur_close(self.cur);
 }
 
 -(void)dealloc {
