@@ -107,19 +107,7 @@ convert(ReQL_Obj_t *obj) {
 }
 
 -(NSArray *)toArray {
-  ReQL_Obj_t *obj = reql_cur_to_array(p_cur);
-  if (obj == NULL) {
-    return nil;
-  }
-  id array = convert(obj);
-  reql_json_destroy(obj);
-  if (array == nil) {
-    return nil;
-  }
-  if (![array isMemberOfClass:[NSArray class]]) {
-    return nil;
-  }
-  return (NSArray *)array;
+  return nil;
 }
 
 -(void)start {

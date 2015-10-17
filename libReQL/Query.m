@@ -284,7 +284,7 @@ toQuery(id expr) {
 }
 
 -(instancetype)initTerm:(ReQL_AST_Function)func :(NSArray *)args {
-  if (self = [super init]) {
+  if ((self = [super init])) {
     p_args = [ArrayExpr arrayWithArray:args];
     p_func = func;
   }
@@ -314,7 +314,7 @@ toQuery(id expr) {
 }
 
 -(instancetype)initTerm:(ReQL_AST_Function_Kwargs)func :(NSArray *)args :(NSDictionary *)kwargs {
-  if (self = [super init]) {
+  if ((self = [super init])) {
     p_args = [ArrayExpr arrayWithArray:args];
     p_kwargs = [DictionaryExpr dictionaryWithDictionary:kwargs];
     p_func = func;
@@ -382,21 +382,21 @@ toQuery(id expr) {
 }
 
 -(instancetype)init {
-  if (self = [super init]) {
+  if ((self = [super init])) {
     p_build = [NullExpr new];
   }
   return self;
 }
 
 -(instancetype)initTermWithArray:(NSArray *)val {
-  if (self = [super init]) {
+  if ((self = [super init])) {
     p_build = [ArrayExpr arrayWithArray:val];
   }
   return self;
 }
 
 -(instancetype)initTermWithBool:(BOOL)val {
-  if (self = [super init]) {
+  if ((self = [super init])) {
     p_build = nil;
     p_number = nil;
     p_bool = val;
@@ -405,7 +405,7 @@ toQuery(id expr) {
 }
 
 -(instancetype)initTermWithNumber:(NSNumber *)val {
-  if (self = [super init]) {
+  if ((self = [super init])) {
     p_build = nil;
     p_number = val;
   }
@@ -413,28 +413,28 @@ toQuery(id expr) {
 }
 
 -(instancetype)initTermWithObject:(NSDictionary *)val {
-  if (self = [super init]) {
+  if ((self = [super init])) {
     p_build = [DictionaryExpr dictionaryWithDictionary:val];
   }
   return self;
 }
 
 -(instancetype)initTermWithString:(NSString *)val {
-  if (self = [super init]) {
+  if ((self = [super init])) {
     p_build = [StringExpr stringWithString:val];
   }
   return self;
 }
 
 -(instancetype)init:(ReQL_AST_Function)func :(NSArray *)args {
-  if (self = [super init]) {
+  if ((self = [super init])) {
     p_build = [TermExpr newTerm:func :args];
   }
   return self;
 }
 
 -(instancetype)init:(ReQL_AST_Function_Kwargs)func :(NSArray *)args :(NSDictionary *)kwargs {
-  if (self = [super init]) {
+  if ((self = [super init])) {
     p_build = [TermKwargsExpr newTerm:func :args :kwargs];
   }
   return self;
@@ -468,7 +468,7 @@ toQuery(id expr) {
       return nil;
     }
   }
-  reql_run_query([cur data], query.pointer, [conn data], kwargs.pointer);
+  reql_run_query([cur data], query.pointer, [conn data], kwargs.pointer, NULL);
   return cur;
 }
 
@@ -488,7 +488,7 @@ toQuery(id expr) {
       return;
     }
   }
-  reql_run_query(NULL, query.pointer, [conn data], kwargs.pointer);
+  reql_run_query(NULL, query.pointer, [conn data], kwargs.pointer, NULL);
 }
 
 -(ReQLObject *)build {
