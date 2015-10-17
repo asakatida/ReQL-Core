@@ -36,50 +36,6 @@ reql_test_cur_each_inf_cb(void *res, void *data) {
   return 0;
 }
 
-template <typename type>
-int
-_add(ReQL_Parse_t *, type, size_t);
-
-template <typename type>
-int
-_add(ReQL_Parse_t *, type);
-
-int
-_add(ReQL_Parse_t *);
-
-int
-_end_array(ReQL_Parse_t *);
-
-int
-_end_element(ReQL_Parse_t *);
-
-int
-_end_key_value(ReQL_Parse_t *, const char *, size_t);
-
-int
-_end_object(ReQL_Parse_t *);
-
-int
-_end_parse(ReQL_Parse_t *);
-
-void
-_error(ReQL_Parse_t *);
-
-int
-_start_array(ReQL_Parse_t *);
-
-int
-_start_element(ReQL_Parse_t *);
-
-int
-_start_key_value(ReQL_Parse_t *);
-
-int
-_start_object(ReQL_Parse_t *);
-
-int
-_start_parse(ReQL_Parse_t *);
-
 Event::Event(std::string name) : p_name(name) {}
 Event::Event(std::string name, bool val) : p_bool(val), p_name(name) {}
 Event::Event(std::string name, std::string val) : p_name(name), p_str(val) {}
