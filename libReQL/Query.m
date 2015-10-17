@@ -41,7 +41,7 @@ limitations under the License.
 @synthesize pointer=pointer;
 
 -(instancetype)initArray:(NSUInteger)size {
-  if (self = [self init]) {
+  if ((self = [self init])) {
     ReQL_Obj_t **array = malloc(sizeof(ReQL_Obj_t*) * size);
     if (array == NULL) {
       free(pointer); pointer = NULL;
@@ -57,7 +57,7 @@ limitations under the License.
 }
 
 -(instancetype)initObject:(NSUInteger)size {
-  if (self = [self init]) {
+  if ((self = [self init])) {
     ReQL_Pair_t *pairs = malloc(sizeof(ReQL_Pair_t) * size);
     if (pairs == NULL) {
       free(pointer); pointer = NULL;
@@ -73,7 +73,7 @@ limitations under the License.
 }
 
 -(instancetype)initString:(const char *)str withSize:(NSUInteger)size {
-  if (self = [self init]) {
+  if ((self = [self init])) {
     ReQL_Byte *buf = malloc(sizeof(ReQL_Byte) * size);
     if (buf == NULL) {
       free(pointer); pointer = NULL;
@@ -89,7 +89,7 @@ limitations under the License.
 }
 
 -(instancetype)init {
-  if (self = [super init]) {
+  if ((self = [super init])) {
     pointer = malloc(sizeof(ReQL_Obj_t));
     if (pointer == NULL) {
       return nil;

@@ -33,13 +33,13 @@ limitations under the License.
 @end
 
 static int
-cursor_each_cb(ReQL_Obj_t *res, void *data);
+cursor_each_cb(void *res, void *data);
 
 static id
 convert(ReQL_Obj_t *obj);
 
 static int
-cursor_each_cb(ReQL_Obj_t *res, void *data) {
+cursor_each_cb(void *res, void *data) {
   return [((__bridge ReQLCursor *)data) setNext:res];
 }
 
@@ -92,7 +92,7 @@ convert(ReQL_Obj_t *obj) {
 }
 
 -(instancetype)init {
-  if (self = [super init]) {
+  if ((self = [super init])) {
     p_cur = malloc(sizeof(ReQL_Cur_t));
     if (p_cur == NULL) {
       return nil;

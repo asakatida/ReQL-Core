@@ -18,7 +18,7 @@ limitations under the License.
  * @copyright Apache
  */
 
-#import <Cocoa/Cocoa.h>
+@import Cocoa;
 #import <libReQL/Connection.h>
 #import <libReQL/Cursor.h>
 

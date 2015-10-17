@@ -29,7 +29,7 @@ limitations under the License.
 }
 
 -(instancetype)init {
-  if (self = [super init]) {
+  if ((self = [super init])) {
     p_conn = malloc(sizeof(ReQL_Conn_t));
     if (p_conn == NULL) {
       return nil;
