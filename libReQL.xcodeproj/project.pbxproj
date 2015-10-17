@@ -3546,7 +3546,6 @@
 				);
 				SKIP_INSTALL = YES;
 				USER_HEADER_SEARCH_PATHS = src;
-				VERSIONING_SYSTEM = "apple-generic";
 				WARNING_CFLAGS = (
 					"-Weverything",
 					"-Wno-padded",
@@ -3585,7 +3584,6 @@
 				);
 				SKIP_INSTALL = YES;
 				USER_HEADER_SEARCH_PATHS = src;
-				VERSIONING_SYSTEM = "apple-generic";
 				WARNING_CFLAGS = (
 					"-Weverything",
 					"-Wno-padded",
