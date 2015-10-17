@@ -1,6 +1,7 @@
 // Copyright 2015 Adam Grandquist
 
 #include "./catch.hpp"
+#include "./test.hpp"
 #include "./reql/encode.hpp"
 
 TEST_CASE("encode values", "[reql][encode]") {

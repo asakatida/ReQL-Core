@@ -1,41 +1,10 @@
 // Copyright 2015 Adam Grandquist
 
 #include "./catch.hpp"
-#include "./reql/core.h"
+#include "./test.hpp"
+#include "./reql/cursor.h"
 
 #include <string>
-
-static void
-reql_test_cur_end_cb(void *data) {
-  *static_cast<int*>(data) = 0;
-}
-
-static void
-reql_test_cur_error_cb(void *res, void *data) {
-  if (res != nullptr) {
-    *static_cast<int*>(data) = 0;
-  }
-}
-
-static int
-reql_test_cur_each_cb(void *res, void *data) {
-  if (res != nullptr) {
-    ++(*static_cast<int*>(data));
-  }
-  return res == nullptr;
-}
-
-static int
-reql_test_cur_each_inf_cb(void *res, void *data) {
-  int *num = static_cast<int*>(data);
-  if (res != nullptr) {
-    ++(*num);
-  }
-  if (*num > 99) {
-    return 1;
-  }
-  return 0;
-}
 
 TEST_CASE("reql cursor", "[reql][cursor]") {
   std::unique_ptr<ReQL_Conn_t> conn(new ReQL_Conn_t);
@@ -66,7 +35,7 @@ TEST_CASE("reql cursor", "[reql][cursor]") {
     ReQL_Obj_t *query = new ReQL_Obj_t;
     reql_ast_range(query, args);
 
-    REQUIRE(reql_run_query(c.get(), query, conn.get(), nullptr) == 0);
+    REQUIRE(reql_run_query(c.get(), query, conn.get(), nullptr, nullptr) == 0);
 
     reql_json_destroy(query);
 
@@ -117,7 +86,7 @@ TEST_CASE("reql cursor", "[reql][cursor]") {
     ReQL_Obj_t *query = new ReQL_Obj_t;
     reql_ast_range(query, nullptr);
 
-    REQUIRE(reql_run_query(c.get(), query, conn.get(), nullptr) == 0);
+    REQUIRE(reql_run_query(c.get(), query, conn.get(), nullptr, nullptr) == 0);
 
     reql_json_destroy(query);
 
@@ -151,7 +120,7 @@ TEST_CASE("reql cursor", "[reql][cursor]") {
     std::unique_ptr<ReQL_Byte> buf(new ReQL_Byte[2]);
     const ReQL_Byte src[] = "\0t";
     reql_string_init(query.get(), buf.get(), src, 2);
-    REQUIRE(reql_run_query(c.get(), query.get(), conn.get(), nullptr) == 0);
+    REQUIRE(reql_run_query(c.get(), query.get(), conn.get(), nullptr, nullptr) == 0);
 
     REQUIRE(reql_cur_open(c.get()) != 0);
 
