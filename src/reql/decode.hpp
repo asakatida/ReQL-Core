@@ -165,9 +165,6 @@ reql_decode_(s &json, typename s::iterator it, typename s::iterator end, ReQL_Pa
     case '{': {
       p->start_object(p);
       ++it;
-      ReQL_Obj_t *elem = nullptr;
-      ReQL_Obj_t *top = nullptr;
-      ReQL_Size i = 0;
       while (it != end) {
         if (reql_next_char(it, end, '}') != 0) {
           return p->end_object(p);

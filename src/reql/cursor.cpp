@@ -396,7 +396,6 @@ reql_cur_drain_end_cb(void *arg) {
     end(p_data->data());
   }
   p_data->set(nullptr);
-  return 0;
 }
 
 static void
