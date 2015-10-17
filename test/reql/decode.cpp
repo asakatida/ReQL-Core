@@ -244,9 +244,7 @@ _error(ReQL_Parse_t *p) {
   try {
     reinterpret_cast<Parser *>(p->data)->error();
   } catch (std::exception) {
-    return -1;
   }
-  return 0;
 }
 
 int
