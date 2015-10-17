@@ -282,13 +282,10 @@ reql_cur_destroy(ReQL_Cur_t *cur) {
   }
 }
 
-class ReQL_Cur_Next_Data_Holder {
+class ReQL_Cur_Holder {
 public:
-  ReQL_Cur_Next_Data_Holder(void *data) : p_data(data), p_done() {}
-  void *data() {
-    return p_data;
-  }
-  void *get() {
+  ReQL_Cur_Holder(void *a_data) : data(a_data) {}
+  auto get() {
     return p_done.get_future().get();
   }
   void set(void *val) {
@@ -297,15 +294,22 @@ public:
   void wait() {
     return p_done.get_future().wait();
   }
+
+  void *data;
+
 private:
-  void *p_data;
   std::promise<void *> p_done;
+};
+
+class ReQL_Cur_Next_Data_Holder: public ReQL_Cur_Holder {
+public:
+  ReQL_Cur_Next_Data_Holder(void *a_data) : ReQL_Cur_Holder(a_data) {}
 };
 
 static int
 reql_cur_next_cb(void *arg, void *a_res) {
   auto p_data = reinterpret_cast<ReQL_Cur_Next_Data_Holder *>(arg);
-  auto cur = reinterpret_cast<ReQL_Cur_t*>(p_data->data());
+  auto cur = reinterpret_cast<ReQL_Cur_t*>(p_data->data);
   cur->cb.each = nullptr;
   p_data->set(a_res);
   return 0;
@@ -352,40 +356,14 @@ reql_cur_drain_blank_cb(void *, void *) {
   return 0;
 }
 
-class ReQL_Cur_Drain_Data_Holder {
+class ReQL_Cur_Drain_Data_Holder: public ReQL_Cur_Holder {
 public:
-  ReQL_Cur_Drain_Data_Holder(void *data, ReQL_End_Function end) : p_data(data), p_done() {
-    p_cb.end = end;
-  }
-  void *data() {
-    return p_data;
-  }
-  ReQL_Each_Function each() {
-    return p_cb.each;
-  }
-  ReQL_End_Function end() {
-    return p_cb.end;
-  }
-  ReQL_Error_Function error() {
-    return p_cb.error;
-  }
-  void *get() {
-    return p_done.get_future().get();
-  }
-  void set(void *val) {
-    return p_done.set_value(val);
-  }
-  void wait() {
-    return p_done.get_future().wait();
+  ReQL_Cur_Drain_Data_Holder(void *data, ReQL_End_Function end) : ReQL_Cur_Holder(data), p_end(end) {}
+  auto end() {
+    return p_end;
   }
 private:
-  union {
-    ReQL_Each_Function each;
-    ReQL_End_Function end;
-    ReQL_Error_Function error;
-  } p_cb;
-  void *p_data;
-  std::promise<void *> p_done;
+  ReQL_End_Function p_end;
 };
 
 static void
@@ -393,7 +371,7 @@ reql_cur_drain_end_cb(void *arg) {
   auto p_data = reinterpret_cast<ReQL_Cur_Drain_Data_Holder *>(arg);
   auto end = p_data->end();
   if (end != nullptr) {
-    end(p_data->data());
+    end(p_data->data);
   }
   p_data->set(nullptr);
 }
