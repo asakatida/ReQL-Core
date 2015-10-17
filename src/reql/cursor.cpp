@@ -219,7 +219,7 @@ reql_cur_open(ReQL_Cur_t *cur) {
 }
 
 extern void
-reql_cur_init(ReQL_Cur_t *cur, ReQL_Conn_t *conn, ReQL_Token token) {
+reql_cur_init(ReQL_Cur_t *cur, ReQL_Conn_t *conn, ReQL_Token token, ReQL_Parse_t (*get_parser)()) {
   pthread_mutexattr_t *attrs;
   pthread_mutex_t *mutex;
   try {
@@ -251,6 +251,7 @@ reql_cur_init(ReQL_Cur_t *cur, ReQL_Conn_t *conn, ReQL_Token token) {
   cur->prev = cur;
   cur->conn = conn;
   cur->token = token;
+  cur->get_parser = get_parser;
   cur->cb.each = nullptr;
   cur->cb.end = nullptr;
   cur->cb.error = nullptr;

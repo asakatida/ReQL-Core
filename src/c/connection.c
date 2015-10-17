@@ -84,7 +84,7 @@ reql_run(ReQL_t *query, ReQL_t *kwargs, ReQL_Connection_t *conn) {
       return NULL;
     }
   }
-  if (reql_run_query(cur->cursor, r_query, conn->connection, r_kwargs) != 0) {
+  if (reql_run_query(cur->cursor, r_query, conn->connection, r_kwargs, NULL) != 0) {
     reql_json_destroy(r_kwargs);
     reql_json_destroy(r_query);
     reql_cur_destroy(cur->cursor);
@@ -110,7 +110,7 @@ reql_noreply(ReQL_t *query, ReQL_t *kwargs, ReQL_Connection_t *conn) {
       return -1;
     }
   }
-  if (reql_run_query(NULL, r_query, conn->connection, r_kwargs) != 0) {
+  if (reql_run_query(NULL, r_query, conn->connection, r_kwargs, NULL) != 0) {
     reql_json_destroy(r_kwargs);
     reql_json_destroy(r_query);
     return -1;

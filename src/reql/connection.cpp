@@ -533,6 +533,10 @@ reql_continue_query(ReQL_Cur_t *cur) {
   return reql_run_query_(wire_query.str(), cur->conn, cur->token);
 }
 
+static ReQL_Parse_t
+reql_get_parser() {
+}
+
 extern int
 reql_no_reply_wait_query(ReQL_Conn_t *conn) {
   std::stringstream wire_query;
@@ -551,7 +555,7 @@ reql_no_reply_wait_query(ReQL_Conn_t *conn) {
 
   reql_conn_lock(conn);
   const ReQL_Token token = conn->max_token++;
-  reql_cur_init(cur, conn, token);
+  reql_cur_init(cur, conn, token, reql_get_parser);
   conn->cursors = cur;
   reql_conn_unlock(conn);
 
@@ -579,7 +583,7 @@ reql_stop_query(ReQL_Cur_t *cur) {
 }
 
 extern int
-reql_run_query(ReQL_Cur_t *cur, ReQL_Obj_t *query, ReQL_Conn_t *conn, ReQL_Obj_t *kwargs) {
+reql_run_query(ReQL_Cur_t *cur, ReQL_Obj_t *query, ReQL_Conn_t *conn, ReQL_Obj_t *kwargs, ReQL_Parse_t (*get_parser)()) {
   ReQL_Obj_t start;
 
   ReQL_Obj_t array;
@@ -603,7 +607,7 @@ reql_run_query(ReQL_Cur_t *cur, ReQL_Obj_t *query, ReQL_Conn_t *conn, ReQL_Obj_t
   reql_conn_lock(conn);
   const ReQL_Token token = conn->max_token++;
   if (cur != nullptr) {
-    reql_cur_init(cur, conn, token);
+    reql_cur_init(cur, conn, token, get_parser);
     conn->cursors = cur;
   }
   reql_conn_unlock(conn);

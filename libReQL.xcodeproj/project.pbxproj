@@ -589,6 +589,7 @@
 		87DAA6551B13CE01005626BF /* encode.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7E21B138A43004798D7 /* encode.hpp */; };
 		87DAA6571B13CE01005626BF /* error.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7E41B138A43004798D7 /* error.h */; };
 		87DAA65B1B13CE01005626BF /* types.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7E81B138A43004798D7 /* types.h */; };
+		87E329C61BD2047300D97D60 /* test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87E329C51BD2047300D97D60 /* test.cpp */; settings = {ASSET_TAGS = (); }; };
 		87E6E0D71B1E042500EECE37 /* liblibReQL-core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8728ACC41B1BEE0F00588F9A /* liblibReQL-core.dylib */; };
 /* End PBXBuildFile section */
 
@@ -1419,6 +1420,8 @@
 		87DAA6421B13CB96005626BF /* Cursor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Cursor.m; sourceTree = "<group>"; };
 		87DAA6451B13CBBE005626BF /* Query.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Query.h; sourceTree = "<group>"; };
 		87DAA6461B13CBBE005626BF /* Query.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Query.m; sourceTree = "<group>"; };
+		87E329C41BD2032F00D97D60 /* test.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = test.hpp; sourceTree = "<group>"; };
+		87E329C51BD2047300D97D60 /* test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = test.cpp; path = test/test.cpp; sourceTree = SOURCE_ROOT; };
 		87F3A8B21B093E8000401BCE /* error.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = error.h; sourceTree = "<group>"; };
 		87F3A8B31B0942CE00401BCE /* types.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = types.hpp; sourceTree = "<group>"; };
 		87F3A8B41B096A9600401BCE /* parser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = parser.cpp; sourceTree = "<group>"; };
@@ -1782,6 +1785,8 @@
 				1ECDD77F1AB53D80004CD31E /* Info.plist */,
 				1EE6801F1B0C39D200C97B18 /* main.cpp */,
 				1ED9D9E61B14E3DA00B13EAD /* reql */,
+				87E329C51BD2047300D97D60 /* test.cpp */,
+				87E329C41BD2032F00D97D60 /* test.hpp */,
 			);
 			path = test;
 			sourceTree = "<group>";
@@ -3317,6 +3322,7 @@
 				1ED9DAFF1B14E3DA00B13EAD /* indexing.cpp in Sources */,
 				1ED9DB1A1B14E3DA00B13EAD /* random.cpp in Sources */,
 				1ED9DB5A1B14E3DA00B13EAD /* timezones.cpp in Sources */,
+				87E329C61BD2047300D97D60 /* test.cpp in Sources */,
 				1E5460831B03C91000A0362E /* 831.cpp in Sources */,
 				1ED9DA911B14E3DA00B13EAD /* math.cpp in Sources */,
 				1E54604B1B03C91000A0362E /* replace.cpp in Sources */,
