@@ -31,18 +31,17 @@ public class ReQLError: NSObject, ErrorType {
 public class Cursor: NSObject {
   let (signal, sink) = Signal<AnyObject, ReQLError>.pipe()
   var disposable: Disposable?
-  public func next (value: AnyObject) -> Int {
-    sendNext(sink, value)
-    return 0;
+  public func next (value: AnyObject) {
+    self.sink.sendNext(value)
   }
   public func error (error: ReQLError) {
-    sendError(sink, error)
+    sink.sendError(error)
   }
   public func completed () {
-    sendCompleted(sink)
+    sink.sendCompleted()
   }
   public func interupted () {
-    sendInterrupted(sink)
+    sink.sendInterrupted()
   }
   public func observe (next: (Event<AnyObject, ReQLError> -> ())) {
     disposable = signal.observe(next)

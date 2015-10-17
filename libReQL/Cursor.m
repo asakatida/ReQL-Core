@@ -119,7 +119,15 @@ convert(ReQL_Obj_t *obj) {
   if (res == nil) {
     return 1;
   }
-  return (int)[p_stream next:res];
+  @try {
+    [p_stream next:res];
+  }
+  @catch (NSException *exception) {
+    return 1;
+  }
+  @finally {
+    return 0;
+  }
 }
 
 -(BOOL)isOpen {
