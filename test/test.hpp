@@ -20,8 +20,6 @@ reql_test_cur_each_cb(void *res, void *data);
 int
 reql_test_cur_each_inf_cb(void *res, void *data);
 
-class Parser;
-
 template <typename type>
 int
 _add(ReQL_Parse_t *, type, size_t);

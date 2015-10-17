@@ -36,8 +36,6 @@ reql_test_cur_each_inf_cb(void *res, void *data) {
   return 0;
 }
 
-class Parser;
-
 template <typename type>
 int
 _add(ReQL_Parse_t *, type, size_t);
@@ -82,92 +80,92 @@ _start_object(ReQL_Parse_t *);
 int
 _start_parse(ReQL_Parse_t *);
 
-  Event::Event(std::string name) : p_name(name) {}
-  Event::Event(std::string name, bool val) : p_bool(val), p_name(name) {}
-  Event::Event(std::string name, std::string val) : p_name(name), p_str(val) {}
-  Event::Event(std::string name, double val) : p_name(name), p_num(val) {}
+Event::Event(std::string name) : p_name(name) {}
+Event::Event(std::string name, bool val) : p_bool(val), p_name(name) {}
+Event::Event(std::string name, std::string val) : p_name(name), p_str(val) {}
+Event::Event(std::string name, double val) : p_name(name), p_num(val) {}
 
-  bool Event::operator==(const Event &other) const {
-    return p_bool == other.p_bool &&
-      p_name == other.p_name &&
-      p_num == Approx(other.p_num) &&
-      p_str == other.p_str;
-  }
+bool Event::operator==(const Event &other) const {
+  return p_bool == other.p_bool &&
+  p_name == other.p_name &&
+  p_num == Approx(other.p_num) &&
+  p_str == other.p_str;
+}
 
 Parser::Parser() : p_events(), p_parser(new ReQL_Parse_t()) {
-    p_parser->add_bool = _add;
-    p_parser->add_null = _add;
-    p_parser->add_number = _add;
-    p_parser->add_string = _add;
-    p_parser->data = this;
-    p_parser->end_array = _end_array;
-    p_parser->end_element = _end_element;
-    p_parser->end_key_value = _end_key_value;
-    p_parser->end_object = _end_object;
-    p_parser->end_parse = _end_parse;
-    p_parser->error = _error;
-    p_parser->start_array = _start_array;
-    p_parser->start_element = _start_element;
-    p_parser->start_key_value = _start_key_value;
-    p_parser->start_object = _start_object;
-    p_parser->start_parse = _start_parse;
-  }
+  p_parser->add_bool = _add;
+  p_parser->add_null = _add;
+  p_parser->add_number = _add;
+  p_parser->add_string = _add;
+  p_parser->data = this;
+  p_parser->end_array = _end_array;
+  p_parser->end_element = _end_element;
+  p_parser->end_key_value = _end_key_value;
+  p_parser->end_object = _end_object;
+  p_parser->end_parse = _end_parse;
+  p_parser->error = _error;
+  p_parser->start_array = _start_array;
+  p_parser->start_element = _start_element;
+  p_parser->start_key_value = _start_key_value;
+  p_parser->start_object = _start_object;
+  p_parser->start_parse = _start_parse;
+}
 
-  Parser::~Parser() {
-    delete p_parser;
-  }
+Parser::~Parser() {
+  delete p_parser;
+}
 
-  ReQL_Parse_t *Parser::get_parser() {
-    return p_parser;
-  }
+ReQL_Parse_t *Parser::get_parser() {
+  return p_parser;
+}
 
-  void Parser::add() {
-    p_events.push_back(Event("add"));
-  }
+void Parser::add() {
+  p_events.push_back(Event("add"));
+}
 
-  void Parser::end_array() {
-    p_events.push_back(Event("end_array"));
-  }
+void Parser::end_array() {
+  p_events.push_back(Event("end_array"));
+}
 
-  void Parser::end_element() {
-    p_events.push_back(Event("end_element"));
-  }
+void Parser::end_element() {
+  p_events.push_back(Event("end_element"));
+}
 
-  void Parser::end_key_value(std::string key) {
-    p_events.push_back(Event("end_key_value", key));
-  }
+void Parser::end_key_value(std::string key) {
+  p_events.push_back(Event("end_key_value", key));
+}
 
-  void Parser::end_object() {
-    p_events.push_back(Event("end_object"));
-  }
+void Parser::end_object() {
+  p_events.push_back(Event("end_object"));
+}
 
-  void Parser::end_parse() {
-    p_events.push_back(Event("end_parse"));
-  }
+void Parser::end_parse() {
+  p_events.push_back(Event("end_parse"));
+}
 
-  void Parser::error() {
-    p_events.push_back(Event("error"));
-  }
+void Parser::error() {
+  p_events.push_back(Event("error"));
+}
 
-  void Parser::start_array() {
-    p_events.push_back(Event("start_array"));
-  }
+void Parser::start_array() {
+  p_events.push_back(Event("start_array"));
+}
 
-  void Parser::start_element() {
-    p_events.push_back(Event("start_element"));
-  }
+void Parser::start_element() {
+  p_events.push_back(Event("start_element"));
+}
 
-  void Parser::start_key_value() {
-    p_events.push_back(Event("start_key_value"));
-  }
+void Parser::start_key_value() {
+  p_events.push_back(Event("start_key_value"));
+}
 
-  void Parser::start_object() {
-    p_events.push_back(Event("start_object"));
-  }
+void Parser::start_object() {
+  p_events.push_back(Event("start_object"));
+}
 
-  void Parser::start_parse() {
-    p_events.push_back(Event("start_parse"));
-  }
+void Parser::start_parse() {
+  p_events.push_back(Event("start_parse"));
+}
 
 int
 _add(ReQL_Parse_t *p) {
