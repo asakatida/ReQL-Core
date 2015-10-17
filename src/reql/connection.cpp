@@ -533,8 +533,47 @@ reql_continue_query(ReQL_Cur_t *cur) {
   return reql_run_query_(wire_query.str(), cur->conn, cur->token);
 }
 
+static int
+_event(ReQL_Parse_t *, const char *, size_t) {
+  return 0;
+}
+
+template <typename type>
+static int
+_event(ReQL_Parse_t *, type) {
+  return 0;
+}
+
+static int
+_event(ReQL_Parse_t *) {
+  return 0;
+}
+
+static void
+_error(ReQL_Parse_t *p) {
+  p->data = nullptr;
+}
+
 static ReQL_Parse_t
 reql_get_parser() {
+  ReQL_Parse_t p;
+  p.add_bool = _event;
+  p.add_null = _event;
+  p.add_number = _event;
+  p.add_string = _event;
+  p.data = &p;
+  p.end_array = _event;
+  p.end_element = _event;
+  p.end_key_value = _event;
+  p.end_object = _event;
+  p.end_parse = _event;
+  p.error = _error;
+  p.start_array = _event;
+  p.start_element = _event;
+  p.start_key_value = _event;
+  p.start_object = _event;
+  p.start_parse = _event;
+  return p;
 }
 
 extern int
