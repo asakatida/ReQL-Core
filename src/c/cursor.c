@@ -70,7 +70,7 @@ reql_cursor_each(ReQL_Cursor_t *cur, ReQL_Each cb, void *obj) {
 }
 
 static int
-reql_cursor_each_async_cb(ReQL_Obj_t *res, void *data) {
+reql_cursor_each_async_cb(void *res, void *data) {
   if (res == NULL) {
     return 1;
   }

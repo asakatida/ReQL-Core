@@ -14,7 +14,6 @@ set(SOURCES
  src/reql/char.cpp
  src/reql/connection.cpp
  src/reql/cursor.cpp
- src/reql/decode.cpp
  src/reql/encode.cpp
  src/reql/error.cpp
  src/reql/query.cpp

@@ -69,20 +69,6 @@ TEST_CASE("reql connection", "[reql][connection]") {
 
       REQUIRE(reql_cur_open(cur.get()) != 0);
 
-      ReQL_Obj_t *result = reql_cur_to_array(cur.get());
-
-      REQUIRE(result != nullptr);
-      REQUIRE(reql_datum_type(result) == REQL_R_ARRAY);
-      REQUIRE(reql_size(result) == 1);
-
-      ReQL_Obj_t *elem = reql_array_last(result);
-
-      REQUIRE(elem != nullptr);
-      REQUIRE(reql_datum_type(elem) == REQL_R_NUM);
-      REQUIRE(reql_to_number(elem) == Approx(2.72));
-
-      reql_json_destroy(result);
-
       reql_cur_close(cur.get());
     }
 
@@ -160,19 +146,6 @@ TEST_CASE("reql connection", "[reql][connection]") {
 
       REQUIRE(reql_cur_open(cur.get()) != 0);
 
-      ReQL_Obj_t *result = reql_cur_to_array(cur.get());
-
-      REQUIRE(result != nullptr);
-      REQUIRE(reql_datum_type(result) == REQL_R_ARRAY);
-      REQUIRE(reql_size(result) == 1);
-
-      ReQL_Obj_t *elem = reql_array_last(result);
-
-      REQUIRE(elem != nullptr);
-      REQUIRE(reql_datum_type(elem) == REQL_R_OBJECT);
-
-      reql_json_destroy(result);
-
       reql_cur_close(cur.get());
     }
 
@@ -249,19 +222,6 @@ TEST_CASE("reql connection", "[reql][connection]") {
       reql_run_query(cur.get(), table.get(), c.get(), nullptr);
 
       REQUIRE(reql_cur_open(cur.get()) != 0);
-
-      ReQL_Obj_t *result = reql_cur_to_array(cur.get());
-
-      REQUIRE(result != nullptr);
-      REQUIRE(reql_datum_type(result) == REQL_R_ARRAY);
-      REQUIRE(reql_size(result) == 1);
-
-      ReQL_Obj_t *elem = reql_array_last(result);
-
-      REQUIRE(elem != nullptr);
-      REQUIRE(reql_datum_type(elem) == REQL_R_OBJECT);
-
-      reql_json_destroy(result);
 
       reql_cur_close(cur.get());
     }

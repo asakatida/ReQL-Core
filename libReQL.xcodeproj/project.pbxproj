@@ -382,7 +382,6 @@
 		8728ACCE1B1BEE1F00588F9A /* core.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7DC1B138A43004798D7 /* core.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8728ACCF1B1BEE1F00588F9A /* cursor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8791C7DD1B138A43004798D7 /* cursor.cpp */; };
 		8728ACD01B1BEE1F00588F9A /* cursor.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7DE1B138A43004798D7 /* cursor.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8728ACD11B1BEE1F00588F9A /* decode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8791C7DF1B138A43004798D7 /* decode.cpp */; };
 		8728ACD21B1BEE1F00588F9A /* decode.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7E01B138A43004798D7 /* decode.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		8728ACD31B1BEE1F00588F9A /* encode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8791C7E11B138A43004798D7 /* encode.cpp */; };
 		8728ACD41B1BEE1F00588F9A /* encode.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7E21B138A43004798D7 /* encode.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1271,7 +1270,6 @@
 		8791C7DC1B138A43004798D7 /* core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = core.h; sourceTree = "<group>"; };
 		8791C7DD1B138A43004798D7 /* cursor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cursor.cpp; sourceTree = "<group>"; };
 		8791C7DE1B138A43004798D7 /* cursor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cursor.h; sourceTree = "<group>"; };
-		8791C7DF1B138A43004798D7 /* decode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = decode.cpp; sourceTree = "<group>"; };
 		8791C7E01B138A43004798D7 /* decode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = decode.hpp; sourceTree = "<group>"; };
 		8791C7E11B138A43004798D7 /* encode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = encode.cpp; sourceTree = "<group>"; };
 		8791C7E21B138A43004798D7 /* encode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = encode.hpp; sourceTree = "<group>"; };
@@ -2314,7 +2312,6 @@
 				8791C7DC1B138A43004798D7 /* core.h */,
 				8791C7DD1B138A43004798D7 /* cursor.cpp */,
 				8791C7DE1B138A43004798D7 /* cursor.h */,
-				8791C7DF1B138A43004798D7 /* decode.cpp */,
 				8791C7E01B138A43004798D7 /* decode.hpp */,
 				8791C7E11B138A43004798D7 /* encode.cpp */,
 				8791C7E21B138A43004798D7 /* encode.hpp */,
@@ -3104,7 +3101,6 @@
 				87CD586E1B2CADA300EA800F /* query.cpp in Sources */,
 				8728ACD51B1BEE1F00588F9A /* error.cpp in Sources */,
 				8728ACCA1B1BEE1F00588F9A /* char.cpp in Sources */,
-				8728ACD11B1BEE1F00588F9A /* decode.cpp in Sources */,
 				8728ACCF1B1BEE1F00588F9A /* cursor.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

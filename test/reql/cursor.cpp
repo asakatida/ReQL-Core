@@ -11,14 +11,14 @@ reql_test_cur_end_cb(void *data) {
 }
 
 static void
-reql_test_cur_error_cb(ReQL_Obj_t *res, void *data) {
+reql_test_cur_error_cb(void *res, void *data) {
   if (res != nullptr) {
     *static_cast<int*>(data) = 0;
   }
 }
 
 static int
-reql_test_cur_each_cb(ReQL_Obj_t *res, void *data) {
+reql_test_cur_each_cb(void *res, void *data) {
   if (res != nullptr) {
     ++(*static_cast<int*>(data));
   }
@@ -26,7 +26,7 @@ reql_test_cur_each_cb(ReQL_Obj_t *res, void *data) {
 }
 
 static int
-reql_test_cur_each_inf_cb(ReQL_Obj_t *res, void *data) {
+reql_test_cur_each_inf_cb(void *res, void *data) {
   int *num = static_cast<int*>(data);
   if (res != nullptr) {
     ++(*num);
@@ -94,7 +94,7 @@ TEST_CASE("reql cursor", "[reql][cursor]") {
     SECTION("reql_cur_next") {
       int data = 0;
       ReQL_Obj_t *res = nullptr;
-      while ((res = reql_cur_next(c.get())) != nullptr) {
+      while ((res = reinterpret_cast<ReQL_Obj_t *>(reql_cur_next(c.get()))) != nullptr) {
         REQUIRE(reql_datum_type(res) == REQL_R_NUM);
         REQUIRE(reql_to_number(res) == Approx(data));
         reql_json_destroy(res);
@@ -126,7 +126,7 @@ TEST_CASE("reql cursor", "[reql][cursor]") {
     SECTION("reql_cur_next") {
       int data = 0;
       ReQL_Obj_t *res = nullptr;
-      for (; (res = reql_cur_next(c.get())) != nullptr && data < 100; ++data) {
+      for (; (res = reinterpret_cast<ReQL_Obj_t *>(reql_cur_next(c.get()))) != nullptr && data < 100; ++data) {
         REQUIRE(reql_datum_type(res) == REQL_R_NUM);
         REQUIRE(reql_to_number(res) == Approx(data));
         reql_json_destroy(res);
@@ -159,33 +159,6 @@ TEST_CASE("reql cursor", "[reql][cursor]") {
     reql_cur_set_error_cb(c.get(), reql_test_cur_error_cb, &data);
     reql_cur_drain(c.get());
     REQUIRE(data == 0);
-  }
-
-  SECTION("reql_cur_to_array") {
-    ReQL_Size size = 1;
-
-    ReQL_Obj_t *args = new ReQL_Obj_t;
-    ReQL_Obj_t **array = new ReQL_Obj_t*[size];
-    reql_array_init(args, array, size);
-
-    ReQL_Obj_t *elem = new ReQL_Obj_t;
-    reql_number_init(elem, 100);
-    reql_array_append(args, elem);
-
-    ReQL_Obj_t *query = new ReQL_Obj_t;
-    reql_ast_range(query, args);
-
-    REQUIRE(reql_run_query(c.get(), query, conn.get(), nullptr) == 0);
-
-    reql_json_destroy(query);
-
-    REQUIRE(reql_cur_open(c.get()) != 0);
-
-    ReQL_Obj_t *res = reql_cur_to_array(c.get());
-
-    REQUIRE(res != nullptr);
-
-    reql_json_destroy(res);
   }
 
   reql_cur_close(c.get());

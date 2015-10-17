@@ -133,7 +133,7 @@ bool Cursor::isOpen() const {
 
 Query
 Cursor::next() {
-  _C::ReQL_Obj_t *r_res = reql_cur_next(get());
+  _C::ReQL_Obj_t *r_res = reinterpret_cast<_C::ReQL_Obj_t *>(reql_cur_next(get()));
   if (r_res == nullptr) {
     throw ReQLDriverError();
   }
@@ -144,7 +144,7 @@ Cursor::next() {
 
 void
 Cursor::next(Parser &p) {
-  _C::ReQL_Obj_t *res = reql_cur_next(get());
+  _C::ReQL_Obj_t *res = reinterpret_cast<_C::ReQL_Obj_t *>(reql_cur_next(get()));
   if (res != nullptr) {
     p.parse(res);
   }
@@ -155,7 +155,7 @@ Types::array
 Cursor::toVector() {
   Types::array res;
   _C::ReQL_Obj_t *r_res = nullptr;
-  while ((r_res = reql_cur_next(get())) != nullptr) {
+  while ((r_res = reinterpret_cast<_C::ReQL_Obj_t *>(reql_cur_next(get()))) != nullptr) {
     res.insert(res.cend(), Query(r_res));
     _C::reql_json_destroy(r_res);
   }
