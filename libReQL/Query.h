@@ -19,8 +19,15 @@ limitations under the License.
  */
 
 @import Cocoa;
+
 #import <libReQL/Connection.h>
 #import <libReQL/Cursor.h>
+
+@interface ReQLBool : NSObject
+
+-(BOOL)boolValue;
+
+@end
 
 @interface ReQLQuery : NSObject
 

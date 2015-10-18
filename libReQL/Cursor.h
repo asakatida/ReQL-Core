@@ -22,15 +22,11 @@ limitations under the License.
 
 @interface ReQLCursor : NSObject
 
--(void * __nonnull)data;
-
 -(BOOL)isOpen;
 
 -(void)observe:(void (^ __nonnull)(id __nullable, NSError * __nullable))next;
 
 -(NSArray * __nullable)toArray;
-
--(void)start;
 
 -(void)close;
 

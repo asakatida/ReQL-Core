@@ -20,7 +20,335 @@ limitations under the License.
 
 #import "Query.h"
 
+#import "Cursor.h"
+
 #import "./reql/core.h"
+
+@interface ReQLBool ()
+
+@property char value;
+
++(instancetype)newWithBool:(char)val;
+
+@end
+
+@implementation ReQLBool
+
+@synthesize value=p_value;
+
+-(instancetype)initWithBool:(char)val {
+  if ((self = [super init])) {
+    self.value = val ? YES : NO;
+  }
+  return self;
+}
+
++(instancetype)newWithBool:(char)val {
+  return [[self alloc] initWithBool:val];
+}
+
+-(BOOL)boolValue {
+  return self.value;
+}
+
+@end
+
+@interface Parser : NSObject
+
+@property(nonnull) NSMutableArray *stack;
+
+-(int)addBool:(char)val;
+-(int)addNull;
+-(int)addNumber:(double)val;
+-(int)addString:(const char *)val withLength:(size_t)length;
+-(int)endArray;
+-(int)endElement;
+-(int)endKeyValue:(const char *)val withLength:(size_t)length;
+-(int)endObject;
+-(int)startArray;
+-(int)startObject;
+
+@end
+
+@implementation Parser
+
+@synthesize stack=p_stack;
+
+-(void)push:(id)val {
+  [self.stack addObject:val];
+}
+
+-(id)pop {
+  id val = [self.stack lastObject];
+  [self.stack removeLastObject];
+  return val;
+}
+
+-(void)rot:(id(^)(id val))val {
+  [self.stack replaceObjectAtIndex:[self.stack count] - 1 withObject:val([self.stack lastObject])];
+}
+
+-(int)addBool:(char)val {
+  @try {
+    [self push:[ReQLBool newWithBool:val]];
+  }
+  @catch (NSException *) {
+    return -1;
+  }
+  @finally {
+    return 0;
+  }
+}
+
+-(int)addNull {
+  @try {
+    [self push:[NSNull null]];
+  }
+  @catch (NSException *) {
+    return -1;
+  }
+  @finally {
+    return 0;
+  }
+}
+
+-(int)addNumber:(double)val {
+  @try {
+    [self push:[NSNumber numberWithDouble:val]];
+  }
+  @catch (NSException *) {
+    return -1;
+  }
+  @finally {
+    return 0;
+  }
+}
+
+-(int)addString:(const char *)val withLength:(size_t)length {
+  @try {
+    [self push:[[NSString alloc] initWithBytes:val length:length encoding:NSUTF8StringEncoding]];
+  }
+  @catch (NSException *) {
+    return -1;
+  }
+  @finally {
+    return 0;
+  }
+}
+
+-(int)endArray {
+  @try {
+    [self rot:^(id val) {
+      return [NSArray arrayWithArray:val];
+    }];
+  }
+  @catch (NSException *) {
+    return -1;
+  }
+  @finally {
+    return 0;
+  }
+}
+
+-(int)endElement {
+  @try {
+    id last = [self pop];
+    NSMutableArray *array = [self.stack lastObject];
+    [array addObject:last];
+  }
+  @catch (NSException *) {
+    return -1;
+  }
+  @finally {
+    return 0;
+  }
+}
+
+-(int)endKeyValue:(const char *)val withLength:(size_t)length {
+  @try {
+    id value = [self pop];
+    NSString *key = [self pop];
+    NSMutableDictionary *dict = [self.stack lastObject];
+    [dict setValue:value forKey:key];
+  }
+  @catch (NSException *) {
+    return -1;
+  }
+  @finally {
+    return 0;
+  }
+}
+
+-(int)endObject {
+  @try {
+    [self rot:^(id val) {
+      return [NSDictionary dictionaryWithDictionary:val];
+    }];
+  }
+  @catch (NSException *) {
+    return -1;
+  }
+  @finally {
+    return 0;
+  }
+}
+
+-(int)startArray {
+  @try {
+    [self push:[NSMutableArray array]];
+  }
+  @catch (NSException *) {
+    return -1;
+  }
+  @finally {
+    return 0;
+  }
+}
+
+-(int)startObject {
+  @try {
+    [self push:[NSMutableDictionary dictionary]];
+  }
+  @catch (NSException *) {
+    return -1;
+  }
+  @finally {
+    return 0;
+  }
+}
+
+@end
+
+static int
+add_bool(ReQL_Parse_t *p, char val) {
+  return [((__bridge Parser *)p->data) addBool:val];
+}
+
+static int
+add_null(ReQL_Parse_t *p) {
+  return [((__bridge Parser *)p->data) addNull];
+}
+
+static int
+add_number(ReQL_Parse_t *p, double val) {
+  return [((__bridge Parser *)p->data) addNumber:val];
+}
+
+static int
+add_string(ReQL_Parse_t *p, const char *val, size_t length) {
+  return [((__bridge Parser *)p->data) addString:val withLength:length];
+}
+
+static int
+end_array(ReQL_Parse_t *p) {
+  return [((__bridge Parser *)p->data) endArray];
+}
+
+static int
+end_element(ReQL_Parse_t *p) {
+  return [((__bridge Parser *)p->data) endElement];
+}
+
+static int
+end_key_value(ReQL_Parse_t *p, const char *val, size_t length) {
+  return [((__bridge Parser *)p->data) endKeyValue:val withLength:length];
+}
+
+static int
+end_object(ReQL_Parse_t *p) {
+  return [((__bridge Parser *)p->data) endObject];
+}
+
+static int
+end_parse(ReQL_Parse_t *p) {
+  Parser *data = CFBridgingRelease(p->data);
+  p->data = CFBridgingRetain([data.stack lastObject]);
+  return [data.stack count];
+}
+
+static void
+error(ReQL_Parse_t *p) {
+  CFBridgingRelease(p->data); p->data = NULL;
+}
+
+static int
+start_array(ReQL_Parse_t *p) {
+  return [((__bridge Parser *)p->data) startArray];
+}
+
+static int
+start_object(ReQL_Parse_t *p) {
+  return [((__bridge Parser *)p->data) startObject];
+}
+
+static int
+start_parse(ReQL_Parse_t *p) {
+  Parser *data = [Parser new];
+  p->data = CFBridgingRetain(data);
+  return 0;
+}
+
+static ReQL_Parse_t
+get_parser() {
+  ReQL_Parse_t parser;
+  parser.add_bool = add_bool;
+  parser.add_null = add_null;
+  parser.add_number = add_number;
+  parser.add_string = add_string;
+  parser.data = NULL;
+  parser.end_array = end_array;
+  parser.end_element = end_element;
+  parser.end_key_value = end_key_value;
+  parser.end_object = end_object;
+  parser.end_parse = end_parse;
+  parser.error = error;
+  parser.start_array = start_array;
+  parser.start_element = NULL;
+  parser.start_key_value = NULL;
+  parser.start_object = start_object;
+  parser.start_parse = start_parse;
+  return parser;
+}
+
+@interface ReQLCursor ()
+
+-(instancetype)initWithCursor:(ReQL_Cur_t *)cur;
+
+@end
+
+@interface FakeCursor : NSObject
+
+@property ReQL_Cur_t *cur;
+
+-(ReQL_Cur_t *)steal;
+
+@end
+
+@implementation FakeCursor
+
+@synthesize cur=p_cur;
+
+-(instancetype)init {
+  if ((self = [super init])) {
+    p_cur = malloc(sizeof(ReQL_Cur_t));
+    if (p_cur == NULL) {
+      return nil;
+    }
+  }
+  return self;
+}
+
+-(ReQL_Cur_t *)steal {
+  ReQL_Cur_t *cur = self.cur;
+  self.cur = NULL;
+  return cur;
+}
+
+-(void)dealloc {
+  free(p_cur);
+}
+
+@end
 
 @interface ReQLObject : NSObject
 
@@ -468,23 +796,28 @@ toQuery(id expr) {
 }
 
 -(ReQLCursor *)run:(ReQLConnection *)conn withOpts:(NSDictionary *)opts {
-  ReQLCursor *cur = [ReQLCursor new];
+  FakeCursor *cur = [FakeCursor new];
   if (cur == nil) {
     return nil;
   }
   ReQLObject *query = [self build];
-  if (query == NULL) {
+  if (query == nil) {
     return nil;
   }
-  ReQLObject *kwargs = nil;
   if (opts) {
-    kwargs = [[DictionaryExpr dictionaryWithDictionary:opts] build];
+    ReQLObject *kwargs = [[DictionaryExpr dictionaryWithDictionary:opts] build];
     if (!kwargs) {
       return nil;
     }
+    if (reql_run_query(cur.cur, query.pointer, [conn data], kwargs.pointer, NULL) != 0) {
+      return nil;
+    }
+  } else {
+    if (reql_run_query(cur.cur, query.pointer, [conn data], NULL, NULL) != 0) {
+      return nil;
+    }
   }
-  reql_run_query([cur data], query.pointer, [conn data], kwargs.pointer, NULL);
-  return cur;
+  return [[ReQLCursor alloc] initWithCursor:[cur steal]];
 }
 
 -(void)noReply:(ReQLConnection *)conn {
@@ -496,14 +829,15 @@ toQuery(id expr) {
   if (!query) {
     return;
   }
-  ReQLObject *kwargs = nil;
   if (opts) {
-    kwargs = [[DictionaryExpr dictionaryWithDictionary:opts] build];
+    ReQLObject *kwargs = [[DictionaryExpr dictionaryWithDictionary:opts] build];
     if (!kwargs) {
-      return;
+      return nil;
     }
+    reql_run_query(NULL, query.pointer, [conn data], kwargs.pointer, NULL);
+  } else {
+    reql_run_query(NULL, query.pointer, [conn data], NULL, NULL);
   }
-  reql_run_query(NULL, query.pointer, [conn data], kwargs.pointer, NULL);
 }
 
 -(ReQLObject *)build {
