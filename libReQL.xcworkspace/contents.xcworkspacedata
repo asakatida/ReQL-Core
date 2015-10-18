@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:libReQL/ReactiveCocoa/ReactiveCocoa.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:libReQLTests/Quick/Quick.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:libReQL.xcodeproj">
+   </FileRef>
+</Workspace>

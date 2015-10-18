@@ -4,3 +4,6 @@
 [submodule "libReQL/ReactiveCocoa"]
 	path = libReQL/ReactiveCocoa
 	url = https://github.com/ReactiveCocoa/ReactiveCocoa.git
+[submodule "libReQLTests/Quick"]
+	path = libReQLTests/Quick
+	url = https://github.com/Quick/Quick.git
