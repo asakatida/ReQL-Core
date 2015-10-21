@@ -18,11 +18,9 @@ limitations under the License.
  * @copyright Apache
  */
 
-@import Cocoa;
+#import <Cocoa/Cocoa.h>
 
 @interface ReQLConnection : NSObject
-
--(void *)data;
 
 -(BOOL)isOpen;
 

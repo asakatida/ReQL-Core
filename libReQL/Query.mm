@@ -262,7 +262,7 @@ end_object(ReQL_Parse_t *p) {
 static int
 end_parse(ReQL_Parse_t *p) {
   Parser *data = CFBridgingRelease(p->data);
-  p->data = CFBridgingRetain([data.stack lastObject]);
+  p->data = const_cast<void *>(CFBridgingRetain([data.stack lastObject]));
   return [data.stack count];
 }
 
@@ -284,7 +284,7 @@ start_object(ReQL_Parse_t *p) {
 static int
 start_parse(ReQL_Parse_t *p) {
   Parser *data = [Parser new];
-  p->data = CFBridgingRetain(data);
+  p->data = const_cast<void *>(CFBridgingRetain(data));
   return 0;
 }
 
@@ -316,6 +316,12 @@ get_parser() {
 
 @end
 
+@interface ReQLConnection ()
+
+-(ReQL_Conn_t *)data;
+
+@end
+
 @interface FakeCursor : NSObject
 
 @property ReQL_Cur_t *cur;
@@ -330,7 +336,7 @@ get_parser() {
 
 -(instancetype)init {
   if ((self = [super init])) {
-    p_cur = malloc(sizeof(ReQL_Cur_t));
+    p_cur = new ReQL_Cur_t;
     if (p_cur == NULL) {
       return nil;
     }
@@ -370,12 +376,12 @@ get_parser() {
 
 -(instancetype)initArray:(NSUInteger)size {
   if ((self = [self init])) {
-    ReQL_Obj_t **array = malloc(sizeof(ReQL_Obj_t*) * size);
+    ReQL_Obj_t **array = new ReQL_Obj_t*[size];
     if (array == NULL) {
       free(pointer); pointer = NULL;
       return nil;
     }
-    reql_array_init(pointer, array, (ReQL_Size)size);
+    reql_array_init(pointer, array, static_cast<ReQL_Size>(size));
   }
   return self;
 }
@@ -386,12 +392,12 @@ get_parser() {
 
 -(instancetype)initObject:(NSUInteger)size {
   if ((self = [self init])) {
-    ReQL_Pair_t *pairs = malloc(sizeof(ReQL_Pair_t) * size);
+    ReQL_Pair_t *pairs = new ReQL_Pair_t[size];
     if (pairs == NULL) {
       free(pointer); pointer = NULL;
       return nil;
     }
-    reql_object_init(pointer, pairs, (ReQL_Size)size);
+    reql_object_init(pointer, pairs, static_cast<ReQL_Size>(size));
   }
   return self;
 }
@@ -402,12 +408,12 @@ get_parser() {
 
 -(instancetype)initString:(const char *)str withSize:(NSUInteger)size {
   if ((self = [self init])) {
-    ReQL_Byte *buf = malloc(sizeof(ReQL_Byte) * size);
+    ReQL_Byte *buf = new ReQL_Byte[size];
     if (buf == NULL) {
       free(pointer); pointer = NULL;
       return nil;
     }
-    reql_string_init(pointer, buf, (const ReQL_Byte *)str, (ReQL_Size)size);
+    reql_string_init(pointer, buf, reinterpret_cast<const ReQL_Byte *>(str), static_cast<ReQL_Size>(size));
   }
   return self;
 }
@@ -418,7 +424,7 @@ get_parser() {
 
 -(instancetype)init {
   if ((self = [super init])) {
-    pointer = malloc(sizeof(ReQL_Obj_t));
+    pointer = new ReQL_Obj_t;
     if (pointer == NULL) {
       return nil;
     }
@@ -518,7 +524,7 @@ toQuery(id expr) {
 @implementation ArrayExpr
 
 -(ReQLObject *)build {
-  ReQLObject *obj = [ReQLObject newArray:(ReQL_Size)[self count]];
+  ReQLObject *obj = [ReQLObject newArray:static_cast<ReQL_Size>([self count])];
   if (obj == nil) {
     return nil;
   }
@@ -845,9 +851,9 @@ toQuery(id expr) {
     return [self.i_build build];
   }
   if (self.number) {
-    return [(NumberExpr *)[NumberExpr numberWithDouble:[self.number doubleValue]] build];
+    return [reinterpret_cast<NumberExpr *>([NumberExpr numberWithDouble:[self.number doubleValue]]) build];
   }
-  return [(BoolExpr *)[BoolExpr numberWithBool:self.b] build];
+  return [reinterpret_cast<BoolExpr *>([BoolExpr numberWithBool:self.b]) build];
 }
 
 +(instancetype)

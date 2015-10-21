@@ -34,7 +34,7 @@ limitations under the License.
 
 -(instancetype)init {
   if ((self = [super init])) {
-    p_conn = malloc(sizeof(ReQL_Conn_t));
+    p_conn = new ReQL_Conn_t;
     if (p_conn == NULL) {
       return nil;
     }
@@ -47,7 +47,7 @@ limitations under the License.
   return self;
 }
 
--(void *)data {
+-(ReQL_Conn_t *)data {
   return self.conn;
 }
 
