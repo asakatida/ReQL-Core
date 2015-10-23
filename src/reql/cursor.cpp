@@ -38,9 +38,6 @@ enum {
 };
 
 static void
-reql_cur_close_(ReQL_Cur_t *cur);
-
-static void
 reql_cur_error(const char *msg, const char *trace) {
   reql_error_init(REQL_E_CURSOR, msg, trace);
 }
