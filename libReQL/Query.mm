@@ -24,239 +24,42 @@ limitations under the License.
 
 #import "./reql/core.h"
 
-@interface ReQLBool ()
-
-@property char value;
-
-+(instancetype)newWithBool:(char)val;
-
-@end
-
-@implementation ReQLBool
-
-@synthesize value=p_value;
-
--(instancetype)initWithBool:(char)val {
-  if ((self = [super init])) {
-    self.value = val ? YES : NO;
-  }
-  return self;
-}
-
-+(instancetype)newWithBool:(char)val {
-  return [[self alloc] initWithBool:val];
-}
-
--(BOOL)boolValue {
-  return self.value;
-}
-
-@end
-
-@interface Parser : NSObject
-
-@property(nonnull) NSMutableArray *stack;
-
--(int)addBool:(char)val;
--(int)addNull;
--(int)addNumber:(double)val;
--(int)addString:(const char *)val withLength:(size_t)length;
--(int)endArray;
--(int)endElement;
--(int)endKeyValue:(const char *)val withLength:(size_t)length;
--(int)endObject;
--(int)startArray;
--(int)startObject;
-
-@end
-
-@implementation Parser
-
-@synthesize stack=p_stack;
-
--(void)push:(id)val {
-  [self.stack addObject:val];
-}
-
--(id)pop {
-  id val = [self.stack lastObject];
-  [self.stack removeLastObject];
-  return val;
-}
-
--(void)rot:(id(^)(id val))val {
-  [self.stack replaceObjectAtIndex:[self.stack count] - 1 withObject:val([self.stack lastObject])];
-}
-
--(int)addBool:(char)val {
-  @try {
-    [self push:[ReQLBool newWithBool:val]];
-  }
-  @catch (NSException *) {
-    return -1;
-  }
-  @finally {
-    return 0;
-  }
-}
-
--(int)addNull {
-  @try {
-    [self push:[NSNull null]];
-  }
-  @catch (NSException *) {
-    return -1;
-  }
-  @finally {
-    return 0;
-  }
-}
-
--(int)addNumber:(double)val {
-  @try {
-    [self push:[NSNumber numberWithDouble:val]];
-  }
-  @catch (NSException *) {
-    return -1;
-  }
-  @finally {
-    return 0;
-  }
-}
-
--(int)addString:(const char *)val withLength:(size_t)length {
-  @try {
-    [self push:[[NSString alloc] initWithBytes:val length:length encoding:NSUTF8StringEncoding]];
-  }
-  @catch (NSException *) {
-    return -1;
-  }
-  @finally {
-    return 0;
-  }
-}
-
--(int)endArray {
-  @try {
-    [self rot:^(id val) {
-      return [NSArray arrayWithArray:val];
-    }];
-  }
-  @catch (NSException *) {
-    return -1;
-  }
-  @finally {
-    return 0;
-  }
-}
-
--(int)endElement {
-  @try {
-    id last = [self pop];
-    NSMutableArray *array = [self.stack lastObject];
-    [array addObject:last];
-  }
-  @catch (NSException *) {
-    return -1;
-  }
-  @finally {
-    return 0;
-  }
-}
-
--(int)endKeyValue:(const char *)val withLength:(size_t)length {
-  @try {
-    id value = [self pop];
-    NSString *key = [self pop];
-    NSMutableDictionary *dict = [self.stack lastObject];
-    [dict setValue:value forKey:key];
-  }
-  @catch (NSException *) {
-    return -1;
-  }
-  @finally {
-    return 0;
-  }
-}
-
--(int)endObject {
-  @try {
-    [self rot:^(id val) {
-      return [NSDictionary dictionaryWithDictionary:val];
-    }];
-  }
-  @catch (NSException *) {
-    return -1;
-  }
-  @finally {
-    return 0;
-  }
-}
-
--(int)startArray {
-  @try {
-    [self push:[NSMutableArray array]];
-  }
-  @catch (NSException *) {
-    return -1;
-  }
-  @finally {
-    return 0;
-  }
-}
-
--(int)startObject {
-  @try {
-    [self push:[NSMutableDictionary dictionary]];
-  }
-  @catch (NSException *) {
-    return -1;
-  }
-  @finally {
-    return 0;
-  }
-}
-
-@end
+#import <libReQL/libReQL-Swift.h>
 
 static int
 add_bool(ReQL_Parse_t *p, char val) {
-  return [((__bridge Parser *)p->data) addBool:val];
+  [((__bridge Parser *)p->data) addBool:val];
+  return 0;
 }
 
 static int
 add_null(ReQL_Parse_t *p) {
-  return [((__bridge Parser *)p->data) addNull];
+  [((__bridge Parser *)p->data) addNull];
+  return 0;
 }
 
 static int
 add_number(ReQL_Parse_t *p, double val) {
-  return [((__bridge Parser *)p->data) addNumber:val];
+  [((__bridge Parser *)p->data) addNumber:val];
+  return 0;
 }
 
 static int
 add_string(ReQL_Parse_t *p, const char *val, size_t length) {
-  return [((__bridge Parser *)p->data) addString:val withLength:length];
-}
-
-static int
-end_array(ReQL_Parse_t *p) {
-  return [((__bridge Parser *)p->data) endArray];
+  [((__bridge Parser *)p->data) addString:reinterpret_cast<const void *>(val) length:length];
+  return 0;
 }
 
 static int
 end_element(ReQL_Parse_t *p) {
-  return [((__bridge Parser *)p->data) endElement];
+  [((__bridge Parser *)p->data) endElement];
+  return 0;
 }
 
 static int
 end_key_value(ReQL_Parse_t *p, const char *val, size_t length) {
-  return [((__bridge Parser *)p->data) endKeyValue:val withLength:length];
-}
-
-static int
-end_object(ReQL_Parse_t *p) {
-  return [((__bridge Parser *)p->data) endObject];
+  [((__bridge Parser *)p->data) endKeyValue:reinterpret_cast<const void *>(val) length:length];
+  return 0;
 }
 
 static int
@@ -268,17 +71,19 @@ end_parse(ReQL_Parse_t *p) {
 
 static void
 error(ReQL_Parse_t *p) {
-  CFBridgingRelease(p->data); p->data = NULL;
+  CFBridgingRelease(p->data); p->data = nullptr;
 }
 
 static int
 start_array(ReQL_Parse_t *p) {
-  return [((__bridge Parser *)p->data) startArray];
+  [((__bridge Parser *)p->data) startArray];
+  return 0;
 }
 
 static int
 start_object(ReQL_Parse_t *p) {
-  return [((__bridge Parser *)p->data) startObject];
+  [((__bridge Parser *)p->data) startObject];
+  return 0;
 }
 
 static int
@@ -295,16 +100,16 @@ get_parser() {
   parser.add_null = add_null;
   parser.add_number = add_number;
   parser.add_string = add_string;
-  parser.data = NULL;
-  parser.end_array = end_array;
+  parser.data = nullptr;
+  parser.end_array = nullptr;
   parser.end_element = end_element;
   parser.end_key_value = end_key_value;
-  parser.end_object = end_object;
+  parser.end_object = nullptr;
   parser.end_parse = end_parse;
   parser.error = error;
   parser.start_array = start_array;
-  parser.start_element = NULL;
-  parser.start_key_value = NULL;
+  parser.start_element = nullptr;
+  parser.start_key_value = nullptr;
   parser.start_object = start_object;
   parser.start_parse = start_parse;
   return parser;
@@ -312,135 +117,122 @@ get_parser() {
 
 @interface ReQLCursor ()
 
--(instancetype)initWithCursor:(ReQL_Cur_t *)cur;
+-(nonnull instancetype)initWithCursor:(nonnull ReQL_Cur_t *)cur;
 
 @end
 
 @interface ReQLConnection ()
 
--(ReQL_Conn_t *)data;
+-(nonnull ReQL_Conn_t *)data;
 
 @end
 
 @interface FakeCursor : NSObject
 
-@property ReQL_Cur_t *cur;
+@property(nonnull, nonatomic) ReQL_Cur_t *cur;
+@property bool owned;
 
--(ReQL_Cur_t *)steal;
+-(nonnull ReQL_Cur_t *)steal;
 
 @end
 
 @implementation FakeCursor
 
 @synthesize cur=p_cur;
+@synthesize owned=owned;
 
--(instancetype)init {
+-(nonnull instancetype)init {
   if ((self = [super init])) {
+    owned = YES;
     p_cur = new ReQL_Cur_t;
-    if (p_cur == NULL) {
-      return nil;
-    }
   }
   return self;
 }
 
--(ReQL_Cur_t *)steal {
-  ReQL_Cur_t *cur = self.cur;
-  self.cur = NULL;
-  return cur;
+-(nonnull ReQL_Cur_t *)steal {
+  self.owned = NO;
+  return self.cur;
 }
 
 -(void)dealloc {
-  free(p_cur);
+  if (owned) {
+    delete p_cur;
+  }
 }
 
 @end
 
 @interface ReQLObject : NSObject
 
-@property(nonatomic) ReQL_Obj_t *pointer;
+@property bool owned;
+@property(nonnull, nonatomic) ReQL_Obj_t *pointer;
 
-+(instancetype)newArray:(NSUInteger)size;
++(nonnull instancetype)newArray:(NSUInteger)size;
 
-+(instancetype)newObject:(NSUInteger)size;
++(nonnull instancetype)newObject:(NSUInteger)size;
 
-+(instancetype)newString:(const char *)str withSize:(NSUInteger)size;
++(nonnull instancetype)newString:(nonnull const char *)str withSize:(NSUInteger)size;
 
--(ReQL_Obj_t *)steal;
+-(nonnull ReQL_Obj_t *)steal;
 
 @end
 
 @implementation ReQLObject
 
+@synthesize owned=owned;
 @synthesize pointer=pointer;
 
--(instancetype)initArray:(NSUInteger)size {
+-(nonnull instancetype)initArray:(NSUInteger)size {
   if ((self = [self init])) {
-    ReQL_Obj_t **array = new ReQL_Obj_t*[size];
-    if (array == NULL) {
-      free(pointer); pointer = NULL;
-      return nil;
-    }
-    reql_array_init(pointer, array, static_cast<ReQL_Size>(size));
+    reql_array_init(pointer, new ReQL_Obj_t*[size], static_cast<ReQL_Size>(size));
   }
   return self;
 }
 
-+(instancetype)newArray:(NSUInteger)size {
++(nonnull instancetype)newArray:(NSUInteger)size {
   return [[self alloc] initArray:size];
 }
 
--(instancetype)initObject:(NSUInteger)size {
+-(nonnull instancetype)initObject:(NSUInteger)size {
   if ((self = [self init])) {
-    ReQL_Pair_t *pairs = new ReQL_Pair_t[size];
-    if (pairs == NULL) {
-      free(pointer); pointer = NULL;
-      return nil;
-    }
-    reql_object_init(pointer, pairs, static_cast<ReQL_Size>(size));
+    reql_object_init(pointer, new ReQL_Pair_t[size], static_cast<ReQL_Size>(size));
   }
   return self;
 }
 
-+(instancetype)newObject:(NSUInteger)size {
++(nonnull instancetype)newObject:(NSUInteger)size {
   return [[self alloc] initObject:size];
 }
 
--(instancetype)initString:(const char *)str withSize:(NSUInteger)size {
+-(nonnull instancetype)initString:(nonnull const char *)str withSize:(NSUInteger)size {
   if ((self = [self init])) {
-    ReQL_Byte *buf = new ReQL_Byte[size];
-    if (buf == NULL) {
-      free(pointer); pointer = NULL;
-      return nil;
-    }
-    reql_string_init(pointer, buf, reinterpret_cast<const ReQL_Byte *>(str), static_cast<ReQL_Size>(size));
+    reql_string_init(pointer, new ReQL_Byte[size], reinterpret_cast<const ReQL_Byte *>(str), static_cast<ReQL_Size>(size));
   }
   return self;
 }
 
-+(instancetype)newString:(const char *)str withSize:(NSUInteger)size {
++(nonnull instancetype)newString:(nonnull const char *)str withSize:(NSUInteger)size {
   return [[self alloc] initString:str withSize:size];
 }
 
--(instancetype)init {
+-(nonnull instancetype)init {
   if ((self = [super init])) {
+    owned = YES;
     pointer = new ReQL_Obj_t;
-    if (pointer == NULL) {
-      return nil;
-    }
     reql_null_init(pointer);
   }
   return self;
 }
 
--(ReQL_Obj_t *)steal {
-  ReQL_Obj_t *obj = self.pointer;
-  self.pointer = NULL;
-  return obj;
+-(nonnull ReQL_Obj_t *)steal {
+  self.owned = NO;
+  return self.pointer;
 }
 
 -(void)dealloc {
-  reql_json_destroy(pointer);
+  if (owned) {
+    reql_json_destroy(pointer);
+  }
 }
 
 @end
@@ -685,7 +477,6 @@ toQuery(id expr) {
   return obj;
 }
 
-
 @end
 
 @interface ReQLQuery ()
@@ -797,11 +588,11 @@ toQuery(id expr) {
   return [[ReQLQuery alloc] init:func :[@[self] arrayByAddingObjectsFromArray:args]];
 }
 
--(ReQLCursor *)run:(ReQLConnection *)conn {
-  return [self run:conn withOpts:nil];
+-(ReQLCursor *)run:(nonnull ReQLConnection *)conn {
+  return [self run:conn withOpts:@{}];
 }
 
--(ReQLCursor *)run:(ReQLConnection *)conn withOpts:(NSDictionary *)opts {
+-(ReQLCursor *)run:(nonnull ReQLConnection *)conn withOpts:(nonnull NSDictionary *)opts {
   FakeCursor *cur = [FakeCursor new];
   if (cur == nil) {
     return nil;
@@ -810,40 +601,33 @@ toQuery(id expr) {
   if (query == nil) {
     return nil;
   }
-  if (opts) {
-    ReQLObject *kwargs = [[DictionaryExpr dictionaryWithDictionary:opts] build];
-    if (!kwargs) {
-      return nil;
-    }
-    if (reql_run_query(cur.cur, query.pointer, [conn data], kwargs.pointer, NULL) != 0) {
-      return nil;
-    }
-  } else {
-    if (reql_run_query(cur.cur, query.pointer, [conn data], NULL, NULL) != 0) {
-      return nil;
-    }
+  ReQLObject *kwargs = [[DictionaryExpr dictionaryWithDictionary:opts] build];
+  if (!kwargs) {
+    return nil;
+  }
+  if (reql_run_query(cur.cur, query.pointer, [conn data], kwargs.pointer, NULL) != 0) {
+    return nil;
   }
   return [[ReQLCursor alloc] initWithCursor:[cur steal]];
 }
 
--(void)noReply:(ReQLConnection *)conn {
-  [self noReply:conn withOpts:nil];
+-(void)noReply:(nonnull ReQLConnection *)conn {
+  [self noReply:conn withOpts:@{}];
 }
 
--(void)noReply:(ReQLConnection *)conn withOpts:(NSDictionary *)opts {
+-(void)noReply:(nonnull ReQLConnection *)conn withOpts:(nonnull NSDictionary *)opts {
   ReQLObject *query = [self build];
   if (!query) {
     return;
   }
-  if (opts) {
-    ReQLObject *kwargs = [[DictionaryExpr dictionaryWithDictionary:opts] build];
-    if (!kwargs) {
-      return nil;
-    }
-    reql_run_query(NULL, query.pointer, [conn data], kwargs.pointer, NULL);
-  } else {
-    reql_run_query(NULL, query.pointer, [conn data], NULL, NULL);
+  if (!opts) {
+    opts = @{@"noreply": [BoolExpr numberWithBool:YES]};
   }
+  ReQLObject *kwargs = [[DictionaryExpr dictionaryWithDictionary:opts] build];
+  if (!kwargs) {
+    return nil;
+  }
+  reql_run_query(NULL, query.pointer, [conn data], kwargs.pointer, NULL);
 }
 
 -(ReQLObject *)build {

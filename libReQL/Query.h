@@ -23,1255 +23,1249 @@ limitations under the License.
 #import <libReQL/Connection.h>
 #import <libReQL/Cursor.h>
 
-@interface ReQLBool : NSObject
-
--(BOOL)boolValue;
-
-@end
-
 @interface ReQLQuery : NSObject
 
-+(instancetype)newWithArray:(NSArray *)val;
-+(instancetype)newWithBool:(BOOL)val;
-+(instancetype)newWithNumber:(NSNumber *)val;
-+(instancetype)newWithObject:(NSDictionary *)val;
-+(instancetype)newWithString:(NSString *)val;
++(nullable instancetype)newWithArray:(nonnull NSArray *)val;
++(nullable instancetype)newWithBool:(BOOL)val;
++(nullable instancetype)newWithNumber:(nonnull NSNumber *)val;
++(nullable instancetype)newWithObject:(nonnull NSDictionary *)val;
++(nullable instancetype)newWithString:(nonnull NSString *)val;
 
--(ReQLCursor *)run:(ReQLConnection *)conn;
--(ReQLCursor *)run:(ReQLConnection *)conn withOpts:(NSDictionary *)opts;
--(void)noReply:(ReQLConnection *)conn;
--(void)noReply:(ReQLConnection *)conn withOpts:(NSDictionary *)opts;
+-(nullable ReQLCursor *)run:(nonnull ReQLConnection *)conn;
+-(nullable ReQLCursor *)run:(nonnull ReQLConnection *)conn withOpts:(nonnull NSDictionary *)opts;
+-(void)noReply:(nonnull ReQLConnection *)conn;
+-(void)noReply:(nonnull ReQLConnection *)conn withOpts:(nonnull NSDictionary *)opts;
 
 /**
  */
-+(instancetype)
-add:(NSArray *)args;
--(instancetype)
-add:(NSArray *)args;
++(nullable instancetype)
+add:(nullable NSArray *)args;
+-(nullable instancetype)
+add:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-and:(NSArray *)args;
--(instancetype)
-and:(NSArray *)args;
++(nullable instancetype)
+and:(nullable NSArray *)args;
+-(nullable instancetype)
+and:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-append:(NSArray *)args;
--(instancetype)
-append:(NSArray *)args;
++(nullable instancetype)
+append:(nullable NSArray *)args;
+-(nullable instancetype)
+append:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-april:(NSArray *)args;
--(instancetype)
-april:(NSArray *)args;
++(nullable instancetype)
+april:(nullable NSArray *)args;
+-(nullable instancetype)
+april:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-args:(NSArray *)args;
--(instancetype)
-args:(NSArray *)args;
++(nullable instancetype)
+args:(nullable NSArray *)args;
+-(nullable instancetype)
+args:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-asc:(NSArray *)args;
--(instancetype)
-asc:(NSArray *)args;
++(nullable instancetype)
+asc:(nullable NSArray *)args;
+-(nullable instancetype)
+asc:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-august:(NSArray *)args;
--(instancetype)
-august:(NSArray *)args;
++(nullable instancetype)
+august:(nullable NSArray *)args;
+-(nullable instancetype)
+august:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-avg:(NSArray *)args;
--(instancetype)
-avg:(NSArray *)args;
++(nullable instancetype)
+avg:(nullable NSArray *)args;
+-(nullable instancetype)
+avg:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-between:(NSArray *)args;
--(instancetype)
-between:(NSArray *)args;
++(nullable instancetype)
+between:(nullable NSArray *)args;
+-(nullable instancetype)
+between:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-between_deprecated:(NSArray *)args;
--(instancetype)
-between_deprecated:(NSArray *)args;
++(nullable instancetype)
+between_deprecated:(nullable NSArray *)args;
+-(nullable instancetype)
+between_deprecated:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-binary:(NSArray *)args;
--(instancetype)
-binary:(NSArray *)args;
++(nullable instancetype)
+binary:(nullable NSArray *)args;
+-(nullable instancetype)
+binary:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-bracket:(NSArray *)args;
--(instancetype)
-bracket:(NSArray *)args;
++(nullable instancetype)
+bracket:(nullable NSArray *)args;
+-(nullable instancetype)
+bracket:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-branch:(NSArray *)args;
--(instancetype)
-branch:(NSArray *)args;
++(nullable instancetype)
+branch:(nullable NSArray *)args;
+-(nullable instancetype)
+branch:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-ceil:(NSArray *)args;
--(instancetype)
-ceil:(NSArray *)args;
++(nullable instancetype)
+ceil:(nullable NSArray *)args;
+-(nullable instancetype)
+ceil:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-changes:(NSArray *)args;
--(instancetype)
-changes:(NSArray *)args;
++(nullable instancetype)
+changes:(nullable NSArray *)args;
+-(nullable instancetype)
+changes:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-change_at:(NSArray *)args;
--(instancetype)
-change_at:(NSArray *)args;
++(nullable instancetype)
+change_at:(nullable NSArray *)args;
+-(nullable instancetype)
+change_at:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-circle:(NSArray *)args :(NSDictionary *)kwargs;
--(instancetype)
-circle:(NSArray *)args :(NSDictionary *)kwargs;
++(nullable instancetype)
+circle:(nullable NSArray *)args :(nullable NSDictionary *)kwargs;
+-(nullable instancetype)
+circle:(nullable NSArray *)args :(nullable NSDictionary *)kwargs;
 
 /**
  */
-+(instancetype)
-coerce_to:(NSArray *)args;
--(instancetype)
-coerce_to:(NSArray *)args;
++(nullable instancetype)
+coerce_to:(nullable NSArray *)args;
+-(nullable instancetype)
+coerce_to:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-concat_map:(NSArray *)args;
--(instancetype)
-concat_map:(NSArray *)args;
++(nullable instancetype)
+concat_map:(nullable NSArray *)args;
+-(nullable instancetype)
+concat_map:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-config:(NSArray *)args;
--(instancetype)
-config:(NSArray *)args;
++(nullable instancetype)
+config:(nullable NSArray *)args;
+-(nullable instancetype)
+config:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-contains:(NSArray *)args;
--(instancetype)
-contains:(NSArray *)args;
++(nullable instancetype)
+contains:(nullable NSArray *)args;
+-(nullable instancetype)
+contains:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-count:(NSArray *)args;
--(instancetype)
-count:(NSArray *)args;
++(nullable instancetype)
+count:(nullable NSArray *)args;
+-(nullable instancetype)
+count:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-date:(NSArray *)args;
--(instancetype)
-date:(NSArray *)args;
++(nullable instancetype)
+date:(nullable NSArray *)args;
+-(nullable instancetype)
+date:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-datum:(NSArray *)args;
--(instancetype)
-datum:(NSArray *)args;
++(nullable instancetype)
+datum:(nullable NSArray *)args;
+-(nullable instancetype)
+datum:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-day:(NSArray *)args;
--(instancetype)
-day:(NSArray *)args;
++(nullable instancetype)
+day:(nullable NSArray *)args;
+-(nullable instancetype)
+day:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-day_of_week:(NSArray *)args;
--(instancetype)
-day_of_week:(NSArray *)args;
++(nullable instancetype)
+day_of_week:(nullable NSArray *)args;
+-(nullable instancetype)
+day_of_week:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-day_of_year:(NSArray *)args;
--(instancetype)
-day_of_year:(NSArray *)args;
++(nullable instancetype)
+day_of_year:(nullable NSArray *)args;
+-(nullable instancetype)
+day_of_year:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-db:(NSArray *)args;
--(instancetype)
-db:(NSArray *)args;
++(nullable instancetype)
+db:(nullable NSArray *)args;
+-(nullable instancetype)
+db:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-db_create:(NSArray *)args;
--(instancetype)
-db_create:(NSArray *)args;
++(nullable instancetype)
+db_create:(nullable NSArray *)args;
+-(nullable instancetype)
+db_create:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-db_drop:(NSArray *)args;
--(instancetype)
-db_drop:(NSArray *)args;
++(nullable instancetype)
+db_drop:(nullable NSArray *)args;
+-(nullable instancetype)
+db_drop:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-db_list:(NSArray *)args;
--(instancetype)
-db_list:(NSArray *)args;
++(nullable instancetype)
+db_list:(nullable NSArray *)args;
+-(nullable instancetype)
+db_list:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-december:(NSArray *)args;
--(instancetype)
-december:(NSArray *)args;
++(nullable instancetype)
+december:(nullable NSArray *)args;
+-(nullable instancetype)
+december:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-default:(NSArray *)args;
--(instancetype)
-default:(NSArray *)args;
++(nullable instancetype)
+default:(nullable NSArray *)args;
+-(nullable instancetype)
+default:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-delete:(NSArray *)args :(NSDictionary *)kwargs;
--(instancetype)
-delete:(NSArray *)args :(NSDictionary *)kwargs;
++(nullable instancetype)
+delete:(nullable NSArray *)args :(nullable NSDictionary *)kwargs;
+-(nullable instancetype)
+delete:(nullable NSArray *)args :(nullable NSDictionary *)kwargs;
 
 /**
  */
-+(instancetype)
-delete_at:(NSArray *)args;
--(instancetype)
-delete_at:(NSArray *)args;
++(nullable instancetype)
+delete_at:(nullable NSArray *)args;
+-(nullable instancetype)
+delete_at:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-desc:(NSArray *)args;
--(instancetype)
-desc:(NSArray *)args;
++(nullable instancetype)
+desc:(nullable NSArray *)args;
+-(nullable instancetype)
+desc:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-difference:(NSArray *)args;
--(instancetype)
-difference:(NSArray *)args;
++(nullable instancetype)
+difference:(nullable NSArray *)args;
+-(nullable instancetype)
+difference:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-distance:(NSArray *)args;
--(instancetype)
-distance:(NSArray *)args;
++(nullable instancetype)
+distance:(nullable NSArray *)args;
+-(nullable instancetype)
+distance:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-distinct:(NSArray *)args :(NSDictionary *)kwargs;
--(instancetype)
-distinct:(NSArray *)args :(NSDictionary *)kwargs;
++(nullable instancetype)
+distinct:(nullable NSArray *)args :(nullable NSDictionary *)kwargs;
+-(nullable instancetype)
+distinct:(nullable NSArray *)args :(nullable NSDictionary *)kwargs;
 
 /**
  */
-+(instancetype)
-div:(NSArray *)args;
--(instancetype)
-div:(NSArray *)args;
++(nullable instancetype)
+div:(nullable NSArray *)args;
+-(nullable instancetype)
+div:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-downcase:(NSArray *)args;
--(instancetype)
-downcase:(NSArray *)args;
++(nullable instancetype)
+downcase:(nullable NSArray *)args;
+-(nullable instancetype)
+downcase:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-during:(NSArray *)args;
--(instancetype)
-during:(NSArray *)args;
++(nullable instancetype)
+during:(nullable NSArray *)args;
+-(nullable instancetype)
+during:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-epoch_time:(NSArray *)args;
--(instancetype)
-epoch_time:(NSArray *)args;
++(nullable instancetype)
+epoch_time:(nullable NSArray *)args;
+-(nullable instancetype)
+epoch_time:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-eq:(NSArray *)args;
--(instancetype)
-eq:(NSArray *)args;
++(nullable instancetype)
+eq:(nullable NSArray *)args;
+-(nullable instancetype)
+eq:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-eq_join:(NSArray *)args :(NSDictionary *)kwargs;
--(instancetype)
-eq_join:(NSArray *)args :(NSDictionary *)kwargs;
++(nullable instancetype)
+eq_join:(nullable NSArray *)args :(nullable NSDictionary *)kwargs;
+-(nullable instancetype)
+eq_join:(nullable NSArray *)args :(nullable NSDictionary *)kwargs;
 
 /**
  */
-+(instancetype)
-error:(NSArray *)args;
--(instancetype)
-error:(NSArray *)args;
++(nullable instancetype)
+error:(nullable NSArray *)args;
+-(nullable instancetype)
+error:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-february:(NSArray *)args;
--(instancetype)
-february:(NSArray *)args;
++(nullable instancetype)
+february:(nullable NSArray *)args;
+-(nullable instancetype)
+february:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-fill:(NSArray *)args;
--(instancetype)
-fill:(NSArray *)args;
++(nullable instancetype)
+fill:(nullable NSArray *)args;
+-(nullable instancetype)
+fill:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-filter:(NSArray *)args :(NSDictionary *)kwargs;
--(instancetype)
-filter:(NSArray *)args :(NSDictionary *)kwargs;
++(nullable instancetype)
+filter:(nullable NSArray *)args :(nullable NSDictionary *)kwargs;
+-(nullable instancetype)
+filter:(nullable NSArray *)args :(nullable NSDictionary *)kwargs;
 
 /**
  */
-+(instancetype)
-floor:(NSArray *)args;
--(instancetype)
-floor:(NSArray *)args;
++(nullable instancetype)
+floor:(nullable NSArray *)args;
+-(nullable instancetype)
+floor:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-for_each:(NSArray *)args;
--(instancetype)
-for_each:(NSArray *)args;
++(nullable instancetype)
+for_each:(nullable NSArray *)args;
+-(nullable instancetype)
+for_each:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-friday:(NSArray *)args;
--(instancetype)
-friday:(NSArray *)args;
++(nullable instancetype)
+friday:(nullable NSArray *)args;
+-(nullable instancetype)
+friday:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-func:(NSArray *)args;
--(instancetype)
-func:(NSArray *)args;
++(nullable instancetype)
+func:(nullable NSArray *)args;
+-(nullable instancetype)
+func:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-funcall:(NSArray *)args;
--(instancetype)
-funcall:(NSArray *)args;
++(nullable instancetype)
+funcall:(nullable NSArray *)args;
+-(nullable instancetype)
+funcall:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-ge:(NSArray *)args;
--(instancetype)
-ge:(NSArray *)args;
++(nullable instancetype)
+ge:(nullable NSArray *)args;
+-(nullable instancetype)
+ge:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-geojson:(NSArray *)args;
--(instancetype)
-geojson:(NSArray *)args;
++(nullable instancetype)
+geojson:(nullable NSArray *)args;
+-(nullable instancetype)
+geojson:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-get:(NSArray *)args;
--(instancetype)
-get:(NSArray *)args;
++(nullable instancetype)
+get:(nullable NSArray *)args;
+-(nullable instancetype)
+get:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-get_all:(NSArray *)args :(NSDictionary *)kwargs;
--(instancetype)
-get_all:(NSArray *)args :(NSDictionary *)kwargs;
++(nullable instancetype)
+get_all:(nullable NSArray *)args :(nullable NSDictionary *)kwargs;
+-(nullable instancetype)
+get_all:(nullable NSArray *)args :(nullable NSDictionary *)kwargs;
 
 /**
  */
-+(instancetype)
-get_field:(NSArray *)args;
--(instancetype)
-get_field:(NSArray *)args;
++(nullable instancetype)
+get_field:(nullable NSArray *)args;
+-(nullable instancetype)
+get_field:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-get_intersecting:(NSArray *)args :(NSDictionary *)kwargs;
--(instancetype)
-get_intersecting:(NSArray *)args :(NSDictionary *)kwargs;
++(nullable instancetype)
+get_intersecting:(nullable NSArray *)args :(nullable NSDictionary *)kwargs;
+-(nullable instancetype)
+get_intersecting:(nullable NSArray *)args :(nullable NSDictionary *)kwargs;
 
 /**
  */
-+(instancetype)
-get_nearest:(NSArray *)args :(NSDictionary *)kwargs;
--(instancetype)
-get_nearest:(NSArray *)args :(NSDictionary *)kwargs;
++(nullable instancetype)
+get_nearest:(nullable NSArray *)args :(nullable NSDictionary *)kwargs;
+-(nullable instancetype)
+get_nearest:(nullable NSArray *)args :(nullable NSDictionary *)kwargs;
 
 /**
  */
-+(instancetype)
-group:(NSArray *)args :(NSDictionary *)kwargs;
--(instancetype)
-group:(NSArray *)args :(NSDictionary *)kwargs;
++(nullable instancetype)
+group:(nullable NSArray *)args :(nullable NSDictionary *)kwargs;
+-(nullable instancetype)
+group:(nullable NSArray *)args :(nullable NSDictionary *)kwargs;
 
 /**
  */
-+(instancetype)
-gt:(NSArray *)args;
--(instancetype)
-gt:(NSArray *)args;
++(nullable instancetype)
+gt:(nullable NSArray *)args;
+-(nullable instancetype)
+gt:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-has_fields:(NSArray *)args;
--(instancetype)
-has_fields:(NSArray *)args;
++(nullable instancetype)
+has_fields:(nullable NSArray *)args;
+-(nullable instancetype)
+has_fields:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-hours:(NSArray *)args;
--(instancetype)
-hours:(NSArray *)args;
++(nullable instancetype)
+hours:(nullable NSArray *)args;
+-(nullable instancetype)
+hours:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-http:(NSArray *)args :(NSDictionary *)kwargs;
--(instancetype)
-http:(NSArray *)args :(NSDictionary *)kwargs;
++(nullable instancetype)
+http:(nullable NSArray *)args :(nullable NSDictionary *)kwargs;
+-(nullable instancetype)
+http:(nullable NSArray *)args :(nullable NSDictionary *)kwargs;
 
 /**
  */
-+(instancetype)
-implicit_var:(NSArray *)args;
--(instancetype)
-implicit_var:(NSArray *)args;
++(nullable instancetype)
+implicit_var:(nullable NSArray *)args;
+-(nullable instancetype)
+implicit_var:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-includes:(NSArray *)args;
--(instancetype)
-includes:(NSArray *)args;
++(nullable instancetype)
+includes:(nullable NSArray *)args;
+-(nullable instancetype)
+includes:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-index_create:(NSArray *)args :(NSDictionary *)kwargs;
--(instancetype)
-index_create:(NSArray *)args :(NSDictionary *)kwargs;
++(nullable instancetype)
+index_create:(nullable NSArray *)args :(nullable NSDictionary *)kwargs;
+-(nullable instancetype)
+index_create:(nullable NSArray *)args :(nullable NSDictionary *)kwargs;
 
 /**
  */
-+(instancetype)
-index_drop:(NSArray *)args;
--(instancetype)
-index_drop:(NSArray *)args;
++(nullable instancetype)
+index_drop:(nullable NSArray *)args;
+-(nullable instancetype)
+index_drop:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-index_list:(NSArray *)args;
--(instancetype)
-index_list:(NSArray *)args;
++(nullable instancetype)
+index_list:(nullable NSArray *)args;
+-(nullable instancetype)
+index_list:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-index_rename:(NSArray *)args :(NSDictionary *)kwargs;
--(instancetype)
-index_rename:(NSArray *)args :(NSDictionary *)kwargs;
++(nullable instancetype)
+index_rename:(nullable NSArray *)args :(nullable NSDictionary *)kwargs;
+-(nullable instancetype)
+index_rename:(nullable NSArray *)args :(nullable NSDictionary *)kwargs;
 
 /**
  */
-+(instancetype)
-index_status:(NSArray *)args;
--(instancetype)
-index_status:(NSArray *)args;
++(nullable instancetype)
+index_status:(nullable NSArray *)args;
+-(nullable instancetype)
+index_status:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-index_wait:(NSArray *)args;
--(instancetype)
-index_wait:(NSArray *)args;
++(nullable instancetype)
+index_wait:(nullable NSArray *)args;
+-(nullable instancetype)
+index_wait:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-info:(NSArray *)args;
--(instancetype)
-info:(NSArray *)args;
++(nullable instancetype)
+info:(nullable NSArray *)args;
+-(nullable instancetype)
+info:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-inner_join:(NSArray *)args;
--(instancetype)
-inner_join:(NSArray *)args;
++(nullable instancetype)
+inner_join:(nullable NSArray *)args;
+-(nullable instancetype)
+inner_join:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-insert:(NSArray *)args;
--(instancetype)
-insert:(NSArray *)args;
++(nullable instancetype)
+insert:(nullable NSArray *)args;
+-(nullable instancetype)
+insert:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-insert_at:(NSArray *)args;
--(instancetype)
-insert_at:(NSArray *)args;
++(nullable instancetype)
+insert_at:(nullable NSArray *)args;
+-(nullable instancetype)
+insert_at:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-intersects:(NSArray *)args;
--(instancetype)
-intersects:(NSArray *)args;
++(nullable instancetype)
+intersects:(nullable NSArray *)args;
+-(nullable instancetype)
+intersects:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-in_timezone:(NSArray *)args;
--(instancetype)
-in_timezone:(NSArray *)args;
++(nullable instancetype)
+in_timezone:(nullable NSArray *)args;
+-(nullable instancetype)
+in_timezone:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-iso8601:(NSArray *)args :(NSDictionary *)kwargs;
--(instancetype)
-iso8601:(NSArray *)args :(NSDictionary *)kwargs;
++(nullable instancetype)
+iso8601:(nullable NSArray *)args :(nullable NSDictionary *)kwargs;
+-(nullable instancetype)
+iso8601:(nullable NSArray *)args :(nullable NSDictionary *)kwargs;
 
 /**
  */
-+(instancetype)
-is_empty:(NSArray *)args;
--(instancetype)
-is_empty:(NSArray *)args;
++(nullable instancetype)
+is_empty:(nullable NSArray *)args;
+-(nullable instancetype)
+is_empty:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-january:(NSArray *)args;
--(instancetype)
-january:(NSArray *)args;
++(nullable instancetype)
+january:(nullable NSArray *)args;
+-(nullable instancetype)
+january:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-javascript:(NSArray *)args :(NSDictionary *)kwargs;
--(instancetype)
-javascript:(NSArray *)args :(NSDictionary *)kwargs;
++(nullable instancetype)
+javascript:(nullable NSArray *)args :(nullable NSDictionary *)kwargs;
+-(nullable instancetype)
+javascript:(nullable NSArray *)args :(nullable NSDictionary *)kwargs;
 
 /**
  */
-+(instancetype)
-json:(NSArray *)args;
--(instancetype)
-json:(NSArray *)args;
++(nullable instancetype)
+json:(nullable NSArray *)args;
+-(nullable instancetype)
+json:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-july:(NSArray *)args;
--(instancetype)
-july:(NSArray *)args;
++(nullable instancetype)
+july:(nullable NSArray *)args;
+-(nullable instancetype)
+july:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-june:(NSArray *)args;
--(instancetype)
-june:(NSArray *)args;
++(nullable instancetype)
+june:(nullable NSArray *)args;
+-(nullable instancetype)
+june:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-keys:(NSArray *)args;
--(instancetype)
-keys:(NSArray *)args;
++(nullable instancetype)
+keys:(nullable NSArray *)args;
+-(nullable instancetype)
+keys:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-le:(NSArray *)args;
--(instancetype)
-le:(NSArray *)args;
++(nullable instancetype)
+le:(nullable NSArray *)args;
+-(nullable instancetype)
+le:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-limit:(NSArray *)args;
--(instancetype)
-limit:(NSArray *)args;
++(nullable instancetype)
+limit:(nullable NSArray *)args;
+-(nullable instancetype)
+limit:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-line:(NSArray *)args;
--(instancetype)
-line:(NSArray *)args;
++(nullable instancetype)
+line:(nullable NSArray *)args;
+-(nullable instancetype)
+line:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-literal:(NSArray *)args;
--(instancetype)
-literal:(NSArray *)args;
++(nullable instancetype)
+literal:(nullable NSArray *)args;
+-(nullable instancetype)
+literal:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-lt:(NSArray *)args;
--(instancetype)
-lt:(NSArray *)args;
++(nullable instancetype)
+lt:(nullable NSArray *)args;
+-(nullable instancetype)
+lt:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-make_array:(NSArray *)args;
--(instancetype)
-make_array:(NSArray *)args;
++(nullable instancetype)
+make_array:(nullable NSArray *)args;
+-(nullable instancetype)
+make_array:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-make_obj:(NSArray *)args;
--(instancetype)
-make_obj:(NSArray *)args;
++(nullable instancetype)
+make_obj:(nullable NSArray *)args;
+-(nullable instancetype)
+make_obj:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-map:(NSArray *)args;
--(instancetype)
-map:(NSArray *)args;
++(nullable instancetype)
+map:(nullable NSArray *)args;
+-(nullable instancetype)
+map:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-march:(NSArray *)args;
--(instancetype)
-march:(NSArray *)args;
++(nullable instancetype)
+march:(nullable NSArray *)args;
+-(nullable instancetype)
+march:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-match:(NSArray *)args;
--(instancetype)
-match:(NSArray *)args;
++(nullable instancetype)
+match:(nullable NSArray *)args;
+-(nullable instancetype)
+match:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-max:(NSArray *)args;
--(instancetype)
-max:(NSArray *)args;
++(nullable instancetype)
+max:(nullable NSArray *)args;
+-(nullable instancetype)
+max:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-maxval:(NSArray *)args;
--(instancetype)
-maxval:(NSArray *)args;
++(nullable instancetype)
+maxval:(nullable NSArray *)args;
+-(nullable instancetype)
+maxval:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-may:(NSArray *)args;
--(instancetype)
-may:(NSArray *)args;
++(nullable instancetype)
+may:(nullable NSArray *)args;
+-(nullable instancetype)
+may:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-merge:(NSArray *)args;
--(instancetype)
-merge:(NSArray *)args;
++(nullable instancetype)
+merge:(nullable NSArray *)args;
+-(nullable instancetype)
+merge:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-min:(NSArray *)args;
--(instancetype)
-min:(NSArray *)args;
++(nullable instancetype)
+min:(nullable NSArray *)args;
+-(nullable instancetype)
+min:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-minutes:(NSArray *)args;
--(instancetype)
-minutes:(NSArray *)args;
++(nullable instancetype)
+minutes:(nullable NSArray *)args;
+-(nullable instancetype)
+minutes:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-minval:(NSArray *)args;
--(instancetype)
-minval:(NSArray *)args;
++(nullable instancetype)
+minval:(nullable NSArray *)args;
+-(nullable instancetype)
+minval:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-mod:(NSArray *)args;
--(instancetype)
-mod:(NSArray *)args;
++(nullable instancetype)
+mod:(nullable NSArray *)args;
+-(nullable instancetype)
+mod:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-monday:(NSArray *)args;
--(instancetype)
-monday:(NSArray *)args;
++(nullable instancetype)
+monday:(nullable NSArray *)args;
+-(nullable instancetype)
+monday:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-month:(NSArray *)args;
--(instancetype)
-month:(NSArray *)args;
++(nullable instancetype)
+month:(nullable NSArray *)args;
+-(nullable instancetype)
+month:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-mul:(NSArray *)args;
--(instancetype)
-mul:(NSArray *)args;
++(nullable instancetype)
+mul:(nullable NSArray *)args;
+-(nullable instancetype)
+mul:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-ne:(NSArray *)args;
--(instancetype)
-ne:(NSArray *)args;
++(nullable instancetype)
+ne:(nullable NSArray *)args;
+-(nullable instancetype)
+ne:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-not:(NSArray *)args;
--(instancetype)
-not:(NSArray *)args;
++(nullable instancetype)
+not:(nullable NSArray *)args;
+-(nullable instancetype)
+not:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-november:(NSArray *)args;
--(instancetype)
-november:(NSArray *)args;
++(nullable instancetype)
+november:(nullable NSArray *)args;
+-(nullable instancetype)
+november:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-now:(NSArray *)args;
--(instancetype)
-now:(NSArray *)args;
++(nullable instancetype)
+now:(nullable NSArray *)args;
+-(nullable instancetype)
+now:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-nth:(NSArray *)args;
--(instancetype)
-nth:(NSArray *)args;
++(nullable instancetype)
+nth:(nullable NSArray *)args;
+-(nullable instancetype)
+nth:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-object:(NSArray *)args;
--(instancetype)
-object:(NSArray *)args;
++(nullable instancetype)
+object:(nullable NSArray *)args;
+-(nullable instancetype)
+object:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-october:(NSArray *)args;
--(instancetype)
-october:(NSArray *)args;
++(nullable instancetype)
+october:(nullable NSArray *)args;
+-(nullable instancetype)
+october:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-offsets_of:(NSArray *)args;
--(instancetype)
-offsets_of:(NSArray *)args;
++(nullable instancetype)
+offsets_of:(nullable NSArray *)args;
+-(nullable instancetype)
+offsets_of:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-or:(NSArray *)args;
--(instancetype)
-or:(NSArray *)args;
++(nullable instancetype)
+or:(nullable NSArray *)args;
+-(nullable instancetype)
+or:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-order_by:(NSArray *)args :(NSDictionary *)kwargs;
--(instancetype)
-order_by:(NSArray *)args :(NSDictionary *)kwargs;
++(nullable instancetype)
+order_by:(nullable NSArray *)args :(nullable NSDictionary *)kwargs;
+-(nullable instancetype)
+order_by:(nullable NSArray *)args :(nullable NSDictionary *)kwargs;
 
 /**
  */
-+(instancetype)
-outer_join:(NSArray *)args;
--(instancetype)
-outer_join:(NSArray *)args;
++(nullable instancetype)
+outer_join:(nullable NSArray *)args;
+-(nullable instancetype)
+outer_join:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-pluck:(NSArray *)args;
--(instancetype)
-pluck:(NSArray *)args;
++(nullable instancetype)
+pluck:(nullable NSArray *)args;
+-(nullable instancetype)
+pluck:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-point:(NSArray *)args;
--(instancetype)
-point:(NSArray *)args;
++(nullable instancetype)
+point:(nullable NSArray *)args;
+-(nullable instancetype)
+point:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-polygon:(NSArray *)args;
--(instancetype)
-polygon:(NSArray *)args;
++(nullable instancetype)
+polygon:(nullable NSArray *)args;
+-(nullable instancetype)
+polygon:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-polygon_sub:(NSArray *)args;
--(instancetype)
-polygon_sub:(NSArray *)args;
++(nullable instancetype)
+polygon_sub:(nullable NSArray *)args;
+-(nullable instancetype)
+polygon_sub:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-prepend:(NSArray *)args;
--(instancetype)
-prepend:(NSArray *)args;
++(nullable instancetype)
+prepend:(nullable NSArray *)args;
+-(nullable instancetype)
+prepend:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-random:(NSArray *)args :(NSDictionary *)kwargs;
--(instancetype)
-random:(NSArray *)args :(NSDictionary *)kwargs;
++(nullable instancetype)
+random:(nullable NSArray *)args :(nullable NSDictionary *)kwargs;
+-(nullable instancetype)
+random:(nullable NSArray *)args :(nullable NSDictionary *)kwargs;
 
 /**
  */
-+(instancetype)
-range:(NSArray *)args;
--(instancetype)
-range:(NSArray *)args;
++(nullable instancetype)
+range:(nullable NSArray *)args;
+-(nullable instancetype)
+range:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-rebalance:(NSArray *)args;
--(instancetype)
-rebalance:(NSArray *)args;
++(nullable instancetype)
+rebalance:(nullable NSArray *)args;
+-(nullable instancetype)
+rebalance:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-reconfigure:(NSArray *)args;
--(instancetype)
-reconfigure:(NSArray *)args;
++(nullable instancetype)
+reconfigure:(nullable NSArray *)args;
+-(nullable instancetype)
+reconfigure:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-reduce:(NSArray *)args;
--(instancetype)
-reduce:(NSArray *)args;
++(nullable instancetype)
+reduce:(nullable NSArray *)args;
+-(nullable instancetype)
+reduce:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-replace:(NSArray *)args :(NSDictionary *)kwargs;
--(instancetype)
-replace:(NSArray *)args :(NSDictionary *)kwargs;
++(nullable instancetype)
+replace:(nullable NSArray *)args :(nullable NSDictionary *)kwargs;
+-(nullable instancetype)
+replace:(nullable NSArray *)args :(nullable NSDictionary *)kwargs;
 
 /**
  */
-+(instancetype)
-round:(NSArray *)args;
--(instancetype)
-round:(NSArray *)args;
++(nullable instancetype)
+round:(nullable NSArray *)args;
+-(nullable instancetype)
+round:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-sample:(NSArray *)args;
--(instancetype)
-sample:(NSArray *)args;
++(nullable instancetype)
+sample:(nullable NSArray *)args;
+-(nullable instancetype)
+sample:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-saturday:(NSArray *)args;
--(instancetype)
-saturday:(NSArray *)args;
++(nullable instancetype)
+saturday:(nullable NSArray *)args;
+-(nullable instancetype)
+saturday:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-seconds:(NSArray *)args;
--(instancetype)
-seconds:(NSArray *)args;
++(nullable instancetype)
+seconds:(nullable NSArray *)args;
+-(nullable instancetype)
+seconds:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-september:(NSArray *)args;
--(instancetype)
-september:(NSArray *)args;
++(nullable instancetype)
+september:(nullable NSArray *)args;
+-(nullable instancetype)
+september:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-set_difference:(NSArray *)args;
--(instancetype)
-set_difference:(NSArray *)args;
++(nullable instancetype)
+set_difference:(nullable NSArray *)args;
+-(nullable instancetype)
+set_difference:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-set_insert:(NSArray *)args;
--(instancetype)
-set_insert:(NSArray *)args;
++(nullable instancetype)
+set_insert:(nullable NSArray *)args;
+-(nullable instancetype)
+set_insert:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-set_intersection:(NSArray *)args;
--(instancetype)
-set_intersection:(NSArray *)args;
++(nullable instancetype)
+set_intersection:(nullable NSArray *)args;
+-(nullable instancetype)
+set_intersection:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-set_union:(NSArray *)args;
--(instancetype)
-set_union:(NSArray *)args;
++(nullable instancetype)
+set_union:(nullable NSArray *)args;
+-(nullable instancetype)
+set_union:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-skip:(NSArray *)args;
--(instancetype)
-skip:(NSArray *)args;
++(nullable instancetype)
+skip:(nullable NSArray *)args;
+-(nullable instancetype)
+skip:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-slice:(NSArray *)args :(NSDictionary *)kwargs;
--(instancetype)
-slice:(NSArray *)args :(NSDictionary *)kwargs;
++(nullable instancetype)
+slice:(nullable NSArray *)args :(nullable NSDictionary *)kwargs;
+-(nullable instancetype)
+slice:(nullable NSArray *)args :(nullable NSDictionary *)kwargs;
 
 /**
  */
-+(instancetype)
-splice_at:(NSArray *)args;
--(instancetype)
-splice_at:(NSArray *)args;
++(nullable instancetype)
+splice_at:(nullable NSArray *)args;
+-(nullable instancetype)
+splice_at:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-split:(NSArray *)args;
--(instancetype)
-split:(NSArray *)args;
++(nullable instancetype)
+split:(nullable NSArray *)args;
+-(nullable instancetype)
+split:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-status:(NSArray *)args;
--(instancetype)
-status:(NSArray *)args;
++(nullable instancetype)
+status:(nullable NSArray *)args;
+-(nullable instancetype)
+status:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-sub:(NSArray *)args;
--(instancetype)
-sub:(NSArray *)args;
++(nullable instancetype)
+sub:(nullable NSArray *)args;
+-(nullable instancetype)
+sub:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-sum:(NSArray *)args;
--(instancetype)
-sum:(NSArray *)args;
++(nullable instancetype)
+sum:(nullable NSArray *)args;
+-(nullable instancetype)
+sum:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-sunday:(NSArray *)args;
--(instancetype)
-sunday:(NSArray *)args;
++(nullable instancetype)
+sunday:(nullable NSArray *)args;
+-(nullable instancetype)
+sunday:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-sync:(NSArray *)args;
--(instancetype)
-sync:(NSArray *)args;
++(nullable instancetype)
+sync:(nullable NSArray *)args;
+-(nullable instancetype)
+sync:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-table:(NSArray *)args :(NSDictionary *)kwargs;
--(instancetype)
-table:(NSArray *)args :(NSDictionary *)kwargs;
++(nullable instancetype)
+table:(nullable NSArray *)args :(nullable NSDictionary *)kwargs;
+-(nullable instancetype)
+table:(nullable NSArray *)args :(nullable NSDictionary *)kwargs;
 
 /**
  */
-+(instancetype)
-table_create:(NSArray *)args :(NSDictionary *)kwargs;
--(instancetype)
-table_create:(NSArray *)args :(NSDictionary *)kwargs;
++(nullable instancetype)
+table_create:(nullable NSArray *)args :(nullable NSDictionary *)kwargs;
+-(nullable instancetype)
+table_create:(nullable NSArray *)args :(nullable NSDictionary *)kwargs;
 
 /**
  */
-+(instancetype)
-table_drop:(NSArray *)args;
--(instancetype)
-table_drop:(NSArray *)args;
++(nullable instancetype)
+table_drop:(nullable NSArray *)args;
+-(nullable instancetype)
+table_drop:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-table_list:(NSArray *)args;
--(instancetype)
-table_list:(NSArray *)args;
++(nullable instancetype)
+table_list:(nullable NSArray *)args;
+-(nullable instancetype)
+table_list:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-thursday:(NSArray *)args;
--(instancetype)
-thursday:(NSArray *)args;
++(nullable instancetype)
+thursday:(nullable NSArray *)args;
+-(nullable instancetype)
+thursday:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-time:(NSArray *)args;
--(instancetype)
-time:(NSArray *)args;
++(nullable instancetype)
+time:(nullable NSArray *)args;
+-(nullable instancetype)
+time:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-timezone:(NSArray *)args;
--(instancetype)
-timezone:(NSArray *)args;
++(nullable instancetype)
+timezone:(nullable NSArray *)args;
+-(nullable instancetype)
+timezone:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-time_of_day:(NSArray *)args;
--(instancetype)
-time_of_day:(NSArray *)args;
++(nullable instancetype)
+time_of_day:(nullable NSArray *)args;
+-(nullable instancetype)
+time_of_day:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-to_epoch_time:(NSArray *)args;
--(instancetype)
-to_epoch_time:(NSArray *)args;
++(nullable instancetype)
+to_epoch_time:(nullable NSArray *)args;
+-(nullable instancetype)
+to_epoch_time:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-to_geojson:(NSArray *)args;
--(instancetype)
-to_geojson:(NSArray *)args;
++(nullable instancetype)
+to_geojson:(nullable NSArray *)args;
+-(nullable instancetype)
+to_geojson:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-to_iso8601:(NSArray *)args;
--(instancetype)
-to_iso8601:(NSArray *)args;
++(nullable instancetype)
+to_iso8601:(nullable NSArray *)args;
+-(nullable instancetype)
+to_iso8601:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-to_json_string:(NSArray *)args;
--(instancetype)
-to_json_string:(NSArray *)args;
++(nullable instancetype)
+to_json_string:(nullable NSArray *)args;
+-(nullable instancetype)
+to_json_string:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-tuesday:(NSArray *)args;
--(instancetype)
-tuesday:(NSArray *)args;
++(nullable instancetype)
+tuesday:(nullable NSArray *)args;
+-(nullable instancetype)
+tuesday:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-type_of:(NSArray *)args;
--(instancetype)
-type_of:(NSArray *)args;
++(nullable instancetype)
+type_of:(nullable NSArray *)args;
+-(nullable instancetype)
+type_of:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-ungroup:(NSArray *)args;
--(instancetype)
-ungroup:(NSArray *)args;
++(nullable instancetype)
+ungroup:(nullable NSArray *)args;
+-(nullable instancetype)
+ungroup:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-union:(NSArray *)args;
--(instancetype)
-union:(NSArray *)args;
++(nullable instancetype)
+union:(nullable NSArray *)args;
+-(nullable instancetype)
+union:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-upcase:(NSArray *)args;
--(instancetype)
-upcase:(NSArray *)args;
++(nullable instancetype)
+upcase:(nullable NSArray *)args;
+-(nullable instancetype)
+upcase:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-update:(NSArray *)args :(NSDictionary *)kwargs;
--(instancetype)
-update:(NSArray *)args :(NSDictionary *)kwargs;
++(nullable instancetype)
+update:(nullable NSArray *)args :(nullable NSDictionary *)kwargs;
+-(nullable instancetype)
+update:(nullable NSArray *)args :(nullable NSDictionary *)kwargs;
 
 /**
  */
-+(instancetype)
-uuid:(NSArray *)args;
--(instancetype)
-uuid:(NSArray *)args;
++(nullable instancetype)
+uuid:(nullable NSArray *)args;
+-(nullable instancetype)
+uuid:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-values:(NSArray *)args;
--(instancetype)
-values:(NSArray *)args;
++(nullable instancetype)
+values:(nullable NSArray *)args;
+-(nullable instancetype)
+values:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-var:(NSArray *)args;
--(instancetype)
-var:(NSArray *)args;
++(nullable instancetype)
+var:(nullable NSArray *)args;
+-(nullable instancetype)
+var:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-wait:(NSArray *)args;
--(instancetype)
-wait:(NSArray *)args;
++(nullable instancetype)
+wait:(nullable NSArray *)args;
+-(nullable instancetype)
+wait:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-wednesday:(NSArray *)args;
--(instancetype)
-wednesday:(NSArray *)args;
++(nullable instancetype)
+wednesday:(nullable NSArray *)args;
+-(nullable instancetype)
+wednesday:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-without:(NSArray *)args;
--(instancetype)
-without:(NSArray *)args;
++(nullable instancetype)
+without:(nullable NSArray *)args;
+-(nullable instancetype)
+without:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-with_fields:(NSArray *)args;
--(instancetype)
-with_fields:(NSArray *)args;
++(nullable instancetype)
+with_fields:(nullable NSArray *)args;
+-(nullable instancetype)
+with_fields:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-year:(NSArray *)args;
--(instancetype)
-year:(NSArray *)args;
++(nullable instancetype)
+year:(nullable NSArray *)args;
+-(nullable instancetype)
+year:(nullable NSArray *)args;
 
 /**
  */
-+(instancetype)
-zip:(NSArray *)args;
--(instancetype)
-zip:(NSArray *)args;
++(nullable instancetype)
+zip:(nullable NSArray *)args;
+-(nullable instancetype)
+zip:(nullable NSArray *)args;
 
 @end

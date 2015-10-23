@@ -28,72 +28,57 @@ limitations under the License.
 
 @interface ReQLCursor ()
 
--(int)setNext:(id)res;
+@property(nonnull, nonatomic) ReQL_Cur_t *cur;
+@property(nonnull, nonatomic) Cursor *stream;
 
 @end
 
 static int
 cursor_each_cb(void *res, void *data) {
-  return [((__bridge ReQLCursor *)data) setNext:(__bridge id)(res)];
+  [((__bridge Cursor *)data) next:(__bridge id)(res)];
+  return 0;
 }
-
-@interface ReQLCursor ()
-
-@property ReQL_Cur_t *cur;
-@property Cursor *stream;
-
-@end
 
 @implementation ReQLCursor
 
 @synthesize cur=p_cur;
 @synthesize stream=p_stream;
 
--(instancetype)initWithCursor:(ReQL_Cur_t *)cur {
+-(instancetype)initWithCursor:(nonnull ReQL_Cur_t *)cur {
   if ((self = [super init])) {
     p_cur = cur;
     p_stream = [Cursor new];
-    if (p_cur == NULL || p_stream == nil) {
+    if (p_stream == nil) {
       return nil;
     }
-    reql_cur_each(p_cur, cursor_each_cb, (__bridge void *)(self));
+    reql_cur_each(p_cur, cursor_each_cb, (__bridge void *)(p_stream));
   } else {
-    free(cur);
+    delete cur;
   }
   return self;
 }
 
--(NSArray *)toArray {
-  NSMutableArray *array = [NSMutableArray new];
-  [self observe:^(id res, NSError *err) {
-    if (res) {
-      [array addObject:res];
-    }
-  }];
-  reql_cur_drain(self.cur);
-  return [NSArray arrayWithArray:array];
+-(ReQLCursor *)observeCompleted:(void (^)())cb {
+  [self.stream observeCompleted:cb];
+  return self;
 }
 
--(int)setNext:(id)res {
-  if (res == nil) {
-    return 1;
-  }
-  @try {
-    [self.stream next:res];
-  }
-  @catch (NSException *) {
-    return 1;
-  }
-  @finally {
-    return 0;
-  }
+-(ReQLCursor *)observeError:(void (^)(NSError * _Nonnull))cb {
+  [self.stream observeError:cb];
+  return self;
+}
+
+-(ReQLCursor *)observeNext:(void (^)(id _Nonnull))cb {
+  [self.stream observeNext:cb];
+  return self;
+}
+
+-(nonnull NSArray *)toArray {
+  return [self.stream toArray];
 }
 
 -(BOOL)isOpen {
   return reql_cur_open(self.cur) == 0 ? NO : YES;
-}
-
--(void)observe:(void (^ __nonnull)(id __nullable, NSError * __nullable))next {
 }
 
 -(void)close {
@@ -102,7 +87,7 @@ cursor_each_cb(void *res, void *data) {
 
 -(void)dealloc {
   reql_cur_destroy(p_cur);
-  free(p_cur);
+  delete p_cur;
   [p_stream close];
 }
 

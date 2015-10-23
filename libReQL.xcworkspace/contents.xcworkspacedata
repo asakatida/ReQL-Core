@@ -2,10 +2,13 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:libReQL/ReactiveCocoa/ReactiveCocoa.xcodeproj">
+      location = "group:libReQLTests/Quick/Externals/Nimble/Nimble.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:libReQLTests/Quick/Quick.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:libReQL/ReactiveCocoa/ReactiveCocoa.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:libReQL.xcodeproj">

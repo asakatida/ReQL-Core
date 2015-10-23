@@ -32,12 +32,9 @@ limitations under the License.
 
 @synthesize conn=p_conn;
 
--(instancetype)init {
+-(nonnull instancetype)init {
   if ((self = [super init])) {
     p_conn = new ReQL_Conn_t;
-    if (p_conn == NULL) {
-      return nil;
-    }
     reql_conn_init(p_conn);
     ReQL_Byte buf[500];
     if (reql_conn_connect(p_conn, buf, 500) != 0) {
@@ -47,7 +44,7 @@ limitations under the License.
   return self;
 }
 
--(ReQL_Conn_t *)data {
+-(nonnull ReQL_Conn_t *)data {
   return self.conn;
 }
 
@@ -61,7 +58,7 @@ limitations under the License.
 
 -(void)dealloc {
   reql_conn_destroy(p_conn);
-  free(p_conn);
+  delete p_conn;
 }
 
 @end

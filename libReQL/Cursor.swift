@@ -22,8 +22,8 @@ import ReactiveCocoa
 
 import Foundation
 
-public class ReQLError: NSObject, ErrorType {
-  public var nsError: NSError {
+class ReQLError: NSObject, ErrorType {
+  var nsError: NSError {
     return NSError(domain: "", code: 0, userInfo: nil)
   }
 }
@@ -34,7 +34,7 @@ public class Cursor: NSObject {
   public func next (value: AnyObject) {
     self.sink.sendNext(value)
   }
-  public func error (error: ReQLError) {
+  func error (error: ReQLError) {
     sink.sendError(error)
   }
   public func completed () {
@@ -43,8 +43,19 @@ public class Cursor: NSObject {
   public func interupted () {
     sink.sendInterrupted()
   }
-  public func observe (next: (Event<AnyObject, ReQLError> -> ())) {
-    disposable = signal.observe(next)
+  public func observeNext (next: (AnyObject -> ())) {
+    disposable = signal.observeNext { next($0) }
+  }
+  public func observeError (error: (NSError -> ())) {
+    disposable = signal.observeError { error($0.nsError) }
+  }
+  public func observeCompleted (completed: (() -> ())) {
+    disposable = signal.observeCompleted { completed() }
+  }
+  public func toArray () -> Array<AnyObject> {
+    var array: Array<AnyObject> = []
+    signal.collect().observeNext { array = $0 }
+    return array
   }
   public func close () {
     disposable?.dispose()

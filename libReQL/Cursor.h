@@ -24,9 +24,13 @@ limitations under the License.
 
 -(BOOL)isOpen;
 
--(void)observe:(void (^ __nonnull)(id __nullable, NSError * __nullable))next;
+-(nonnull ReQLCursor *)observeNext:(void (^ _Nonnull)(id  _Nonnull))cb;
 
--(NSArray * __nullable)toArray;
+-(nonnull ReQLCursor *)observeError:(void (^ _Nonnull)(NSError *  _Nonnull))cb;
+
+-(nonnull ReQLCursor *)observeCompleted:(void (^ _Nonnull)())cb;
+
+-(nonnull NSArray *)toArray;
 
 -(void)close;
 
