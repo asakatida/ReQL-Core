@@ -63,8 +63,8 @@ cursor_each_cb(void *res, void *data) {
   return self;
 }
 
--(ReQLCursor *)observeError:(void (^)(NSError * _Nonnull))cb {
-  [self.stream observeError:cb];
+-(ReQLCursor *)observeFailed:(void (^)(NSError * _Nonnull))cb {
+  [self.stream observeFailed:cb];
   return self;
 }
 

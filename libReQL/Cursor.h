@@ -26,7 +26,7 @@ limitations under the License.
 
 -(nonnull ReQLCursor *)observeNext:(void (^ _Nonnull)(id  _Nonnull))cb;
 
--(nonnull ReQLCursor *)observeError:(void (^ _Nonnull)(NSError *  _Nonnull))cb;
+-(nonnull ReQLCursor *)observeFailed:(void (^ _Nonnull)(NSError *  _Nonnull))cb;
 
 -(nonnull ReQLCursor *)observeCompleted:(void (^ _Nonnull)())cb;
 

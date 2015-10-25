@@ -222,12 +222,6 @@ reql_object_add(ReQL_Obj_t *obj, ReQL_Obj_t *key, ReQL_Obj_t *val);
 extern ReQL_Obj_t *
 reql_object_get(const ReQL_Obj_t *obj, ReQL_Obj_t *key);
 
-extern ReQL_Obj_t *
-reql_json_copy(const ReQL_Obj_t *other);
-
-extern ReQL_Obj_t *
-reql_json_move(ReQL_Obj_t *other);
-
 /**
  * @brief recursive free of all nodes in a query tree.
  *
