@@ -14,7 +14,6 @@ set(SOURCES
  src/reql/char.cpp
  src/reql/connection.cpp
  src/reql/cursor.cpp
- src/reql/encode.cpp
  src/reql/error.cpp
  src/reql/query.cpp
  test/c/connection.cpp
@@ -400,7 +399,6 @@ set(SOURCES
  test/reql/polyglot/transform/map.cpp
  test/reql/polyglot/transform/object.cpp
  test/reql/polyglot/transformation.cpp
- test/test.cpp
 )
 
 set(MOC_HEADERS
@@ -427,7 +425,6 @@ set(MOC_HEADERS
  src/reql/portable_endian.h
  src/reql/query.h
  src/reql/types.h
- test/test.hpp
 )
 
 aux_source_directory(./src SRC_LIST)
