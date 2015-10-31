@@ -436,22 +436,30 @@ reql_{}(ReQL_t **args{});""".format(
 def term_imp(name):
     return """
 extern void
-{}(ReQL_Obj_t *t, ReQL_Obj_t *a{}) {{
-  reql_term_init(t, REQL_{}, a, {});
+{}(
+    ReQL_ReQL_t *t,
+    ReQL_Array_t (*a)(void *),{}
+    void *d) {{
+  reql_term_init(*t, REQL_{}, a, {}, d);
 }}""".format(
     ast_name('ast', name),
-    ', ReQL_Obj_t *k' if has_opts(name) else '',
+    '''
+    ReQL_Obj_t (*k)(void *),''' if has_opts(name) else '',
     name,
-    'k' if has_opts(name) else 'NULL')
+    'k' if has_opts(name) else 'nullptr')
 
 def term_def(name):
     return """
 /**
  */
 extern void
-{}(ReQL_Obj_t *t, ReQL_Obj_t *a{});""".format(
+{}(
+  ReQL_ReQL_t *t,
+  ReQL_Array_t (*a)(void *),{}
+  void *d);""".format(
     ast_name('ast', name),
-    ', ReQL_Obj_t *k' if has_opts(name) else '')
+    '''
+  ReQL_Obj_t (*k)(void *),''' if has_opts(name) else '')
 
 def enum_def(name):
     return "REQL_{} = {}".format(name, getattr(ql2_pb2.Term.TermType, name))

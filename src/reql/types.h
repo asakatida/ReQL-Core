@@ -32,11 +32,21 @@ typedef uint8_t ReQL_Byte;
 typedef uint32_t ReQL_Size;
 typedef uint64_t ReQL_Token;
 
+typedef struct ReQL_Array_s ReQL_Array_t;
+typedef char ReQL_Bool_t;
+typedef double ReQL_Num_t;
+typedef struct ReQL_Obj_s ReQL_Obj_t;
+typedef struct ReQL_ReQL_s ReQL_ReQL_t;
+typedef struct ReQL_String_s ReQL_String_t;
+
+typedef struct ReQL_Any_s ReQL_Any_t;
+typedef struct ReQL_Pair_s ReQL_Pair_t;
+
+typedef struct ReQL_Array_Iter_s ReQL_Array_Iter_t;
+typedef struct ReQL_Object_Iter_s ReQL_Object_Iter_t;
+
 typedef struct ReQL_Conn_s ReQL_Conn_t;
 typedef struct ReQL_Cur_s ReQL_Cur_t;
-typedef struct ReQL_Iter_s ReQL_Iter_t;
-typedef struct ReQL_Obj_s ReQL_Obj_t;
-typedef struct ReQL_Pair_s ReQL_Pair_t;
 typedef struct ReQL_Parse_s ReQL_Parse_t;
 
 typedef int(*ReQL_Each_Function)(void *, void *);
@@ -249,52 +259,70 @@ enum ReQL_Response_e {
 };
 typedef enum ReQL_Response_e ReQL_Response_t;
 
+struct ReQL_Array_s {
+  ReQL_Size (*size)(void *);
+  ReQL_Any_t *(*get)(void *, ReQL_Size);
+  void *data;
+};
+
+struct ReQL_Obj_s {
+  ReQL_Size (*size)(void *);
+  ReQL_Pair_t *(*get)(void *, ReQL_Size);
+  void *data;
+};
+
+struct ReQL_ReQL_s {
+  ReQL_Term_t tt;
+  ReQL_Array_t (*args)(void *);
+  ReQL_Obj_t (*kwargs)(void *);
+  void *data;
+};
+
+struct ReQL_String_s {
+  ReQL_Size (*size)(void *);
+  ReQL_Byte *(*buffer)(void *);
+  void *data;
+};
+
+struct ReQL_Any_s {
+  ReQL_Datum_t dt;
+  union {
+    ReQL_Array_t array;
+    ReQL_Bool_t boolean;
+    ReQL_Num_t num;
+    ReQL_Obj_t object;
+    ReQL_ReQL_t reql;
+    ReQL_String_t string;
+  } any;
+};
+
 /**
  * @brief A single key and associated value for objects.
  */
 struct ReQL_Pair_s {
-  ReQL_Obj_t *key;
-  ReQL_Obj_t *val;
+  ReQL_Size key_size;
+  ReQL_Byte *key;
+  ReQL_Any_t val;
 };
 
 /**
  * @brief Iterator for easy enumeration.
  *
- * Supports objects and arrays.
+ * Supports arrays.
  */
-struct ReQL_Iter_s {
+struct ReQL_Array_Iter_s {
   ReQL_Size idx;
-  const ReQL_Obj_t *obj;
+  const ReQL_Array_t *obj;
 };
 
 /**
- * @brief Represents a single node in a query tree.
+ * @brief Iterator for easy enumeration.
+ *
+ * Supports objects.
  */
-struct ReQL_Obj_s {
-  ReQL_Term_t tt;
-  union {
-    struct {
-      ReQL_Datum_t dt;
-      union {
-        struct {
-          ReQL_Size size;
-          ReQL_Size alloc_size;
-          union {
-            ReQL_Byte *str;
-            ReQL_Obj_t **array;
-            ReQL_Pair_t *pair;
-          } data;
-        } var;
-        double number;
-        char boolean;
-      } json;
-    } datum;
-    struct {
-      ReQL_Obj_t *args;
-      ReQL_Obj_t *kwargs;
-    } args;
-  } obj;
-  ReQL_Obj_t *owner;
+struct ReQL_Object_Iter_s {
+  ReQL_Size idx;
+  const ReQL_Obj_t *obj;
 };
 
 struct ReQL_Parse_s {

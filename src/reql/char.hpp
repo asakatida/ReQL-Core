@@ -23,20 +23,20 @@ limitations under the License.
 
 #include "./reql/types.h"
 
-static const char char_left_square_bracket = '[';
-static const char char_right_square_bracket = ']';
-static const char char_left_curly_bracket = '{';
-static const char char_right_curly_bracket = '}';
-static const char char_colon = ':';
-static const char char_comma = ',';
-static const char char_quotation = '"';
-static const char char_reverse_solidus = '\\';
+static const ReQL_Byte char_left_square_bracket = '[';
+static const ReQL_Byte char_right_square_bracket = ']';
+static const ReQL_Byte char_left_curly_bracket = '{';
+static const ReQL_Byte char_right_curly_bracket = '}';
+static const ReQL_Byte char_colon = ':';
+static const ReQL_Byte char_comma = ',';
+static const ReQL_Byte char_quotation = '"';
+static const ReQL_Byte char_reverse_solidus = '\\';
 
-static const char json_true[] = "true";
-static const char json_false[] = "false";
-static const char json_null[] = "null";
+static const ReQL_Byte json_true[] = "true";
+static const ReQL_Byte json_false[] = "false";
+static const ReQL_Byte json_null[] = "null";
 
-const char *
+const ReQL_Byte *
 reql_json_string_esc(const ReQL_Byte chr);
 
 ReQL_Size

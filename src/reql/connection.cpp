@@ -474,8 +474,9 @@ reql_conn_open(ReQL_Conn_t *conn) {
   return open;
 }
 
+template<class s>
 static int
-reql_run_query_(const std::string &wire_query, ReQL_Conn_t *conn, const ReQL_Token token) {
+reql_run_query_(const s &wire_query, ReQL_Conn_t *conn, const ReQL_Token token) {
   auto size = wire_query.size();
 
   if (size > UINT32_MAX) {
@@ -497,8 +498,8 @@ reql_run_query_(const std::string &wire_query, ReQL_Conn_t *conn, const ReQL_Tok
   magic[1].iov_base = size_buf;
   magic[1].iov_len = 4;
 
-  magic[2].iov_base = std::unique_ptr<char>(new char[size]).get();
-  magic[2].iov_len = wire_query.size();
+  magic[2].iov_base = const_cast<void *>(reinterpret_cast<const void *>(wire_query.data()));
+  magic[2].iov_len = size;
 
   reql_conn_lock(conn);
   int sock = reql_conn_socket(conn);
@@ -506,7 +507,7 @@ reql_run_query_(const std::string &wire_query, ReQL_Conn_t *conn, const ReQL_Tok
     reql_conn_unlock(conn);
     return -1;
   }
-  if (writev(sock, magic, 3) != static_cast<ssize_t>(size + 12)) {
+  if (writev(sock, magic, 3) != static_cast<ssize_t>(size) + 12) {
     reql_conn_unlock(conn);
     return -1;
   }
@@ -621,24 +622,54 @@ reql_stop_query(ReQL_Cur_t *cur) {
   return reql_run_query_(wire_query.str(), cur->conn, cur->token);
 }
 
+struct ReQL_Query_s {
+  ReQL_Any_t query;
+  ReQL_Obj_t kwargs;
+};
+
+static ReQL_Any_t *
+reql_query_get(void *data, ReQL_Size idx) {
+  switch (idx) {
+    case 0: {
+      ReQL_Any_t *start = new ReQL_Any_t;
+      start->any.num = REQL_START;
+      start->dt = REQL_R_NUM;
+      return start;
+    }
+    case 1: {
+      return &reinterpret_cast<ReQL_Query_s *>(data)->query;
+    }
+    case 2: {
+      ReQL_Any_t *start = new ReQL_Any_t;
+      start->any.object = reinterpret_cast<ReQL_Query_s *>(data)->kwargs;
+      start->dt = REQL_R_OBJECT;
+      return start;
+    }
+    default:
+      break;
+  }
+  return nullptr;
+}
+
+static ReQL_Size
+reql_query_size(void *data) {
+  return 3;
+}
+
 extern int
-reql_run_query(ReQL_Cur_t *cur, ReQL_Obj_t *query, ReQL_Conn_t *conn, ReQL_Obj_t *kwargs, ReQL_Parse_t (*get_parser)()) {
-  ReQL_Obj_t start;
+reql_run_query(ReQL_Cur_t *cur, const ReQL_Any_t *query, ReQL_Conn_t *conn, const ReQL_Obj_t *kwargs, ReQL_Parse_t (*get_parser)()) {
+  ReQL_Any_t array;
+  array.dt = REQL_R_ARRAY;
+  ReQL_Query_s *data = new ReQL_Query_s;
+  data->query = *query;
+  data->kwargs = *kwargs;
+  array.any.array.data = data;
+  array.any.array.get = reql_query_get;
+  array.any.array.size = reql_query_size;
 
-  ReQL_Obj_t array;
-  ReQL_Obj_t *arr[3];
-
-  reql_number_init(&start, REQL_START);
-  reql_array_init(&array, arr, 3);
-  reql_array_append(&array, &start);
-
-  reql_array_append(&array, query);
-
-  reql_array_append(&array, kwargs);
-
-  std::string wire_query;
+  std::basic_string<ReQL_Byte> wire_query;
   try {
-    wire_query = reql_encode(&array);
+    wire_query = reql_encode<std::basic_string<ReQL_Byte>>(array);
   } catch (std::exception) {
     return -1;
   }
