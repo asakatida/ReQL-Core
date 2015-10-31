@@ -151,7 +151,7 @@ reql_conn_open(ReQL_Conn_t *conn);
  * @return 0 on success. Non zero otherwise.
  */
 extern int
-reql_run_query(ReQL_Cur_t *cur, ReQL_Any_t *query, ReQL_Conn_t *conn, ReQL_Obj_t *kwargs, ReQL_Parse_t (*get_parser)());
+reql_run_query(ReQL_Cur_t *cur, const ReQL_Any_t *query, ReQL_Conn_t *conn, const ReQL_Obj_t *kwargs, ReQL_Parse_t (*get_parser)());
 
 /**
  * @brief send a no reply wait query.

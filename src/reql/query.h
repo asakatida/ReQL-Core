@@ -27,8 +27,8 @@ extern "C" {
 
 #include "./reql/types.h"
 
-typedef void (*ReQL_AST_Function_Kwargs) (ReQL_ReQL_t *, ReQL_Array_t *, ReQL_Obj_t *, void *);
-typedef void (*ReQL_AST_Function) (ReQL_ReQL_t *, ReQL_Array_t *, void *);
+typedef void (*ReQL_AST_Function_Kwargs) (ReQL_ReQL_t *, ReQL_Array_t (*)(void *), ReQL_Obj_t (*)(void *), void *);
+typedef void (*ReQL_AST_Function) (ReQL_ReQL_t *, ReQL_Array_t (*)(void *), void *);
 
 extern ReQL_Term_t
 reql_term_type(const ReQL_ReQL_t *obj);
