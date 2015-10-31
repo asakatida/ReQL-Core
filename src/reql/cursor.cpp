@@ -51,12 +51,18 @@ reql_cur_lock(ReQL_Cur_t *cur) {
   if (cur == nullptr) {
     return;
   }
+  if (cur->condition.mutex == nullptr) {
+    return;
+  }
   reinterpret_cast<std::unique_lock<std::mutex> *>(cur->condition.mutex)->lock();
 }
 
 static void
 reql_cur_unlock(ReQL_Cur_t *cur) {
   if (cur == nullptr) {
+    return;
+  }
+  if (cur->condition.mutex == nullptr) {
     return;
   }
   reinterpret_cast<std::unique_lock<std::mutex> *>(cur->condition.mutex)->unlock();
