@@ -26,10 +26,9 @@ limitations under the License.
 #include "./reql/error.h"
 #include "./reql/query.h"
 
-#include <memory>
 #include <future>
-
-#include <pthread.h>
+#include <memory>
+#include <thread>
 
 enum {
   EACH,
@@ -49,7 +48,10 @@ reql_cur_memory_error(const char *trace) {
 
 static void
 reql_cur_lock(ReQL_Cur_t *cur) {
-  pthread_mutex_lock(cur->condition.mutex);
+  if (cur == nullptr) {
+    return;
+  }
+  reinterpret_cast<std::unique_lock<std::mutex> *>(cur->condition.mutex)->lock();
 }
 
 static void
@@ -57,7 +59,7 @@ reql_cur_unlock(ReQL_Cur_t *cur) {
   if (cur == nullptr) {
     return;
   }
-  pthread_mutex_unlock(cur->condition.mutex);
+  reinterpret_cast<std::unique_lock<std::mutex> *>(cur->condition.mutex)->unlock();
 }
 
 static char
@@ -256,9 +258,7 @@ reql_cur_init(ReQL_Cur_t *cur, ReQL_Conn_t *conn, ReQL_Token token, ReQL_Parse_t
   cur->cb.data[END] = nullptr;
   cur->cb.data[ERROR] = nullptr;
 
-  if (pthread_create(&cur->condition.thread, nullptr, reql_cur_loop, cur) != 0) {
-    reql_cur_memory_error(__func__);
-  }
+  cur->condition.thread = new std::thread(reql_cur_loop, cur);
 
   reql_cur_unlock(cur);
 }
@@ -273,8 +273,10 @@ reql_cur_destroy(ReQL_Cur_t *cur) {
   cur->response = nullptr;
   if (cur->condition.thread != nullptr) {
     reql_cur_unlock(cur);
-    pthread_join(cur->condition.thread, nullptr);
+    auto t = reinterpret_cast<std::thread *>(cur->condition.thread);
     cur->condition.thread = nullptr;
+    t->join();
+    delete t;
   } else {
     reql_cur_unlock(cur);
   }

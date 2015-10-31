@@ -26,7 +26,6 @@ extern "C" {
 #endif
 
 #include <stdint.h>
-#include <pthread.h>
 
 typedef uint8_t ReQL_Byte;
 typedef uint32_t ReQL_Size;
@@ -331,7 +330,7 @@ struct ReQL_Parse_s {
   int(*end_parse)(ReQL_Parse_t *);
   int(*start_object)(ReQL_Parse_t *);
   int(*start_key_value)(ReQL_Parse_t *);
-  int(*end_key_value)(ReQL_Parse_t *, const char *, size_t);
+  int(*end_key_value)(ReQL_Parse_t *, const char *, unsigned long);
   int(*end_object)(ReQL_Parse_t *);
   int(*start_array)(ReQL_Parse_t *);
   int(*start_element)(ReQL_Parse_t *);
@@ -340,14 +339,14 @@ struct ReQL_Parse_s {
   int(*add_null)(ReQL_Parse_t *);
   int(*add_bool)(ReQL_Parse_t *, char);
   int(*add_number)(ReQL_Parse_t *, double);
-  int(*add_string)(ReQL_Parse_t *, const char *, size_t);
+  int(*add_string)(ReQL_Parse_t *, const char *, unsigned long);
   void(*error)(ReQL_Parse_t *);
 };
 
 struct ReQL_Cur_s {
   struct {
-    pthread_mutex_t *mutex;
-    pthread_t thread;
+    void *mutex;
+    void *thread;
   } condition;
   ReQL_Token token;
   void *response;
@@ -383,8 +382,8 @@ struct ReQL_Conn_s {
   ReQL_Cur_t *cursors;
 
   struct {
-    pthread_mutex_t *mutex;
-    pthread_t thread;
+    void *mutex;
+    void *thread;
   } condition;
 };
 

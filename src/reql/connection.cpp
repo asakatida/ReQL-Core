@@ -31,10 +31,10 @@ limitations under the License.
 #include <memory>
 #include <sstream>
 #include <string>
+#include <thread>
 
 #include <netdb.h>
 #include <netinet/in.h>
-#include <pthread.h>
 #include <sys/select.h>
 #include <sys/socket.h>
 #include <sys/types.h>
@@ -102,7 +102,7 @@ reql_conn_lock(ReQL_Conn_t *conn) {
   if (conn->condition.mutex == nullptr) {
     return;
   }
-  pthread_mutex_lock(conn->condition.mutex);
+  reinterpret_cast<std::unique_lock<std::mutex> *>(conn->condition.mutex)->lock();
 }
 
 static void
@@ -113,7 +113,7 @@ reql_conn_unlock(ReQL_Conn_t *conn) {
   if (conn->condition.mutex == nullptr) {
     return;
   }
-  pthread_mutex_unlock(conn->condition.mutex);
+  reinterpret_cast<std::unique_lock<std::mutex> *>(conn->condition.mutex)->unlock();
 }
 
 extern void
@@ -422,7 +422,9 @@ reql_connect_(ReQL_Conn_t *conn, ReQL_Byte *buf, const ReQL_Size size) {
 
   conn->socket = sock;
 
-  if (pthread_create(&conn->condition.thread, nullptr, reql_conn_loop, conn) != 0) {
+  try {
+    conn->condition.thread = new std::thread(reql_conn_loop, conn);
+  } catch (std::exception) {
     return -1;
   }
 
@@ -456,14 +458,16 @@ reql_conn_destroy(ReQL_Conn_t *conn) {
   }
   reql_conn_unlock(conn);
   if (conn->condition.thread != nullptr) {
-    pthread_join(conn->condition.thread, nullptr);
+    auto t = reinterpret_cast<std::thread *>(conn->condition.thread);
     conn->condition.thread = nullptr;
+    t->join();
+    delete t;
   }
-  conn->condition.thread = nullptr;
   if (conn->condition.mutex != nullptr) {
-    pthread_mutex_destroy(conn->condition.mutex);
+    auto m = reinterpret_cast<std::unique_lock<std::mutex> *>(conn->condition.mutex);
+    conn->condition.mutex = nullptr;
+    delete m;
   }
-  delete conn->condition.mutex; conn->condition.mutex = nullptr;
 }
 
 extern char
