@@ -636,7 +636,6 @@
 		8787D3CF1B2E27C30095C616 /* 4030.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 4030.cpp; sourceTree = "<group>"; };
 		8787D3D01B2E27C30095C616 /* 4146.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 4146.cpp; sourceTree = "<group>"; };
 		8787D3E11B2E35F50095C616 /* Cursor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cursor.swift; sourceTree = "<group>"; };
-		8791C7D81B138A43004798D7 /* char.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = char.cpp; sourceTree = "<group>"; };
 		8791C7D91B138A43004798D7 /* char.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = char.hpp; sourceTree = "<group>"; };
 		8791C7DA1B138A43004798D7 /* connection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = connection.cpp; sourceTree = "<group>"; };
 		8791C7DB1B138A43004798D7 /* connection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = connection.h; sourceTree = "<group>"; };
@@ -1133,7 +1132,6 @@
 		8791C7D51B138A43004798D7 /* reql */ = {
 			isa = PBXGroup;
 			children = (
-				8791C7D81B138A43004798D7 /* char.cpp */,
 				8791C7D91B138A43004798D7 /* char.hpp */,
 				8791C7DA1B138A43004798D7 /* connection.cpp */,
 				8791C7DB1B138A43004798D7 /* connection.h */,
