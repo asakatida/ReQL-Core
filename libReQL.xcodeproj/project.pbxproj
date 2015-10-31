@@ -137,6 +137,11 @@
 		1ED9DB5E1B14E3DA00B13EAD /* transformation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1ED9DA6C1B14E3DA00B13EAD /* transformation.cpp */; };
 		1EE680201B0C39D200C97B18 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1EE6801F1B0C39D200C97B18 /* main.cpp */; };
 		8700091C1B1A8843007EA4BA /* Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8700091B1B1A8843007EA4BA /* Connection.swift */; };
+		8720CEF61BE57F0C0038E9AD /* connection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8791C7DA1B138A43004798D7 /* connection.cpp */; };
+		8720CEF71BE57F0C0038E9AD /* cursor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8791C7DD1B138A43004798D7 /* cursor.cpp */; };
+		8720CEF81BE57F0C0038E9AD /* error.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8791C7E31B138A43004798D7 /* error.cpp */; };
+		8720CEF91BE57F0C0038E9AD /* portable_endian.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7E71B138A43004798D7 /* portable_endian.h */; };
+		8720CEFA1BE57F0C0038E9AD /* query.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87CD586C1B2CADA300EA800F /* query.cpp */; };
 		874259FD1B50B6790057142D /* 4501.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 874259FC1B50B6790057142D /* 4501.cpp */; };
 		87425A031B50B7AA0057142D /* 4501.m in Sources */ = {isa = PBXBuildFile; fileRef = 87425A021B50B7AA0057142D /* 4501.m */; };
 		874C78181B3B31B500A656B5 /* cursor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 874C78171B3B31B500A656B5 /* cursor.cpp */; };
@@ -1424,6 +1429,7 @@
 				87DAA63B1B13CB69005626BF /* Connection.h in Headers */,
 				87DAA6531B13CE01005626BF /* decode.hpp in Headers */,
 				87DAA64C1B13CE01005626BF /* char.hpp in Headers */,
+				8720CEF91BE57F0C0038E9AD /* portable_endian.h in Headers */,
 				87DAA64F1B13CE01005626BF /* core.h in Headers */,
 				87DAA6551B13CE01005626BF /* encode.hpp in Headers */,
 				87DAA6471B13CBBE005626BF /* Query.h in Headers */,
@@ -1883,10 +1889,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				1E93194A1BD91BF9004E3572 /* Query.swift in Sources */,
+				8720CEF71BE57F0C0038E9AD /* cursor.cpp in Sources */,
 				87DAA6481B13CBBE005626BF /* Query.mm in Sources */,
 				1ECA7D791B6EB6DB004DEA62 /* Cursor.swift in Sources */,
 				87DAA63C1B13CB69005626BF /* Connection.mm in Sources */,
+				8720CEF81BE57F0C0038E9AD /* error.cpp in Sources */,
+				8720CEFA1BE57F0C0038E9AD /* query.cpp in Sources */,
 				87DAA6441B13CB96005626BF /* Cursor.mm in Sources */,
+				8720CEF61BE57F0C0038E9AD /* connection.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
