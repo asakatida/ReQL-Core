@@ -176,9 +176,13 @@ get_parser() {
 
 @interface ArrayExpr : NSArray <Expr>
 
+-(ReQL_Array_t *)array;
+
 @end
 
 @interface BoolExpr : NSNumber <Expr>
+
+-(ReQL_Bool_t)boolean;
 
 @end
 
@@ -188,13 +192,19 @@ get_parser() {
 
 @interface NumberExpr : NSNumber <Expr>
 
+-(ReQL_Num_t)number;
+
 @end
 
 @interface DictionaryExpr : NSDictionary <Expr>
 
+-(ReQL_Obj_t *)dictionary;
+
 @end
 
 @interface StringExpr : NSString <Expr>
+
+-(ReQL_String_t *)string;
 
 @end
 
@@ -252,6 +262,12 @@ array_size(void *nsarray) {
 
 @implementation ArrayExpr
 
+-(ReQL_Array_t *)array {
+  ReQL_Array_t *obj = new ReQL_Array_t;
+  reql_array_init(obj, array_get, array_size, (__bridge void *)self);
+  return obj;
+}
+
 -(ReQL_Any_t *)build {
   ReQL_Any_t *obj = new ReQL_Any_t;
   obj->dt = REQL_R_ARRAY;
@@ -263,10 +279,14 @@ array_size(void *nsarray) {
 
 @implementation BoolExpr
 
+-(ReQL_Bool_t)boolean {
+  return [self boolValue] ? 1 : 0;
+}
+
 -(ReQL_Any_t *)build {
   ReQL_Any_t *obj = new ReQL_Any_t;
   obj->dt = REQL_R_BOOL;
-  obj->any.boolean = [self boolValue] ? 1 : 0;
+  obj->any.boolean = [self boolean];
   return obj;
 }
 
@@ -287,8 +307,12 @@ array_size(void *nsarray) {
 -(ReQL_Any_t *)build {
   ReQL_Any_t *obj = new ReQL_Any_t;
   obj->dt = REQL_R_NUM;
-  obj->any.num = [self doubleValue];
+  obj->any.num = [self number];
   return obj;
+}
+
+-(ReQL_Num_t)number {
+  return [self doubleValue];
 }
 
 @end
@@ -303,8 +327,8 @@ object_get(void *nsdict, ReQL_Size idx) {
     return NSOrderedDescending;
   }][idx];
   ReQL_Pair_t *pair = new ReQL_Pair_t;
-  pair->key = nullptr;
-  pair->key_size = 0;
+  pair->key = const_cast<ReQL_Byte *>(reinterpret_cast<const ReQL_Byte *>([key cStringUsingEncoding:NSUTF8StringEncoding]));
+  pair->key_size = static_cast<ReQL_Size>([key lengthOfBytesUsingEncoding:NSUTF8StringEncoding]);
   pair->val = *[toQuery(dict[key]) build];
   return pair;
 }
@@ -321,6 +345,12 @@ object_size(void *nsdict) {
   ReQL_Any_t *obj = new ReQL_Any_t;
   obj->dt = REQL_R_OBJECT;
   reql_object_init(&obj->any.object, object_get, object_size, (__bridge void *)self);
+  return obj;
+}
+
+-(ReQL_Obj_t *)dictionary {
+  ReQL_Obj_t *obj = new ReQL_Obj_t;
+  reql_object_init(obj, object_get, object_size, (__bridge void *)self);
   return obj;
 }
 
@@ -343,7 +373,13 @@ string_size(void *nsstring) {
 -(ReQL_Any_t *)build {
   ReQL_Any_t *obj = new ReQL_Any_t;
   obj->dt = REQL_R_STR;
-  reql_object_init(&obj->any.object, object_get, object_size, (__bridge void *)self);
+  reql_string_init(&obj->any.string, string_buf, string_size, (__bridge void *)self);
+  return obj;
+}
+
+-(ReQL_String_t *)string {
+  ReQL_String_t *obj = new ReQL_String_t;
+  reql_string_init(obj, string_buf, string_size, (__bridge void *)self);
   return obj;
 }
 
@@ -526,15 +562,15 @@ string_size(void *nsstring) {
   if (cur == nil) {
     return nil;
   }
-  ReQLObject *query = [self build];
+  ReQL_Any_t *query = [self build];
   if (query == nil) {
     return nil;
   }
-  ReQLObject *kwargs = [[DictionaryExpr dictionaryWithDictionary:opts] build];
-  if (!kwargs) {
+  ReQL_Obj_t *kwargs = [[DictionaryExpr dictionaryWithDictionary:opts] dictionary];
+  if (kwargs == nullptr) {
     return nil;
   }
-  if (reql_run_query(cur.cur, query.pointer, [conn data], kwargs.pointer, NULL) != 0) {
+  if (reql_run_query(cur.cur, query, [conn data], kwargs, NULL) != 0) {
     return nil;
   }
   return [[ReQLCursor alloc] initWithCursor:[cur steal]];
@@ -545,21 +581,18 @@ string_size(void *nsstring) {
 }
 
 -(void)noReply:(nonnull ReQLConnection *)conn withOpts:(nonnull NSDictionary *)opts {
-  ReQLObject *query = [self build];
+  ReQL_Any_t *query = [self build];
   if (!query) {
     return;
   }
-  if (!opts) {
-    opts = @{@"noreply": [BoolExpr numberWithBool:YES]};
-  }
-  ReQLObject *kwargs = [[DictionaryExpr dictionaryWithDictionary:opts] build];
+  ReQL_Obj_t *kwargs = [[DictionaryExpr dictionaryWithDictionary:opts] dictionary];
   if (!kwargs) {
     return nil;
   }
-  reql_run_query(NULL, query.pointer, [conn data], kwargs.pointer, NULL);
+  reql_run_query(NULL, query, [conn data], kwargs, NULL);
 }
 
--(ReQLObject *)build {
+-(ReQL_Any_t *)build {
   if (self.i_build) {
     return [self.i_build build];
   }
