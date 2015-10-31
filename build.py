@@ -91,7 +91,7 @@ def main():
     objc_src_path = cwd_path / 'libReQL'
 
     scripting.build(objc_src_path / 'Query.h', scripting.objc_term_def)
-    scripting.build(objc_src_path / 'Query.m', scripting.objc_term_imp)
+    scripting.build(objc_src_path / 'Query.mm', scripting.objc_term_imp)
     scripting.build(libreql_src_path / 'c' / 'query.c', scripting.c_term_imp)
     scripting.build(libreql_src_path / 'c' / 'query.h', scripting.c_term_def)
     scripting.build(libreql_src_path / 'cpp' / 'query.cpp', scripting.cpp_term_imp)
