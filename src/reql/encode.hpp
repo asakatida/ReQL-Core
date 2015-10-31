@@ -23,17 +23,26 @@ limitations under the License.
 
 #include "./reql/char.hpp"
 
-#include <codecvt>
-#include <locale>
+#include <sstream>
 #include <string>
 
 #include "./reql/query.h"
 #include "./reql/types.h"
 
-template <class sin, class sout>
-static sout
-s_to_s(const sin &in) {
-  return sout();
+template <class s>
+static s
+to_string(ReQL_Term_t val) {
+  std::basic_stringstream<typename s::value_type> ss;
+  ss << static_cast<unsigned int>(val);
+  return ss.str();
+}
+
+template <class s>
+static s
+to_string(double val) {
+  std::basic_stringstream<typename s::value_type> ss;
+  ss << val;
+  return ss.str();
 }
 
 template <class s>
@@ -117,14 +126,14 @@ reql_encode(const ReQL_Any_t &obj) {
     case REQL_R_JSON: throw std::exception();
     case REQL_R_NULL: return json.append(json_null, 4);
     case REQL_R_NUM: {
-      return s_to_s<std::string, s>(std::to_string(obj.any.num));
+      return to_string<s>(obj.any.num);
     }
     case REQL_R_OBJECT: {
       return json.append(reql_encode<s>(obj.any.object));
     }
     case REQL_R_REQL: {
       const ReQL_ReQL_t *reql = &obj.any.reql;
-      json.append(&char_left_square_bracket, 1).append(s_to_s<std::string, s>(std::to_string(reql_term_type(reql))));
+      json.append(&char_left_square_bracket, 1).append(to_string<s>(reql_term_type(reql)));
       if (reql->args != nullptr) {
         json.append(&char_comma, 1).append(reql_encode<s>(reql->args(reql->data)));
       }

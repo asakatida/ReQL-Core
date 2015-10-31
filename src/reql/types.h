@@ -27,7 +27,7 @@ extern "C" {
 
 #include <stdint.h>
 
-typedef uint8_t ReQL_Byte;
+typedef char ReQL_Byte;
 typedef uint32_t ReQL_Size;
 typedef uint64_t ReQL_Token;
 
