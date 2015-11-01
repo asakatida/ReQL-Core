@@ -100,10 +100,10 @@ reql_cur_set_error_cb(ReQL_Cur_t *cur, ReQL_Error_Function cb, void *arg) {
 }
 
 extern void
-reql_cur_set_response(ReQL_Cur_t *cur, const ReQL_Byte *res, ReQL_Size length) {
+reql_cur_set_response(ReQL_Cur_t *cur, const std::basic_string<ReQL_Byte> res) {
   reql_cur_lock(cur);
   ReQL_Parse_t u_parser = cur->get_parser();
-  reql_decode(std::basic_string<ReQL_Byte>(res, length), Parser<std::basic_string<ReQL_Byte>>(&u_parser, cur));
+  reql_decode(res, Parser<std::basic_string<ReQL_Byte>>(&u_parser, cur));
   reql_cur_unlock(cur);
 }
 
