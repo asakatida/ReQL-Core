@@ -27,19 +27,15 @@ test_name_shell = '{} {}'
 
 test_shell_objc = '''// Copyright 2015 Adam Grandquist
 
-#import <Cocoa/Cocoa.h>
-#import <XCTest/XCTest.h>
-#import <libReQL.h>
+import Cocoa
+import Quick
+import Nimble
+import libReQL
 
-@interface {0} : XCTestCase
-
-@end
-
-@implementation {0}
-
-{1}
-
-@end
+class {0} : QuickSpec {{
+  override func spec() {{
+  }}
+}}
 '''
 
 test_shell_cpp = '''// Copyright 2015 Adam Grandquist
@@ -150,7 +146,7 @@ def each_test(path, file, lang_path, lang):
 
     test_file = file.relative_to(path)
 
-    with touch((lang_path / test_file).with_suffix('.m' if lang == 'objc' else '.cpp')) as ostream:
+    with touch((lang_path / test_file).with_suffix('.swift' if lang == 'objc' else '.cpp')) as ostream:
         test_name = test_name_shell.format(lang, tests['desc'])
         if test_name in test_names:
             test_name = ' '.join([test_name, str(len(test_names))])
