@@ -41,6 +41,12 @@ limitations under the License.
 #include <sys/uio.h>
 #include <unistd.h>
 
+extern void
+reql_cur_init(ReQL_Cur_t *cur, ReQL_Conn_t *conn, ReQL_Token token, ReQL_Parse_t (*get_parser)());
+
+extern void
+reql_cur_set_response(ReQL_Cur_t *cur, std::basic_string<ReQL_Byte> res);
+
 static const ReQL_Size REQL_VERSION = 0x400c2d20;
 static const ReQL_Size REQL_PROTOCOL = 0x7e6970c7;
 

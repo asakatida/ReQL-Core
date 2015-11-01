@@ -52,12 +52,6 @@ reql_cur_open(ReQL_Cur_t *cur);
 extern void
 reql_cur_close(ReQL_Cur_t *cur);
 
-extern void
-reql_cur_init(ReQL_Cur_t *cur, ReQL_Conn_t *conn, ReQL_Token token, ReQL_Parse_t (*get_parser)());
-
-extern void
-reql_cur_set_response(ReQL_Cur_t *cur, const ReQL_Byte *res, ReQL_Size length);
-
 #ifdef __cplusplus
 }
 #endif
