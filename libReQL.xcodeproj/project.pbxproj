@@ -12,11 +12,6 @@
 		1E8A637F1B71AE97009288DA /* 4591.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E8A637C1B71AE97009288DA /* 4591.m */; };
 		1E93194A1BD91BF9004E3572 /* Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9319491BD91BF9004E3572 /* Query.swift */; };
 		1ECA7D791B6EB6DB004DEA62 /* Cursor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ECA7D781B6EB6DB004DEA62 /* Cursor.swift */; };
-		1ED9DAE41B14E3DA00B13EAD /* connection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1ED9D9E71B14E3DA00B13EAD /* connection.cpp */; };
-		1ED9DAE51B14E3DA00B13EAD /* decode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1ED9D9E81B14E3DA00B13EAD /* decode.cpp */; };
-		1ED9DAE61B14E3DA00B13EAD /* encode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1ED9D9E91B14E3DA00B13EAD /* encode.cpp */; };
-		1ED9DAE71B14E3DA00B13EAD /* expr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1ED9D9EA1B14E3DA00B13EAD /* expr.cpp */; };
-		1EE680201B0C39D200C97B18 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1EE6801F1B0C39D200C97B18 /* main.cpp */; };
 		8700091C1B1A8843007EA4BA /* Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8700091B1B1A8843007EA4BA /* Connection.swift */; };
 		8720CEF61BE57F0C0038E9AD /* connection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8791C7DA1B138A43004798D7 /* connection.cpp */; };
 		8720CEF71BE57F0C0038E9AD /* cursor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8791C7DD1B138A43004798D7 /* cursor.cpp */; };
@@ -24,11 +19,6 @@
 		8720CEF91BE57F0C0038E9AD /* portable_endian.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7E71B138A43004798D7 /* portable_endian.h */; };
 		8720CEFA1BE57F0C0038E9AD /* query.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87CD586C1B2CADA300EA800F /* query.cpp */; };
 		87425A031B50B7AA0057142D /* 4501.m in Sources */ = {isa = PBXBuildFile; fileRef = 87425A021B50B7AA0057142D /* 4501.m */; };
-		874C78181B3B31B500A656B5 /* cursor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 874C78171B3B31B500A656B5 /* cursor.cpp */; };
-		874F1E321BE66999002D0111 /* connection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8791C7DA1B138A43004798D7 /* connection.cpp */; };
-		874F1E331BE66999002D0111 /* cursor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8791C7DD1B138A43004798D7 /* cursor.cpp */; };
-		874F1E341BE66999002D0111 /* error.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8791C7E31B138A43004798D7 /* error.cpp */; };
-		874F1E351BE66999002D0111 /* query.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87CD586C1B2CADA300EA800F /* query.cpp */; };
 		87667D2F1B6D300700150E74 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87667D261B6D2FC600150E74 /* ReactiveCocoa.framework */; };
 		8767BED21BC94615003BFF7C /* limits.m in Sources */ = {isa = PBXBuildFile; fileRef = 8767BED11BC94615003BFF7C /* limits.m */; };
 		8767BED41BC94635003BFF7C /* 4582.m in Sources */ = {isa = PBXBuildFile; fileRef = 8767BED31BC94635003BFF7C /* 4582.m */; };
@@ -168,7 +158,6 @@
 		87DAA6551B13CE01005626BF /* encode.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7E21B138A43004798D7 /* encode.hpp */; };
 		87DAA6571B13CE01005626BF /* error.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7E41B138A43004798D7 /* error.h */; };
 		87DAA65B1B13CE01005626BF /* types.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7E81B138A43004798D7 /* types.h */; };
-		87E329C61BD2047300D97D60 /* test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87E329C51BD2047300D97D60 /* test.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -377,23 +366,14 @@
 		1E8A637C1B71AE97009288DA /* 4591.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = 4591.m; sourceTree = "<group>"; };
 		1E9319261BD87848004E3572 /* Nimble.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Nimble.xcodeproj; path = Quick/Externals/Nimble/Nimble.xcodeproj; sourceTree = "<group>"; };
 		1E9319491BD91BF9004E3572 /* Query.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Query.swift; sourceTree = "<group>"; };
-		1EAE66501AC7267A0080CBCC /* catch.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = catch.hpp; sourceTree = "<group>"; };
 		1ECA7D781B6EB6DB004DEA62 /* Cursor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cursor.swift; sourceTree = "<group>"; };
-		1ECDD77F1AB53D80004CD31E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1ED9D9E71B14E3DA00B13EAD /* connection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = connection.cpp; sourceTree = "<group>"; };
-		1ED9D9E81B14E3DA00B13EAD /* decode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = decode.cpp; sourceTree = "<group>"; };
-		1ED9D9E91B14E3DA00B13EAD /* encode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = encode.cpp; sourceTree = "<group>"; };
-		1ED9D9EA1B14E3DA00B13EAD /* expr.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = expr.cpp; sourceTree = "<group>"; };
-		1EE6801F1B0C39D200C97B18 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8700091B1B1A8843007EA4BA /* Connection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Connection.swift; sourceTree = "<group>"; };
 		87425A021B50B7AA0057142D /* 4501.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = 4501.m; sourceTree = "<group>"; };
-		874C78171B3B31B500A656B5 /* cursor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cursor.cpp; sourceTree = "<group>"; };
 		87667D1E1B6D2FC600150E74 /* ReactiveCocoa.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ReactiveCocoa.xcodeproj; path = ReactiveCocoa/ReactiveCocoa.xcodeproj; sourceTree = "<group>"; };
 		87667D651B6D329B00150E74 /* Result.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Result.xcodeproj; path = ReactiveCocoa/Carthage/Checkouts/Result/Result.xcodeproj; sourceTree = "<group>"; };
 		8767BED11BC94615003BFF7C /* limits.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = limits.m; sourceTree = "<group>"; };
 		8767BED31BC94635003BFF7C /* 4582.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = 4582.m; sourceTree = "<group>"; };
 		8767BED51BC9464A003BFF7C /* 763.js.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = 763.js.m; sourceTree = "<group>"; };
-		8773F1C11A6A058D001F14C5 /* libReQL-test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "libReQL-test"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8787D3E11B2E35F50095C616 /* Cursor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cursor.swift; sourceTree = "<group>"; };
 		8791C7D91B138A43004798D7 /* char.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = char.hpp; sourceTree = "<group>"; };
 		8791C7DA1B138A43004798D7 /* connection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = connection.cpp; sourceTree = "<group>"; };
@@ -538,18 +518,9 @@
 		87DAA6421B13CB96005626BF /* Cursor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Cursor.mm; sourceTree = "<group>"; };
 		87DAA6451B13CBBE005626BF /* Query.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Query.h; sourceTree = "<group>"; };
 		87DAA6461B13CBBE005626BF /* Query.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Query.mm; sourceTree = "<group>"; };
-		87E329C41BD2032F00D97D60 /* test.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = test.hpp; sourceTree = "<group>"; };
-		87E329C51BD2047300D97D60 /* test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = test.cpp; path = test/test.cpp; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		8773F1BE1A6A058D001F14C5 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		8791C8411B13968C004798D7 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -600,14 +571,12 @@
 				8791C8531B13968C004798D7 /* libReQLTests */,
 				1E9D4B781A03011100201983 /* Products */,
 				1ECDD7321AB53D80004CD31E /* src */,
-				1ECDD7761AB53D80004CD31E /* test */,
 			);
 			sourceTree = "<group>";
 		};
 		1E9D4B781A03011100201983 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8773F1C11A6A058D001F14C5 /* libReQL-test */,
 				8791C8451B13968C004798D7 /* libReQL.framework */,
 				8791C84F1B13968C004798D7 /* libReQLTests.xctest */,
 			);
@@ -620,31 +589,6 @@
 				8791C7D51B138A43004798D7 /* reql */,
 			);
 			path = src;
-			sourceTree = "<group>";
-		};
-		1ECDD7761AB53D80004CD31E /* test */ = {
-			isa = PBXGroup;
-			children = (
-				1EAE66501AC7267A0080CBCC /* catch.hpp */,
-				1ECDD77F1AB53D80004CD31E /* Info.plist */,
-				1EE6801F1B0C39D200C97B18 /* main.cpp */,
-				1ED9D9E61B14E3DA00B13EAD /* reql */,
-				87E329C51BD2047300D97D60 /* test.cpp */,
-				87E329C41BD2032F00D97D60 /* test.hpp */,
-			);
-			path = test;
-			sourceTree = "<group>";
-		};
-		1ED9D9E61B14E3DA00B13EAD /* reql */ = {
-			isa = PBXGroup;
-			children = (
-				1ED9D9E71B14E3DA00B13EAD /* connection.cpp */,
-				874C78171B3B31B500A656B5 /* cursor.cpp */,
-				1ED9D9E81B14E3DA00B13EAD /* decode.cpp */,
-				1ED9D9E91B14E3DA00B13EAD /* encode.cpp */,
-				1ED9D9EA1B14E3DA00B13EAD /* expr.cpp */,
-			);
-			path = reql;
 			sourceTree = "<group>";
 		};
 		87667D1F1B6D2FC600150E74 /* Products */ = {
@@ -983,22 +927,6 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		8773F1C01A6A058D001F14C5 /* libReQL-test */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 8773F1C71A6A058D001F14C5 /* Build configuration list for PBXNativeTarget "libReQL-test" */;
-			buildPhases = (
-				8773F1BD1A6A058D001F14C5 /* Sources */,
-				8773F1BE1A6A058D001F14C5 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "libReQL-test";
-			productName = "libReQL-CPP-test";
-			productReference = 8773F1C11A6A058D001F14C5 /* libReQL-test */;
-			productType = "com.apple.product-type.tool";
-		};
 		8791C8441B13968C004798D7 /* libReQL */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8791C8581B13968C004798D7 /* Build configuration list for PBXNativeTarget "libReQL" */;
@@ -1049,9 +977,6 @@
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Adam Grandquist";
 				TargetAttributes = {
-					8773F1C01A6A058D001F14C5 = {
-						CreatedOnToolsVersion = 6.1.1;
-					};
 					8791C8441B13968C004798D7 = {
 						CreatedOnToolsVersion = 6.3.2;
 					};
@@ -1090,7 +1015,6 @@
 			);
 			projectRoot = "";
 			targets = (
-				8773F1C01A6A058D001F14C5 /* libReQL-test */,
 				8791C8441B13968C004798D7 /* libReQL */,
 				8791C84E1B13968C004798D7 /* libReQLTests */,
 			);
@@ -1286,24 +1210,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		8773F1BD1A6A058D001F14C5 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				874C78181B3B31B500A656B5 /* cursor.cpp in Sources */,
-				1ED9DAE71B14E3DA00B13EAD /* expr.cpp in Sources */,
-				1ED9DAE61B14E3DA00B13EAD /* encode.cpp in Sources */,
-				1ED9DAE51B14E3DA00B13EAD /* decode.cpp in Sources */,
-				874F1E341BE66999002D0111 /* error.cpp in Sources */,
-				874F1E331BE66999002D0111 /* cursor.cpp in Sources */,
-				1EE680201B0C39D200C97B18 /* main.cpp in Sources */,
-				87E329C61BD2047300D97D60 /* test.cpp in Sources */,
-				1ED9DAE41B14E3DA00B13EAD /* connection.cpp in Sources */,
-				874F1E321BE66999002D0111 /* connection.cpp in Sources */,
-				874F1E351BE66999002D0111 /* query.cpp in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		8791C8401B13968C004798D7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1562,22 +1468,6 @@
 			};
 			name = Release;
 		};
-		8773F1C51A6A058D001F14C5 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "$(inherited) test";
-			};
-			name = Debug;
-		};
-		8773F1C61A6A058D001F14C5 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "$(inherited) test";
-			};
-			name = Release;
-		};
 		8791C8591B13968C004798D7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1669,15 +1559,6 @@
 			buildConfigurations = (
 				1E9D4B891A03011100201983 /* Debug */,
 				1E9D4B8A1A03011100201983 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		8773F1C71A6A058D001F14C5 /* Build configuration list for PBXNativeTarget "libReQL-test" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				8773F1C51A6A058D001F14C5 /* Debug */,
-				8773F1C61A6A058D001F14C5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
