@@ -22,11 +22,6 @@ def main():
 
     scripting.test_loop(polyglot_path, new_test_cpp_path.resolve(), 'cpp')
 
-    new_test_reql_path = libreql_test_path / 'reql' / 'polyglot'
-    scripting.mkdir(new_test_reql_path)
-
-    scripting.test_loop(polyglot_path, new_test_reql_path.resolve(), 'reql')
-
     new_test_objc_path = cwd_path / 'libReQLTests' / 'polyglot'
     scripting.mkdir(new_test_objc_path)
 
