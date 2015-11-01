@@ -5,7 +5,7 @@
 
 using namespace ReQL;
 
-TEST_CASE("cpp Tests replacement of selections 177", "[cpp][ast]") {
+TEST_CASE("cpp Tests replacement of selections 52", "[cpp][ast]") {
 
   SECTION("test0") {
     Types::object map0;

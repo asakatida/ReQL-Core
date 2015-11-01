@@ -4,11 +4,11 @@
 #import <XCTest/XCTest.h>
 #import <libReQL.h>
 
-@interface ObjcRegressionTestForIssue477 : XCTestCase
+@interface ObjcRegressionTestForIssue102 : XCTestCase
 
 @end
 
-@implementation ObjcRegressionTestForIssue477
+@implementation ObjcRegressionTestForIssue102
 
 
 - (void)test0 {

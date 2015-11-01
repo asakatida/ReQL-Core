@@ -134,6 +134,8 @@ def convert_tests(tests, lang):
     return lang_tests
 
 def test_loop(path, lang_path, lang):
+    global test_names
+    test_names = set()
     for file in path.glob('**/*.yaml'):
         each_test(path, file, lang_path, lang)
     for file in path.glob('**/*.test'):

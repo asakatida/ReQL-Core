@@ -5,7 +5,7 @@
 
 using namespace ReQL;
 
-TEST_CASE("cpp Regression tests for issue 223", "[cpp][ast]") {
+TEST_CASE("cpp Regression tests for issue 98", "[cpp][ast]") {
 
   SECTION("test0") {
     double num0(1);
