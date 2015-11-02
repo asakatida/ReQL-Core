@@ -174,13 +174,21 @@ get_parser() {
 
 @end
 
-@interface ArrayExpr : NSArray <Expr>
+@interface ArrayExpr : NSObject <Expr>
+
+@property(nonatomic) NSArray *p_array;
+
++(instancetype)arrayWithArray:(NSArray *)array;
 
 -(ReQL_Array_t *)array;
 
 @end
 
-@interface BoolExpr : NSNumber <Expr>
+@interface BoolExpr : NSObject <Expr>
+
+@property BOOL p_boolean;
+
++(instancetype)numberWithBool:(BOOL)boolean;
 
 -(ReQL_Bool_t)boolean;
 
@@ -190,19 +198,31 @@ get_parser() {
 
 @end
 
-@interface NumberExpr : NSNumber <Expr>
+@interface NumberExpr : NSObject <Expr>
+
+@property double p_number;
+
++(instancetype)numberWithDouble:(double)number;
 
 -(ReQL_Num_t)number;
 
 @end
 
-@interface DictionaryExpr : NSDictionary <Expr>
+@interface DictionaryExpr : NSObject <Expr>
+
+@property(nonatomic) NSDictionary *p_dictionary;
+
++(instancetype)dictionaryWithDictionary:(NSDictionary *)dictionary;
 
 -(ReQL_Obj_t *)dictionary;
 
 @end
 
-@interface StringExpr : NSString <Expr>
+@interface StringExpr : NSObject <Expr>
+
+@property(nonatomic) NSString *p_string;
+
++(instancetype)stringWithString:(NSString *)string;
 
 -(ReQL_String_t *)string;
 
@@ -262,16 +282,26 @@ array_size(void *nsarray) {
 
 @implementation ArrayExpr
 
+@synthesize p_array=p_array;
+
++(instancetype)arrayWithArray:(NSArray *)array {
+  ArrayExpr *inst = [super new];
+  if (inst) {
+    inst.p_array = array;
+  }
+  return inst;
+}
+
 -(ReQL_Array_t *)array {
   ReQL_Array_t *obj = new ReQL_Array_t;
-  reql_array_init(obj, array_get, array_size, (__bridge void *)self);
+  reql_array_init(obj, array_get, array_size, (__bridge void *)self.p_array);
   return obj;
 }
 
 -(ReQL_Any_t *)build {
   ReQL_Any_t *obj = new ReQL_Any_t;
   obj->dt = REQL_R_ARRAY;
-  reql_array_init(&obj->any.array, array_get, array_size, (__bridge void *)self);
+  reql_array_init(&obj->any.array, array_get, array_size, (__bridge void *)self.p_array);
   return obj;
 }
 
@@ -279,8 +309,18 @@ array_size(void *nsarray) {
 
 @implementation BoolExpr
 
+@synthesize p_boolean=p_boolean;
+
++(instancetype)numberWithBool:(BOOL)boolean {
+  BoolExpr *inst = [super new];
+  if (inst) {
+    inst.p_boolean = boolean;
+  }
+  return inst;
+}
+
 -(ReQL_Bool_t)boolean {
-  return [self boolValue] ? 1 : 0;
+  return self.p_boolean ? 1 : 0;
 }
 
 -(ReQL_Any_t *)build {
@@ -304,6 +344,16 @@ array_size(void *nsarray) {
 
 @implementation NumberExpr
 
+@synthesize p_number=p_number;
+
++(instancetype)numberWithDouble:(double)number {
+  NumberExpr *inst = [super new];
+  if (inst) {
+    inst.p_number = number;
+  }
+  return inst;
+}
+
 -(ReQL_Any_t *)build {
   ReQL_Any_t *obj = new ReQL_Any_t;
   obj->dt = REQL_R_NUM;
@@ -312,7 +362,7 @@ array_size(void *nsarray) {
 }
 
 -(ReQL_Num_t)number {
-  return [self doubleValue];
+  return self.p_number;
 }
 
 @end
@@ -341,16 +391,26 @@ object_size(void *nsdict) {
 
 @implementation DictionaryExpr
 
+@synthesize p_dictionary=p_dictionary;
+
++(instancetype)dictionaryWithDictionary:(NSDictionary *)dictionary {
+  DictionaryExpr *inst = [super new];
+  if (inst) {
+    inst.p_dictionary = dictionary;
+  }
+  return inst;
+}
+
 -(ReQL_Any_t *)build {
   ReQL_Any_t *obj = new ReQL_Any_t;
   obj->dt = REQL_R_OBJECT;
-  reql_object_init(&obj->any.object, object_get, object_size, (__bridge void *)self);
+  reql_object_init(&obj->any.object, object_get, object_size, (__bridge void *)self.p_dictionary);
   return obj;
 }
 
 -(ReQL_Obj_t *)dictionary {
   ReQL_Obj_t *obj = new ReQL_Obj_t;
-  reql_object_init(obj, object_get, object_size, (__bridge void *)self);
+  reql_object_init(obj, object_get, object_size, (__bridge void *)self.p_dictionary);
   return obj;
 }
 
@@ -370,20 +430,36 @@ string_size(void *nsstring) {
 
 @implementation StringExpr
 
+@synthesize p_string=p_string;
+
++(instancetype)stringWithString:(NSString *)string {
+  StringExpr *inst = [super new];
+  if (inst) {
+    inst.p_string = string;
+  }
+  return inst;
+}
+
 -(ReQL_Any_t *)build {
   ReQL_Any_t *obj = new ReQL_Any_t;
   obj->dt = REQL_R_STR;
-  reql_string_init(&obj->any.string, string_buf, string_size, (__bridge void *)self);
+  reql_string_init(&obj->any.string, string_buf, string_size, (__bridge void *)self.p_string);
   return obj;
 }
 
 -(ReQL_String_t *)string {
   ReQL_String_t *obj = new ReQL_String_t;
-  reql_string_init(obj, string_buf, string_size, (__bridge void *)self);
+  reql_string_init(obj, string_buf, string_size, (__bridge void *)self.p_string);
   return obj;
 }
 
 @end
+
+static ReQL_Array_t
+get_args(void *arrayexpr) {
+  ArrayExpr *array = (__bridge ArrayExpr *)arrayexpr;
+  return *[array array];
+}
 
 @implementation TermExpr
 
@@ -391,21 +467,18 @@ string_size(void *nsstring) {
 @synthesize func=p_func;
 
 +(instancetype)newTerm:(ReQL_AST_Function)func :(NSArray *)args {
-  return [[self alloc] initTerm:func :args];
-}
-
--(instancetype)initTerm:(ReQL_AST_Function)func :(NSArray *)args {
-  if ((self = [super init])) {
-    p_args = [ArrayExpr arrayWithArray:args];
-    p_func = func;
+  TermExpr *inst = [super new];
+  if (inst) {
+    inst.args = [ArrayExpr arrayWithArray:args];
+    inst.func = func;
   }
-  return self;
+  return inst;
 }
 
 -(ReQL_Any_t *)build {
   ReQL_Any_t *obj = new ReQL_Any_t;
   obj->dt = REQL_R_REQL;
-  self.func(&obj->any.reql, nullptr, (__bridge void *)self);
+  self.func(&obj->any.reql, get_args, (__bridge void *)self.args);
   return obj;
 }
 
