@@ -105,10 +105,13 @@ reql_conn_memory_error(const char *trace) {
 
 static void
 reql_conn_lock(ReQL_Conn_t *conn) {
+  if (conn == nullptr) {
+    return;
+  }
   if (conn->condition.mutex == nullptr) {
     return;
   }
-  reinterpret_cast<std::unique_lock<std::mutex> *>(conn->condition.mutex)->lock();
+  reinterpret_cast<std::mutex *>(conn->condition.mutex)->lock();
 }
 
 static void
@@ -119,40 +122,20 @@ reql_conn_unlock(ReQL_Conn_t *conn) {
   if (conn->condition.mutex == nullptr) {
     return;
   }
-  reinterpret_cast<std::unique_lock<std::mutex> *>(conn->condition.mutex)->unlock();
+  reinterpret_cast<std::mutex *>(conn->condition.mutex)->unlock();
 }
 
 extern void
 reql_conn_init(ReQL_Conn_t *conn) {
-  pthread_mutexattr_t *attrs;
-  try {
-    attrs = new pthread_mutexattr_t;
-  } catch (std::bad_alloc&) {
-    reql_conn_memory_error(__func__);
-    return;
-  }
-  pthread_mutex_t *mutex;
-  try {
-    mutex = new pthread_mutex_t;
-  } catch (std::bad_alloc&) {
-    delete attrs;
-    reql_conn_memory_error(__func__);
-    return;
-  }
-  pthread_mutexattr_init(attrs);
-  pthread_mutexattr_settype(attrs, PTHREAD_MUTEX_ERRORCHECK);
-  pthread_mutex_init(mutex, attrs);
-  pthread_mutexattr_destroy(attrs);
-  delete attrs;
+  std::mutex *mutex = new std::mutex;
 
   memset(conn, static_cast<int>(NULL), sizeof(ReQL_Conn_t));
 
   conn->condition.mutex = mutex;
-
-  reql_conn_lock(conn);
   conn->socket = -1;
   conn->timeout_s = 20;
   conn->port = reinterpret_cast<void *>(const_cast<char *>("28015"));
+
   reql_conn_unlock(conn);
 }
 

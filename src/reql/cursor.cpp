@@ -54,7 +54,7 @@ reql_cur_lock(ReQL_Cur_t *cur) {
   if (cur->condition.mutex == nullptr) {
     return;
   }
-  reinterpret_cast<std::unique_lock<std::mutex> *>(cur->condition.mutex)->lock();
+  reinterpret_cast<std::mutex *>(cur->condition.mutex)->lock();
 }
 
 static void
@@ -65,7 +65,7 @@ reql_cur_unlock(ReQL_Cur_t *cur) {
   if (cur->condition.mutex == nullptr) {
     return;
   }
-  reinterpret_cast<std::unique_lock<std::mutex> *>(cur->condition.mutex)->unlock();
+  reinterpret_cast<std::mutex *>(cur->condition.mutex)->unlock();
 }
 
 static char
@@ -225,26 +225,7 @@ reql_cur_open(ReQL_Cur_t *cur) {
 
 extern void
 reql_cur_init(ReQL_Cur_t *cur, ReQL_Conn_t *conn, ReQL_Token token, ReQL_Parse_t (*get_parser)()) {
-  pthread_mutexattr_t *attrs;
-  pthread_mutex_t *mutex;
-  try {
-    attrs = new pthread_mutexattr_t;
-  } catch (std::bad_alloc&) {
-    reql_cur_memory_error(__func__);
-    return;
-  }
-  try {
-    mutex = new pthread_mutex_t;
-  } catch (std::bad_alloc&) {
-    delete attrs;
-    reql_cur_memory_error(__func__);
-    return;
-  }
-  pthread_mutexattr_init(attrs);
-  pthread_mutexattr_settype(attrs, PTHREAD_MUTEX_ERRORCHECK);
-  pthread_mutex_init(mutex, attrs);
-  pthread_mutexattr_destroy(attrs);
-  delete attrs;
+  std::mutex *mutex = new std::mutex;
 
   memset(cur, static_cast<int>(NULL), sizeof(ReQL_Cur_t));
 
@@ -277,14 +258,12 @@ reql_cur_destroy(ReQL_Cur_t *cur) {
   reql_cur_lock(cur);
   reql_cur_close_(cur);
   cur->response = nullptr;
+  reql_cur_unlock(cur);
   if (cur->condition.thread != nullptr) {
-    reql_cur_unlock(cur);
     auto t = reinterpret_cast<std::thread *>(cur->condition.thread);
     cur->condition.thread = nullptr;
     t->join();
     delete t;
-  } else {
-    reql_cur_unlock(cur);
   }
 }
 
