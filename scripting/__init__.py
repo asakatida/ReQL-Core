@@ -22,6 +22,7 @@ from . import test_query
 from . import test_results
 
 test_names = set()
+file_names = set()
 
 test_name_shell = '{} {}'
 
@@ -132,6 +133,8 @@ def convert_tests(tests, lang):
 def test_loop(path, lang_path, lang):
     global test_names
     test_names = set()
+    global file_names
+    file_names = set()
     for file in path.glob('**/*.yaml'):
         each_test(path, file, lang_path, lang)
     for file in path.glob('**/*.test'):
@@ -140,11 +143,18 @@ def test_loop(path, lang_path, lang):
 def convert_objc_test_name(name):
     return ''.join(s for s in name.title() if s.isalnum())
 
+def make_unique(path):
+    name = path.name[:-len(''.join(path.suffixes))]
+    if name in file_names:
+        return path.with_name(''.join((name, str(len(file_names)))))
+    file_names.add(name)
+    return path
+
 def each_test(path, file, lang_path, lang):
     with file.open() as istream:
         tests = yaml.load(istream)
 
-    test_file = file.relative_to(path)
+    test_file = make_unique(file.relative_to(path))
 
     with touch((lang_path / test_file).with_suffix('.swift' if lang == 'objc' else '.cpp')) as ostream:
         test_name = test_name_shell.format(lang, tests['desc'])

@@ -60,6 +60,7 @@ set(SOURCES
  test/c/polyglot/meta/composite.cpp
  test/c/polyglot/meta/dbs.cpp
  test/c/polyglot/meta/table.cpp
+ test/c/polyglot/meta/table48.cpp
  test/c/polyglot/mutation/atomic_get_set.cpp
  test/c/polyglot/mutation/delete.cpp
  test/c/polyglot/mutation/insert.cpp
@@ -132,15 +133,19 @@ set(SOURCES
  test/c/polyglot/sindex/truncation.cpp
  test/c/polyglot/timeout.cpp
  test/c/polyglot/times/api.cpp
+ test/c/polyglot/times/api114.cpp
  test/c/polyglot/times/constructors.cpp
+ test/c/polyglot/times/constructors114.cpp
  test/c/polyglot/times/index.cpp
  test/c/polyglot/times/portions.cpp
  test/c/polyglot/times/shim.cpp
  test/c/polyglot/times/time_arith.cpp
  test/c/polyglot/times/timezones.cpp
  test/c/polyglot/transform/array.cpp
+ test/c/polyglot/transform/array119.cpp
  test/c/polyglot/transform/map.cpp
  test/c/polyglot/transform/object.cpp
+ test/c/polyglot/transform/object120.cpp
  test/c/polyglot/transformation.cpp
  test/cpp/connection.cpp
  test/cpp/polyglot/aggregation.cpp
@@ -186,6 +191,7 @@ set(SOURCES
  test/cpp/polyglot/meta/composite.cpp
  test/cpp/polyglot/meta/dbs.cpp
  test/cpp/polyglot/meta/table.cpp
+ test/cpp/polyglot/meta/table48.cpp
  test/cpp/polyglot/mutation/atomic_get_set.cpp
  test/cpp/polyglot/mutation/delete.cpp
  test/cpp/polyglot/mutation/insert.cpp
@@ -258,15 +264,19 @@ set(SOURCES
  test/cpp/polyglot/sindex/truncation.cpp
  test/cpp/polyglot/timeout.cpp
  test/cpp/polyglot/times/api.cpp
+ test/cpp/polyglot/times/api114.cpp
  test/cpp/polyglot/times/constructors.cpp
+ test/cpp/polyglot/times/constructors114.cpp
  test/cpp/polyglot/times/index.cpp
  test/cpp/polyglot/times/portions.cpp
  test/cpp/polyglot/times/shim.cpp
  test/cpp/polyglot/times/time_arith.cpp
  test/cpp/polyglot/times/timezones.cpp
  test/cpp/polyglot/transform/array.cpp
+ test/cpp/polyglot/transform/array119.cpp
  test/cpp/polyglot/transform/map.cpp
  test/cpp/polyglot/transform/object.cpp
+ test/cpp/polyglot/transform/object120.cpp
  test/cpp/polyglot/transformation.cpp
  test/main.cpp
 )
