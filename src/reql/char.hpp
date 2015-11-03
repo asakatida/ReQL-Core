@@ -18,10 +18,10 @@ limitations under the License.
  * @copyright Apache
  */
 
-#ifndef REQL_REQL_CHAR_H_
-#define REQL_REQL_CHAR_H_
+#ifndef REQL_REQL_CHAR_HPP_
+#define REQL_REQL_CHAR_HPP_
 
-#include "./reql/types.h"
+#include "./reql/types.hpp"
 
 static const ReQL_Byte char_left_square_bracket = '[';
 static const ReQL_Byte char_right_square_bracket = ']';
@@ -187,4 +187,4 @@ reql_json_string_esc_size(const ReQL_Byte chr) {
   }
 }
 
-#endif  // REQL_REQL_CHAR_H_
+#endif  // REQL_REQL_CHAR_HPP_

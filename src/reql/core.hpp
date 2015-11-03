@@ -18,21 +18,13 @@ limitations under the License.
  * @copyright Apache
  */
 
-#ifndef REQL_REQL_CORE_H_
-#define REQL_REQL_CORE_H_
+#ifndef REQL_REQL_CORE_HPP_
+#define REQL_REQL_CORE_HPP_
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#include "./reql/connection.hpp"
+#include "./reql/cursor.hpp"
+#include "./reql/error.hpp"
+#include "./reql/query.hpp"
+#include "./reql/types.hpp"
 
-#include "./reql/connection.h"
-#include "./reql/cursor.h"
-#include "./reql/error.h"
-#include "./reql/query.h"
-#include "./reql/types.h"
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif  // REQL_REQL_CORE_H_
+#endif  // REQL_REQL_CORE_HPP_

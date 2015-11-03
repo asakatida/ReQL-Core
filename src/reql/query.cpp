@@ -18,13 +18,10 @@ limitations under the License.
  * @copyright Apache
  */
 
-#include "./reql/query.h"
+#include "./reql/query.hpp"
 
-#include "./reql/error.h"
-#include "./reql/types.h"
-
-#include <cstdlib>
-#include <memory>
+#include "./reql/error.hpp"
+#include "./reql/types.hpp"
 
 extern ReQL_Term_t
 reql_term_type(const ReQL_ReQL_t *obj) {

@@ -18,14 +18,14 @@ limitations under the License.
  * @copyright Apache
  */
 
-#ifndef REQL_REQL_DECODE_H_
-#define REQL_REQL_DECODE_H_
+#ifndef REQL_REQL_DECODE_HPP_
+#define REQL_REQL_DECODE_HPP_
 
 #include "./reql/char.hpp"
 
-#include "./reql/cursor.h"
-#include "./reql/query.h"
-#include "./reql/types.h"
+#include "./reql/cursor.hpp"
+#include "./reql/query.hpp"
+#include "./reql/types.hpp"
 
 #include <cctype>
 #include <locale>
@@ -267,4 +267,4 @@ reql_decode(s json, Parser<s> p) {
   p.endParse();
 }
 
-#endif  // REQL_REQL_DECODE_H_
+#endif  // REQL_REQL_DECODE_HPP_

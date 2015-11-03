@@ -18,15 +18,11 @@ limitations under the License.
  * @copyright Apache
  */
 
-#ifndef REQL_REQL_CURSOR_H_
-#define REQL_REQL_CURSOR_H_
+#ifndef REQL_REQL_CURSOR_HPP_
+#define REQL_REQL_CURSOR_HPP_
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#include "./reql/connection.h"
-#include "./reql/query.h"
+#include "./reql/connection.hpp"
+#include "./reql/query.hpp"
 
 extern void
 reql_cur_set_end_cb(ReQL_Cur_t *cur, ReQL_End_Function cb, void *arg);
@@ -52,8 +48,4 @@ reql_cur_open(ReQL_Cur_t *cur);
 extern void
 reql_cur_close(ReQL_Cur_t *cur);
 
-#ifdef __cplusplus
-}
-#endif
-
-#endif  // REQL_REQL_CURSOR_H_
+#endif  // REQL_REQL_CURSOR_HPP_

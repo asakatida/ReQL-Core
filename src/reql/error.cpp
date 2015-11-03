@@ -18,7 +18,7 @@ limitations under the License.
  * @copyright Apache
  */
 
-#include "./reql/error.h"
+#include "./reql/error.hpp"
 
 static ReQL_Error_Type_t p_err = REQL_E_NO;
 static const char *p_msg = "";

@@ -20,7 +20,7 @@ limitations under the License.
 
 #import "Connection.h"
 
-#import "./reql/core.h"
+#import "./reql/core.hpp"
 
 @interface ReQLConnection ()
 

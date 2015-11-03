@@ -18,13 +18,12 @@ limitations under the License.
  * @copyright Apache
  */
 
-#include "./reql/cursor.h"
+#include "./reql/cursor.hpp"
 
+#include "./reql/connection.hpp"
 #include "./reql/decode.hpp"
-
-#include "./reql/connection.h"
-#include "./reql/error.h"
-#include "./reql/query.h"
+#include "./reql/error.hpp"
+#include "./reql/query.hpp"
 
 #include <future>
 #include <memory>

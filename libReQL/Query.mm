@@ -22,7 +22,7 @@ limitations under the License.
 
 #import "Cursor.h"
 
-#import "./reql/core.h"
+#import "./reql/core.hpp"
 
 #import <libReQL/libReQL-Swift.h>
 

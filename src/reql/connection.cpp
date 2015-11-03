@@ -18,15 +18,15 @@ limitations under the License.
  * @copyright Apache
  */
 
-#include "./reql/connection.h"
+#include "./reql/connection.hpp"
 
+#include "./reql/cursor.hpp"
 #include "./reql/encode.hpp"
+#include "./reql/error.hpp"
+#include "./reql/query.hpp"
+#include "./reql/types.hpp"
 
-#include "./reql/cursor.h"
-#include "./reql/error.h"
 #include "./reql/portable_endian.h"
-#include "./reql/query.h"
-#include "./reql/types.h"
 
 #include <memory>
 #include <sstream>

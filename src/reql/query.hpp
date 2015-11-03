@@ -18,14 +18,10 @@ limitations under the License.
  * @copyright Apache
  */
 
-#ifndef REQL_REQL_QUERY_H_
-#define REQL_REQL_QUERY_H_
+#ifndef REQL_REQL_QUERY_HPP_
+#define REQL_REQL_QUERY_HPP_
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#include "./reql/types.h"
+#include "./reql/types.hpp"
 
 typedef void (*ReQL_AST_Function_Kwargs) (ReQL_ReQL_t *, ReQL_Array_t (*)(void *), ReQL_Obj_t (*)(void *), void *);
 typedef void (*ReQL_AST_Function) (ReQL_ReQL_t *, ReQL_Array_t (*)(void *), void *);
@@ -1501,8 +1497,4 @@ reql_ast_zip(
   ReQL_Array_t (*a)(void *),
   void *d);
 
-#ifdef __cplusplus
-}
-#endif
-
-#endif  // REQL_REQL_QUERY_H_
+#endif  // REQL_REQL_QUERY_HPP_

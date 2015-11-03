@@ -18,16 +18,12 @@ limitations under the License.
  * @copyright Apache
  */
 
-#ifndef REQL_REQL_CONNECTION_H_
-#define REQL_REQL_CONNECTION_H_
+#ifndef REQL_REQL_CONNECTION_HPP_
+#define REQL_REQL_CONNECTION_HPP_
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#include "./reql/cursor.h"
-#include "./reql/query.h"
-#include "./reql/types.h"
+#include "./reql/cursor.hpp"
+#include "./reql/query.hpp"
+#include "./reql/types.hpp"
 
 /**
  * @brief initialize connection to prepare for opening.
@@ -167,8 +163,4 @@ reql_stop_query(ReQL_Cur_t *cur);
 extern int
 reql_continue_query(ReQL_Cur_t *cur);
 
-#ifdef __cplusplus
-}
-#endif
-
-#endif  // REQL_REQL_CONNECTION_H_
+#endif  // REQL_REQL_CONNECTION_HPP_

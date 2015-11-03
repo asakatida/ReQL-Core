@@ -18,14 +18,10 @@ limitations under the License.
  * @copyright Apache
  */
 
-#ifndef REQL_REQL_TYPES_H_
-#define REQL_REQL_TYPES_H_
+#ifndef REQL_REQL_TYPES_HPP_
+#define REQL_REQL_TYPES_HPP_
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#include <stdint.h>
+#include <cstdint>
 
 typedef char ReQL_Byte;
 typedef uint32_t ReQL_Size;
@@ -387,8 +383,4 @@ struct ReQL_Conn_s {
   } condition;
 };
 
-#ifdef __cplusplus
-}
-#endif
-
-#endif  // REQL_REQL_TYPES_H_
+#endif  // REQL_REQL_TYPES_HPP_

@@ -18,16 +18,16 @@ limitations under the License.
  * @copyright Apache
  */
 
-#ifndef REQL_REQL_ENCODE_H_
-#define REQL_REQL_ENCODE_H_
+#ifndef REQL_REQL_ENCODE_HPP_
+#define REQL_REQL_ENCODE_HPP_
 
 #include "./reql/char.hpp"
 
+#include "./reql/query.hpp"
+#include "./reql/types.hpp"
+
 #include <sstream>
 #include <string>
-
-#include "./reql/query.h"
-#include "./reql/types.h"
 
 template <class s>
 static s
@@ -149,4 +149,4 @@ reql_encode(const ReQL_Any_t &obj) {
   }
 }
 
-#endif  // REQL_REQL_ENCODE_H_
+#endif  // REQL_REQL_ENCODE_HPP_

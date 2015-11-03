@@ -103,7 +103,7 @@ def main():
     scripting.build(libreql_src_path / 'Python' / 'ReQL.c', scripting.py_lib, "\n  ")
     scripting.build(libreql_src_path / 'reql' / 'query.cpp', scripting.enum_def, ",\n  ")
     scripting.build(libreql_src_path / 'reql' / 'query.cpp', scripting.term_imp)
-    scripting.build(libreql_src_path / 'reql' / 'query.h', scripting.term_def)
+    scripting.build(libreql_src_path / 'reql' / 'query.hpp', scripting.term_def)
     scripting.build(libreql_src_path / 'Ruby' / 'ast.c', scripting.rb_term_imp)
     scripting.build(libreql_src_path / 'Ruby' / 'ast.h', scripting.rb_term_def)
 

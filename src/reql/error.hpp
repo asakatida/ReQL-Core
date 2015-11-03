@@ -18,12 +18,8 @@ limitations under the License.
  * @copyright Apache
  */
 
-#ifndef REQL_REQL_ERROR_H_
-#define REQL_REQL_ERROR_H_
-
-#ifdef __cplusplus
-extern "C" {
-#endif
+#ifndef REQL_REQL_ERROR_HPP_
+#define REQL_REQL_ERROR_HPP_
 
 typedef enum {
   REQL_E_NO,
@@ -58,8 +54,4 @@ reql_error_init(ReQL_Error_Type_t err, const char *msg, const char *trace);
 
 #define REQL_ASSERT_(cond, code, msg, error) REQL_THROW((cond), (code), (msg)) if (cond) { return (error); }
 
-#ifdef __cplusplus
-}
-#endif
-
-#endif  // REQL_REQL_ERROR_H_
+#endif  // REQL_REQL_ERROR_HPP_
