@@ -42,8 +42,8 @@ buildArray(const Query &query) {
   }
 
   reql_array_init(obj, buf, size);
-  for (auto it=query.p_array.cbegin(); it != query.p_array.cend(); ++it) {
-    reql_array_append(obj, it->build());
+  for (auto elem : query.p_array) {
+    reql_array_append(obj, elem.build());
   }
   return obj;
 }
@@ -86,7 +86,7 @@ buildObject(const Query &query) {
   }
 
   reql_object_init(obj, buf, size);
-  for (auto it=query.p_object.cbegin(); it != query.p_object.cend(); ++it) {
+  for (auto pair : query.p_object) {
     reql_object_add(obj, Query(it->first).build(), it->second.build());
   }
   return obj;
