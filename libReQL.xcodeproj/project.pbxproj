@@ -10,11 +10,6 @@
 		1E93194A1BD91BF9004E3572 /* Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9319491BD91BF9004E3572 /* Query.swift */; };
 		1ECA7D791B6EB6DB004DEA62 /* Cursor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ECA7D781B6EB6DB004DEA62 /* Cursor.swift */; };
 		8700091C1B1A8843007EA4BA /* Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8700091B1B1A8843007EA4BA /* Connection.swift */; };
-		8720CEF61BE57F0C0038E9AD /* connection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8791C7DA1B138A43004798D7 /* connection.cpp */; };
-		8720CEF71BE57F0C0038E9AD /* cursor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8791C7DD1B138A43004798D7 /* cursor.cpp */; };
-		8720CEF81BE57F0C0038E9AD /* error.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8791C7E31B138A43004798D7 /* error.cpp */; };
-		8720CEF91BE57F0C0038E9AD /* portable_endian.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7E71B138A43004798D7 /* portable_endian.h */; };
-		8720CEFA1BE57F0C0038E9AD /* query.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87CD586C1B2CADA300EA800F /* query.cpp */; };
 		87667D2F1B6D300700150E74 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87667D261B6D2FC600150E74 /* ReactiveCocoa.framework */; };
 		8787D3E21B2E35F50095C616 /* Cursor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8787D3E11B2E35F50095C616 /* Cursor.swift */; };
 		8791C84A1B13968C004798D7 /* libReQL.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C8491B13968C004798D7 /* libReQL.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -25,13 +20,10 @@
 		87DAA6441B13CB96005626BF /* Cursor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 87DAA6421B13CB96005626BF /* Cursor.mm */; };
 		87DAA6471B13CBBE005626BF /* Query.h in Headers */ = {isa = PBXBuildFile; fileRef = 87DAA6451B13CBBE005626BF /* Query.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		87DAA6481B13CBBE005626BF /* Query.mm in Sources */ = {isa = PBXBuildFile; fileRef = 87DAA6461B13CBBE005626BF /* Query.mm */; };
-		87DAA64C1B13CE01005626BF /* char.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7D91B138A43004798D7 /* char.hpp */; };
 		87DAA64E1B13CE01005626BF /* connection.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7DB1B138A43004798D7 /* connection.hpp */; };
 		87DAA64F1B13CE01005626BF /* core.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7DC1B138A43004798D7 /* core.hpp */; };
 		87DAA6511B13CE01005626BF /* cursor.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7DE1B138A43004798D7 /* cursor.hpp */; };
 		87DAA6531B13CE01005626BF /* decode.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7E01B138A43004798D7 /* decode.hpp */; };
-		87DAA6551B13CE01005626BF /* encode.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7E21B138A43004798D7 /* encode.hpp */; };
-		87DAA6571B13CE01005626BF /* error.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7E41B138A43004798D7 /* error.hpp */; };
 		87DAA65B1B13CE01005626BF /* types.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7E81B138A43004798D7 /* types.hpp */; };
 		87DBB89A1BE6D01900F3E36B /* aggregation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DBB8131BE6D01900F3E36B /* aggregation.swift */; };
 		87DBB89B1BE6D01900F3E36B /* arity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DBB8141BE6D01900F3E36B /* arity.swift */; };
@@ -158,6 +150,8 @@
 		87DBB9141BE6D01900F3E36B /* map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DBB8971BE6D01900F3E36B /* map.swift */; };
 		87DBB9151BE6D01900F3E36B /* object120.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DBB8981BE6D01900F3E36B /* object120.swift */; };
 		87DBB9161BE6D01900F3E36B /* transformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DBB8991BE6D01900F3E36B /* transformation.swift */; };
+		87E132C51BF598240062422B /* Parser.mm in Sources */ = {isa = PBXBuildFile; fileRef = 87E132C41BF598240062422B /* Parser.mm */; };
+		87E132C71BF598420062422B /* Parser.h in Headers */ = {isa = PBXBuildFile; fileRef = 87E132C61BF598420062422B /* Parser.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -368,24 +362,16 @@
 		87667D1E1B6D2FC600150E74 /* ReactiveCocoa.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ReactiveCocoa.xcodeproj; path = ReactiveCocoa/ReactiveCocoa.xcodeproj; sourceTree = "<group>"; };
 		87667D651B6D329B00150E74 /* Result.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Result.xcodeproj; path = ReactiveCocoa/Carthage/Checkouts/Result/Result.xcodeproj; sourceTree = "<group>"; };
 		8787D3E11B2E35F50095C616 /* Cursor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cursor.swift; sourceTree = "<group>"; };
-		8791C7D91B138A43004798D7 /* char.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = char.hpp; sourceTree = "<group>"; };
-		8791C7DA1B138A43004798D7 /* connection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = connection.cpp; sourceTree = "<group>"; };
 		8791C7DB1B138A43004798D7 /* connection.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = connection.hpp; sourceTree = "<group>"; };
 		8791C7DC1B138A43004798D7 /* core.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = core.hpp; sourceTree = "<group>"; };
-		8791C7DD1B138A43004798D7 /* cursor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cursor.cpp; sourceTree = "<group>"; };
 		8791C7DE1B138A43004798D7 /* cursor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cursor.hpp; sourceTree = "<group>"; };
 		8791C7E01B138A43004798D7 /* decode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = decode.hpp; sourceTree = "<group>"; };
-		8791C7E21B138A43004798D7 /* encode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = encode.hpp; sourceTree = "<group>"; };
-		8791C7E31B138A43004798D7 /* error.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = error.cpp; sourceTree = "<group>"; };
-		8791C7E41B138A43004798D7 /* error.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = error.hpp; sourceTree = "<group>"; };
-		8791C7E71B138A43004798D7 /* portable_endian.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = portable_endian.h; sourceTree = "<group>"; };
 		8791C7E81B138A43004798D7 /* types.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = types.hpp; sourceTree = "<group>"; };
 		8791C8451B13968C004798D7 /* libReQL.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = libReQL.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8791C8481B13968C004798D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8791C8491B13968C004798D7 /* libReQL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = libReQL.h; sourceTree = "<group>"; };
 		8791C84F1B13968C004798D7 /* libReQLTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = libReQLTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8791C8551B13968C004798D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		87CD586C1B2CADA300EA800F /* query.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = query.cpp; sourceTree = "<group>"; };
 		87CD586D1B2CADA300EA800F /* query.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = query.hpp; sourceTree = "<group>"; };
 		87DAA6391B13CB69005626BF /* Connection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Connection.h; sourceTree = "<group>"; };
 		87DAA63A1B13CB69005626BF /* Connection.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Connection.mm; sourceTree = "<group>"; };
@@ -518,6 +504,8 @@
 		87DBB8971BE6D01900F3E36B /* map.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = map.swift; sourceTree = "<group>"; };
 		87DBB8981BE6D01900F3E36B /* object120.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = object120.swift; sourceTree = "<group>"; };
 		87DBB8991BE6D01900F3E36B /* transformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = transformation.swift; sourceTree = "<group>"; };
+		87E132C41BF598240062422B /* Parser.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Parser.mm; sourceTree = "<group>"; };
+		87E132C61BF598420062422B /* Parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Parser.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -622,18 +610,10 @@
 		8791C7D51B138A43004798D7 /* reql */ = {
 			isa = PBXGroup;
 			children = (
-				8791C7D91B138A43004798D7 /* char.hpp */,
-				8791C7DA1B138A43004798D7 /* connection.cpp */,
 				8791C7DB1B138A43004798D7 /* connection.hpp */,
 				8791C7DC1B138A43004798D7 /* core.hpp */,
-				8791C7DD1B138A43004798D7 /* cursor.cpp */,
 				8791C7DE1B138A43004798D7 /* cursor.hpp */,
 				8791C7E01B138A43004798D7 /* decode.hpp */,
-				8791C7E21B138A43004798D7 /* encode.hpp */,
-				8791C7E31B138A43004798D7 /* error.cpp */,
-				8791C7E41B138A43004798D7 /* error.hpp */,
-				8791C7E71B138A43004798D7 /* portable_endian.h */,
-				87CD586C1B2CADA300EA800F /* query.cpp */,
 				87CD586D1B2CADA300EA800F /* query.hpp */,
 				8791C7E81B138A43004798D7 /* types.hpp */,
 			);
@@ -650,6 +630,8 @@
 				87DAA6421B13CB96005626BF /* Cursor.mm */,
 				1ECA7D781B6EB6DB004DEA62 /* Cursor.swift */,
 				8791C8491B13968C004798D7 /* libReQL.h */,
+				87E132C61BF598420062422B /* Parser.h */,
+				87E132C41BF598240062422B /* Parser.mm */,
 				87DAA6451B13CBBE005626BF /* Query.h */,
 				87DAA6461B13CBBE005626BF /* Query.mm */,
 				1E9319491BD91BF9004E3572 /* Query.swift */,
@@ -913,13 +895,10 @@
 				87DAA64E1B13CE01005626BF /* connection.hpp in Headers */,
 				87DAA63B1B13CB69005626BF /* Connection.h in Headers */,
 				87DAA6531B13CE01005626BF /* decode.hpp in Headers */,
-				87DAA64C1B13CE01005626BF /* char.hpp in Headers */,
-				8720CEF91BE57F0C0038E9AD /* portable_endian.h in Headers */,
+				87E132C71BF598420062422B /* Parser.h in Headers */,
 				87DAA64F1B13CE01005626BF /* core.hpp in Headers */,
-				87DAA6551B13CE01005626BF /* encode.hpp in Headers */,
 				87DAA6471B13CBBE005626BF /* Query.h in Headers */,
 				87DAA6511B13CE01005626BF /* cursor.hpp in Headers */,
-				87DAA6571B13CE01005626BF /* error.hpp in Headers */,
 				8791C84A1B13968C004798D7 /* libReQL.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1215,14 +1194,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				1E93194A1BD91BF9004E3572 /* Query.swift in Sources */,
-				8720CEF71BE57F0C0038E9AD /* cursor.cpp in Sources */,
 				87DAA6481B13CBBE005626BF /* Query.mm in Sources */,
 				1ECA7D791B6EB6DB004DEA62 /* Cursor.swift in Sources */,
 				87DAA63C1B13CB69005626BF /* Connection.mm in Sources */,
-				8720CEF81BE57F0C0038E9AD /* error.cpp in Sources */,
-				8720CEFA1BE57F0C0038E9AD /* query.cpp in Sources */,
+				87E132C51BF598240062422B /* Parser.mm in Sources */,
 				87DAA6441B13CB96005626BF /* Cursor.mm in Sources */,
-				8720CEF61BE57F0C0038E9AD /* connection.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

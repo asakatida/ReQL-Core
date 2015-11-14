@@ -21,49 +21,17 @@ limitations under the License.
 #ifndef REQL_REQL_DECODE_HPP_
 #define REQL_REQL_DECODE_HPP_
 
-#include "./reql/char.hpp"
-
-#include "./reql/cursor.hpp"
-#include "./reql/query.hpp"
 #include "./reql/types.hpp"
 
 #include <cctype>
 #include <locale>
 #include <string>
 
-template <class s>
-class Parser {
-public:
-  Parser(ReQL_Parse_t *parser, ReQL_Cur_t *cursor) : p_parser(parser), p_cursor(cursor) {}
+namespace _ReQL {
 
-  void startParse() {}
-  void endParse() {}
-
-  void startObject() {}
-  void startKeyValue() {}
-  void endKeyValue(const s &) {}
-  void endObject() {}
-
-  void startArray() {}
-  void startElement() {}
-  void endElement() {}
-  void endArray() {}
-
-  void addValue() {}
-  void addValue(bool) {}
-  void addValue(double) {}
-  void addValue(const s &) {}
-
-  void error(std::exception &err) { throw err; }
-
-private:
-  ReQL_Parse_t *p_parser;
-  ReQL_Cur_t *p_cursor;
-};
-
-template <class iter>
+template <class iter_t>
 static void
-reql_space(iter &it, const iter &end) {
+isspace(iter_t &it, const iter_t &end) {
   while (std::isspace(static_cast<char>(*it), std::locale("en_US.UTF8"))) {
     if (it == end) {
       throw std::exception();
@@ -72,10 +40,10 @@ reql_space(iter &it, const iter &end) {
   }
 }
 
-template <class iter>
+template <class iter_t>
 static auto
-reql_next_char(iter &it, const iter &end, const typename iter::value_type &expect) {
-  reql_space(it, end);
+isnext(iter_t &it, const iter_t &end, const typename iter_t::value_type &expect) {
+  isspace(it, end);
   if (*it == expect) {
     ++it;
     return true;
@@ -83,10 +51,10 @@ reql_next_char(iter &it, const iter &end, const typename iter::value_type &expec
   return false;
 }
 
-template <class s>
+template <class parser_t, class str_t>
 static void
-reql_decode_(s &json, typename s::iterator it, typename s::iterator end, Parser<s> &p) {
-  reql_space(it, end);
+decode(const str_t &json, typename str_t::iterator it, typename str_t::iterator end, parser_t &p) {
+  isspace(it, end);
   switch (*it) {
     case '"': {
       ++it;
@@ -166,14 +134,14 @@ reql_decode_(s &json, typename s::iterator it, typename s::iterator end, Parser<
       p.startArray();
       ++it;
       while (it != end) {
-        if (reql_next_char(it, end, ']')) {
+        if (isnext(it, end, ']')) {
           return p.endArray();
         }
         p.startElement();
-        reql_decode_(json, it, end, p);
+        decode(json, it, end, p);
         p.endElement();
-        if (!reql_next_char(it, end, ',')) {
-          if (reql_next_char(it, end, ']')) {
+        if (!isnext(it, end, ',')) {
+          if (isnext(it, end, ']')) {
             return p.endArray();
           } else {
             throw std::exception();
@@ -185,18 +153,18 @@ reql_decode_(s &json, typename s::iterator it, typename s::iterator end, Parser<
     case '{': {
       p.startObject();
       ++it;
-      if (reql_next_char(it, end, '}')) {
+      if (isnext(it, end, '}')) {
         return p.endObject();
       }
       while (it != end) {
         p.startKeyValue();
-        reql_decode_(json, it, end, p);
-        if (!reql_next_char(it, end, ':')) {
+        decode(json, it, end, p);
+        if (!isnext(it, end, ':')) {
           throw std::exception();
         }
-        reql_decode_(json, it, end, p);
-        if (!reql_next_char(it, end, ',')) {
-          if (reql_next_char(it, end, '}')) {
+        decode(json, it, end, p);
+        if (!isnext(it, end, ',')) {
+          if (isnext(it, end, '}')) {
             return p.endObject();
           } else {
             throw std::exception();
@@ -209,7 +177,7 @@ reql_decode_(s &json, typename s::iterator it, typename s::iterator end, Parser<
       if (it + 5 >= end) {
         throw std::exception();
       }
-      if (memcmp(reinterpret_cast<const void *>(&*it), json_false, 5) != 0) {
+      if (memcmp(reinterpret_cast<const void *>(&*it), "false", 5) != 0) {
         throw std::exception();
       }
       return p.addValue(false);
@@ -219,7 +187,7 @@ reql_decode_(s &json, typename s::iterator it, typename s::iterator end, Parser<
       if (it + 4 >= end) {
         throw std::exception();
       }
-      if (memcmp(reinterpret_cast<const void *>(&*it), json_null, 4) != 0) {
+      if (memcmp(reinterpret_cast<const void *>(&*it), "null", 4) != 0) {
         throw std::exception();
       }
       return p.addValue();
@@ -228,7 +196,7 @@ reql_decode_(s &json, typename s::iterator it, typename s::iterator end, Parser<
       if (it + 4 >= end) {
         throw std::exception();
       }
-      if (memcmp(reinterpret_cast<const void *>(&*it), json_true, 4) != 0) {
+      if (memcmp(reinterpret_cast<const void *>(&*it), "true", 4) != 0) {
         throw std::exception();
       }
       return p.addValue(true);
@@ -255,16 +223,18 @@ reql_decode_(s &json, typename s::iterator it, typename s::iterator end, Parser<
   throw std::exception();
 }
 
-template <class s>
+template <class parser_t, class str_t>
 void
-reql_decode(s json, Parser<s> p) {
+decode(const str_t &json, parser_t &p) {
   p.startParse();
   try {
-    reql_decode_(json, json.begin(), json.end(), p);
+    decode(json, json.begin(), json.end(), p);
   } catch (std::exception &e) {
     return p.error(e);
   }
   p.endParse();
 }
+
+}  // namespace _ReQL
 
 #endif  // REQL_REQL_DECODE_HPP_

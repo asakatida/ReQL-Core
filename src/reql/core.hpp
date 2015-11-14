@@ -23,7 +23,6 @@ limitations under the License.
 
 #include "./reql/connection.hpp"
 #include "./reql/cursor.hpp"
-#include "./reql/error.hpp"
 #include "./reql/query.hpp"
 #include "./reql/types.hpp"
 

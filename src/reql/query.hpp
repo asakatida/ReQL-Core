@@ -23,1478 +23,490 @@ limitations under the License.
 
 #include "./reql/types.hpp"
 
-typedef void (*ReQL_AST_Function_Kwargs) (ReQL_ReQL_t *, ReQL_Array_t (*)(void *), ReQL_Obj_t (*)(void *), void *);
-typedef void (*ReQL_AST_Function) (ReQL_ReQL_t *, ReQL_Array_t (*)(void *), void *);
-
-extern ReQL_Term_t
-reql_term_type(const ReQL_ReQL_t *obj);
-
-extern ReQL_Datum_t
-reql_datum_type(const ReQL_Any_t *obj);
-
-extern ReQL_Size
-reql_size(const ReQL_String_t *obj);
-
-extern void
-reql_string_init(ReQL_String_t *obj,
-                 ReQL_Byte *(*buffer)(void *),
-                 ReQL_Size (*size)(void *),
-                 void *data);
-
-extern ReQL_Byte *
-reql_string_buf(const ReQL_String_t *obj);
-
-extern void
-reql_array_iter_init(ReQL_Array_Iter_t *iter, const ReQL_Array_t *obj);
-
-extern ReQL_Any_t *
-reql_array_iter_next(ReQL_Array_Iter_t *obj);
-
-extern void
-reql_object_iter_init(ReQL_Object_Iter_t *iter, const ReQL_Obj_t *obj);
-
-extern ReQL_Pair_t *
-reql_object_iter_next(ReQL_Object_Iter_t *obj);
-
-extern void
-reql_array_init(ReQL_Array_t *obj,
-                ReQL_Any_t *(*get)(void *, ReQL_Size),
-                ReQL_Size (*size)(void *),
-                void *data);
-
-extern void
-reql_object_init(ReQL_Obj_t *obj,
-                 ReQL_Pair_t *(*get)(void *, ReQL_Size),
-                 ReQL_Size (*size)(void *),
-                 void *data);
-
-/**
- */
-extern void
-reql_ast_add(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_and(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_append(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_april(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_args(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_asc(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_august(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_avg(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_between(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_between_deprecated(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_binary(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_bracket(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_branch(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_ceil(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_changes(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_change_at(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_circle(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  ReQL_Obj_t (*k)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_coerce_to(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_concat_map(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_config(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_contains(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_count(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_date(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_datum(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_day(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_day_of_week(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_day_of_year(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_db(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_db_create(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_db_drop(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_db_list(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_december(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_default(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_delete(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  ReQL_Obj_t (*k)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_delete_at(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_desc(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_difference(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_distance(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_distinct(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  ReQL_Obj_t (*k)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_div(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_downcase(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_during(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_epoch_time(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_eq(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_eq_join(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  ReQL_Obj_t (*k)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_error(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_february(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_fill(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_filter(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  ReQL_Obj_t (*k)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_floor(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_for_each(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_friday(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_func(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_funcall(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_ge(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_geojson(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_get(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_get_all(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  ReQL_Obj_t (*k)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_get_field(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_get_intersecting(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  ReQL_Obj_t (*k)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_get_nearest(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  ReQL_Obj_t (*k)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_group(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  ReQL_Obj_t (*k)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_gt(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_has_fields(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_hours(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_http(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  ReQL_Obj_t (*k)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_implicit_var(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_includes(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_index_create(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  ReQL_Obj_t (*k)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_index_drop(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_index_list(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_index_rename(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  ReQL_Obj_t (*k)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_index_status(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_index_wait(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_info(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_inner_join(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_insert(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_insert_at(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_intersects(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_in_timezone(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_iso8601(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  ReQL_Obj_t (*k)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_is_empty(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_january(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_javascript(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  ReQL_Obj_t (*k)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_json(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_july(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_june(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_keys(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_le(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_limit(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_line(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_literal(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_lt(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_make_array(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_make_obj(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_map(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_march(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_match(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_max(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_maxval(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_may(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_merge(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_min(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_minutes(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_minval(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_mod(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_monday(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_month(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_mul(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_ne(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_not(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_november(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_now(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_nth(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_object(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_october(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_offsets_of(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_or(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_order_by(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  ReQL_Obj_t (*k)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_outer_join(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_pluck(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_point(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_polygon(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_polygon_sub(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_prepend(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_random(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  ReQL_Obj_t (*k)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_range(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_rebalance(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_reconfigure(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_reduce(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_replace(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  ReQL_Obj_t (*k)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_round(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_sample(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_saturday(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_seconds(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_september(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_set_difference(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_set_insert(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_set_intersection(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_set_union(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_skip(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_slice(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  ReQL_Obj_t (*k)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_splice_at(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_split(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_status(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_sub(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_sum(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_sunday(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_sync(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_table(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  ReQL_Obj_t (*k)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_table_create(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  ReQL_Obj_t (*k)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_table_drop(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_table_list(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_thursday(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_time(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_timezone(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_time_of_day(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_to_epoch_time(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_to_geojson(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_to_iso8601(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_to_json_string(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_tuesday(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_type_of(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_ungroup(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_union(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_upcase(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_update(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  ReQL_Obj_t (*k)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_uuid(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_values(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_var(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_wait(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_wednesday(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_without(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_with_fields(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_year(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
-
-/**
- */
-extern void
-reql_ast_zip(
-  ReQL_ReQL_t *t,
-  ReQL_Array_t (*a)(void *),
-  void *d);
+#include <algorithm>
+#include <sstream>
+#include <string>
+#include <vector>
+
+namespace _ReQL {
+
+enum Term_t {
+  REQL_ADD = 24,
+  REQL_AND = 67,
+  REQL_APPEND = 29,
+  REQL_APRIL = 117,
+  REQL_ARGS = 154,
+  REQL_ASC = 73,
+  REQL_AUGUST = 121,
+  REQL_AVG = 146,
+  REQL_BETWEEN = 182,
+  REQL_BETWEEN_DEPRECATED = 36,
+  REQL_BINARY = 155,
+  REQL_BRACKET = 170,
+  REQL_BRANCH = 65,
+  REQL_CEIL = 184,
+  REQL_CHANGES = 152,
+  REQL_CHANGE_AT = 84,
+  REQL_CIRCLE = 165,
+  REQL_COERCE_TO = 51,
+  REQL_CONCAT_MAP = 40,
+  REQL_CONFIG = 174,
+  REQL_CONTAINS = 93,
+  REQL_COUNT = 43,
+  REQL_DATE = 106,
+  REQL_DATUM = 1,
+  REQL_DAY = 130,
+  REQL_DAY_OF_WEEK = 131,
+  REQL_DAY_OF_YEAR = 132,
+  REQL_DB = 14,
+  REQL_DB_CREATE = 57,
+  REQL_DB_DROP = 58,
+  REQL_DB_LIST = 59,
+  REQL_DECEMBER = 125,
+  REQL_DEFAULT = 92,
+  REQL_DELETE = 54,
+  REQL_DELETE_AT = 83,
+  REQL_DESC = 74,
+  REQL_DIFFERENCE = 95,
+  REQL_DISTANCE = 162,
+  REQL_DISTINCT = 42,
+  REQL_DIV = 27,
+  REQL_DOWNCASE = 142,
+  REQL_DURING = 105,
+  REQL_EPOCH_TIME = 101,
+  REQL_EQ = 17,
+  REQL_EQ_JOIN = 50,
+  REQL_ERROR = 12,
+  REQL_FEBRUARY = 115,
+  REQL_FILL = 167,
+  REQL_FILTER = 39,
+  REQL_FLOOR = 183,
+  REQL_FOR_EACH = 68,
+  REQL_FRIDAY = 111,
+  REQL_FUNC = 69,
+  REQL_FUNCALL = 64,
+  REQL_GE = 22,
+  REQL_GEOJSON = 157,
+  REQL_GET = 16,
+  REQL_GET_ALL = 78,
+  REQL_GET_FIELD = 31,
+  REQL_GET_INTERSECTING = 166,
+  REQL_GET_NEAREST = 168,
+  REQL_GROUP = 144,
+  REQL_GT = 21,
+  REQL_HAS_FIELDS = 32,
+  REQL_HOURS = 133,
+  REQL_HTTP = 153,
+  REQL_IMPLICIT_VAR = 13,
+  REQL_INCLUDES = 164,
+  REQL_INDEX_CREATE = 75,
+  REQL_INDEX_DROP = 76,
+  REQL_INDEX_LIST = 77,
+  REQL_INDEX_RENAME = 156,
+  REQL_INDEX_STATUS = 139,
+  REQL_INDEX_WAIT = 140,
+  REQL_INFO = 79,
+  REQL_INNER_JOIN = 48,
+  REQL_INSERT = 56,
+  REQL_INSERT_AT = 82,
+  REQL_INTERSECTS = 163,
+  REQL_IN_TIMEZONE = 104,
+  REQL_ISO8601 = 99,
+  REQL_IS_EMPTY = 86,
+  REQL_JANUARY = 114,
+  REQL_JAVASCRIPT = 11,
+  REQL_JSON = 98,
+  REQL_JULY = 120,
+  REQL_JUNE = 119,
+  REQL_KEYS = 94,
+  REQL_LE = 20,
+  REQL_LIMIT = 71,
+  REQL_LINE = 160,
+  REQL_LITERAL = 137,
+  REQL_LT = 19,
+  REQL_MAKE_ARRAY = 2,
+  REQL_MAKE_OBJ = 3,
+  REQL_MAP = 38,
+  REQL_MARCH = 116,
+  REQL_MATCH = 97,
+  REQL_MAX = 148,
+  REQL_MAXVAL = 181,
+  REQL_MAY = 118,
+  REQL_MERGE = 35,
+  REQL_MIN = 147,
+  REQL_MINUTES = 134,
+  REQL_MINVAL = 180,
+  REQL_MOD = 28,
+  REQL_MONDAY = 107,
+  REQL_MONTH = 129,
+  REQL_MUL = 26,
+  REQL_NE = 18,
+  REQL_NOT = 23,
+  REQL_NOVEMBER = 124,
+  REQL_NOW = 103,
+  REQL_NTH = 45,
+  REQL_OBJECT = 143,
+  REQL_OCTOBER = 123,
+  REQL_OFFSETS_OF = 87,
+  REQL_OR = 66,
+  REQL_ORDER_BY = 41,
+  REQL_OUTER_JOIN = 49,
+  REQL_PLUCK = 33,
+  REQL_POINT = 159,
+  REQL_POLYGON = 161,
+  REQL_POLYGON_SUB = 171,
+  REQL_PREPEND = 80,
+  REQL_RANDOM = 151,
+  REQL_RANGE = 173,
+  REQL_REBALANCE = 179,
+  REQL_RECONFIGURE = 176,
+  REQL_REDUCE = 37,
+  REQL_REPLACE = 55,
+  REQL_ROUND = 185,
+  REQL_SAMPLE = 81,
+  REQL_SATURDAY = 112,
+  REQL_SECONDS = 135,
+  REQL_SEPTEMBER = 122,
+  REQL_SET_DIFFERENCE = 91,
+  REQL_SET_INSERT = 88,
+  REQL_SET_INTERSECTION = 89,
+  REQL_SET_UNION = 90,
+  REQL_SKIP = 70,
+  REQL_SLICE = 30,
+  REQL_SPLICE_AT = 85,
+  REQL_SPLIT = 149,
+  REQL_STATUS = 175,
+  REQL_SUB = 25,
+  REQL_SUM = 145,
+  REQL_SUNDAY = 113,
+  REQL_SYNC = 138,
+  REQL_TABLE = 15,
+  REQL_TABLE_CREATE = 60,
+  REQL_TABLE_DROP = 61,
+  REQL_TABLE_LIST = 62,
+  REQL_THURSDAY = 110,
+  REQL_TIME = 136,
+  REQL_TIMEZONE = 127,
+  REQL_TIME_OF_DAY = 126,
+  REQL_TO_EPOCH_TIME = 102,
+  REQL_TO_GEOJSON = 158,
+  REQL_TO_ISO8601 = 100,
+  REQL_TO_JSON_STRING = 172,
+  REQL_TUESDAY = 108,
+  REQL_TYPE_OF = 52,
+  REQL_UNGROUP = 150,
+  REQL_UNION = 44,
+  REQL_UPCASE = 141,
+  REQL_UPDATE = 53,
+  REQL_UUID = 169,
+  REQL_VALUES = 186,
+  REQL_VAR = 10,
+  REQL_WAIT = 177,
+  REQL_WEDNESDAY = 109,
+  REQL_WITHOUT = 34,
+  REQL_WITH_FIELDS = 96,
+  REQL_YEAR = 128,
+  REQL_ZIP = 72
+};
+
+class Any_t {
+public:
+  template <class wrap_t>
+  Any_t(const wrap_t &value) {
+    std::stringstream stream;
+    value.toJSON(stream);
+    p_value = stream.str();
+  }
+
+  template <class stream_t>
+  void toJSON(stream_t &stream) const {
+    stream << p_value;
+  }
+
+  std::string p_value;
+};
+
+template <class stream_t, class vect_t>
+void
+toJSON(const vect_t &vect, stream_t &stream) {
+  auto first = true;
+  for (const auto &&elem : vect) {
+    if (!first) stream << ",";
+    elem.toJSON(stream);
+    first = false;
+  }
+}
+
+template <class vect_t>
+class Array_t {
+public:
+  Array_t(const vect_t &value) : p_value(value) {}
+
+  template <class stream_t>
+  void toJSON(stream_t &stream) const {
+    stream << "[";
+    toJSON(p_value, stream);
+    stream << "]";
+  }
+
+  vect_t p_value;
+};
+
+template <class bool_t>
+class Bool_t {
+public:
+  Bool_t(const bool_t value) : p_value(value) {}
+
+  template <class stream_t>
+  void toJSON(stream_t &stream) const {
+    if (p_value) {
+      stream << "true";
+    } else {
+      stream << "false";
+    }
+  }
+
+  bool_t p_value;
+};
+
+class Null_t {
+public:
+  template <class stream_t>
+  static void toJSON(stream_t &stream) {
+    stream << "null";
+  }
+};
+
+template <class num_t>
+class Num_t {
+public:
+  Num_t(const num_t value) : p_value(value) {}
+
+  template <class stream_t>
+  void toJSON(stream_t &stream) const {
+    stream << p_value;
+  }
+
+  num_t p_value;
+};
+
+/**
+ * @brief A single key and associated value for objects.
+ */
+template <class key_t, class value_t>
+class Pair_t {
+public:
+  Pair_t(const key_t &key, const value_t &val) : p_key(key), p_val(val) {}
+
+  template <class stream_t>
+  void toJSON(stream_t &stream) const {
+    p_key.toJSON(stream);
+    stream << ":";
+    p_val.toJSON(stream);
+  }
+
+  key_t p_key;
+  value_t p_val;
+};
+  
+template <class map_t>
+class Obj_t {
+public:
+  Obj_t(const map_t &value) : p_value(value) {}
+
+  template <class stream_t>
+  void toJSON(stream_t &stream) const {
+    stream << "{";
+    std::vector<Pair_t<Any_t, Any_t>> temp;
+    temp.reserve(p_value.size());
+    std::transform(p_value.cbegin(), p_value.cend(), temp.begin(), [](auto &pair) { return Pair_t<Any_t, Any_t>(pair.first, pair.second); });
+    toJSON(p_value, stream);
+    stream << "}";
+  }
+
+  map_t p_value;
+};
+
+template <class args_t, class kwargs_t>
+class ReQL_Kwargs_t {
+public:
+  ReQL_Kwargs_t(Term_t tt, const args_t &args, const kwargs_t &kwargs) : p_tt(tt), p_args(args), p_kwargs(kwargs) {}
+
+  template <class stream_t>
+  void toJSON(stream_t &stream) const {
+    stream << "[" << static_cast<int>(p_tt) << ",";
+    p_args.toJSON(stream);
+    stream << ",";
+    p_kwargs.toJSON(stream);
+    stream << "]";
+  }
+
+  Term_t p_tt;
+  args_t p_args;
+  kwargs_t p_kwargs;
+};
+
+template <class args_t>
+class ReQL_Args_t {
+public:
+  ReQL_Args_t(Term_t tt, const args_t &args) : p_tt(tt), p_args(args) {}
+
+  template <class stream_t>
+  void toJSON(stream_t &stream) const {
+    stream << "[" << static_cast<int>(p_tt) << ",";
+    p_args.toJSON(stream);
+    stream << "]";
+  }
+
+  Term_t p_tt;
+  args_t p_args;
+};
+
+class ReQL_t {
+public:
+  ReQL_t(Term_t tt) : p_tt(tt) {}
+
+  template <class stream_t>
+  void toJSON(stream_t &stream) const {
+    stream << "[" << static_cast<int>(p_tt) << "]";
+  }
+
+  Term_t p_tt;
+};
+
+template <class str_t>
+class String_t {
+public:
+  String_t(const str_t &value) : p_value(value) {}
+
+  template <class stream_t>
+  void toJSON(stream_t &stream) const {
+    stream << "\"";
+    for (const auto &&chr : p_value) {
+      auto idx = static_cast<unsigned int>(chr);
+      if (idx <= 0x5C) {
+        auto ext_size = json_size[idx];
+        if (ext_size) {
+          stream << std::string(json_esc[idx], ext_size);
+          continue;
+        }
+      }
+      stream << chr;
+    }
+    stream << "\"";
+  }
+
+  bool operator<(const String_t &other) const {
+    return p_value < other.p_value;
+  }
+
+  str_t p_value;
+  constexpr static const char json_esc[][6] = {
+    {'\\', 'u', '0', '0', '0', '0'},  // 0x00
+    {'\\', 'u', '0', '0', '0', '1'},  // 0x01
+    {'\\', 'u', '0', '0', '0', '2'},  // 0x02
+    {'\\', 'u', '0', '0', '0', '3'},  // 0x03
+    {'\\', 'u', '0', '0', '0', '4'},  // 0x04
+    {'\\', 'u', '0', '0', '0', '5'},  // 0x05
+    {'\\', 'u', '0', '0', '0', '6'},  // 0x06
+    {'\\', 'u', '0', '0', '0', '7'},  // 0x07
+    {'\\', 0x62, 0, 0, 0, 0},  // 0x08
+    {'\\', 0x74, 0, 0, 0, 0},  // 0x09
+    {'\\', 0x6E, 0, 0, 0, 0},  // 0x0A
+    {'\\', 'u', '0', '0', '0', 'B'},  // 0x0B
+    {'\\', 0x66, 0, 0, 0, 0},  // 0x0C
+    {'\\', 0x72, 0, 0, 0, 0},  // 0x0D
+    {'\\', 'u', '0', '0', '0', 'E'},  // 0x0E
+    {'\\', 'u', '0', '0', '0', 'F'},  // 0x0F
+    {'\\', 'u', '0', '0', '1', '0'},  // 0x10
+    {'\\', 'u', '0', '0', '1', '1'},  // 0x11
+    {'\\', 'u', '0', '0', '1', '2'},  // 0x12
+    {'\\', 'u', '0', '0', '1', '3'},  // 0x13
+    {'\\', 'u', '0', '0', '1', '4'},  // 0x14
+    {'\\', 'u', '0', '0', '1', '5'},  // 0x15
+    {'\\', 'u', '0', '0', '1', '6'},  // 0x16
+    {'\\', 'u', '0', '0', '1', '7'},  // 0x17
+    {'\\', 'u', '0', '0', '1', '8'},  // 0x18
+    {'\\', 'u', '0', '0', '1', '9'},  // 0x19
+    {'\\', 'u', '0', '0', '1', 'A'},  // 0x1A
+    {'\\', 'u', '0', '0', '1', 'B'},  // 0x1B
+    {'\\', 'u', '0', '0', '1', 'C'},  // 0x1C
+    {'\\', 'u', '0', '0', '1', 'D'},  // 0x1D
+    {'\\', 'u', '0', '0', '1', 'E'},  // 0x1E
+    {'\\', 'u', '0', '0', '1', 'F'},  // 0x1F
+    {0, 0, 0, 0, 0, 0},  // 0x20
+    {0, 0, 0, 0, 0, 0},  // 0x21
+    {'\\', '"', 0, 0, 0, 0},  // 0x22
+    {0, 0, 0, 0, 0, 0},  // 0x23
+    {0, 0, 0, 0, 0, 0},  // 0x24
+    {0, 0, 0, 0, 0, 0},  // 0x25
+    {0, 0, 0, 0, 0, 0},  // 0x26
+    {0, 0, 0, 0, 0, 0},  // 0x27
+    {0, 0, 0, 0, 0, 0},  // 0x28
+    {0, 0, 0, 0, 0, 0},  // 0x29
+    {0, 0, 0, 0, 0, 0},  // 0x2A
+    {0, 0, 0, 0, 0, 0},  // 0x2B
+    {0, 0, 0, 0, 0, 0},  // 0x2C
+    {0, 0, 0, 0, 0, 0},  // 0x2D
+    {0, 0, 0, 0, 0, 0},  // 0x2E
+    {0, 0, 0, 0, 0, 0},  // 0x2F
+    {0, 0, 0, 0, 0, 0},  // 0x30
+    {0, 0, 0, 0, 0, 0},  // 0x31
+    {0, 0, 0, 0, 0, 0},  // 0x32
+    {0, 0, 0, 0, 0, 0},  // 0x33
+    {0, 0, 0, 0, 0, 0},  // 0x34
+    {0, 0, 0, 0, 0, 0},  // 0x35
+    {0, 0, 0, 0, 0, 0},  // 0x36
+    {0, 0, 0, 0, 0, 0},  // 0x37
+    {0, 0, 0, 0, 0, 0},  // 0x38
+    {0, 0, 0, 0, 0, 0},  // 0x39
+    {0, 0, 0, 0, 0, 0},  // 0x3A
+    {0, 0, 0, 0, 0, 0},  // 0x3B
+    {0, 0, 0, 0, 0, 0},  // 0x3C
+    {0, 0, 0, 0, 0, 0},  // 0x3D
+    {0, 0, 0, 0, 0, 0},  // 0x3E
+    {0, 0, 0, 0, 0, 0},  // 0x3F
+    {0, 0, 0, 0, 0, 0},  // 0x40
+    {0, 0, 0, 0, 0, 0},  // 0x41
+    {0, 0, 0, 0, 0, 0},  // 0x42
+    {0, 0, 0, 0, 0, 0},  // 0x43
+    {0, 0, 0, 0, 0, 0},  // 0x44
+    {0, 0, 0, 0, 0, 0},  // 0x45
+    {0, 0, 0, 0, 0, 0},  // 0x46
+    {0, 0, 0, 0, 0, 0},  // 0x47
+    {0, 0, 0, 0, 0, 0},  // 0x48
+    {0, 0, 0, 0, 0, 0},  // 0x49
+    {0, 0, 0, 0, 0, 0},  // 0x4A
+    {0, 0, 0, 0, 0, 0},  // 0x4B
+    {0, 0, 0, 0, 0, 0},  // 0x4C
+    {0, 0, 0, 0, 0, 0},  // 0x4D
+    {0, 0, 0, 0, 0, 0},  // 0x4E
+    {0, 0, 0, 0, 0, 0},  // 0x4F
+    {0, 0, 0, 0, 0, 0},  // 0x50
+    {0, 0, 0, 0, 0, 0},  // 0x51
+    {0, 0, 0, 0, 0, 0},  // 0x52
+    {0, 0, 0, 0, 0, 0},  // 0x53
+    {0, 0, 0, 0, 0, 0},  // 0x54
+    {0, 0, 0, 0, 0, 0},  // 0x55
+    {0, 0, 0, 0, 0, 0},  // 0x56
+    {0, 0, 0, 0, 0, 0},  // 0x57
+    {0, 0, 0, 0, 0, 0},  // 0x58
+    {0, 0, 0, 0, 0, 0},  // 0x59
+    {0, 0, 0, 0, 0, 0},  // 0x5A
+    {0, 0, 0, 0, 0, 0},  // 0x5B
+    {'\\', '\\', 0, 0, 0, 0}  // 0x5C
+  };
+
+  constexpr static const unsigned int json_size[] = {
+    6, 6, 6, 6, 6, 6, 6, 6, 2, 2, 2, 6, 2, 2, 6, 6,  // 0x0x
+    6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,  // 0x1x
+    0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  // 0x2x
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  // 0x3x
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  // 0x4x
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0  // 0x5x
+  };
+};
+
+}  // namespace _ReQL
 
 #endif  // REQL_REQL_QUERY_HPP_

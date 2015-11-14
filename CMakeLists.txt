@@ -11,11 +11,6 @@ set(SOURCES
  src/cpp/error.cpp
  src/cpp/parser.cpp
  src/cpp/query.cpp
- src/reql/char.cpp
- src/reql/connection.cpp
- src/reql/cursor.cpp
- src/reql/error.cpp
- src/reql/query.cpp
  test/c/connection.cpp
  test/c/polyglot/aggregation.cpp
  test/c/polyglot/arity.cpp
@@ -295,16 +290,12 @@ set(MOC_HEADERS
  src/cpp/parser.hpp
  src/cpp/query.hpp
  src/cpp/types.hpp
- src/reql/char.hpp
- src/reql/connection.h
- src/reql/core.h
- src/reql/cursor.h
+ src/reql/connection.hpp
+ src/reql/core.hpp
+ src/reql/cursor.hpp
  src/reql/decode.hpp
- src/reql/encode.hpp
- src/reql/error.h
- src/reql/portable_endian.h
- src/reql/query.h
- src/reql/types.h
+ src/reql/query.hpp
+ src/reql/types.hpp
 )
 
 aux_source_directory(./src SRC_LIST)
