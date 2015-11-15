@@ -21,6 +21,7 @@ limitations under the License.
 #ifndef REQL_REQL_QUERY_HPP_
 #define REQL_REQL_QUERY_HPP_
 
+#include "./reql/stream.hpp"
 #include "./reql/types.hpp"
 
 #include <algorithm>
@@ -209,21 +210,19 @@ enum Term_t {
   REQL_ZIP = 72
 };
 
+template <class stream_t>
 class Any_t {
 public:
   template <class wrap_t>
   Any_t(const wrap_t &value) {
-    std::stringstream stream;
-    value.toJSON(stream);
-    p_value = stream.str();
+    value.toJSON(p_value);
   }
 
-  template <class stream_t>
   void toJSON(stream_t &stream) const {
     stream << p_value;
   }
 
-  std::string p_value;
+  stream_t p_value;
 };
 
 template <class stream_t, class vect_t>
@@ -317,9 +316,9 @@ public:
   template <class stream_t>
   void toJSON(stream_t &stream) const {
     stream << "{";
-    std::vector<Pair_t<Any_t, Any_t>> temp;
+    std::vector<Pair_t<Any_t<stream_t>, Any_t<stream_t>>> temp;
     temp.reserve(p_value.size());
-    std::transform(p_value.cbegin(), p_value.cend(), temp.begin(), [](auto &pair) { return Pair_t<Any_t, Any_t>(pair.first, pair.second); });
+    std::transform(p_value.cbegin(), p_value.cend(), temp.begin(), [](auto &pair) { return Pair_t<Any_t<stream_t>, Any_t<stream_t>>(pair.first, pair.second); });
     toJSON(p_value, stream);
     stream << "}";
   }
@@ -382,7 +381,7 @@ public:
   template <class stream_t>
   void toJSON(stream_t &stream) const {
     stream << "\"";
-    for (const auto &&chr : p_value) {
+    for (const auto chr : p_value) {
       auto idx = static_cast<unsigned int>(chr);
       if (idx <= 0x5C) {
         auto ext_size = json_size[idx];

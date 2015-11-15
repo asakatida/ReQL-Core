@@ -294,7 +294,9 @@ set(MOC_HEADERS
  src/reql/core.hpp
  src/reql/cursor.hpp
  src/reql/decode.hpp
+ src/reql/pipe.hpp
  src/reql/query.hpp
+ src/reql/stream.hpp
  src/reql/types.hpp
 )
 

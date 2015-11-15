@@ -275,8 +275,8 @@ public:
 
 private:
   template <class kwargs_t, class query_t>
-  auto start(const query_t &query, const kwargs_t &kwargs) {
-    std::stringstream wire_query;
+  std::string start(const query_t &query, const kwargs_t &kwargs) {
+    Stream<std::string> wire_query;
     wire_query << "[" << static_cast<int>(REQL_START) << ",";
     query.toJSON(wire_query);
     wire_query << ",";
