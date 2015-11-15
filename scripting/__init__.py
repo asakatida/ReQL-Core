@@ -341,16 +341,16 @@ def objc_term_imp(name):
     return """
 +(instancetype)
 {0}:(NSArray *)args{1} {{
-  return [self newTerm:{2} :args{3}];
+  return [self newTerm:_ReQL::REQL_{2} :args{3}];
 }}
 
 -(instancetype)
 {0}:(NSArray *)args{1} {{
-  return [self newTerm:{2} :args{3}];
+  return [self newTerm:_ReQL::REQL_{2} :args{3}];
 }}""".format(
     mangle_objc_const(name),
     ' :(NSDictionary *)kwargs' if has_opts(name) else '',
-    ast_name('ast', name),
+    name,
     ' :kwargs' if has_opts(name) else '')
 
 def py_term_method_imp(name):

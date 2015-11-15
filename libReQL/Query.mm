@@ -20,232 +20,26 @@ limitations under the License.
 
 #import "Query.h"
 
-#import "Cursor.h"
-
-#import "./reql/core.hpp"
+#import "Parser.h"
 
 #import <libReQL/libReQL-Swift.h>
 
-static int
-add_bool(ReQL_Parse_t *p, char val) {
-  [((__bridge Parser *)p->data) addBool:val];
-  return 0;
-}
-
-static int
-add_null(ReQL_Parse_t *p) {
-  [((__bridge Parser *)p->data) addNull];
-  return 0;
-}
-
-static int
-add_number(ReQL_Parse_t *p, double val) {
-  [((__bridge Parser *)p->data) addNumber:val];
-  return 0;
-}
-
-static int
-add_string(ReQL_Parse_t *p, const char *val, size_t length) {
-  [((__bridge Parser *)p->data) addString:reinterpret_cast<const void *>(val) length:length];
-  return 0;
-}
-
-static int
-end_element(ReQL_Parse_t *p) {
-  [((__bridge Parser *)p->data) endElement];
-  return 0;
-}
-
-static int
-end_key_value(ReQL_Parse_t *p, const char *val, size_t length) {
-  [((__bridge Parser *)p->data) endKeyValue:reinterpret_cast<const void *>(val) length:length];
-  return 0;
-}
-
-static int
-end_parse(ReQL_Parse_t *p) {
-  Parser *data = CFBridgingRelease(p->data);
-  p->data = const_cast<void *>(CFBridgingRetain([data.stack lastObject]));
-  return [data.stack count];
-}
-
-static void
-error(ReQL_Parse_t *p) {
-  CFBridgingRelease(p->data); p->data = nullptr;
-}
-
-static int
-start_array(ReQL_Parse_t *p) {
-  [((__bridge Parser *)p->data) startArray];
-  return 0;
-}
-
-static int
-start_object(ReQL_Parse_t *p) {
-  [((__bridge Parser *)p->data) startObject];
-  return 0;
-}
-
-static int
-start_parse(ReQL_Parse_t *p) {
-  Parser *data = [Parser new];
-  p->data = const_cast<void *>(CFBridgingRetain(data));
-  return 0;
-}
-
-static ReQL_Parse_t
-get_parser() {
-  ReQL_Parse_t parser;
-  parser.add_bool = add_bool;
-  parser.add_null = add_null;
-  parser.add_number = add_number;
-  parser.add_string = add_string;
-  parser.data = nullptr;
-  parser.end_array = nullptr;
-  parser.end_element = end_element;
-  parser.end_key_value = end_key_value;
-  parser.end_object = nullptr;
-  parser.end_parse = end_parse;
-  parser.error = error;
-  parser.start_array = start_array;
-  parser.start_element = nullptr;
-  parser.start_key_value = nullptr;
-  parser.start_object = start_object;
-  parser.start_parse = start_parse;
-  return parser;
-}
-
-@interface ReQLCursor ()
-
--(nonnull instancetype)initWithCursor:(nonnull ReQL_Cur_t *)cur;
-
-@end
+#import <map>
+#import <vector>
 
 @interface ReQLConnection ()
 
--(nonnull ReQL_Conn_t *)data;
+-(ReQLCursor *)run:(ReQLQuery *)query kwargs:(NSDictionary *)kwargs;
+
+-(void)noReply:(ReQLQuery *)query kwargs:(NSDictionary *)kwargs;
 
 @end
 
-@interface FakeCursor : NSObject
-
-@property(nonnull, nonatomic) ReQL_Cur_t *cur;
-@property bool owned;
-
--(nonnull ReQL_Cur_t *)steal;
-
-@end
-
-@implementation FakeCursor
-
-@synthesize cur=p_cur;
-@synthesize owned=owned;
-
--(nonnull instancetype)init {
-  if ((self = [super init])) {
-    owned = YES;
-    p_cur = new ReQL_Cur_t;
-  }
-  return self;
+static std::string
+to_string(const NSString *string) {
+  return std::string([string cStringUsingEncoding:NSUTF8StringEncoding],
+                     [string lengthOfBytesUsingEncoding:NSUTF8StringEncoding]);
 }
-
--(nonnull ReQL_Cur_t *)steal {
-  self.owned = NO;
-  return self.cur;
-}
-
--(void)dealloc {
-  if (owned) {
-    delete p_cur;
-  }
-}
-
-@end
-
-@interface ReQLQuery ()
-
--(ReQL_Any_t *)build;
-
-@end
-
-@protocol Expr <NSObject>
-
--(ReQL_Any_t *)build;
-
-@end
-
-@interface ArrayExpr : NSObject <Expr>
-
-@property(nonatomic) NSArray *p_array;
-
-+(instancetype)arrayWithArray:(NSArray *)array;
-
--(ReQL_Array_t *)array;
-
-@end
-
-@interface BoolExpr : NSObject <Expr>
-
-@property BOOL p_boolean;
-
-+(instancetype)numberWithBool:(BOOL)boolean;
-
--(ReQL_Bool_t)boolean;
-
-@end
-
-@interface NullExpr : NSObject <Expr>
-
-@end
-
-@interface NumberExpr : NSObject <Expr>
-
-@property double p_number;
-
-+(instancetype)numberWithDouble:(double)number;
-
--(ReQL_Num_t)number;
-
-@end
-
-@interface DictionaryExpr : NSObject <Expr>
-
-@property(nonatomic) NSDictionary *p_dictionary;
-
-+(instancetype)dictionaryWithDictionary:(NSDictionary *)dictionary;
-
--(ReQL_Obj_t *)dictionary;
-
-@end
-
-@interface StringExpr : NSObject <Expr>
-
-@property(nonatomic) NSString *p_string;
-
-+(instancetype)stringWithString:(NSString *)string;
-
--(ReQL_String_t *)string;
-
-@end
-
-@interface TermExpr : NSObject <Expr>
-
-@property ArrayExpr *args;
-@property ReQL_AST_Function func;
-
-+(instancetype)newTerm:(ReQL_AST_Function)func :(NSArray *)args;
-
-@end
-
-@interface TermKwargsExpr : NSObject <Expr>
-
-@property ArrayExpr *args;
-@property DictionaryExpr *kwargs;
-@property ReQL_AST_Function_Kwargs func;
-
-+(instancetype)newTerm:(ReQL_AST_Function_Kwargs)func :(NSArray *)args :(NSDictionary *)kwargs;
-
-@end
 
 static ReQLQuery *
 toQuery(id expr);
@@ -268,362 +62,90 @@ toQuery(id expr) {
   return nil;
 }
 
-static ReQL_Any_t *
-array_get(void *nsarray, ReQL_Size idx) {
-  NSArray *array = (__bridge NSArray *)nsarray;
-  return [toQuery(array[idx]) build];
-}
-
-static ReQL_Size
-array_size(void *nsarray) {
-  NSArray *array = (__bridge NSArray *)nsarray;
-  return static_cast<ReQL_Size>([array count]);
-}
-
-@implementation ArrayExpr
-
-@synthesize p_array=p_array;
-
-+(instancetype)arrayWithArray:(NSArray *)array {
-  ArrayExpr *inst = [super new];
-  if (inst) {
-    inst.p_array = array;
-  }
-  return inst;
-}
-
--(ReQL_Array_t *)array {
-  ReQL_Array_t *obj = new ReQL_Array_t;
-  reql_array_init(obj, array_get, array_size, (__bridge void *)self.p_array);
-  return obj;
-}
-
--(ReQL_Any_t *)build {
-  ReQL_Any_t *obj = new ReQL_Any_t;
-  obj->dt = REQL_R_ARRAY;
-  reql_array_init(&obj->any.array, array_get, array_size, (__bridge void *)self.p_array);
-  return obj;
-}
-
-@end
-
-@implementation BoolExpr
-
-@synthesize p_boolean=p_boolean;
-
-+(instancetype)numberWithBool:(BOOL)boolean {
-  BoolExpr *inst = [super new];
-  if (inst) {
-    inst.p_boolean = boolean;
-  }
-  return inst;
-}
-
--(ReQL_Bool_t)boolean {
-  return self.p_boolean ? 1 : 0;
-}
-
--(ReQL_Any_t *)build {
-  ReQL_Any_t *obj = new ReQL_Any_t;
-  obj->dt = REQL_R_BOOL;
-  obj->any.boolean = [self boolean];
-  return obj;
-}
-
-@end
-
-@implementation NullExpr
-
--(ReQL_Any_t *)build {
-  ReQL_Any_t *obj = new ReQL_Any_t;
-  obj->dt = REQL_R_NULL;
-  return obj;
-}
-
-@end
-
-@implementation NumberExpr
-
-@synthesize p_number=p_number;
-
-+(instancetype)numberWithDouble:(double)number {
-  NumberExpr *inst = [super new];
-  if (inst) {
-    inst.p_number = number;
-  }
-  return inst;
-}
-
--(ReQL_Any_t *)build {
-  ReQL_Any_t *obj = new ReQL_Any_t;
-  obj->dt = REQL_R_NUM;
-  obj->any.num = [self number];
-  return obj;
-}
-
--(ReQL_Num_t)number {
-  return self.p_number;
-}
-
-@end
-
-static ReQL_Pair_t *
-object_get(void *nsdict, ReQL_Size idx) {
-  NSDictionary *dict = (__bridge NSDictionary *)nsdict;
-  NSString *key = [[dict allKeys] sortedArrayUsingComparator:^(NSString * _Nonnull l, NSString * _Nonnull r) {
-    if ([l isLessThan:r]) {
-      return NSOrderedAscending;
-    }
-    return NSOrderedDescending;
-  }][idx];
-  ReQL_Pair_t *pair = new ReQL_Pair_t;
-  pair->key = const_cast<ReQL_Byte *>(reinterpret_cast<const ReQL_Byte *>([key cStringUsingEncoding:NSUTF8StringEncoding]));
-  pair->key_size = static_cast<ReQL_Size>([key lengthOfBytesUsingEncoding:NSUTF8StringEncoding]);
-  pair->val = *[toQuery(dict[key]) build];
-  return pair;
-}
-
-static ReQL_Size
-object_size(void *nsdict) {
-  NSDictionary *dict = (__bridge NSDictionary *)nsdict;
-  return static_cast<ReQL_Size>([dict count]);
-}
-
-@implementation DictionaryExpr
-
-@synthesize p_dictionary=p_dictionary;
-
-+(instancetype)dictionaryWithDictionary:(NSDictionary *)dictionary {
-  DictionaryExpr *inst = [super new];
-  if (inst) {
-    inst.p_dictionary = dictionary;
-  }
-  return inst;
-}
-
--(ReQL_Any_t *)build {
-  ReQL_Any_t *obj = new ReQL_Any_t;
-  obj->dt = REQL_R_OBJECT;
-  reql_object_init(&obj->any.object, object_get, object_size, (__bridge void *)self.p_dictionary);
-  return obj;
-}
-
--(ReQL_Obj_t *)dictionary {
-  ReQL_Obj_t *obj = new ReQL_Obj_t;
-  reql_object_init(obj, object_get, object_size, (__bridge void *)self.p_dictionary);
-  return obj;
-}
-
-@end
-
-static ReQL_Byte *
-string_buf(void *nsstring) {
-  NSString *string = (__bridge NSString *)nsstring;
-  return const_cast<ReQL_Byte *>(reinterpret_cast<const ReQL_Byte *>([string cStringUsingEncoding:NSUTF8StringEncoding]));
-}
-
-static ReQL_Size
-string_size(void *nsstring) {
-  NSString *string = (__bridge NSString *)nsstring;
-  return static_cast<ReQL_Size>([string lengthOfBytesUsingEncoding:NSUTF8StringEncoding]);
-}
-
-@implementation StringExpr
-
-@synthesize p_string=p_string;
-
-+(instancetype)stringWithString:(NSString *)string {
-  StringExpr *inst = [super new];
-  if (inst) {
-    inst.p_string = string;
-  }
-  return inst;
-}
-
--(ReQL_Any_t *)build {
-  ReQL_Any_t *obj = new ReQL_Any_t;
-  obj->dt = REQL_R_STR;
-  reql_string_init(&obj->any.string, string_buf, string_size, (__bridge void *)self.p_string);
-  return obj;
-}
-
--(ReQL_String_t *)string {
-  ReQL_String_t *obj = new ReQL_String_t;
-  reql_string_init(obj, string_buf, string_size, (__bridge void *)self.p_string);
-  return obj;
-}
-
-@end
-
-static ReQL_Array_t
-get_args(void *arrayexpr) {
-  ArrayExpr *array = (__bridge ArrayExpr *)arrayexpr;
-  return *[array array];
-}
-
-@implementation TermExpr
-
-@synthesize args=p_args;
-@synthesize func=p_func;
-
-+(instancetype)newTerm:(ReQL_AST_Function)func :(NSArray *)args {
-  TermExpr *inst = [super new];
-  if (inst) {
-    inst.args = [ArrayExpr arrayWithArray:args];
-    inst.func = func;
-  }
-  return inst;
-}
-
--(ReQL_Any_t *)build {
-  ReQL_Any_t *obj = new ReQL_Any_t;
-  obj->dt = REQL_R_REQL;
-  self.func(&obj->any.reql, get_args, (__bridge void *)self.args);
-  return obj;
-}
-
-
-@end
-
-@implementation TermKwargsExpr
-
-@synthesize args=p_args;
-@synthesize kwargs=p_kwargs;
-@synthesize func=p_func;
-
-+(instancetype)newTerm:(ReQL_AST_Function_Kwargs)func :(NSArray *)args :(NSDictionary *)kwargs {
-  return [[self alloc] initTerm:func :args :kwargs];
-}
-
--(instancetype)initTerm:(ReQL_AST_Function_Kwargs)func :(NSArray *)args :(NSDictionary *)kwargs {
-  if ((self = [super init])) {
-    p_args = [ArrayExpr arrayWithArray:args];
-    p_kwargs = [DictionaryExpr dictionaryWithDictionary:kwargs];
-    p_func = func;
-  }
-  return self;
-}
-
--(ReQL_Any_t *)build {
-  ReQL_Any_t *obj = new ReQL_Any_t;
-  obj->dt = REQL_R_REQL;
-  if (self.kwargs) {
-    self.func(&obj->any.reql, nullptr, nullptr, (__bridge void *)self);
-  } else {
-    self.func(&obj->any.reql, nullptr, nullptr, (__bridge void *)self);
-  }
-  return obj;
-}
-
-@end
-
 @interface ReQLQuery ()
 
-@property NSObject <Expr> *i_build;
+@property NSArray *array;
+@property NSNull *null;
 @property NSNumber *number;
-@property BOOL b;
+@property NSString *string;
+@property NSDictionary *object;
+@property NSDictionary *kwargs;
+@property NSArray *args;
+@property _ReQL::Term_t tt;
+@property BOOL flag;
 
 @end
 
 @implementation ReQLQuery
 
-@synthesize i_build=p_build;
+@synthesize array=p_array;
+@synthesize null=p_null;
 @synthesize number=p_number;
-@synthesize b=p_bool;
+@synthesize string=p_string;
+@synthesize object=p_object;
+@synthesize kwargs=p_kwargs;
+@synthesize args=p_args;
+@synthesize tt=p_tt;
+@synthesize flag=p_flag;
 
 +(instancetype)newWithArray:(NSArray *)val {
-  return [[self alloc] initTermWithArray:val];
+  ReQLQuery *inst = [self new];
+  inst.array = [val copy];
+  return inst;
 }
 
 +(instancetype)newWithBool:(BOOL)val {
-  return [[self alloc] initTermWithBool:val];
+  ReQLQuery *inst = [self new];
+  inst.flag = YES;
+  inst.number = [NSNumber numberWithBool:val];
+  return inst;
 }
 
 +(instancetype)newWithNumber:(NSNumber *)val {
-  return [[self alloc] initTermWithNumber:val];
+  ReQLQuery *inst = [self new];
+  inst.number = [val copy];
+  return inst;
 }
 
 +(instancetype)newWithObject:(NSDictionary *)val {
-  return [[self alloc] initTermWithObject:val];
+  ReQLQuery *inst = [self new];
+  inst.object = [val copy];
+  return inst;
 }
 
 +(instancetype)newWithString:(NSString *)val {
-  return [[self alloc] initTermWithString:val];
+  ReQLQuery *inst = [self new];
+  inst.string = [val copy];
+  return inst;
 }
 
-+(instancetype)newTerm:(ReQL_AST_Function_Kwargs)func :(NSArray *)args :(NSDictionary *)kwargs {
-  return [[ReQLQuery alloc] init:func :args :kwargs];
++(instancetype)newTerm:(_ReQL::Term_t)tt :(NSArray *)args :(NSDictionary *)kwargs {
+  ReQLQuery *inst = [self new];
+  inst.tt = tt;
+  inst.args = [args copy];
+  inst.kwargs = [kwargs copy];
+  return inst;
 }
 
-+(instancetype)newTerm:(ReQL_AST_Function)func :(NSArray *)args {
-  return [[ReQLQuery alloc] init:func :args];
++(instancetype)newTerm:(_ReQL::Term_t)tt :(NSArray *)args {
+  ReQLQuery *inst = [self new];
+  inst.tt = tt;
+  inst.args = [args copy];
+  return inst;
 }
 
 -(instancetype)init {
   if ((self = [super init])) {
-    p_build = [NullExpr new];
   }
   return self;
 }
 
--(instancetype)initTermWithArray:(NSArray *)val {
-  if ((self = [super init])) {
-    p_build = [ArrayExpr arrayWithArray:val];
-  }
-  return self;
+-(instancetype)newTerm:(_ReQL::Term_t)tt :(NSArray *)args :(NSDictionary *)kwargs {
+  return [ReQLQuery newTerm:tt :[@[self] arrayByAddingObjectsFromArray:args] :kwargs];
 }
 
--(instancetype)initTermWithBool:(BOOL)val {
-  if ((self = [super init])) {
-    p_build = nil;
-    p_number = nil;
-    p_bool = val;
-  }
-  return self;
-}
-
--(instancetype)initTermWithNumber:(NSNumber *)val {
-  if ((self = [super init])) {
-    p_build = nil;
-    p_number = val;
-  }
-  return self;
-}
-
--(instancetype)initTermWithObject:(NSDictionary *)val {
-  if ((self = [super init])) {
-    p_build = [DictionaryExpr dictionaryWithDictionary:val];
-  }
-  return self;
-}
-
--(instancetype)initTermWithString:(NSString *)val {
-  if ((self = [super init])) {
-    p_build = [StringExpr stringWithString:val];
-  }
-  return self;
-}
-
--(instancetype)init:(ReQL_AST_Function)func :(NSArray *)args {
-  if ((self = [super init])) {
-    p_build = [TermExpr newTerm:func :args];
-  }
-  return self;
-}
-
--(instancetype)init:(ReQL_AST_Function_Kwargs)func :(NSArray *)args :(NSDictionary *)kwargs {
-  if ((self = [super init])) {
-    p_build = [TermKwargsExpr newTerm:func :args :kwargs];
-  }
-  return self;
-}
-
--(instancetype)newTerm:(ReQL_AST_Function_Kwargs)func :(NSArray *)args :(NSDictionary *)kwargs {
-  return [[ReQLQuery alloc] init:func :[@[self] arrayByAddingObjectsFromArray:args] :kwargs];
-}
-
--(instancetype)newTerm:(ReQL_AST_Function)func :(NSArray *)args {
-  return [[ReQLQuery alloc] init:func :[@[self] arrayByAddingObjectsFromArray:args]];
+-(instancetype)newTerm:(_ReQL::Term_t)tt :(NSArray *)args {
+  return [ReQLQuery newTerm:tt :[@[self] arrayByAddingObjectsFromArray:args]];
 }
 
 -(ReQLCursor *)run:(nonnull ReQLConnection *)conn {
@@ -631,1808 +153,1816 @@ get_args(void *arrayexpr) {
 }
 
 -(ReQLCursor *)run:(nonnull ReQLConnection *)conn withOpts:(nonnull NSDictionary *)opts {
-  FakeCursor *cur = [FakeCursor new];
-  if (cur == nil) {
-    return nil;
-  }
-  ReQL_Any_t *query = [self build];
-  if (query == nil) {
-    return nil;
-  }
-  ReQL_Obj_t *kwargs = [[DictionaryExpr dictionaryWithDictionary:opts] dictionary];
-  if (kwargs == nullptr) {
-    return nil;
-  }
-  if (reql_run_query(cur.cur, query, [conn data], kwargs, NULL) != 0) {
-    return nil;
-  }
-  return [[ReQLCursor alloc] initWithCursor:[cur steal]];
+  return [conn run:self kwargs:opts];
 }
 
--(void)noReply:(nonnull ReQLConnection *)conn {
-  [self noReply:conn withOpts:@{}];
+-(void)noReply:(ReQLConnection *)conn {
+  return [self noReply:conn withOpts:@{}];
 }
 
 -(void)noReply:(nonnull ReQLConnection *)conn withOpts:(nonnull NSDictionary *)opts {
-  ReQL_Any_t *query = [self build];
-  if (!query) {
-    return;
-  }
-  ReQL_Obj_t *kwargs = [[DictionaryExpr dictionaryWithDictionary:opts] dictionary];
-  if (!kwargs) {
-    return nil;
-  }
-  reql_run_query(NULL, query, [conn data], kwargs, NULL);
+  NSMutableDictionary *temp = [NSMutableDictionary dictionaryWithDictionary:opts];
+  temp[@"no_reply"] = [ReQLQuery newWithBool:YES];
+  return [conn noReply:self kwargs:[NSDictionary dictionaryWithDictionary:temp]];
 }
 
--(ReQL_Any_t *)build {
-  if (self.i_build) {
-    return [self.i_build build];
+-(ReQL::Any)build {
+  if (self.array) {
+    std::vector<ReQL::Any> array;
+    for (id elem in self.array) {
+      array.push_back([toQuery(elem) build]);
+    }
+    return ReQL::Any(ReQL::Array(array));
+  } else if (self.null) {
+    return ReQL::Any(ReQL::Null());
+  } else if (self.number) {
+    return ReQL::Any(ReQL::Number([self.number doubleValue]));
+  } else if (self.string) {
+    return ReQL::Any(ReQL::String(to_string(self.string)));
+  } else if (self.object) {
+    std::map<ReQL::String, ReQL::Any> object;
+    for (NSString *key in self.object) {
+      object.insert({ReQL::String(to_string(key)), [toQuery(self.object[key]) build]});
+    }
+    return ReQL::Any(ReQL::Object(object));
+  } else if (self.kwargs) {
+    std::vector<ReQL::Any> array;
+    for (id elem in self.args) {
+      array.push_back([toQuery(elem) build]);
+    }
+    std::map<ReQL::String, ReQL::Any> object;
+    for (NSString *key in self.kwargs) {
+      object.insert({ReQL::String(to_string(key)), [toQuery(self.object[key]) build]});
+    }
+    return ReQL::Any(ReQL::ReQL_Kwargs(self.tt, ReQL::Array(array), ReQL::Object(object)));
+  } else if (self.args) {
+    std::vector<ReQL::Any> array;
+    for (id elem in self.args) {
+      array.push_back([toQuery(elem) build]);
+    }
+    return ReQL::Any(ReQL::ReQL_Args(self.tt, ReQL::Array(array)));
   }
-  if (self.number) {
-    return [reinterpret_cast<NumberExpr *>([NumberExpr numberWithDouble:[self.number doubleValue]]) build];
-  }
-  return [reinterpret_cast<BoolExpr *>([BoolExpr numberWithBool:self.b]) build];
+  return ReQL::Any(ReQL::ReQL(self.tt));
 }
 
 +(instancetype)
 add:(NSArray *)args {
-  return [self newTerm:reql_ast_add :args];
+  return [self newTerm:_ReQL::REQL_ADD :args];
 }
 
 -(instancetype)
 add:(NSArray *)args {
-  return [self newTerm:reql_ast_add :args];
+  return [self newTerm:_ReQL::REQL_ADD :args];
 }
 
 +(instancetype)
 and:(NSArray *)args {
-  return [self newTerm:reql_ast_and :args];
+  return [self newTerm:_ReQL::REQL_AND :args];
 }
 
 -(instancetype)
 and:(NSArray *)args {
-  return [self newTerm:reql_ast_and :args];
+  return [self newTerm:_ReQL::REQL_AND :args];
 }
 
 +(instancetype)
 append:(NSArray *)args {
-  return [self newTerm:reql_ast_append :args];
+  return [self newTerm:_ReQL::REQL_APPEND :args];
 }
 
 -(instancetype)
 append:(NSArray *)args {
-  return [self newTerm:reql_ast_append :args];
+  return [self newTerm:_ReQL::REQL_APPEND :args];
 }
 
 +(instancetype)
 april:(NSArray *)args {
-  return [self newTerm:reql_ast_april :args];
+  return [self newTerm:_ReQL::REQL_APRIL :args];
 }
 
 -(instancetype)
 april:(NSArray *)args {
-  return [self newTerm:reql_ast_april :args];
+  return [self newTerm:_ReQL::REQL_APRIL :args];
 }
 
 +(instancetype)
 args:(NSArray *)args {
-  return [self newTerm:reql_ast_args :args];
+  return [self newTerm:_ReQL::REQL_ARGS :args];
 }
 
 -(instancetype)
 args:(NSArray *)args {
-  return [self newTerm:reql_ast_args :args];
+  return [self newTerm:_ReQL::REQL_ARGS :args];
 }
 
 +(instancetype)
 asc:(NSArray *)args {
-  return [self newTerm:reql_ast_asc :args];
+  return [self newTerm:_ReQL::REQL_ASC :args];
 }
 
 -(instancetype)
 asc:(NSArray *)args {
-  return [self newTerm:reql_ast_asc :args];
+  return [self newTerm:_ReQL::REQL_ASC :args];
 }
 
 +(instancetype)
 august:(NSArray *)args {
-  return [self newTerm:reql_ast_august :args];
+  return [self newTerm:_ReQL::REQL_AUGUST :args];
 }
 
 -(instancetype)
 august:(NSArray *)args {
-  return [self newTerm:reql_ast_august :args];
+  return [self newTerm:_ReQL::REQL_AUGUST :args];
 }
 
 +(instancetype)
 avg:(NSArray *)args {
-  return [self newTerm:reql_ast_avg :args];
+  return [self newTerm:_ReQL::REQL_AVG :args];
 }
 
 -(instancetype)
 avg:(NSArray *)args {
-  return [self newTerm:reql_ast_avg :args];
+  return [self newTerm:_ReQL::REQL_AVG :args];
 }
 
 +(instancetype)
 between:(NSArray *)args {
-  return [self newTerm:reql_ast_between :args];
+  return [self newTerm:_ReQL::REQL_BETWEEN :args];
 }
 
 -(instancetype)
 between:(NSArray *)args {
-  return [self newTerm:reql_ast_between :args];
+  return [self newTerm:_ReQL::REQL_BETWEEN :args];
 }
 
 +(instancetype)
 between_deprecated:(NSArray *)args {
-  return [self newTerm:reql_ast_between_deprecated :args];
+  return [self newTerm:_ReQL::REQL_BETWEEN_DEPRECATED :args];
 }
 
 -(instancetype)
 between_deprecated:(NSArray *)args {
-  return [self newTerm:reql_ast_between_deprecated :args];
+  return [self newTerm:_ReQL::REQL_BETWEEN_DEPRECATED :args];
 }
 
 +(instancetype)
 binary:(NSArray *)args {
-  return [self newTerm:reql_ast_binary :args];
+  return [self newTerm:_ReQL::REQL_BINARY :args];
 }
 
 -(instancetype)
 binary:(NSArray *)args {
-  return [self newTerm:reql_ast_binary :args];
+  return [self newTerm:_ReQL::REQL_BINARY :args];
 }
 
 +(instancetype)
 bracket:(NSArray *)args {
-  return [self newTerm:reql_ast_bracket :args];
+  return [self newTerm:_ReQL::REQL_BRACKET :args];
 }
 
 -(instancetype)
 bracket:(NSArray *)args {
-  return [self newTerm:reql_ast_bracket :args];
+  return [self newTerm:_ReQL::REQL_BRACKET :args];
 }
 
 +(instancetype)
 branch:(NSArray *)args {
-  return [self newTerm:reql_ast_branch :args];
+  return [self newTerm:_ReQL::REQL_BRANCH :args];
 }
 
 -(instancetype)
 branch:(NSArray *)args {
-  return [self newTerm:reql_ast_branch :args];
+  return [self newTerm:_ReQL::REQL_BRANCH :args];
 }
 
 +(instancetype)
 ceil:(NSArray *)args {
-  return [self newTerm:reql_ast_ceil :args];
+  return [self newTerm:_ReQL::REQL_CEIL :args];
 }
 
 -(instancetype)
 ceil:(NSArray *)args {
-  return [self newTerm:reql_ast_ceil :args];
+  return [self newTerm:_ReQL::REQL_CEIL :args];
 }
 
 +(instancetype)
 changes:(NSArray *)args {
-  return [self newTerm:reql_ast_changes :args];
+  return [self newTerm:_ReQL::REQL_CHANGES :args];
 }
 
 -(instancetype)
 changes:(NSArray *)args {
-  return [self newTerm:reql_ast_changes :args];
+  return [self newTerm:_ReQL::REQL_CHANGES :args];
 }
 
 +(instancetype)
 change_at:(NSArray *)args {
-  return [self newTerm:reql_ast_change_at :args];
+  return [self newTerm:_ReQL::REQL_CHANGE_AT :args];
 }
 
 -(instancetype)
 change_at:(NSArray *)args {
-  return [self newTerm:reql_ast_change_at :args];
+  return [self newTerm:_ReQL::REQL_CHANGE_AT :args];
 }
 
 +(instancetype)
 circle:(NSArray *)args :(NSDictionary *)kwargs {
-  return [self newTerm:reql_ast_circle :args :kwargs];
+  return [self newTerm:_ReQL::REQL_CIRCLE :args :kwargs];
 }
 
 -(instancetype)
 circle:(NSArray *)args :(NSDictionary *)kwargs {
-  return [self newTerm:reql_ast_circle :args :kwargs];
+  return [self newTerm:_ReQL::REQL_CIRCLE :args :kwargs];
 }
 
 +(instancetype)
 coerce_to:(NSArray *)args {
-  return [self newTerm:reql_ast_coerce_to :args];
+  return [self newTerm:_ReQL::REQL_COERCE_TO :args];
 }
 
 -(instancetype)
 coerce_to:(NSArray *)args {
-  return [self newTerm:reql_ast_coerce_to :args];
+  return [self newTerm:_ReQL::REQL_COERCE_TO :args];
 }
 
 +(instancetype)
 concat_map:(NSArray *)args {
-  return [self newTerm:reql_ast_concat_map :args];
+  return [self newTerm:_ReQL::REQL_CONCAT_MAP :args];
 }
 
 -(instancetype)
 concat_map:(NSArray *)args {
-  return [self newTerm:reql_ast_concat_map :args];
+  return [self newTerm:_ReQL::REQL_CONCAT_MAP :args];
 }
 
 +(instancetype)
 config:(NSArray *)args {
-  return [self newTerm:reql_ast_config :args];
+  return [self newTerm:_ReQL::REQL_CONFIG :args];
 }
 
 -(instancetype)
 config:(NSArray *)args {
-  return [self newTerm:reql_ast_config :args];
+  return [self newTerm:_ReQL::REQL_CONFIG :args];
 }
 
 +(instancetype)
 contains:(NSArray *)args {
-  return [self newTerm:reql_ast_contains :args];
+  return [self newTerm:_ReQL::REQL_CONTAINS :args];
 }
 
 -(instancetype)
 contains:(NSArray *)args {
-  return [self newTerm:reql_ast_contains :args];
+  return [self newTerm:_ReQL::REQL_CONTAINS :args];
 }
 
 +(instancetype)
 count:(NSArray *)args {
-  return [self newTerm:reql_ast_count :args];
+  return [self newTerm:_ReQL::REQL_COUNT :args];
 }
 
 -(instancetype)
 count:(NSArray *)args {
-  return [self newTerm:reql_ast_count :args];
+  return [self newTerm:_ReQL::REQL_COUNT :args];
 }
 
 +(instancetype)
 date:(NSArray *)args {
-  return [self newTerm:reql_ast_date :args];
+  return [self newTerm:_ReQL::REQL_DATE :args];
 }
 
 -(instancetype)
 date:(NSArray *)args {
-  return [self newTerm:reql_ast_date :args];
+  return [self newTerm:_ReQL::REQL_DATE :args];
 }
 
 +(instancetype)
 datum:(NSArray *)args {
-  return [self newTerm:reql_ast_datum :args];
+  return [self newTerm:_ReQL::REQL_DATUM :args];
 }
 
 -(instancetype)
 datum:(NSArray *)args {
-  return [self newTerm:reql_ast_datum :args];
+  return [self newTerm:_ReQL::REQL_DATUM :args];
 }
 
 +(instancetype)
 day:(NSArray *)args {
-  return [self newTerm:reql_ast_day :args];
+  return [self newTerm:_ReQL::REQL_DAY :args];
 }
 
 -(instancetype)
 day:(NSArray *)args {
-  return [self newTerm:reql_ast_day :args];
+  return [self newTerm:_ReQL::REQL_DAY :args];
 }
 
 +(instancetype)
 day_of_week:(NSArray *)args {
-  return [self newTerm:reql_ast_day_of_week :args];
+  return [self newTerm:_ReQL::REQL_DAY_OF_WEEK :args];
 }
 
 -(instancetype)
 day_of_week:(NSArray *)args {
-  return [self newTerm:reql_ast_day_of_week :args];
+  return [self newTerm:_ReQL::REQL_DAY_OF_WEEK :args];
 }
 
 +(instancetype)
 day_of_year:(NSArray *)args {
-  return [self newTerm:reql_ast_day_of_year :args];
+  return [self newTerm:_ReQL::REQL_DAY_OF_YEAR :args];
 }
 
 -(instancetype)
 day_of_year:(NSArray *)args {
-  return [self newTerm:reql_ast_day_of_year :args];
+  return [self newTerm:_ReQL::REQL_DAY_OF_YEAR :args];
 }
 
 +(instancetype)
 db:(NSArray *)args {
-  return [self newTerm:reql_ast_db :args];
+  return [self newTerm:_ReQL::REQL_DB :args];
 }
 
 -(instancetype)
 db:(NSArray *)args {
-  return [self newTerm:reql_ast_db :args];
+  return [self newTerm:_ReQL::REQL_DB :args];
 }
 
 +(instancetype)
 db_create:(NSArray *)args {
-  return [self newTerm:reql_ast_db_create :args];
+  return [self newTerm:_ReQL::REQL_DB_CREATE :args];
 }
 
 -(instancetype)
 db_create:(NSArray *)args {
-  return [self newTerm:reql_ast_db_create :args];
+  return [self newTerm:_ReQL::REQL_DB_CREATE :args];
 }
 
 +(instancetype)
 db_drop:(NSArray *)args {
-  return [self newTerm:reql_ast_db_drop :args];
+  return [self newTerm:_ReQL::REQL_DB_DROP :args];
 }
 
 -(instancetype)
 db_drop:(NSArray *)args {
-  return [self newTerm:reql_ast_db_drop :args];
+  return [self newTerm:_ReQL::REQL_DB_DROP :args];
 }
 
 +(instancetype)
 db_list:(NSArray *)args {
-  return [self newTerm:reql_ast_db_list :args];
+  return [self newTerm:_ReQL::REQL_DB_LIST :args];
 }
 
 -(instancetype)
 db_list:(NSArray *)args {
-  return [self newTerm:reql_ast_db_list :args];
+  return [self newTerm:_ReQL::REQL_DB_LIST :args];
 }
 
 +(instancetype)
 december:(NSArray *)args {
-  return [self newTerm:reql_ast_december :args];
+  return [self newTerm:_ReQL::REQL_DECEMBER :args];
 }
 
 -(instancetype)
 december:(NSArray *)args {
-  return [self newTerm:reql_ast_december :args];
+  return [self newTerm:_ReQL::REQL_DECEMBER :args];
 }
 
 +(instancetype)
 default:(NSArray *)args {
-  return [self newTerm:reql_ast_default :args];
+  return [self newTerm:_ReQL::REQL_DEFAULT :args];
 }
 
 -(instancetype)
 default:(NSArray *)args {
-  return [self newTerm:reql_ast_default :args];
+  return [self newTerm:_ReQL::REQL_DEFAULT :args];
 }
 
 +(instancetype)
 delete:(NSArray *)args :(NSDictionary *)kwargs {
-  return [self newTerm:reql_ast_delete :args :kwargs];
+  return [self newTerm:_ReQL::REQL_DELETE :args :kwargs];
 }
 
 -(instancetype)
 delete:(NSArray *)args :(NSDictionary *)kwargs {
-  return [self newTerm:reql_ast_delete :args :kwargs];
+  return [self newTerm:_ReQL::REQL_DELETE :args :kwargs];
 }
 
 +(instancetype)
 delete_at:(NSArray *)args {
-  return [self newTerm:reql_ast_delete_at :args];
+  return [self newTerm:_ReQL::REQL_DELETE_AT :args];
 }
 
 -(instancetype)
 delete_at:(NSArray *)args {
-  return [self newTerm:reql_ast_delete_at :args];
+  return [self newTerm:_ReQL::REQL_DELETE_AT :args];
 }
 
 +(instancetype)
 desc:(NSArray *)args {
-  return [self newTerm:reql_ast_desc :args];
+  return [self newTerm:_ReQL::REQL_DESC :args];
 }
 
 -(instancetype)
 desc:(NSArray *)args {
-  return [self newTerm:reql_ast_desc :args];
+  return [self newTerm:_ReQL::REQL_DESC :args];
 }
 
 +(instancetype)
 difference:(NSArray *)args {
-  return [self newTerm:reql_ast_difference :args];
+  return [self newTerm:_ReQL::REQL_DIFFERENCE :args];
 }
 
 -(instancetype)
 difference:(NSArray *)args {
-  return [self newTerm:reql_ast_difference :args];
+  return [self newTerm:_ReQL::REQL_DIFFERENCE :args];
 }
 
 +(instancetype)
 distance:(NSArray *)args {
-  return [self newTerm:reql_ast_distance :args];
+  return [self newTerm:_ReQL::REQL_DISTANCE :args];
 }
 
 -(instancetype)
 distance:(NSArray *)args {
-  return [self newTerm:reql_ast_distance :args];
+  return [self newTerm:_ReQL::REQL_DISTANCE :args];
 }
 
 +(instancetype)
 distinct:(NSArray *)args :(NSDictionary *)kwargs {
-  return [self newTerm:reql_ast_distinct :args :kwargs];
+  return [self newTerm:_ReQL::REQL_DISTINCT :args :kwargs];
 }
 
 -(instancetype)
 distinct:(NSArray *)args :(NSDictionary *)kwargs {
-  return [self newTerm:reql_ast_distinct :args :kwargs];
+  return [self newTerm:_ReQL::REQL_DISTINCT :args :kwargs];
 }
 
 +(instancetype)
 div:(NSArray *)args {
-  return [self newTerm:reql_ast_div :args];
+  return [self newTerm:_ReQL::REQL_DIV :args];
 }
 
 -(instancetype)
 div:(NSArray *)args {
-  return [self newTerm:reql_ast_div :args];
+  return [self newTerm:_ReQL::REQL_DIV :args];
 }
 
 +(instancetype)
 downcase:(NSArray *)args {
-  return [self newTerm:reql_ast_downcase :args];
+  return [self newTerm:_ReQL::REQL_DOWNCASE :args];
 }
 
 -(instancetype)
 downcase:(NSArray *)args {
-  return [self newTerm:reql_ast_downcase :args];
+  return [self newTerm:_ReQL::REQL_DOWNCASE :args];
 }
 
 +(instancetype)
 during:(NSArray *)args {
-  return [self newTerm:reql_ast_during :args];
+  return [self newTerm:_ReQL::REQL_DURING :args];
 }
 
 -(instancetype)
 during:(NSArray *)args {
-  return [self newTerm:reql_ast_during :args];
+  return [self newTerm:_ReQL::REQL_DURING :args];
 }
 
 +(instancetype)
 epoch_time:(NSArray *)args {
-  return [self newTerm:reql_ast_epoch_time :args];
+  return [self newTerm:_ReQL::REQL_EPOCH_TIME :args];
 }
 
 -(instancetype)
 epoch_time:(NSArray *)args {
-  return [self newTerm:reql_ast_epoch_time :args];
+  return [self newTerm:_ReQL::REQL_EPOCH_TIME :args];
 }
 
 +(instancetype)
 eq:(NSArray *)args {
-  return [self newTerm:reql_ast_eq :args];
+  return [self newTerm:_ReQL::REQL_EQ :args];
 }
 
 -(instancetype)
 eq:(NSArray *)args {
-  return [self newTerm:reql_ast_eq :args];
+  return [self newTerm:_ReQL::REQL_EQ :args];
 }
 
 +(instancetype)
 eq_join:(NSArray *)args :(NSDictionary *)kwargs {
-  return [self newTerm:reql_ast_eq_join :args :kwargs];
+  return [self newTerm:_ReQL::REQL_EQ_JOIN :args :kwargs];
 }
 
 -(instancetype)
 eq_join:(NSArray *)args :(NSDictionary *)kwargs {
-  return [self newTerm:reql_ast_eq_join :args :kwargs];
+  return [self newTerm:_ReQL::REQL_EQ_JOIN :args :kwargs];
 }
 
 +(instancetype)
 error:(NSArray *)args {
-  return [self newTerm:reql_ast_error :args];
+  return [self newTerm:_ReQL::REQL_ERROR :args];
 }
 
 -(instancetype)
 error:(NSArray *)args {
-  return [self newTerm:reql_ast_error :args];
+  return [self newTerm:_ReQL::REQL_ERROR :args];
 }
 
 +(instancetype)
 february:(NSArray *)args {
-  return [self newTerm:reql_ast_february :args];
+  return [self newTerm:_ReQL::REQL_FEBRUARY :args];
 }
 
 -(instancetype)
 february:(NSArray *)args {
-  return [self newTerm:reql_ast_february :args];
+  return [self newTerm:_ReQL::REQL_FEBRUARY :args];
 }
 
 +(instancetype)
 fill:(NSArray *)args {
-  return [self newTerm:reql_ast_fill :args];
+  return [self newTerm:_ReQL::REQL_FILL :args];
 }
 
 -(instancetype)
 fill:(NSArray *)args {
-  return [self newTerm:reql_ast_fill :args];
+  return [self newTerm:_ReQL::REQL_FILL :args];
 }
 
 +(instancetype)
 filter:(NSArray *)args :(NSDictionary *)kwargs {
-  return [self newTerm:reql_ast_filter :args :kwargs];
+  return [self newTerm:_ReQL::REQL_FILTER :args :kwargs];
 }
 
 -(instancetype)
 filter:(NSArray *)args :(NSDictionary *)kwargs {
-  return [self newTerm:reql_ast_filter :args :kwargs];
+  return [self newTerm:_ReQL::REQL_FILTER :args :kwargs];
 }
 
 +(instancetype)
 floor:(NSArray *)args {
-  return [self newTerm:reql_ast_floor :args];
+  return [self newTerm:_ReQL::REQL_FLOOR :args];
 }
 
 -(instancetype)
 floor:(NSArray *)args {
-  return [self newTerm:reql_ast_floor :args];
+  return [self newTerm:_ReQL::REQL_FLOOR :args];
 }
 
 +(instancetype)
 for_each:(NSArray *)args {
-  return [self newTerm:reql_ast_for_each :args];
+  return [self newTerm:_ReQL::REQL_FOR_EACH :args];
 }
 
 -(instancetype)
 for_each:(NSArray *)args {
-  return [self newTerm:reql_ast_for_each :args];
+  return [self newTerm:_ReQL::REQL_FOR_EACH :args];
 }
 
 +(instancetype)
 friday:(NSArray *)args {
-  return [self newTerm:reql_ast_friday :args];
+  return [self newTerm:_ReQL::REQL_FRIDAY :args];
 }
 
 -(instancetype)
 friday:(NSArray *)args {
-  return [self newTerm:reql_ast_friday :args];
+  return [self newTerm:_ReQL::REQL_FRIDAY :args];
 }
 
 +(instancetype)
 func:(NSArray *)args {
-  return [self newTerm:reql_ast_func :args];
+  return [self newTerm:_ReQL::REQL_FUNC :args];
 }
 
 -(instancetype)
 func:(NSArray *)args {
-  return [self newTerm:reql_ast_func :args];
+  return [self newTerm:_ReQL::REQL_FUNC :args];
 }
 
 +(instancetype)
 funcall:(NSArray *)args {
-  return [self newTerm:reql_ast_funcall :args];
+  return [self newTerm:_ReQL::REQL_FUNCALL :args];
 }
 
 -(instancetype)
 funcall:(NSArray *)args {
-  return [self newTerm:reql_ast_funcall :args];
+  return [self newTerm:_ReQL::REQL_FUNCALL :args];
 }
 
 +(instancetype)
 ge:(NSArray *)args {
-  return [self newTerm:reql_ast_ge :args];
+  return [self newTerm:_ReQL::REQL_GE :args];
 }
 
 -(instancetype)
 ge:(NSArray *)args {
-  return [self newTerm:reql_ast_ge :args];
+  return [self newTerm:_ReQL::REQL_GE :args];
 }
 
 +(instancetype)
 geojson:(NSArray *)args {
-  return [self newTerm:reql_ast_geojson :args];
+  return [self newTerm:_ReQL::REQL_GEOJSON :args];
 }
 
 -(instancetype)
 geojson:(NSArray *)args {
-  return [self newTerm:reql_ast_geojson :args];
+  return [self newTerm:_ReQL::REQL_GEOJSON :args];
 }
 
 +(instancetype)
 get:(NSArray *)args {
-  return [self newTerm:reql_ast_get :args];
+  return [self newTerm:_ReQL::REQL_GET :args];
 }
 
 -(instancetype)
 get:(NSArray *)args {
-  return [self newTerm:reql_ast_get :args];
+  return [self newTerm:_ReQL::REQL_GET :args];
 }
 
 +(instancetype)
 get_all:(NSArray *)args :(NSDictionary *)kwargs {
-  return [self newTerm:reql_ast_get_all :args :kwargs];
+  return [self newTerm:_ReQL::REQL_GET_ALL :args :kwargs];
 }
 
 -(instancetype)
 get_all:(NSArray *)args :(NSDictionary *)kwargs {
-  return [self newTerm:reql_ast_get_all :args :kwargs];
+  return [self newTerm:_ReQL::REQL_GET_ALL :args :kwargs];
 }
 
 +(instancetype)
 get_field:(NSArray *)args {
-  return [self newTerm:reql_ast_get_field :args];
+  return [self newTerm:_ReQL::REQL_GET_FIELD :args];
 }
 
 -(instancetype)
 get_field:(NSArray *)args {
-  return [self newTerm:reql_ast_get_field :args];
+  return [self newTerm:_ReQL::REQL_GET_FIELD :args];
 }
 
 +(instancetype)
 get_intersecting:(NSArray *)args :(NSDictionary *)kwargs {
-  return [self newTerm:reql_ast_get_intersecting :args :kwargs];
+  return [self newTerm:_ReQL::REQL_GET_INTERSECTING :args :kwargs];
 }
 
 -(instancetype)
 get_intersecting:(NSArray *)args :(NSDictionary *)kwargs {
-  return [self newTerm:reql_ast_get_intersecting :args :kwargs];
+  return [self newTerm:_ReQL::REQL_GET_INTERSECTING :args :kwargs];
 }
 
 +(instancetype)
 get_nearest:(NSArray *)args :(NSDictionary *)kwargs {
-  return [self newTerm:reql_ast_get_nearest :args :kwargs];
+  return [self newTerm:_ReQL::REQL_GET_NEAREST :args :kwargs];
 }
 
 -(instancetype)
 get_nearest:(NSArray *)args :(NSDictionary *)kwargs {
-  return [self newTerm:reql_ast_get_nearest :args :kwargs];
+  return [self newTerm:_ReQL::REQL_GET_NEAREST :args :kwargs];
 }
 
 +(instancetype)
 group:(NSArray *)args :(NSDictionary *)kwargs {
-  return [self newTerm:reql_ast_group :args :kwargs];
+  return [self newTerm:_ReQL::REQL_GROUP :args :kwargs];
 }
 
 -(instancetype)
 group:(NSArray *)args :(NSDictionary *)kwargs {
-  return [self newTerm:reql_ast_group :args :kwargs];
+  return [self newTerm:_ReQL::REQL_GROUP :args :kwargs];
 }
 
 +(instancetype)
 gt:(NSArray *)args {
-  return [self newTerm:reql_ast_gt :args];
+  return [self newTerm:_ReQL::REQL_GT :args];
 }
 
 -(instancetype)
 gt:(NSArray *)args {
-  return [self newTerm:reql_ast_gt :args];
+  return [self newTerm:_ReQL::REQL_GT :args];
 }
 
 +(instancetype)
 has_fields:(NSArray *)args {
-  return [self newTerm:reql_ast_has_fields :args];
+  return [self newTerm:_ReQL::REQL_HAS_FIELDS :args];
 }
 
 -(instancetype)
 has_fields:(NSArray *)args {
-  return [self newTerm:reql_ast_has_fields :args];
+  return [self newTerm:_ReQL::REQL_HAS_FIELDS :args];
 }
 
 +(instancetype)
 hours:(NSArray *)args {
-  return [self newTerm:reql_ast_hours :args];
+  return [self newTerm:_ReQL::REQL_HOURS :args];
 }
 
 -(instancetype)
 hours:(NSArray *)args {
-  return [self newTerm:reql_ast_hours :args];
+  return [self newTerm:_ReQL::REQL_HOURS :args];
 }
 
 +(instancetype)
 http:(NSArray *)args :(NSDictionary *)kwargs {
-  return [self newTerm:reql_ast_http :args :kwargs];
+  return [self newTerm:_ReQL::REQL_HTTP :args :kwargs];
 }
 
 -(instancetype)
 http:(NSArray *)args :(NSDictionary *)kwargs {
-  return [self newTerm:reql_ast_http :args :kwargs];
+  return [self newTerm:_ReQL::REQL_HTTP :args :kwargs];
 }
 
 +(instancetype)
 implicit_var:(NSArray *)args {
-  return [self newTerm:reql_ast_implicit_var :args];
+  return [self newTerm:_ReQL::REQL_IMPLICIT_VAR :args];
 }
 
 -(instancetype)
 implicit_var:(NSArray *)args {
-  return [self newTerm:reql_ast_implicit_var :args];
+  return [self newTerm:_ReQL::REQL_IMPLICIT_VAR :args];
 }
 
 +(instancetype)
 includes:(NSArray *)args {
-  return [self newTerm:reql_ast_includes :args];
+  return [self newTerm:_ReQL::REQL_INCLUDES :args];
 }
 
 -(instancetype)
 includes:(NSArray *)args {
-  return [self newTerm:reql_ast_includes :args];
+  return [self newTerm:_ReQL::REQL_INCLUDES :args];
 }
 
 +(instancetype)
 index_create:(NSArray *)args :(NSDictionary *)kwargs {
-  return [self newTerm:reql_ast_index_create :args :kwargs];
+  return [self newTerm:_ReQL::REQL_INDEX_CREATE :args :kwargs];
 }
 
 -(instancetype)
 index_create:(NSArray *)args :(NSDictionary *)kwargs {
-  return [self newTerm:reql_ast_index_create :args :kwargs];
+  return [self newTerm:_ReQL::REQL_INDEX_CREATE :args :kwargs];
 }
 
 +(instancetype)
 index_drop:(NSArray *)args {
-  return [self newTerm:reql_ast_index_drop :args];
+  return [self newTerm:_ReQL::REQL_INDEX_DROP :args];
 }
 
 -(instancetype)
 index_drop:(NSArray *)args {
-  return [self newTerm:reql_ast_index_drop :args];
+  return [self newTerm:_ReQL::REQL_INDEX_DROP :args];
 }
 
 +(instancetype)
 index_list:(NSArray *)args {
-  return [self newTerm:reql_ast_index_list :args];
+  return [self newTerm:_ReQL::REQL_INDEX_LIST :args];
 }
 
 -(instancetype)
 index_list:(NSArray *)args {
-  return [self newTerm:reql_ast_index_list :args];
+  return [self newTerm:_ReQL::REQL_INDEX_LIST :args];
 }
 
 +(instancetype)
 index_rename:(NSArray *)args :(NSDictionary *)kwargs {
-  return [self newTerm:reql_ast_index_rename :args :kwargs];
+  return [self newTerm:_ReQL::REQL_INDEX_RENAME :args :kwargs];
 }
 
 -(instancetype)
 index_rename:(NSArray *)args :(NSDictionary *)kwargs {
-  return [self newTerm:reql_ast_index_rename :args :kwargs];
+  return [self newTerm:_ReQL::REQL_INDEX_RENAME :args :kwargs];
 }
 
 +(instancetype)
 index_status:(NSArray *)args {
-  return [self newTerm:reql_ast_index_status :args];
+  return [self newTerm:_ReQL::REQL_INDEX_STATUS :args];
 }
 
 -(instancetype)
 index_status:(NSArray *)args {
-  return [self newTerm:reql_ast_index_status :args];
+  return [self newTerm:_ReQL::REQL_INDEX_STATUS :args];
 }
 
 +(instancetype)
 index_wait:(NSArray *)args {
-  return [self newTerm:reql_ast_index_wait :args];
+  return [self newTerm:_ReQL::REQL_INDEX_WAIT :args];
 }
 
 -(instancetype)
 index_wait:(NSArray *)args {
-  return [self newTerm:reql_ast_index_wait :args];
+  return [self newTerm:_ReQL::REQL_INDEX_WAIT :args];
 }
 
 +(instancetype)
 info:(NSArray *)args {
-  return [self newTerm:reql_ast_info :args];
+  return [self newTerm:_ReQL::REQL_INFO :args];
 }
 
 -(instancetype)
 info:(NSArray *)args {
-  return [self newTerm:reql_ast_info :args];
+  return [self newTerm:_ReQL::REQL_INFO :args];
 }
 
 +(instancetype)
 inner_join:(NSArray *)args {
-  return [self newTerm:reql_ast_inner_join :args];
+  return [self newTerm:_ReQL::REQL_INNER_JOIN :args];
 }
 
 -(instancetype)
 inner_join:(NSArray *)args {
-  return [self newTerm:reql_ast_inner_join :args];
+  return [self newTerm:_ReQL::REQL_INNER_JOIN :args];
 }
 
 +(instancetype)
 insert:(NSArray *)args {
-  return [self newTerm:reql_ast_insert :args];
+  return [self newTerm:_ReQL::REQL_INSERT :args];
 }
 
 -(instancetype)
 insert:(NSArray *)args {
-  return [self newTerm:reql_ast_insert :args];
+  return [self newTerm:_ReQL::REQL_INSERT :args];
 }
 
 +(instancetype)
 insert_at:(NSArray *)args {
-  return [self newTerm:reql_ast_insert_at :args];
+  return [self newTerm:_ReQL::REQL_INSERT_AT :args];
 }
 
 -(instancetype)
 insert_at:(NSArray *)args {
-  return [self newTerm:reql_ast_insert_at :args];
+  return [self newTerm:_ReQL::REQL_INSERT_AT :args];
 }
 
 +(instancetype)
 intersects:(NSArray *)args {
-  return [self newTerm:reql_ast_intersects :args];
+  return [self newTerm:_ReQL::REQL_INTERSECTS :args];
 }
 
 -(instancetype)
 intersects:(NSArray *)args {
-  return [self newTerm:reql_ast_intersects :args];
+  return [self newTerm:_ReQL::REQL_INTERSECTS :args];
 }
 
 +(instancetype)
 in_timezone:(NSArray *)args {
-  return [self newTerm:reql_ast_in_timezone :args];
+  return [self newTerm:_ReQL::REQL_IN_TIMEZONE :args];
 }
 
 -(instancetype)
 in_timezone:(NSArray *)args {
-  return [self newTerm:reql_ast_in_timezone :args];
+  return [self newTerm:_ReQL::REQL_IN_TIMEZONE :args];
 }
 
 +(instancetype)
 iso8601:(NSArray *)args :(NSDictionary *)kwargs {
-  return [self newTerm:reql_ast_iso8601 :args :kwargs];
+  return [self newTerm:_ReQL::REQL_ISO8601 :args :kwargs];
 }
 
 -(instancetype)
 iso8601:(NSArray *)args :(NSDictionary *)kwargs {
-  return [self newTerm:reql_ast_iso8601 :args :kwargs];
+  return [self newTerm:_ReQL::REQL_ISO8601 :args :kwargs];
 }
 
 +(instancetype)
 is_empty:(NSArray *)args {
-  return [self newTerm:reql_ast_is_empty :args];
+  return [self newTerm:_ReQL::REQL_IS_EMPTY :args];
 }
 
 -(instancetype)
 is_empty:(NSArray *)args {
-  return [self newTerm:reql_ast_is_empty :args];
+  return [self newTerm:_ReQL::REQL_IS_EMPTY :args];
 }
 
 +(instancetype)
 january:(NSArray *)args {
-  return [self newTerm:reql_ast_january :args];
+  return [self newTerm:_ReQL::REQL_JANUARY :args];
 }
 
 -(instancetype)
 january:(NSArray *)args {
-  return [self newTerm:reql_ast_january :args];
+  return [self newTerm:_ReQL::REQL_JANUARY :args];
 }
 
 +(instancetype)
 javascript:(NSArray *)args :(NSDictionary *)kwargs {
-  return [self newTerm:reql_ast_javascript :args :kwargs];
+  return [self newTerm:_ReQL::REQL_JAVASCRIPT :args :kwargs];
 }
 
 -(instancetype)
 javascript:(NSArray *)args :(NSDictionary *)kwargs {
-  return [self newTerm:reql_ast_javascript :args :kwargs];
+  return [self newTerm:_ReQL::REQL_JAVASCRIPT :args :kwargs];
 }
 
 +(instancetype)
 json:(NSArray *)args {
-  return [self newTerm:reql_ast_json :args];
+  return [self newTerm:_ReQL::REQL_JSON :args];
 }
 
 -(instancetype)
 json:(NSArray *)args {
-  return [self newTerm:reql_ast_json :args];
+  return [self newTerm:_ReQL::REQL_JSON :args];
 }
 
 +(instancetype)
 july:(NSArray *)args {
-  return [self newTerm:reql_ast_july :args];
+  return [self newTerm:_ReQL::REQL_JULY :args];
 }
 
 -(instancetype)
 july:(NSArray *)args {
-  return [self newTerm:reql_ast_july :args];
+  return [self newTerm:_ReQL::REQL_JULY :args];
 }
 
 +(instancetype)
 june:(NSArray *)args {
-  return [self newTerm:reql_ast_june :args];
+  return [self newTerm:_ReQL::REQL_JUNE :args];
 }
 
 -(instancetype)
 june:(NSArray *)args {
-  return [self newTerm:reql_ast_june :args];
+  return [self newTerm:_ReQL::REQL_JUNE :args];
 }
 
 +(instancetype)
 keys:(NSArray *)args {
-  return [self newTerm:reql_ast_keys :args];
+  return [self newTerm:_ReQL::REQL_KEYS :args];
 }
 
 -(instancetype)
 keys:(NSArray *)args {
-  return [self newTerm:reql_ast_keys :args];
+  return [self newTerm:_ReQL::REQL_KEYS :args];
 }
 
 +(instancetype)
 le:(NSArray *)args {
-  return [self newTerm:reql_ast_le :args];
+  return [self newTerm:_ReQL::REQL_LE :args];
 }
 
 -(instancetype)
 le:(NSArray *)args {
-  return [self newTerm:reql_ast_le :args];
+  return [self newTerm:_ReQL::REQL_LE :args];
 }
 
 +(instancetype)
 limit:(NSArray *)args {
-  return [self newTerm:reql_ast_limit :args];
+  return [self newTerm:_ReQL::REQL_LIMIT :args];
 }
 
 -(instancetype)
 limit:(NSArray *)args {
-  return [self newTerm:reql_ast_limit :args];
+  return [self newTerm:_ReQL::REQL_LIMIT :args];
 }
 
 +(instancetype)
 line:(NSArray *)args {
-  return [self newTerm:reql_ast_line :args];
+  return [self newTerm:_ReQL::REQL_LINE :args];
 }
 
 -(instancetype)
 line:(NSArray *)args {
-  return [self newTerm:reql_ast_line :args];
+  return [self newTerm:_ReQL::REQL_LINE :args];
 }
 
 +(instancetype)
 literal:(NSArray *)args {
-  return [self newTerm:reql_ast_literal :args];
+  return [self newTerm:_ReQL::REQL_LITERAL :args];
 }
 
 -(instancetype)
 literal:(NSArray *)args {
-  return [self newTerm:reql_ast_literal :args];
+  return [self newTerm:_ReQL::REQL_LITERAL :args];
 }
 
 +(instancetype)
 lt:(NSArray *)args {
-  return [self newTerm:reql_ast_lt :args];
+  return [self newTerm:_ReQL::REQL_LT :args];
 }
 
 -(instancetype)
 lt:(NSArray *)args {
-  return [self newTerm:reql_ast_lt :args];
+  return [self newTerm:_ReQL::REQL_LT :args];
 }
 
 +(instancetype)
 make_array:(NSArray *)args {
-  return [self newTerm:reql_ast_make_array :args];
+  return [self newTerm:_ReQL::REQL_MAKE_ARRAY :args];
 }
 
 -(instancetype)
 make_array:(NSArray *)args {
-  return [self newTerm:reql_ast_make_array :args];
+  return [self newTerm:_ReQL::REQL_MAKE_ARRAY :args];
 }
 
 +(instancetype)
 make_obj:(NSArray *)args {
-  return [self newTerm:reql_ast_make_obj :args];
+  return [self newTerm:_ReQL::REQL_MAKE_OBJ :args];
 }
 
 -(instancetype)
 make_obj:(NSArray *)args {
-  return [self newTerm:reql_ast_make_obj :args];
+  return [self newTerm:_ReQL::REQL_MAKE_OBJ :args];
 }
 
 +(instancetype)
 map:(NSArray *)args {
-  return [self newTerm:reql_ast_map :args];
+  return [self newTerm:_ReQL::REQL_MAP :args];
 }
 
 -(instancetype)
 map:(NSArray *)args {
-  return [self newTerm:reql_ast_map :args];
+  return [self newTerm:_ReQL::REQL_MAP :args];
 }
 
 +(instancetype)
 march:(NSArray *)args {
-  return [self newTerm:reql_ast_march :args];
+  return [self newTerm:_ReQL::REQL_MARCH :args];
 }
 
 -(instancetype)
 march:(NSArray *)args {
-  return [self newTerm:reql_ast_march :args];
+  return [self newTerm:_ReQL::REQL_MARCH :args];
 }
 
 +(instancetype)
 match:(NSArray *)args {
-  return [self newTerm:reql_ast_match :args];
+  return [self newTerm:_ReQL::REQL_MATCH :args];
 }
 
 -(instancetype)
 match:(NSArray *)args {
-  return [self newTerm:reql_ast_match :args];
+  return [self newTerm:_ReQL::REQL_MATCH :args];
 }
 
 +(instancetype)
 max:(NSArray *)args {
-  return [self newTerm:reql_ast_max :args];
+  return [self newTerm:_ReQL::REQL_MAX :args];
 }
 
 -(instancetype)
 max:(NSArray *)args {
-  return [self newTerm:reql_ast_max :args];
+  return [self newTerm:_ReQL::REQL_MAX :args];
 }
 
 +(instancetype)
 maxval:(NSArray *)args {
-  return [self newTerm:reql_ast_maxval :args];
+  return [self newTerm:_ReQL::REQL_MAXVAL :args];
 }
 
 -(instancetype)
 maxval:(NSArray *)args {
-  return [self newTerm:reql_ast_maxval :args];
+  return [self newTerm:_ReQL::REQL_MAXVAL :args];
 }
 
 +(instancetype)
 may:(NSArray *)args {
-  return [self newTerm:reql_ast_may :args];
+  return [self newTerm:_ReQL::REQL_MAY :args];
 }
 
 -(instancetype)
 may:(NSArray *)args {
-  return [self newTerm:reql_ast_may :args];
+  return [self newTerm:_ReQL::REQL_MAY :args];
 }
 
 +(instancetype)
 merge:(NSArray *)args {
-  return [self newTerm:reql_ast_merge :args];
+  return [self newTerm:_ReQL::REQL_MERGE :args];
 }
 
 -(instancetype)
 merge:(NSArray *)args {
-  return [self newTerm:reql_ast_merge :args];
+  return [self newTerm:_ReQL::REQL_MERGE :args];
 }
 
 +(instancetype)
 min:(NSArray *)args {
-  return [self newTerm:reql_ast_min :args];
+  return [self newTerm:_ReQL::REQL_MIN :args];
 }
 
 -(instancetype)
 min:(NSArray *)args {
-  return [self newTerm:reql_ast_min :args];
+  return [self newTerm:_ReQL::REQL_MIN :args];
 }
 
 +(instancetype)
 minutes:(NSArray *)args {
-  return [self newTerm:reql_ast_minutes :args];
+  return [self newTerm:_ReQL::REQL_MINUTES :args];
 }
 
 -(instancetype)
 minutes:(NSArray *)args {
-  return [self newTerm:reql_ast_minutes :args];
+  return [self newTerm:_ReQL::REQL_MINUTES :args];
 }
 
 +(instancetype)
 minval:(NSArray *)args {
-  return [self newTerm:reql_ast_minval :args];
+  return [self newTerm:_ReQL::REQL_MINVAL :args];
 }
 
 -(instancetype)
 minval:(NSArray *)args {
-  return [self newTerm:reql_ast_minval :args];
+  return [self newTerm:_ReQL::REQL_MINVAL :args];
 }
 
 +(instancetype)
 mod:(NSArray *)args {
-  return [self newTerm:reql_ast_mod :args];
+  return [self newTerm:_ReQL::REQL_MOD :args];
 }
 
 -(instancetype)
 mod:(NSArray *)args {
-  return [self newTerm:reql_ast_mod :args];
+  return [self newTerm:_ReQL::REQL_MOD :args];
 }
 
 +(instancetype)
 monday:(NSArray *)args {
-  return [self newTerm:reql_ast_monday :args];
+  return [self newTerm:_ReQL::REQL_MONDAY :args];
 }
 
 -(instancetype)
 monday:(NSArray *)args {
-  return [self newTerm:reql_ast_monday :args];
+  return [self newTerm:_ReQL::REQL_MONDAY :args];
 }
 
 +(instancetype)
 month:(NSArray *)args {
-  return [self newTerm:reql_ast_month :args];
+  return [self newTerm:_ReQL::REQL_MONTH :args];
 }
 
 -(instancetype)
 month:(NSArray *)args {
-  return [self newTerm:reql_ast_month :args];
+  return [self newTerm:_ReQL::REQL_MONTH :args];
 }
 
 +(instancetype)
 mul:(NSArray *)args {
-  return [self newTerm:reql_ast_mul :args];
+  return [self newTerm:_ReQL::REQL_MUL :args];
 }
 
 -(instancetype)
 mul:(NSArray *)args {
-  return [self newTerm:reql_ast_mul :args];
+  return [self newTerm:_ReQL::REQL_MUL :args];
 }
 
 +(instancetype)
 ne:(NSArray *)args {
-  return [self newTerm:reql_ast_ne :args];
+  return [self newTerm:_ReQL::REQL_NE :args];
 }
 
 -(instancetype)
 ne:(NSArray *)args {
-  return [self newTerm:reql_ast_ne :args];
+  return [self newTerm:_ReQL::REQL_NE :args];
 }
 
 +(instancetype)
 not:(NSArray *)args {
-  return [self newTerm:reql_ast_not :args];
+  return [self newTerm:_ReQL::REQL_NOT :args];
 }
 
 -(instancetype)
 not:(NSArray *)args {
-  return [self newTerm:reql_ast_not :args];
+  return [self newTerm:_ReQL::REQL_NOT :args];
 }
 
 +(instancetype)
 november:(NSArray *)args {
-  return [self newTerm:reql_ast_november :args];
+  return [self newTerm:_ReQL::REQL_NOVEMBER :args];
 }
 
 -(instancetype)
 november:(NSArray *)args {
-  return [self newTerm:reql_ast_november :args];
+  return [self newTerm:_ReQL::REQL_NOVEMBER :args];
 }
 
 +(instancetype)
 now:(NSArray *)args {
-  return [self newTerm:reql_ast_now :args];
+  return [self newTerm:_ReQL::REQL_NOW :args];
 }
 
 -(instancetype)
 now:(NSArray *)args {
-  return [self newTerm:reql_ast_now :args];
+  return [self newTerm:_ReQL::REQL_NOW :args];
 }
 
 +(instancetype)
 nth:(NSArray *)args {
-  return [self newTerm:reql_ast_nth :args];
+  return [self newTerm:_ReQL::REQL_NTH :args];
 }
 
 -(instancetype)
 nth:(NSArray *)args {
-  return [self newTerm:reql_ast_nth :args];
+  return [self newTerm:_ReQL::REQL_NTH :args];
 }
 
 +(instancetype)
 object:(NSArray *)args {
-  return [self newTerm:reql_ast_object :args];
+  return [self newTerm:_ReQL::REQL_OBJECT :args];
 }
 
 -(instancetype)
 object:(NSArray *)args {
-  return [self newTerm:reql_ast_object :args];
+  return [self newTerm:_ReQL::REQL_OBJECT :args];
 }
 
 +(instancetype)
 october:(NSArray *)args {
-  return [self newTerm:reql_ast_october :args];
+  return [self newTerm:_ReQL::REQL_OCTOBER :args];
 }
 
 -(instancetype)
 october:(NSArray *)args {
-  return [self newTerm:reql_ast_october :args];
+  return [self newTerm:_ReQL::REQL_OCTOBER :args];
 }
 
 +(instancetype)
 offsets_of:(NSArray *)args {
-  return [self newTerm:reql_ast_offsets_of :args];
+  return [self newTerm:_ReQL::REQL_OFFSETS_OF :args];
 }
 
 -(instancetype)
 offsets_of:(NSArray *)args {
-  return [self newTerm:reql_ast_offsets_of :args];
+  return [self newTerm:_ReQL::REQL_OFFSETS_OF :args];
 }
 
 +(instancetype)
 or:(NSArray *)args {
-  return [self newTerm:reql_ast_or :args];
+  return [self newTerm:_ReQL::REQL_OR :args];
 }
 
 -(instancetype)
 or:(NSArray *)args {
-  return [self newTerm:reql_ast_or :args];
+  return [self newTerm:_ReQL::REQL_OR :args];
 }
 
 +(instancetype)
 order_by:(NSArray *)args :(NSDictionary *)kwargs {
-  return [self newTerm:reql_ast_order_by :args :kwargs];
+  return [self newTerm:_ReQL::REQL_ORDER_BY :args :kwargs];
 }
 
 -(instancetype)
 order_by:(NSArray *)args :(NSDictionary *)kwargs {
-  return [self newTerm:reql_ast_order_by :args :kwargs];
+  return [self newTerm:_ReQL::REQL_ORDER_BY :args :kwargs];
 }
 
 +(instancetype)
 outer_join:(NSArray *)args {
-  return [self newTerm:reql_ast_outer_join :args];
+  return [self newTerm:_ReQL::REQL_OUTER_JOIN :args];
 }
 
 -(instancetype)
 outer_join:(NSArray *)args {
-  return [self newTerm:reql_ast_outer_join :args];
+  return [self newTerm:_ReQL::REQL_OUTER_JOIN :args];
 }
 
 +(instancetype)
 pluck:(NSArray *)args {
-  return [self newTerm:reql_ast_pluck :args];
+  return [self newTerm:_ReQL::REQL_PLUCK :args];
 }
 
 -(instancetype)
 pluck:(NSArray *)args {
-  return [self newTerm:reql_ast_pluck :args];
+  return [self newTerm:_ReQL::REQL_PLUCK :args];
 }
 
 +(instancetype)
 point:(NSArray *)args {
-  return [self newTerm:reql_ast_point :args];
+  return [self newTerm:_ReQL::REQL_POINT :args];
 }
 
 -(instancetype)
 point:(NSArray *)args {
-  return [self newTerm:reql_ast_point :args];
+  return [self newTerm:_ReQL::REQL_POINT :args];
 }
 
 +(instancetype)
 polygon:(NSArray *)args {
-  return [self newTerm:reql_ast_polygon :args];
+  return [self newTerm:_ReQL::REQL_POLYGON :args];
 }
 
 -(instancetype)
 polygon:(NSArray *)args {
-  return [self newTerm:reql_ast_polygon :args];
+  return [self newTerm:_ReQL::REQL_POLYGON :args];
 }
 
 +(instancetype)
 polygon_sub:(NSArray *)args {
-  return [self newTerm:reql_ast_polygon_sub :args];
+  return [self newTerm:_ReQL::REQL_POLYGON_SUB :args];
 }
 
 -(instancetype)
 polygon_sub:(NSArray *)args {
-  return [self newTerm:reql_ast_polygon_sub :args];
+  return [self newTerm:_ReQL::REQL_POLYGON_SUB :args];
 }
 
 +(instancetype)
 prepend:(NSArray *)args {
-  return [self newTerm:reql_ast_prepend :args];
+  return [self newTerm:_ReQL::REQL_PREPEND :args];
 }
 
 -(instancetype)
 prepend:(NSArray *)args {
-  return [self newTerm:reql_ast_prepend :args];
+  return [self newTerm:_ReQL::REQL_PREPEND :args];
 }
 
 +(instancetype)
 random:(NSArray *)args :(NSDictionary *)kwargs {
-  return [self newTerm:reql_ast_random :args :kwargs];
+  return [self newTerm:_ReQL::REQL_RANDOM :args :kwargs];
 }
 
 -(instancetype)
 random:(NSArray *)args :(NSDictionary *)kwargs {
-  return [self newTerm:reql_ast_random :args :kwargs];
+  return [self newTerm:_ReQL::REQL_RANDOM :args :kwargs];
 }
 
 +(instancetype)
 range:(NSArray *)args {
-  return [self newTerm:reql_ast_range :args];
+  return [self newTerm:_ReQL::REQL_RANGE :args];
 }
 
 -(instancetype)
 range:(NSArray *)args {
-  return [self newTerm:reql_ast_range :args];
+  return [self newTerm:_ReQL::REQL_RANGE :args];
 }
 
 +(instancetype)
 rebalance:(NSArray *)args {
-  return [self newTerm:reql_ast_rebalance :args];
+  return [self newTerm:_ReQL::REQL_REBALANCE :args];
 }
 
 -(instancetype)
 rebalance:(NSArray *)args {
-  return [self newTerm:reql_ast_rebalance :args];
+  return [self newTerm:_ReQL::REQL_REBALANCE :args];
 }
 
 +(instancetype)
 reconfigure:(NSArray *)args {
-  return [self newTerm:reql_ast_reconfigure :args];
+  return [self newTerm:_ReQL::REQL_RECONFIGURE :args];
 }
 
 -(instancetype)
 reconfigure:(NSArray *)args {
-  return [self newTerm:reql_ast_reconfigure :args];
+  return [self newTerm:_ReQL::REQL_RECONFIGURE :args];
 }
 
 +(instancetype)
 reduce:(NSArray *)args {
-  return [self newTerm:reql_ast_reduce :args];
+  return [self newTerm:_ReQL::REQL_REDUCE :args];
 }
 
 -(instancetype)
 reduce:(NSArray *)args {
-  return [self newTerm:reql_ast_reduce :args];
+  return [self newTerm:_ReQL::REQL_REDUCE :args];
 }
 
 +(instancetype)
 replace:(NSArray *)args :(NSDictionary *)kwargs {
-  return [self newTerm:reql_ast_replace :args :kwargs];
+  return [self newTerm:_ReQL::REQL_REPLACE :args :kwargs];
 }
 
 -(instancetype)
 replace:(NSArray *)args :(NSDictionary *)kwargs {
-  return [self newTerm:reql_ast_replace :args :kwargs];
+  return [self newTerm:_ReQL::REQL_REPLACE :args :kwargs];
 }
 
 +(instancetype)
 round:(NSArray *)args {
-  return [self newTerm:reql_ast_round :args];
+  return [self newTerm:_ReQL::REQL_ROUND :args];
 }
 
 -(instancetype)
 round:(NSArray *)args {
-  return [self newTerm:reql_ast_round :args];
+  return [self newTerm:_ReQL::REQL_ROUND :args];
 }
 
 +(instancetype)
 sample:(NSArray *)args {
-  return [self newTerm:reql_ast_sample :args];
+  return [self newTerm:_ReQL::REQL_SAMPLE :args];
 }
 
 -(instancetype)
 sample:(NSArray *)args {
-  return [self newTerm:reql_ast_sample :args];
+  return [self newTerm:_ReQL::REQL_SAMPLE :args];
 }
 
 +(instancetype)
 saturday:(NSArray *)args {
-  return [self newTerm:reql_ast_saturday :args];
+  return [self newTerm:_ReQL::REQL_SATURDAY :args];
 }
 
 -(instancetype)
 saturday:(NSArray *)args {
-  return [self newTerm:reql_ast_saturday :args];
+  return [self newTerm:_ReQL::REQL_SATURDAY :args];
 }
 
 +(instancetype)
 seconds:(NSArray *)args {
-  return [self newTerm:reql_ast_seconds :args];
+  return [self newTerm:_ReQL::REQL_SECONDS :args];
 }
 
 -(instancetype)
 seconds:(NSArray *)args {
-  return [self newTerm:reql_ast_seconds :args];
+  return [self newTerm:_ReQL::REQL_SECONDS :args];
 }
 
 +(instancetype)
 september:(NSArray *)args {
-  return [self newTerm:reql_ast_september :args];
+  return [self newTerm:_ReQL::REQL_SEPTEMBER :args];
 }
 
 -(instancetype)
 september:(NSArray *)args {
-  return [self newTerm:reql_ast_september :args];
+  return [self newTerm:_ReQL::REQL_SEPTEMBER :args];
 }
 
 +(instancetype)
 set_difference:(NSArray *)args {
-  return [self newTerm:reql_ast_set_difference :args];
+  return [self newTerm:_ReQL::REQL_SET_DIFFERENCE :args];
 }
 
 -(instancetype)
 set_difference:(NSArray *)args {
-  return [self newTerm:reql_ast_set_difference :args];
+  return [self newTerm:_ReQL::REQL_SET_DIFFERENCE :args];
 }
 
 +(instancetype)
 set_insert:(NSArray *)args {
-  return [self newTerm:reql_ast_set_insert :args];
+  return [self newTerm:_ReQL::REQL_SET_INSERT :args];
 }
 
 -(instancetype)
 set_insert:(NSArray *)args {
-  return [self newTerm:reql_ast_set_insert :args];
+  return [self newTerm:_ReQL::REQL_SET_INSERT :args];
 }
 
 +(instancetype)
 set_intersection:(NSArray *)args {
-  return [self newTerm:reql_ast_set_intersection :args];
+  return [self newTerm:_ReQL::REQL_SET_INTERSECTION :args];
 }
 
 -(instancetype)
 set_intersection:(NSArray *)args {
-  return [self newTerm:reql_ast_set_intersection :args];
+  return [self newTerm:_ReQL::REQL_SET_INTERSECTION :args];
 }
 
 +(instancetype)
 set_union:(NSArray *)args {
-  return [self newTerm:reql_ast_set_union :args];
+  return [self newTerm:_ReQL::REQL_SET_UNION :args];
 }
 
 -(instancetype)
 set_union:(NSArray *)args {
-  return [self newTerm:reql_ast_set_union :args];
+  return [self newTerm:_ReQL::REQL_SET_UNION :args];
 }
 
 +(instancetype)
 skip:(NSArray *)args {
-  return [self newTerm:reql_ast_skip :args];
+  return [self newTerm:_ReQL::REQL_SKIP :args];
 }
 
 -(instancetype)
 skip:(NSArray *)args {
-  return [self newTerm:reql_ast_skip :args];
+  return [self newTerm:_ReQL::REQL_SKIP :args];
 }
 
 +(instancetype)
 slice:(NSArray *)args :(NSDictionary *)kwargs {
-  return [self newTerm:reql_ast_slice :args :kwargs];
+  return [self newTerm:_ReQL::REQL_SLICE :args :kwargs];
 }
 
 -(instancetype)
 slice:(NSArray *)args :(NSDictionary *)kwargs {
-  return [self newTerm:reql_ast_slice :args :kwargs];
+  return [self newTerm:_ReQL::REQL_SLICE :args :kwargs];
 }
 
 +(instancetype)
 splice_at:(NSArray *)args {
-  return [self newTerm:reql_ast_splice_at :args];
+  return [self newTerm:_ReQL::REQL_SPLICE_AT :args];
 }
 
 -(instancetype)
 splice_at:(NSArray *)args {
-  return [self newTerm:reql_ast_splice_at :args];
+  return [self newTerm:_ReQL::REQL_SPLICE_AT :args];
 }
 
 +(instancetype)
 split:(NSArray *)args {
-  return [self newTerm:reql_ast_split :args];
+  return [self newTerm:_ReQL::REQL_SPLIT :args];
 }
 
 -(instancetype)
 split:(NSArray *)args {
-  return [self newTerm:reql_ast_split :args];
+  return [self newTerm:_ReQL::REQL_SPLIT :args];
 }
 
 +(instancetype)
 status:(NSArray *)args {
-  return [self newTerm:reql_ast_status :args];
+  return [self newTerm:_ReQL::REQL_STATUS :args];
 }
 
 -(instancetype)
 status:(NSArray *)args {
-  return [self newTerm:reql_ast_status :args];
+  return [self newTerm:_ReQL::REQL_STATUS :args];
 }
 
 +(instancetype)
 sub:(NSArray *)args {
-  return [self newTerm:reql_ast_sub :args];
+  return [self newTerm:_ReQL::REQL_SUB :args];
 }
 
 -(instancetype)
 sub:(NSArray *)args {
-  return [self newTerm:reql_ast_sub :args];
+  return [self newTerm:_ReQL::REQL_SUB :args];
 }
 
 +(instancetype)
 sum:(NSArray *)args {
-  return [self newTerm:reql_ast_sum :args];
+  return [self newTerm:_ReQL::REQL_SUM :args];
 }
 
 -(instancetype)
 sum:(NSArray *)args {
-  return [self newTerm:reql_ast_sum :args];
+  return [self newTerm:_ReQL::REQL_SUM :args];
 }
 
 +(instancetype)
 sunday:(NSArray *)args {
-  return [self newTerm:reql_ast_sunday :args];
+  return [self newTerm:_ReQL::REQL_SUNDAY :args];
 }
 
 -(instancetype)
 sunday:(NSArray *)args {
-  return [self newTerm:reql_ast_sunday :args];
+  return [self newTerm:_ReQL::REQL_SUNDAY :args];
 }
 
 +(instancetype)
 sync:(NSArray *)args {
-  return [self newTerm:reql_ast_sync :args];
+  return [self newTerm:_ReQL::REQL_SYNC :args];
 }
 
 -(instancetype)
 sync:(NSArray *)args {
-  return [self newTerm:reql_ast_sync :args];
+  return [self newTerm:_ReQL::REQL_SYNC :args];
 }
 
 +(instancetype)
 table:(NSArray *)args :(NSDictionary *)kwargs {
-  return [self newTerm:reql_ast_table :args :kwargs];
+  return [self newTerm:_ReQL::REQL_TABLE :args :kwargs];
 }
 
 -(instancetype)
 table:(NSArray *)args :(NSDictionary *)kwargs {
-  return [self newTerm:reql_ast_table :args :kwargs];
+  return [self newTerm:_ReQL::REQL_TABLE :args :kwargs];
 }
 
 +(instancetype)
 table_create:(NSArray *)args :(NSDictionary *)kwargs {
-  return [self newTerm:reql_ast_table_create :args :kwargs];
+  return [self newTerm:_ReQL::REQL_TABLE_CREATE :args :kwargs];
 }
 
 -(instancetype)
 table_create:(NSArray *)args :(NSDictionary *)kwargs {
-  return [self newTerm:reql_ast_table_create :args :kwargs];
+  return [self newTerm:_ReQL::REQL_TABLE_CREATE :args :kwargs];
 }
 
 +(instancetype)
 table_drop:(NSArray *)args {
-  return [self newTerm:reql_ast_table_drop :args];
+  return [self newTerm:_ReQL::REQL_TABLE_DROP :args];
 }
 
 -(instancetype)
 table_drop:(NSArray *)args {
-  return [self newTerm:reql_ast_table_drop :args];
+  return [self newTerm:_ReQL::REQL_TABLE_DROP :args];
 }
 
 +(instancetype)
 table_list:(NSArray *)args {
-  return [self newTerm:reql_ast_table_list :args];
+  return [self newTerm:_ReQL::REQL_TABLE_LIST :args];
 }
 
 -(instancetype)
 table_list:(NSArray *)args {
-  return [self newTerm:reql_ast_table_list :args];
+  return [self newTerm:_ReQL::REQL_TABLE_LIST :args];
 }
 
 +(instancetype)
 thursday:(NSArray *)args {
-  return [self newTerm:reql_ast_thursday :args];
+  return [self newTerm:_ReQL::REQL_THURSDAY :args];
 }
 
 -(instancetype)
 thursday:(NSArray *)args {
-  return [self newTerm:reql_ast_thursday :args];
+  return [self newTerm:_ReQL::REQL_THURSDAY :args];
 }
 
 +(instancetype)
 time:(NSArray *)args {
-  return [self newTerm:reql_ast_time :args];
+  return [self newTerm:_ReQL::REQL_TIME :args];
 }
 
 -(instancetype)
 time:(NSArray *)args {
-  return [self newTerm:reql_ast_time :args];
+  return [self newTerm:_ReQL::REQL_TIME :args];
 }
 
 +(instancetype)
 timezone:(NSArray *)args {
-  return [self newTerm:reql_ast_timezone :args];
+  return [self newTerm:_ReQL::REQL_TIMEZONE :args];
 }
 
 -(instancetype)
 timezone:(NSArray *)args {
-  return [self newTerm:reql_ast_timezone :args];
+  return [self newTerm:_ReQL::REQL_TIMEZONE :args];
 }
 
 +(instancetype)
 time_of_day:(NSArray *)args {
-  return [self newTerm:reql_ast_time_of_day :args];
+  return [self newTerm:_ReQL::REQL_TIME_OF_DAY :args];
 }
 
 -(instancetype)
 time_of_day:(NSArray *)args {
-  return [self newTerm:reql_ast_time_of_day :args];
+  return [self newTerm:_ReQL::REQL_TIME_OF_DAY :args];
 }
 
 +(instancetype)
 to_epoch_time:(NSArray *)args {
-  return [self newTerm:reql_ast_to_epoch_time :args];
+  return [self newTerm:_ReQL::REQL_TO_EPOCH_TIME :args];
 }
 
 -(instancetype)
 to_epoch_time:(NSArray *)args {
-  return [self newTerm:reql_ast_to_epoch_time :args];
+  return [self newTerm:_ReQL::REQL_TO_EPOCH_TIME :args];
 }
 
 +(instancetype)
 to_geojson:(NSArray *)args {
-  return [self newTerm:reql_ast_to_geojson :args];
+  return [self newTerm:_ReQL::REQL_TO_GEOJSON :args];
 }
 
 -(instancetype)
 to_geojson:(NSArray *)args {
-  return [self newTerm:reql_ast_to_geojson :args];
+  return [self newTerm:_ReQL::REQL_TO_GEOJSON :args];
 }
 
 +(instancetype)
 to_iso8601:(NSArray *)args {
-  return [self newTerm:reql_ast_to_iso8601 :args];
+  return [self newTerm:_ReQL::REQL_TO_ISO8601 :args];
 }
 
 -(instancetype)
 to_iso8601:(NSArray *)args {
-  return [self newTerm:reql_ast_to_iso8601 :args];
+  return [self newTerm:_ReQL::REQL_TO_ISO8601 :args];
 }
 
 +(instancetype)
 to_json_string:(NSArray *)args {
-  return [self newTerm:reql_ast_to_json_string :args];
+  return [self newTerm:_ReQL::REQL_TO_JSON_STRING :args];
 }
 
 -(instancetype)
 to_json_string:(NSArray *)args {
-  return [self newTerm:reql_ast_to_json_string :args];
+  return [self newTerm:_ReQL::REQL_TO_JSON_STRING :args];
 }
 
 +(instancetype)
 tuesday:(NSArray *)args {
-  return [self newTerm:reql_ast_tuesday :args];
+  return [self newTerm:_ReQL::REQL_TUESDAY :args];
 }
 
 -(instancetype)
 tuesday:(NSArray *)args {
-  return [self newTerm:reql_ast_tuesday :args];
+  return [self newTerm:_ReQL::REQL_TUESDAY :args];
 }
 
 +(instancetype)
 type_of:(NSArray *)args {
-  return [self newTerm:reql_ast_type_of :args];
+  return [self newTerm:_ReQL::REQL_TYPE_OF :args];
 }
 
 -(instancetype)
 type_of:(NSArray *)args {
-  return [self newTerm:reql_ast_type_of :args];
+  return [self newTerm:_ReQL::REQL_TYPE_OF :args];
 }
 
 +(instancetype)
 ungroup:(NSArray *)args {
-  return [self newTerm:reql_ast_ungroup :args];
+  return [self newTerm:_ReQL::REQL_UNGROUP :args];
 }
 
 -(instancetype)
 ungroup:(NSArray *)args {
-  return [self newTerm:reql_ast_ungroup :args];
+  return [self newTerm:_ReQL::REQL_UNGROUP :args];
 }
 
 +(instancetype)
 union:(NSArray *)args {
-  return [self newTerm:reql_ast_union :args];
+  return [self newTerm:_ReQL::REQL_UNION :args];
 }
 
 -(instancetype)
 union:(NSArray *)args {
-  return [self newTerm:reql_ast_union :args];
+  return [self newTerm:_ReQL::REQL_UNION :args];
 }
 
 +(instancetype)
 upcase:(NSArray *)args {
-  return [self newTerm:reql_ast_upcase :args];
+  return [self newTerm:_ReQL::REQL_UPCASE :args];
 }
 
 -(instancetype)
 upcase:(NSArray *)args {
-  return [self newTerm:reql_ast_upcase :args];
+  return [self newTerm:_ReQL::REQL_UPCASE :args];
 }
 
 +(instancetype)
 update:(NSArray *)args :(NSDictionary *)kwargs {
-  return [self newTerm:reql_ast_update :args :kwargs];
+  return [self newTerm:_ReQL::REQL_UPDATE :args :kwargs];
 }
 
 -(instancetype)
 update:(NSArray *)args :(NSDictionary *)kwargs {
-  return [self newTerm:reql_ast_update :args :kwargs];
+  return [self newTerm:_ReQL::REQL_UPDATE :args :kwargs];
 }
 
 +(instancetype)
 uuid:(NSArray *)args {
-  return [self newTerm:reql_ast_uuid :args];
+  return [self newTerm:_ReQL::REQL_UUID :args];
 }
 
 -(instancetype)
 uuid:(NSArray *)args {
-  return [self newTerm:reql_ast_uuid :args];
+  return [self newTerm:_ReQL::REQL_UUID :args];
 }
 
 +(instancetype)
 values:(NSArray *)args {
-  return [self newTerm:reql_ast_values :args];
+  return [self newTerm:_ReQL::REQL_VALUES :args];
 }
 
 -(instancetype)
 values:(NSArray *)args {
-  return [self newTerm:reql_ast_values :args];
+  return [self newTerm:_ReQL::REQL_VALUES :args];
 }
 
 +(instancetype)
 var:(NSArray *)args {
-  return [self newTerm:reql_ast_var :args];
+  return [self newTerm:_ReQL::REQL_VAR :args];
 }
 
 -(instancetype)
 var:(NSArray *)args {
-  return [self newTerm:reql_ast_var :args];
+  return [self newTerm:_ReQL::REQL_VAR :args];
 }
 
 +(instancetype)
 wait:(NSArray *)args {
-  return [self newTerm:reql_ast_wait :args];
+  return [self newTerm:_ReQL::REQL_WAIT :args];
 }
 
 -(instancetype)
 wait:(NSArray *)args {
-  return [self newTerm:reql_ast_wait :args];
+  return [self newTerm:_ReQL::REQL_WAIT :args];
 }
 
 +(instancetype)
 wednesday:(NSArray *)args {
-  return [self newTerm:reql_ast_wednesday :args];
+  return [self newTerm:_ReQL::REQL_WEDNESDAY :args];
 }
 
 -(instancetype)
 wednesday:(NSArray *)args {
-  return [self newTerm:reql_ast_wednesday :args];
+  return [self newTerm:_ReQL::REQL_WEDNESDAY :args];
 }
 
 +(instancetype)
 without:(NSArray *)args {
-  return [self newTerm:reql_ast_without :args];
+  return [self newTerm:_ReQL::REQL_WITHOUT :args];
 }
 
 -(instancetype)
 without:(NSArray *)args {
-  return [self newTerm:reql_ast_without :args];
+  return [self newTerm:_ReQL::REQL_WITHOUT :args];
 }
 
 +(instancetype)
 with_fields:(NSArray *)args {
-  return [self newTerm:reql_ast_with_fields :args];
+  return [self newTerm:_ReQL::REQL_WITH_FIELDS :args];
 }
 
 -(instancetype)
 with_fields:(NSArray *)args {
-  return [self newTerm:reql_ast_with_fields :args];
+  return [self newTerm:_ReQL::REQL_WITH_FIELDS :args];
 }
 
 +(instancetype)
 year:(NSArray *)args {
-  return [self newTerm:reql_ast_year :args];
+  return [self newTerm:_ReQL::REQL_YEAR :args];
 }
 
 -(instancetype)
 year:(NSArray *)args {
-  return [self newTerm:reql_ast_year :args];
+  return [self newTerm:_ReQL::REQL_YEAR :args];
 }
 
 +(instancetype)
 zip:(NSArray *)args {
-  return [self newTerm:reql_ast_zip :args];
+  return [self newTerm:_ReQL::REQL_ZIP :args];
 }
 
 -(instancetype)
 zip:(NSArray *)args {
-  return [self newTerm:reql_ast_zip :args];
+  return [self newTerm:_ReQL::REQL_ZIP :args];
 }
 
 @end

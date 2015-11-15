@@ -46,6 +46,16 @@ public:
     return *this;
   }
 
+  Stream &operator <<(const typename str_t::value_type value) {
+    p_stream.push_back(std::to_string(value));
+    return *this;
+  }
+
+  Stream &operator <<(const double value) {
+    p_stream.push_back(std::to_string(value));
+    return *this;
+  }
+
   str_t str() {
     typename str_t::size_type size = 0;
     std::for_each(p_stream.cbegin(), p_stream.cend(), [&size](const str_t &_s){
