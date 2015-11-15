@@ -25,7 +25,7 @@ limitations under the License.
 #include "./reql/types.hpp"
 
 #include <algorithm>
-#include <sstream>
+#include <map>
 #include <string>
 #include <vector>
 
@@ -307,7 +307,7 @@ public:
   key_t p_key;
   value_t p_val;
 };
-  
+
 template <class map_t>
 class Obj_t {
 public:
@@ -452,6 +452,16 @@ public:
 
   str_t p_value;
 };
+
+typedef Any_t<_ReQL::Stream<std::string>> Any;
+typedef Array_t<std::vector<Any>> Array;
+typedef Null_t<_ReQL::Stream<std::string>> Null;
+typedef Num_t<double> Number;
+typedef String_t<std::string> String;
+typedef Obj_t<std::map<String, Any>> Object;
+typedef ReQL_Kwargs_t<Array, Object> ReQL_Kwargs;
+typedef ReQL_Args_t<Array> ReQL_Args;
+typedef ReQL_t<Stream<std::string>> ReQL;
 
 }  // namespace _ReQL
 
