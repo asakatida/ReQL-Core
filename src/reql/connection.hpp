@@ -27,10 +27,22 @@ limitations under the License.
 #include <atomic>
 #include <cstdint>
 #include <map>
+#include <mutex>
 #include <sstream>
 #include <string>
 #include <thread>
 
+#ifdef __MINGW32__
+#include <stdint.h>
+#include <io.h>
+
+typedef unsigned __LONG32 ULONG;
+typedef short SHORT;
+typedef unsigned char UCHAR;
+
+#include <nettypes.h>
+#include <netprov.h>
+#else
 #include <netdb.h>
 #include <netinet/in.h>
 #include <sys/select.h>
@@ -38,6 +50,7 @@ limitations under the License.
 #include <sys/types.h>
 #include <sys/uio.h>
 #include <unistd.h>
+#endif
 
 namespace _ReQL {
 
@@ -252,6 +265,17 @@ public:
   }
 
   void set_timeout(unsigned long s, unsigned long us) {
+#ifdef __MINGW32__
+    const struct timeval timeout = {static_cast<long>(s), static_cast<long>(us)};
+
+    if (setsockopt(p_socket.load(), SOL_SOCKET, SO_RCVTIMEO, reinterpret_cast<const char *>(&timeout), sizeof(struct timeval))) {
+      throw;
+    }
+
+    if (setsockopt(p_socket.load(), SOL_SOCKET, SO_SNDTIMEO, reinterpret_cast<const char *>(&timeout), sizeof(struct timeval))) {
+      throw;
+    }
+#else
     const struct timeval timeout = {static_cast<__darwin_time_t>(s), static_cast<__darwin_suseconds_t>(us)};
 
     if (setsockopt(p_socket.load(), SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(struct timeval))) {
@@ -261,8 +285,7 @@ public:
     if (setsockopt(p_socket.load(), SOL_SOCKET, SO_SNDTIMEO, &timeout, sizeof(struct timeval))) {
       throw;
     }
-
-    unlock();
+#endif
   }
 
   void set_timeout(unsigned long s) {
