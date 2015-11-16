@@ -21,6 +21,8 @@ limitations under the License.
 #ifndef REQL_CPP_TYPES_HPP_
 #define REQL_CPP_TYPES_HPP_
 
+#include "./reql/core.hpp"
+
 #include <map>
 #include <string>
 #include <vector>
@@ -28,8 +30,6 @@ limitations under the License.
 namespace ReQL {
 
 namespace _C {
-
-#include "./reql/core.h"
 
 namespace CTypes {
 
