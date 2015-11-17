@@ -26,14 +26,22 @@ limitations under the License.
 #include <atomic>
 #include <memory>
 #include <numeric>
+#include <stdexcept>
 
 namespace _ReQL {
 
-template <class char_t>
+template <class char_t, class Traits = std::char_traits<char_t>, class Allocator = std::allocator<char_t>>
 class _String {
 public:
-  typedef ReQL_Size size_type;
-  typedef char_t value_type;
+  typedef Traits traits_type;
+  typedef typename traits_type::char_type value_type;
+  typedef Allocator allocator_type;
+  typedef typename std::allocator_traits<allocator_type>::size_type size_type;
+  typedef typename std::allocator_traits<allocator_type>::difference_type difference_type;
+  typedef value_type& reference;
+  typedef const value_type& const_reference;
+  typedef typename std::allocator_traits<Allocator>::pointer pointer;
+  typedef typename std::allocator_traits<Allocator>::const_pointer const_pointer;
 
   _String() {}
 
@@ -41,8 +49,7 @@ public:
     *p_value = value;
   }
 
-  _String(const value_type *value) {
-    while (value[p_size++]) {} --p_size;
+  _String(const value_type *value) : p_size(traits_type::length(value) - 1){
     memcpy(value);
   }
 
@@ -51,7 +58,6 @@ public:
   }
 
   _String(const _String &other) : p_size(other.p_size), p_value(new value_type[other.p_size]) {
-    p_size = other.p_size;
     memcpy(other.c_str());
   }
 
@@ -94,8 +100,53 @@ public:
     exchange(nullptr);
   }
 
+  bool empty() const {
+    return !p_size;
+  }
+
   size_type size() const { return p_size; }
+
+  size_type length() const { return p_size; }
+
+  size_type capacity() const { return p_size; }
+
   value_type *c_str() const { return p_value.load(); }
+
+  reference at(size_type pos) {
+    if (pos >= size()) {
+      throw std::out_of_range("");
+    }
+    return p_value.load()[pos];
+  }
+
+  const_reference at(size_type pos) const {
+    if (pos >= size()) {
+      throw std::out_of_range("");
+    }
+    return p_value.load()[pos];
+  }
+
+  reference operator [](size_type pos) {
+    if (pos == size()) {
+      return value_type();
+    }
+    return at(pos);
+  }
+
+  const_reference operator [](size_type pos) const {
+    if (pos == size()) {
+      return value_type();
+    }
+    return at(pos);
+  }
+
+  char_t &front() {
+    return p_value.load();
+  }
+
+  const char_t &front() const {
+    return p_value.load();
+  }
 
 private:
   value_type *exchange(value_type *value) {
@@ -122,7 +173,7 @@ private:
   std::atomic<value_type *> p_value;
 };
 
-typedef _String<char> ImutableString;
+typedef _String<ReQL_Byte> ImmutableString;
 
 }  // namespace _ReQL
 
