@@ -36,6 +36,7 @@ public:
   void push(elem_t &&value) {
   }
   bool empty() {
+    return true;
   }
   void pop(elem_t &ref) {
   }
