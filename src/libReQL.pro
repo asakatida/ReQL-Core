@@ -32,8 +32,10 @@ HEADERS += \
   reql/core.hpp \
   reql/cursor.hpp \
   reql/decode.hpp \
+  reql/pipe.hpp \
   reql/query.hpp \
   reql/stream.hpp \
+  reql/string.hpp \
   reql/types.hpp \
   ReQL.hpp
 

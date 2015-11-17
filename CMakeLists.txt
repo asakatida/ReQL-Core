@@ -297,6 +297,7 @@ set(MOC_HEADERS
  src/reql/pipe.hpp
  src/reql/query.hpp
  src/reql/stream.hpp
+ src/reql/string.hpp
  src/reql/types.hpp
 )
 
