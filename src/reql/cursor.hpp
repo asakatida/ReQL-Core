@@ -25,9 +25,6 @@ limitations under the License.
 #include "./reql/pipe.hpp"
 
 #include <atomic>
-#include <deque>
-#include <mutex>
-#include <thread>
 
 namespace _ReQL {
 
@@ -59,11 +56,9 @@ cur_loop(void *data) {
         break;
       }
       case REQL_SUCCESS_PARTIAL: {
-        cur->lock();
         if (cur->p_conn && cur->p_conn->isOpen()) {
           cur->p_conn->cont(cur->p_token);
         }
-        cur->unlock();
         break;
       }
       case REQL_CLIENT_ERROR:
@@ -96,21 +91,9 @@ public:
 
   Cur_t &operator =(Cur_t &&other) {
     if (this != &other) {
-      other.lock();
-      p_conn = std::move(other.p_conn);
-      p_events = std::move(other.p_events);
-      p_mutex = std::move(other.p_mutex);
-      p_open.store(other.p_open.load());
-      p_results = std::move(other.p_results);
-      p_thread = std::move(other.p_thread);
-      p_token = std::move(other.p_token);
-      unlock();
+      p_conn.store(other.p_conn.exchange(nullptr));
     }
     return *this;
-  }
-  
-  bool isOpen() {
-    return p_open.load();
   }
 
   void close() {
@@ -129,21 +112,13 @@ public:
     decode(res, parser_t(p_results));
   }
 
-  void lock() {
-    p_mutex.lock();
-  }
-
   void unlock() {
-    p_mutex.unlock();
   }
 
-  std::atomic<bool> p_open;
-  std::unique_lock<std::mutex> p_mutex;
-  std::thread p_thread;
-  ReQL_Token p_token;
-  conn_t *p_conn;
-  std::deque<event_t> p_events;
-  std::deque<typename parser_t::result_t> p_results;
+  Pipe<typename parser_t::result_t> p_ostream;
+  Pipe<ImmutableString> p_istream;
+  const ReQL_Token p_token;
+  std::atomic<conn_t *> p_conn;
 };
 
 }  // namespace _ReQL

@@ -189,7 +189,10 @@ public:
     }
 
     set_timeout();
-    p_thread = std::thread(conn_loop, this);
+
+    p_sink = Pipe<Token>([]() {
+    }).sink([](Token &) {
+    });
   }
 
   Conn_t(Conn_t &&other) : p_max_token(std::move(other.p_max_token)), p_cursors(std::move(other.p_cursors)), p_mutex(std::move(other.p_mutex)), p_socket(std::move(other.p_socket)), p_thread(std::move(other.p_thread)) {}
@@ -203,13 +206,9 @@ public:
 
   Conn_t &operator =(Conn_t &&other) {
     if (this != &other) {
-      other.lock();
       p_cursors = std::move(other.p_cursors);
       p_max_token.store(other.p_max_token.load());
-      p_mutex = std::move(other.p_mutex);
       p_socket.store(other.p_socket.load());
-      p_thread = std::move(other.p_thread);
-      unlock();
     }
     return *this;
   }
@@ -231,10 +230,6 @@ public:
     send(wire_query, t);
 
     cur_t cur(reinterpret_cast<typename cur_t::conn_t *>(this), t);
-
-    lock();
-    unlock();
-
     return cur;
   }
 
@@ -349,14 +344,6 @@ private:
     return res;
   }
 
-  void lock() {
-    return p_mutex.lock();
-  }
-
-  void unlock() {
-    return p_mutex.unlock();
-  }
-
   auto token() {
     return p_max_token++;
   }
@@ -397,11 +384,15 @@ private:
   static const ReQL_Size VERSION = 0x400c2d20;
   static const ReQL_Size PROTOCOL = 0x7e6970c7;
 
+  class BTree {
+  public:
+    std::mutex p_mutex;
+  };
+
   std::atomic<int> p_socket;
   std::atomic<ReQL_Token> p_max_token;
-  std::map<ReQL_Token, cur_t> p_cursors;
-  std::unique_lock<std::mutex> p_mutex;
-  std::thread p_thread;
+  BTree p_cursors;
+  typename Pipe<ImmutableString>::Sink p_sink;
 };
 
 }  // namespace _ReQL

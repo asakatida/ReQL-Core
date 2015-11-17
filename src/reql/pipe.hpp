@@ -31,10 +31,16 @@ public:
 template <class elem_t>
 class Pipe {
 public:
-  Queue<elem_t> p_queue;
-};
+  class Sink {
+  public:
 
-class Sink {
+  };
+  
+  template <class func_t>
+  auto sink(func_t func) {
+    return Sink(func, *this);
+  }
+  Queue<elem_t> p_queue;
 };
 
 }  // namespace _ReQL
