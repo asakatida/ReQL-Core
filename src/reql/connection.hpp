@@ -289,9 +289,7 @@ public:
   }
 
   void close() {
-    auto sock = p_socket.exchange(-1);
-    p_thread.join();
-    ::close(sock);
+    p_socket = -1;
   }
 
   void set_timeout(unsigned long s, unsigned long us) {
@@ -423,7 +421,7 @@ public:
     std::mutex p_mutex;
   };
 
-  std::atomic<int> p_socket;
+  Socket_t<int> p_socket;
   std::atomic<ReQL_Token> p_max_token;
   BTree p_cursors;
   typename Pipe<ImmutableString>::Sink p_sink;
