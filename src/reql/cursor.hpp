@@ -75,7 +75,6 @@ cur_loop(void *data) {
 
 template <class _conn_t, class parser_t, class event_t>
 class Cur_t {
-public:
   typedef _conn_t conn_t;
 
   Cur_t(conn_t *conn, ReQL_Token token) : p_token(token), p_conn(conn), p_open(true) {

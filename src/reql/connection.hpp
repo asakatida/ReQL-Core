@@ -292,7 +292,6 @@ public:
     set_timeout(0, 1);
   }
 
-private:
   template <class kwargs_t, class query_t>
   ImmutableString start(const query_t &query, const kwargs_t &kwargs) {
     _Stream wire_query;
