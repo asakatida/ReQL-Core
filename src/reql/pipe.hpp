@@ -93,10 +93,10 @@ public:
       }
       return *this;
     }
-    
+
     std::thread p_thread;
   };
-  
+
   template <class func_t>
   auto sink(func_t func) {
     return Sink(func, *this);
