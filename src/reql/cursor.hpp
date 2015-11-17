@@ -22,6 +22,7 @@ limitations under the License.
 #define REQL_REQL_CURSOR_HPP_
 
 #include "./reql/decode.hpp"
+#include "./reql/pipe.hpp"
 
 #include <atomic>
 #include <deque>

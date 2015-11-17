@@ -18,14 +18,25 @@ limitations under the License.
  * @copyright Apache
  */
 
-#ifndef REQL_REQL_CORE_HPP_
-#define REQL_REQL_CORE_HPP_
+#ifndef REQL_REQL_PIPE_HPP_
+#define REQL_REQL_PIPE_HPP_
 
-#include "./reql/connection.hpp"
-#include "./reql/cursor.hpp"
-#include "./reql/pipe.hpp"
-#include "./reql/query.hpp"
-#include "./reql/stream.hpp"
-#include "./reql/types.hpp"
+namespace _ReQL {
 
-#endif  // REQL_REQL_CORE_HPP_
+template <class elem_t>
+class Queue {
+public:
+};
+
+template <class elem_t>
+class Pipe {
+public:
+  Queue<elem_t> p_queue;
+};
+
+class Sink {
+};
+
+}  // namespace _ReQL
+
+#endif  // REQL_REQL_PIPE_HPP_

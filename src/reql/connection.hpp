@@ -21,6 +21,7 @@ limitations under the License.
 #ifndef REQL_REQL_CONNECTION_HPP_
 #define REQL_REQL_CONNECTION_HPP_
 
+#include "./reql/pipe.hpp"
 #include "./reql/query.hpp"
 #include "./reql/types.hpp"
 
