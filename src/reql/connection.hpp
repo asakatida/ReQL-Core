@@ -232,7 +232,7 @@ public:
     });
   }
 
-  Conn_t(Conn_t &&other) : p_max_token(std::move(other.p_max_token)), p_cursors(std::move(other.p_cursors)), p_mutex(std::move(other.p_mutex)), p_socket(std::move(other.p_socket)), p_thread(std::move(other.p_thread)) {}
+  Conn_t(Conn_t &&other) : p_max_token(std::move(other.p_max_token)), p_cursors(std::move(other.p_cursors)), p_socket(std::move(other.p_socket)) {}
 
   ~Conn_t() {
     close();
@@ -243,7 +243,7 @@ public:
     if (this != &other) {
       p_cursors = std::move(other.p_cursors);
       p_max_token.store(other.p_max_token.load());
-      p_socket.store(other.p_socket.load());
+      p_socket = std::move(other.p_socket);
     }
     return *this;
   }
