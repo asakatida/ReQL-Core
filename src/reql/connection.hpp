@@ -70,6 +70,41 @@ class Socket_t {
 public:
   Socket_t() : p_sock(-1) {}
 
+  Socket_t() : p_sock(-1) {
+    struct addrinfo hints;
+    struct addrinfo *result, *rp;
+
+    hints.ai_family = AF_UNSPEC;
+    hints.ai_socktype = SOCK_STREAM;
+    hints.ai_flags = 0;
+    hints.ai_protocol = IPPROTO_TCP;
+
+    if (getaddrinfo(addr.c_str(), port.c_str(), &hints, &result) != 0) {
+      throw;
+    }
+
+    sock_t sock = -1;
+
+    for (rp = result; rp != nullptr; rp = rp->ai_next) {
+      sock = socket(rp->ai_family, rp->ai_socktype, rp->ai_protocol);
+
+      if (sock == -1) continue;
+
+      if (connect(sock, rp->ai_addr, rp->ai_addrlen) != -1) break;
+
+      ::close(sock);
+    }
+
+    if (rp == nullptr) {
+      freeaddrinfo(result);
+      throw;
+    }
+
+    freeaddrinfo(result);
+
+    p_sock.store(sock);
+  }
+
   Socket_t(const sock_t sock) : p_sock(sock) {}
 
   Socket_t(Socket_t &&other) : p_sock(other.p_sock.exchange(-1)) {}
@@ -81,18 +116,33 @@ public:
     }
   }
 
+  ImmutableString read() const {}
+
+  ImmutableString read(size_t size) const {}
+
+  void write(const ImmutableString &out) const {}
+
   std::atomic<sock_t> p_sock;
 };
 
 template <class sock_t>
 class Handshake_t {
 public:
+  template <class in_func_t, class out_func_t>
+  Handshake_t(const sock_t &sock, in_func_t in, out_func_t out) {
+  }
 };
 
 template <class sock_t>
 class Protocol_t {
 public:
-  Protocol_t &operator <<() {
+  Protocol_t() {}
+
+  Protocol_t() p_sock() {
+    Handshake_t<sock_t>(p_sock, []() {}, []() {});
+  }
+
+  Protocol_t &operator <<(ImmutableString &query) {
     return *this;
   }
 
@@ -100,7 +150,7 @@ public:
     return *this;
   }
 
-  Socket_t<sock_t> p_sock;
+  sock_t p_sock;
 };
 
 template <class conn_t>
@@ -171,36 +221,6 @@ public:
   };
 
   Conn_t(std::string &addr, std::string &port, std::string &auth) : p_socket(-1) {
-    struct addrinfo hints;
-    struct addrinfo *result, *rp;
-
-    hints.ai_family = AF_UNSPEC;
-    hints.ai_socktype = SOCK_STREAM;
-    hints.ai_flags = 0;
-    hints.ai_protocol = IPPROTO_TCP;
-
-    if (getaddrinfo(addr.c_str(), port.c_str(), &hints, &result) != 0) {
-      throw;
-    }
-
-    int sock = -1;
-
-    for (rp = result; rp != nullptr; rp = rp->ai_next) {
-      sock = socket(rp->ai_family, rp->ai_socktype, rp->ai_protocol);
-
-      if (sock == -1) continue;
-
-      if (connect(sock, rp->ai_addr, rp->ai_addrlen) != -1) break;
-
-      ::close(sock);
-    }
-
-    if (rp == nullptr) {
-      freeaddrinfo(result);
-      throw;
-    }
-
-    freeaddrinfo(result);
 
     p_socket.store(sock);
 
