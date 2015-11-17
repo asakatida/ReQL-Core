@@ -113,6 +113,8 @@ public:
 
   value_type *c_str() const { return p_value.load(); }
 
+  value_type *data() const { return p_value.load(); }
+
   reference at(size_type pos) {
     if (pos >= size()) {
       throw std::out_of_range("");
