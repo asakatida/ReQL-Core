@@ -65,6 +65,32 @@ get_token(const byte_t *buf) {
   return (static_cast<ReQL_Token>(buf[0])<<0) | (static_cast<ReQL_Token>(buf[1])<<8) | (static_cast<ReQL_Token>(buf[2])<<16) | (static_cast<ReQL_Token>(buf[3])<<24) | (static_cast<ReQL_Token>(buf[4])<<32) | (static_cast<ReQL_Token>(buf[5])<<40) | (static_cast<ReQL_Token>(buf[6])<<48) | (static_cast<ReQL_Token>(buf[7])<<56);
 }
 
+template <class sock_t>
+class Socket_t {
+public:
+  Socket_t() : p_sock(-1) {}
+
+  Socket_t(const sock_t sock) : p_sock(sock) {}
+
+  Socket_t(Socket_t &&other) : p_sock(other.p_sock.exchange(-1)) {}
+
+  ~Socket_t() {
+	sock = p_sock.exchange(-1);
+    if (sock >= 0) {
+      ::close(sock);
+    }
+  }
+
+  std::atomic<sock_t> p_sock;
+};
+
+template <class sock_t>
+class Handshake_t {
+public:
+
+  Socket_t<sock_t> p_sock;
+};
+
 template <class conn_t>
 void *
 conn_loop(void *data) {
