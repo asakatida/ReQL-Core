@@ -21,6 +21,13 @@ limitations under the License.
 #ifndef REQL_REQL_PIPE_HPP_
 #define REQL_REQL_PIPE_HPP_
 
+#include <atomic>
+#include <condition_variable>
+#include <exception>
+#include <functional>
+#include <mutex>
+#include <thread>
+
 namespace _ReQL {
 
 template <class elem_t>
