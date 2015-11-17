@@ -298,7 +298,7 @@ public:
 
 private:
   template <class kwargs_t, class query_t>
-  ImutableString start(const query_t &query, const kwargs_t &kwargs) {
+  ImmutableString start(const query_t &query, const kwargs_t &kwargs) {
     _Stream wire_query;
     wire_query << "[" << static_cast<int>(REQL_START) << ",";
     query.toJSON(wire_query);
@@ -308,7 +308,7 @@ private:
     return wire_query.str();
   }
 
-  void send(const ImutableString &wire_query, ReQL_Token t) {
+  void send(const ImmutableString &wire_query, ReQL_Token t) {
     auto size = wire_query.size();
 
     if (size > UINT32_MAX) {
@@ -368,7 +368,7 @@ private:
     REQL_STOP = 3
   };
 
-  static ImutableString constant(const Query_e type) {
+  static ImmutableString constant(const Query_e type) {
     _Stream wire_query;
     wire_query << "[" << static_cast<int>(type) << "]";
     return wire_query.str();

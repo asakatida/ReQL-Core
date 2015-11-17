@@ -67,7 +67,7 @@ public:
   std::deque<string_type> p_stream;
 };
 
-typedef _ReQL::Stream<ImutableString> _Stream;
+typedef _ReQL::Stream<ImmutableString> _Stream;
 
 }  // namespace _ReQL
 
