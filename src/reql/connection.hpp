@@ -126,8 +126,8 @@ conn_loop(void *data) {
           size = 0;
         }
       } else if (response.length() >= 12) {
-        token = get_64(response.c_str());
-        size = get_32(&response.c_str()[8]);
+        token = get_token(response.c_str());
+        size = get_size(&response.c_str()[8]);
         response = response.substr(12);
         response.reserve(size);
       }
