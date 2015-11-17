@@ -97,11 +97,6 @@ class Cur_t {
     p_conn = nullptr;
   }
 
-  template <class str_t>
-  void set(const str_t &res) {
-    decode(res, parser_t(p_results));
-  }
-
   Pipe<typename parser_t::result_t> p_ostream;
   Pipe<ImmutableString> p_istream;
   const ReQL_Token p_token;
