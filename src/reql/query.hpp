@@ -22,6 +22,7 @@ limitations under the License.
 #define REQL_REQL_QUERY_HPP_
 
 #include "./reql/stream.hpp"
+#include "./reql/string.hpp"
 #include "./reql/types.hpp"
 
 #include <algorithm>

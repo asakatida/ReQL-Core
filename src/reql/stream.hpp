@@ -21,6 +21,8 @@ limitations under the License.
 #ifndef REQL_REQL_STREAM_HPP_
 #define REQL_REQL_STREAM_HPP_
 
+#include "./reql/string.hpp"
+
 #include <algorithm>
 #include <deque>
 #include <string>
