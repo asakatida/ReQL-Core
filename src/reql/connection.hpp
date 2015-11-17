@@ -27,7 +27,6 @@ limitations under the License.
 #include "./reql/types.hpp"
 
 #include <atomic>
-#include <cstdint>
 #include <map>
 #include <mutex>
 #include <thread>
@@ -54,14 +53,16 @@ typedef unsigned char UCHAR;
 
 namespace _ReQL {
 
-uint32_t
-get_32(const char *buf) {
-  return (static_cast<uint32_t>(buf[0])<<0) | (static_cast<uint32_t>(buf[1])<<8) | (static_cast<uint32_t>(buf[2])<<16) | (static_cast<uint32_t>(buf[3])<<24);
+template <class byte_t>
+ReQL_Size
+get_size(const byte_t *buf) {
+  return (static_cast<ReQL_Size>(buf[0])<<0) | (static_cast<ReQL_Size>(buf[1])<<8) | (static_cast<ReQL_Size>(buf[2])<<16) | (static_cast<ReQL_Size>(buf[3])<<24);
 }
 
-uint64_t
-get_64(const char *buf) {
-  return (static_cast<uint64_t>(buf[0])<<0) | (static_cast<uint64_t>(buf[1])<<8) | (static_cast<uint64_t>(buf[2])<<16) | (static_cast<uint64_t>(buf[3])<<24) | (static_cast<uint64_t>(buf[4])<<32) | (static_cast<uint64_t>(buf[5])<<40) | (static_cast<uint64_t>(buf[6])<<48) | (static_cast<uint64_t>(buf[7])<<56);
+template <class byte_t>
+ReQL_Token
+get_token(const byte_t *buf) {
+  return (static_cast<ReQL_Token>(buf[0])<<0) | (static_cast<ReQL_Token>(buf[1])<<8) | (static_cast<ReQL_Token>(buf[2])<<16) | (static_cast<ReQL_Token>(buf[3])<<24) | (static_cast<ReQL_Token>(buf[4])<<32) | (static_cast<ReQL_Token>(buf[5])<<40) | (static_cast<ReQL_Token>(buf[6])<<48) | (static_cast<ReQL_Token>(buf[7])<<56);
 }
 
 template <class conn_t>
@@ -159,9 +160,9 @@ public:
 
     ReQL_Byte iov_base[3][4];
 
-    make_32(iov_base[0], VERSION);
-    make_32(iov_base[1], auth.size());
-    make_32(iov_base[2], PROTOCOL);
+    make_size(iov_base[0], VERSION);
+    make_size(iov_base[1], auth.size());
+    make_size(iov_base[2], PROTOCOL);
 
     struct iovec magic[4];
 
@@ -311,10 +312,10 @@ private:
     }
 
     ReQL_Byte token_bytes[8];
-    make_64(token_bytes, t);
+    make_token(token_bytes, t);
 
     ReQL_Byte size_buf[4];
-    make_32(size_buf, static_cast<ReQL_Size>(size));
+    make_size(size_buf, static_cast<ReQL_Size>(size));
 
     struct iovec data[3];
 
@@ -361,24 +362,22 @@ private:
     return wire_query.str();
   }
 
-  static void
-  make_32(char *buf, const uint32_t magic) {
+  static void make_size(char *buf, const ReQL_Size magic) {
     buf[0] = (magic >> 0) & 0xFF;
-    buf[1] = (magic >> 1) & 0xFF;
-    buf[2] = (magic >> 2) & 0xFF;
-    buf[3] = (magic >> 3) & 0xFF;
+    buf[1] = (magic >> 8) & 0xFF;
+    buf[2] = (magic >> 16) & 0xFF;
+    buf[3] = (magic >> 24) & 0xFF;
   }
 
-  static void
-  make_64(char *buf, const uint64_t magic) {
+  static void make_token(char *buf, const ReQL_Token magic) {
     buf[0] = (magic >> 0) & 0xFF;
-    buf[1] = (magic >> 1) & 0xFF;
-    buf[2] = (magic >> 2) & 0xFF;
-    buf[3] = (magic >> 3) & 0xFF;
-    buf[4] = (magic >> 4) & 0xFF;
-    buf[5] = (magic >> 5) & 0xFF;
-    buf[6] = (magic >> 6) & 0xFF;
-    buf[7] = (magic >> 7) & 0xFF;
+    buf[1] = (magic >> 8) & 0xFF;
+    buf[2] = (magic >> 16) & 0xFF;
+    buf[3] = (magic >> 24) & 0xFF;
+    buf[4] = (magic >> 32) & 0xFF;
+    buf[5] = (magic >> 40) & 0xFF;
+    buf[6] = (magic >> 48) & 0xFF;
+    buf[7] = (magic >> 56) & 0xFF;
   }
 
   static const ReQL_Size VERSION = 0x400c2d20;
