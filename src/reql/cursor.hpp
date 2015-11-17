@@ -73,20 +73,15 @@ cur_loop(void *data) {
   return nullptr;
 }
 
-template <class _conn_t, class parser_t, class event_t>
+template <class conn_t, class parser_t>
 class Cur_t {
-  typedef _conn_t conn_t;
+  Cur_t() { close(); }
 
-  Cur_t(conn_t *conn, ReQL_Token token) : p_token(token), p_conn(conn), p_open(true) {
-    p_thread = std::thread(cur_loop, this);
-  }
+  Cur_t(conn_t *conn, ReQL_Token token) : p_token(token), p_conn(conn) {}
 
-  Cur_t(Cur_t &&other) : p_open(other.p_open.load()), p_mutex(std::move(other.p_mutex)), p_thread(std::move(other.p_thread)), p_token(std::move(other.p_token)), p_conn(std::move(other.p_conn)), p_events(std::move(other.p_events)), p_results(std::move(other.p_results)) {}
+  Cur_t(Cur_t &&other) : p_token(std::move(other.p_token)), p_conn(std::move(other.p_conn)) {}
 
-  ~Cur_t() {
-    close();
-    p_thread.join();
-  }
+  ~Cur_t() { close(); }
 
   Cur_t &operator =(Cur_t &&other) {
     if (this != &other) {
@@ -96,22 +91,15 @@ class Cur_t {
   }
 
   void close() {
-    if (p_open.exchange(false)) {
-    }
-    lock();
     if (p_conn && p_conn->isOpen()) {
       p_conn->stop(p_token);
     }
     p_conn = nullptr;
-    unlock();
   }
 
   template <class str_t>
   void set(const str_t &res) {
     decode(res, parser_t(p_results));
-  }
-
-  void unlock() {
   }
 
   Pipe<typename parser_t::result_t> p_ostream;
