@@ -32,6 +32,8 @@ namespace _ReQL {
 template <class str_t>
 class Stream {
 public:
+  typedef str_t string_type;
+
   Stream &operator <<(const Stream &other) {
     p_stream.insert(p_stream.cend(), other.p_stream.cbegin(), other.p_stream.cend());
     return *this;
@@ -39,7 +41,7 @@ public:
 
   template <class object_t>
   Stream &operator <<(const object_t &value) {
-    p_stream.push_back(str_t(value));
+    p_stream.push_back(string_type(value));
     return *this;
   }
 
@@ -48,8 +50,8 @@ public:
     return *this;
   }
 
-  Stream &operator <<(const typename str_t::value_type value) {
-    p_stream.push_back(std::to_string(value));
+  Stream &operator <<(const typename string_type::value_type *value) {
+    p_stream.push_back(string_type(value));
     return *this;
   }
 
@@ -58,21 +60,14 @@ public:
     return *this;
   }
 
-  str_t str() {
-    typename str_t::size_type size = 0;
-    std::for_each(p_stream.cbegin(), p_stream.cend(), [&size](const str_t &_s){
-      size += _s.size();
-    });
-    str_t s;
-    s.reserve(size);
-    std::for_each(p_stream.cbegin(), p_stream.cend(), [&s](const str_t &_s){
-      s.append(_s);
-    });
-    return s;
+  string_type str() {
+    return string_type(p_stream.cbegin(), p_stream.cend());
   }
 
-  std::deque<str_t> p_stream;
+  std::deque<string_type> p_stream;
 };
+
+typedef _ReQL::Stream<ImutableString> _Stream;
 
 }  // namespace _ReQL
 

@@ -381,7 +381,7 @@ public:
 
   template <class stream_t>
   void toJSON(stream_t &stream) const {
-    const char json_esc[][6] = {
+    const typename stream_t::string_type::value_type json_esc[][6] = {
       {'\\', 'u', '0', '0', '0', '0'},  // 0x00
       {'\\', 'u', '0', '0', '0', '1'},  // 0x01
       {'\\', 'u', '0', '0', '0', '2'},  // 0x02
@@ -390,12 +390,12 @@ public:
       {'\\', 'u', '0', '0', '0', '5'},  // 0x05
       {'\\', 'u', '0', '0', '0', '6'},  // 0x06
       {'\\', 'u', '0', '0', '0', '7'},  // 0x07
-      {'\\', 0x62},  // 0x08
-      {'\\', 0x74},  // 0x09
-      {'\\', 0x6E},  // 0x0A
+      {'\\', 'b'},  // 0x08
+      {'\\', 't'},  // 0x09
+      {'\\', 'n'},  // 0x0A
       {'\\', 'u', '0', '0', '0', 'B'},  // 0x0B
-      {'\\', 0x66},  // 0x0C
-      {'\\', 0x72},  // 0x0D
+      {'\\', 'f'},  // 0x0C
+      {'\\', 'r'},  // 0x0D
       {'\\', 'u', '0', '0', '0', 'E'},  // 0x0E
       {'\\', 'u', '0', '0', '0', 'F'},  // 0x0F
       {'\\', 'u', '0', '0', '1', '0'},  // 0x10
@@ -438,7 +438,7 @@ public:
       if (idx <= 0x5C) {
         auto ext_size = json_size[idx];
         if (ext_size) {
-          stream << std::string(json_esc[idx], ext_size);
+          stream << typename stream_t::string_type(json_esc[idx], ext_size);
           continue;
         }
       }
@@ -454,15 +454,15 @@ public:
   str_t p_value;
 };
 
-typedef Any_t<_ReQL::Stream<std::string>> Any;
+typedef Any_t<_Stream> Any;
 typedef Array_t<std::vector<Any>> Array;
-typedef Null_t<_ReQL::Stream<std::string>> Null;
+typedef Null_t<_Stream> Null;
 typedef Num_t<double> Number;
 typedef String_t<std::string> String;
 typedef Obj_t<std::map<String, Any>> Object;
 typedef ReQL_Kwargs_t<Array, Object> ReQL_Kwargs;
 typedef ReQL_Args_t<Array> ReQL_Args;
-typedef ReQL_t<Stream<std::string>> ReQL;
+typedef ReQL_t<_Stream> ReQL;
 
 }  // namespace _ReQL
 

@@ -23,14 +23,13 @@ limitations under the License.
 
 #include "./reql/pipe.hpp"
 #include "./reql/query.hpp"
+#include "./reql/stream.hpp"
 #include "./reql/types.hpp"
 
 #include <atomic>
 #include <cstdint>
 #include <map>
 #include <mutex>
-#include <sstream>
-#include <string>
 #include <thread>
 
 #ifdef __MINGW32__
@@ -299,8 +298,8 @@ public:
 
 private:
   template <class kwargs_t, class query_t>
-  std::string start(const query_t &query, const kwargs_t &kwargs) {
-    Stream<std::string> wire_query;
+  ImutableString start(const query_t &query, const kwargs_t &kwargs) {
+    _Stream wire_query;
     wire_query << "[" << static_cast<int>(REQL_START) << ",";
     query.toJSON(wire_query);
     wire_query << ",";
@@ -309,8 +308,7 @@ private:
     return wire_query.str();
   }
 
-  template <class str_t>
-  void send(const str_t &wire_query, ReQL_Token t) {
+  void send(const ImutableString &wire_query, ReQL_Token t) {
     auto size = wire_query.size();
 
     if (size > UINT32_MAX) {
@@ -370,8 +368,8 @@ private:
     REQL_STOP = 3
   };
 
-  static auto constant(const Query_e type) {
-    std::stringstream wire_query;
+  static ImutableString constant(const Query_e type) {
+    _Stream wire_query;
     wire_query << "[" << static_cast<int>(type) << "]";
     return wire_query.str();
   }
