@@ -75,7 +75,7 @@ public:
   Socket_t(Socket_t &&other) : p_sock(other.p_sock.exchange(-1)) {}
 
   ~Socket_t() {
-	sock = p_sock.exchange(-1);
+    sock = p_sock.exchange(-1);
     if (sock >= 0) {
       ::close(sock);
     }
@@ -152,10 +152,10 @@ public:
   public:
     Token() {}
 
-	Token(ReQL_Token token, ImmutableString &&json) : p_token(token), p_json(std::move(json)) {}
+    Token(ReQL_Token token, ImmutableString &&json) : p_token(token), p_json(std::move(json)) {}
 
-	ReQL_Token p_token;
-	ImmutableString p_json;
+    ReQL_Token p_token;
+    ImmutableString p_json;
   };
 
   Conn_t(std::string &addr, std::string &port, std::string &auth) : p_socket(-1) {
