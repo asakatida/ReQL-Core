@@ -200,9 +200,7 @@ public:
 
   ~Conn_t() {
     close();
-    for (auto &&pair : p_cursors) {
-      pair.second.close();
-    }
+    p_cursors.close();
   }
 
   Conn_t &operator =(Conn_t &&other) {
@@ -384,6 +382,8 @@ public:
 
   class BTree {
   public:
+    void close() {
+    }
     std::mutex p_mutex;
   };
 
