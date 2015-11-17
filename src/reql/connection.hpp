@@ -148,6 +148,16 @@ public:
   template <class conn_t>
   friend void *conn_loop(void *data);
 
+  class Token {
+  public:
+    Token() {}
+
+	Token(ReQL_Token token, ImmutableString &&json) : p_token(token), p_json(std::move(json)) {}
+
+	ReQL_Token p_token;
+	ImmutableString p_json;
+  };
+
   Conn_t(std::string &addr, std::string &port, std::string &auth) : p_socket(-1) {
     struct addrinfo hints;
     struct addrinfo *result, *rp;
