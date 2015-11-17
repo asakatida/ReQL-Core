@@ -24,6 +24,7 @@ limitations under the License.
 #include "./reql/types.hpp"
 
 #include <atomic>
+#include <cstring>
 #include <memory>
 #include <numeric>
 #include <stdexcept>
