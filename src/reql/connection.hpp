@@ -87,6 +87,18 @@ public:
 template <class sock_t>
 class Handshake_t {
 public:
+};
+
+template <class sock_t>
+class Protocol_t {
+public:
+  Protocol_t &operator <<() {
+    return *this;
+  }
+
+  Protocol_t &operator >>(ImmutableString &result) {
+    return *this;
+  }
 
   Socket_t<sock_t> p_sock;
 };
