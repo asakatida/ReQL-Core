@@ -23,24 +23,30 @@ limitations under the License.
 
 #include "./cpp/types.hpp"
 
+#include <cstdint>
+#include <string>
+
 namespace ReQL {
 
-class Connection : public _C::CTypes::connection {
+class Connection {
 public:
   Connection();
-  explicit Connection(const Types::string &host);
-  Connection(const Types::string &host, const std::uint16_t &port);
-  Connection(const Types::string &host, const std::uint16_t &port, const Types::string &key);
+  explicit Connection(const std::string &host);
+  Connection(const std::string &host, const std::uint16_t &port);
+  Connection(const std::string &host, const std::uint16_t &port, const std::string &key);
 
   Connection(Connection &&other);
 
   Connection &operator=(Connection &&other);
 
-  ~Connection();
-
   bool isOpen() const;
 
   void close();
+
+  void reconnect();
+
+private:
+  _Connection p_conn;
 };
 
 }  // namespace ReQL

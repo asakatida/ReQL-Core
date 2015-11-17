@@ -23,31 +23,11 @@ limitations under the License.
 
 #include "./reql/core.hpp"
 
-#include <map>
-#include <string>
-#include <vector>
-
 namespace ReQL {
 
-namespace _C {
+class _Cursor;
+typedef _ReQL::Conn_t<_Cursor> _Connection;
 
-namespace CTypes {
-
-typedef std::unique_ptr<ReQL_Conn_t> connection;
-typedef std::unique_ptr<ReQL_Cur_t> cursor;
-
-}  // namespace CTypes
-}  // namespace _C
-
-class Query;
-
-namespace Types {
-
-typedef std::string string;
-typedef std::vector<Query> array;
-typedef std::map<string, Query> object;
-
-}  // namespace Types
 }  // namespace ReQL
 
 #endif  // REQL_CPP_TYPES_HPP_
