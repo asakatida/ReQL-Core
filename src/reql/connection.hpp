@@ -298,231 +298,58 @@ public:
     ImmutableString p_json;
   };
 
-  Conn_t(std::string &addr, std::string &port, std::string &auth) : p_socket(-1) {
-
-    p_socket.store(sock);
-
-    set_timeout(20, 0);
-
-    ReQL_Byte iov_base[3][4];
-
-    make_size(iov_base[0], VERSION);
-    make_size(iov_base[1], auth.size());
-    make_size(iov_base[2], PROTOCOL);
-
-    struct iovec magic[4];
-
-    magic[0].iov_base = iov_base[0];
-    magic[0].iov_len = 4;
-
-    magic[1].iov_base = iov_base[1];
-    magic[1].iov_len = 4;
-
-    magic[2].iov_base = const_cast<char *>(auth.c_str());
-    magic[2].iov_len = auth.size();
-
-    magic[3].iov_base = iov_base[2];
-    magic[3].iov_len = 4;
-
-    send(magic, 4, auth.size() + 12);
-    auto response = recv();
-
-    if (response.size() != 8) {
-      throw;
-    }
-
-    if (response != "SUCCESS") {
-      throw;
-    }
-
-    set_timeout();
-
+  Conn_t(std::string &addr, std::string &port, std::string &auth) : p_protocol(addr, port, auth) {
     p_sink = Pipe<Token>([]() {
     }).sink([](Token &) {
     });
   }
 
-  Conn_t(Conn_t &&other) : p_max_token(std::move(other.p_max_token)), p_cursors(std::move(other.p_cursors)), p_socket(std::move(other.p_socket)) {}
+  Conn_t(Conn_t &&other) : p_cursors(std::move(other.p_cursors)), p_protocol(std::move(other.p_protocol)) {}
 
   ~Conn_t() {
-    close();
     p_cursors.close();
   }
 
   Conn_t &operator =(Conn_t &&other) {
     if (this != &other) {
       p_cursors = std::move(other.p_cursors);
-      p_max_token.store(other.p_max_token.load());
-      p_socket = std::move(other.p_socket);
+      p_protocol = std::move(other.p_protocol);
     }
     return *this;
   }
 
   bool isOpen() const {
-    return p_socket.load() >= 0;
+    return p_protocol.p_sock.p_sock.load() >= 0;
   }
 
   template <class query_t>
   cur_t run(const query_t &query) {
-    return run(query, Obj_t<std::map<String_t<std::string>, String_t<std::string>>>(std::map<String_t<std::string>, String_t<std::string>>()));
+    Query_t<ImmutableString> q(1, query);
+    p_protocol << q;
   }
 
   template <class kwargs_t, class query_t>
   cur_t run(const query_t &query, const kwargs_t &kwargs) {
-    auto wire_query = start(query, kwargs);
-
-    const auto t = token();
-    send(wire_query, t);
-
-    cur_t cur(reinterpret_cast<typename cur_t::conn_t *>(this), t);
-    return cur;
+    Query_t<ImmutableString> q(1, query, kwargs);
+    p_protocol << q;
   }
 
   template <class kwargs_t, class query_t>
   void noReply(const query_t &query, const kwargs_t &kwargs) {
-    send(start(query, kwargs), token());
+    Query_t<ImmutableString> q(1, query, kwargs);
+    p_protocol << q;
   }
 
   void noReplyWait() {
-    const auto t = token();
-    cur_t cur(this, t);
-    send(constant(REQL_NOREPLY_WAIT), t);
-    cur.drain();
+    Query_t<ImmutableString> query(1, REQL_NOREPLY_WAIT);
+    p_protocol << query;
   }
-
-  void stop(ReQL_Token t) {
-    return send(constant(REQL_STOP), t);
-  }
-
-  void cont(ReQL_Token t) {
-    return send(constant(REQL_CONTINUE), t);
-  }
-
-  void close() {
-    p_socket = -1;
-  }
-
-  void set_timeout(unsigned long s, unsigned long us) {
-#ifdef __MINGW32__
-    const struct timeval timeout = {static_cast<long>(s), static_cast<long>(us)};
-
-    if (setsockopt(p_socket.load(), SOL_SOCKET, SO_RCVTIMEO, reinterpret_cast<const char *>(&timeout), sizeof(struct timeval))) {
-      throw;
-    }
-
-    if (setsockopt(p_socket.load(), SOL_SOCKET, SO_SNDTIMEO, reinterpret_cast<const char *>(&timeout), sizeof(struct timeval))) {
-      throw;
-    }
-#else
-    const struct timeval timeout = {static_cast<__darwin_time_t>(s), static_cast<__darwin_suseconds_t>(us)};
-
-    if (setsockopt(p_socket.load(), SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(struct timeval))) {
-      throw;
-    }
-
-    if (setsockopt(p_socket.load(), SOL_SOCKET, SO_SNDTIMEO, &timeout, sizeof(struct timeval))) {
-      throw;
-    }
-#endif
-  }
-
-  void set_timeout(unsigned long s) {
-    set_timeout(s, 0);
-  }
-
-  void set_timeout() {
-    set_timeout(0, 1);
-  }
-
-  template <class kwargs_t, class query_t>
-  ImmutableString start(const query_t &query, const kwargs_t &kwargs) {
-    _Stream wire_query;
-    wire_query << "[" << static_cast<int>(REQL_START) << ",";
-    query.toJSON(wire_query);
-    wire_query << ",";
-    kwargs.toJSON(wire_query);
-    wire_query << "]";
-    return wire_query.str();
-  }
-
-  void send(const ImmutableString &wire_query, ReQL_Token t) {
-    auto size = wire_query.size();
-
-    if (size > UINT32_MAX) {
-      throw std::exception();
-    }
-
-    ReQL_Byte token_bytes[8];
-    make_token(token_bytes, t);
-
-    ReQL_Byte size_buf[4];
-    make_size(size_buf, static_cast<ReQL_Size>(size));
-
-    struct iovec data[3];
-
-    data[0].iov_base = token_bytes;
-    data[0].iov_len = 8;
-
-    data[1].iov_base = size_buf;
-    data[1].iov_len = 4;
-
-    data[2].iov_base = const_cast<void *>(reinterpret_cast<const void *>(wire_query.data()));
-    data[2].iov_len = size;
-
-    if (writev(p_socket.load(), data, size) != (static_cast<ssize_t>(size) + 12)) {
-      throw std::exception();
-    }
-  }
-
-  auto recv(ReQL_Byte *buf, ReQL_Size max_size) {
-    return recvfrom(p_socket.load(), buf, max_size, 0, nullptr, nullptr);
-  }
-
-  auto recv() {
-    auto buf = new ReQL_Byte[200];
-    auto size = recvfrom(p_socket.load(), buf, 0, 0, nullptr, nullptr);
-    auto res = std::basic_string<ReQL_Byte>(buf, size);
-    delete buf;
-    return res;
-  }
-
-  auto token() {
-    return p_max_token++;
-  }
-
-  enum Query_e {
-    REQL_CONTINUE = 2,
-    REQL_NOREPLY_WAIT = 4,
-    REQL_START = 1,
-    REQL_STOP = 3
-  };
 
   static ImmutableString constant(const Query_e type) {
     _Stream wire_query;
     wire_query << "[" << static_cast<int>(type) << "]";
     return wire_query.str();
   }
-
-  static void make_size(char *buf, const ReQL_Size magic) {
-    buf[0] = (magic >> 0) & 0xFF;
-    buf[1] = (magic >> 8) & 0xFF;
-    buf[2] = (magic >> 16) & 0xFF;
-    buf[3] = (magic >> 24) & 0xFF;
-  }
-
-  static void make_token(char *buf, const ReQL_Token magic) {
-    buf[0] = (magic >> 0) & 0xFF;
-    buf[1] = (magic >> 8) & 0xFF;
-    buf[2] = (magic >> 16) & 0xFF;
-    buf[3] = (magic >> 24) & 0xFF;
-    buf[4] = (magic >> 32) & 0xFF;
-    buf[5] = (magic >> 40) & 0xFF;
-    buf[6] = (magic >> 48) & 0xFF;
-    buf[7] = (magic >> 56) & 0xFF;
-  }
-
-  static const ReQL_Size VERSION = 0x400c2d20;
-  static const ReQL_Size PROTOCOL = 0x7e6970c7;
 
   class BTree {
   public:
@@ -531,9 +358,9 @@ public:
     std::mutex p_mutex;
   };
 
-  Socket_t<int> p_socket;
   std::atomic<ReQL_Token> p_max_token;
   BTree p_cursors;
+  Protocol_t<Socket_t<int>> p_protocol;
   typename Pipe<ImmutableString>::Sink p_sink;
 };
 
