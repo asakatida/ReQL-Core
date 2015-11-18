@@ -38,7 +38,7 @@ class Cur_t {
 public:
   Cur_t() : p_token(-1) { close(); }
 
-  enum Response_t {
+  enum Response_e {
     REQL_CLIENT_ERROR = 16,
     REQL_COMPILE_ERROR = 17,
     REQL_RUNTIME_ERROR = 18,
