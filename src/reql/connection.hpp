@@ -184,16 +184,48 @@ class Protocol_t {
 public:
   Protocol_t() {}
 
-  Protocol_t() p_sock() {
-    Handshake_t<sock_t>(p_sock, []() {}, []() {});
+  template <class str_t>
+  Protocol_t(str_t &addr, str_t &port, str_t &auth) : p_sock(addr, port) {
+    Handshake_t<sock_t>(p_sock, auth);
   }
 
-  Protocol_t &operator <<(ImmutableString &query) {
+  template <class str_t>
+  Protocol_t &operator <<(Query_t<str_t> &query) {
+    auto wire_query = query.str();
+    auto size = wire_query.size();
+
+    if (size > UINT32_MAX) {
+      throw std::exception();
+    }
+
+    Stream<str_t> stream;
+
+    ReQL_Byte token_bytes[8];
+    make_token(token_bytes, query.token);
+
+    ReQL_Byte size_bytes[4];
+    make_size(size_bytes, static_cast<ReQL_Size>(size));
+
+    stream << str_t(token_bytes, 8) << str_t(size_bytes, 4) << wire_query;
+
+    p_sock.write(stream.str());
+
     return *this;
   }
 
-  Protocol_t &operator >>(ImmutableString &result) {
+  template <class str_t>
+  Protocol_t &operator >>(str_t &result) {
     return *this;
+  }
+
+  void stop(ReQL_Token t) {
+    Query_t<ImmutableString> query(t, REQL_STOP);
+    (*this) << query;
+  }
+
+  void cont(ReQL_Token t) {
+    Query_t<ImmutableString> query(t, REQL_CONTINUE);
+    (*this) << query;
   }
 
   sock_t p_sock;
