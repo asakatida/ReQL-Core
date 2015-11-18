@@ -69,18 +69,6 @@ public:
     memcpy(p_value.load(), str.c_str());
   }
 
-  template <class iter_t>
-  _String(iter_t begin, const iter_t &end) : p_size(std::accumulate(begin, end, 0, [](const size_type size, const _String &s) {
-    return size + s.size();
-  })), p_value(new value_type[p_size]) {
-    auto value = p_value.load();
-    for (; begin != end; ++begin) {
-      auto str = *begin;
-      memcpy(value, str.c_str(), str.size());
-      value += str.size();
-    }
-  }
-
   _String &operator =(const _String &other) {
     if (this != &other) {
       p_size = other.p_size;
@@ -105,6 +93,9 @@ public:
     return !p_size;
   }
 
+  _String substr(const size_type pos) const {
+  }
+
   size_type size() const { return p_size; }
 
   size_type length() const { return p_size; }
@@ -115,28 +106,28 @@ public:
 
   value_type *data() const { return p_value.load(); }
 
-  reference at(size_type pos) {
+  reference at(const size_type pos) {
     if (pos >= size()) {
       throw std::out_of_range("");
     }
     return p_value.load()[pos];
   }
 
-  const_reference at(size_type pos) const {
+  const_reference at(const size_type pos) const {
     if (pos >= size()) {
       throw std::out_of_range("");
     }
     return p_value.load()[pos];
   }
 
-  reference operator [](size_type pos) {
+  reference operator [](const size_type pos) {
     if (pos == size()) {
       return value_type();
     }
     return at(pos);
   }
 
-  const_reference operator [](size_type pos) const {
+  const_reference operator [](const size_type pos) const {
     if (pos == size()) {
       return value_type();
     }
@@ -164,17 +155,26 @@ private:
     memcpy(exchange(new value_type[p_size]), in, p_size);
   }
 
-  void memcpy(value_type *out, const value_type *in) {
+  void memcpy(value_type *out, const value_type *in) const {
     memcpy(out, in, p_size);
   }
 
-  void memcpy(value_type *out, const value_type *in, const size_type size) {
+  void memcpy(value_type *out, const value_type *in, const size_type size) const {
     std::memcpy(out, in, sizeof(value_type) * size);
   }
 
   size_type p_size;
   std::atomic<value_type *> p_value;
 };
+
+
+template <class value_type>
+bool operator ==(const _String<value_type> self, const value_type *other) {
+  if (std::char_traits<value_type>::length(other) - 1 == self.size()) {
+    return std::memcmp(self.data(), other, sizeof(value_type) * self.size());
+  }
+  return false;
+}
 
 typedef _String<ReQL_Byte> ImmutableString;
 

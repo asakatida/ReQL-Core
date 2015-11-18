@@ -60,8 +60,16 @@ public:
     return *this;
   }
 
-  string_type str() {
-    return string_type(p_stream.cbegin(), p_stream.cend());
+  string_type str() const {
+    auto size = std::accumulate(p_stream.cbegin(), p_stream.cend(), 0, [](const size_t size, const string_type &s) {
+      return size + s.size();
+    });
+    const std::unique_ptr<typename string_type::value_type> value(new typename string_type::value_type[size]);
+    std::accumulate(p_stream.cbegin(), p_stream.cend(), value.get(), [](typename string_type::value_type *value, const string_type &s) {
+      memcpy(value, s.c_str(), s.size());
+      return value + s.size();
+    });
+    return string_type(value.get(), size);
   }
 
   std::deque<string_type> p_stream;

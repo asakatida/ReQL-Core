@@ -31,28 +31,46 @@ limitations under the License.
 namespace _ReQL {
 
 template <class elem_t>
-class Queue {
+class Queue_t {
 public:
   void push(elem_t &&value) {
+    if (head->idx >= Buffer::size) {
+    }
   }
+
   bool empty() {
-    return true;
+    return buffer->idx == 0;
   }
+
   void pop(elem_t &ref) {
+    elem_t value;
+    ref = std::move(value);
   }
+
+  class Buffer_t {
+  public:
+    static const int size = 10;
+
+    elem_t buffer[size];
+    Buffer_t * next;
+    int idx;
+  };
+
+  Buffer_t * head;
+  Buffer_t * buffer;
 };
 
 template <class elem_t>
-class Pipe {
+class Pipe_t {
 public:
-  Pipe() {
+  Pipe_t() {
     close();
   }
 
   class Closed : std::exception {};
 
   template <class func_t>
-  Pipe(func_t func) : p_thread([func, this] {
+  Pipe_t(func_t func) : p_thread([func, this] {
     try {
       while (true) {
         *this << func();
@@ -61,7 +79,7 @@ public:
     }
   }) {}
 
-  ~Pipe() { close(); p_thread.join(); }
+  ~Pipe_t() { close(); p_thread.join(); }
 
   template <class output_t, class func_t>
   auto map(func_t func) {
@@ -84,22 +102,22 @@ public:
     });
   }
 
-  class Sink {
+  class Sink_t {
   public:
-    Sink() {}
+    Sink_t() {}
 
     template <class func_t>
-    Sink(func_t func, Pipe<elem_t> &other) : p_thread([func, &other] {
+    Sink_t(func_t func, Pipe<elem_t> &other) : p_thread([func, &other] {
       elem_t res;
       other >> res;
-      func(res);
+      func(std::move(res));
     }) {}
 
-    Sink(Sink &&other) : p_thread(std::move(other.p_thread)) {}
+    Sink_t(Sink &&other) : p_thread(std::move(other.p_thread)) {}
 
-    ~Sink() { p_thread.join(); }
+    ~Sink_t() { p_thread.join(); }
 
-    Sink &operator =(Sink &&other) {
+    Sink_t &operator =(Sink &&other) {
       if (this != &other) {
         p_thread.join();
         p_thread = std::move(other.p_thread);
@@ -151,7 +169,7 @@ public:
     }
   }
 
-  Pipe &operator <<(elem_t &&value) {
+  Pipe_t &operator <<(elem_t &&value) {
     std::lock_guard<std::mutex> lock(p_mutex);
     if (p_flag) {
       throw Closed();
@@ -161,7 +179,7 @@ public:
     return *this;
   }
 
-  Pipe &operator >>(elem_t &value) {
+  Pipe_t &operator >>(elem_t &value) {
     std::lock_guard<std::mutex> lock(p_mutex);
     if (p_queue.empty()) {
       if (p_flag) {
@@ -178,7 +196,7 @@ public:
   std::condition_variable_any p_cond;
   char p_flag;
   std::mutex p_mutex;
-  Queue<elem_t> p_queue;
+  Queue_t<elem_t> p_queue;
   std::thread p_thread;
 };
 

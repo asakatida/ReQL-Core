@@ -23,9 +23,6 @@ limitations under the License.
 
 #include "./reql/connection.hpp"
 #include "./reql/cursor.hpp"
-#include "./reql/pipe.hpp"
 #include "./reql/query.hpp"
-#include "./reql/stream.hpp"
-#include "./reql/types.hpp"
 
 #endif  // REQL_REQL_CORE_HPP_

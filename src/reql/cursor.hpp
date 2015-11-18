@@ -23,61 +23,56 @@ limitations under the License.
 
 #include "./reql/decode.hpp"
 #include "./reql/pipe.hpp"
+#include "./reql/types.hpp"
 
 #include <atomic>
+#include <memory>
 
 namespace _ReQL {
 
-enum Response_t {
-  REQL_CLIENT_ERROR = 16,
-  REQL_COMPILE_ERROR = 17,
-  REQL_RUNTIME_ERROR = 18,
-  REQL_SUCCESS_ATOM = 1,
-  REQL_SUCCESS_PARTIAL = 3,
-  REQL_SUCCESS_SEQUENCE = 2,
-  REQL_WAIT_COMPLETE = 4
-};
+template <class parser_t, class str_t>
+class Conn_t;
 
-template <class cur_t>
-void *
-cur_loop(void *data) {
-  cur_t *cur = reinterpret_cast<cur_t *>(data);
+template <class parser_t, class str_t>
+class Cur_t {
+public:
+  Cur_t() : p_token(-1) { close(); }
 
-  while (cur->isOpen()) {
-    if (!cur->p_result) {
-      sched_yield();
-      continue;
-    }
-    switch (cur->p_r_type) {
+  enum Response_t {
+    REQL_CLIENT_ERROR = 16,
+    REQL_COMPILE_ERROR = 17,
+    REQL_RUNTIME_ERROR = 18,
+    REQL_SUCCESS_ATOM = 1,
+    REQL_SUCCESS_PARTIAL = 3,
+    REQL_SUCCESS_SEQUENCE = 2,
+    REQL_WAIT_COMPLETE = 4
+  };
+
+  Cur_t(Pipe<Response_t> &pipe, Conn_t<parser_t, str_t> *conn, ReQL_Token token) :
+  p_ostream([this, token](const str_t &elem) {
+    parser_t parser;
+    decode(elem, parser);
+    switch (parser.r_type()) {
       case REQL_SUCCESS_ATOM:
       case REQL_SUCCESS_SEQUENCE:
       case REQL_WAIT_COMPLETE: {
-        cur->p_open.store(false);
+        p_conn.store(nullptr);
         break;
       }
       case REQL_SUCCESS_PARTIAL: {
-        if (cur->p_conn && cur->p_conn->isOpen()) {
-          cur->p_conn->cont(cur->p_token);
-        }
         break;
       }
       case REQL_CLIENT_ERROR:
       case REQL_COMPILE_ERROR:
       case REQL_RUNTIME_ERROR:
       default: {
-        cur->p_open.store(false);
+        p_conn.store(nullptr);
       }
     }
-  }
+    return parser.get();
+  }, p_istream), p_conn(conn), p_token(token) {}
 
-  return nullptr;
-}
-
-template <class conn_t, class parser_t>
-class Cur_t {
-  Cur_t() { close(); }
-
-  Cur_t(conn_t *conn, ReQL_Token token) : p_token(token), p_conn(conn) {}
+  Cur_t(Conn_t<parser_t, str_t> *conn, ReQL_Token token) : p_token(token), p_conn(conn) {}
 
   Cur_t(Cur_t &&other) : p_token(std::move(other.p_token)), p_conn(std::move(other.p_conn)) {}
 
@@ -90,17 +85,31 @@ class Cur_t {
     return *this;
   }
 
-  void close() {
-    if (p_conn && p_conn->isOpen()) {
-      p_conn->stop(p_token);
+  bool isOpen() {
+    if (p_conn.load()) {
+      return p_conn.load()->isOpen();
     }
-    p_conn = nullptr;
+    return false;
   }
 
-  Pipe<typename parser_t::result_t> p_ostream;
-  Pipe<ImmutableString> p_istream;
+  void push(str_t &&json) {
+    p_istream << std::move(json);
+  }
+
+  void close() {
+    auto conn = p_conn.exchange(nullptr);
+    if (conn) {
+      if (conn->isOpen()) {
+        conn->stop(p_token);
+        p_istream.interupt();
+      }
+    }
+  }
+
+  Pipe<Response_t> p_ostream;
+  Pipe<str_t> p_istream;
   const ReQL_Token p_token;
-  std::atomic<conn_t *> p_conn;
+  std::atomic<Conn_t<parser_t, str_t> *> p_conn;
 };
 
 }  // namespace _ReQL

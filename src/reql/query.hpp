@@ -454,6 +454,46 @@ public:
   str_t p_value;
 };
 
+enum Query_e {
+  REQL_CONTINUE = 2,
+  REQL_NOREPLY_WAIT = 4,
+  REQL_START = 1,
+  REQL_STOP = 3
+};
+
+template <class str_t>
+class Query_t {
+public:
+  Query_t() {}
+
+  Query_t(const ReQL_Token t, const Query_e type) : token(t) {
+    p_stream << "[" << static_cast<int>(type) << "]";
+  }
+
+  template <class query_t>
+  Query_t(const ReQL_Token t, const query_t &query) : token(t) {
+    p_stream << "[" << static_cast<int>(REQL_START) << ",";
+    query.toJSON(p_stream);
+    p_stream << "]";
+  }
+
+  template <class kwargs_t, class query_t>
+  Query_t(const ReQL_Token t, const query_t &query, const kwargs_t &kwargs) : token(t) {
+    p_stream << "[" << static_cast<int>(REQL_START) << ",";
+    query.toJSON(p_stream);
+    p_stream << ",";
+    kwargs.toJSON(p_stream);
+    p_stream << "]";
+  }
+
+  str_t str() const {
+    return p_stream.str();
+  }
+
+  Stream<str_t> p_stream;
+  ReQL_Token token;
+};
+
 typedef Any_t<_Stream> Any;
 typedef Array_t<std::vector<Any>> Array;
 typedef Null_t<_Stream> Null;

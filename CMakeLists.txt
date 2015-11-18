@@ -294,8 +294,12 @@ set(MOC_HEADERS
  src/reql/core.hpp
  src/reql/cursor.hpp
  src/reql/decode.hpp
+ src/reql/handshake.hpp
  src/reql/pipe.hpp
+ src/reql/protocol.hpp
  src/reql/query.hpp
+ src/reql/response.hpp
+ src/reql/socket.hpp
  src/reql/stream.hpp
  src/reql/string.hpp
  src/reql/types.hpp
