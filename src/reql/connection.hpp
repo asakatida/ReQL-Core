@@ -448,9 +448,9 @@ public:
     void close() {
     }
     std::mutex p_mutex;
+    std::atomic<ReQL_Token> p_next_token;
   };
 
-  std::atomic<ReQL_Token> p_max_token;
   BTree p_cursors;
   Protocol_t<Socket_t<int>> p_protocol;
   typename Pipe<ImmutableString>::Sink p_sink;
