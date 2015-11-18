@@ -28,11 +28,16 @@ HEADERS += \
   cpp/parser.hpp \
   cpp/query.hpp \
   cpp/types.hpp \
+  reql/btree.hpp \
   reql/connection.hpp \
   reql/core.hpp \
   reql/cursor.hpp \
   reql/decode.hpp \
+  reql/handshake.hpp \
   reql/pipe.hpp \
+  reql/protocol.hpp \
+  reql/query.hpp \
+  reql/response.hpp \
   reql/query.hpp \
   reql/stream.hpp \
   reql/string.hpp \

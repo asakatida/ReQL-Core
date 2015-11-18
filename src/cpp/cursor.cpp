@@ -37,17 +37,17 @@ public:
 
 private:
   void startObject() {
-    p_objects.push_back(Types::object());
+    p_objects.push_back(std::map<std::string, Query>());
   }
 
   void startKeyValue() {
   }
 
-  void endKeyValue(Types::string key) {
+  void endKeyValue(std::string key) {
     if (p_objects.empty()) {
       throw ReQLDriverError();
     }
-    Types::object object = p_objects.back();
+    std::map<std::string, Query> object = p_objects.back();
     p_objects.pop_back();
     object.insert({key, p_result});
     p_objects.push_back(object);
@@ -57,13 +57,13 @@ private:
     if (p_objects.empty()) {
       throw ReQLDriverError();
     }
-    Types::object object = p_objects.back();
+    std::map<std::string, Query> object = p_objects.back();
     p_objects.pop_back();
     p_result = Query(object);
   }
 
   void startArray() {
-    p_arrays.push_back(Types::array());
+    p_arrays.push_back(std::vector<Query>());
   }
 
   void startElement() {
@@ -73,7 +73,7 @@ private:
     if (p_arrays.empty()) {
       throw ReQLDriverError();
     }
-    Types::array array = p_arrays.back();
+    std::vector<Query> array = p_arrays.back();
     p_arrays.pop_back();
     array.push_back(p_result);
     p_arrays.push_back(array);
@@ -83,7 +83,7 @@ private:
     if (p_arrays.empty()) {
       throw ReQLDriverError();
     }
-    Types::array array = p_arrays.back();
+    std::vector<Query> array = p_arrays.back();
     p_arrays.pop_back();
     p_result = Query(array);
   }
@@ -100,62 +100,48 @@ private:
     p_result = Query(value);
   }
 
-  void addValue(Types::string value) {
+  void addValue(std::string value) {
     p_result = Query(value);
   }
 
-  std::vector<Types::object> p_objects;
-  std::vector<Types::array> p_arrays;
+  std::vector<std::map<std::string, Query>> p_objects;
+  std::vector<std::vector<Query>> p_arrays;
   Query p_result;
 };
 
 ResultBuilder::~ResultBuilder() {}
 
-Cursor::Cursor() : _C::CTypes::cursor(new _C::ReQL_Cur_t) {}
+Cursor::Cursor() {}
 
-Cursor::Cursor(Cursor &&other) : _C::CTypes::cursor(std::move(other)) {}
+Cursor::Cursor(_Cursor *cur) : p_cur(cur) {}
+
+Cursor::Cursor(Cursor &&other) : p_cur(std::move(other.p_cur)) {}
 
 Cursor &
 Cursor::operator=(Cursor &&other) {
   if (this != &other) {
-    _C::CTypes::cursor::operator=(std::move(other));
+    //p_cur = std::move(other.p_cur);
   }
   return *this;
 }
 
-Cursor::~Cursor() {
-  reql_cur_destroy(get());
-}
-
 bool Cursor::isOpen() const {
-  return reql_cur_open(get());
+  return false; //  p_cur.isOpen;
 }
 
 Query
 Cursor::next() {
-  _C::ReQL_Obj_t *r_res = reinterpret_cast<_C::ReQL_Obj_t *>(reql_cur_next(get()));
-  if (r_res == nullptr) {
-    throw ReQLDriverError();
-  }
-  Query res(r_res);
-  _C::reql_json_destroy(r_res);
-  return res;
+  return Query();
 }
 
-Types::array
+std::vector<Query>
 Cursor::toVector() {
-  Types::array res;
-  _C::ReQL_Obj_t *r_res = nullptr;
-  while ((r_res = reinterpret_cast<_C::ReQL_Obj_t *>(reql_cur_next(get()))) != nullptr) {
-    res.insert(res.cend(), Query(r_res));
-    _C::reql_json_destroy(r_res);
-  }
-  return res;
+  return std::vector<Query>();
 }
 
 void
 Cursor::close() {
-  reql_cur_close(get());
+  //  p_cur = _Cursor();
 }
 
 }  // namespace ReQL

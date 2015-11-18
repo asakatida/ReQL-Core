@@ -152,12 +152,17 @@
     <ClInclude Include="cpp\parser.hpp" />
     <ClInclude Include="cpp\query.hpp" />
     <ClInclude Include="cpp\types.hpp" />
+    <ClInclude Include="reql\btree.hpp" />
     <ClInclude Include="reql\connection.hpp" />
     <ClInclude Include="reql\core.hpp" />
     <ClInclude Include="reql\cursor.hpp" />
     <ClInclude Include="reql\decode.hpp" />
+    <ClInclude Include="reql\handshake.hpp" />
     <ClInclude Include="reql\pipe.hpp" />
+    <ClInclude Include="reql\protocol.hpp" />
     <ClInclude Include="reql\query.hpp" />
+    <ClInclude Include="reql\response.hpp" />
+    <ClInclude Include="reql\socket.hpp" />
     <ClInclude Include="reql\stream.hpp" />
     <ClInclude Include="reql\string.hpp" />
     <ClInclude Include="reql\types.hpp" />
