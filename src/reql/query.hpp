@@ -496,6 +496,7 @@ public:
 
 typedef Any_t<_Stream> Any;
 typedef Array_t<std::vector<Any>> Array;
+typedef Bool_t<bool> Boolean;
 typedef Null_t<_Stream> Null;
 typedef Num_t<double> Number;
 typedef String_t<std::string> String;
