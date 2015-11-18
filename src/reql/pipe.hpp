@@ -33,31 +33,56 @@ namespace _ReQL {
 template <class elem_t>
 class Queue_t {
 public:
-  void push(elem_t &&value) {
-    if (head->idx >= Buffer::size) {
-    }
-  }
-
-  bool empty() {
-    return buffer->idx == 0;
-  }
-
-  void pop(elem_t &ref) {
-    elem_t value;
-    ref = std::move(value);
-  }
+  Queue_t() : head(&buffer) {}
 
   class Buffer_t {
   public:
     static const int size = 10;
 
+    Buffer_t() {}
+
+    Buffer_t(Buffer_t &&other) :
+      buffer(std::move(other.buffer)), idx(std::move(other.idx)) {}
+
+    Buffer_t &operator =(Buffer_t &&other) {
+      if (this != &other) {
+      }
+      return *this;
+    }
+
+    Buffer_t *push(elem_t &&value) {
+      if (idx.load() >= size) {
+      }
+      buffer[idx++] = std::move(value);
+      return this;
+    }
+
     elem_t buffer[size];
-    Buffer_t * next;
-    int idx;
+    std::atomic<int> idx;
+    std::atomic<Buffer_t *> next;
   };
 
-  Buffer_t * head;
-  Buffer_t * buffer;
+  void push(elem_t &&value) {
+    head->push(std::move(value));
+  }
+
+  bool empty() {
+    return !buffer.idx.load();
+  }
+
+  void pop(elem_t &ref) {
+    auto idx = buffer.idx--;
+    if (idx < 0) {
+      Buffer_t *next = buffer.next.exchange(nullptr);
+      if (next) {
+        buffer = std::move(*next);
+      }
+    }
+    ref = std::move(buffer.buffer[idx]);
+  }
+
+  Buffer_t *head;
+  Buffer_t buffer;
 };
 
 template <class elem_t>
