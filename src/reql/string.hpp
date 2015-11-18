@@ -94,6 +94,7 @@ public:
   }
 
   _String substr(const size_type pos) const {
+    return _String(p_value.load() + pos, p_size - pos);
   }
 
   size_type size() const { return p_size; }
