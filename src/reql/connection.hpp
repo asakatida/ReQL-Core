@@ -28,6 +28,7 @@ limitations under the License.
 
 #include <atomic>
 #include <map>
+#include <memory>
 #include <mutex>
 #include <thread>
 
