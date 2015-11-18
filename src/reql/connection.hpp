@@ -53,10 +53,35 @@ typedef unsigned char UCHAR;
 
 namespace _ReQL {
 
+static const ReQL_Size VERSION = 0x400c2d20;
+static const ReQL_Size PROTOCOL = 0x7e6970c7;
+
 template <class byte_t>
 ReQL_Size
 get_size(const byte_t *buf) {
   return (static_cast<ReQL_Size>(buf[0])<<0) | (static_cast<ReQL_Size>(buf[1])<<8) | (static_cast<ReQL_Size>(buf[2])<<16) | (static_cast<ReQL_Size>(buf[3])<<24);
+}
+
+template <class byte_t>
+void
+make_size(byte_t *buf, const ReQL_Size magic) {
+  buf[0] = (magic >> 0) & 0xFF;
+  buf[1] = (magic >> 8) & 0xFF;
+  buf[2] = (magic >> 16) & 0xFF;
+  buf[3] = (magic >> 24) & 0xFF;
+}
+
+template <class byte_t>
+void
+make_token(byte_t *buf, const ReQL_Token magic) {
+  buf[0] = (magic >> 0) & 0xFF;
+  buf[1] = (magic >> 8) & 0xFF;
+  buf[2] = (magic >> 16) & 0xFF;
+  buf[3] = (magic >> 24) & 0xFF;
+  buf[4] = (magic >> 32) & 0xFF;
+  buf[5] = (magic >> 40) & 0xFF;
+  buf[6] = (magic >> 48) & 0xFF;
+  buf[7] = (magic >> 56) & 0xFF;
 }
 
 template <class byte_t>
