@@ -73,7 +73,7 @@ public:
   Pipe_t(func_t func) : p_thread([func, this] {
     try {
       while (true) {
-        *this << func();
+        this->push(func());
       }
     } catch (Closed &) {
     }
@@ -83,20 +83,20 @@ public:
 
   template <class output_t, class func_t>
   auto map(func_t func) {
-    return Pipe<output_t>([func, this] {
+    return Pipe_t<output_t>([func, this] {
       elem_t res;
-      *this >> res;
+      this->pop(res);
       return func(res);
     });
   }
 
   template <class func_t>
   auto filter(func_t func) {
-    return Pipe<elem_t>([func, this] {
+    return Pipe_t<elem_t>([func, this] {
       elem_t res;
-      *this >> res;
+      this->pop(res);
       while (!func(res)) {
-        *this >> res;
+        this->pop(res);
       }
       return res;
     });
@@ -107,30 +107,25 @@ public:
     Sink_t() {}
 
     template <class func_t>
-    Sink_t(func_t func, Pipe<elem_t> &other) : p_thread([func, &other] {
-      elem_t res;
-      other >> res;
-      func(std::move(res));
+    Sink_t(func_t func, Pipe_t<elem_t> *other) : p_thread([func, other] {
+      while (true) {
+        elem_t res;
+        other->pop(res);
+        func(std::move(res));
+      }
     }) {}
 
-    Sink_t(Sink &&other) : p_thread(std::move(other.p_thread)) {}
+    Sink_t(Sink_t &&other) : p_thread(std::move(other.p_thread)) {}
 
     ~Sink_t() { p_thread.join(); }
-
-    Sink_t &operator =(Sink &&other) {
-      if (this != &other) {
-        p_thread.join();
-        p_thread = std::move(other.p_thread);
-      }
-      return *this;
-    }
 
     std::thread p_thread;
   };
 
   template <class func_t>
-  auto sink(func_t func) {
-    return Sink(func, *this);
+  Sink_t sink(func_t func) {
+    Sink_t sink(func, this);
+    return sink;
   }
 
   bool closed() {
@@ -169,7 +164,7 @@ public:
     }
   }
 
-  Pipe_t &operator <<(elem_t &&value) {
+  Pipe_t &push(elem_t &&value) {
     std::lock_guard<std::mutex> lock(p_mutex);
     if (p_flag) {
       throw Closed();
@@ -179,7 +174,11 @@ public:
     return *this;
   }
 
-  Pipe_t &operator >>(elem_t &value) {
+  Pipe_t &operator <<(elem_t &&value) {
+    return push(std::move(value));
+  }
+
+  Pipe_t &pop(elem_t &value) {
     std::lock_guard<std::mutex> lock(p_mutex);
     if (p_queue.empty()) {
       if (p_flag) {
@@ -191,6 +190,10 @@ public:
     }
     p_queue.pop(value);
     return *this;
+  }
+
+  Pipe_t &operator >>(elem_t &value) {
+    return pop(value);
   }
 
   std::condition_variable_any p_cond;
