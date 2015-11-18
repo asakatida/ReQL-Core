@@ -38,14 +38,8 @@ public:
   typedef Result result_t;
 };
 
-class Cursor;
 
-class Connection : public _ReQL::Conn_t<Cursor> {
-public:
-};
-
-class Cursor : public _ReQL::Cur_t<Connection, Parser> {
-public:
-};
+typedef _ReQL::Conn_t<Parser, _ReQL::ImmutableString> Connection;
+typedef _ReQL::Cur_t<Parser, _ReQL::ImmutableString> Cursor;
 
 }
