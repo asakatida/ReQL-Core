@@ -72,6 +72,18 @@ public:
     });
   }
 
+  template <class func_t>
+  auto filter(func_t func) {
+    return Pipe<elem_t>([func, this] {
+      elem_t res;
+      *this >> res;
+      while (!func(res)) {
+        *this >> res;
+      }
+      return res;
+    });
+  }
+
   class Sink {
   public:
     Sink() {}
