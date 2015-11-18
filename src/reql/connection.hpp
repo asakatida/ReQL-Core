@@ -70,7 +70,8 @@ class Socket_t {
 public:
   Socket_t() : p_sock(-1) {}
 
-  Socket_t() : p_sock(-1) {
+  template <class str_t>
+  Socket_t(str_t &addr, str_t &port) : p_sock(-1) {
     struct addrinfo hints;
     struct addrinfo *result, *rp;
 
@@ -110,17 +111,62 @@ public:
   Socket_t(Socket_t &&other) : p_sock(other.p_sock.exchange(-1)) {}
 
   ~Socket_t() {
-    sock = p_sock.exchange(-1);
+    sock_t sock = p_sock.exchange(-1);
     if (sock >= 0) {
       ::close(sock);
     }
   }
 
-  ImmutableString read() const {}
+  void set_timeout(unsigned long s, unsigned long us) const {
+#ifdef __MINGW32__
+    const struct timeval timeout = {static_cast<long>(s), static_cast<long>(us)};
 
-  ImmutableString read(size_t size) const {}
+    if (setsockopt(p_sock.load(), SOL_SOCKET, SO_RCVTIMEO, reinterpret_cast<const char *>(&timeout), sizeof(struct timeval))) {
+      throw;
+    }
 
-  void write(const ImmutableString &out) const {}
+    if (setsockopt(p_sock.load(), SOL_SOCKET, SO_SNDTIMEO, reinterpret_cast<const char *>(&timeout), sizeof(struct timeval))) {
+      throw;
+    }
+#else
+    const struct timeval timeout = {static_cast<__darwin_time_t>(s), static_cast<__darwin_suseconds_t>(us)};
+
+    if (setsockopt(p_sock.load(), SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(struct timeval))) {
+      throw;
+    }
+
+    if (setsockopt(p_sock.load(), SOL_SOCKET, SO_SNDTIMEO, &timeout, sizeof(struct timeval))) {
+      throw;
+    }
+#endif
+  }
+
+  void set_timeout(unsigned long s) const {
+    set_timeout(s, 0);
+  }
+
+  void set_timeout() const {
+    set_timeout(0, 1);
+  }
+
+  template <class str_t>
+  str_t read() const {
+    char buffer[200];
+    auto size = recv(p_sock.load(), buffer, 200, 0);
+    return str_t(buffer, size);
+  }
+
+  template <class str_t>
+  str_t read(size_t size) const {
+    std::unique_ptr<char> buffer(new char[size]);
+    size = recvfrom(p_sock.load(), buffer.get(), size, 0, nullptr, nullptr);
+    return str_t(buffer.get(), size);
+  }
+
+  template <class str_t>
+  void write(const str_t &out) const {
+    send(p_sock.load(), out.c_str(), out.size(), 0);
+  }
 
   std::atomic<sock_t> p_sock;
 };
