@@ -23,85 +23,43 @@ limitations under the License.
 #include "./cpp/error.hpp"
 
 #include <algorithm>
+#include <string>
 
 namespace ReQL {
 
-Connection::Connection() : _C::CTypes::connection(new _C::ReQL_Conn_t) {
-  reql_conn_init(get());
-
-  _C::ReQL_Byte buf[500];
-
-  if (reql_conn_connect(get(), buf, 500) != 0) {
-    throw ReQLDriverError();
-  }
+Connection::Connection() {
+  p_conn._connect();
 }
 
-Connection::Connection(const Types::string &host) : _C::CTypes::connection(new _C::ReQL_Conn_t) {
-  reql_conn_init(get());
-
-  reql_conn_set_addr(get(), const_cast<char *>(host.c_str()));
-
-  _C::ReQL_Byte buf[500];
-
-  if (reql_conn_connect(get(), buf, 500) != 0) {
-    throw ReQLDriverError();
-  }
+Connection::Connection(const std::string &host) {
+  p_conn._connect(host);
 }
 
-Connection::Connection(const Types::string &host, const std::uint16_t &port) : _C::CTypes::connection(new _C::ReQL_Conn_t) {
-  reql_conn_init(get());
-
-  reql_conn_set_addr(get(), const_cast<char *>(host.c_str()));
-  reql_conn_set_port(get(), const_cast<char *>(std::to_string(port).c_str()));
-
-  _C::ReQL_Byte buf[500];
-
-  if (reql_conn_connect(get(), buf, 500) != 0) {
-    throw ReQLDriverError();
-  }
+Connection::Connection(const std::string &host, const std::uint16_t &port) {
+  p_conn._connect(host, std::to_string(port), "");
 }
 
-Connection::Connection(const Types::string &host, const std::uint16_t &port, const Types::string &key) : _C::CTypes::connection(new _C::ReQL_Conn_t) {
-  reql_conn_init(get());
-
-  std::size_t auth_size = key.size();
-
-  if (auth_size > std::numeric_limits<_C::ReQL_Size>::max()) {
-    return;
-  }
-
-  reql_conn_set_addr(get(), const_cast<char *>(host.c_str()));
-  reql_conn_set_port(get(), const_cast<char *>(std::to_string(port).c_str()));
-  reql_conn_set_auth(get(), static_cast<_C::ReQL_Size>(auth_size), const_cast<char *>(key.c_str()));
-
-  _C::ReQL_Byte buf[500];
-
-  if (reql_conn_connect(get(), buf, 500) != 0) {
-    throw ReQLDriverError();
-  }
+Connection::Connection(const std::string &host, const std::uint16_t &port, const std::string &key) {
+  p_conn._connect(host, std::to_string(port), key);
 }
 
-Connection::Connection(Connection &&other) : _C::CTypes::connection(std::move(other)) {}
-
-Connection::~Connection() {
-  reql_conn_destroy(get());
-}
+Connection::Connection(Connection &&other) : p_conn(std::move(other.p_conn)) {}
 
 Connection &Connection::operator=(Connection &&other) {
   if (this != &other) {
-    _C::CTypes::connection::operator=(std::move(other));
+    p_conn = std::move(other.p_conn);
   }
   return *this;
 }
 
 void
 Connection::close() {
-  reql_conn_close(get());
+  p_conn = _Connection();
 }
 
 bool
 Connection::isOpen() const {
-  return reql_conn_open(get());
+  return p_conn.isOpen();
 }
 
 }  // namespace ReQL
