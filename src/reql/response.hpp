@@ -42,6 +42,10 @@ public:
     return *this;
   }
 
+  void next() {}
+
+  void done() {}
+
   str_t p_json;
   ReQL_Token p_token;
 };
