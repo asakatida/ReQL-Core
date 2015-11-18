@@ -199,8 +199,35 @@ public:
 template <class sock_t>
 class Handshake_t {
 public:
-  template <class in_func_t, class out_func_t>
-  Handshake_t(const sock_t &sock, in_func_t in, out_func_t out) {
+  template <class str_t>
+  Handshake_t(const sock_t &sock, str_t &auth) {
+    sock.set_timeout(20, 0);
+
+    ReQL_Byte magic[3][4];
+
+    make_size(magic[0], VERSION);
+    make_size(magic[1], auth.size());
+    make_size(magic[2], PROTOCOL);
+
+    Stream<str_t> stream;
+    stream << str_t(magic[0], 4)
+        << str_t(magic[1], 4)
+        << auth
+        << str_t(magic[2], 4);
+
+    sock.write(stream.str());
+
+    auto response = sock.read();
+
+    if (response.size() != 8) {
+      throw;
+    }
+
+    if (response != "SUCCESS") {
+      throw;
+    }
+
+    sock.set_timeout();
   }
 };
 
