@@ -50,8 +50,8 @@ public:
     *p_value = value;
   }
 
-  _String(const value_type *value) : p_size(traits_type::length(value) - 1){
-    memcpy(value);
+  _String(const value_type *value) : p_size(traits_type::length(value) - 1), p_value(new value_type[p_size]) {
+    memcpy(p_value.load(), value);
   }
 
   _String(const value_type *value, const size_type size) : p_size(size), p_value(new value_type[size]) {
@@ -59,7 +59,7 @@ public:
   }
 
   _String(const _String &other) : p_size(other.p_size), p_value(new value_type[other.p_size]) {
-    memcpy(other.c_str());
+    memcpy(p_value.load(), other.c_str());
   }
 
   _String(_String &&other) : p_size(other.p_size), p_value(other.p_value.exchange(nullptr)) {}
@@ -79,7 +79,7 @@ public:
 
   _String &operator =(_String &&other) {
     if (this != &other) {
-      p_size = other.p_size;
+      p_size = std::move(other.p_size);
       exchange(other.p_value.exchange(nullptr));
     }
     return *this;
