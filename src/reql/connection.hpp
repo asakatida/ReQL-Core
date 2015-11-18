@@ -204,6 +204,13 @@ public:
   }
 };
 
+enum Query_e {
+  REQL_CONTINUE = 2,
+  REQL_NOREPLY_WAIT = 4,
+  REQL_START = 1,
+  REQL_STOP = 3
+};
+
 template <class sock_t>
 class Protocol_t {
 public:
