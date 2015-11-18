@@ -21,12 +21,13 @@ limitations under the License.
 #ifndef REQL_CPP_TYPES_HPP_
 #define REQL_CPP_TYPES_HPP_
 
+#include "./cpp/parser.hpp"
 #include "./reql/core.hpp"
 
 namespace ReQL {
 
-class _Cursor;
-typedef _ReQL::Conn_t<_Cursor> _Connection;
+typedef _ReQL::Conn_t<Parser, _ReQL::ImmutableString> _Connection;
+typedef _ReQL::Cur_t<Parser, _ReQL::ImmutableString> _Cursor;
 
 }  // namespace ReQL
 

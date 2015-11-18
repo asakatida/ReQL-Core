@@ -38,9 +38,7 @@ public:
   bool isOpen() const;
 
   Query next();
-  void next(Parser &p);
   Types::array toVector();
-  void toVector(Parser p);
 
   void close();
 };

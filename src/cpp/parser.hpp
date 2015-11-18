@@ -21,30 +21,37 @@ limitations under the License.
 #ifndef REQL_CPP_RESULT_HPP_
 #define REQL_CPP_RESULT_HPP_
 
-#include "./cpp/types.hpp"
+#include <string>
 
 namespace ReQL {
 
+class Result {
+};
+
 class Parser {
 public:
-  virtual ~Parser();
+  typedef Result result_t;
 
-  virtual void startObject() = 0;
-  virtual void startKeyValue() = 0;
-  virtual void endKeyValue(Types::string key) = 0;
-  virtual void endObject() = 0;
+  result_t get() const;
 
-  virtual void startArray() = 0;
-  virtual void startElement() = 0;
-  virtual void endElement() = 0;
-  virtual void endArray() = 0;
+  int r_type() const;
 
-  virtual void addValue() = 0;
-  virtual void addValue(bool value) = 0;
-  virtual void addValue(double value) = 0;
-  virtual void addValue(Types::string value) = 0;
+  void startObject();
+  void startKeyValue();
+  void endKeyValue(std::string key);
+  void endObject();
 
-  void parse(_C::ReQL_Obj_t *val);
+  void startArray();
+  void startElement();
+  void endElement();
+  void endArray();
+
+  void addValue();
+  void addValue(bool value);
+  void addValue(double value);
+  void addValue(std::string value);
+
+  result_t p_result;
 };
 
 }  // namespace ReQL

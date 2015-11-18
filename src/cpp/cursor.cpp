@@ -142,15 +142,6 @@ Cursor::next() {
   return res;
 }
 
-void
-Cursor::next(Parser &p) {
-  _C::ReQL_Obj_t *res = reinterpret_cast<_C::ReQL_Obj_t *>(reql_cur_next(get()));
-  if (res != nullptr) {
-    p.parse(res);
-  }
-  _C::reql_json_destroy(res);
-}
-
 Types::array
 Cursor::toVector() {
   Types::array res;
