@@ -22,6 +22,8 @@ limitations under the License.
 #define REQL_REQL_BTREE_HPP_
 
 #include "./reql/protocol.hpp"
+#include "./reql/pipe.hpp"
+#include "./reql/response.hpp"
 #include "./reql/types.hpp"
 
 #include <atomic>
@@ -36,7 +38,16 @@ public:
 
   class BNode {
   public:
+    BNode() {}
+
     BNode(const ReQL_Token &key) : p_key(key) {}
+
+    BNode(BNode &&other) :
+      p_key(std::move(other.p_key)),
+      p_left(std::move(other.p_left)),
+      p_parent(std::move(other.p_parent)),
+      p_right(std::move(other.p_right)),
+      p_val(std::move(other.p_val)) {}
 
     ~BNode() {
       if (p_left) {
@@ -47,7 +58,7 @@ public:
       }
     }
 
-    Cur_t<parser_t, str_t> &create(const ReQL_Token &key) {
+    Cur_t<parser_t, str_t> *create(const ReQL_Token &key) {
       if (key < p_key) {
         if (p_left) {
           return p_left->create(key);
@@ -60,56 +71,56 @@ public:
       }
       p_right = new BNode(key);
       return (*p_left)[key];
+      return new Cur_t<parser_t, str_t>;
     }
 
-    Cur_t<parser_t, str_t> &operator [](const ReQL_Token &key) {
-      if (key == p_key) {
-        return p_val;
+    void push(Response_t<str_t> &&response) {
+      if (response.p_token == p_key) {
+        p_val << std::move(response);
+        return;
       }
-      if (key < p_key) {
-        return (*p_left)[key];
+      if (response.p_token < p_key) {
+        return p_left->push(std::move(response));
       }
-      return (*p_right)[key];
+      return p_right->push(std::move(response));
     }
 
-    void close() {
+    void close(Protocol_t<str_t> &protocol) {
       if (p_left) {
-        p_left->close();
+        p_left->close(protocol);
         delete p_left; p_left = nullptr;
       }
       if (p_right) {
-        p_right->close();
+        p_right->close(protocol);
         delete p_right; p_right = nullptr;
       }
+      protocol.stop(p_key);
       p_val.close();
     }
 
 
     ReQL_Token p_key;
-    Cur_t<parser_t, str_t> p_val;
     BNode *p_left;
-    BNode *p_right;
     BNode *p_parent;
+    BNode *p_right;
+    Cur_t<parser_t, str_t> p_val;
   };
 
-  BTree_t(const str_t &addr, const str_t &port, const str_t &auth) : p_protocol(addr, port, auth) {
-    p_sink = Pipe<Response_t<str_t>>([this]() {
+  BTree_t(const str_t &addr, const str_t &port, const str_t &auth) :
+    p_protocol(addr, port, auth),
+    p_sink(Pipe_t<Response_t<str_t>>([this]() {
       Response_t<str_t> response;
-      p_protocol >> response;
+      pop(response);
       return response;
     }).sink([this](Response_t<str_t> &&response) {
-      (*this)[response.p_token].push(std::move(response.p_json));
-    });
-  }
+      p_root.push(std::move(response));
+    })) {}
 
-  BTree_t(BTree_t &&other) {}
-
-  ~BTree_t() {
-    std::lock_guard<std::mutex> lock(p_mutex);
-    if (p_root) {
-      delete p_root;
-    }
-  }
+  BTree_t(BTree_t &&other) :
+    p_next_token(other.p_next_token.exchange(-1)),
+    p_protocol(std::move(other.p_protocol)),
+    p_root(std::move(other.p_root)),
+    p_sink(std::move(other.p_sink)) {}
 
   BTree_t &operator =(BTree_t &&other) {
     if (this != &other) {
@@ -117,16 +128,9 @@ public:
     return *this;
   }
 
-  auto &create(const ReQL_Token &key) {
+  Cur_t<parser_t, str_t> *create(const ReQL_Token &key) {
     std::lock_guard<std::mutex> lock(p_mutex);
-    if (p_root) {
-      return p_root->create(key);
-    }
-  }
-
-  auto &operator [](const ReQL_Token &key) {
-    std::lock_guard<std::mutex> lock(p_mutex);
-    return (*p_root)[key];
+    return p_root.create(key);
   }
 
   bool isOpen() const {
@@ -134,17 +138,19 @@ public:
   }
 
   template <class query_t>
-  auto &run(const query_t &query) {
+  Cur_t<parser_t, str_t> *run(const query_t &query) {
     Query_t<str_t> q(p_next_token++, query);
     p_protocol << q;
     return create(q.token);
+    return new Cur_t<parser_t, str_t>;
   }
 
   template <class kwargs_t, class query_t>
-  auto &run(const query_t &query, const kwargs_t &kwargs) {
+  Cur_t<parser_t, str_t> *run(const query_t &query, const kwargs_t &kwargs) {
     Query_t<str_t> q(p_next_token++, query, kwargs);
     p_protocol << q;
     return create(q.token);
+    return new Cur_t<parser_t, str_t>;
   }
 
   template <class kwargs_t, class query_t>
@@ -164,11 +170,21 @@ public:
     p_protocol << query;
   }
 
+  BTree_t &push(Response_t<str_t> &&response) {
+    p_root[response.p_token].push(std::move(response));
+    return *this;
+  }
+
+  BTree_t &pop(Response_t<str_t> &response) {
+    p_protocol >> response;
+    return *this;
+  }
+
   std::mutex p_mutex;
   std::atomic<ReQL_Token> p_next_token;
   Protocol_t<str_t> p_protocol;
-  BNode *p_root;
-  typename Pipe<Response_t<str_t>>::Sink p_sink;
+  BNode p_root;
+  typename Pipe_t<Response_t<str_t>>::Sink_t p_sink;
 };
 
 }  // namespace _ReQL

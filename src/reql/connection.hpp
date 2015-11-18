@@ -64,12 +64,12 @@ public:
   }
 
   template <class query_t>
-  Cur_t<parser_t, str_t> &run(const query_t &query) {
+  Cur_t<parser_t, str_t> *run(const query_t &query) {
     return p_cursors.run(query);
   }
 
   template <class kwargs_t, class query_t>
-  Cur_t<parser_t, str_t> &run(const query_t &query, const kwargs_t &kwargs) {
+  Cur_t<parser_t, str_t> *run(const query_t &query, const kwargs_t &kwargs) {
     return p_cursors.run(query, kwargs);
   }
 
