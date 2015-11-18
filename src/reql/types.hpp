@@ -25,14 +25,14 @@ limitations under the License.
 
 namespace _ReQL {
 
-  template <class parser_t, class str_t>
-  class Cur_t;
+template <class parser_t, class str_t>
+class Cur_t;
 
-  template <class parser_t, class str_t>
-  class Conn_t;
+template <class parser_t, class str_t>
+class Conn_t;
 
-  template <class str_t>
-  class Query_t;
+template <class str_t>
+class Query_t;
 
 typedef char ReQL_Byte;
 typedef std::uint32_t ReQL_Size;
@@ -41,7 +41,10 @@ typedef std::uint64_t ReQL_Token;
 template <class byte_t>
 ReQL_Size
 get_size(const byte_t *buf) {
-  return (static_cast<ReQL_Size>(buf[0])<<0) | (static_cast<ReQL_Size>(buf[1])<<8) | (static_cast<ReQL_Size>(buf[2])<<16) | (static_cast<ReQL_Size>(buf[3])<<24);
+  return (static_cast<ReQL_Size>(buf[0]) << 0) |
+         (static_cast<ReQL_Size>(buf[1]) << 8) |
+         (static_cast<ReQL_Size>(buf[2]) << 16) |
+         (static_cast<ReQL_Size>(buf[3]) << 24);
 }
 
 template <class byte_t>
@@ -56,7 +59,14 @@ make_size(byte_t *buf, const ReQL_Size magic) {
 template <class byte_t>
 ReQL_Token
 get_token(const byte_t *buf) {
-  return (static_cast<ReQL_Token>(buf[0])<<0) | (static_cast<ReQL_Token>(buf[1])<<8) | (static_cast<ReQL_Token>(buf[2])<<16) | (static_cast<ReQL_Token>(buf[3])<<24) | (static_cast<ReQL_Token>(buf[4])<<32) | (static_cast<ReQL_Token>(buf[5])<<40) | (static_cast<ReQL_Token>(buf[6])<<48) | (static_cast<ReQL_Token>(buf[7])<<56);
+  return (static_cast<ReQL_Token>(buf[0]) << 0) |
+         (static_cast<ReQL_Token>(buf[1]) << 8) |
+         (static_cast<ReQL_Token>(buf[2]) << 16) |
+         (static_cast<ReQL_Token>(buf[3]) << 24) |
+         (static_cast<ReQL_Token>(buf[4]) << 32) |
+         (static_cast<ReQL_Token>(buf[5]) << 40) |
+         (static_cast<ReQL_Token>(buf[6]) << 48) |
+         (static_cast<ReQL_Token>(buf[7]) << 56);
 }
 
 template <class byte_t>
