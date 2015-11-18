@@ -21,23 +21,29 @@ limitations under the License.
 #ifndef REQL_CPP_QUERY_HPP_
 #define REQL_CPP_QUERY_HPP_
 
-#include "./cpp/connection.hpp"
-#include "./cpp/cursor.hpp"
 #include "./cpp/types.hpp"
 
+#include <map>
+#include <string>
+#include <vector>
+
 namespace ReQL {
+
+class Connection;
+class Cursor;
 
 class Query {
 public:
   Query();
-  Query(const _C::ReQL_AST_Function &f, const Types::array &args);
-  Query(const _C::ReQL_AST_Function_Kwargs &f, const Types::array &args, const Types::object &kwargs);
-  Query(const Types::string &val);
+  Query(const _ReQL::Term_t tt, const std::vector<Query> &args);
+  Query(const _ReQL::Term_t tt, const Query *other, const std::vector<Query> &args);
+  Query(const _ReQL::Term_t tt, const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);
+  Query(const _ReQL::Term_t tt, const Query *other, const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);
+  Query(const std::string &val);
   Query(const double &val);
   Query(const bool &val);
-  Query(const Types::array &val);
-  Query(const Types::object &val);
-  Query(_C::ReQL_Obj_t *val);
+  Query(const std::vector<Query> &val);
+  Query(const std::map<std::string, Query> &val);
 
   Query(const Query &other);
   Query(Query &&other);
@@ -45,1900 +51,1899 @@ public:
   Query &operator=(const Query &other);
   Query &operator=(Query &&other);
 
-  void no_reply(const Connection &conn) const;
-  void no_reply(const Connection &conn, const Types::object &kwargs) const;
-  Cursor run(const Connection &conn) const;
-  Cursor run(const Connection &conn, const Types::object &kwargs) const;
+  void no_reply(Connection &conn) const;
+  void no_reply(Connection &conn, const std::map<std::string, Query> &kwargs) const;
+  Cursor run(Connection &conn) const;
+  Cursor run(Connection &conn, const std::map<std::string, Query> &kwargs) const;
 
 private:
-  _C::ReQL_Obj_t *build() const;
+  _ReQL::Any build() const;
 
-  friend _C::ReQL_Obj_t *buildArray(const Query &query);
-  friend _C::ReQL_Obj_t *buildBool(const Query &query);
-  friend _C::ReQL_Obj_t *buildNumber(const Query &query);
-  friend _C::ReQL_Obj_t *buildNull(const Query &query) ;
-  friend _C::ReQL_Obj_t *buildObject(const Query &query);
-  friend _C::ReQL_Obj_t *buildString(const Query &query);
-  friend _C::ReQL_Obj_t *buildTerm(const Query &query);
-  friend _C::ReQL_Obj_t *buildTermKwargs(const Query &query);
+  friend _ReQL::Any buildArray(const Query &query);
+  friend _ReQL::Any buildBool(const Query &query);
+  friend _ReQL::Any buildNumber(const Query &query);
+  friend _ReQL::Any buildNull(const Query &query) ;
+  friend _ReQL::Any buildObject(const Query &query);
+  friend _ReQL::Any buildString(const Query &query);
+  friend _ReQL::Any buildTerm(const Query &query);
+  friend _ReQL::Any buildTermKwargs(const Query &query);
 
-  typedef _C::ReQL_Obj_t *(*QueryBuilder)(const Query &query);
+  typedef _ReQL::Any (*QueryBuilder)(const Query &query);
 
-  Types::array p_array;
+  std::vector<Query> p_array;
   bool p_bool;
   QueryBuilder p_build;
-  _C::ReQL_AST_Function p_func;
-  _C::ReQL_AST_Function_Kwargs p_func_kwargs;
   double p_number;
-  Types::object p_object;
-  Types::string p_string;
+  std::map<std::string, Query> p_object;
+  std::string p_string;
+  _ReQL::Term_t p_tt;
 
 public:
   /**
    */
   Query
-  add(const Types::array &args) const;
+  add(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  and_(const Types::array &args) const;
+  and_(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  append(const Types::array &args) const;
+  append(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  april(const Types::array &args) const;
+  april(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  args(const Types::array &args) const;
+  args(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  asc(const Types::array &args) const;
+  asc(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  august(const Types::array &args) const;
+  august(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  avg(const Types::array &args) const;
+  avg(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  between(const Types::array &args) const;
+  between(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  between_deprecated(const Types::array &args) const;
+  between_deprecated(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  binary(const Types::array &args) const;
+  binary(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  bracket(const Types::array &args) const;
+  bracket(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  branch(const Types::array &args) const;
+  branch(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  ceil(const Types::array &args) const;
+  ceil(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  changes(const Types::array &args) const;
+  changes(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  change_at(const Types::array &args) const;
+  change_at(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  circle(const Types::array &args, const Types::object &kwargs) const;
+  circle(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const;
 
   Query
-  circle(const Types::array &args) const;
+  circle(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  coerce_to(const Types::array &args) const;
+  coerce_to(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  concat_map(const Types::array &args) const;
+  concat_map(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  config(const Types::array &args) const;
+  config(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  contains(const Types::array &args) const;
+  contains(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  count(const Types::array &args) const;
+  count(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  date(const Types::array &args) const;
+  date(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  datum(const Types::array &args) const;
+  datum(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  day(const Types::array &args) const;
+  day(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  day_of_week(const Types::array &args) const;
+  day_of_week(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  day_of_year(const Types::array &args) const;
+  day_of_year(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  db(const Types::array &args) const;
+  db(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  db_create(const Types::array &args) const;
+  db_create(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  db_drop(const Types::array &args) const;
+  db_drop(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  db_list(const Types::array &args) const;
+  db_list(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  december(const Types::array &args) const;
+  december(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  default_(const Types::array &args) const;
+  default_(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  delete_(const Types::array &args, const Types::object &kwargs) const;
+  delete_(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const;
 
   Query
-  delete_(const Types::array &args) const;
+  delete_(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  delete_at(const Types::array &args) const;
+  delete_at(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  desc(const Types::array &args) const;
+  desc(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  difference(const Types::array &args) const;
+  difference(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  distance(const Types::array &args) const;
+  distance(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  distinct(const Types::array &args, const Types::object &kwargs) const;
+  distinct(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const;
 
   Query
-  distinct(const Types::array &args) const;
+  distinct(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  div(const Types::array &args) const;
+  div(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  downcase(const Types::array &args) const;
+  downcase(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  during(const Types::array &args) const;
+  during(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  epoch_time(const Types::array &args) const;
+  epoch_time(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  eq(const Types::array &args) const;
+  eq(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  eq_join(const Types::array &args, const Types::object &kwargs) const;
+  eq_join(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const;
 
   Query
-  eq_join(const Types::array &args) const;
+  eq_join(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  error(const Types::array &args) const;
+  error(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  february(const Types::array &args) const;
+  february(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  fill(const Types::array &args) const;
+  fill(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  filter(const Types::array &args, const Types::object &kwargs) const;
+  filter(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const;
 
   Query
-  filter(const Types::array &args) const;
+  filter(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  floor(const Types::array &args) const;
+  floor(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  for_each(const Types::array &args) const;
+  for_each(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  friday(const Types::array &args) const;
+  friday(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  func(const Types::array &args) const;
+  func(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  funcall(const Types::array &args) const;
+  funcall(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  ge(const Types::array &args) const;
+  ge(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  geojson(const Types::array &args) const;
+  geojson(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  get(const Types::array &args) const;
+  get(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  get_all(const Types::array &args, const Types::object &kwargs) const;
+  get_all(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const;
 
   Query
-  get_all(const Types::array &args) const;
+  get_all(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  get_field(const Types::array &args) const;
+  get_field(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  get_intersecting(const Types::array &args, const Types::object &kwargs) const;
+  get_intersecting(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const;
 
   Query
-  get_intersecting(const Types::array &args) const;
+  get_intersecting(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  get_nearest(const Types::array &args, const Types::object &kwargs) const;
+  get_nearest(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const;
 
   Query
-  get_nearest(const Types::array &args) const;
+  get_nearest(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  group(const Types::array &args, const Types::object &kwargs) const;
+  group(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const;
 
   Query
-  group(const Types::array &args) const;
+  group(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  gt(const Types::array &args) const;
+  gt(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  has_fields(const Types::array &args) const;
+  has_fields(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  hours(const Types::array &args) const;
+  hours(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  http(const Types::array &args, const Types::object &kwargs) const;
+  http(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const;
 
   Query
-  http(const Types::array &args) const;
+  http(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  implicit_var(const Types::array &args) const;
+  implicit_var(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  includes(const Types::array &args) const;
+  includes(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  index_create(const Types::array &args, const Types::object &kwargs) const;
+  index_create(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const;
 
   Query
-  index_create(const Types::array &args) const;
+  index_create(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  index_drop(const Types::array &args) const;
+  index_drop(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  index_list(const Types::array &args) const;
+  index_list(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  index_rename(const Types::array &args, const Types::object &kwargs) const;
+  index_rename(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const;
 
   Query
-  index_rename(const Types::array &args) const;
+  index_rename(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  index_status(const Types::array &args) const;
+  index_status(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  index_wait(const Types::array &args) const;
+  index_wait(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  info(const Types::array &args) const;
+  info(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  inner_join(const Types::array &args) const;
+  inner_join(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  insert(const Types::array &args) const;
+  insert(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  insert_at(const Types::array &args) const;
+  insert_at(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  intersects(const Types::array &args) const;
+  intersects(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  in_timezone(const Types::array &args) const;
+  in_timezone(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  iso8601(const Types::array &args, const Types::object &kwargs) const;
+  iso8601(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const;
 
   Query
-  iso8601(const Types::array &args) const;
+  iso8601(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  is_empty(const Types::array &args) const;
+  is_empty(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  january(const Types::array &args) const;
+  january(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  javascript(const Types::array &args, const Types::object &kwargs) const;
+  javascript(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const;
 
   Query
-  javascript(const Types::array &args) const;
+  javascript(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  json(const Types::array &args) const;
+  json(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  july(const Types::array &args) const;
+  july(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  june(const Types::array &args) const;
+  june(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  keys(const Types::array &args) const;
+  keys(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  le(const Types::array &args) const;
+  le(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  limit(const Types::array &args) const;
+  limit(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  line(const Types::array &args) const;
+  line(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  literal(const Types::array &args) const;
+  literal(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  lt(const Types::array &args) const;
+  lt(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  make_array(const Types::array &args) const;
+  make_array(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  make_obj(const Types::array &args) const;
+  make_obj(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  map(const Types::array &args) const;
+  map(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  march(const Types::array &args) const;
+  march(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  match(const Types::array &args) const;
+  match(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  max(const Types::array &args) const;
+  max(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  maxval(const Types::array &args) const;
+  maxval(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  may(const Types::array &args) const;
+  may(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  merge(const Types::array &args) const;
+  merge(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  min(const Types::array &args) const;
+  min(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  minutes(const Types::array &args) const;
+  minutes(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  minval(const Types::array &args) const;
+  minval(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  mod(const Types::array &args) const;
+  mod(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  monday(const Types::array &args) const;
+  monday(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  month(const Types::array &args) const;
+  month(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  mul(const Types::array &args) const;
+  mul(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  ne(const Types::array &args) const;
+  ne(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  not_(const Types::array &args) const;
+  not_(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  november(const Types::array &args) const;
+  november(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  now(const Types::array &args) const;
+  now(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  nth(const Types::array &args) const;
+  nth(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  object(const Types::array &args) const;
+  object(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  october(const Types::array &args) const;
+  october(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  offsets_of(const Types::array &args) const;
+  offsets_of(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  or_(const Types::array &args) const;
+  or_(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  order_by(const Types::array &args, const Types::object &kwargs) const;
+  order_by(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const;
 
   Query
-  order_by(const Types::array &args) const;
+  order_by(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  outer_join(const Types::array &args) const;
+  outer_join(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  pluck(const Types::array &args) const;
+  pluck(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  point(const Types::array &args) const;
+  point(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  polygon(const Types::array &args) const;
+  polygon(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  polygon_sub(const Types::array &args) const;
+  polygon_sub(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  prepend(const Types::array &args) const;
+  prepend(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  random(const Types::array &args, const Types::object &kwargs) const;
+  random(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const;
 
   Query
-  random(const Types::array &args) const;
+  random(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  range(const Types::array &args) const;
+  range(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  rebalance(const Types::array &args) const;
+  rebalance(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  reconfigure(const Types::array &args) const;
+  reconfigure(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  reduce(const Types::array &args) const;
+  reduce(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  replace(const Types::array &args, const Types::object &kwargs) const;
+  replace(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const;
 
   Query
-  replace(const Types::array &args) const;
+  replace(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  round(const Types::array &args) const;
+  round(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  sample(const Types::array &args) const;
+  sample(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  saturday(const Types::array &args) const;
+  saturday(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  seconds(const Types::array &args) const;
+  seconds(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  september(const Types::array &args) const;
+  september(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  set_difference(const Types::array &args) const;
+  set_difference(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  set_insert(const Types::array &args) const;
+  set_insert(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  set_intersection(const Types::array &args) const;
+  set_intersection(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  set_union(const Types::array &args) const;
+  set_union(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  skip(const Types::array &args) const;
+  skip(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  slice(const Types::array &args, const Types::object &kwargs) const;
+  slice(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const;
 
   Query
-  slice(const Types::array &args) const;
+  slice(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  splice_at(const Types::array &args) const;
+  splice_at(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  split(const Types::array &args) const;
+  split(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  status(const Types::array &args) const;
+  status(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  sub(const Types::array &args) const;
+  sub(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  sum(const Types::array &args) const;
+  sum(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  sunday(const Types::array &args) const;
+  sunday(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  sync(const Types::array &args) const;
+  sync(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  table(const Types::array &args, const Types::object &kwargs) const;
+  table(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const;
 
   Query
-  table(const Types::array &args) const;
+  table(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  table_create(const Types::array &args, const Types::object &kwargs) const;
+  table_create(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const;
 
   Query
-  table_create(const Types::array &args) const;
+  table_create(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  table_drop(const Types::array &args) const;
+  table_drop(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  table_list(const Types::array &args) const;
+  table_list(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  thursday(const Types::array &args) const;
+  thursday(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  time(const Types::array &args) const;
+  time(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  timezone_(const Types::array &args) const;
+  timezone_(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  time_of_day(const Types::array &args) const;
+  time_of_day(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  to_epoch_time(const Types::array &args) const;
+  to_epoch_time(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  to_geojson(const Types::array &args) const;
+  to_geojson(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  to_iso8601(const Types::array &args) const;
+  to_iso8601(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  to_json_string(const Types::array &args) const;
+  to_json_string(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  tuesday(const Types::array &args) const;
+  tuesday(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  type_of(const Types::array &args) const;
+  type_of(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  ungroup(const Types::array &args) const;
+  ungroup(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  union_(const Types::array &args) const;
+  union_(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  upcase(const Types::array &args) const;
+  upcase(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  update(const Types::array &args, const Types::object &kwargs) const;
+  update(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const;
 
   Query
-  update(const Types::array &args) const;
+  update(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  uuid(const Types::array &args) const;
+  uuid(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  values(const Types::array &args) const;
+  values(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  var(const Types::array &args) const;
+  var(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  wait(const Types::array &args) const;
+  wait(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  wednesday(const Types::array &args) const;
+  wednesday(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  without(const Types::array &args) const;
+  without(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  with_fields(const Types::array &args) const;
+  with_fields(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  year(const Types::array &args) const;
+  year(const std::vector<Query> &args) const;
 
   /**
    */
   Query
-  zip(const Types::array &args) const;
+  zip(const std::vector<Query> &args) const;
 };
 
 /**
  */
 Query
-add(const Types::array &args);
+add(const std::vector<Query> &args);
 
 /**
  */
 Query
-and_(const Types::array &args);
+and_(const std::vector<Query> &args);
 
 /**
  */
 Query
-append(const Types::array &args);
+append(const std::vector<Query> &args);
 
 /**
  */
 Query
-april(const Types::array &args);
+april(const std::vector<Query> &args);
 
 /**
  */
 Query
-args(const Types::array &args);
+args(const std::vector<Query> &args);
 
 /**
  */
 Query
-asc(const Types::array &args);
+asc(const std::vector<Query> &args);
 
 /**
  */
 Query
-august(const Types::array &args);
+august(const std::vector<Query> &args);
 
 /**
  */
 Query
-avg(const Types::array &args);
+avg(const std::vector<Query> &args);
 
 /**
  */
 Query
-between(const Types::array &args);
+between(const std::vector<Query> &args);
 
 /**
  */
 Query
-between_deprecated(const Types::array &args);
+between_deprecated(const std::vector<Query> &args);
 
 /**
  */
 Query
-binary(const Types::array &args);
+binary(const std::vector<Query> &args);
 
 /**
  */
 Query
-bracket(const Types::array &args);
+bracket(const std::vector<Query> &args);
 
 /**
  */
 Query
-branch(const Types::array &args);
+branch(const std::vector<Query> &args);
 
 /**
  */
 Query
-ceil(const Types::array &args);
+ceil(const std::vector<Query> &args);
 
 /**
  */
 Query
-changes(const Types::array &args);
+changes(const std::vector<Query> &args);
 
 /**
  */
 Query
-change_at(const Types::array &args);
+change_at(const std::vector<Query> &args);
 
 /**
  */
 Query
-circle(const Types::array &args, const Types::object &kwargs);
+circle(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);
 Query
-circle(const Types::array &args);
+circle(const std::vector<Query> &args);
 
 /**
  */
 Query
-coerce_to(const Types::array &args);
+coerce_to(const std::vector<Query> &args);
 
 /**
  */
 Query
-concat_map(const Types::array &args);
+concat_map(const std::vector<Query> &args);
 
 /**
  */
 Query
-config(const Types::array &args);
+config(const std::vector<Query> &args);
 
 /**
  */
 Query
-contains(const Types::array &args);
+contains(const std::vector<Query> &args);
 
 /**
  */
 Query
-count(const Types::array &args);
+count(const std::vector<Query> &args);
 
 /**
  */
 Query
-date(const Types::array &args);
+date(const std::vector<Query> &args);
 
 /**
  */
 Query
-datum(const Types::array &args);
+datum(const std::vector<Query> &args);
 
 /**
  */
 Query
-day(const Types::array &args);
+day(const std::vector<Query> &args);
 
 /**
  */
 Query
-day_of_week(const Types::array &args);
+day_of_week(const std::vector<Query> &args);
 
 /**
  */
 Query
-day_of_year(const Types::array &args);
+day_of_year(const std::vector<Query> &args);
 
 /**
  */
 Query
-db(const Types::array &args);
+db(const std::vector<Query> &args);
 
 /**
  */
 Query
-db_create(const Types::array &args);
+db_create(const std::vector<Query> &args);
 
 /**
  */
 Query
-db_drop(const Types::array &args);
+db_drop(const std::vector<Query> &args);
 
 /**
  */
 Query
-db_list(const Types::array &args);
+db_list(const std::vector<Query> &args);
 
 /**
  */
 Query
-december(const Types::array &args);
+december(const std::vector<Query> &args);
 
 /**
  */
 Query
-default_(const Types::array &args);
+default_(const std::vector<Query> &args);
 
 /**
  */
 Query
-delete_(const Types::array &args, const Types::object &kwargs);
+delete_(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);
 Query
-delete_(const Types::array &args);
+delete_(const std::vector<Query> &args);
 
 /**
  */
 Query
-delete_at(const Types::array &args);
+delete_at(const std::vector<Query> &args);
 
 /**
  */
 Query
-desc(const Types::array &args);
+desc(const std::vector<Query> &args);
 
 /**
  */
 Query
-difference(const Types::array &args);
+difference(const std::vector<Query> &args);
 
 /**
  */
 Query
-distance(const Types::array &args);
+distance(const std::vector<Query> &args);
 
 /**
  */
 Query
-distinct(const Types::array &args, const Types::object &kwargs);
+distinct(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);
 Query
-distinct(const Types::array &args);
+distinct(const std::vector<Query> &args);
 
 /**
  */
 Query
-div(const Types::array &args);
+div(const std::vector<Query> &args);
 
 /**
  */
 Query
-downcase(const Types::array &args);
+downcase(const std::vector<Query> &args);
 
 /**
  */
 Query
-during(const Types::array &args);
+during(const std::vector<Query> &args);
 
 /**
  */
 Query
-epoch_time(const Types::array &args);
+epoch_time(const std::vector<Query> &args);
 
 /**
  */
 Query
-eq(const Types::array &args);
+eq(const std::vector<Query> &args);
 
 /**
  */
 Query
-eq_join(const Types::array &args, const Types::object &kwargs);
+eq_join(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);
 Query
-eq_join(const Types::array &args);
+eq_join(const std::vector<Query> &args);
 
 /**
  */
 Query
-error(const Types::array &args);
+error(const std::vector<Query> &args);
 
 /**
  */
 Query
-february(const Types::array &args);
+february(const std::vector<Query> &args);
 
 /**
  */
 Query
-fill(const Types::array &args);
+fill(const std::vector<Query> &args);
 
 /**
  */
 Query
-filter(const Types::array &args, const Types::object &kwargs);
+filter(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);
 Query
-filter(const Types::array &args);
+filter(const std::vector<Query> &args);
 
 /**
  */
 Query
-floor(const Types::array &args);
+floor(const std::vector<Query> &args);
 
 /**
  */
 Query
-for_each(const Types::array &args);
+for_each(const std::vector<Query> &args);
 
 /**
  */
 Query
-friday(const Types::array &args);
+friday(const std::vector<Query> &args);
 
 /**
  */
 Query
-func(const Types::array &args);
+func(const std::vector<Query> &args);
 
 /**
  */
 Query
-funcall(const Types::array &args);
+funcall(const std::vector<Query> &args);
 
 /**
  */
 Query
-ge(const Types::array &args);
+ge(const std::vector<Query> &args);
 
 /**
  */
 Query
-geojson(const Types::array &args);
+geojson(const std::vector<Query> &args);
 
 /**
  */
 Query
-get(const Types::array &args);
+get(const std::vector<Query> &args);
 
 /**
  */
 Query
-get_all(const Types::array &args, const Types::object &kwargs);
+get_all(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);
 Query
-get_all(const Types::array &args);
+get_all(const std::vector<Query> &args);
 
 /**
  */
 Query
-get_field(const Types::array &args);
+get_field(const std::vector<Query> &args);
 
 /**
  */
 Query
-get_intersecting(const Types::array &args, const Types::object &kwargs);
+get_intersecting(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);
 Query
-get_intersecting(const Types::array &args);
+get_intersecting(const std::vector<Query> &args);
 
 /**
  */
 Query
-get_nearest(const Types::array &args, const Types::object &kwargs);
+get_nearest(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);
 Query
-get_nearest(const Types::array &args);
+get_nearest(const std::vector<Query> &args);
 
 /**
  */
 Query
-group(const Types::array &args, const Types::object &kwargs);
+group(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);
 Query
-group(const Types::array &args);
+group(const std::vector<Query> &args);
 
 /**
  */
 Query
-gt(const Types::array &args);
+gt(const std::vector<Query> &args);
 
 /**
  */
 Query
-has_fields(const Types::array &args);
+has_fields(const std::vector<Query> &args);
 
 /**
  */
 Query
-hours(const Types::array &args);
+hours(const std::vector<Query> &args);
 
 /**
  */
 Query
-http(const Types::array &args, const Types::object &kwargs);
+http(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);
 Query
-http(const Types::array &args);
+http(const std::vector<Query> &args);
 
 /**
  */
 Query
-implicit_var(const Types::array &args);
+implicit_var(const std::vector<Query> &args);
 
 /**
  */
 Query
-includes(const Types::array &args);
+includes(const std::vector<Query> &args);
 
 /**
  */
 Query
-index_create(const Types::array &args, const Types::object &kwargs);
+index_create(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);
 Query
-index_create(const Types::array &args);
+index_create(const std::vector<Query> &args);
 
 /**
  */
 Query
-index_drop(const Types::array &args);
+index_drop(const std::vector<Query> &args);
 
 /**
  */
 Query
-index_list(const Types::array &args);
+index_list(const std::vector<Query> &args);
 
 /**
  */
 Query
-index_rename(const Types::array &args, const Types::object &kwargs);
+index_rename(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);
 Query
-index_rename(const Types::array &args);
+index_rename(const std::vector<Query> &args);
 
 /**
  */
 Query
-index_status(const Types::array &args);
+index_status(const std::vector<Query> &args);
 
 /**
  */
 Query
-index_wait(const Types::array &args);
+index_wait(const std::vector<Query> &args);
 
 /**
  */
 Query
-info(const Types::array &args);
+info(const std::vector<Query> &args);
 
 /**
  */
 Query
-inner_join(const Types::array &args);
+inner_join(const std::vector<Query> &args);
 
 /**
  */
 Query
-insert(const Types::array &args);
+insert(const std::vector<Query> &args);
 
 /**
  */
 Query
-insert_at(const Types::array &args);
+insert_at(const std::vector<Query> &args);
 
 /**
  */
 Query
-intersects(const Types::array &args);
+intersects(const std::vector<Query> &args);
 
 /**
  */
 Query
-in_timezone(const Types::array &args);
+in_timezone(const std::vector<Query> &args);
 
 /**
  */
 Query
-iso8601(const Types::array &args, const Types::object &kwargs);
+iso8601(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);
 Query
-iso8601(const Types::array &args);
+iso8601(const std::vector<Query> &args);
 
 /**
  */
 Query
-is_empty(const Types::array &args);
+is_empty(const std::vector<Query> &args);
 
 /**
  */
 Query
-january(const Types::array &args);
+january(const std::vector<Query> &args);
 
 /**
  */
 Query
-javascript(const Types::array &args, const Types::object &kwargs);
+javascript(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);
 Query
-javascript(const Types::array &args);
+javascript(const std::vector<Query> &args);
 
 /**
  */
 Query
-json(const Types::array &args);
+json(const std::vector<Query> &args);
 
 /**
  */
 Query
-july(const Types::array &args);
+july(const std::vector<Query> &args);
 
 /**
  */
 Query
-june(const Types::array &args);
+june(const std::vector<Query> &args);
 
 /**
  */
 Query
-keys(const Types::array &args);
+keys(const std::vector<Query> &args);
 
 /**
  */
 Query
-le(const Types::array &args);
+le(const std::vector<Query> &args);
 
 /**
  */
 Query
-limit(const Types::array &args);
+limit(const std::vector<Query> &args);
 
 /**
  */
 Query
-line(const Types::array &args);
+line(const std::vector<Query> &args);
 
 /**
  */
 Query
-literal(const Types::array &args);
+literal(const std::vector<Query> &args);
 
 /**
  */
 Query
-lt(const Types::array &args);
+lt(const std::vector<Query> &args);
 
 /**
  */
 Query
-make_array(const Types::array &args);
+make_array(const std::vector<Query> &args);
 
 /**
  */
 Query
-make_obj(const Types::array &args);
+make_obj(const std::vector<Query> &args);
 
 /**
  */
 Query
-map(const Types::array &args);
+map(const std::vector<Query> &args);
 
 /**
  */
 Query
-march(const Types::array &args);
+march(const std::vector<Query> &args);
 
 /**
  */
 Query
-match(const Types::array &args);
+match(const std::vector<Query> &args);
 
 /**
  */
 Query
-max(const Types::array &args);
+max(const std::vector<Query> &args);
 
 /**
  */
 Query
-maxval(const Types::array &args);
+maxval(const std::vector<Query> &args);
 
 /**
  */
 Query
-may(const Types::array &args);
+may(const std::vector<Query> &args);
 
 /**
  */
 Query
-merge(const Types::array &args);
+merge(const std::vector<Query> &args);
 
 /**
  */
 Query
-min(const Types::array &args);
+min(const std::vector<Query> &args);
 
 /**
  */
 Query
-minutes(const Types::array &args);
+minutes(const std::vector<Query> &args);
 
 /**
  */
 Query
-minval(const Types::array &args);
+minval(const std::vector<Query> &args);
 
 /**
  */
 Query
-mod(const Types::array &args);
+mod(const std::vector<Query> &args);
 
 /**
  */
 Query
-monday(const Types::array &args);
+monday(const std::vector<Query> &args);
 
 /**
  */
 Query
-month(const Types::array &args);
+month(const std::vector<Query> &args);
 
 /**
  */
 Query
-mul(const Types::array &args);
+mul(const std::vector<Query> &args);
 
 /**
  */
 Query
-ne(const Types::array &args);
+ne(const std::vector<Query> &args);
 
 /**
  */
 Query
-not_(const Types::array &args);
+not_(const std::vector<Query> &args);
 
 /**
  */
 Query
-november(const Types::array &args);
+november(const std::vector<Query> &args);
 
 /**
  */
 Query
-now(const Types::array &args);
+now(const std::vector<Query> &args);
 
 /**
  */
 Query
-nth(const Types::array &args);
+nth(const std::vector<Query> &args);
 
 /**
  */
 Query
-object(const Types::array &args);
+object(const std::vector<Query> &args);
 
 /**
  */
 Query
-october(const Types::array &args);
+october(const std::vector<Query> &args);
 
 /**
  */
 Query
-offsets_of(const Types::array &args);
+offsets_of(const std::vector<Query> &args);
 
 /**
  */
 Query
-or_(const Types::array &args);
+or_(const std::vector<Query> &args);
 
 /**
  */
 Query
-order_by(const Types::array &args, const Types::object &kwargs);
+order_by(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);
 Query
-order_by(const Types::array &args);
+order_by(const std::vector<Query> &args);
 
 /**
  */
 Query
-outer_join(const Types::array &args);
+outer_join(const std::vector<Query> &args);
 
 /**
  */
 Query
-pluck(const Types::array &args);
+pluck(const std::vector<Query> &args);
 
 /**
  */
 Query
-point(const Types::array &args);
+point(const std::vector<Query> &args);
 
 /**
  */
 Query
-polygon(const Types::array &args);
+polygon(const std::vector<Query> &args);
 
 /**
  */
 Query
-polygon_sub(const Types::array &args);
+polygon_sub(const std::vector<Query> &args);
 
 /**
  */
 Query
-prepend(const Types::array &args);
+prepend(const std::vector<Query> &args);
 
 /**
  */
 Query
-random(const Types::array &args, const Types::object &kwargs);
+random(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);
 Query
-random(const Types::array &args);
+random(const std::vector<Query> &args);
 
 /**
  */
 Query
-range(const Types::array &args);
+range(const std::vector<Query> &args);
 
 /**
  */
 Query
-rebalance(const Types::array &args);
+rebalance(const std::vector<Query> &args);
 
 /**
  */
 Query
-reconfigure(const Types::array &args);
+reconfigure(const std::vector<Query> &args);
 
 /**
  */
 Query
-reduce(const Types::array &args);
+reduce(const std::vector<Query> &args);
 
 /**
  */
 Query
-replace(const Types::array &args, const Types::object &kwargs);
+replace(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);
 Query
-replace(const Types::array &args);
+replace(const std::vector<Query> &args);
 
 /**
  */
 Query
-round(const Types::array &args);
+round(const std::vector<Query> &args);
 
 /**
  */
 Query
-sample(const Types::array &args);
+sample(const std::vector<Query> &args);
 
 /**
  */
 Query
-saturday(const Types::array &args);
+saturday(const std::vector<Query> &args);
 
 /**
  */
 Query
-seconds(const Types::array &args);
+seconds(const std::vector<Query> &args);
 
 /**
  */
 Query
-september(const Types::array &args);
+september(const std::vector<Query> &args);
 
 /**
  */
 Query
-set_difference(const Types::array &args);
+set_difference(const std::vector<Query> &args);
 
 /**
  */
 Query
-set_insert(const Types::array &args);
+set_insert(const std::vector<Query> &args);
 
 /**
  */
 Query
-set_intersection(const Types::array &args);
+set_intersection(const std::vector<Query> &args);
 
 /**
  */
 Query
-set_union(const Types::array &args);
+set_union(const std::vector<Query> &args);
 
 /**
  */
 Query
-skip(const Types::array &args);
+skip(const std::vector<Query> &args);
 
 /**
  */
 Query
-slice(const Types::array &args, const Types::object &kwargs);
+slice(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);
 Query
-slice(const Types::array &args);
+slice(const std::vector<Query> &args);
 
 /**
  */
 Query
-splice_at(const Types::array &args);
+splice_at(const std::vector<Query> &args);
 
 /**
  */
 Query
-split(const Types::array &args);
+split(const std::vector<Query> &args);
 
 /**
  */
 Query
-status(const Types::array &args);
+status(const std::vector<Query> &args);
 
 /**
  */
 Query
-sub(const Types::array &args);
+sub(const std::vector<Query> &args);
 
 /**
  */
 Query
-sum(const Types::array &args);
+sum(const std::vector<Query> &args);
 
 /**
  */
 Query
-sunday(const Types::array &args);
+sunday(const std::vector<Query> &args);
 
 /**
  */
 Query
-sync(const Types::array &args);
+sync(const std::vector<Query> &args);
 
 /**
  */
 Query
-table(const Types::array &args, const Types::object &kwargs);
+table(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);
 Query
-table(const Types::array &args);
+table(const std::vector<Query> &args);
 
 /**
  */
 Query
-table_create(const Types::array &args, const Types::object &kwargs);
+table_create(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);
 Query
-table_create(const Types::array &args);
+table_create(const std::vector<Query> &args);
 
 /**
  */
 Query
-table_drop(const Types::array &args);
+table_drop(const std::vector<Query> &args);
 
 /**
  */
 Query
-table_list(const Types::array &args);
+table_list(const std::vector<Query> &args);
 
 /**
  */
 Query
-thursday(const Types::array &args);
+thursday(const std::vector<Query> &args);
 
 /**
  */
 Query
-time(const Types::array &args);
+time(const std::vector<Query> &args);
 
 /**
  */
 Query
-timezone_(const Types::array &args);
+timezone_(const std::vector<Query> &args);
 
 /**
  */
 Query
-time_of_day(const Types::array &args);
+time_of_day(const std::vector<Query> &args);
 
 /**
  */
 Query
-to_epoch_time(const Types::array &args);
+to_epoch_time(const std::vector<Query> &args);
 
 /**
  */
 Query
-to_geojson(const Types::array &args);
+to_geojson(const std::vector<Query> &args);
 
 /**
  */
 Query
-to_iso8601(const Types::array &args);
+to_iso8601(const std::vector<Query> &args);
 
 /**
  */
 Query
-to_json_string(const Types::array &args);
+to_json_string(const std::vector<Query> &args);
 
 /**
  */
 Query
-tuesday(const Types::array &args);
+tuesday(const std::vector<Query> &args);
 
 /**
  */
 Query
-type_of(const Types::array &args);
+type_of(const std::vector<Query> &args);
 
 /**
  */
 Query
-ungroup(const Types::array &args);
+ungroup(const std::vector<Query> &args);
 
 /**
  */
 Query
-union_(const Types::array &args);
+union_(const std::vector<Query> &args);
 
 /**
  */
 Query
-upcase(const Types::array &args);
+upcase(const std::vector<Query> &args);
 
 /**
  */
 Query
-update(const Types::array &args, const Types::object &kwargs);
+update(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);
 Query
-update(const Types::array &args);
+update(const std::vector<Query> &args);
 
 /**
  */
 Query
-uuid(const Types::array &args);
+uuid(const std::vector<Query> &args);
 
 /**
  */
 Query
-values(const Types::array &args);
+values(const std::vector<Query> &args);
 
 /**
  */
 Query
-var(const Types::array &args);
+var(const std::vector<Query> &args);
 
 /**
  */
 Query
-wait(const Types::array &args);
+wait(const std::vector<Query> &args);
 
 /**
  */
 Query
-wednesday(const Types::array &args);
+wednesday(const std::vector<Query> &args);
 
 /**
  */
 Query
-without(const Types::array &args);
+without(const std::vector<Query> &args);
 
 /**
  */
 Query
-with_fields(const Types::array &args);
+with_fields(const std::vector<Query> &args);
 
 /**
  */
 Query
-year(const Types::array &args);
+year(const std::vector<Query> &args);
 
 /**
  */
 Query
-zip(const Types::array &args);
+zip(const std::vector<Query> &args);
 
 }  // namespace ReQL
 

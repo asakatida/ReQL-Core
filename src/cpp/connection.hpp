@@ -46,6 +46,8 @@ public:
   void reconnect();
 
 private:
+
+  friend class Query;
   _Connection p_conn;
 };
 
