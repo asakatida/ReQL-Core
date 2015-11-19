@@ -73,6 +73,7 @@ public:
         return p_right->create(key);
       }
       p_right = new BNode(key);
+      return p_right->create(key);
     }
 
     void push(Response_t<str_t> &&response) {
