@@ -125,7 +125,7 @@ decode(const str_t &json, typename str_t::iterator it, typename str_t::const_ite
           esc = true;
         } else if (*it == '"') {
           ++it;
-          return p.addValue(std::string(start, static_cast<size_t>(track - start)));
+          return p.addValue(str_t(start, static_cast<size_t>(track - start)));
         }
         ++track;
         ++it;
