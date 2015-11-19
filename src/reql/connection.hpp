@@ -31,7 +31,7 @@ namespace _ReQL {
 static const char *DEFAULT_ADDR = "localhost";
 static const char *DEFAULT_PORT = "30030";
 
-template <class parser_t, class str_t>
+template <class result_t, class str_t>
 class Conn_t {
 public:
   Conn_t() {}
@@ -47,7 +47,7 @@ public:
   }
 
   void _connect(const str_t &addr, const str_t &port, const str_t &auth) {
-    p_cursors = std::move(BTree_t<parser_t, str_t>(addr, port, auth));
+    p_cursors = std::move(BTree_t<result_t, str_t>(addr, port, auth));
   }
 
   Conn_t(Conn_t &&other) : p_cursors(std::move(other.p_cursors)) {}
@@ -64,12 +64,12 @@ public:
   }
 
   template <class query_t>
-  Cur_t<parser_t, str_t> *run(const query_t &query) {
+  Cur_t<result_t, str_t> *run(const query_t &query) {
     return p_cursors.run(query);
   }
 
   template <class kwargs_t, class query_t>
-  Cur_t<parser_t, str_t> *run(const query_t &query, const kwargs_t &kwargs) {
+  Cur_t<result_t, str_t> *run(const query_t &query, const kwargs_t &kwargs) {
     return p_cursors.run(query, kwargs);
   }
 
@@ -86,7 +86,7 @@ public:
     p_cursors.stop(token);
   }
 
-  BTree_t<parser_t, str_t> p_cursors;
+  BTree_t<result_t, str_t> p_cursors;
 };
 
 }  // namespace _ReQL

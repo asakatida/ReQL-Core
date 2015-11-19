@@ -24,14 +24,16 @@ limitations under the License.
 #include "./reql/types.hpp"
 
 #include <cctype>
+#include <cstdlib>
+#include <cstring>
 #include <locale>
 #include <string>
 
 namespace _ReQL {
 
-template <class iter_t>
+template <class str_t>
 static void
-isspace(iter_t &it, const iter_t &end) {
+isspace(typename str_t::iterator it, typename str_t::const_iterator &end) {
   while (std::isspace(static_cast<char>(*it), std::locale("en_US.UTF8"))) {
     if (it == end) {
       throw std::exception();
@@ -40,10 +42,10 @@ isspace(iter_t &it, const iter_t &end) {
   }
 }
 
-template <class iter_t>
+template <class str_t>
 static auto
-isnext(iter_t &it, const iter_t &end, const typename iter_t::value_type &expect) {
-  isspace(it, end);
+isnext(typename str_t::iterator it, typename str_t::const_iterator &end, const typename str_t::value_type &expect) {
+  isspace<str_t>(it, end);
   if (*it == expect) {
     ++it;
     return true;
@@ -53,8 +55,8 @@ isnext(iter_t &it, const iter_t &end, const typename iter_t::value_type &expect)
 
 template <class parser_t, class str_t>
 static void
-decode(const str_t &json, typename str_t::iterator it, typename str_t::iterator end, parser_t &p) {
-  isspace(it, end);
+decode(const str_t &json, typename str_t::iterator it, typename str_t::const_iterator end, parser_t &p) {
+  isspace<str_t>(it, end);
   switch (*it) {
     case '"': {
       ++it;
@@ -123,7 +125,7 @@ decode(const str_t &json, typename str_t::iterator it, typename str_t::iterator 
           esc = true;
         } else if (*it == '"') {
           ++it;
-          return p.addValue(s(&*start, static_cast<size_t>(track - start)));
+          return p.addValue(std::string(start, static_cast<size_t>(track - start)));
         }
         ++track;
         ++it;
@@ -134,14 +136,14 @@ decode(const str_t &json, typename str_t::iterator it, typename str_t::iterator 
       p.startArray();
       ++it;
       while (it != end) {
-        if (isnext(it, end, ']')) {
+        if (isnext<str_t>(it, end, ']')) {
           return p.endArray();
         }
         p.startElement();
         decode(json, it, end, p);
         p.endElement();
-        if (!isnext(it, end, ',')) {
-          if (isnext(it, end, ']')) {
+        if (!isnext<str_t>(it, end, ',')) {
+          if (isnext<str_t>(it, end, ']')) {
             return p.endArray();
           } else {
             throw std::exception();
@@ -153,18 +155,18 @@ decode(const str_t &json, typename str_t::iterator it, typename str_t::iterator 
     case '{': {
       p.startObject();
       ++it;
-      if (isnext(it, end, '}')) {
+      if (isnext<str_t>(it, end, '}')) {
         return p.endObject();
       }
       while (it != end) {
         p.startKeyValue();
         decode(json, it, end, p);
-        if (!isnext(it, end, ':')) {
+        if (!isnext<str_t>(it, end, ':')) {
           throw std::exception();
         }
         decode(json, it, end, p);
-        if (!isnext(it, end, ',')) {
-          if (isnext(it, end, '}')) {
+        if (!isnext<str_t>(it, end, ',')) {
+          if (isnext<str_t>(it, end, '}')) {
             return p.endObject();
           } else {
             throw std::exception();
@@ -177,7 +179,7 @@ decode(const str_t &json, typename str_t::iterator it, typename str_t::iterator 
       if (it + 5 >= end) {
         throw std::exception();
       }
-      if (memcmp(reinterpret_cast<const void *>(&*it), "false", 5) != 0) {
+      if (std::memcmp(reinterpret_cast<const void *>(&*it), "false", 5) != 0) {
         throw std::exception();
       }
       return p.addValue(false);
@@ -187,7 +189,7 @@ decode(const str_t &json, typename str_t::iterator it, typename str_t::iterator 
       if (it + 4 >= end) {
         throw std::exception();
       }
-      if (memcmp(reinterpret_cast<const void *>(&*it), "null", 4) != 0) {
+      if (std::memcmp(reinterpret_cast<const void *>(&*it), "null", 4) != 0) {
         throw std::exception();
       }
       return p.addValue();
@@ -196,7 +198,7 @@ decode(const str_t &json, typename str_t::iterator it, typename str_t::iterator 
       if (it + 4 >= end) {
         throw std::exception();
       }
-      if (memcmp(reinterpret_cast<const void *>(&*it), "true", 4) != 0) {
+      if (std::memcmp(reinterpret_cast<const void *>(&*it), "true", 4) != 0) {
         throw std::exception();
       }
       return p.addValue(true);
@@ -213,7 +215,7 @@ decode(const str_t &json, typename str_t::iterator it, typename str_t::iterator 
     case '8':
     case '9': {
       char *end_ptr = nullptr;
-      double num = strtod(reinterpret_cast<const char *>(&*it), &end_ptr);
+      double num = std::strtod(reinterpret_cast<const char *>(&*it), &end_ptr);
       if (end_ptr == nullptr) {
         throw std::exception();
       }
@@ -225,10 +227,10 @@ decode(const str_t &json, typename str_t::iterator it, typename str_t::iterator 
 
 template <class parser_t, class str_t>
 void
-decode(const str_t &json, parser_t &p) {
+decode(str_t &json, parser_t &p) {
   p.startParse();
   try {
-    decode(json, json.begin(), json.end(), p);
+    decode(json, json.begin(), json.cend(), p);
   } catch (std::exception &e) {
     return p.error(e);
   }

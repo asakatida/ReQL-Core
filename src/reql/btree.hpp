@@ -31,7 +31,7 @@ limitations under the License.
 
 namespace _ReQL {
 
-template <class parser_t, class str_t>
+template <class result_t, class str_t>
 class BTree_t {
 public:
   BTree_t() {}
@@ -58,20 +58,21 @@ public:
       }
     }
 
-    Cur_t<parser_t, str_t> *create(const ReQL_Token &key) {
+    Cur_t<result_t, str_t> *create(const ReQL_Token &key) {
+      if (key == p_key) {
+        return new Cur_t<result_t, str_t>(&p_val);
+      }
       if (key < p_key) {
         if (p_left) {
           return p_left->create(key);
         }
         p_left = new BNode(key);
-        return (*p_left)[key];
+        return p_left->create(key);
       }
       if (p_right) {
         return p_right->create(key);
       }
       p_right = new BNode(key);
-      return (*p_left)[key];
-      return new Cur_t<parser_t, str_t>;
     }
 
     void push(Response_t<str_t> &&response) {
@@ -103,7 +104,7 @@ public:
     BNode *p_left;
     BNode *p_parent;
     BNode *p_right;
-    Cur_t<parser_t, str_t> p_val;
+    Pipe_t<Response_t<str_t>> p_val;
   };
 
   BTree_t(const str_t &addr, const str_t &port, const str_t &auth) :
@@ -128,7 +129,7 @@ public:
     return *this;
   }
 
-  Cur_t<parser_t, str_t> *create(const ReQL_Token &key) {
+  Cur_t<result_t, str_t> *create(const ReQL_Token &key) {
     std::lock_guard<std::mutex> lock(p_mutex);
     return p_root.create(key);
   }
@@ -138,19 +139,19 @@ public:
   }
 
   template <class query_t>
-  Cur_t<parser_t, str_t> *run(const query_t &query) {
+  Cur_t<result_t, str_t> *run(const query_t &query) {
     Query_t<str_t> q(p_next_token++, query);
     p_protocol << q;
     return create(q.token);
-    return new Cur_t<parser_t, str_t>;
+    return new Cur_t<result_t, str_t>;
   }
 
   template <class kwargs_t, class query_t>
-  Cur_t<parser_t, str_t> *run(const query_t &query, const kwargs_t &kwargs) {
+  Cur_t<result_t, str_t> *run(const query_t &query, const kwargs_t &kwargs) {
     Query_t<str_t> q(p_next_token++, query, kwargs);
     p_protocol << q;
     return create(q.token);
-    return new Cur_t<parser_t, str_t>;
+    return new Cur_t<result_t, str_t>;
   }
 
   template <class kwargs_t, class query_t>

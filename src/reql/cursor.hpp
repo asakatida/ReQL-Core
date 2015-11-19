@@ -22,6 +22,7 @@ limitations under the License.
 #define REQL_REQL_CURSOR_HPP_
 
 #include "./reql/decode.hpp"
+#include "./reql/parser.hpp"
 #include "./reql/pipe.hpp"
 #include "./reql/response.hpp"
 #include "./reql/types.hpp"
@@ -31,7 +32,7 @@ limitations under the License.
 
 namespace _ReQL {
 
-template <class parser_t, class str_t>
+template <class result_t, class str_t>
 class Cur_t {
 public:
   Cur_t() {}
@@ -46,9 +47,9 @@ public:
     REQL_WAIT_COMPLETE = 4
   };
 
-  Cur_t(Pipe_t<Response_t<str_t>> &pipe) :
+  Cur_t(Pipe_t<Response_t<str_t>> *pipe) :
     p_pipe([this](Response_t<str_t> &&response) {
-      parser_t parser;
+      Parser_t<result_t> parser;
       decode(response.p_json, parser);
       switch (parser.r_type()) {
         case REQL_SUCCESS_ATOM:
@@ -81,19 +82,24 @@ public:
   }
 
   bool isOpen() {
-    return p_pipe.isOpen();
+    return !p_pipe.closed();
   }
 
-  Cur_t &operator >>(typename parser_t::result_t &value) {
+  Cur_t &operator >>(result_t &value) {
     p_pipe >> value;
     return *this;
+  }
+
+  template <class func_t>
+  typename Pipe_t<result_t>::Sink_t sink(func_t func) {
+    return p_pipe.sink(func);
   }
 
   void close() {
     p_pipe.close();
   }
 
-  Pipe_t<typename parser_t::result_t> p_pipe;
+  Pipe_t<result_t> p_pipe;
 };
 
 }  // namespace _ReQL

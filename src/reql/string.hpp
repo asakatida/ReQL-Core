@@ -43,6 +43,8 @@ public:
   typedef const value_type& const_reference;
   typedef typename std::allocator_traits<Allocator>::pointer pointer;
   typedef typename std::allocator_traits<Allocator>::const_pointer const_pointer;
+  typedef pointer iterator;
+  typedef const_pointer const_iterator;
 
   _String() {}
 
@@ -135,11 +137,31 @@ public:
     return at(pos);
   }
 
+  bool operator <(const _String &other) const {
+    return p_value < other.p_value;
+  }
+
   char_t &front() {
     return p_value.load();
   }
 
   const char_t &front() const {
+    return p_value.load();
+  }
+
+  iterator begin() {
+    return p_value.load();
+  }
+
+  const_iterator cbegin() const {
+    return p_value.load();
+  }
+
+  iterator end() {
+    return p_value.load();
+  }
+
+  const_iterator cend() const {
     return p_value.load();
   }
 
@@ -168,11 +190,10 @@ private:
   std::atomic<value_type *> p_value;
 };
 
-
 template <class value_type>
 bool operator ==(const _String<value_type> self, const value_type *other) {
   if (std::char_traits<value_type>::length(other) - 1 == self.size()) {
-    return std::memcmp(self.data(), other, sizeof(value_type) * self.size());
+    return !std::memcmp(self.data(), other, sizeof(value_type) * self.size());
   }
   return false;
 }

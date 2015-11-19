@@ -104,28 +104,14 @@ public:
     }
   }) {}
 
+  template <class func_t, class input_t>
+  Pipe_t(func_t func, Pipe_t<input_t> *pipe) : Pipe_t([func, pipe] {
+    input_t res;
+    pipe->pop(res);
+    return func(std::move(res));
+  }) {}
+
   ~Pipe_t() { close(); p_thread.join(); }
-
-  template <class output_t, class func_t>
-  auto map(func_t func) {
-    return Pipe_t<output_t>([func, this] {
-      elem_t res;
-      this->pop(res);
-      return func(res);
-    });
-  }
-
-  template <class func_t>
-  auto filter(func_t func) {
-    return Pipe_t<elem_t>([func, this] {
-      elem_t res;
-      this->pop(res);
-      while (!func(res)) {
-        this->pop(res);
-      }
-      return res;
-    });
-  }
 
   class Sink_t {
   public:
