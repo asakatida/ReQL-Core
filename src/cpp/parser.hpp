@@ -21,37 +21,71 @@ limitations under the License.
 #ifndef REQL_CPP_RESULT_HPP_
 #define REQL_CPP_RESULT_HPP_
 
+#include "./reql/string.hpp"
+
+#include <map>
 #include <string>
+#include <vector>
 
 namespace ReQL {
 
 class Result {
-};
-
-class Parser {
 public:
-  typedef Result result_t;
+  Result();
+  Result(bool value);
+  Result(double value);
+  Result(_ReQL::ImmutableString value);
+  Result(std::vector<Result> value);
+  Result(std::map<_ReQL::ImmutableString, Result> value);
 
-  result_t get() const;
+  Result(const Result &other);
+  Result(Result &&other);
 
-  int r_type() const;
+  Result &operator =(const Result &other);
+  Result &operator =(Result &&other);
 
-  void startObject();
-  void startKeyValue();
-  void endKeyValue(std::string key);
-  void endObject();
+  enum JSONtype {
+    array,
+    boolean,
+    number,
+    null,
+    object,
+    string
+  };
 
-  void startArray();
-  void startElement();
-  void endElement();
-  void endArray();
+  JSONtype type() const noexcept;
 
-  void addValue();
-  void addValue(bool value);
-  void addValue(double value);
-  void addValue(std::string value);
+  std::vector<Result> getArray() const;
+  bool getBoolean() const;
+  double getNumber() const;
+  std::map<std::string, Result> getObject() const;
+  std::string getString() const;
 
-  result_t p_result;
+private:
+  union JSON {
+    JSON();
+    JSON(bool value);
+    JSON(double value);
+    JSON(std::string value);
+    JSON(std::vector<Result> value);
+    JSON(std::map<std::string, Result> value);
+
+    JSON(const JSON &other, JSONtype type);
+    JSON(JSON &&other, JSONtype type);
+
+    JSON &copy(const JSON &other, JSONtype type);
+    JSON &move(JSON &&other, JSONtype type);
+
+    ~JSON();
+
+    std::vector<Result> array;
+    bool boolean;
+    double number;
+    std::map<std::string, Result> object;
+    std::string string;
+  } p_value;
+
+  JSONtype p_type;
 };
 
 }  // namespace ReQL
