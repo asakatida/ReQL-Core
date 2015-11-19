@@ -43,7 +43,7 @@ isspace(typename str_t::iterator it, typename str_t::const_iterator &end) {
 }
 
 template <class str_t>
-static auto
+static bool
 isnext(typename str_t::iterator it, typename str_t::const_iterator &end, const typename str_t::value_type &expect) {
   isspace<str_t>(it, end);
   if (*it == expect) {
@@ -51,6 +51,40 @@ isnext(typename str_t::iterator it, typename str_t::const_iterator &end, const t
     return true;
   }
   return false;
+}
+
+template <class str_t>
+static typename str_t::value_type
+strtoh(typename str_t::iterator it, typename str_t::const_iterator &end) {
+  if (it + 4 >= end) {
+    throw std::exception();
+  }
+  if (!(*(it) == '0' && *(++it) == '0')) {
+    throw std::exception();
+  }
+  typename str_t::value_type hex = *(++it);
+  if (hex >= '0' && hex <= '9') {
+    hex -= '0';
+  } else if (hex >= 'a' && hex <= 'f') {
+    hex -= 'a' - 10;
+  } else if (hex >= 'a' && hex <= 'f') {
+    hex -= 'A' - 10;
+  } else {
+    throw std::exception();
+  }
+  typename str_t::value_type res = hex * 16;
+  hex = *(++it);
+  if (hex >= '0' && hex <= '9') {
+    hex -= '0';
+  } else if (hex >= 'a' && hex <= 'f') {
+    hex -= 'a' - 10;
+  } else if (hex >= 'a' && hex <= 'f') {
+    hex -= 'A' - 10;
+  } else {
+    throw std::exception();
+  }
+  res += hex;
+  return res;
 }
 
 template <class parser_t, class str_t>
@@ -88,35 +122,7 @@ decode(const str_t &json, typename str_t::iterator it, typename str_t::const_ite
               break;
             }
             case 'u': {
-              if (it + 4 >= end) {
-                throw std::exception();
-              }
-              if (!(*(++it) == '0' && *(++it) == '0')) {
-                throw std::exception();
-              }
-              ++it;
-              if (!(ishexnumber(*(it + 1)) && ishexnumber(*it))) {
-                throw std::exception();
-              }
-              auto hex = *it;
-              if (hex >= '0' && hex <= '9') {
-                hex -= '0';
-              } else if (hex >= 'a' && hex <= 'f') {
-                hex -= 'a' - 10;
-              } else {
-                hex -= 'A' - 10;
-              }
-              res = hex * 16;
-              ++it;
-              hex = *it;
-              if (hex >= '0' && hex <= '9') {
-                hex -= '0';
-              } else if (hex >= 'a' && hex <= 'f') {
-                hex -= 'a' - 10;
-              } else {
-                hex -= 'A' - 10;
-              }
-              res += hex;
+              res = strtoh<str_t>(++it, end);
               break;
             }
           }
