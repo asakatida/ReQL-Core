@@ -24,6 +24,7 @@ limitations under the License.
 #include "./cpp/parser.hpp"
 #include "./cpp/query.hpp"
 
+#include <memory>
 #include <vector>
 
 namespace ReQL {
@@ -32,7 +33,7 @@ class Cursor {
 public:
   Cursor();
 
-  Cursor(_Cursor *cur);
+  Cursor(std::shared_ptr<_Cursor> cur);
 
   Cursor(Cursor &&other);
 
@@ -45,7 +46,7 @@ public:
 
   void close();
 
-  _Cursor *p_cur;
+  std::shared_ptr<_Cursor> p_cur;
 };
 
 }  // namespace ReQL

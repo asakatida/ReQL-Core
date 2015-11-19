@@ -27,6 +27,7 @@ limitations under the License.
 #include "./reql/types.hpp"
 
 #include <atomic>
+#include <memory>
 #include <mutex>
 
 namespace _ReQL {
@@ -58,9 +59,12 @@ public:
       }
     }
 
-    Cur_t<result_t, str_t> *create(const ReQL_Token &key) {
+    auto create(const ReQL_Token &key) {
       if (key == p_key) {
-        return new Cur_t<result_t, str_t>(&p_val);
+        if (p_val.get()) {
+          throw std::exception();
+        }
+        return std::shared_ptr<Cur_t<result_t, str_t>>(new Cur_t<result_t, str_t>(p_val));
       }
       if (key < p_key) {
         if (p_left) {
@@ -78,7 +82,7 @@ public:
 
     void push(Response_t<str_t> &&response) {
       if (response.p_token == p_key) {
-        p_val << std::move(response);
+        p_val->push(std::move(response));
         return;
       }
       if (response.p_token < p_key) {
@@ -97,7 +101,7 @@ public:
         delete p_right; p_right = nullptr;
       }
       protocol.stop(p_key);
-      p_val.close();
+      p_val->close();
     }
 
 
@@ -105,17 +109,17 @@ public:
     BNode *p_left;
     BNode *p_parent;
     BNode *p_right;
-    Pipe_t<Response_t<str_t>> p_val;
+    std::shared_ptr<Pipe_t<Response_t<str_t>>> p_val;
   };
 
   BTree_t(const str_t &addr, const str_t &port, const str_t &auth) :
     p_protocol(addr, port, auth),
-    p_sink(Pipe_t<Response_t<str_t>>([this]() {
-      Response_t<str_t> response;
-      pop(response);
-      return response;
-    }).sink([this](Response_t<str_t> &&response) {
+    p_sink([this](Response_t<str_t> &&response) {
       p_root.push(std::move(response));
+    }, Pipe_t<Response_t<str_t>>([this]() {
+      Response_t<str_t> response;
+      p_protocol >> response;
+      return response;
     })) {}
 
   BTree_t(BTree_t &&other) :
@@ -130,7 +134,7 @@ public:
     return *this;
   }
 
-  Cur_t<result_t, str_t> *create(const ReQL_Token &key) {
+  auto create(const ReQL_Token &key) {
     std::lock_guard<std::mutex> lock(p_mutex);
     return p_root.create(key);
   }
@@ -140,19 +144,17 @@ public:
   }
 
   template <class query_t>
-  Cur_t<result_t, str_t> *run(const query_t &query) {
+  auto run(const query_t &query) {
     Query_t<str_t> q(p_next_token++, query);
     p_protocol << q;
     return create(q.token);
-    return new Cur_t<result_t, str_t>;
   }
 
   template <class kwargs_t, class query_t>
-  Cur_t<result_t, str_t> *run(const query_t &query, const kwargs_t &kwargs) {
+  auto run(const query_t &query, const kwargs_t &kwargs) {
     Query_t<str_t> q(p_next_token++, query, kwargs);
     p_protocol << q;
     return create(q.token);
-    return new Cur_t<result_t, str_t>;
   }
 
   template <class kwargs_t, class query_t>
@@ -174,11 +176,6 @@ public:
 
   BTree_t &push(Response_t<str_t> &&response) {
     p_root[response.p_token].push(std::move(response));
-    return *this;
-  }
-
-  BTree_t &pop(Response_t<str_t> &response) {
-    p_protocol >> response;
     return *this;
   }
 

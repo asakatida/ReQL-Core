@@ -25,6 +25,7 @@ limitations under the License.
 #include <condition_variable>
 #include <exception>
 #include <functional>
+#include <memory>
 #include <mutex>
 #include <thread>
 
@@ -33,22 +34,9 @@ namespace _ReQL {
 template <class elem_t>
 class Queue_t {
 public:
-  Queue_t() : head(&buffer) {}
-
   class Buffer_t {
   public:
     static const int size = 10;
-
-    Buffer_t() {}
-
-    Buffer_t(Buffer_t &&other) :
-      buffer(std::move(other.buffer)), idx(std::move(other.idx)) {}
-
-    Buffer_t &operator =(Buffer_t &&other) {
-      if (this != &other) {
-      }
-      return *this;
-    }
 
     Buffer_t *push(elem_t &&value) {
       if (idx.load() >= size) {
@@ -81,21 +69,21 @@ public:
     ref = std::move(buffer.buffer[idx]);
   }
 
-  Buffer_t *head;
   Buffer_t buffer;
+  Buffer_t *head;
 };
 
 template <class elem_t>
-class Pipe_t {
+class Static_Pipe_t {
 public:
-  Pipe_t() {
+  Static_Pipe_t() {
     close();
   }
 
   class Closed : std::exception {};
 
   template <class func_t>
-  Pipe_t(func_t func) : p_thread([func, this] {
+  Static_Pipe_t(func_t func) : p_thread([func, this] {
     try {
       while (true) {
         this->push(func());
@@ -105,39 +93,13 @@ public:
   }) {}
 
   template <class func_t, class input_t>
-  Pipe_t(func_t func, Pipe_t<input_t> *pipe) : Pipe_t([func, pipe] {
+  Static_Pipe_t(func_t func, std::shared_ptr<Static_Pipe_t<input_t>> pipe) : Static_Pipe_t([func, pipe] {
     input_t res;
     pipe->pop(res);
     return func(std::move(res));
   }) {}
 
-  ~Pipe_t() { close(); p_thread.join(); }
-
-  class Sink_t {
-  public:
-    Sink_t() {}
-
-    template <class func_t>
-    Sink_t(func_t func, Pipe_t<elem_t> *other) : p_thread([func, other] {
-      while (true) {
-        elem_t res;
-        other->pop(res);
-        func(std::move(res));
-      }
-    }) {}
-
-    Sink_t(Sink_t &&other) : p_thread(std::move(other.p_thread)) {}
-
-    ~Sink_t() { p_thread.join(); }
-
-    std::thread p_thread;
-  };
-
-  template <class func_t>
-  Sink_t sink(func_t func) {
-    Sink_t sink(func, this);
-    return sink;
-  }
+  ~Static_Pipe_t() { close(); p_thread.join(); }
 
   bool closed() {
     std::lock_guard<std::mutex> lock(p_mutex);
@@ -175,7 +137,7 @@ public:
     }
   }
 
-  Pipe_t &push(elem_t &&value) {
+  Static_Pipe_t &push(elem_t &&value) {
     std::lock_guard<std::mutex> lock(p_mutex);
     if (p_flag) {
       throw Closed();
@@ -185,11 +147,11 @@ public:
     return *this;
   }
 
-  Pipe_t &operator <<(elem_t &&value) {
+  Static_Pipe_t &operator <<(elem_t &&value) {
     return push(std::move(value));
   }
 
-  Pipe_t &pop(elem_t &value) {
+  Static_Pipe_t &pop(elem_t &value) {
     std::lock_guard<std::mutex> lock(p_mutex);
     if (p_queue.empty()) {
       if (p_flag) {
@@ -203,7 +165,7 @@ public:
     return *this;
   }
 
-  Pipe_t &operator >>(elem_t &value) {
+  Static_Pipe_t &operator >>(elem_t &value) {
     return pop(value);
   }
 
@@ -212,6 +174,42 @@ public:
   std::mutex p_mutex;
   Queue_t<elem_t> p_queue;
   std::thread p_thread;
+};
+
+template <class elem_t>
+class Pipe_t {
+public:
+  Pipe_t() : p_pipe(new Static_Pipe_t<elem_t>) {}
+
+  template <class func_t>
+  Pipe_t(func_t func) : p_pipe(new Static_Pipe_t<elem_t>(func)) {}
+
+  class Sink_t {
+  public:
+    Sink_t() {}
+
+    template <class func_t>
+    Sink_t(func_t func, Pipe_t<elem_t> &pipe) : Sink_t(func, pipe.p_pipe) {}
+
+    template <class func_t>
+    Sink_t(func_t func, std::shared_ptr<Static_Pipe_t<elem_t>> &pipe) : p_thread([func, pipe] {
+      while (true) {
+        elem_t res;
+        pipe->pop(res);
+        func(std::move(res));
+      }
+    }) {}
+
+    Sink_t(Sink_t &&other) : p_thread(std::move(other.p_thread)) {}
+
+    ~Sink_t() { p_thread.join(); }
+
+    std::thread p_thread;
+  };
+
+  Sink_t sink() {}
+
+  std::shared_ptr<Static_Pipe_t<elem_t>> p_pipe;
 };
 
 }  // namespace _ReQL

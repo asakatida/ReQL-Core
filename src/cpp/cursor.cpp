@@ -30,20 +30,20 @@ namespace ReQL {
 
 Cursor::Cursor() {}
 
-Cursor::Cursor(_Cursor *cur) : p_cur(cur) {}
+Cursor::Cursor(std::shared_ptr<_Cursor> cur) : p_cur(cur) {}
 
 Cursor::Cursor(Cursor &&other) : p_cur(std::move(other.p_cur)) {}
 
 Cursor &
 Cursor::operator=(Cursor &&other) {
   if (this != &other) {
-    //p_cur = std::move(other.p_cur);
+    p_cur = std::move(other.p_cur);
   }
   return *this;
 }
 
 bool Cursor::isOpen() const {
-  return false; //  p_cur.isOpen;
+  return p_cur->isOpen();
 }
 
 Query
@@ -58,7 +58,7 @@ Cursor::toVector() {
 
 void
 Cursor::close() {
-  //  p_cur = _Cursor();
+  p_cur.reset(new _Cursor);
 }
 
 }  // namespace ReQL
