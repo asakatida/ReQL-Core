@@ -25,7 +25,7 @@ limitations under the License.
 #include <memory>
 
 #ifdef __MINGW32__
-#include <stdint.h>
+#include <cstdint>
 #include <io.h>
 
 typedef unsigned __LONG32 ULONG;
@@ -47,54 +47,64 @@ typedef unsigned char UCHAR;
 namespace _ReQL {
 
 template <class str_t>
+int connect(const str_t &addr, const str_t &port) {
+  struct addrinfo hints;
+  struct addrinfo *result, *rp;
+
+  hints.ai_family = AF_UNSPEC;
+  hints.ai_socktype = SOCK_STREAM;
+  hints.ai_flags = 0;
+  hints.ai_protocol = IPPROTO_TCP;
+
+  if (getaddrinfo(addr.c_str(), port.c_str(), &hints, &result) != 0) {
+    throw;
+  }
+
+  int sock = -1;
+
+  for (rp = result; rp != nullptr; rp = rp->ai_next) {
+    sock = socket(rp->ai_family, rp->ai_socktype, rp->ai_protocol);
+
+    if (sock == -1) continue;
+
+    if (connect(sock, rp->ai_addr, rp->ai_addrlen) != -1) break;
+
+    ::close(sock);
+  }
+
+  if (rp == nullptr) {
+    freeaddrinfo(result);
+    throw;
+  }
+
+  freeaddrinfo(result);
+
+  return sock;
+}
+
+template <class str_t>
 class Socket_t {
 public:
-  Socket_t() : p_sock(-1) {}
+  Socket_t() : Socket_t(-1) {}
 
-  Socket_t(const str_t &addr, const str_t &port) : p_sock(-1) {
-    struct addrinfo hints;
-    struct addrinfo *result, *rp;
-
-    hints.ai_family = AF_UNSPEC;
-    hints.ai_socktype = SOCK_STREAM;
-    hints.ai_flags = 0;
-    hints.ai_protocol = IPPROTO_TCP;
-
-    if (getaddrinfo(addr.c_str(), port.c_str(), &hints, &result) != 0) {
-      throw;
-    }
-
-    int sock = -1;
-
-    for (rp = result; rp != nullptr; rp = rp->ai_next) {
-      sock = socket(rp->ai_family, rp->ai_socktype, rp->ai_protocol);
-
-      if (sock == -1) continue;
-
-      if (connect(sock, rp->ai_addr, rp->ai_addrlen) != -1) break;
-
-      ::close(sock);
-    }
-
-    if (rp == nullptr) {
-      freeaddrinfo(result);
-      throw;
-    }
-
-    freeaddrinfo(result);
-
-    p_sock.store(sock);
-  }
+  Socket_t(const str_t &addr, const str_t &port) : Socket_t(connect(addr, port)) {}
 
   Socket_t(const int sock) : p_sock(sock) {}
 
-  Socket_t(Socket_t &&other) : p_sock(other.p_sock.exchange(-1)) {}
+  Socket_t(Socket_t &&other) : Socket_t(other.p_sock.exchange(-1)) {}
 
   ~Socket_t() {
     int sock = p_sock.exchange(-1);
     if (sock >= 0) {
       ::close(sock);
     }
+  }
+
+  Socket_t &operator =(Socket_t &&other) {
+    if (this != &other) {
+      p_sock.store(other.p_sock.exchange(-1));
+    }
+    return *this;
   }
 
   bool isOpen() const {
