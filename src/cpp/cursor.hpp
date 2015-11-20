@@ -33,7 +33,7 @@ class Cursor {
 public:
   Cursor();
 
-  Cursor(std::shared_ptr<_Cursor> cur);
+  Cursor(_Cursor cur);
 
   Cursor(Cursor &&other);
 
@@ -46,7 +46,7 @@ public:
 
   void close();
 
-  std::shared_ptr<_Cursor> p_cur;
+  _Cursor p_cur;
 };
 
 }  // namespace ReQL
