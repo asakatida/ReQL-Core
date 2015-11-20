@@ -34,11 +34,12 @@ HEADERS += \
   reql/cursor.hpp \
   reql/decode.hpp \
   reql/handshake.hpp \
+  reql/parser.hpp \
   reql/pipe.hpp \
   reql/protocol.hpp \
   reql/query.hpp \
   reql/response.hpp \
-  reql/query.hpp \
+  reql/socket.hpp \
   reql/stream.hpp \
   reql/string.hpp \
   reql/types.hpp \
