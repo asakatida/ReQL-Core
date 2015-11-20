@@ -39,12 +39,6 @@ public:
     return *this;
   }
 
-  template <class object_t>
-  Stream &operator <<(const object_t &value) {
-    p_stream.push_back(string_type(value));
-    return *this;
-  }
-
   Stream &operator <<(const int value) {
     p_stream.push_back(std::to_string(value));
     return *this;
@@ -52,6 +46,11 @@ public:
 
   Stream &operator <<(const typename string_type::value_type *value) {
     p_stream.push_back(string_type(value));
+    return *this;
+  }
+
+  Stream &operator <<(const string_type &value) {
+    p_stream.push_back(value);
     return *this;
   }
 
