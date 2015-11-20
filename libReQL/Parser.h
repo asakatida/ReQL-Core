@@ -22,24 +22,34 @@ limitations under the License.
 
 #import "./reql/core.hpp"
 
+#import <map>
+#import <string>
+#import <vector>
+
 namespace ReQL {
 
 class Result {
 public:
-  Result(const Result &other) {}
-  Result(Result &&other) {}
+  Result();
+  Result(const bool value);
+  Result(const double value);
+  Result(const _ReQL::ImmutableString &value);
+  Result(const std::vector<Result> &value);
+  Result(const std::map<_ReQL::ImmutableString, Result> &value);
+
+  Result(const Result &other);
+  Result(Result &&other);
+
+  Result &operator =(const Result &other);
+  Result &operator =(Result &&other);
+
+  id toObjC() const;
+
+private:
+  id p_value;
 };
 
-class Event {
-};
-
-class Parser {
-public:
-  typedef Result result_t;
-};
-
-
-typedef _ReQL::Conn_t<Parser, _ReQL::ImmutableString> Connection;
-typedef _ReQL::Cur_t<Parser, _ReQL::ImmutableString> Cursor;
+typedef _ReQL::Conn_t<Result, _ReQL::ImmutableString> Connection;
+typedef _ReQL::Cur_t<Result, _ReQL::ImmutableString> Cursor;
 
 }
