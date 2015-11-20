@@ -28,6 +28,8 @@ limitations under the License.
 #include "./reql/stream.hpp"
 #include "./reql/types.hpp"
 
+#include <thread>
+
 namespace _ReQL {
 
 template <class str_t>
@@ -35,15 +37,24 @@ class Protocol_t {
 public:
   Protocol_t() {}
 
-  Protocol_t(const str_t &addr, const str_t &port, const str_t &auth) : p_sock(addr, port) {
+  template <class func_t>
+  Protocol_t(const str_t &addr, const str_t &port, const str_t &auth, func_t func) : p_sock(addr, port) {
     Handshake_t<str_t>(p_sock, auth);
+    p_thread = std::thread([func, this] {
+      while (true) {
+        auto header = p_sock.read(12);
+        auto token = get_token(header.c_str());
+        header = header.substr(8);
+        func(Response_t<str_t, Protocol_t>(p_sock.read(get_size(header.c_str())), token, this));
+      }
+    });
   }
 
   bool isOpen() const {
     return p_sock.isOpen();
   }
 
-  Protocol_t &operator <<(Query_t<str_t> &query) {
+  Protocol_t &operator <<(Query_t<str_t> query) {
     auto wire_query = query.str();
     auto size = wire_query.size();
 
@@ -66,25 +77,18 @@ public:
     return *this;
   }
 
-  Protocol_t &operator >>(Response_t<str_t> &result) {
-    auto header = p_sock.read(12);
-    auto token = get_token(header.c_str());
-    header = header.substr(8);
-    result = std::move(Response_t<str_t>(p_sock.read(get_size(header.c_str())), token));
-    return *this;
-  }
+  ~Protocol_t() { if (p_thread.joinable()) { p_thread.join(); } }
 
   void stop(ReQL_Token t) {
-    Query_t<str_t> query(t, REQL_STOP);
-    (*this) << query;
+    (*this) << Query_t<str_t>(t, REQL_STOP);
   }
 
   void cont(ReQL_Token t) {
-    Query_t<str_t> query(t, REQL_CONTINUE);
-    (*this) << query;
+    (*this) << Query_t<str_t>(t, REQL_CONTINUE);
   }
 
   Socket_t<str_t> p_sock;
+  std::thread p_thread;
 };
 
 }  // namespace _ReQL

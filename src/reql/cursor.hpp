@@ -47,15 +47,14 @@ public:
     REQL_WAIT_COMPLETE = 4
   };
 
-  Cur_t(Pipe_t<Response_t<str_t>> &pipe) :
-    p_pipe([this](Response_t<str_t> &&response) {
+  Cur_t(Pipe_t<Response_t<str_t, Protocol_t<str_t>>> &pipe) :
+    p_pipe([this](Response_t<str_t, Protocol_t<str_t>> &&response) {
       Parser_t<result_t> parser;
       decode(response.p_json, parser);
       switch (parser.r_type()) {
         case REQL_SUCCESS_ATOM:
         case REQL_SUCCESS_SEQUENCE:
         case REQL_WAIT_COMPLETE: {
-          response.done();
           break;
         }
         case REQL_SUCCESS_PARTIAL: {
@@ -66,7 +65,6 @@ public:
         case REQL_COMPILE_ERROR:
         case REQL_RUNTIME_ERROR:
         default: {
-          response.done();
         }
       }
       return parser.get();

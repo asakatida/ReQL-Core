@@ -70,7 +70,7 @@ public:
       return p_right->create(key);
     }
 
-    void push(Response_t<str_t> &&response) {
+    void push(Response_t<str_t, Protocol_t<str_t>> &&response) {
       if (response.p_token == p_key) {
         p_val << std::move(response);
         return;
@@ -97,14 +97,13 @@ public:
     ReQL_Token p_key;
     BNode *p_left;
     BNode *p_right;
-    Pipe_t<Response_t<str_t>> p_val;
+    Pipe_t<Response_t<str_t, Protocol_t<str_t>>> p_val;
   };
 
   BTree_t(const str_t &addr, const str_t &port, const str_t &auth) :
-    p_protocol(addr, port, auth),
-    p_consumer([this](Response_t<str_t> &&response) {
+    p_protocol(addr, port, auth, [this](Response_t<str_t, Protocol_t<str_t>> &&response) {
       p_root.push(std::move(response));
-    }, &p_protocol) {}
+    }) {}
 
   auto create(const ReQL_Token &key) {
     std::lock_guard<std::mutex> lock(p_mutex);
@@ -146,32 +145,15 @@ public:
     p_protocol << query;
   }
 
-  BTree_t &push(Response_t<str_t> &&response) {
+  BTree_t &push(Response_t<str_t, Protocol_t<str_t>> &&response) {
     p_root[response.p_token].push(std::move(response));
     return *this;
   }
-
-  class Consumer_t {
-  public:
-    template <class func_t>
-    Consumer_t(func_t func, Protocol_t<str_t> *protocol) : p_thread([func, protocol] {
-      while (true) {
-        Response_t<str_t> res;
-        (*protocol) >> res;
-        func(std::move(res));
-      }
-    }) {}
-
-    ~Consumer_t() { p_thread.join(); }
-
-    std::thread p_thread;
-  };
 
   std::mutex p_mutex;
   std::atomic<ReQL_Token> p_next_token;
   Protocol_t<str_t> p_protocol;
   BNode p_root;
-  Consumer_t p_consumer;
 };
 
 }  // namespace _ReQL

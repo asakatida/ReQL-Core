@@ -25,23 +25,24 @@ limitations under the License.
 
 namespace _ReQL {
 
-template <class str_t>
+template <class str_t, class proto_t>
 class Response_t {
 public:
   Response_t() {}
 
-  Response_t(str_t &&json, ReQL_Token token) :
-    p_json(std::move(json)), p_token(token) {}
+  Response_t(str_t &&json, ReQL_Token token, proto_t *proto) :
+    p_json(std::move(json)), p_proto(proto), p_token(token) {}
 
   Response_t(const Response_t &other) :
-    p_json(other.p_json), p_token(other.p_token) {}
+    p_json(other.p_json), p_proto(other.p_proto), p_token(other.p_token) {}
 
   Response_t(Response_t &&other) :
-    p_json(std::move(other.p_json)), p_token(std::move(other.p_token)) {}
+    p_json(std::move(other.p_json)), p_proto(std::move(other.p_proto)), p_token(std::move(other.p_token)) {}
 
   Response_t &operator =(const Response_t &other) {
     if (this != &other) {
       p_json = other.p_json;
+      p_proto = other.p_proto;
       p_token = other.p_token;
     }
     return *this;
@@ -50,16 +51,18 @@ public:
   Response_t &operator =(Response_t &&other) {
     if (this != &other) {
       p_json = std::move(other.p_json);
+      p_proto = std::move(other.p_proto);
       p_token = std::move(other.p_token);
     }
     return *this;
   }
 
-  void next() {}
-
-  void done() {}
+  void next() {
+    p_proto->cont(p_token);
+  }
 
   str_t p_json;
+  proto_t *p_proto;
   ReQL_Token p_token;
 };
 
