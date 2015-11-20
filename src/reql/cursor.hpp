@@ -82,7 +82,7 @@ public:
   }
 
   bool isOpen() {
-    return !p_pipe.closed();
+    return p_pipe.isOpen();
   }
 
   Cur_t &operator >>(result_t &value) {

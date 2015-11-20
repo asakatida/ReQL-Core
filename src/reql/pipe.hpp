@@ -74,6 +74,9 @@ public:
 };
 
 template <class elem_t>
+class Pipe_t;
+
+template <class elem_t>
 class Static_Pipe_t {
 public:
   Static_Pipe_t() {
@@ -89,13 +92,15 @@ public:
         this->push(func());
       }
     } catch (Closed &) {
+    } catch (std::exception &) {
+      close();
     }
   }) {}
 
   template <class func_t, class input_t>
-  Static_Pipe_t(func_t func, std::shared_ptr<Static_Pipe_t<input_t>> pipe) : Static_Pipe_t([func, pipe] {
+  Static_Pipe_t(func_t func, Pipe_t<input_t> pipe) : Static_Pipe_t([func, pipe] {
     input_t res;
-    pipe->pop(res);
+    pipe >> res;
     return func(std::move(res));
   }) {}
 
@@ -147,10 +152,6 @@ public:
     return *this;
   }
 
-  Static_Pipe_t &operator <<(elem_t &&value) {
-    return push(std::move(value));
-  }
-
   Static_Pipe_t &pop(elem_t &value) {
     std::lock_guard<std::mutex> lock(p_mutex);
     if (p_queue.empty()) {
@@ -163,10 +164,6 @@ public:
     }
     p_queue.pop(value);
     return *this;
-  }
-
-  Static_Pipe_t &operator >>(elem_t &value) {
-    return pop(value);
   }
 
   std::condition_variable_any p_cond;
@@ -207,7 +204,23 @@ public:
     std::thread p_thread;
   };
 
-  Sink_t sink() {}
+  template <class func_t>
+  Sink_t sink() {
+  }
+
+  Pipe_t &operator <<(elem_t &&value) {
+    p_pipe->push(std::move(value));
+    return *this;
+  }
+
+  Pipe_t &operator >>(elem_t &value) {
+    p_pipe->pop(value);
+    return *this;
+  }
+
+  bool isOpen() const {
+    return !p_pipe->closed();
+  }
 
   std::shared_ptr<Static_Pipe_t<elem_t>> p_pipe;
 };
