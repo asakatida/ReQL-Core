@@ -26,4 +26,4 @@ limitations under the License.
 #include "./cpp/error.hpp"
 #include "./cpp/query.hpp"
 
-#endif  // REQL_H_
+#endif  // REQL_HPP_
