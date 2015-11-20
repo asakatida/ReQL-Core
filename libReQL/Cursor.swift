@@ -35,8 +35,11 @@ public class Cursor: NSObject {
   public func next (value: AnyObject) {
     sink.sendNext(value)
   }
-  public func error (error: NSError) {
+  public func fail (error: NSError) {
     sink.sendFailed(ReQLError(error: error))
+  }
+  public func complete () {
+    sink.sendCompleted();
   }
   public func observeNext (next: (AnyObject -> ())) {
     signal.observeNext { next($0) }
