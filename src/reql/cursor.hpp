@@ -72,7 +72,16 @@ public:
       return parser.get();
     }, pipe) {}
 
+  Cur_t(const Cur_t &other) : p_pipe(other.p_pipe) {}
+
   Cur_t(Cur_t &&other) : p_pipe(std::move(other.p_pipe)) {}
+
+  Cur_t &operator =(const Cur_t &other) {
+    if (this != &other) {
+      p_pipe = other.p_pipe;
+    }
+    return *this;
+  }
 
   Cur_t &operator =(Cur_t &&other) {
     if (this != &other) {
