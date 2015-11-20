@@ -47,7 +47,7 @@ public:
   }
 
   void _connect(const str_t &addr, const str_t &port, const str_t &auth) {
-    p_cursors = std::move(BTree_t<result_t, str_t>(addr, port, auth));
+    p_cursors.reset(new BTree_t<result_t, str_t>(addr, port, auth));
   }
 
   Conn_t(Conn_t &&other) : p_cursors(std::move(other.p_cursors)) {}
@@ -60,33 +60,33 @@ public:
   }
 
   bool isOpen() const {
-    return p_cursors.isOpen();
+    return p_cursors->isOpen();
   }
 
   template <class query_t>
   auto run(const query_t &query) {
-    return p_cursors.run(query);
+    return p_cursors->run(query);
   }
 
   template <class kwargs_t, class query_t>
   auto run(const query_t &query, const kwargs_t &kwargs) {
-    return p_cursors.run(query, kwargs);
+    return p_cursors->run(query, kwargs);
   }
 
   template <class kwargs_t, class query_t>
   void noReply(const query_t &query, const kwargs_t &kwargs) {
-    p_cursors.noReply(query, kwargs);
+    p_cursors->noReply(query, kwargs);
   }
 
   void noReplyWait() {
-    p_cursors.noReplyWait();
+    p_cursors->noReplyWait();
   }
 
   void stop(ReQL_Token token) {
-    p_cursors.stop(token);
+    p_cursors->stop(token);
   }
 
-  BTree_t<result_t, str_t> p_cursors;
+  std::shared_ptr<BTree_t<result_t, str_t>> p_cursors;
 };
 
 }  // namespace _ReQL
