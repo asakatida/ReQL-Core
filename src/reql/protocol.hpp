@@ -70,7 +70,7 @@ public:
     auto header = p_sock.read(12);
     auto token = get_token(header.c_str());
     header = header.substr(8);
-    result = Response_t<str_t>(p_sock.read(get_size(header.c_str())), token);
+    result = std::move(Response_t<str_t>(p_sock.read(get_size(header.c_str())), token));
     return *this;
   }
 

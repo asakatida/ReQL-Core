@@ -43,13 +43,6 @@ public:
 
     BNode(const ReQL_Token &key) : p_key(key) {}
 
-    BNode(BNode &&other) :
-      p_key(std::move(other.p_key)),
-      p_left(std::move(other.p_left)),
-      p_parent(std::move(other.p_parent)),
-      p_right(std::move(other.p_right)),
-      p_val(std::move(other.p_val)) {}
-
     ~BNode() {
       if (p_left) {
         delete p_left;
@@ -61,10 +54,7 @@ public:
 
     auto create(const ReQL_Token &key) {
       if (key == p_key) {
-        if (p_val.get()) {
-          throw std::exception();
-        }
-        return std::shared_ptr<Cur_t<result_t, str_t>>(new Cur_t<result_t, str_t>(p_val));
+        return Cur_t<result_t, str_t>(p_val);
       }
       if (key < p_key) {
         if (p_left) {
@@ -82,7 +72,7 @@ public:
 
     void push(Response_t<str_t> &&response) {
       if (response.p_token == p_key) {
-        p_val->push(std::move(response));
+        p_val << std::move(response);
         return;
       }
       if (response.p_token < p_key) {
@@ -104,35 +94,17 @@ public:
       p_val->close();
     }
 
-
     ReQL_Token p_key;
     BNode *p_left;
-    BNode *p_parent;
     BNode *p_right;
-    std::shared_ptr<Pipe_t<Response_t<str_t>>> p_val;
+    Pipe_t<Response_t<str_t>> p_val;
   };
 
   BTree_t(const str_t &addr, const str_t &port, const str_t &auth) :
     p_protocol(addr, port, auth),
-    p_sink([this](Response_t<str_t> &&response) {
+    p_consumer([this](Response_t<str_t> &&response) {
       p_root.push(std::move(response));
-    }, Pipe_t<Response_t<str_t>>([this]() {
-      Response_t<str_t> response;
-      p_protocol >> response;
-      return response;
-    })) {}
-
-  BTree_t(BTree_t &&other) :
-    p_next_token(other.p_next_token.exchange(-1)),
-    p_protocol(std::move(other.p_protocol)),
-    p_root(std::move(other.p_root)),
-    p_sink(std::move(other.p_sink)) {}
-
-  BTree_t &operator =(BTree_t &&other) {
-    if (this != &other) {
-    }
-    return *this;
-  }
+    }, &p_protocol) {}
 
   auto create(const ReQL_Token &key) {
     std::lock_guard<std::mutex> lock(p_mutex);
@@ -179,11 +151,27 @@ public:
     return *this;
   }
 
+  class Consumer_t {
+  public:
+    template <class func_t>
+    Consumer_t(func_t func, Protocol_t<str_t> *protocol) : p_thread([func, protocol] {
+      while (true) {
+        Response_t<str_t> res;
+        (*protocol) >> res;
+        func(std::move(res));
+      }
+    }) {}
+
+    ~Consumer_t() { p_thread.join(); }
+
+    std::thread p_thread;
+  };
+
   std::mutex p_mutex;
   std::atomic<ReQL_Token> p_next_token;
   Protocol_t<str_t> p_protocol;
   BNode p_root;
-  typename Pipe_t<Response_t<str_t>>::Sink_t p_sink;
+  Consumer_t p_consumer;
 };
 
 }  // namespace _ReQL
