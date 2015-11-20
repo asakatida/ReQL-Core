@@ -90,7 +90,7 @@ public:
     return *this;
   }
 
-  bool isOpen() {
+  bool isOpen() const {
     return p_pipe.isOpen();
   }
 
