@@ -50,8 +50,17 @@ public:
     p_cursors.reset(new BTree_t<result_t, str_t>(addr, port, auth));
   }
 
+  Conn_t(const Conn_t &other) : p_cursors(other.p_cursors) {}
+
   Conn_t(Conn_t &&other) : p_cursors(std::move(other.p_cursors)) {}
 
+  Conn_t &operator =(const Conn_t &other) {
+    if (this != &other) {
+      p_cursors = other.p_cursors;
+    }
+    return *this;
+  }
+  
   Conn_t &operator =(Conn_t &&other) {
     if (this != &other) {
       p_cursors = std::move(other.p_cursors);

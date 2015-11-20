@@ -30,14 +30,27 @@ class Response_t {
 public:
   Response_t() {}
 
-  Response_t(str_t &&json, ReQL_Token token) : p_json(std::move(json)), p_token(token) {}
+  Response_t(str_t &&json, ReQL_Token token) :
+    p_json(std::move(json)), p_token(token) {}
 
-  Response_t(Response_t &&other) : p_json(std::move(other.p_json)), p_token(other.p_token) {}
+  Response_t(const Response_t &other) :
+    p_json(other.p_json), p_token(other.p_token) {}
 
+  Response_t(Response_t &&other) :
+    p_json(std::move(other.p_json)), p_token(std::move(other.p_token)) {}
+
+  Response_t &operator =(const Response_t &other) {
+    if (this != &other) {
+      p_json = other.p_json;
+      p_token = other.p_token;
+    }
+    return *this;
+  }
+  
   Response_t &operator =(Response_t &&other) {
     if (this != &other) {
       p_json = std::move(other.p_json);
-      p_token = other.p_token;
+      p_token = std::move(other.p_token);
     }
     return *this;
   }
