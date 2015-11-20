@@ -20,11 +20,26 @@ limitations under the License.
 
 #import "Connection.h"
 
+#import "Parser.h"
+#import "Query.h"
+
 #import "./reql/core.hpp"
+
+@interface ReQLCursor ()
+
+-(nonnull instancetype)initWithCursor:(const ReQL::Cursor &)cur;
+
+@end
+
+@interface ReQLQuery ()
+
+-(_ReQL::Any)build;
+
+@end
 
 @interface ReQLConnection ()
 
-@property ReQL_Conn_t *conn;
+@property(nonatomic) ReQL::Connection conn;
 
 @end
 
@@ -34,31 +49,25 @@ limitations under the License.
 
 -(nonnull instancetype)init {
   if ((self = [super init])) {
-    p_conn = new ReQL_Conn_t;
-    reql_conn_init(p_conn);
-    ReQL_Byte buf[500];
-    if (reql_conn_connect(p_conn, buf, 500) != 0) {
-      return nil;
-    }
+    p_conn._connect();
   }
   return self;
 }
 
--(nonnull ReQL_Conn_t *)data {
-  return self.conn;
+-(ReQLCursor *)run:(ReQLQuery *)query kwargs:(NSDictionary *)kwargs {
+  return [[ReQLCursor alloc] initWithCursor:self.conn.run([query build], [[ReQLQuery newWithObject:kwargs] build])];
+}
+
+-(void)noReply:(ReQLQuery *)query kwargs:(NSDictionary *)kwargs {
+  self.conn.noReply([query build], [[ReQLQuery newWithObject:kwargs] build]);
 }
 
 -(BOOL)isOpen {
-  return reql_conn_open(self.conn) == 0 ? NO : YES;
+  return self.conn.isOpen() ? YES : NO;
 }
 
 -(void)close {
-  reql_conn_close(self.conn);
-}
-
--(void)dealloc {
-  reql_conn_destroy(p_conn);
-  delete p_conn;
+  self.conn = ReQL::Connection();
 }
 
 @end

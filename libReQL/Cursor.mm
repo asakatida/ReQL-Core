@@ -20,40 +20,40 @@ limitations under the License.
 
 #import "Cursor.h"
 
+#import "Parser.h"
 #import "Query.h"
-
-#import "./reql/core.hpp"
 
 #import <libReQL/libReQL-Swift.h>
 
 @interface ReQLCursor ()
 
-@property(nonnull, nonatomic) ReQL_Cur_t *cur;
+@property(nonnull, nonatomic) ReQL::Cursor *cur;
 @property(nonnull, nonatomic) Cursor *stream;
 
 @end
-
-static int
-cursor_each_cb(void *res, void *data) {
-  [((__bridge Cursor *)data) next:(__bridge id)(res)];
-  return 0;
-}
 
 @implementation ReQLCursor
 
 @synthesize cur=p_cur;
 @synthesize stream=p_stream;
 
--(instancetype)initWithCursor:(nonnull ReQL_Cur_t *)cur {
+-(instancetype)initWithCursor:(nonnull ReQL::Cursor *)cur {
   if ((self = [super init])) {
-    p_cur = cur;
     p_stream = [Cursor new];
+    cur->sink([self](ReQL::Result &&result) {
+      id nsarray = result.toObjC();
+      if ([nsarray isKindOfClass:[NSArray class]]) {
+        for (id elem in reinterpret_cast<NSArray *>(nsarray)) {
+          [p_stream next:elem];
+        }
+      } else {
+        [p_stream next:nsarray];
+      }
+    });
+    p_cur = cur;
     if (p_stream == nil) {
       return nil;
     }
-    reql_cur_each(p_cur, cursor_each_cb, (__bridge void *)(p_stream));
-  } else {
-    delete cur;
   }
   return self;
 }
@@ -78,16 +78,14 @@ cursor_each_cb(void *res, void *data) {
 }
 
 -(BOOL)isOpen {
-  return reql_cur_open(self.cur) == 0 ? NO : YES;
+  return self.cur->isOpen() ? NO : YES;
 }
 
 -(void)close {
-  reql_cur_close(self.cur);
+  self.cur->close();
 }
 
 -(void)dealloc {
-  reql_cur_destroy(p_cur);
-  delete p_cur;
   [p_stream close];
 }
 
