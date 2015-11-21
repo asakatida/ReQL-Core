@@ -50,10 +50,10 @@ get_size(const byte_t *buf) {
 template <class byte_t>
 void
 make_size(byte_t *buf, const ReQL_Size magic) {
-  buf[0] = (magic >> 0) & 0xFF;
-  buf[1] = (magic >> 8) & 0xFF;
-  buf[2] = (magic >> 16) & 0xFF;
-  buf[3] = (magic >> 24) & 0xFF;
+  buf[0] = static_cast<byte_t>((magic >> 0) & 0xFF);
+  buf[1] = static_cast<byte_t>((magic >> 8) & 0xFF);
+  buf[2] = static_cast<byte_t>((magic >> 16) & 0xFF);
+  buf[3] = static_cast<byte_t>((magic >> 24) & 0xFF);
 }
 
 template <class byte_t>
@@ -72,14 +72,14 @@ get_token(const byte_t *buf) {
 template <class byte_t>
 void
 make_token(byte_t *buf, const ReQL_Token magic) {
-  buf[0] = (magic >> 0) & 0xFF;
-  buf[1] = (magic >> 8) & 0xFF;
-  buf[2] = (magic >> 16) & 0xFF;
-  buf[3] = (magic >> 24) & 0xFF;
-  buf[4] = (magic >> 32) & 0xFF;
-  buf[5] = (magic >> 40) & 0xFF;
-  buf[6] = (magic >> 48) & 0xFF;
-  buf[7] = (magic >> 56) & 0xFF;
+  buf[0] = static_cast<byte_t>((magic >> 0) & 0xFF);
+  buf[1] = static_cast<byte_t>((magic >> 8) & 0xFF);
+  buf[2] = static_cast<byte_t>((magic >> 16) & 0xFF);
+  buf[3] = static_cast<byte_t>((magic >> 24) & 0xFF);
+  buf[4] = static_cast<byte_t>((magic >> 32) & 0xFF);
+  buf[5] = static_cast<byte_t>((magic >> 40) & 0xFF);
+  buf[6] = static_cast<byte_t>((magic >> 48) & 0xFF);
+  buf[7] = static_cast<byte_t>((magic >> 56) & 0xFF);
 }
 
 }  // namespace _ReQL

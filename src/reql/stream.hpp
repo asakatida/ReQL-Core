@@ -60,13 +60,13 @@ public:
   }
 
   string_type str() const {
-    auto size = std::accumulate(p_stream.cbegin(), p_stream.cend(), 0, [](const size_t size, const string_type &s) {
-      return size + s.size();
+    const size_t size = std::accumulate(p_stream.cbegin(), p_stream.cend(), static_cast<size_t>(0), [](const size_t _size, const string_type &s) {
+      return _size + s.size();
     });
     const std::unique_ptr<typename string_type::value_type> value(new typename string_type::value_type[size]);
-    std::accumulate(p_stream.cbegin(), p_stream.cend(), value.get(), [](typename string_type::value_type *value, const string_type &s) {
-      memcpy(value, s.c_str(), s.size());
-      return value + s.size();
+    std::accumulate(p_stream.cbegin(), p_stream.cend(), value.get(), [](typename string_type::value_type *_value, const string_type &s) {
+      memcpy(_value, s.c_str(), s.size());
+      return _value + s.size();
     });
     return string_type(value.get(), size);
   }

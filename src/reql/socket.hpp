@@ -145,14 +145,14 @@ public:
 
   str_t read() const {
     char buffer[200];
-    auto size = recv(p_sock.load(), buffer, 200, 0);
-    return str_t(buffer, size);
+    auto size = recvfrom(p_sock.load(), buffer, 200, 0, nullptr, nullptr);
+    return str_t(buffer, static_cast<size_t>(size));
   }
 
-  str_t read(size_t size) const {
-    std::unique_ptr<char> buffer(new char[size]);
-    size = recvfrom(p_sock.load(), buffer.get(), size, 0, nullptr, nullptr);
-    return str_t(buffer.get(), size);
+  str_t read(ssize_t size) const {
+    std::unique_ptr<char> buffer(new char[static_cast<size_t>(size)]);
+    size = recvfrom(p_sock.load(), buffer.get(), static_cast<size_t>(size), 0, nullptr, nullptr);
+    return str_t(buffer.get(), static_cast<size_t>(size));
   }
 
   void write(const str_t &out) const {

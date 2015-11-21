@@ -39,7 +39,7 @@ public:
     ReQL_Byte magic[3][4];
 
     make_size(magic[0], VERSION);
-    make_size(magic[1], auth.size());
+    make_size(magic[1], static_cast<ReQL_Size>(auth.size()));
     make_size(magic[2], PROTOCOL);
 
     Stream<str_t> stream;
