@@ -43,21 +43,28 @@ public:
 
   void endParse() {}
 
-  void error(std::exception &e) {
-    throw e;
-  }
-
   void addValue() {
     p_stack.push_back(result_t());
   }
 
-  template <class value_t>
-  void addValue(value_t value) {
+  void addValue(const bool value) {
     p_stack.push_back(result_t(value));
+  }
+
+  void addValue(const double value) {
+    p_stack.push_back(result_t(value));
+  }
+
+  void addValue(const ImmutableString &value) {
+    if (p_is_key && value == "r") {
+    }
+    p_stack.push_back(result_t(value));
+    p_is_key = false;
   }
 
   void startArray() {
     p_arrays.push_back(std::vector<result_t>());
+    ++p_level;
   }
 
   void startElement() {
@@ -69,24 +76,31 @@ public:
   void endArray() {
     p_stack.push_back(result_t(p_arrays.back()));
     p_arrays.pop_back();
+    --p_level;
   }
 
   void startObject() {
     p_objects.push_back(std::map<ImmutableString, result_t>());
+    p_is_key = false;
+    ++p_level;
   }
 
   void startKeyValue() {
+    p_is_key = true;
   }
 
   void endObject() {
     p_stack.push_back(result_t(p_objects.back()));
     p_objects.pop_back();
+    --p_level;
   }
 
   std::vector<std::vector<result_t>> p_arrays;
   std::vector<std::map<ImmutableString, result_t>> p_objects;
   result_t p_result;
   std::vector<result_t> p_stack;
+  size_t p_level;
+  bool p_is_key;
 };
 
 }  // namespace _ReQL

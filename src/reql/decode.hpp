@@ -33,7 +33,7 @@ namespace _ReQL {
 
 template <class str_t>
 static void
-isspace(typename str_t::iterator it, typename str_t::const_iterator &end) {
+isspace(typename str_t::const_iterator it, typename str_t::const_iterator &end) {
   while (std::isspace(static_cast<char>(*it), std::locale("en_US.UTF8"))) {
     if (it == end) {
       throw std::exception();
@@ -44,7 +44,7 @@ isspace(typename str_t::iterator it, typename str_t::const_iterator &end) {
 
 template <class str_t>
 static bool
-isnext(typename str_t::iterator it, typename str_t::const_iterator &end, const typename str_t::value_type &expect) {
+isnext(typename str_t::const_iterator it, typename str_t::const_iterator &end, const typename str_t::value_type &expect) {
   isspace<str_t>(it, end);
   if (*it == expect) {
     ++it;
@@ -55,7 +55,7 @@ isnext(typename str_t::iterator it, typename str_t::const_iterator &end, const t
 
 template <class str_t>
 static typename str_t::value_type
-strtoh(typename str_t::iterator it, typename str_t::const_iterator &end) {
+strtoh(typename str_t::const_iterator it, typename str_t::const_iterator &end) {
   if (it + 4 >= end) {
     throw std::exception();
   }
@@ -89,7 +89,7 @@ strtoh(typename str_t::iterator it, typename str_t::const_iterator &end) {
 
 template <class parser_t, class str_t>
 static void
-decode(const str_t &json, typename str_t::iterator it, typename str_t::const_iterator end, parser_t &p) {
+decode(const str_t &json, typename str_t::const_iterator it, typename str_t::const_iterator end, parser_t &p) {
   isspace<str_t>(it, end);
   switch (*it) {
     case '"': {
@@ -165,6 +165,10 @@ decode(const str_t &json, typename str_t::iterator it, typename str_t::const_ite
         return p.endObject();
       }
       while (it != end) {
+        isspace<str_t>(it, end);
+        if (!(*it == '"')) {
+          throw std::exception();
+        }
         p.startKeyValue();
         decode(json, it, end, p);
         if (!isnext<str_t>(it, end, ':')) {
@@ -235,11 +239,7 @@ template <class parser_t, class str_t>
 void
 decode(str_t &json, parser_t &p) {
   p.startParse();
-  try {
-    decode(json, json.begin(), json.cend(), p);
-  } catch (std::exception &e) {
-    return p.error(e);
-  }
+  decode(json, json.cbegin(), json.cend(), p);
   p.endParse();
 }
 
