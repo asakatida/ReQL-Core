@@ -20,16 +20,39 @@ limitations under the License.
 
 #import "Query.h"
 
-#import "Parser.h"
-
-#import <libReQL/libReQL-Swift.h>
+#import "./reql/core.hpp"
 
 #import <map>
+#import <string>
 #import <vector>
+
+@interface ReQLBool ()
+
+@property BOOL value;
+
++(instancetype)boolean:(BOOL)boolean;
+
+@end
+
+@implementation ReQLBool
+
+@synthesize value=p_value;
+
++(instancetype)boolean:(BOOL)boolean {
+  ReQLBool *inst = [ReQLBool new];
+  inst.value = boolean;
+  return inst;
+}
+
+-(BOOL)boolValue {
+  return self.value;
+}
+
+@end
 
 @interface ReQLConnection ()
 
--(ReQLCursor *)run:(ReQLQuery *)query kwargs:(NSDictionary *)kwargs;
+-(NSStream *)run:(ReQLQuery *)query kwargs:(NSDictionary *)kwargs;
 
 -(void)noReply:(ReQLQuery *)query kwargs:(NSDictionary *)kwargs;
 
@@ -134,10 +157,10 @@ toQuery(id expr) {
   return inst;
 }
 
--(instancetype)init {
-  if ((self = [super init])) {
-  }
-  return self;
++(instancetype)newTerm:(_ReQL::Term_t)tt {
+  ReQLQuery *inst = [self new];
+  inst.tt = tt;
+  return inst;
 }
 
 -(instancetype)newTerm:(_ReQL::Term_t)tt :(NSArray *)args :(NSDictionary *)kwargs {
@@ -148,11 +171,15 @@ toQuery(id expr) {
   return [ReQLQuery newTerm:tt :[@[self] arrayByAddingObjectsFromArray:args]];
 }
 
--(ReQLCursor *)run:(nonnull ReQLConnection *)conn {
+-(instancetype)newTerm:(_ReQL::Term_t)tt {
+  return [ReQLQuery newTerm:tt :@[self]];
+}
+
+-(NSStream *)run:(nonnull ReQLConnection *)conn {
   return [self run:conn withOpts:@{}];
 }
 
--(ReQLCursor *)run:(nonnull ReQLConnection *)conn withOpts:(nonnull NSDictionary *)opts {
+-(NSStream *)run:(nonnull ReQLConnection *)conn withOpts:(nonnull NSDictionary *)opts {
   return [conn run:self kwargs:opts];
 }
 

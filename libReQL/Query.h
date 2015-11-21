@@ -21,7 +21,12 @@ limitations under the License.
 #import <Cocoa/Cocoa.h>
 
 #import <libReQL/Connection.h>
-#import <libReQL/Cursor.h>
+
+@interface ReQLBool : NSObject
+
+-(BOOL)boolValue;
+
+@end
 
 @interface ReQLQuery : NSObject
 
@@ -31,8 +36,8 @@ limitations under the License.
 +(nullable instancetype)newWithObject:(nonnull NSDictionary *)val;
 +(nullable instancetype)newWithString:(nonnull NSString *)val;
 
--(nullable ReQLCursor *)run:(nonnull ReQLConnection *)conn;
--(nullable ReQLCursor *)run:(nonnull ReQLConnection *)conn withOpts:(nonnull NSDictionary *)opts;
+-(nullable NSStream *)run:(nonnull ReQLConnection *)conn;
+-(nullable NSStream *)run:(nonnull ReQLConnection *)conn withOpts:(nonnull NSDictionary *)opts;
 -(void)noReply:(nonnull ReQLConnection *)conn;
 -(void)noReply:(nonnull ReQLConnection *)conn withOpts:(nonnull NSDictionary *)opts;
 

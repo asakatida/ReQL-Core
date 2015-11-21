@@ -25,9 +25,78 @@ limitations under the License.
 
 #import "./reql/core.hpp"
 
-@interface ReQLCursor ()
+@interface ReQLStream : NSStream <NSStreamDelegate>
 
--(nonnull instancetype)initWithCursor:(const ReQL::Cursor &)cur;
+@property(atomic, weak) id<NSStreamDelegate> delegate;
+@property(nonnull, nonatomic) NSMutableArray *store;
+
+@end
+
+@implementation ReQLStream
+
+@synthesize delegate=p_delegate;
+@synthesize store=p_store;
+
++(BOOL)supportsSecureCoding {
+  return YES;
+}
+
+-(instancetype)init {
+  if ((self = [super init])) {
+    p_store = [NSMutableArray array];
+  }
+  return self;
+}
+
+-(instancetype)initWithCoder:(NSCoder *)aDecoder {
+  if ((self = [super init])) {
+    NSMutableArray *store = [aDecoder decodeObjectOfClass:[NSMutableArray class] forKey:@"ReQLCursor"];
+    if (!store) {
+      return nil;
+    }
+    self.store = store;
+  }
+  return self;
+}
+
+-(void)encodeWithCoder:(NSCoder *)aCoder {
+  [aCoder encodeObject:self.store forKey:@"ReQLCursor"];
+}
+
+-(void)open {
+}
+
+-(void)close {
+}
+
+-(id<NSStreamDelegate>)delegate {
+  return p_delegate;
+}
+
+-(void)setDelegate:(id<NSStreamDelegate>)delegate {
+  p_delegate = delegate ? delegate : self;
+}
+
+-(void)scheduleInRunLoop:(NSRunLoop *)aRunLoop forMode:(NSString *)mode {
+}
+
+-(void)removeFromRunLoop:(NSRunLoop *)aRunLoop forMode:(NSString *)mode {
+}
+
+-(id)propertyForKey:(NSString *)key {
+}
+
+-(BOOL)setProperty:(id)property forKey:(NSString *)key {
+}
+
+-(NSStreamStatus)streamStatus {
+}
+
+-(NSError *)streamError {
+}
+
+-(void)stream:(NSStream *)aStream handleEvent:(NSStreamEvent)eventCode {
+}
 
 @end
 
@@ -54,8 +123,11 @@ limitations under the License.
   return self;
 }
 
--(ReQLCursor *)run:(ReQLQuery *)query kwargs:(NSDictionary *)kwargs {
-  return [[ReQLCursor alloc] initWithCursor:self.conn.run([query build], [[ReQLQuery newWithObject:kwargs] build])];
+-(NSStream *)run:(ReQLQuery *)query kwargs:(NSDictionary *)kwargs {
+  NSStream *cursor = [ReQLStream new];
+  self.conn.run([query build], [[ReQLQuery newWithObject:kwargs] build], [cursor](ReQL::Result &&result) {
+  });
+  return cursor;
 }
 
 -(void)noReply:(ReQLQuery *)query kwargs:(NSDictionary *)kwargs {
