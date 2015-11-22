@@ -8,7 +8,7 @@ using namespace ReQL;
 TEST_CASE("cpp Test geoJSON conversion", "[cpp][ast]") {
 
   SECTION("test0") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("$reql_type$", 11);
     Query var1(src1);
@@ -21,7 +21,7 @@ TEST_CASE("cpp Test geoJSON conversion", "[cpp][ast]") {
     std::string src3("coordinates", 11);
     Query var3(src3);
 
-    Types::array arr4(2);
+    std::vector<Query> arr4(2);
 
     double num5(0);
     Query var5(num5);
@@ -49,7 +49,7 @@ TEST_CASE("cpp Test geoJSON conversion", "[cpp][ast]") {
   }
 
   SECTION("test1") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("$reql_type$", 11);
     Query var1(src1);
@@ -62,9 +62,9 @@ TEST_CASE("cpp Test geoJSON conversion", "[cpp][ast]") {
     std::string src3("coordinates", 11);
     Query var3(src3);
 
-    Types::array arr4(2);
+    std::vector<Query> arr4(2);
 
-    Types::array arr5(2);
+    std::vector<Query> arr5(2);
 
     double num6(0);
     Query var6(num6);
@@ -80,7 +80,7 @@ TEST_CASE("cpp Test geoJSON conversion", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var5);
 
-    Types::array arr8(2);
+    std::vector<Query> arr8(2);
 
     double num9(0);
     Query var9(num9);
@@ -112,7 +112,7 @@ TEST_CASE("cpp Test geoJSON conversion", "[cpp][ast]") {
   }
 
   SECTION("test2") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("$reql_type$", 11);
     Query var1(src1);
@@ -125,11 +125,11 @@ TEST_CASE("cpp Test geoJSON conversion", "[cpp][ast]") {
     std::string src3("coordinates", 11);
     Query var3(src3);
 
-    Types::array arr4(1);
+    std::vector<Query> arr4(1);
 
-    Types::array arr5(4);
+    std::vector<Query> arr5(4);
 
-    Types::array arr6(2);
+    std::vector<Query> arr6(2);
 
     double num7(0);
     Query var7(num7);
@@ -145,7 +145,7 @@ TEST_CASE("cpp Test geoJSON conversion", "[cpp][ast]") {
 
     arr5.insert(arr5.end(), var6);
 
-    Types::array arr9(2);
+    std::vector<Query> arr9(2);
 
     double num10(0);
     Query var10(num10);
@@ -161,7 +161,7 @@ TEST_CASE("cpp Test geoJSON conversion", "[cpp][ast]") {
 
     arr5.insert(arr5.end(), var9);
 
-    Types::array arr12(2);
+    std::vector<Query> arr12(2);
 
     double num13(1);
     Query var13(num13);
@@ -177,7 +177,7 @@ TEST_CASE("cpp Test geoJSON conversion", "[cpp][ast]") {
 
     arr5.insert(arr5.end(), var12);
 
-    Types::array arr15(2);
+    std::vector<Query> arr15(2);
 
     double num16(0);
     Query var16(num16);
@@ -213,7 +213,7 @@ TEST_CASE("cpp Test geoJSON conversion", "[cpp][ast]") {
   }
 
   SECTION("test3") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -227,7 +227,7 @@ TEST_CASE("cpp Test geoJSON conversion", "[cpp][ast]") {
   }
 
   SECTION("test4") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -241,7 +241,7 @@ TEST_CASE("cpp Test geoJSON conversion", "[cpp][ast]") {
   }
 
   SECTION("test5") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -255,7 +255,7 @@ TEST_CASE("cpp Test geoJSON conversion", "[cpp][ast]") {
   }
 
   SECTION("test6") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -269,7 +269,7 @@ TEST_CASE("cpp Test geoJSON conversion", "[cpp][ast]") {
   }
 
   SECTION("test7") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -283,7 +283,7 @@ TEST_CASE("cpp Test geoJSON conversion", "[cpp][ast]") {
   }
 
   SECTION("test8") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -297,7 +297,7 @@ TEST_CASE("cpp Test geoJSON conversion", "[cpp][ast]") {
   }
 
   SECTION("test9") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("$reql_type$", 11);
     Query var1(src1);
@@ -310,7 +310,7 @@ TEST_CASE("cpp Test geoJSON conversion", "[cpp][ast]") {
     std::string src3("coordinates", 11);
     Query var3(src3);
 
-    Types::array arr4(2);
+    std::vector<Query> arr4(2);
 
     double num5(0);
     Query var5(num5);
@@ -345,7 +345,7 @@ TEST_CASE("cpp Test geoJSON conversion", "[cpp][ast]") {
   }
 
   SECTION("test11") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);

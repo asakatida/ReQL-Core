@@ -8,7 +8,7 @@ using namespace ReQL;
 TEST_CASE("cpp Regression tests for issue", "[cpp][ast]") {
 
   SECTION("test3") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -22,7 +22,7 @@ TEST_CASE("cpp Regression tests for issue", "[cpp][ast]") {
   }
 
   SECTION("test4") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -36,42 +36,42 @@ TEST_CASE("cpp Regression tests for issue", "[cpp][ast]") {
   }
 
   SECTION("test5") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("a", 1);
     Query var1(src1);
 
-    Types::object map2;
+    std::map<std::string, Query> map2;
 
     std::string src3("a", 1);
     Query var3(src3);
 
-    Types::object map4;
+    std::map<std::string, Query> map4;
 
     std::string src5("a", 1);
     Query var5(src5);
 
-    Types::object map6;
+    std::map<std::string, Query> map6;
 
     std::string src7("a", 1);
     Query var7(src7);
 
-    Types::object map8;
+    std::map<std::string, Query> map8;
 
     std::string src9("a", 1);
     Query var9(src9);
 
-    Types::object map10;
+    std::map<std::string, Query> map10;
 
     std::string src11("a", 1);
     Query var11(src11);
 
-    Types::object map12;
+    std::map<std::string, Query> map12;
 
     std::string src13("a", 1);
     Query var13(src13);
 
-    Types::object map14;
+    std::map<std::string, Query> map14;
     Query var14(map14);
 
     map12.insert({src13, var14});

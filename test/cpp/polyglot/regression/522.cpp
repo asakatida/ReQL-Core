@@ -8,7 +8,7 @@ using namespace ReQL;
 TEST_CASE("cpp Skip after orderby causes use-after-free (#522)", "[cpp][ast]") {
 
   SECTION("test0") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -22,9 +22,9 @@ TEST_CASE("cpp Skip after orderby causes use-after-free (#522)", "[cpp][ast]") {
   }
 
   SECTION("test1") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("id", 2);
     Query var2(src2);
@@ -38,7 +38,7 @@ TEST_CASE("cpp Skip after orderby causes use-after-free (#522)", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map4;
+    std::map<std::string, Query> map4;
 
     std::string src5("id", 2);
     Query var5(src5);

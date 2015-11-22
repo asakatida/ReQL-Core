@@ -8,12 +8,12 @@ using namespace ReQL;
 TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]") {
 
   SECTION("test1") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test2") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("id", 2);
     Query var1(src1);
@@ -42,7 +42,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test3") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -56,7 +56,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test4") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -70,7 +70,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test5") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
     std::string src1("a", 1);
     Query var1(src1);
@@ -81,7 +81,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test6") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -95,7 +95,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test7") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -109,7 +109,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test8") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -123,7 +123,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test9") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
     std::string src1("b", 1);
     Query var1(src1);
@@ -134,7 +134,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test10") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -148,12 +148,12 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test11") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test12") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -167,7 +167,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test13") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -181,7 +181,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test14") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -195,7 +195,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test15") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -209,7 +209,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test16") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -223,7 +223,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test17") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -237,7 +237,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test18") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -251,7 +251,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test19") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -265,7 +265,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test20") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -279,7 +279,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test21") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -293,7 +293,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test22") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -307,7 +307,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test23") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -321,7 +321,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test24") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -335,7 +335,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test25") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -349,7 +349,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test26") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -363,7 +363,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test27") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -377,7 +377,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test28") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -391,7 +391,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test29") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -405,7 +405,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test30") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -419,7 +419,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test31") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -433,7 +433,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test32") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -447,7 +447,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test33") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -461,7 +461,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test34") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -475,7 +475,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test35") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -489,7 +489,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test36") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -503,7 +503,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test37") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -517,7 +517,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test38") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -531,7 +531,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test39") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -545,7 +545,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test40") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -559,7 +559,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test41") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -573,7 +573,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test42") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -587,7 +587,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test43") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -601,7 +601,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test44") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -615,7 +615,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test45") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -629,7 +629,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test46") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -643,7 +643,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test47") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -657,7 +657,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test48") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -671,7 +671,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test49") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -685,7 +685,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test50") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -699,7 +699,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test51") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -713,7 +713,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test52") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("inserted", 8);
     Query var1(src1);
@@ -727,7 +727,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test53") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -741,7 +741,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test54") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -755,7 +755,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test55") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -769,7 +769,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test56") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -783,7 +783,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test57") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -797,7 +797,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test58") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -811,7 +811,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test59") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -825,7 +825,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test60") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -839,7 +839,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test61") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -853,7 +853,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test62") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -867,7 +867,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test63") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -881,7 +881,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test64") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -895,7 +895,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test65") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -909,7 +909,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test66") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -923,7 +923,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test67") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -937,7 +937,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test68") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -951,7 +951,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test69") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -965,7 +965,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test70") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -979,7 +979,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test71") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -993,7 +993,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test72") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -1007,7 +1007,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test73") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -1021,7 +1021,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test75") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -1035,7 +1035,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test76") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -1049,7 +1049,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test77") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -1063,7 +1063,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test78") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("db", 2);
     Query var1(src1);
@@ -1085,7 +1085,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test79") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -1099,7 +1099,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test80") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -1121,7 +1121,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test83") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -1140,7 +1140,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test85") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -1154,7 +1154,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test86") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -1168,7 +1168,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test87") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -1182,7 +1182,7 @@ TEST_CASE("cpp Tests meta queries for creating and deleting tables", "[cpp][ast]
   }
 
   SECTION("test88") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);

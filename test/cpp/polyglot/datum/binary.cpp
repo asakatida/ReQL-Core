@@ -8,7 +8,7 @@ using namespace ReQL;
 TEST_CASE("cpp Tests of converstion to and from the RQL binary type", "[cpp][ast]") {
 
   SECTION("test1") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -27,7 +27,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL binary type", "[cpp][ast
   }
 
   SECTION("test4") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -46,7 +46,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL binary type", "[cpp][ast
   }
 
   SECTION("test7") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -65,7 +65,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL binary type", "[cpp][ast
   }
 
   SECTION("test10") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -84,7 +84,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL binary type", "[cpp][ast
   }
 
   SECTION("test13") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -103,7 +103,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL binary type", "[cpp][ast
   }
 
   SECTION("test16") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -122,7 +122,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL binary type", "[cpp][ast
   }
 
   SECTION("test19") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -141,7 +141,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL binary type", "[cpp][ast
   }
 
   SECTION("test22") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -160,7 +160,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL binary type", "[cpp][ast
   }
 
   SECTION("test25") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -179,7 +179,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL binary type", "[cpp][ast
   }
 
   SECTION("test28") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -198,7 +198,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL binary type", "[cpp][ast
   }
 
   SECTION("test31") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -217,7 +217,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL binary type", "[cpp][ast
   }
 
   SECTION("test34") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -236,7 +236,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL binary type", "[cpp][ast
   }
 
   SECTION("test37") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -423,7 +423,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL binary type", "[cpp][ast
   }
 
   SECTION("test87") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -437,7 +437,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL binary type", "[cpp][ast
   }
 
   SECTION("test88") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -451,7 +451,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL binary type", "[cpp][ast
   }
 
   SECTION("test89") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -470,7 +470,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL binary type", "[cpp][ast
   }
 
   SECTION("test91") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -484,7 +484,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL binary type", "[cpp][ast
   }
 
   SECTION("test92") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -548,7 +548,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL binary type", "[cpp][ast
   }
 
   SECTION("test103") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -562,7 +562,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL binary type", "[cpp][ast
   }
 
   SECTION("test104") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("$reql_type$", 11);
     Query var1(src1);
@@ -584,7 +584,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL binary type", "[cpp][ast
   }
 
   SECTION("test105") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -598,7 +598,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL binary type", "[cpp][ast
   }
 
   SECTION("test106") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -612,7 +612,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL binary type", "[cpp][ast
   }
 
   SECTION("test107") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -626,7 +626,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL binary type", "[cpp][ast
   }
 
   SECTION("test108") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -640,7 +640,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL binary type", "[cpp][ast
   }
 
   SECTION("test109") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -654,7 +654,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL binary type", "[cpp][ast
   }
 
   SECTION("test110") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -668,7 +668,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL binary type", "[cpp][ast
   }
 
   SECTION("test111") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -682,7 +682,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL binary type", "[cpp][ast
   }
 
   SECTION("test112") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -696,7 +696,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL binary type", "[cpp][ast
   }
 
   SECTION("test113") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -710,7 +710,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL binary type", "[cpp][ast
   }
 
   SECTION("test114") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -724,7 +724,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL binary type", "[cpp][ast
   }
 
   SECTION("test115") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -738,7 +738,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL binary type", "[cpp][ast
   }
 
   SECTION("test116") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -752,7 +752,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL binary type", "[cpp][ast
   }
 
   SECTION("test117") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);

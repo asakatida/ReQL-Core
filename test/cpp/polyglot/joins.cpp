@@ -8,7 +8,7 @@ using namespace ReQL;
 TEST_CASE("cpp Tests that manipulation data in tables 4", "[cpp][ast]") {
 
   SECTION("test0") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -22,7 +22,7 @@ TEST_CASE("cpp Tests that manipulation data in tables 4", "[cpp][ast]") {
   }
 
   SECTION("test2") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -36,7 +36,7 @@ TEST_CASE("cpp Tests that manipulation data in tables 4", "[cpp][ast]") {
   }
 
   SECTION("test3") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -50,7 +50,7 @@ TEST_CASE("cpp Tests that manipulation data in tables 4", "[cpp][ast]") {
   }
 
   SECTION("test4") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -129,9 +129,9 @@ TEST_CASE("cpp Tests that manipulation data in tables 4", "[cpp][ast]") {
   }
 
   SECTION("test22") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("a", 1);
     Query var2(src2);
@@ -153,7 +153,7 @@ TEST_CASE("cpp Tests that manipulation data in tables 4", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map6;
+    std::map<std::string, Query> map6;
 
     std::string src7("a", 1);
     Query var7(src7);
@@ -179,9 +179,9 @@ TEST_CASE("cpp Tests that manipulation data in tables 4", "[cpp][ast]") {
   }
 
   SECTION("test23") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("a", 1);
     Query var2(src2);
@@ -195,7 +195,7 @@ TEST_CASE("cpp Tests that manipulation data in tables 4", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map4;
+    std::map<std::string, Query> map4;
 
     std::string src5("a", 1);
     Query var5(src5);
@@ -217,7 +217,7 @@ TEST_CASE("cpp Tests that manipulation data in tables 4", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var4);
 
-    Types::object map9;
+    std::map<std::string, Query> map9;
 
     std::string src10("a", 1);
     Query var10(src10);
@@ -243,7 +243,7 @@ TEST_CASE("cpp Tests that manipulation data in tables 4", "[cpp][ast]") {
   }
 
   SECTION("test28") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);

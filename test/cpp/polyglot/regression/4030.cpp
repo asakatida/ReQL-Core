@@ -8,7 +8,7 @@ using namespace ReQL;
 TEST_CASE("cpp test that r.union is a top level function", "[cpp][ast]") {
 
   SECTION("test2") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -27,7 +27,7 @@ TEST_CASE("cpp test that r.union is a top level function", "[cpp][ast]") {
   }
 
   SECTION("test4") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -41,7 +41,7 @@ TEST_CASE("cpp test that r.union is a top level function", "[cpp][ast]") {
   }
 
   SECTION("test5") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);

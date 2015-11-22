@@ -293,11 +293,11 @@ class CPPResultBuilder(ResultBuilder):
     Query var{0}(src{0});'''
 
     shell_empty_map = '''
-    Types::object map{0};
+    std::map<std::string, Query> map{0};
     Query var{0}(map{0});'''
 
     shell_map_start = '''
-    Types::object map{};'''
+    std::map<std::string, Query> map{};'''
 
     shell_key_val = '''
     map{}.insert({{src{}, var{}}});'''
@@ -308,11 +308,11 @@ class CPPResultBuilder(ResultBuilder):
         return super().map_obj_end()
 
     shell_empty_array = '''
-    Types::array arr{0};
+    std::vector<Query> arr{0};
     Query var{0}(arr{0});'''
 
     shell_array_start = '''
-    Types::array arr{}({});'''
+    std::vector<Query> arr{}({});'''
 
     shell_elem = '''
     arr{0}.insert(arr{0}.end(), var{1});'''

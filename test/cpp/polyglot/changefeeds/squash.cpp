@@ -13,7 +13,7 @@ TEST_CASE("cpp Test changefeed squashing", "[cpp][ast]") {
   }
 
   SECTION("test1") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -27,7 +27,7 @@ TEST_CASE("cpp Test changefeed squashing", "[cpp][ast]") {
   }
 
   SECTION("test2") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -41,7 +41,7 @@ TEST_CASE("cpp Test changefeed squashing", "[cpp][ast]") {
   }
 
   SECTION("test3") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -55,7 +55,7 @@ TEST_CASE("cpp Test changefeed squashing", "[cpp][ast]") {
   }
 
   SECTION("test4") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -79,14 +79,14 @@ TEST_CASE("cpp Test changefeed squashing", "[cpp][ast]") {
   }
 
   SECTION("test7") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("new_val", 7);
     Query var2(src2);
 
-    Types::object map3;
+    std::map<std::string, Query> map3;
 
     std::string src4("id", 2);
     Query var4(src4);
@@ -111,12 +111,12 @@ TEST_CASE("cpp Test changefeed squashing", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map8;
+    std::map<std::string, Query> map8;
 
     std::string src9("new_val", 7);
     Query var9(src9);
 
-    Types::object map10;
+    std::map<std::string, Query> map10;
 
     std::string src11("a", 1);
     Query var11(src11);
@@ -141,7 +141,7 @@ TEST_CASE("cpp Test changefeed squashing", "[cpp][ast]") {
     std::string src15("old_val", 7);
     Query var15(src15);
 
-    Types::object map16;
+    std::map<std::string, Query> map16;
 
     std::string src17("id", 2);
     Query var17(src17);
@@ -163,14 +163,14 @@ TEST_CASE("cpp Test changefeed squashing", "[cpp][ast]") {
   }
 
   SECTION("test8") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("new_val", 7);
     Query var2(src2);
 
-    Types::object map3;
+    std::map<std::string, Query> map3;
 
     std::string src4("id", 2);
     Query var4(src4);
@@ -195,12 +195,12 @@ TEST_CASE("cpp Test changefeed squashing", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map8;
+    std::map<std::string, Query> map8;
 
     std::string src9("new_val", 7);
     Query var9(src9);
 
-    Types::object map10;
+    std::map<std::string, Query> map10;
 
     std::string src11("a", 1);
     Query var11(src11);
@@ -225,7 +225,7 @@ TEST_CASE("cpp Test changefeed squashing", "[cpp][ast]") {
     std::string src15("old_val", 7);
     Query var15(src15);
 
-    Types::object map16;
+    std::map<std::string, Query> map16;
 
     std::string src17("id", 2);
     Query var17(src17);
@@ -247,14 +247,14 @@ TEST_CASE("cpp Test changefeed squashing", "[cpp][ast]") {
   }
 
   SECTION("test9") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("new_val", 7);
     Query var2(src2);
 
-    Types::object map3;
+    std::map<std::string, Query> map3;
 
     std::string src4("a", 1);
     Query var4(src4);
@@ -291,14 +291,14 @@ TEST_CASE("cpp Test changefeed squashing", "[cpp][ast]") {
   }
 
   SECTION("test10") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("new_val", 7);
     Query var2(src2);
 
-    Types::object map3;
+    std::map<std::string, Query> map3;
 
     std::string src4("a", 1);
     Query var4(src4);
@@ -335,7 +335,7 @@ TEST_CASE("cpp Test changefeed squashing", "[cpp][ast]") {
   }
 
   SECTION("test11") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -349,7 +349,7 @@ TEST_CASE("cpp Test changefeed squashing", "[cpp][ast]") {
   }
 
   SECTION("test12") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);

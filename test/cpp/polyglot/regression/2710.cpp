@@ -8,12 +8,12 @@ using namespace ReQL;
 TEST_CASE("cpp Test pseudo literal strings in JSON.", "[cpp][ast]") {
 
   SECTION("test0") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("a", 1);
     Query var1(src1);
 
-    Types::object map2;
+    std::map<std::string, Query> map2;
 
     std::string src3("b", 1);
     Query var3(src3);

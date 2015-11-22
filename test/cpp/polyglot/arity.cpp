@@ -8,7 +8,7 @@ using namespace ReQL;
 TEST_CASE("cpp Test the arity of every function", "[cpp][ast]") {
 
   SECTION("test3") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -22,7 +22,7 @@ TEST_CASE("cpp Test the arity of every function", "[cpp][ast]") {
   }
 
   SECTION("test5") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -36,7 +36,7 @@ TEST_CASE("cpp Test the arity of every function", "[cpp][ast]") {
   }
 
   SECTION("test6") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -50,7 +50,7 @@ TEST_CASE("cpp Test the arity of every function", "[cpp][ast]") {
   }
 
   SECTION("test7") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -64,7 +64,7 @@ TEST_CASE("cpp Test the arity of every function", "[cpp][ast]") {
   }
 
   SECTION("test8") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -78,7 +78,7 @@ TEST_CASE("cpp Test the arity of every function", "[cpp][ast]") {
   }
 
   SECTION("test10") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -92,7 +92,7 @@ TEST_CASE("cpp Test the arity of every function", "[cpp][ast]") {
   }
 
   SECTION("test11") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -106,7 +106,7 @@ TEST_CASE("cpp Test the arity of every function", "[cpp][ast]") {
   }
 
   SECTION("test12") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -120,7 +120,7 @@ TEST_CASE("cpp Test the arity of every function", "[cpp][ast]") {
   }
 
   SECTION("test13") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -134,7 +134,7 @@ TEST_CASE("cpp Test the arity of every function", "[cpp][ast]") {
   }
 
   SECTION("test14") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -148,7 +148,7 @@ TEST_CASE("cpp Test the arity of every function", "[cpp][ast]") {
   }
 
   SECTION("test15") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -162,7 +162,7 @@ TEST_CASE("cpp Test the arity of every function", "[cpp][ast]") {
   }
 
   SECTION("test16") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -176,7 +176,7 @@ TEST_CASE("cpp Test the arity of every function", "[cpp][ast]") {
   }
 
   SECTION("test17") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -190,7 +190,7 @@ TEST_CASE("cpp Test the arity of every function", "[cpp][ast]") {
   }
 
   SECTION("test18") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -204,7 +204,7 @@ TEST_CASE("cpp Test the arity of every function", "[cpp][ast]") {
   }
 
   SECTION("test19") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -218,7 +218,7 @@ TEST_CASE("cpp Test the arity of every function", "[cpp][ast]") {
   }
 
   SECTION("test20") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -232,7 +232,7 @@ TEST_CASE("cpp Test the arity of every function", "[cpp][ast]") {
   }
 
   SECTION("test21") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -246,7 +246,7 @@ TEST_CASE("cpp Test the arity of every function", "[cpp][ast]") {
   }
 
   SECTION("test22") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -260,7 +260,7 @@ TEST_CASE("cpp Test the arity of every function", "[cpp][ast]") {
   }
 
   SECTION("test23") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -274,7 +274,7 @@ TEST_CASE("cpp Test the arity of every function", "[cpp][ast]") {
   }
 
   SECTION("test24") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -288,7 +288,7 @@ TEST_CASE("cpp Test the arity of every function", "[cpp][ast]") {
   }
 
   SECTION("test25") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -302,7 +302,7 @@ TEST_CASE("cpp Test the arity of every function", "[cpp][ast]") {
   }
 
   SECTION("test26") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -316,7 +316,7 @@ TEST_CASE("cpp Test the arity of every function", "[cpp][ast]") {
   }
 
   SECTION("test27") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -330,7 +330,7 @@ TEST_CASE("cpp Test the arity of every function", "[cpp][ast]") {
   }
 
   SECTION("test28") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -344,7 +344,7 @@ TEST_CASE("cpp Test the arity of every function", "[cpp][ast]") {
   }
 
   SECTION("test29") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -358,7 +358,7 @@ TEST_CASE("cpp Test the arity of every function", "[cpp][ast]") {
   }
 
   SECTION("test30") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -372,7 +372,7 @@ TEST_CASE("cpp Test the arity of every function", "[cpp][ast]") {
   }
 
   SECTION("test31") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -386,7 +386,7 @@ TEST_CASE("cpp Test the arity of every function", "[cpp][ast]") {
   }
 
   SECTION("test32") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -400,7 +400,7 @@ TEST_CASE("cpp Test the arity of every function", "[cpp][ast]") {
   }
 
   SECTION("test33") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -414,7 +414,7 @@ TEST_CASE("cpp Test the arity of every function", "[cpp][ast]") {
   }
 
   SECTION("test34") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -428,7 +428,7 @@ TEST_CASE("cpp Test the arity of every function", "[cpp][ast]") {
   }
 
   SECTION("test35") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -442,7 +442,7 @@ TEST_CASE("cpp Test the arity of every function", "[cpp][ast]") {
   }
 
   SECTION("test36") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -456,7 +456,7 @@ TEST_CASE("cpp Test the arity of every function", "[cpp][ast]") {
   }
 
   SECTION("test37") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -470,7 +470,7 @@ TEST_CASE("cpp Test the arity of every function", "[cpp][ast]") {
   }
 
   SECTION("test38") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -484,7 +484,7 @@ TEST_CASE("cpp Test the arity of every function", "[cpp][ast]") {
   }
 
   SECTION("test39") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -503,7 +503,7 @@ TEST_CASE("cpp Test the arity of every function", "[cpp][ast]") {
   }
 
   SECTION("test41") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -517,7 +517,7 @@ TEST_CASE("cpp Test the arity of every function", "[cpp][ast]") {
   }
 
   SECTION("test42") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -531,7 +531,7 @@ TEST_CASE("cpp Test the arity of every function", "[cpp][ast]") {
   }
 
   SECTION("test43") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -545,7 +545,7 @@ TEST_CASE("cpp Test the arity of every function", "[cpp][ast]") {
   }
 
   SECTION("test44") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -559,7 +559,7 @@ TEST_CASE("cpp Test the arity of every function", "[cpp][ast]") {
   }
 
   SECTION("test45") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -573,7 +573,7 @@ TEST_CASE("cpp Test the arity of every function", "[cpp][ast]") {
   }
 
   SECTION("test46") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -602,7 +602,7 @@ TEST_CASE("cpp Test the arity of every function", "[cpp][ast]") {
   }
 
   SECTION("test50") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -616,9 +616,9 @@ TEST_CASE("cpp Test the arity of every function", "[cpp][ast]") {
   }
 
   SECTION("test51") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("group", 5);
     Query var2(src2);
@@ -644,9 +644,9 @@ TEST_CASE("cpp Test the arity of every function", "[cpp][ast]") {
   }
 
   SECTION("test52") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("group", 5);
     Query var2(src2);
@@ -672,12 +672,12 @@ TEST_CASE("cpp Test the arity of every function", "[cpp][ast]") {
   }
 
   SECTION("test53") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("a", 1);
     Query var1(src1);
 
-    Types::object map2;
+    std::map<std::string, Query> map2;
 
     std::string src3("c", 1);
     Query var3(src3);
@@ -695,7 +695,7 @@ TEST_CASE("cpp Test the arity of every function", "[cpp][ast]") {
   }
 
   SECTION("test54") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -709,7 +709,7 @@ TEST_CASE("cpp Test the arity of every function", "[cpp][ast]") {
   }
 
   SECTION("test55") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -723,7 +723,7 @@ TEST_CASE("cpp Test the arity of every function", "[cpp][ast]") {
   }
 
   SECTION("test56") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -737,7 +737,7 @@ TEST_CASE("cpp Test the arity of every function", "[cpp][ast]") {
   }
 
   SECTION("test57") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -751,7 +751,7 @@ TEST_CASE("cpp Test the arity of every function", "[cpp][ast]") {
   }
 
   SECTION("test58") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -765,7 +765,7 @@ TEST_CASE("cpp Test the arity of every function", "[cpp][ast]") {
   }
 
   SECTION("test59") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);

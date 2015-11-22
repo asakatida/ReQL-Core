@@ -53,7 +53,7 @@ TEST_CASE("cpp Tests of conversion to and from the RQL number type", "[cpp][ast]
   }
 
   SECTION("test9") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -87,7 +87,7 @@ TEST_CASE("cpp Tests of conversion to and from the RQL number type", "[cpp][ast]
   }
 
   SECTION("test14") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -101,7 +101,7 @@ TEST_CASE("cpp Tests of conversion to and from the RQL number type", "[cpp][ast]
   }
 
   SECTION("test15") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -115,7 +115,7 @@ TEST_CASE("cpp Tests of conversion to and from the RQL number type", "[cpp][ast]
   }
 
   SECTION("test16") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);

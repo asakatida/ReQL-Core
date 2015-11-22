@@ -8,7 +8,7 @@ using namespace ReQL;
 TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
 
   SECTION("test1") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("deleted", 7);
     Query var1(src1);
@@ -62,7 +62,7 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
   }
 
   SECTION("test2") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("created", 7);
     Query var1(src1);
@@ -76,7 +76,7 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
   }
 
   SECTION("test3") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("created", 7);
     Query var1(src1);
@@ -90,7 +90,7 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
   }
 
   SECTION("test4") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("created", 7);
     Query var1(src1);
@@ -104,7 +104,7 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
   }
 
   SECTION("test5") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("created", 7);
     Query var1(src1);
@@ -118,7 +118,7 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
   }
 
   SECTION("test6") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -132,7 +132,7 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
   }
 
   SECTION("test7") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -146,7 +146,7 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
   }
 
   SECTION("test8") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -160,7 +160,7 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
   }
 
   SECTION("test9") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -174,7 +174,7 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
   }
 
   SECTION("test10") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -188,7 +188,7 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
   }
 
   SECTION("test11") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -202,7 +202,7 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
   }
 
   SECTION("test12") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -216,7 +216,7 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
   }
 
   SECTION("test13") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -230,7 +230,7 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
   }
 
   SECTION("test14") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -244,7 +244,7 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
   }
 
   SECTION("test15") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -258,7 +258,7 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
   }
 
   SECTION("test16") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -342,7 +342,7 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
   }
 
   SECTION("test31") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -356,7 +356,7 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
   }
 
   SECTION("test32") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -370,7 +370,7 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
   }
 
   SECTION("test33") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -384,7 +384,7 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
   }
 
   SECTION("test34") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -398,7 +398,7 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
   }
 
   SECTION("test35") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -412,7 +412,7 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
   }
 
   SECTION("test36") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -426,7 +426,7 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
   }
 
   SECTION("test37") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -440,9 +440,9 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
   }
 
   SECTION("test38") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("dist", 4);
     Query var2(src2);
@@ -455,7 +455,7 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
     std::string src4("doc", 3);
     Query var4(src4);
 
-    Types::object map5;
+    std::map<std::string, Query> map5;
 
     std::string src6("id", 2);
     Query var6(src6);
@@ -473,7 +473,7 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map8;
+    std::map<std::string, Query> map8;
 
     std::string src9("dist", 4);
     Query var9(src9);
@@ -486,7 +486,7 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
     std::string src11("doc", 3);
     Query var11(src11);
 
-    Types::object map12;
+    std::map<std::string, Query> map12;
 
     std::string src13("id", 2);
     Query var13(src13);
@@ -508,9 +508,9 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
   }
 
   SECTION("test39") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("dist", 4);
     Query var2(src2);
@@ -523,7 +523,7 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
     std::string src4("doc", 3);
     Query var4(src4);
 
-    Types::object map5;
+    std::map<std::string, Query> map5;
 
     std::string src6("id", 2);
     Query var6(src6);
@@ -541,7 +541,7 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map8;
+    std::map<std::string, Query> map8;
 
     std::string src9("dist", 4);
     Query var9(src9);
@@ -554,7 +554,7 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
     std::string src11("doc", 3);
     Query var11(src11);
 
-    Types::object map12;
+    std::map<std::string, Query> map12;
 
     std::string src13("id", 2);
     Query var13(src13);
@@ -576,9 +576,9 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
   }
 
   SECTION("test40") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("dist", 4);
     Query var2(src2);
@@ -591,7 +591,7 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
     std::string src4("doc", 3);
     Query var4(src4);
 
-    Types::object map5;
+    std::map<std::string, Query> map5;
 
     std::string src6("id", 2);
     Query var6(src6);
@@ -609,7 +609,7 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map8;
+    std::map<std::string, Query> map8;
 
     std::string src9("dist", 4);
     Query var9(src9);
@@ -622,7 +622,7 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
     std::string src11("doc", 3);
     Query var11(src11);
 
-    Types::object map12;
+    std::map<std::string, Query> map12;
 
     std::string src13("id", 2);
     Query var13(src13);
@@ -640,7 +640,7 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var8);
 
-    Types::object map15;
+    std::map<std::string, Query> map15;
 
     std::string src16("dist", 4);
     Query var16(src16);
@@ -653,7 +653,7 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
     std::string src18("doc", 3);
     Query var18(src18);
 
-    Types::object map19;
+    std::map<std::string, Query> map19;
 
     std::string src20("id", 2);
     Query var20(src20);
@@ -675,9 +675,9 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
   }
 
   SECTION("test41") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("dist", 4);
     Query var2(src2);
@@ -690,7 +690,7 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
     std::string src4("doc", 3);
     Query var4(src4);
 
-    Types::object map5;
+    std::map<std::string, Query> map5;
 
     std::string src6("id", 2);
     Query var6(src6);
@@ -708,7 +708,7 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map8;
+    std::map<std::string, Query> map8;
 
     std::string src9("dist", 4);
     Query var9(src9);
@@ -721,7 +721,7 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
     std::string src11("doc", 3);
     Query var11(src11);
 
-    Types::object map12;
+    std::map<std::string, Query> map12;
 
     std::string src13("id", 2);
     Query var13(src13);
@@ -743,7 +743,7 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
   }
 
   SECTION("test42") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -757,9 +757,9 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
   }
 
   SECTION("test43") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("dist", 4);
     Query var2(src2);
@@ -772,7 +772,7 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
     std::string src4("doc", 3);
     Query var4(src4);
 
-    Types::object map5;
+    std::map<std::string, Query> map5;
 
     std::string src6("id", 2);
     Query var6(src6);
@@ -790,7 +790,7 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map8;
+    std::map<std::string, Query> map8;
 
     std::string src9("dist", 4);
     Query var9(src9);
@@ -803,7 +803,7 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
     std::string src11("doc", 3);
     Query var11(src11);
 
-    Types::object map12;
+    std::map<std::string, Query> map12;
 
     std::string src13("id", 2);
     Query var13(src13);
@@ -821,7 +821,7 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var8);
 
-    Types::object map15;
+    std::map<std::string, Query> map15;
 
     std::string src16("dist", 4);
     Query var16(src16);
@@ -834,7 +834,7 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
     std::string src18("doc", 3);
     Query var18(src18);
 
-    Types::object map19;
+    std::map<std::string, Query> map19;
 
     std::string src20("id", 2);
     Query var20(src20);
@@ -856,9 +856,9 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
   }
 
   SECTION("test44") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("dist", 4);
     Query var2(src2);
@@ -871,7 +871,7 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
     std::string src4("doc", 3);
     Query var4(src4);
 
-    Types::object map5;
+    std::map<std::string, Query> map5;
 
     std::string src6("id", 2);
     Query var6(src6);
@@ -889,7 +889,7 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map8;
+    std::map<std::string, Query> map8;
 
     std::string src9("dist", 4);
     Query var9(src9);
@@ -902,7 +902,7 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
     std::string src11("doc", 3);
     Query var11(src11);
 
-    Types::object map12;
+    std::map<std::string, Query> map12;
 
     std::string src13("id", 2);
     Query var13(src13);
@@ -920,7 +920,7 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var8);
 
-    Types::object map15;
+    std::map<std::string, Query> map15;
 
     std::string src16("dist", 4);
     Query var16(src16);
@@ -933,7 +933,7 @@ TEST_CASE("cpp Test ReQL interface to geo indexes", "[cpp][ast]") {
     std::string src18("doc", 3);
     Query var18(src18);
 
-    Types::object map19;
+    std::map<std::string, Query> map19;
 
     std::string src20("id", 2);
     Query var20(src20);

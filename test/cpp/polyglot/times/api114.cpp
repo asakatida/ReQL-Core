@@ -147,7 +147,7 @@ TEST_CASE("cpp date/time api (#977)", "[cpp][ast]") {
   }
 
   SECTION("test34") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -161,7 +161,7 @@ TEST_CASE("cpp date/time api (#977)", "[cpp][ast]") {
   }
 
   SECTION("test35") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -175,7 +175,7 @@ TEST_CASE("cpp date/time api (#977)", "[cpp][ast]") {
   }
 
   SECTION("test36") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -189,7 +189,7 @@ TEST_CASE("cpp date/time api (#977)", "[cpp][ast]") {
   }
 
   SECTION("test37") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -213,7 +213,7 @@ TEST_CASE("cpp date/time api (#977)", "[cpp][ast]") {
   }
 
   SECTION("test40") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -227,7 +227,7 @@ TEST_CASE("cpp date/time api (#977)", "[cpp][ast]") {
   }
 
   SECTION("test41") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -261,7 +261,7 @@ TEST_CASE("cpp date/time api (#977)", "[cpp][ast]") {
   }
 
   SECTION("test46") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -280,7 +280,7 @@ TEST_CASE("cpp date/time api (#977)", "[cpp][ast]") {
   }
 
   SECTION("test48") {
-    Types::array arr0(7);
+    std::vector<Query> arr0(7);
 
     double num1(1);
     Query var1(num1);
@@ -321,7 +321,7 @@ TEST_CASE("cpp date/time api (#977)", "[cpp][ast]") {
   }
 
   SECTION("test49") {
-    Types::array arr0(12);
+    std::vector<Query> arr0(12);
 
     double num1(1);
     Query var1(num1);

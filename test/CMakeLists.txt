@@ -46,7 +46,6 @@ set(SOURCES
  cpp/polyglot/math_logic/sub.cpp
  cpp/polyglot/meta/composite.cpp
  cpp/polyglot/meta/dbs.cpp
- cpp/polyglot/meta/table.cpp
  cpp/polyglot/meta/table48.cpp
  cpp/polyglot/mutation/atomic_get_set.cpp
  cpp/polyglot/mutation/delete.cpp
@@ -119,19 +118,15 @@ set(SOURCES
  cpp/polyglot/sindex/status.cpp
  cpp/polyglot/sindex/truncation.cpp
  cpp/polyglot/timeout.cpp
- cpp/polyglot/times/api.cpp
  cpp/polyglot/times/api114.cpp
- cpp/polyglot/times/constructors.cpp
  cpp/polyglot/times/constructors114.cpp
  cpp/polyglot/times/index.cpp
  cpp/polyglot/times/portions.cpp
  cpp/polyglot/times/shim.cpp
  cpp/polyglot/times/time_arith.cpp
  cpp/polyglot/times/timezones.cpp
- cpp/polyglot/transform/array.cpp
  cpp/polyglot/transform/array119.cpp
  cpp/polyglot/transform/map.cpp
- cpp/polyglot/transform/object.cpp
  cpp/polyglot/transform/object120.cpp
  cpp/polyglot/transformation.cpp
  main.cpp

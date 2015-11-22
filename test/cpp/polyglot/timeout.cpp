@@ -8,7 +8,7 @@ using namespace ReQL;
 TEST_CASE("cpp Tests timeouts.", "[cpp][ast]") {
 
   SECTION("test0") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -22,7 +22,7 @@ TEST_CASE("cpp Tests timeouts.", "[cpp][ast]") {
   }
 
   SECTION("test1") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -36,7 +36,7 @@ TEST_CASE("cpp Tests timeouts.", "[cpp][ast]") {
   }
 
   SECTION("test2") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -50,7 +50,7 @@ TEST_CASE("cpp Tests timeouts.", "[cpp][ast]") {
   }
 
   SECTION("test3") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -64,7 +64,7 @@ TEST_CASE("cpp Tests timeouts.", "[cpp][ast]") {
   }
 
   SECTION("test4") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -78,7 +78,7 @@ TEST_CASE("cpp Tests timeouts.", "[cpp][ast]") {
   }
 
   SECTION("test5") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -92,7 +92,7 @@ TEST_CASE("cpp Tests timeouts.", "[cpp][ast]") {
   }
 
   SECTION("test6") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -106,7 +106,7 @@ TEST_CASE("cpp Tests timeouts.", "[cpp][ast]") {
   }
 
   SECTION("test7") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);

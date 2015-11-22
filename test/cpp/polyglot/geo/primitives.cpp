@@ -8,7 +8,7 @@ using namespace ReQL;
 TEST_CASE("cpp Test geometric primitive constructors", "[cpp][ast]") {
 
   SECTION("test0") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("$reql_type$", 11);
     Query var1(src1);
@@ -21,11 +21,11 @@ TEST_CASE("cpp Test geometric primitive constructors", "[cpp][ast]") {
     std::string src3("coordinates", 11);
     Query var3(src3);
 
-    Types::array arr4(1);
+    std::vector<Query> arr4(1);
 
-    Types::array arr5(4);
+    std::vector<Query> arr5(4);
 
-    Types::array arr6(2);
+    std::vector<Query> arr6(2);
 
     double num7(0);
     Query var7(num7);
@@ -41,7 +41,7 @@ TEST_CASE("cpp Test geometric primitive constructors", "[cpp][ast]") {
 
     arr5.insert(arr5.end(), var6);
 
-    Types::array arr9(2);
+    std::vector<Query> arr9(2);
 
     double num10(-7.779638566553426e-06);
     Query var10(num10);
@@ -57,7 +57,7 @@ TEST_CASE("cpp Test geometric primitive constructors", "[cpp][ast]") {
 
     arr5.insert(arr5.end(), var9);
 
-    Types::array arr12(2);
+    std::vector<Query> arr12(2);
 
     double num13(7.779638566553426e-06);
     Query var13(num13);
@@ -73,7 +73,7 @@ TEST_CASE("cpp Test geometric primitive constructors", "[cpp][ast]") {
 
     arr5.insert(arr5.end(), var12);
 
-    Types::array arr15(2);
+    std::vector<Query> arr15(2);
 
     double num16(0);
     Query var16(num16);
@@ -109,7 +109,7 @@ TEST_CASE("cpp Test geometric primitive constructors", "[cpp][ast]") {
   }
 
   SECTION("test1") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("$reql_type$", 11);
     Query var1(src1);
@@ -122,11 +122,11 @@ TEST_CASE("cpp Test geometric primitive constructors", "[cpp][ast]") {
     std::string src3("coordinates", 11);
     Query var3(src3);
 
-    Types::array arr4(1);
+    std::vector<Query> arr4(1);
 
-    Types::array arr5(4);
+    std::vector<Query> arr5(4);
 
-    Types::array arr6(2);
+    std::vector<Query> arr6(2);
 
     double num7(0);
     Query var7(num7);
@@ -142,7 +142,7 @@ TEST_CASE("cpp Test geometric primitive constructors", "[cpp][ast]") {
 
     arr5.insert(arr5.end(), var6);
 
-    Types::array arr9(2);
+    std::vector<Query> arr9(2);
 
     double num10(-7.779638566553426e-06);
     Query var10(num10);
@@ -158,7 +158,7 @@ TEST_CASE("cpp Test geometric primitive constructors", "[cpp][ast]") {
 
     arr5.insert(arr5.end(), var9);
 
-    Types::array arr12(2);
+    std::vector<Query> arr12(2);
 
     double num13(7.779638566553426e-06);
     Query var13(num13);
@@ -174,7 +174,7 @@ TEST_CASE("cpp Test geometric primitive constructors", "[cpp][ast]") {
 
     arr5.insert(arr5.end(), var12);
 
-    Types::array arr15(2);
+    std::vector<Query> arr15(2);
 
     double num16(0);
     Query var16(num16);
@@ -210,7 +210,7 @@ TEST_CASE("cpp Test geometric primitive constructors", "[cpp][ast]") {
   }
 
   SECTION("test2") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("$reql_type$", 11);
     Query var1(src1);
@@ -223,9 +223,9 @@ TEST_CASE("cpp Test geometric primitive constructors", "[cpp][ast]") {
     std::string src3("coordinates", 11);
     Query var3(src3);
 
-    Types::array arr4(4);
+    std::vector<Query> arr4(4);
 
-    Types::array arr5(2);
+    std::vector<Query> arr5(2);
 
     double num6(0);
     Query var6(num6);
@@ -241,7 +241,7 @@ TEST_CASE("cpp Test geometric primitive constructors", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var5);
 
-    Types::array arr8(2);
+    std::vector<Query> arr8(2);
 
     double num9(-7.779638566553426e-06);
     Query var9(num9);
@@ -257,7 +257,7 @@ TEST_CASE("cpp Test geometric primitive constructors", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var8);
 
-    Types::array arr11(2);
+    std::vector<Query> arr11(2);
 
     double num12(7.779638566553426e-06);
     Query var12(num12);
@@ -273,7 +273,7 @@ TEST_CASE("cpp Test geometric primitive constructors", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var11);
 
-    Types::array arr14(2);
+    std::vector<Query> arr14(2);
 
     double num15(0);
     Query var15(num15);
@@ -305,7 +305,7 @@ TEST_CASE("cpp Test geometric primitive constructors", "[cpp][ast]") {
   }
 
   SECTION("test3") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -319,7 +319,7 @@ TEST_CASE("cpp Test geometric primitive constructors", "[cpp][ast]") {
   }
 
   SECTION("test4") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("$reql_type$", 11);
     Query var1(src1);
@@ -332,11 +332,11 @@ TEST_CASE("cpp Test geometric primitive constructors", "[cpp][ast]") {
     std::string src3("coordinates", 11);
     Query var3(src3);
 
-    Types::array arr4(1);
+    std::vector<Query> arr4(1);
 
-    Types::array arr5(4);
+    std::vector<Query> arr5(4);
 
-    Types::array arr6(2);
+    std::vector<Query> arr6(2);
 
     double num7(0);
     Query var7(num7);
@@ -352,7 +352,7 @@ TEST_CASE("cpp Test geometric primitive constructors", "[cpp][ast]") {
 
     arr5.insert(arr5.end(), var6);
 
-    Types::array arr9(2);
+    std::vector<Query> arr9(2);
 
     double num10(-7.779638566553426e-06);
     Query var10(num10);
@@ -368,7 +368,7 @@ TEST_CASE("cpp Test geometric primitive constructors", "[cpp][ast]") {
 
     arr5.insert(arr5.end(), var9);
 
-    Types::array arr12(2);
+    std::vector<Query> arr12(2);
 
     double num13(7.779638566553426e-06);
     Query var13(num13);
@@ -384,7 +384,7 @@ TEST_CASE("cpp Test geometric primitive constructors", "[cpp][ast]") {
 
     arr5.insert(arr5.end(), var12);
 
-    Types::array arr15(2);
+    std::vector<Query> arr15(2);
 
     double num16(0);
     Query var16(num16);
@@ -420,7 +420,7 @@ TEST_CASE("cpp Test geometric primitive constructors", "[cpp][ast]") {
   }
 
   SECTION("test5") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -434,7 +434,7 @@ TEST_CASE("cpp Test geometric primitive constructors", "[cpp][ast]") {
   }
 
   SECTION("test6") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("$reql_type$", 11);
     Query var1(src1);
@@ -447,11 +447,11 @@ TEST_CASE("cpp Test geometric primitive constructors", "[cpp][ast]") {
     std::string src3("coordinates", 11);
     Query var3(src3);
 
-    Types::array arr4(1);
+    std::vector<Query> arr4(1);
 
-    Types::array arr5(4);
+    std::vector<Query> arr5(4);
 
-    Types::array arr6(2);
+    std::vector<Query> arr6(2);
 
     double num7(0);
     Query var7(num7);
@@ -467,7 +467,7 @@ TEST_CASE("cpp Test geometric primitive constructors", "[cpp][ast]") {
 
     arr5.insert(arr5.end(), var6);
 
-    Types::array arr9(2);
+    std::vector<Query> arr9(2);
 
     double num10(-4.966092947444857);
     Query var10(num10);
@@ -483,7 +483,7 @@ TEST_CASE("cpp Test geometric primitive constructors", "[cpp][ast]") {
 
     arr5.insert(arr5.end(), var9);
 
-    Types::array arr12(2);
+    std::vector<Query> arr12(2);
 
     double num13(4.966092947444857);
     Query var13(num13);
@@ -499,7 +499,7 @@ TEST_CASE("cpp Test geometric primitive constructors", "[cpp][ast]") {
 
     arr5.insert(arr5.end(), var12);
 
-    Types::array arr15(2);
+    std::vector<Query> arr15(2);
 
     double num16(0);
     Query var16(num16);
@@ -535,7 +535,7 @@ TEST_CASE("cpp Test geometric primitive constructors", "[cpp][ast]") {
   }
 
   SECTION("test7") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("$reql_type$", 11);
     Query var1(src1);
@@ -548,11 +548,11 @@ TEST_CASE("cpp Test geometric primitive constructors", "[cpp][ast]") {
     std::string src3("coordinates", 11);
     Query var3(src3);
 
-    Types::array arr4(1);
+    std::vector<Query> arr4(1);
 
-    Types::array arr5(4);
+    std::vector<Query> arr5(4);
 
-    Types::array arr6(2);
+    std::vector<Query> arr6(2);
 
     double num7(0);
     Query var7(num7);
@@ -568,7 +568,7 @@ TEST_CASE("cpp Test geometric primitive constructors", "[cpp][ast]") {
 
     arr5.insert(arr5.end(), var6);
 
-    Types::array arr9(2);
+    std::vector<Query> arr9(2);
 
     double num10(-7.779638566553426e-06);
     Query var10(num10);
@@ -584,7 +584,7 @@ TEST_CASE("cpp Test geometric primitive constructors", "[cpp][ast]") {
 
     arr5.insert(arr5.end(), var9);
 
-    Types::array arr12(2);
+    std::vector<Query> arr12(2);
 
     double num13(7.779638566553426e-06);
     Query var13(num13);
@@ -600,7 +600,7 @@ TEST_CASE("cpp Test geometric primitive constructors", "[cpp][ast]") {
 
     arr5.insert(arr5.end(), var12);
 
-    Types::array arr15(2);
+    std::vector<Query> arr15(2);
 
     double num16(0);
     Query var16(num16);
@@ -636,7 +636,7 @@ TEST_CASE("cpp Test geometric primitive constructors", "[cpp][ast]") {
   }
 
   SECTION("test8") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("$reql_type$", 11);
     Query var1(src1);
@@ -649,11 +649,11 @@ TEST_CASE("cpp Test geometric primitive constructors", "[cpp][ast]") {
     std::string src3("coordinates", 11);
     Query var3(src3);
 
-    Types::array arr4(1);
+    std::vector<Query> arr4(1);
 
-    Types::array arr5(4);
+    std::vector<Query> arr5(4);
 
-    Types::array arr6(2);
+    std::vector<Query> arr6(2);
 
     double num7(0);
     Query var7(num7);
@@ -669,7 +669,7 @@ TEST_CASE("cpp Test geometric primitive constructors", "[cpp][ast]") {
 
     arr5.insert(arr5.end(), var6);
 
-    Types::array arr9(2);
+    std::vector<Query> arr9(2);
 
     double num10(-7.779638566553426e-06);
     Query var10(num10);
@@ -685,7 +685,7 @@ TEST_CASE("cpp Test geometric primitive constructors", "[cpp][ast]") {
 
     arr5.insert(arr5.end(), var9);
 
-    Types::array arr12(2);
+    std::vector<Query> arr12(2);
 
     double num13(7.779638566553426e-06);
     Query var13(num13);
@@ -701,7 +701,7 @@ TEST_CASE("cpp Test geometric primitive constructors", "[cpp][ast]") {
 
     arr5.insert(arr5.end(), var12);
 
-    Types::array arr15(2);
+    std::vector<Query> arr15(2);
 
     double num16(0);
     Query var16(num16);

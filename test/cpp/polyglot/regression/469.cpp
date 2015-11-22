@@ -8,7 +8,7 @@ using namespace ReQL;
 TEST_CASE("cpp Issue 95", "[cpp][ast]") {
 
   SECTION("test0") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -22,7 +22,7 @@ TEST_CASE("cpp Issue 95", "[cpp][ast]") {
   }
 
   SECTION("test1") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -36,7 +36,7 @@ TEST_CASE("cpp Issue 95", "[cpp][ast]") {
   }
 
   SECTION("test2") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("created", 7);
     Query var1(src1);
@@ -50,9 +50,9 @@ TEST_CASE("cpp Issue 95", "[cpp][ast]") {
   }
 
   SECTION("test3") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("index", 5);
     Query var2(src2);
@@ -77,7 +77,7 @@ TEST_CASE("cpp Issue 95", "[cpp][ast]") {
   }
 
   SECTION("test4") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("type", 4);
     Query var1(src1);
@@ -91,7 +91,7 @@ TEST_CASE("cpp Issue 95", "[cpp][ast]") {
   }
 
   SECTION("test5") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("type", 4);
     Query var1(src1);
@@ -105,7 +105,7 @@ TEST_CASE("cpp Issue 95", "[cpp][ast]") {
   }
 
   SECTION("test6") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("type", 4);
     Query var1(src1);
@@ -119,7 +119,7 @@ TEST_CASE("cpp Issue 95", "[cpp][ast]") {
   }
 
   SECTION("test7") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("type", 4);
     Query var1(src1);
@@ -141,7 +141,7 @@ TEST_CASE("cpp Issue 95", "[cpp][ast]") {
   }
 
   SECTION("test8") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("type", 4);
     Query var1(src1);
@@ -163,7 +163,7 @@ TEST_CASE("cpp Issue 95", "[cpp][ast]") {
   }
 
   SECTION("test9") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("type", 4);
     Query var1(src1);
@@ -185,7 +185,7 @@ TEST_CASE("cpp Issue 95", "[cpp][ast]") {
   }
 
   SECTION("test10") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("type", 4);
     Query var1(src1);
@@ -207,7 +207,7 @@ TEST_CASE("cpp Issue 95", "[cpp][ast]") {
   }
 
   SECTION("test11") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("type", 4);
     Query var1(src1);
@@ -229,7 +229,7 @@ TEST_CASE("cpp Issue 95", "[cpp][ast]") {
   }
 
   SECTION("test12") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -243,17 +243,17 @@ TEST_CASE("cpp Issue 95", "[cpp][ast]") {
   }
 
   SECTION("test13") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("db", 2);
     Query var1(src1);
 
-    Types::object map2;
+    std::map<std::string, Query> map2;
 
     std::string src3("id", 2);
     Query var3(src3);
 
-    Types::object map4;
+    std::map<std::string, Query> map4;
 
     std::string src5("func", 4);
     Query var5(src5);
@@ -290,7 +290,7 @@ TEST_CASE("cpp Issue 95", "[cpp][ast]") {
     std::string src11("doc_count_estimates", 19);
     Query var11(src11);
 
-    Types::array arr12(1);
+    std::vector<Query> arr12(1);
 
     double num13(0);
     Query var13(num13);
@@ -304,7 +304,7 @@ TEST_CASE("cpp Issue 95", "[cpp][ast]") {
     std::string src14("id", 2);
     Query var14(src14);
 
-    Types::object map15;
+    std::map<std::string, Query> map15;
 
     std::string src16("func", 4);
     Query var16(src16);
@@ -321,7 +321,7 @@ TEST_CASE("cpp Issue 95", "[cpp][ast]") {
     std::string src18("indexes", 7);
     Query var18(src18);
 
-    Types::array arr19(1);
+    std::vector<Query> arr19(1);
 
     std::string src20("x", 1);
     Query var20(src20);
@@ -360,22 +360,22 @@ TEST_CASE("cpp Issue 95", "[cpp][ast]") {
   }
 
   SECTION("test14") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("table", 5);
     Query var1(src1);
 
-    Types::object map2;
+    std::map<std::string, Query> map2;
 
     std::string src3("db", 2);
     Query var3(src3);
 
-    Types::object map4;
+    std::map<std::string, Query> map4;
 
     std::string src5("id", 2);
     Query var5(src5);
 
-    Types::object map6;
+    std::map<std::string, Query> map6;
 
     std::string src7("func", 4);
     Query var7(src7);
@@ -412,7 +412,7 @@ TEST_CASE("cpp Issue 95", "[cpp][ast]") {
     std::string src13("doc_count_estimates", 19);
     Query var13(src13);
 
-    Types::array arr14(1);
+    std::vector<Query> arr14(1);
 
     double num15(0);
     Query var15(num15);
@@ -426,7 +426,7 @@ TEST_CASE("cpp Issue 95", "[cpp][ast]") {
     std::string src16("id", 2);
     Query var16(src16);
 
-    Types::object map17;
+    std::map<std::string, Query> map17;
 
     std::string src18("func", 4);
     Query var18(src18);
@@ -443,7 +443,7 @@ TEST_CASE("cpp Issue 95", "[cpp][ast]") {
     std::string src20("indexes", 7);
     Query var20(src20);
 
-    Types::array arr21(1);
+    std::vector<Query> arr21(1);
 
     std::string src22("x", 1);
     Query var22(src22);
@@ -494,7 +494,7 @@ TEST_CASE("cpp Issue 95", "[cpp][ast]") {
   }
 
   SECTION("test15") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("type", 4);
     Query var1(src1);
@@ -508,7 +508,7 @@ TEST_CASE("cpp Issue 95", "[cpp][ast]") {
   }
 
   SECTION("test16") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("index", 5);
     Query var1(src1);
@@ -561,17 +561,17 @@ TEST_CASE("cpp Issue 95", "[cpp][ast]") {
     std::string src13("table", 5);
     Query var13(src13);
 
-    Types::object map14;
+    std::map<std::string, Query> map14;
 
     std::string src15("db", 2);
     Query var15(src15);
 
-    Types::object map16;
+    std::map<std::string, Query> map16;
 
     std::string src17("id", 2);
     Query var17(src17);
 
-    Types::object map18;
+    std::map<std::string, Query> map18;
 
     std::string src19("func", 4);
     Query var19(src19);
@@ -608,7 +608,7 @@ TEST_CASE("cpp Issue 95", "[cpp][ast]") {
     std::string src25("doc_count_estimates", 19);
     Query var25(src25);
 
-    Types::array arr26(1);
+    std::vector<Query> arr26(1);
 
     double num27(0);
     Query var27(num27);
@@ -622,7 +622,7 @@ TEST_CASE("cpp Issue 95", "[cpp][ast]") {
     std::string src28("id", 2);
     Query var28(src28);
 
-    Types::object map29;
+    std::map<std::string, Query> map29;
 
     std::string src30("func", 4);
     Query var30(src30);
@@ -639,7 +639,7 @@ TEST_CASE("cpp Issue 95", "[cpp][ast]") {
     std::string src32("indexes", 7);
     Query var32(src32);
 
-    Types::array arr33(1);
+    std::vector<Query> arr33(1);
 
     std::string src34("x", 1);
     Query var34(src34);
@@ -690,7 +690,7 @@ TEST_CASE("cpp Issue 95", "[cpp][ast]") {
   }
 
   SECTION("test17") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("index", 5);
     Query var1(src1);
@@ -743,17 +743,17 @@ TEST_CASE("cpp Issue 95", "[cpp][ast]") {
     std::string src13("table", 5);
     Query var13(src13);
 
-    Types::object map14;
+    std::map<std::string, Query> map14;
 
     std::string src15("db", 2);
     Query var15(src15);
 
-    Types::object map16;
+    std::map<std::string, Query> map16;
 
     std::string src17("id", 2);
     Query var17(src17);
 
-    Types::object map18;
+    std::map<std::string, Query> map18;
 
     std::string src19("func", 4);
     Query var19(src19);
@@ -790,7 +790,7 @@ TEST_CASE("cpp Issue 95", "[cpp][ast]") {
     std::string src25("doc_count_estimates", 19);
     Query var25(src25);
 
-    Types::array arr26(1);
+    std::vector<Query> arr26(1);
 
     double num27(0);
     Query var27(num27);
@@ -804,7 +804,7 @@ TEST_CASE("cpp Issue 95", "[cpp][ast]") {
     std::string src28("id", 2);
     Query var28(src28);
 
-    Types::object map29;
+    std::map<std::string, Query> map29;
 
     std::string src30("func", 4);
     Query var30(src30);
@@ -821,7 +821,7 @@ TEST_CASE("cpp Issue 95", "[cpp][ast]") {
     std::string src32("indexes", 7);
     Query var32(src32);
 
-    Types::array arr33(1);
+    std::vector<Query> arr33(1);
 
     std::string src34("x", 1);
     Query var34(src34);
@@ -872,7 +872,7 @@ TEST_CASE("cpp Issue 95", "[cpp][ast]") {
   }
 
   SECTION("test18") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("index", 5);
     Query var1(src1);
@@ -925,17 +925,17 @@ TEST_CASE("cpp Issue 95", "[cpp][ast]") {
     std::string src13("table", 5);
     Query var13(src13);
 
-    Types::object map14;
+    std::map<std::string, Query> map14;
 
     std::string src15("db", 2);
     Query var15(src15);
 
-    Types::object map16;
+    std::map<std::string, Query> map16;
 
     std::string src17("id", 2);
     Query var17(src17);
 
-    Types::object map18;
+    std::map<std::string, Query> map18;
 
     std::string src19("func", 4);
     Query var19(src19);
@@ -972,7 +972,7 @@ TEST_CASE("cpp Issue 95", "[cpp][ast]") {
     std::string src25("doc_count_estimates", 19);
     Query var25(src25);
 
-    Types::array arr26(1);
+    std::vector<Query> arr26(1);
 
     double num27(0);
     Query var27(num27);
@@ -986,7 +986,7 @@ TEST_CASE("cpp Issue 95", "[cpp][ast]") {
     std::string src28("id", 2);
     Query var28(src28);
 
-    Types::object map29;
+    std::map<std::string, Query> map29;
 
     std::string src30("func", 4);
     Query var30(src30);
@@ -1003,7 +1003,7 @@ TEST_CASE("cpp Issue 95", "[cpp][ast]") {
     std::string src32("indexes", 7);
     Query var32(src32);
 
-    Types::array arr33(1);
+    std::vector<Query> arr33(1);
 
     std::string src34("x", 1);
     Query var34(src34);
@@ -1054,7 +1054,7 @@ TEST_CASE("cpp Issue 95", "[cpp][ast]") {
   }
 
   SECTION("test19") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("index", 5);
     Query var1(src1);
@@ -1091,17 +1091,17 @@ TEST_CASE("cpp Issue 95", "[cpp][ast]") {
     std::string src9("table", 5);
     Query var9(src9);
 
-    Types::object map10;
+    std::map<std::string, Query> map10;
 
     std::string src11("db", 2);
     Query var11(src11);
 
-    Types::object map12;
+    std::map<std::string, Query> map12;
 
     std::string src13("id", 2);
     Query var13(src13);
 
-    Types::object map14;
+    std::map<std::string, Query> map14;
 
     std::string src15("func", 4);
     Query var15(src15);
@@ -1138,7 +1138,7 @@ TEST_CASE("cpp Issue 95", "[cpp][ast]") {
     std::string src21("doc_count_estimates", 19);
     Query var21(src21);
 
-    Types::array arr22(1);
+    std::vector<Query> arr22(1);
 
     double num23(0);
     Query var23(num23);
@@ -1152,7 +1152,7 @@ TEST_CASE("cpp Issue 95", "[cpp][ast]") {
     std::string src24("id", 2);
     Query var24(src24);
 
-    Types::object map25;
+    std::map<std::string, Query> map25;
 
     std::string src26("func", 4);
     Query var26(src26);
@@ -1169,7 +1169,7 @@ TEST_CASE("cpp Issue 95", "[cpp][ast]") {
     std::string src28("indexes", 7);
     Query var28(src28);
 
-    Types::array arr29(1);
+    std::vector<Query> arr29(1);
 
     std::string src30("x", 1);
     Query var30(src30);
@@ -1220,7 +1220,7 @@ TEST_CASE("cpp Issue 95", "[cpp][ast]") {
   }
 
   SECTION("test20") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("index", 5);
     Query var1(src1);
@@ -1257,17 +1257,17 @@ TEST_CASE("cpp Issue 95", "[cpp][ast]") {
     std::string src9("table", 5);
     Query var9(src9);
 
-    Types::object map10;
+    std::map<std::string, Query> map10;
 
     std::string src11("db", 2);
     Query var11(src11);
 
-    Types::object map12;
+    std::map<std::string, Query> map12;
 
     std::string src13("id", 2);
     Query var13(src13);
 
-    Types::object map14;
+    std::map<std::string, Query> map14;
 
     std::string src15("func", 4);
     Query var15(src15);
@@ -1304,7 +1304,7 @@ TEST_CASE("cpp Issue 95", "[cpp][ast]") {
     std::string src21("doc_count_estimates", 19);
     Query var21(src21);
 
-    Types::array arr22(1);
+    std::vector<Query> arr22(1);
 
     double num23(0);
     Query var23(num23);
@@ -1318,7 +1318,7 @@ TEST_CASE("cpp Issue 95", "[cpp][ast]") {
     std::string src24("id", 2);
     Query var24(src24);
 
-    Types::object map25;
+    std::map<std::string, Query> map25;
 
     std::string src26("func", 4);
     Query var26(src26);
@@ -1335,7 +1335,7 @@ TEST_CASE("cpp Issue 95", "[cpp][ast]") {
     std::string src28("indexes", 7);
     Query var28(src28);
 
-    Types::array arr29(1);
+    std::vector<Query> arr29(1);
 
     std::string src30("x", 1);
     Query var30(src30);
@@ -1386,7 +1386,7 @@ TEST_CASE("cpp Issue 95", "[cpp][ast]") {
   }
 
   SECTION("test21") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);

@@ -8,7 +8,7 @@ using namespace ReQL;
 TEST_CASE("cpp Tests that manipulation data in tables 11", "[cpp][ast]") {
 
   SECTION("test0") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -22,7 +22,7 @@ TEST_CASE("cpp Tests that manipulation data in tables 11", "[cpp][ast]") {
   }
 
   SECTION("test1") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -36,7 +36,7 @@ TEST_CASE("cpp Tests that manipulation data in tables 11", "[cpp][ast]") {
   }
 
   SECTION("test2") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("deleted", 7);
     Query var1(src1);
@@ -90,7 +90,7 @@ TEST_CASE("cpp Tests that manipulation data in tables 11", "[cpp][ast]") {
   }
 
   SECTION("test3") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("deleted", 7);
     Query var1(src1);
@@ -149,7 +149,7 @@ TEST_CASE("cpp Tests that manipulation data in tables 11", "[cpp][ast]") {
   }
 
   SECTION("test5") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -163,7 +163,7 @@ TEST_CASE("cpp Tests that manipulation data in tables 11", "[cpp][ast]") {
   }
 
   SECTION("test6") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -177,7 +177,7 @@ TEST_CASE("cpp Tests that manipulation data in tables 11", "[cpp][ast]") {
   }
 
   SECTION("test7") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("deleted", 7);
     Query var1(src1);
@@ -231,7 +231,7 @@ TEST_CASE("cpp Tests that manipulation data in tables 11", "[cpp][ast]") {
   }
 
   SECTION("test8") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -245,7 +245,7 @@ TEST_CASE("cpp Tests that manipulation data in tables 11", "[cpp][ast]") {
   }
 
   SECTION("test9") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -259,7 +259,7 @@ TEST_CASE("cpp Tests that manipulation data in tables 11", "[cpp][ast]") {
   }
 
   SECTION("test10") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -273,7 +273,7 @@ TEST_CASE("cpp Tests that manipulation data in tables 11", "[cpp][ast]") {
   }
 
   SECTION("test11") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -297,7 +297,7 @@ TEST_CASE("cpp Tests that manipulation data in tables 11", "[cpp][ast]") {
   }
 
   SECTION("test14") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -311,7 +311,7 @@ TEST_CASE("cpp Tests that manipulation data in tables 11", "[cpp][ast]") {
   }
 
   SECTION("test15") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -325,7 +325,7 @@ TEST_CASE("cpp Tests that manipulation data in tables 11", "[cpp][ast]") {
   }
 
   SECTION("test16") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -339,7 +339,7 @@ TEST_CASE("cpp Tests that manipulation data in tables 11", "[cpp][ast]") {
   }
 
   SECTION("test17") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -353,7 +353,7 @@ TEST_CASE("cpp Tests that manipulation data in tables 11", "[cpp][ast]") {
   }
 
   SECTION("test18") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("a", 1);
     Query var1(src1);
@@ -379,7 +379,7 @@ TEST_CASE("cpp Tests that manipulation data in tables 11", "[cpp][ast]") {
   }
 
   SECTION("test20") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -393,7 +393,7 @@ TEST_CASE("cpp Tests that manipulation data in tables 11", "[cpp][ast]") {
   }
 
   SECTION("test21") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -407,7 +407,7 @@ TEST_CASE("cpp Tests that manipulation data in tables 11", "[cpp][ast]") {
   }
 
   SECTION("test22") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -421,7 +421,7 @@ TEST_CASE("cpp Tests that manipulation data in tables 11", "[cpp][ast]") {
   }
 
   SECTION("test23") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("deleted", 7);
     Query var1(src1);
@@ -475,7 +475,7 @@ TEST_CASE("cpp Tests that manipulation data in tables 11", "[cpp][ast]") {
   }
 
   SECTION("test24") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("a", 1);
     Query var1(src1);
@@ -582,7 +582,7 @@ TEST_CASE("cpp Tests that manipulation data in tables 11", "[cpp][ast]") {
   }
 
   SECTION("test42") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -616,7 +616,7 @@ TEST_CASE("cpp Tests that manipulation data in tables 11", "[cpp][ast]") {
   }
 
   SECTION("test47") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -630,7 +630,7 @@ TEST_CASE("cpp Tests that manipulation data in tables 11", "[cpp][ast]") {
   }
 
   SECTION("test48") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -664,7 +664,7 @@ TEST_CASE("cpp Tests that manipulation data in tables 11", "[cpp][ast]") {
   }
 
   SECTION("test53") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     double num1(4);
     Query var1(num1);
@@ -680,9 +680,9 @@ TEST_CASE("cpp Tests that manipulation data in tables 11", "[cpp][ast]") {
   }
 
   SECTION("test55") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
-    Types::array arr1(2);
+    std::vector<Query> arr1(2);
 
     double num2(3);
     Query var2(num2);
@@ -698,7 +698,7 @@ TEST_CASE("cpp Tests that manipulation data in tables 11", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::array arr4(2);
+    std::vector<Query> arr4(2);
 
     double num5(5);
     Query var5(num5);
@@ -718,9 +718,9 @@ TEST_CASE("cpp Tests that manipulation data in tables 11", "[cpp][ast]") {
   }
 
   SECTION("test56") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
-    Types::array arr1(2);
+    std::vector<Query> arr1(2);
 
     double num2(3);
     Query var2(num2);
@@ -736,7 +736,7 @@ TEST_CASE("cpp Tests that manipulation data in tables 11", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::array arr4(2);
+    std::vector<Query> arr4(2);
 
     double num5(5);
     Query var5(num5);
@@ -756,7 +756,7 @@ TEST_CASE("cpp Tests that manipulation data in tables 11", "[cpp][ast]") {
   }
 
   SECTION("test57") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -770,7 +770,7 @@ TEST_CASE("cpp Tests that manipulation data in tables 11", "[cpp][ast]") {
   }
 
   SECTION("test58") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -784,9 +784,9 @@ TEST_CASE("cpp Tests that manipulation data in tables 11", "[cpp][ast]") {
   }
 
   SECTION("test59") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("a", 1);
     Query var2(src2);
@@ -820,9 +820,9 @@ TEST_CASE("cpp Tests that manipulation data in tables 11", "[cpp][ast]") {
   }
 
   SECTION("test60") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("a", 1);
     Query var2(src2);
@@ -852,7 +852,7 @@ TEST_CASE("cpp Tests that manipulation data in tables 11", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map8;
+    std::map<std::string, Query> map8;
 
     std::string src9("a", 1);
     Query var9(src9);
@@ -886,9 +886,9 @@ TEST_CASE("cpp Tests that manipulation data in tables 11", "[cpp][ast]") {
   }
 
   SECTION("test61") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("a", 1);
     Query var2(src2);
@@ -922,7 +922,7 @@ TEST_CASE("cpp Tests that manipulation data in tables 11", "[cpp][ast]") {
   }
 
   SECTION("test62") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
@@ -942,7 +942,7 @@ TEST_CASE("cpp Tests that manipulation data in tables 11", "[cpp][ast]") {
   }
 
   SECTION("test67") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -961,7 +961,7 @@ TEST_CASE("cpp Tests that manipulation data in tables 11", "[cpp][ast]") {
   }
 
   SECTION("test69") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);

@@ -28,7 +28,7 @@ TEST_CASE("cpp Tests randomization functions", "[cpp][ast]") {
   }
 
   SECTION("test5") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -42,7 +42,7 @@ TEST_CASE("cpp Tests randomization functions", "[cpp][ast]") {
   }
 
   SECTION("test6") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -56,7 +56,7 @@ TEST_CASE("cpp Tests randomization functions", "[cpp][ast]") {
   }
 
   SECTION("test7") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -74,7 +74,7 @@ TEST_CASE("cpp Tests randomization functions", "[cpp][ast]") {
   }
 
   SECTION("test9") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -131,7 +131,7 @@ TEST_CASE("cpp Tests randomization functions", "[cpp][ast]") {
   }
 
   SECTION("test24") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -145,7 +145,7 @@ TEST_CASE("cpp Tests randomization functions", "[cpp][ast]") {
   }
 
   SECTION("test25") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -159,7 +159,7 @@ TEST_CASE("cpp Tests randomization functions", "[cpp][ast]") {
   }
 
   SECTION("test26") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -173,7 +173,7 @@ TEST_CASE("cpp Tests randomization functions", "[cpp][ast]") {
   }
 
   SECTION("test27") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -187,7 +187,7 @@ TEST_CASE("cpp Tests randomization functions", "[cpp][ast]") {
   }
 
   SECTION("test28") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -201,7 +201,7 @@ TEST_CASE("cpp Tests randomization functions", "[cpp][ast]") {
   }
 
   SECTION("test29") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -215,7 +215,7 @@ TEST_CASE("cpp Tests randomization functions", "[cpp][ast]") {
   }
 
   SECTION("test30") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -229,7 +229,7 @@ TEST_CASE("cpp Tests randomization functions", "[cpp][ast]") {
   }
 
   SECTION("test31") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -243,7 +243,7 @@ TEST_CASE("cpp Tests randomization functions", "[cpp][ast]") {
   }
 
   SECTION("test32") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -257,7 +257,7 @@ TEST_CASE("cpp Tests randomization functions", "[cpp][ast]") {
   }
 
   SECTION("test33") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -271,7 +271,7 @@ TEST_CASE("cpp Tests randomization functions", "[cpp][ast]") {
   }
 
   SECTION("test34") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -285,7 +285,7 @@ TEST_CASE("cpp Tests randomization functions", "[cpp][ast]") {
   }
 
   SECTION("test35") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -299,7 +299,7 @@ TEST_CASE("cpp Tests randomization functions", "[cpp][ast]") {
   }
 
   SECTION("test36") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -313,7 +313,7 @@ TEST_CASE("cpp Tests randomization functions", "[cpp][ast]") {
   }
 
   SECTION("test37") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);

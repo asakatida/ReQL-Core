@@ -8,7 +8,7 @@ using namespace ReQL;
 TEST_CASE("cpp Test point changebasics", "[cpp][ast]") {
 
   SECTION("test0") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -22,9 +22,9 @@ TEST_CASE("cpp Test point changebasics", "[cpp][ast]") {
   }
 
   SECTION("test1") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("new_val", 7);
     Query var2(src2);
@@ -41,7 +41,7 @@ TEST_CASE("cpp Test point changebasics", "[cpp][ast]") {
   }
 
   SECTION("test2") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -55,14 +55,14 @@ TEST_CASE("cpp Test point changebasics", "[cpp][ast]") {
   }
 
   SECTION("test3") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("new_val", 7);
     Query var2(src2);
 
-    Types::object map3;
+    std::map<std::string, Query> map3;
 
     std::string src4("id", 2);
     Query var4(src4);
@@ -91,7 +91,7 @@ TEST_CASE("cpp Test point changebasics", "[cpp][ast]") {
   }
 
   SECTION("test4") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -105,14 +105,14 @@ TEST_CASE("cpp Test point changebasics", "[cpp][ast]") {
   }
 
   SECTION("test5") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("new_val", 7);
     Query var2(src2);
 
-    Types::object map3;
+    std::map<std::string, Query> map3;
 
     std::string src4("id", 2);
     Query var4(src4);
@@ -137,7 +137,7 @@ TEST_CASE("cpp Test point changebasics", "[cpp][ast]") {
     std::string src8("old_val", 7);
     Query var8(src8);
 
-    Types::object map9;
+    std::map<std::string, Query> map9;
 
     std::string src10("id", 2);
     Query var10(src10);
@@ -159,7 +159,7 @@ TEST_CASE("cpp Test point changebasics", "[cpp][ast]") {
   }
 
   SECTION("test6") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -173,9 +173,9 @@ TEST_CASE("cpp Test point changebasics", "[cpp][ast]") {
   }
 
   SECTION("test7") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("new_val", 7);
     Query var2(src2);
@@ -187,7 +187,7 @@ TEST_CASE("cpp Test point changebasics", "[cpp][ast]") {
     std::string src4("old_val", 7);
     Query var4(src4);
 
-    Types::object map5;
+    std::map<std::string, Query> map5;
 
     std::string src6("id", 2);
     Query var6(src6);
@@ -217,7 +217,7 @@ TEST_CASE("cpp Test point changebasics", "[cpp][ast]") {
   }
 
   SECTION("test8") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -231,7 +231,7 @@ TEST_CASE("cpp Test point changebasics", "[cpp][ast]") {
   }
 
   SECTION("test9") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -245,7 +245,7 @@ TEST_CASE("cpp Test point changebasics", "[cpp][ast]") {
   }
 
   SECTION("test10") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -259,7 +259,7 @@ TEST_CASE("cpp Test point changebasics", "[cpp][ast]") {
   }
 
   SECTION("test11") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -273,7 +273,7 @@ TEST_CASE("cpp Test point changebasics", "[cpp][ast]") {
   }
 
   SECTION("test12") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -287,7 +287,7 @@ TEST_CASE("cpp Test point changebasics", "[cpp][ast]") {
   }
 
   SECTION("test13") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -301,7 +301,7 @@ TEST_CASE("cpp Test point changebasics", "[cpp][ast]") {
   }
 
   SECTION("test14") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     double num1(4);
     Query var1(num1);
@@ -317,7 +317,7 @@ TEST_CASE("cpp Test point changebasics", "[cpp][ast]") {
   }
 
   SECTION("test15") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -331,7 +331,7 @@ TEST_CASE("cpp Test point changebasics", "[cpp][ast]") {
   }
 
   SECTION("test16") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -345,7 +345,7 @@ TEST_CASE("cpp Test point changebasics", "[cpp][ast]") {
   }
 
   SECTION("test17") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -359,7 +359,7 @@ TEST_CASE("cpp Test point changebasics", "[cpp][ast]") {
   }
 
   SECTION("test18") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -373,7 +373,7 @@ TEST_CASE("cpp Test point changebasics", "[cpp][ast]") {
   }
 
   SECTION("test19") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -387,9 +387,9 @@ TEST_CASE("cpp Test point changebasics", "[cpp][ast]") {
   }
 
   SECTION("test20") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("red", 3);
     Query var2(src2);
@@ -403,7 +403,7 @@ TEST_CASE("cpp Test point changebasics", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map4;
+    std::map<std::string, Query> map4;
 
     std::string src5("blue", 4);
     Query var5(src5);
@@ -425,7 +425,7 @@ TEST_CASE("cpp Test point changebasics", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var4);
 
-    Types::object map9;
+    std::map<std::string, Query> map9;
 
     std::string src10("blue", 4);
     Query var10(src10);
@@ -447,7 +447,7 @@ TEST_CASE("cpp Test point changebasics", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var9);
 
-    Types::object map14;
+    std::map<std::string, Query> map14;
 
     std::string src15("blue", 4);
     Query var15(src15);
@@ -473,7 +473,7 @@ TEST_CASE("cpp Test point changebasics", "[cpp][ast]") {
   }
 
   SECTION("test22") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -487,9 +487,9 @@ TEST_CASE("cpp Test point changebasics", "[cpp][ast]") {
   }
 
   SECTION("test23") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("new_val", 7);
     Query var2(src2);
@@ -506,7 +506,7 @@ TEST_CASE("cpp Test point changebasics", "[cpp][ast]") {
   }
 
   SECTION("test24") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -520,14 +520,14 @@ TEST_CASE("cpp Test point changebasics", "[cpp][ast]") {
   }
 
   SECTION("test25") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("new_val", 7);
     Query var2(src2);
 
-    Types::object map3;
+    std::map<std::string, Query> map3;
 
     std::string src4("id", 2);
     Query var4(src4);
@@ -556,7 +556,7 @@ TEST_CASE("cpp Test point changebasics", "[cpp][ast]") {
   }
 
   SECTION("test26") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -570,14 +570,14 @@ TEST_CASE("cpp Test point changebasics", "[cpp][ast]") {
   }
 
   SECTION("test27") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("new_val", 7);
     Query var2(src2);
 
-    Types::object map3;
+    std::map<std::string, Query> map3;
 
     std::string src4("id", 2);
     Query var4(src4);
@@ -602,7 +602,7 @@ TEST_CASE("cpp Test point changebasics", "[cpp][ast]") {
     std::string src8("old_val", 7);
     Query var8(src8);
 
-    Types::object map9;
+    std::map<std::string, Query> map9;
 
     std::string src10("id", 2);
     Query var10(src10);
@@ -624,7 +624,7 @@ TEST_CASE("cpp Test point changebasics", "[cpp][ast]") {
   }
 
   SECTION("test28") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -638,9 +638,9 @@ TEST_CASE("cpp Test point changebasics", "[cpp][ast]") {
   }
 
   SECTION("test29") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("new_val", 7);
     Query var2(src2);
@@ -652,7 +652,7 @@ TEST_CASE("cpp Test point changebasics", "[cpp][ast]") {
     std::string src4("old_val", 7);
     Query var4(src4);
 
-    Types::object map5;
+    std::map<std::string, Query> map5;
 
     std::string src6("id", 2);
     Query var6(src6);
@@ -682,7 +682,7 @@ TEST_CASE("cpp Test point changebasics", "[cpp][ast]") {
   }
 
   SECTION("test30") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("deleted", 7);
     Query var1(src1);
@@ -736,7 +736,7 @@ TEST_CASE("cpp Test point changebasics", "[cpp][ast]") {
   }
 
   SECTION("test31") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -750,9 +750,9 @@ TEST_CASE("cpp Test point changebasics", "[cpp][ast]") {
   }
 
   SECTION("test32") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("red", 3);
     Query var2(src2);
@@ -770,7 +770,7 @@ TEST_CASE("cpp Test point changebasics", "[cpp][ast]") {
   }
 
   SECTION("test33") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -784,9 +784,9 @@ TEST_CASE("cpp Test point changebasics", "[cpp][ast]") {
   }
 
   SECTION("test34") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("blue", 4);
     Query var2(src2);
@@ -812,7 +812,7 @@ TEST_CASE("cpp Test point changebasics", "[cpp][ast]") {
   }
 
   SECTION("test35") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -826,7 +826,7 @@ TEST_CASE("cpp Test point changebasics", "[cpp][ast]") {
   }
 
   SECTION("test36") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -840,7 +840,7 @@ TEST_CASE("cpp Test point changebasics", "[cpp][ast]") {
   }
 
   SECTION("test37") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -854,7 +854,7 @@ TEST_CASE("cpp Test point changebasics", "[cpp][ast]") {
   }
 
   SECTION("test38") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -868,7 +868,7 @@ TEST_CASE("cpp Test point changebasics", "[cpp][ast]") {
   }
 
   SECTION("test39") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);

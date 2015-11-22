@@ -13,7 +13,7 @@ TEST_CASE("cpp Tests key sorting of all usable types in secondary indexes", "[cp
   }
 
   SECTION("test9") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("created", 7);
     Query var1(src1);
@@ -27,9 +27,9 @@ TEST_CASE("cpp Tests key sorting of all usable types in secondary indexes", "[cp
   }
 
   SECTION("test10") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("index", 5);
     Query var2(src2);
@@ -62,7 +62,7 @@ TEST_CASE("cpp Tests key sorting of all usable types in secondary indexes", "[cp
   }
 
   SECTION("test13") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     double num1(2);
     Query var1(num1);
@@ -83,7 +83,7 @@ TEST_CASE("cpp Tests key sorting of all usable types in secondary indexes", "[cp
   }
 
   SECTION("test14") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
     double num1(3);
     Query var1(num1);

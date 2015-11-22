@@ -8,7 +8,7 @@ using namespace ReQL;
 TEST_CASE("cpp Test cleanup of cursors on the server", "[cpp][ast]") {
 
   SECTION("test0") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
     double num1(1);
     Query var1(num1);
@@ -27,7 +27,7 @@ TEST_CASE("cpp Test cleanup of cursors on the server", "[cpp][ast]") {
   }
 
   SECTION("test3") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
     double num1(1);
     Query var1(num1);

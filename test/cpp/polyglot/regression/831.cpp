@@ -8,7 +8,7 @@ using namespace ReQL;
 TEST_CASE("cpp 831 -- Empty batched_replaces_t constructed", "[cpp][ast]") {
 
   SECTION("test0") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("deleted", 7);
     Query var1(src1);

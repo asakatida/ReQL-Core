@@ -23,42 +23,25 @@ limitations under the License.
 #include "./cpp/error.hpp"
 #include "./cpp/query.hpp"
 
-#include <algorithm>
-#include <vector>
+#include <array>
+#include <mutex>
+#include <queue>
 
 namespace ReQL {
 
 Cursor::Cursor() {}
 
-Cursor::Cursor(_Cursor cur) : p_cur(cur) {}
-
-Cursor::Cursor(Cursor &&other) : p_cur(std::move(other.p_cur)) {}
+Cursor::Cursor(Cursor &&other) : p_mutex(std::move(other.p_mutex)) {}
 
 Cursor &
 Cursor::operator=(Cursor &&other) {
   if (this != &other) {
-    p_cur = std::move(other.p_cur);
   }
   return *this;
 }
 
-bool Cursor::isOpen() const {
-  return p_cur.isOpen();
-}
-
-Query
-Cursor::next() {
-  return Query();
-}
-
-std::vector<Query>
-Cursor::toVector() {
-  return std::vector<Query>();
-}
-
-void
-Cursor::close() {
-  p_cur = _Cursor();
+void swap(Cursor &c1, Cursor &c2) {
+  c1.swap(c2);
 }
 
 }  // namespace ReQL

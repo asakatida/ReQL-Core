@@ -245,24 +245,24 @@ def build(f_name, regex, join_str = "\n"):
 def cpp_term_imp(name):
     return """{2}
 Query
-Query::{0}(const Types::array &args) const {{
-  return init(_C::{1}, this, args);
+Query::{0}(const std::vector<Query> &args) const {{
+  return Query(_ReQL::REQL_{1}, this, args);
 }}
 Query
-{0}(const Types::array &args) {{
-  return init(_C::{1}, args);
+{0}(const std::vector<Query> &args) {{
+  return Query(_ReQL::REQL_{1}, args);
 }}""".format(
-        mangle_cpp_const(name), ast_name('ast', name),
+        mangle_cpp_const(name), name,
         """
 Query
-Query::{0}(const Types::array &args, const Types::object &kwargs) const {{
-  return init(_C::{1}, this, args, kwargs);
+Query::{0}(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {{
+  return Query(_ReQL::REQL_{1}, this, args, kwargs);
 }}
 Query
-{0}(const Types::array &args, const Types::object &kwargs) {{
-  return init(_C::{1}, args, kwargs);
+{0}(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {{
+  return Query(_ReQL::REQL_{1}, args, kwargs);
 }}""".format(
-        mangle_cpp_const(name), ast_name('ast', name)
+        mangle_cpp_const(name), name
     ) if has_opts(name) else '')
 
 def cpp_term_class(name):
@@ -270,9 +270,9 @@ def cpp_term_class(name):
   /**
    */{}
   Query
-  {}(const Types::array &args) const;""".format("""
+  {}(const std::vector<Query> &args) const;""".format("""
   Query
-  {}(const Types::array &args, const Types::object &kwargs) const;
+  {}(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const;
 """.format(
         mangle_cpp_const(name)) if has_opts(name) else '',
         mangle_cpp_const(name))
@@ -282,9 +282,9 @@ def cpp_term_def(name):
 /**
  */{}
 Query
-{}(const Types::array &args);""".format("""
+{}(const std::vector<Query> &args);""".format("""
 Query
-{}(const Types::array &args, const Types::object &kwargs);""".format(
+{}(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);""".format(
     mangle_cpp_const(name)) if has_opts(name) else '',
     mangle_cpp_const(name))
 

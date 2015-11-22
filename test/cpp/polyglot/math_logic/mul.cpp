@@ -23,7 +23,7 @@ TEST_CASE("cpp Tests for the basic usage of the multiplication operation", "[cpp
   }
 
   SECTION("test3") {
-    Types::array arr0(9);
+    std::vector<Query> arr0(9);
 
     double num1(1);
     Query var1(num1);
@@ -74,7 +74,7 @@ TEST_CASE("cpp Tests for the basic usage of the multiplication operation", "[cpp
   }
 
   SECTION("test8") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -88,7 +88,7 @@ TEST_CASE("cpp Tests for the basic usage of the multiplication operation", "[cpp
   }
 
   SECTION("test9") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -102,7 +102,7 @@ TEST_CASE("cpp Tests for the basic usage of the multiplication operation", "[cpp
   }
 
   SECTION("test10") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -116,7 +116,7 @@ TEST_CASE("cpp Tests for the basic usage of the multiplication operation", "[cpp
   }
 
   SECTION("test11") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);

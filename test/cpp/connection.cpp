@@ -3,6 +3,8 @@
 #include "./catch.hpp"
 #include "./ReQL.hpp"
 
+#include <vector>
+
 using namespace ReQL;
 
 TEST_CASE("cpp connection", "[c++][connect]") {
@@ -10,16 +12,15 @@ TEST_CASE("cpp connection", "[c++][connect]") {
 
   REQUIRE(conn.isOpen());
 
-  const Types::array args({Query(std::string("libReQL"))});
+  std::vector<Query> args({std::string("libReQL")});
 
   Cursor cur = db_create(args).run(conn);
 
-  REQUIRE(cur.isOpen());
-
-  Query res = cur.toVector();
+  std::vector<Result> results1(cur.begin(), cur.end());
 
   cur = db_drop(args).run(conn);
-  res = cur.toVector();
+
+  std::vector<Result> results2(cur.begin(), cur.end());
 
   conn.close();
 

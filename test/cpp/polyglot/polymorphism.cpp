@@ -8,7 +8,7 @@ using namespace ReQL;
 TEST_CASE("cpp Tests that manipulation data in tables 8", "[cpp][ast]") {
 
   SECTION("test1") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("deleted", 7);
     Query var1(src1);
@@ -62,7 +62,7 @@ TEST_CASE("cpp Tests that manipulation data in tables 8", "[cpp][ast]") {
   }
 
   SECTION("test2") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("a", 1);
     Query var1(src1);
@@ -92,7 +92,7 @@ TEST_CASE("cpp Tests that manipulation data in tables 8", "[cpp][ast]") {
   }
 
   SECTION("test3") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("id", 2);
     Query var1(src1);
@@ -106,7 +106,7 @@ TEST_CASE("cpp Tests that manipulation data in tables 8", "[cpp][ast]") {
   }
 
   SECTION("test4") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("a", 1);
     Query var1(src1);

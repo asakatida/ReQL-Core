@@ -2,6 +2,9 @@
 #include "./catch.hpp"
 #include "./ReQL.hpp"
 
+#include <string>
+#include <vector>
+
 int
 main(int argc, char **argv) {
   int result = Catch::Session().run(argc, argv);
@@ -9,35 +12,35 @@ main(int argc, char **argv) {
   try {
     ReQL::Connection conn;
 
-    ReQL::db_list(ReQL::Types::array())
-    .filter(ReQL::Types::array({
-      ReQL::func(ReQL::Types::array({
-        ReQL::Query(ReQL::Types::array({ReQL::Query(1.0)})),
-        ReQL::var(ReQL::Types::array({ReQL::Query(1.0)}))
-        .ne(ReQL::Types::array({
-          ReQL::Query(ReQL::Types::string("rethinkdb"))
+    ReQL::db_list(std::vector<ReQL::Query>())
+    .filter(std::vector<ReQL::Query>({
+      ReQL::func(std::vector<ReQL::Query>({
+        ReQL::Query(std::vector<ReQL::Query>({ReQL::Query(1.0)})),
+        ReQL::var(std::vector<ReQL::Query>({ReQL::Query(1.0)}))
+        .ne(std::vector<ReQL::Query>({
+          ReQL::Query(std::string("rethinkdb"))
         }))
       }))
     }))
-    .for_each(ReQL::Types::array({
-      ReQL::func(ReQL::Types::array({
-        ReQL::Query(ReQL::Types::array({ReQL::Query(2.0)})),
-        ReQL::func(ReQL::Types::array({
-          ReQL::Query(ReQL::Types::array()),
-          ReQL::db_drop(ReQL::Types::array({
-            ReQL::var(ReQL::Types::array({ReQL::Query(2.0)}))
+    .for_each(std::vector<ReQL::Query>({
+      ReQL::func(std::vector<ReQL::Query>({
+        ReQL::Query(std::vector<ReQL::Query>({ReQL::Query(2.0)})),
+        ReQL::func(std::vector<ReQL::Query>({
+          ReQL::Query(std::vector<ReQL::Query>()),
+          ReQL::db_drop(std::vector<ReQL::Query>({
+            ReQL::var(std::vector<ReQL::Query>({ReQL::Query(2.0)}))
           }))
         }))
-        .funcall(ReQL::Types::array({
-          ReQL::db(ReQL::Types::array({
-            ReQL::var(ReQL::Types::array({ReQL::Query(2.0)}))
+        .funcall(std::vector<ReQL::Query>({
+          ReQL::db(std::vector<ReQL::Query>({
+            ReQL::var(std::vector<ReQL::Query>({ReQL::Query(2.0)}))
           }))
-          .wait(ReQL::Types::array())
+          .wait(std::vector<ReQL::Query>())
         }))
       }))
     }))
-    .run(conn).toVector().clear();
-    
+    .no_reply(conn);
+
     conn.close();
   } catch (ReQL::ReQLError &e) {
     (void)e;

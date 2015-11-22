@@ -8,7 +8,7 @@ using namespace ReQL;
 TEST_CASE("cpp accessing portions", "[cpp][ast]") {
 
   SECTION("test10") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
     double num1(1375142400);
     Query var1(num1);
@@ -34,7 +34,7 @@ TEST_CASE("cpp accessing portions", "[cpp][ast]") {
   }
 
   SECTION("test11") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
     double num1(0);
     Query var1(num1);
@@ -60,7 +60,7 @@ TEST_CASE("cpp accessing portions", "[cpp][ast]") {
   }
 
   SECTION("test12") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
     double num1(4896.681);
     Query var1(num1);
@@ -86,9 +86,9 @@ TEST_CASE("cpp accessing portions", "[cpp][ast]") {
   }
 
   SECTION("test13") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
-    Types::array arr1(6);
+    std::vector<Query> arr1(6);
 
     double num2(2013);
     Query var2(num2);
@@ -124,7 +124,7 @@ TEST_CASE("cpp accessing portions", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::array arr8(6);
+    std::vector<Query> arr8(6);
 
     double num9(2013);
     Query var9(num9);
@@ -160,7 +160,7 @@ TEST_CASE("cpp accessing portions", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var8);
 
-    Types::array arr15(6);
+    std::vector<Query> arr15(6);
 
     double num16(2013);
     Query var16(num16);
@@ -196,7 +196,7 @@ TEST_CASE("cpp accessing portions", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var15);
 
-    Types::array arr22(6);
+    std::vector<Query> arr22(6);
 
     double num23(2045);
     Query var23(num23);
@@ -236,7 +236,7 @@ TEST_CASE("cpp accessing portions", "[cpp][ast]") {
   }
 
   SECTION("test14") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -255,9 +255,9 @@ TEST_CASE("cpp accessing portions", "[cpp][ast]") {
   }
 
   SECTION("test16") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
-    Types::array arr1(2);
+    std::vector<Query> arr1(2);
 
     double num2(2);
     Query var2(num2);
@@ -273,7 +273,7 @@ TEST_CASE("cpp accessing portions", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::array arr4(2);
+    std::vector<Query> arr4(2);
 
     double num5(2);
     Query var5(num5);
@@ -289,7 +289,7 @@ TEST_CASE("cpp accessing portions", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var4);
 
-    Types::array arr7(2);
+    std::vector<Query> arr7(2);
 
     double num8(2);
     Query var8(num8);
@@ -305,7 +305,7 @@ TEST_CASE("cpp accessing portions", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var7);
 
-    Types::array arr10(2);
+    std::vector<Query> arr10(2);
 
     double num11(5);
     Query var11(num11);

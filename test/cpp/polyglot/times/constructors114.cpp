@@ -13,12 +13,12 @@ TEST_CASE("cpp Test basic time arithmetic", "[cpp][ast]") {
   }
 
   SECTION("test1") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("more", 4);
     Query var1(src1);
 
-    Types::array arr2(1);
+    std::vector<Query> arr2(1);
 
     std::string src3("Tue Jul 31 09:20:40 2001", 24);
     Query var3(src3);
@@ -41,7 +41,7 @@ TEST_CASE("cpp Test basic time arithmetic", "[cpp][ast]") {
   }
 
   SECTION("test2") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     std::string src1("Thu Mar 30 13:47:20 1995", 24);
     Query var1(src1);
@@ -53,7 +53,7 @@ TEST_CASE("cpp Test basic time arithmetic", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var2);
 
-    Types::object map3;
+    std::map<std::string, Query> map3;
 
     std::string src4("stuff", 5);
     Query var4(src4);
@@ -71,12 +71,12 @@ TEST_CASE("cpp Test basic time arithmetic", "[cpp][ast]") {
   }
 
   SECTION("test3") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("nested", 6);
     Query var1(src1);
 
-    Types::object map2;
+    std::map<std::string, Query> map2;
 
     std::string src3("time", 4);
     Query var3(src3);
@@ -94,7 +94,7 @@ TEST_CASE("cpp Test basic time arithmetic", "[cpp][ast]") {
   }
 
   SECTION("test4") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     double num1(1);
     Query var1(num1);
@@ -106,7 +106,7 @@ TEST_CASE("cpp Test basic time arithmetic", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var2);
 
-    Types::array arr3(3);
+    std::vector<Query> arr3(3);
 
     std::string src4("a", 1);
     Query var4(src4);
@@ -161,7 +161,7 @@ TEST_CASE("cpp Test basic time arithmetic", "[cpp][ast]") {
   }
 
   SECTION("test11") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -175,7 +175,7 @@ TEST_CASE("cpp Test basic time arithmetic", "[cpp][ast]") {
   }
 
   SECTION("test12") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -199,7 +199,7 @@ TEST_CASE("cpp Test basic time arithmetic", "[cpp][ast]") {
   }
 
   SECTION("test15") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);

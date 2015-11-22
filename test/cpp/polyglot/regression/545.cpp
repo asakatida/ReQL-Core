@@ -8,7 +8,7 @@ using namespace ReQL;
 TEST_CASE("cpp r.js inside reduce crashes server (#545)", "[cpp][ast]") {
 
   SECTION("test0") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -27,7 +27,7 @@ TEST_CASE("cpp r.js inside reduce crashes server (#545)", "[cpp][ast]") {
   }
 
   SECTION("test2") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("id", 2);
     Query var1(src1);

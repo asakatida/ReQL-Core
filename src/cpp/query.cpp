@@ -172,15 +172,20 @@ Query::Query(Query &&other) :
 
 Cursor
 Query::run(Connection &conn) const {
-  _ReQL::Any query = build();
-  return Cursor(conn.p_conn.run(query));
+  Cursor cursor;
+  conn.p_conn.run(build(), [&cursor](Result &&result) {
+    cursor << std::move(result);
+  });
+  return cursor;
 }
 
 Cursor
 Query::run(Connection &conn, const std::map<std::string, Query> &kwargs) const {
-  _ReQL::Any query = build();
-  _ReQL::Any opts = Query(kwargs).build();
-  return Cursor(conn.p_conn.run(query, opts));
+  Cursor cursor;
+  conn.p_conn.run(build(), Query(kwargs).build(), [&cursor](Result &&result) {
+    cursor << std::move(result);
+  });
+  return cursor;
 }
 
 void

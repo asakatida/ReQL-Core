@@ -8,12 +8,12 @@ using namespace ReQL;
 TEST_CASE("cpp Tests conversion to and from the RQL array type", "[cpp][ast]") {
 
   SECTION("test0") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test1") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
     double num1(1);
     Query var1(num1);
@@ -24,7 +24,7 @@ TEST_CASE("cpp Tests conversion to and from the RQL array type", "[cpp][ast]") {
   }
 
   SECTION("test2") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     double num1(1);
     Query var1(num1);
@@ -65,7 +65,7 @@ TEST_CASE("cpp Tests conversion to and from the RQL array type", "[cpp][ast]") {
   }
 
   SECTION("test5") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     double num1(1);
     Query var1(num1);
@@ -81,7 +81,7 @@ TEST_CASE("cpp Tests conversion to and from the RQL array type", "[cpp][ast]") {
   }
 
   SECTION("test6") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -95,7 +95,7 @@ TEST_CASE("cpp Tests conversion to and from the RQL array type", "[cpp][ast]") {
   }
 
   SECTION("test7") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("a", 1);
     Query var1(src1);
@@ -117,7 +117,7 @@ TEST_CASE("cpp Tests conversion to and from the RQL array type", "[cpp][ast]") {
   }
 
   SECTION("test8") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
     double num1(1);
     Query var1(num1);
@@ -128,7 +128,7 @@ TEST_CASE("cpp Tests conversion to and from the RQL array type", "[cpp][ast]") {
   }
 
   SECTION("test9") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
     double num1(1);
     Query var1(num1);
@@ -154,7 +154,7 @@ TEST_CASE("cpp Tests conversion to and from the RQL array type", "[cpp][ast]") {
   }
 
   SECTION("test10") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     double num1(1);
     Query var1(num1);
@@ -175,7 +175,7 @@ TEST_CASE("cpp Tests conversion to and from the RQL array type", "[cpp][ast]") {
   }
 
   SECTION("test11") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
     double num1(1);
     Query var1(num1);
@@ -201,7 +201,7 @@ TEST_CASE("cpp Tests conversion to and from the RQL array type", "[cpp][ast]") {
   }
 
   SECTION("test12") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
     double num1(1);
     Query var1(num1);
@@ -227,7 +227,7 @@ TEST_CASE("cpp Tests conversion to and from the RQL array type", "[cpp][ast]") {
   }
 
   SECTION("test13") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -241,7 +241,7 @@ TEST_CASE("cpp Tests conversion to and from the RQL array type", "[cpp][ast]") {
   }
 
   SECTION("test16") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -255,7 +255,7 @@ TEST_CASE("cpp Tests conversion to and from the RQL array type", "[cpp][ast]") {
   }
 
   SECTION("test17") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -269,7 +269,7 @@ TEST_CASE("cpp Tests conversion to and from the RQL array type", "[cpp][ast]") {
   }
 
   SECTION("test18") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -283,7 +283,7 @@ TEST_CASE("cpp Tests conversion to and from the RQL array type", "[cpp][ast]") {
   }
 
   SECTION("test19") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -297,7 +297,7 @@ TEST_CASE("cpp Tests conversion to and from the RQL array type", "[cpp][ast]") {
   }
 
   SECTION("test20") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
     double num1(1);
     Query var1(num1);
@@ -323,7 +323,7 @@ TEST_CASE("cpp Tests conversion to and from the RQL array type", "[cpp][ast]") {
   }
 
   SECTION("test21") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
     double num1(1);
     Query var1(num1);
@@ -349,7 +349,7 @@ TEST_CASE("cpp Tests conversion to and from the RQL array type", "[cpp][ast]") {
   }
 
   SECTION("test22") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
     double num1(1);
     Query var1(num1);
@@ -375,7 +375,7 @@ TEST_CASE("cpp Tests conversion to and from the RQL array type", "[cpp][ast]") {
   }
 
   SECTION("test23") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
     double num1(1);
     Query var1(num1);
@@ -401,7 +401,7 @@ TEST_CASE("cpp Tests conversion to and from the RQL array type", "[cpp][ast]") {
   }
 
   SECTION("test24") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -415,7 +415,7 @@ TEST_CASE("cpp Tests conversion to and from the RQL array type", "[cpp][ast]") {
   }
 
   SECTION("test27") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -429,7 +429,7 @@ TEST_CASE("cpp Tests conversion to and from the RQL array type", "[cpp][ast]") {
   }
 
   SECTION("test28") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -443,7 +443,7 @@ TEST_CASE("cpp Tests conversion to and from the RQL array type", "[cpp][ast]") {
   }
 
   SECTION("test29") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -457,7 +457,7 @@ TEST_CASE("cpp Tests conversion to and from the RQL array type", "[cpp][ast]") {
   }
 
   SECTION("test30") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -471,7 +471,7 @@ TEST_CASE("cpp Tests conversion to and from the RQL array type", "[cpp][ast]") {
   }
 
   SECTION("test31") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -485,7 +485,7 @@ TEST_CASE("cpp Tests conversion to and from the RQL array type", "[cpp][ast]") {
   }
 
   SECTION("test32") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     double num1(2);
     Query var1(num1);
@@ -506,7 +506,7 @@ TEST_CASE("cpp Tests conversion to and from the RQL array type", "[cpp][ast]") {
   }
 
   SECTION("test33") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -520,7 +520,7 @@ TEST_CASE("cpp Tests conversion to and from the RQL array type", "[cpp][ast]") {
   }
 
   SECTION("test36") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     double num1(1);
     Query var1(num1);
@@ -541,7 +541,7 @@ TEST_CASE("cpp Tests conversion to and from the RQL array type", "[cpp][ast]") {
   }
 
   SECTION("test37") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     double num1(1);
     Query var1(num1);
@@ -557,7 +557,7 @@ TEST_CASE("cpp Tests conversion to and from the RQL array type", "[cpp][ast]") {
   }
 
   SECTION("test38") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
     double num1(1);
     Query var1(num1);
@@ -583,12 +583,12 @@ TEST_CASE("cpp Tests conversion to and from the RQL array type", "[cpp][ast]") {
   }
 
   SECTION("test39") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test40") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     double num1(1);
     Query var1(num1);
@@ -604,7 +604,7 @@ TEST_CASE("cpp Tests conversion to and from the RQL array type", "[cpp][ast]") {
   }
 
   SECTION("test41") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -618,7 +618,7 @@ TEST_CASE("cpp Tests conversion to and from the RQL array type", "[cpp][ast]") {
   }
 
   SECTION("test42") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -632,7 +632,7 @@ TEST_CASE("cpp Tests conversion to and from the RQL array type", "[cpp][ast]") {
   }
 
   SECTION("test43") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -646,7 +646,7 @@ TEST_CASE("cpp Tests conversion to and from the RQL array type", "[cpp][ast]") {
   }
 
   SECTION("test44") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -660,7 +660,7 @@ TEST_CASE("cpp Tests conversion to and from the RQL array type", "[cpp][ast]") {
   }
 
   SECTION("test45") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     double num1(1);
     Query var1(num1);
@@ -681,7 +681,7 @@ TEST_CASE("cpp Tests conversion to and from the RQL array type", "[cpp][ast]") {
   }
 
   SECTION("test46") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -695,7 +695,7 @@ TEST_CASE("cpp Tests conversion to and from the RQL array type", "[cpp][ast]") {
   }
 
   SECTION("test49") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     double num1(1);
     Query var1(num1);
@@ -716,7 +716,7 @@ TEST_CASE("cpp Tests conversion to and from the RQL array type", "[cpp][ast]") {
   }
 
   SECTION("test50") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     double num1(1);
     Query var1(num1);
@@ -737,7 +737,7 @@ TEST_CASE("cpp Tests conversion to and from the RQL array type", "[cpp][ast]") {
   }
 
   SECTION("test51") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -751,7 +751,7 @@ TEST_CASE("cpp Tests conversion to and from the RQL array type", "[cpp][ast]") {
   }
 
   SECTION("test52") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -765,7 +765,7 @@ TEST_CASE("cpp Tests conversion to and from the RQL array type", "[cpp][ast]") {
   }
 
   SECTION("test53") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -779,7 +779,7 @@ TEST_CASE("cpp Tests conversion to and from the RQL array type", "[cpp][ast]") {
   }
 
   SECTION("test54") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);

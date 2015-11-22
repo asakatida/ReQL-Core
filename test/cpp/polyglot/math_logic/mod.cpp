@@ -18,7 +18,7 @@ TEST_CASE("cpp Tests for the basic usage of the mod operation", "[cpp][ast]") {
   }
 
   SECTION("test2") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -32,7 +32,7 @@ TEST_CASE("cpp Tests for the basic usage of the mod operation", "[cpp][ast]") {
   }
 
   SECTION("test3") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -46,7 +46,7 @@ TEST_CASE("cpp Tests for the basic usage of the mod operation", "[cpp][ast]") {
   }
 
   SECTION("test4") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);

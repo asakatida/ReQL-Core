@@ -21,7 +21,7 @@ TEST_CASE("cpp Tests key sorting of all usable types in primary indexes", "[cpp]
   }
 
   SECTION("test7") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     double num1(2);
     Query var1(num1);
@@ -42,7 +42,7 @@ TEST_CASE("cpp Tests key sorting of all usable types in primary indexes", "[cpp]
   }
 
   SECTION("test8") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
     double num1(3);
     Query var1(num1);

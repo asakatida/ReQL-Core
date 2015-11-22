@@ -236,7 +236,7 @@ TEST_CASE("cpp Tests of comparison operators", "[cpp][ast]") {
   }
 
   SECTION("test70") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);

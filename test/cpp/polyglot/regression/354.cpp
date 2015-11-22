@@ -8,7 +8,7 @@ using namespace ReQL;
 TEST_CASE("cpp Regression tests for issue 82", "[cpp][ast]") {
 
   SECTION("test1") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     double num1(3);
     Query var1(num1);
@@ -29,7 +29,7 @@ TEST_CASE("cpp Regression tests for issue 82", "[cpp][ast]") {
   }
 
   SECTION("test2") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -43,7 +43,7 @@ TEST_CASE("cpp Regression tests for issue 82", "[cpp][ast]") {
   }
 
   SECTION("test3") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -57,7 +57,7 @@ TEST_CASE("cpp Regression tests for issue 82", "[cpp][ast]") {
   }
 
   SECTION("test4") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -71,7 +71,7 @@ TEST_CASE("cpp Regression tests for issue 82", "[cpp][ast]") {
   }
 
   SECTION("test5") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);

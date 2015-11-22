@@ -117,7 +117,7 @@ TEST_CASE("cpp Test basic geometry operators", "[cpp][ast]") {
   }
 
   SECTION("test24") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("$reql_type$", 11);
     Query var1(src1);
@@ -130,11 +130,11 @@ TEST_CASE("cpp Test basic geometry operators", "[cpp][ast]") {
     std::string src3("coordinates", 11);
     Query var3(src3);
 
-    Types::array arr4(2);
+    std::vector<Query> arr4(2);
 
-    Types::array arr5(5);
+    std::vector<Query> arr5(5);
 
-    Types::array arr6(2);
+    std::vector<Query> arr6(2);
 
     double num7(0);
     Query var7(num7);
@@ -150,7 +150,7 @@ TEST_CASE("cpp Test basic geometry operators", "[cpp][ast]") {
 
     arr5.insert(arr5.end(), var6);
 
-    Types::array arr9(2);
+    std::vector<Query> arr9(2);
 
     double num10(1);
     Query var10(num10);
@@ -166,7 +166,7 @@ TEST_CASE("cpp Test basic geometry operators", "[cpp][ast]") {
 
     arr5.insert(arr5.end(), var9);
 
-    Types::array arr12(2);
+    std::vector<Query> arr12(2);
 
     double num13(1);
     Query var13(num13);
@@ -182,7 +182,7 @@ TEST_CASE("cpp Test basic geometry operators", "[cpp][ast]") {
 
     arr5.insert(arr5.end(), var12);
 
-    Types::array arr15(2);
+    std::vector<Query> arr15(2);
 
     double num16(0);
     Query var16(num16);
@@ -198,7 +198,7 @@ TEST_CASE("cpp Test basic geometry operators", "[cpp][ast]") {
 
     arr5.insert(arr5.end(), var15);
 
-    Types::array arr18(2);
+    std::vector<Query> arr18(2);
 
     double num19(0);
     Query var19(num19);
@@ -218,9 +218,9 @@ TEST_CASE("cpp Test basic geometry operators", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var5);
 
-    Types::array arr21(5);
+    std::vector<Query> arr21(5);
 
-    Types::array arr22(2);
+    std::vector<Query> arr22(2);
 
     double num23(0.1);
     Query var23(num23);
@@ -236,7 +236,7 @@ TEST_CASE("cpp Test basic geometry operators", "[cpp][ast]") {
 
     arr21.insert(arr21.end(), var22);
 
-    Types::array arr25(2);
+    std::vector<Query> arr25(2);
 
     double num26(0.9);
     Query var26(num26);
@@ -252,7 +252,7 @@ TEST_CASE("cpp Test basic geometry operators", "[cpp][ast]") {
 
     arr21.insert(arr21.end(), var25);
 
-    Types::array arr28(2);
+    std::vector<Query> arr28(2);
 
     double num29(0.9);
     Query var29(num29);
@@ -268,7 +268,7 @@ TEST_CASE("cpp Test basic geometry operators", "[cpp][ast]") {
 
     arr21.insert(arr21.end(), var28);
 
-    Types::array arr31(2);
+    std::vector<Query> arr31(2);
 
     double num32(0.1);
     Query var32(num32);
@@ -284,7 +284,7 @@ TEST_CASE("cpp Test basic geometry operators", "[cpp][ast]") {
 
     arr21.insert(arr21.end(), var31);
 
-    Types::array arr34(2);
+    std::vector<Query> arr34(2);
 
     double num35(0.1);
     Query var35(num35);
@@ -320,7 +320,7 @@ TEST_CASE("cpp Test basic geometry operators", "[cpp][ast]") {
   }
 
   SECTION("test25") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -334,7 +334,7 @@ TEST_CASE("cpp Test basic geometry operators", "[cpp][ast]") {
   }
 
   SECTION("test26") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -348,7 +348,7 @@ TEST_CASE("cpp Test basic geometry operators", "[cpp][ast]") {
   }
 
   SECTION("test27") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -362,7 +362,7 @@ TEST_CASE("cpp Test basic geometry operators", "[cpp][ast]") {
   }
 
   SECTION("test28") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -376,7 +376,7 @@ TEST_CASE("cpp Test basic geometry operators", "[cpp][ast]") {
   }
 
   SECTION("test29") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -390,7 +390,7 @@ TEST_CASE("cpp Test basic geometry operators", "[cpp][ast]") {
   }
 
   SECTION("test30") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("$reql_type$", 11);
     Query var1(src1);
@@ -403,11 +403,11 @@ TEST_CASE("cpp Test basic geometry operators", "[cpp][ast]") {
     std::string src3("coordinates", 11);
     Query var3(src3);
 
-    Types::array arr4(2);
+    std::vector<Query> arr4(2);
 
-    Types::array arr5(5);
+    std::vector<Query> arr5(5);
 
-    Types::array arr6(2);
+    std::vector<Query> arr6(2);
 
     double num7(0);
     Query var7(num7);
@@ -423,7 +423,7 @@ TEST_CASE("cpp Test basic geometry operators", "[cpp][ast]") {
 
     arr5.insert(arr5.end(), var6);
 
-    Types::array arr9(2);
+    std::vector<Query> arr9(2);
 
     double num10(1);
     Query var10(num10);
@@ -439,7 +439,7 @@ TEST_CASE("cpp Test basic geometry operators", "[cpp][ast]") {
 
     arr5.insert(arr5.end(), var9);
 
-    Types::array arr12(2);
+    std::vector<Query> arr12(2);
 
     double num13(1);
     Query var13(num13);
@@ -455,7 +455,7 @@ TEST_CASE("cpp Test basic geometry operators", "[cpp][ast]") {
 
     arr5.insert(arr5.end(), var12);
 
-    Types::array arr15(2);
+    std::vector<Query> arr15(2);
 
     double num16(0);
     Query var16(num16);
@@ -471,7 +471,7 @@ TEST_CASE("cpp Test basic geometry operators", "[cpp][ast]") {
 
     arr5.insert(arr5.end(), var15);
 
-    Types::array arr18(2);
+    std::vector<Query> arr18(2);
 
     double num19(0);
     Query var19(num19);
@@ -491,9 +491,9 @@ TEST_CASE("cpp Test basic geometry operators", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var5);
 
-    Types::array arr21(5);
+    std::vector<Query> arr21(5);
 
-    Types::array arr22(2);
+    std::vector<Query> arr22(2);
 
     double num23(0);
     Query var23(num23);
@@ -509,7 +509,7 @@ TEST_CASE("cpp Test basic geometry operators", "[cpp][ast]") {
 
     arr21.insert(arr21.end(), var22);
 
-    Types::array arr25(2);
+    std::vector<Query> arr25(2);
 
     double num26(0.1);
     Query var26(num26);
@@ -525,7 +525,7 @@ TEST_CASE("cpp Test basic geometry operators", "[cpp][ast]") {
 
     arr21.insert(arr21.end(), var25);
 
-    Types::array arr28(2);
+    std::vector<Query> arr28(2);
 
     double num29(0.9);
     Query var29(num29);
@@ -541,7 +541,7 @@ TEST_CASE("cpp Test basic geometry operators", "[cpp][ast]") {
 
     arr21.insert(arr21.end(), var28);
 
-    Types::array arr31(2);
+    std::vector<Query> arr31(2);
 
     double num32(0.9);
     Query var32(num32);
@@ -557,7 +557,7 @@ TEST_CASE("cpp Test basic geometry operators", "[cpp][ast]") {
 
     arr21.insert(arr21.end(), var31);
 
-    Types::array arr34(2);
+    std::vector<Query> arr34(2);
 
     double num35(0);
     Query var35(num35);
@@ -593,7 +593,7 @@ TEST_CASE("cpp Test basic geometry operators", "[cpp][ast]") {
   }
 
   SECTION("test31") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -607,7 +607,7 @@ TEST_CASE("cpp Test basic geometry operators", "[cpp][ast]") {
   }
 
   SECTION("test32") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);

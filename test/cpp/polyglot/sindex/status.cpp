@@ -8,7 +8,7 @@ using namespace ReQL;
 TEST_CASE("cpp sindex status", "[cpp][ast]") {
 
   SECTION("test0") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -22,7 +22,7 @@ TEST_CASE("cpp sindex status", "[cpp][ast]") {
   }
 
   SECTION("test1") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("created", 7);
     Query var1(src1);
@@ -36,7 +36,7 @@ TEST_CASE("cpp sindex status", "[cpp][ast]") {
   }
 
   SECTION("test2") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("created", 7);
     Query var1(src1);
@@ -50,7 +50,7 @@ TEST_CASE("cpp sindex status", "[cpp][ast]") {
   }
 
   SECTION("test3") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     Query var1(true);
 
@@ -64,7 +64,7 @@ TEST_CASE("cpp sindex status", "[cpp][ast]") {
   }
 
   SECTION("test4") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     Query var1(true);
 
@@ -78,7 +78,7 @@ TEST_CASE("cpp sindex status", "[cpp][ast]") {
   }
 
   SECTION("test5") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -92,7 +92,7 @@ TEST_CASE("cpp sindex status", "[cpp][ast]") {
   }
 
   SECTION("test6") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -106,7 +106,7 @@ TEST_CASE("cpp sindex status", "[cpp][ast]") {
   }
 
   SECTION("test7") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     Query var1(false);
 
@@ -120,7 +120,7 @@ TEST_CASE("cpp sindex status", "[cpp][ast]") {
   }
 
   SECTION("test8") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("created", 7);
     Query var1(src1);
@@ -138,9 +138,9 @@ TEST_CASE("cpp sindex status", "[cpp][ast]") {
   }
 
   SECTION("test10") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("index", 5);
     Query var2(src2);

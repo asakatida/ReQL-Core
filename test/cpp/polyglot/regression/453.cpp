@@ -8,7 +8,7 @@ using namespace ReQL;
 TEST_CASE("cpp Sanity Check Fails, with r.table() expression inside a map (#453)", "[cpp][ast]") {
 
   SECTION("test0") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -22,7 +22,7 @@ TEST_CASE("cpp Sanity Check Fails, with r.table() expression inside a map (#453)
   }
 
   SECTION("test1") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);

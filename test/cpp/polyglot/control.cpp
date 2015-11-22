@@ -13,7 +13,7 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
   }
 
   SECTION("test1") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
     double num1(0);
     Query var1(num1);
@@ -49,7 +49,7 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
   }
 
   SECTION("test4") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -63,7 +63,7 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
   }
 
   SECTION("test5") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -82,7 +82,7 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
   }
 
   SECTION("test9") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -96,7 +96,7 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
   }
 
   SECTION("test10") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -110,7 +110,7 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
   }
 
   SECTION("test11") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -124,7 +124,7 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
   }
 
   SECTION("test12") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -138,7 +138,7 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
   }
 
   SECTION("test13") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -152,7 +152,7 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
   }
 
   SECTION("test14") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -186,12 +186,12 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
   }
 
   SECTION("test19") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test20") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -205,7 +205,7 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
   }
 
   SECTION("test21") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -219,7 +219,7 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
   }
 
   SECTION("test22") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -253,7 +253,7 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
   }
 
   SECTION("test27") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -267,7 +267,7 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
   }
 
   SECTION("test28") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -281,7 +281,7 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
   }
 
   SECTION("test29") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -295,7 +295,7 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
   }
 
   SECTION("test30") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -339,7 +339,7 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
   }
 
   SECTION("test37") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -353,7 +353,7 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
   }
 
   SECTION("test38") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -377,7 +377,7 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
   }
 
   SECTION("test41") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -391,7 +391,7 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
   }
 
   SECTION("test42") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     double num1(2);
     Query var1(num1);
@@ -407,7 +407,7 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
   }
 
   SECTION("test43") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     double num1(2);
     Query var1(num1);
@@ -428,7 +428,7 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
   }
 
   SECTION("test44") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -442,7 +442,7 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
   }
 
   SECTION("test45") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -456,7 +456,7 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
   }
 
   SECTION("test46") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -470,7 +470,7 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
   }
 
   SECTION("test47") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     double num1(1);
     Query var1(num1);
@@ -491,7 +491,7 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
   }
 
   SECTION("test48") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     double num1(1);
     Query var1(num1);
@@ -512,12 +512,12 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
   }
 
   SECTION("test49") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test50") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
@@ -527,7 +527,7 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
   }
 
   SECTION("test52") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("deleted", 7);
     Query var1(src1);
@@ -586,7 +586,7 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
   }
 
   SECTION("test54") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("deleted", 7);
     Query var1(src1);
@@ -640,7 +640,7 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
   }
 
   SECTION("test55") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("deleted", 7);
     Query var1(src1);
@@ -707,7 +707,7 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
   }
 
   SECTION("test57") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -721,7 +721,7 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
   }
 
   SECTION("test58") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("deleted", 7);
     Query var1(src1);
@@ -742,7 +742,7 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
     std::string src5("generated_keys", 14);
     Query var5(src5);
 
-    Types::object map6;
+    std::map<std::string, Query> map6;
 
     std::string src7("func", 4);
     Query var7(src7);
@@ -797,7 +797,7 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
   }
 
   SECTION("test60") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("deleted", 7);
     Query var1(src1);
@@ -851,7 +851,7 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
   }
 
   SECTION("test61") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("deleted", 7);
     Query var1(src1);
@@ -905,7 +905,7 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
   }
 
   SECTION("test62") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -919,7 +919,7 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
   }
 
   SECTION("test63") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -933,7 +933,7 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
   }
 
   SECTION("test64") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -947,7 +947,7 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
   }
 
   SECTION("test65") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -961,7 +961,7 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
   }
 
   SECTION("test67") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("deleted", 7);
     Query var1(src1);
@@ -982,7 +982,7 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
     std::string src5("generated_keys", 14);
     Query var5(src5);
 
-    Types::object map6;
+    std::map<std::string, Query> map6;
 
     std::string src7("func", 4);
     Query var7(src7);
@@ -1032,7 +1032,7 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
   }
 
   SECTION("test68") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("deleted", 7);
     Query var1(src1);
@@ -1053,7 +1053,7 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
     std::string src5("generated_keys", 14);
     Query var5(src5);
 
-    Types::object map6;
+    std::map<std::string, Query> map6;
 
     std::string src7("func", 4);
     Query var7(src7);
@@ -1103,7 +1103,7 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
   }
 
   SECTION("test69") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -1117,7 +1117,7 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
   }
 
   SECTION("test70") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -1131,7 +1131,7 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
   }
 
   SECTION("test71") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -1145,7 +1145,7 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
   }
 
   SECTION("test72") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -1159,7 +1159,7 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
   }
 
   SECTION("test73") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -1173,7 +1173,7 @@ TEST_CASE("cpp Tests RQL control flow structures", "[cpp][ast]") {
   }
 
   SECTION("test74") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);

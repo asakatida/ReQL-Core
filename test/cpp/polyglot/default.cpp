@@ -23,7 +23,7 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
   }
 
   SECTION("test3") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -47,7 +47,7 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
   }
 
   SECTION("test6") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -81,7 +81,7 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
   }
 
   SECTION("test11") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -95,7 +95,7 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
   }
 
   SECTION("test12") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -109,7 +109,7 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
   }
 
   SECTION("test13") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -123,7 +123,7 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
   }
 
   SECTION("test14") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -146,7 +146,7 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
   }
 
   SECTION("test17") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -160,7 +160,7 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
   }
 
   SECTION("test18") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -174,7 +174,7 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
   }
 
   SECTION("test19") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -188,7 +188,7 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
   }
 
   SECTION("test20") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -202,7 +202,7 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
   }
 
   SECTION("test21") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -216,7 +216,7 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
   }
 
   SECTION("test22") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -230,7 +230,7 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
   }
 
   SECTION("test23") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -288,9 +288,9 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
   }
 
   SECTION("test34") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("a", 1);
     Query var2(src2);
@@ -308,9 +308,9 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
   }
 
   SECTION("test35") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("a", 1);
     Query var2(src2);
@@ -328,14 +328,14 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
   }
 
   SECTION("test36") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
     Query var1(map1);
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map2;
+    std::map<std::string, Query> map2;
 
     std::string src3("a", 1);
     Query var3(src3);
@@ -353,14 +353,14 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
   }
 
   SECTION("test37") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
     Query var1(map1);
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map2;
+    std::map<std::string, Query> map2;
 
     std::string src3("a", 1);
     Query var3(src3);
@@ -378,9 +378,9 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
   }
 
   SECTION("test38") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("a", 1);
     Query var2(src2);
@@ -398,7 +398,7 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
   }
 
   SECTION("test39") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -412,9 +412,9 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
   }
 
   SECTION("test40") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("a", 1);
     Query var2(src2);
@@ -432,14 +432,14 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
   }
 
   SECTION("test41") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
     Query var1(map1);
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map2;
+    std::map<std::string, Query> map2;
 
     std::string src3("a", 1);
     Query var3(src3);
@@ -457,9 +457,9 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
   }
 
   SECTION("test42") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("a", 1);
     Query var2(src2);
@@ -477,14 +477,14 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
   }
 
   SECTION("test43") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
     Query var1(map1);
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map2;
+    std::map<std::string, Query> map2;
 
     std::string src3("a", 1);
     Query var3(src3);
@@ -497,7 +497,7 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var2);
 
-    Types::object map5;
+    std::map<std::string, Query> map5;
 
     std::string src6("a", 1);
     Query var6(src6);
@@ -515,9 +515,9 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
   }
 
   SECTION("test44") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("a", 1);
     Query var2(src2);
@@ -535,9 +535,9 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
   }
 
   SECTION("test45") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("a", 1);
     Query var2(src2);
@@ -555,14 +555,14 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
   }
 
   SECTION("test46") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
     Query var1(map1);
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map2;
+    std::map<std::string, Query> map2;
 
     std::string src3("a", 1);
     Query var3(src3);
@@ -575,7 +575,7 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var2);
 
-    Types::object map5;
+    std::map<std::string, Query> map5;
 
     std::string src6("a", 1);
     Query var6(src6);
@@ -593,9 +593,9 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
   }
 
   SECTION("test47") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("a", 1);
     Query var2(src2);
@@ -613,9 +613,9 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
   }
 
   SECTION("test48") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("a", 1);
     Query var2(src2);
@@ -633,14 +633,14 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
   }
 
   SECTION("test49") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
     Query var1(map1);
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map2;
+    std::map<std::string, Query> map2;
 
     std::string src3("a", 1);
     Query var3(src3);
@@ -653,7 +653,7 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var2);
 
-    Types::object map5;
+    std::map<std::string, Query> map5;
 
     std::string src6("a", 1);
     Query var6(src6);
@@ -671,7 +671,7 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
   }
 
   SECTION("test50") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -685,7 +685,7 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
   }
 
   SECTION("test51") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -699,7 +699,7 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
   }
 
   SECTION("test52") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("deleted", 7);
     Query var1(src1);
@@ -720,7 +720,7 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
     std::string src5("generated_keys", 14);
     Query var5(src5);
 
-    Types::object map6;
+    std::map<std::string, Query> map6;
 
     std::string src7("func", 4);
     Query var7(src7);
@@ -770,9 +770,9 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
   }
 
   SECTION("test54") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("a", 1);
     Query var2(src2);
@@ -790,9 +790,9 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
   }
 
   SECTION("test55") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("a", 1);
     Query var2(src2);
@@ -810,14 +810,14 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
   }
 
   SECTION("test56") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
     Query var1(map1);
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map2;
+    std::map<std::string, Query> map2;
 
     std::string src3("a", 1);
     Query var3(src3);
@@ -835,7 +835,7 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
   }
 
   SECTION("test57") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -849,9 +849,9 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
   }
 
   SECTION("test58") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("a", 1);
     Query var2(src2);
@@ -869,14 +869,14 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
   }
 
   SECTION("test59") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
     Query var1(map1);
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map2;
+    std::map<std::string, Query> map2;
 
     std::string src3("a", 1);
     Query var3(src3);
@@ -894,9 +894,9 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
   }
 
   SECTION("test60") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("a", 1);
     Query var2(src2);
@@ -914,14 +914,14 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
   }
 
   SECTION("test61") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
     Query var1(map1);
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map2;
+    std::map<std::string, Query> map2;
 
     std::string src3("a", 1);
     Query var3(src3);
@@ -934,7 +934,7 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var2);
 
-    Types::object map5;
+    std::map<std::string, Query> map5;
 
     std::string src6("a", 1);
     Query var6(src6);
@@ -952,9 +952,9 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
   }
 
   SECTION("test62") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("a", 1);
     Query var2(src2);
@@ -972,9 +972,9 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
   }
 
   SECTION("test63") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("a", 1);
     Query var2(src2);
@@ -992,14 +992,14 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
   }
 
   SECTION("test64") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
     Query var1(map1);
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map2;
+    std::map<std::string, Query> map2;
 
     std::string src3("a", 1);
     Query var3(src3);
@@ -1012,7 +1012,7 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var2);
 
-    Types::object map5;
+    std::map<std::string, Query> map5;
 
     std::string src6("a", 1);
     Query var6(src6);
@@ -1030,9 +1030,9 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
   }
 
   SECTION("test65") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("a", 1);
     Query var2(src2);
@@ -1050,9 +1050,9 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
   }
 
   SECTION("test66") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("a", 1);
     Query var2(src2);
@@ -1070,14 +1070,14 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
   }
 
   SECTION("test67") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
     Query var1(map1);
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map2;
+    std::map<std::string, Query> map2;
 
     std::string src3("a", 1);
     Query var3(src3);
@@ -1090,7 +1090,7 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var2);
 
-    Types::object map5;
+    std::map<std::string, Query> map5;
 
     std::string src6("a", 1);
     Query var6(src6);
@@ -1108,7 +1108,7 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
   }
 
   SECTION("test68") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -1122,7 +1122,7 @@ TEST_CASE("cpp Tests r.default", "[cpp][ast]") {
   }
 
   SECTION("test69") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);

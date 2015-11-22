@@ -8,7 +8,7 @@ using namespace ReQL;
 TEST_CASE("cpp Test that return_changes fails gracefully.", "[cpp][ast]") {
 
   SECTION("test0") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("inserted", 8);
     Query var1(src1);
@@ -27,7 +27,7 @@ TEST_CASE("cpp Test that return_changes fails gracefully.", "[cpp][ast]") {
   }
 
   SECTION("test2") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
     std::string src1("Too many changes, array truncated to 40.", 40);
     Query var1(src1);

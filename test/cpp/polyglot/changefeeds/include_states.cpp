@@ -8,9 +8,9 @@ using namespace ReQL;
 TEST_CASE("cpp Test `include_states`", "[cpp][ast]") {
 
   SECTION("test0") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("state", 5);
     Query var2(src2);
@@ -28,9 +28,9 @@ TEST_CASE("cpp Test `include_states`", "[cpp][ast]") {
   }
 
   SECTION("test1") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("state", 5);
     Query var2(src2);
@@ -44,7 +44,7 @@ TEST_CASE("cpp Test `include_states`", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map4;
+    std::map<std::string, Query> map4;
 
     std::string src5("new_val", 7);
     Query var5(src5);
@@ -57,7 +57,7 @@ TEST_CASE("cpp Test `include_states`", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var4);
 
-    Types::object map7;
+    std::map<std::string, Query> map7;
 
     std::string src8("state", 5);
     Query var8(src8);
@@ -75,9 +75,9 @@ TEST_CASE("cpp Test `include_states`", "[cpp][ast]") {
   }
 
   SECTION("test2") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("state", 5);
     Query var2(src2);
@@ -91,7 +91,7 @@ TEST_CASE("cpp Test `include_states`", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map4;
+    std::map<std::string, Query> map4;
 
     std::string src5("state", 5);
     Query var5(src5);
@@ -109,7 +109,7 @@ TEST_CASE("cpp Test `include_states`", "[cpp][ast]") {
   }
 
   SECTION("test3") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -123,9 +123,9 @@ TEST_CASE("cpp Test `include_states`", "[cpp][ast]") {
   }
 
   SECTION("test4") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("state", 5);
     Query var2(src2);
@@ -139,12 +139,12 @@ TEST_CASE("cpp Test `include_states`", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map4;
+    std::map<std::string, Query> map4;
 
     std::string src5("new_val", 7);
     Query var5(src5);
 
-    Types::object map6;
+    std::map<std::string, Query> map6;
 
     std::string src7("id", 2);
     Query var7(src7);
@@ -162,7 +162,7 @@ TEST_CASE("cpp Test `include_states`", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var4);
 
-    Types::object map9;
+    std::map<std::string, Query> map9;
 
     std::string src10("state", 5);
     Query var10(src10);
@@ -180,7 +180,7 @@ TEST_CASE("cpp Test `include_states`", "[cpp][ast]") {
   }
 
   SECTION("test5") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -194,7 +194,7 @@ TEST_CASE("cpp Test `include_states`", "[cpp][ast]") {
   }
 
   SECTION("test6") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -208,9 +208,9 @@ TEST_CASE("cpp Test `include_states`", "[cpp][ast]") {
   }
 
   SECTION("test7") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("state", 5);
     Query var2(src2);
@@ -224,12 +224,12 @@ TEST_CASE("cpp Test `include_states`", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map4;
+    std::map<std::string, Query> map4;
 
     std::string src5("new_val", 7);
     Query var5(src5);
 
-    Types::object map6;
+    std::map<std::string, Query> map6;
 
     std::string src7("id", 2);
     Query var7(src7);
@@ -258,7 +258,7 @@ TEST_CASE("cpp Test `include_states`", "[cpp][ast]") {
   }
 
   SECTION("test8") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -272,7 +272,7 @@ TEST_CASE("cpp Test `include_states`", "[cpp][ast]") {
   }
 
   SECTION("test9") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -286,9 +286,9 @@ TEST_CASE("cpp Test `include_states`", "[cpp][ast]") {
   }
 
   SECTION("test10") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("state", 5);
     Query var2(src2);
@@ -302,12 +302,12 @@ TEST_CASE("cpp Test `include_states`", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map4;
+    std::map<std::string, Query> map4;
 
     std::string src5("new_val", 7);
     Query var5(src5);
 
-    Types::object map6;
+    std::map<std::string, Query> map6;
 
     std::string src7("id", 2);
     Query var7(src7);
@@ -325,7 +325,7 @@ TEST_CASE("cpp Test `include_states`", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var4);
 
-    Types::object map9;
+    std::map<std::string, Query> map9;
 
     std::string src10("state", 5);
     Query var10(src10);
@@ -339,12 +339,12 @@ TEST_CASE("cpp Test `include_states`", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var9);
 
-    Types::object map12;
+    std::map<std::string, Query> map12;
 
     std::string src13("new_val", 7);
     Query var13(src13);
 
-    Types::object map14;
+    std::map<std::string, Query> map14;
 
     std::string src15("a", 1);
     Query var15(src15);
@@ -369,7 +369,7 @@ TEST_CASE("cpp Test `include_states`", "[cpp][ast]") {
     std::string src19("old_val", 7);
     Query var19(src19);
 
-    Types::object map20;
+    std::map<std::string, Query> map20;
 
     std::string src21("id", 2);
     Query var21(src21);
@@ -391,7 +391,7 @@ TEST_CASE("cpp Test `include_states`", "[cpp][ast]") {
   }
 
   SECTION("test11") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -405,7 +405,7 @@ TEST_CASE("cpp Test `include_states`", "[cpp][ast]") {
   }
 
   SECTION("test12") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -419,7 +419,7 @@ TEST_CASE("cpp Test `include_states`", "[cpp][ast]") {
   }
 
   SECTION("test13") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -433,9 +433,9 @@ TEST_CASE("cpp Test `include_states`", "[cpp][ast]") {
   }
 
   SECTION("test14") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("state", 5);
     Query var2(src2);
@@ -449,12 +449,12 @@ TEST_CASE("cpp Test `include_states`", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map4;
+    std::map<std::string, Query> map4;
 
     std::string src5("new_val", 7);
     Query var5(src5);
 
-    Types::object map6;
+    std::map<std::string, Query> map6;
 
     std::string src7("id", 2);
     Query var7(src7);
@@ -472,12 +472,12 @@ TEST_CASE("cpp Test `include_states`", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var4);
 
-    Types::object map9;
+    std::map<std::string, Query> map9;
 
     std::string src10("new_val", 7);
     Query var10(src10);
 
-    Types::object map11;
+    std::map<std::string, Query> map11;
 
     std::string src12("a", 1);
     Query var12(src12);
@@ -503,7 +503,7 @@ TEST_CASE("cpp Test `include_states`", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var9);
 
-    Types::object map16;
+    std::map<std::string, Query> map16;
 
     std::string src17("state", 5);
     Query var17(src17);
@@ -517,12 +517,12 @@ TEST_CASE("cpp Test `include_states`", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var16);
 
-    Types::object map19;
+    std::map<std::string, Query> map19;
 
     std::string src20("new_val", 7);
     Query var20(src20);
 
-    Types::object map21;
+    std::map<std::string, Query> map21;
 
     std::string src22("id", 2);
     Query var22(src22);
@@ -551,9 +551,9 @@ TEST_CASE("cpp Test `include_states`", "[cpp][ast]") {
   }
 
   SECTION("test15") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("state", 5);
     Query var2(src2);
@@ -567,12 +567,12 @@ TEST_CASE("cpp Test `include_states`", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map4;
+    std::map<std::string, Query> map4;
 
     std::string src5("new_val", 7);
     Query var5(src5);
 
-    Types::object map6;
+    std::map<std::string, Query> map6;
 
     std::string src7("a", 1);
     Query var7(src7);
@@ -598,12 +598,12 @@ TEST_CASE("cpp Test `include_states`", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var4);
 
-    Types::object map11;
+    std::map<std::string, Query> map11;
 
     std::string src12("new_val", 7);
     Query var12(src12);
 
-    Types::object map13;
+    std::map<std::string, Query> map13;
 
     std::string src14("id", 2);
     Query var14(src14);
@@ -621,7 +621,7 @@ TEST_CASE("cpp Test `include_states`", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var11);
 
-    Types::object map16;
+    std::map<std::string, Query> map16;
 
     std::string src17("state", 5);
     Query var17(src17);
@@ -635,12 +635,12 @@ TEST_CASE("cpp Test `include_states`", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var16);
 
-    Types::object map19;
+    std::map<std::string, Query> map19;
 
     std::string src20("new_val", 7);
     Query var20(src20);
 
-    Types::object map21;
+    std::map<std::string, Query> map21;
 
     std::string src22("id", 2);
     Query var22(src22);

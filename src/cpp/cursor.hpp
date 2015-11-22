@@ -24,30 +24,58 @@ limitations under the License.
 #include "./cpp/parser.hpp"
 #include "./cpp/query.hpp"
 
-#include <memory>
-#include <vector>
+#include <array>
+#include <iterator>
+#include <mutex>
+#include <queue>
 
 namespace ReQL {
 
-class Cursor {
+class Cursor : public std::iterator<std::input_iterator_tag, Result> {
 public:
   Cursor();
 
-  Cursor(_Cursor cur);
+  Cursor(const Cursor &other);
 
   Cursor(Cursor &&other);
 
+  Cursor &operator=(const Cursor &other);
+
   Cursor &operator=(Cursor &&other);
 
-  bool isOpen() const;
+  void swap(Cursor &other);
 
-  Query next();
-  std::vector<Query> toVector();
+  Cursor &begin();
 
-  void close();
+  Cursor &cbegin();
 
-  _Cursor p_cur;
+  Cursor &end();
+
+  Cursor &cend();
+
+  Cursor &operator ++();
+
+  const Result &operator *() const;
+
+  const Result &operator ->() const;
+
+  bool operator ==(const Cursor &other) const;
+
+  bool operator !=(const Cursor &other) const;
+
+private:
+  friend class Query;
+
+  Cursor &operator <<(Result &&result);
+
+  Cursor &operator >>(Result &result);
+
+  std::shared_ptr<std::mutex> p_mutex;
+  std::queue<Result> p_queue;
+  std::queue<Result> *p_master;
 };
+
+void swap(Cursor &c1, Cursor &c2);
 
 }  // namespace ReQL
 

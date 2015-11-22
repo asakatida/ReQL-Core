@@ -8,7 +8,7 @@ using namespace ReQL;
 TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
 
   SECTION("test1") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("deleted", 7);
     Query var1(src1);
@@ -62,7 +62,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test2") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("created", 7);
     Query var1(src1);
@@ -76,7 +76,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test3") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("created", 7);
     Query var1(src1);
@@ -90,7 +90,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test4") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -104,7 +104,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test5") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -118,7 +118,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test6") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -132,7 +132,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test7") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -146,7 +146,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test8") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("renamed", 7);
     Query var1(src1);
@@ -160,7 +160,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test9") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("renamed", 7);
     Query var1(src1);
@@ -174,7 +174,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test10") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("renamed", 7);
     Query var1(src1);
@@ -188,7 +188,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test11") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("renamed", 7);
     Query var1(src1);
@@ -202,7 +202,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test12") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("renamed", 7);
     Query var1(src1);
@@ -216,7 +216,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test13") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("created", 7);
     Query var1(src1);
@@ -230,7 +230,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test14") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("created", 7);
     Query var1(src1);
@@ -244,7 +244,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test15") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -278,7 +278,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test20") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("created", 7);
     Query var1(src1);
@@ -292,9 +292,9 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test21") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("index", 5);
     Query var2(src2);
@@ -324,7 +324,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test23") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("dropped", 7);
     Query var1(src1);
@@ -338,7 +338,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test24") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
     std::string src1("rename-last", 11);
     Query var1(src1);
@@ -349,7 +349,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test25") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("dropped", 7);
     Query var1(src1);
@@ -363,7 +363,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test26") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("created", 7);
     Query var1(src1);
@@ -377,7 +377,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test27") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -391,7 +391,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test28") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("created", 7);
     Query var1(src1);
@@ -405,7 +405,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test29") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("created", 7);
     Query var1(src1);
@@ -419,7 +419,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test30") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("created", 7);
     Query var1(src1);
@@ -433,7 +433,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test31") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("created", 7);
     Query var1(src1);
@@ -447,7 +447,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test32") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("created", 7);
     Query var1(src1);
@@ -461,7 +461,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test33") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("created", 7);
     Query var1(src1);
@@ -475,7 +475,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test34") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -489,7 +489,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test35") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -521,7 +521,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test40") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("deleted", 7);
     Query var1(src1);
@@ -575,7 +575,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test41") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -589,7 +589,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test42") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -603,17 +603,17 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test43") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test44") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test45") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
@@ -628,7 +628,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test48") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     double num1(1);
     Query var1(num1);
@@ -649,7 +649,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test49") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     double num1(1);
     Query var1(num1);
@@ -680,7 +680,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test52") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("deleted", 7);
     Query var1(src1);
@@ -734,7 +734,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test53") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("deleted", 7);
     Query var1(src1);
@@ -788,7 +788,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test54") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("deleted", 7);
     Query var1(src1);
@@ -842,7 +842,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test55") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("deleted", 7);
     Query var1(src1);
@@ -896,7 +896,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test56") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -910,7 +910,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test57") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -924,7 +924,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test58") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -938,7 +938,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test59") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -952,12 +952,12 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test60") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test61") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -971,7 +971,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test62") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
@@ -986,12 +986,12 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test65") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test66") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
     double num1(3);
     Query var1(num1);
@@ -1002,7 +1002,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test67") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -1016,7 +1016,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test68") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -1030,7 +1030,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test69") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     double num1(2);
     Query var1(num1);
@@ -1051,7 +1051,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test71") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("deleted", 7);
     Query var1(src1);
@@ -1105,19 +1105,19 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test72") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test73") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("reql_ast_obj", 12);
     Query var2(src2);
 
-    Types::object map3;
+    std::map<std::string, Query> map3;
 
     std::string src4("reql_ast_obj", 12);
     Query var4(src4);
@@ -1139,14 +1139,14 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test74") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("reql_ast_obj", 12);
     Query var2(src2);
 
-    Types::object map3;
+    std::map<std::string, Query> map3;
 
     std::string src4("reql_ast_obj", 12);
     Query var4(src4);
@@ -1168,14 +1168,14 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test75") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("reql_ast_obj", 12);
     Query var2(src2);
 
-    Types::object map3;
+    std::map<std::string, Query> map3;
 
     std::string src4("reql_ast_obj", 12);
     Query var4(src4);
@@ -1197,14 +1197,14 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test76") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("reql_ast_obj", 12);
     Query var2(src2);
 
-    Types::object map3;
+    std::map<std::string, Query> map3;
 
     std::string src4("reql_ast_obj", 12);
     Query var4(src4);
@@ -1226,7 +1226,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test77") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -1240,7 +1240,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test78") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -1254,19 +1254,19 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test79") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("left", 4);
     Query var2(src2);
 
-    Types::object map3;
+    std::map<std::string, Query> map3;
 
     std::string src4("reql_ast_obj", 12);
     Query var4(src4);
 
-    Types::object map5;
+    std::map<std::string, Query> map5;
 
     std::string src6("reql_ast_obj", 12);
     Query var6(src6);
@@ -1287,12 +1287,12 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
     std::string src8("right", 5);
     Query var8(src8);
 
-    Types::object map9;
+    std::map<std::string, Query> map9;
 
     std::string src10("reql_ast_obj", 12);
     Query var10(src10);
 
-    Types::object map11;
+    std::map<std::string, Query> map11;
 
     std::string src12("reql_ast_obj", 12);
     Query var12(src12);
@@ -1318,19 +1318,19 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test80") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("left", 4);
     Query var2(src2);
 
-    Types::object map3;
+    std::map<std::string, Query> map3;
 
     std::string src4("reql_ast_obj", 12);
     Query var4(src4);
 
-    Types::object map5;
+    std::map<std::string, Query> map5;
 
     std::string src6("reql_ast_obj", 12);
     Query var6(src6);
@@ -1351,12 +1351,12 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
     std::string src8("right", 5);
     Query var8(src8);
 
-    Types::object map9;
+    std::map<std::string, Query> map9;
 
     std::string src10("reql_ast_obj", 12);
     Query var10(src10);
 
-    Types::object map11;
+    std::map<std::string, Query> map11;
 
     std::string src12("reql_ast_obj", 12);
     Query var12(src12);
@@ -1382,19 +1382,19 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test81") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("left", 4);
     Query var2(src2);
 
-    Types::object map3;
+    std::map<std::string, Query> map3;
 
     std::string src4("reql_ast_obj", 12);
     Query var4(src4);
 
-    Types::object map5;
+    std::map<std::string, Query> map5;
 
     std::string src6("reql_ast_obj", 12);
     Query var6(src6);
@@ -1415,12 +1415,12 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
     std::string src8("right", 5);
     Query var8(src8);
 
-    Types::object map9;
+    std::map<std::string, Query> map9;
 
     std::string src10("reql_ast_obj", 12);
     Query var10(src10);
 
-    Types::object map11;
+    std::map<std::string, Query> map11;
 
     std::string src12("reql_ast_obj", 12);
     Query var12(src12);
@@ -1446,19 +1446,19 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test82") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("left", 4);
     Query var2(src2);
 
-    Types::object map3;
+    std::map<std::string, Query> map3;
 
     std::string src4("reql_ast_obj", 12);
     Query var4(src4);
 
-    Types::object map5;
+    std::map<std::string, Query> map5;
 
     std::string src6("reql_ast_obj", 12);
     Query var6(src6);
@@ -1479,12 +1479,12 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
     std::string src8("right", 5);
     Query var8(src8);
 
-    Types::object map9;
+    std::map<std::string, Query> map9;
 
     std::string src10("reql_ast_obj", 12);
     Query var10(src10);
 
-    Types::object map11;
+    std::map<std::string, Query> map11;
 
     std::string src12("reql_ast_obj", 12);
     Query var12(src12);
@@ -1510,19 +1510,19 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test83") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("left", 4);
     Query var2(src2);
 
-    Types::object map3;
+    std::map<std::string, Query> map3;
 
     std::string src4("reql_ast_obj", 12);
     Query var4(src4);
 
-    Types::object map5;
+    std::map<std::string, Query> map5;
 
     std::string src6("reql_ast_obj", 12);
     Query var6(src6);
@@ -1543,12 +1543,12 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
     std::string src8("right", 5);
     Query var8(src8);
 
-    Types::object map9;
+    std::map<std::string, Query> map9;
 
     std::string src10("reql_ast_obj", 12);
     Query var10(src10);
 
-    Types::object map11;
+    std::map<std::string, Query> map11;
 
     std::string src12("reql_ast_obj", 12);
     Query var12(src12);
@@ -1574,19 +1574,19 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test84") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("left", 4);
     Query var2(src2);
 
-    Types::object map3;
+    std::map<std::string, Query> map3;
 
     std::string src4("reql_ast_obj", 12);
     Query var4(src4);
 
-    Types::object map5;
+    std::map<std::string, Query> map5;
 
     std::string src6("reql_ast_obj", 12);
     Query var6(src6);
@@ -1607,12 +1607,12 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
     std::string src8("right", 5);
     Query var8(src8);
 
-    Types::object map9;
+    std::map<std::string, Query> map9;
 
     std::string src10("reql_ast_obj", 12);
     Query var10(src10);
 
-    Types::object map11;
+    std::map<std::string, Query> map11;
 
     std::string src12("reql_ast_obj", 12);
     Query var12(src12);
@@ -1638,19 +1638,19 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test85") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("left", 4);
     Query var2(src2);
 
-    Types::object map3;
+    std::map<std::string, Query> map3;
 
     std::string src4("reql_ast_obj", 12);
     Query var4(src4);
 
-    Types::object map5;
+    std::map<std::string, Query> map5;
 
     std::string src6("reql_ast_obj", 12);
     Query var6(src6);
@@ -1671,12 +1671,12 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
     std::string src8("right", 5);
     Query var8(src8);
 
-    Types::object map9;
+    std::map<std::string, Query> map9;
 
     std::string src10("reql_ast_obj", 12);
     Query var10(src10);
 
-    Types::object map11;
+    std::map<std::string, Query> map11;
 
     std::string src12("reql_ast_obj", 12);
     Query var12(src12);
@@ -1702,19 +1702,19 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test86") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("left", 4);
     Query var2(src2);
 
-    Types::object map3;
+    std::map<std::string, Query> map3;
 
     std::string src4("reql_ast_obj", 12);
     Query var4(src4);
 
-    Types::object map5;
+    std::map<std::string, Query> map5;
 
     std::string src6("reql_ast_obj", 12);
     Query var6(src6);
@@ -1735,12 +1735,12 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
     std::string src8("right", 5);
     Query var8(src8);
 
-    Types::object map9;
+    std::map<std::string, Query> map9;
 
     std::string src10("reql_ast_obj", 12);
     Query var10(src10);
 
-    Types::object map11;
+    std::map<std::string, Query> map11;
 
     std::string src12("reql_ast_obj", 12);
     Query var12(src12);
@@ -1762,17 +1762,17 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map14;
+    std::map<std::string, Query> map14;
 
     std::string src15("left", 4);
     Query var15(src15);
 
-    Types::object map16;
+    std::map<std::string, Query> map16;
 
     std::string src17("reql_ast_obj", 12);
     Query var17(src17);
 
-    Types::object map18;
+    std::map<std::string, Query> map18;
 
     std::string src19("reql_ast_obj", 12);
     Query var19(src19);
@@ -1793,12 +1793,12 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
     std::string src21("right", 5);
     Query var21(src21);
 
-    Types::object map22;
+    std::map<std::string, Query> map22;
 
     std::string src23("reql_ast_obj", 12);
     Query var23(src23);
 
-    Types::object map24;
+    std::map<std::string, Query> map24;
 
     std::string src25("reql_ast_obj", 12);
     Query var25(src25);
@@ -1820,17 +1820,17 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var14);
 
-    Types::object map27;
+    std::map<std::string, Query> map27;
 
     std::string src28("left", 4);
     Query var28(src28);
 
-    Types::object map29;
+    std::map<std::string, Query> map29;
 
     std::string src30("reql_ast_obj", 12);
     Query var30(src30);
 
-    Types::object map31;
+    std::map<std::string, Query> map31;
 
     std::string src32("reql_ast_obj", 12);
     Query var32(src32);
@@ -1851,12 +1851,12 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
     std::string src34("right", 5);
     Query var34(src34);
 
-    Types::object map35;
+    std::map<std::string, Query> map35;
 
     std::string src36("reql_ast_obj", 12);
     Query var36(src36);
 
-    Types::object map37;
+    std::map<std::string, Query> map37;
 
     std::string src38("reql_ast_obj", 12);
     Query var38(src38);
@@ -1878,17 +1878,17 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var27);
 
-    Types::object map40;
+    std::map<std::string, Query> map40;
 
     std::string src41("left", 4);
     Query var41(src41);
 
-    Types::object map42;
+    std::map<std::string, Query> map42;
 
     std::string src43("reql_ast_obj", 12);
     Query var43(src43);
 
-    Types::object map44;
+    std::map<std::string, Query> map44;
 
     std::string src45("reql_ast_obj", 12);
     Query var45(src45);
@@ -1909,12 +1909,12 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
     std::string src47("right", 5);
     Query var47(src47);
 
-    Types::object map48;
+    std::map<std::string, Query> map48;
 
     std::string src49("reql_ast_obj", 12);
     Query var49(src49);
 
-    Types::object map50;
+    std::map<std::string, Query> map50;
 
     std::string src51("reql_ast_obj", 12);
     Query var51(src51);
@@ -1940,19 +1940,19 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test87") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("left", 4);
     Query var2(src2);
 
-    Types::object map3;
+    std::map<std::string, Query> map3;
 
     std::string src4("reql_ast_obj", 12);
     Query var4(src4);
 
-    Types::object map5;
+    std::map<std::string, Query> map5;
 
     std::string src6("reql_ast_obj", 12);
     Query var6(src6);
@@ -1973,12 +1973,12 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
     std::string src8("right", 5);
     Query var8(src8);
 
-    Types::object map9;
+    std::map<std::string, Query> map9;
 
     std::string src10("reql_ast_obj", 12);
     Query var10(src10);
 
-    Types::object map11;
+    std::map<std::string, Query> map11;
 
     std::string src12("reql_ast_obj", 12);
     Query var12(src12);
@@ -2000,17 +2000,17 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map14;
+    std::map<std::string, Query> map14;
 
     std::string src15("left", 4);
     Query var15(src15);
 
-    Types::object map16;
+    std::map<std::string, Query> map16;
 
     std::string src17("reql_ast_obj", 12);
     Query var17(src17);
 
-    Types::object map18;
+    std::map<std::string, Query> map18;
 
     std::string src19("reql_ast_obj", 12);
     Query var19(src19);
@@ -2031,12 +2031,12 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
     std::string src21("right", 5);
     Query var21(src21);
 
-    Types::object map22;
+    std::map<std::string, Query> map22;
 
     std::string src23("reql_ast_obj", 12);
     Query var23(src23);
 
-    Types::object map24;
+    std::map<std::string, Query> map24;
 
     std::string src25("reql_ast_obj", 12);
     Query var25(src25);
@@ -2058,17 +2058,17 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var14);
 
-    Types::object map27;
+    std::map<std::string, Query> map27;
 
     std::string src28("left", 4);
     Query var28(src28);
 
-    Types::object map29;
+    std::map<std::string, Query> map29;
 
     std::string src30("reql_ast_obj", 12);
     Query var30(src30);
 
-    Types::object map31;
+    std::map<std::string, Query> map31;
 
     std::string src32("reql_ast_obj", 12);
     Query var32(src32);
@@ -2089,12 +2089,12 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
     std::string src34("right", 5);
     Query var34(src34);
 
-    Types::object map35;
+    std::map<std::string, Query> map35;
 
     std::string src36("reql_ast_obj", 12);
     Query var36(src36);
 
-    Types::object map37;
+    std::map<std::string, Query> map37;
 
     std::string src38("reql_ast_obj", 12);
     Query var38(src38);
@@ -2120,19 +2120,19 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test88") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("left", 4);
     Query var2(src2);
 
-    Types::object map3;
+    std::map<std::string, Query> map3;
 
     std::string src4("reql_ast_obj", 12);
     Query var4(src4);
 
-    Types::object map5;
+    std::map<std::string, Query> map5;
 
     std::string src6("reql_ast_obj", 12);
     Query var6(src6);
@@ -2153,12 +2153,12 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
     std::string src8("right", 5);
     Query var8(src8);
 
-    Types::object map9;
+    std::map<std::string, Query> map9;
 
     std::string src10("reql_ast_obj", 12);
     Query var10(src10);
 
-    Types::object map11;
+    std::map<std::string, Query> map11;
 
     std::string src12("reql_ast_obj", 12);
     Query var12(src12);
@@ -2180,17 +2180,17 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map14;
+    std::map<std::string, Query> map14;
 
     std::string src15("left", 4);
     Query var15(src15);
 
-    Types::object map16;
+    std::map<std::string, Query> map16;
 
     std::string src17("reql_ast_obj", 12);
     Query var17(src17);
 
-    Types::object map18;
+    std::map<std::string, Query> map18;
 
     std::string src19("reql_ast_obj", 12);
     Query var19(src19);
@@ -2211,12 +2211,12 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
     std::string src21("right", 5);
     Query var21(src21);
 
-    Types::object map22;
+    std::map<std::string, Query> map22;
 
     std::string src23("reql_ast_obj", 12);
     Query var23(src23);
 
-    Types::object map24;
+    std::map<std::string, Query> map24;
 
     std::string src25("reql_ast_obj", 12);
     Query var25(src25);
@@ -2242,24 +2242,24 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test89") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test90") {
-    Types::array arr0(8);
+    std::vector<Query> arr0(8);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("left", 4);
     Query var2(src2);
 
-    Types::object map3;
+    std::map<std::string, Query> map3;
 
     std::string src4("reql_ast_obj", 12);
     Query var4(src4);
 
-    Types::object map5;
+    std::map<std::string, Query> map5;
 
     std::string src6("reql_ast_obj", 12);
     Query var6(src6);
@@ -2280,12 +2280,12 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
     std::string src8("right", 5);
     Query var8(src8);
 
-    Types::object map9;
+    std::map<std::string, Query> map9;
 
     std::string src10("reql_ast_obj", 12);
     Query var10(src10);
 
-    Types::object map11;
+    std::map<std::string, Query> map11;
 
     std::string src12("reql_ast_obj", 12);
     Query var12(src12);
@@ -2307,17 +2307,17 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map14;
+    std::map<std::string, Query> map14;
 
     std::string src15("left", 4);
     Query var15(src15);
 
-    Types::object map16;
+    std::map<std::string, Query> map16;
 
     std::string src17("reql_ast_obj", 12);
     Query var17(src17);
 
-    Types::object map18;
+    std::map<std::string, Query> map18;
 
     std::string src19("reql_ast_obj", 12);
     Query var19(src19);
@@ -2338,12 +2338,12 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
     std::string src21("right", 5);
     Query var21(src21);
 
-    Types::object map22;
+    std::map<std::string, Query> map22;
 
     std::string src23("reql_ast_obj", 12);
     Query var23(src23);
 
-    Types::object map24;
+    std::map<std::string, Query> map24;
 
     std::string src25("reql_ast_obj", 12);
     Query var25(src25);
@@ -2365,17 +2365,17 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var14);
 
-    Types::object map27;
+    std::map<std::string, Query> map27;
 
     std::string src28("left", 4);
     Query var28(src28);
 
-    Types::object map29;
+    std::map<std::string, Query> map29;
 
     std::string src30("reql_ast_obj", 12);
     Query var30(src30);
 
-    Types::object map31;
+    std::map<std::string, Query> map31;
 
     std::string src32("reql_ast_obj", 12);
     Query var32(src32);
@@ -2396,12 +2396,12 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
     std::string src34("right", 5);
     Query var34(src34);
 
-    Types::object map35;
+    std::map<std::string, Query> map35;
 
     std::string src36("reql_ast_obj", 12);
     Query var36(src36);
 
-    Types::object map37;
+    std::map<std::string, Query> map37;
 
     std::string src38("reql_ast_obj", 12);
     Query var38(src38);
@@ -2423,17 +2423,17 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var27);
 
-    Types::object map40;
+    std::map<std::string, Query> map40;
 
     std::string src41("left", 4);
     Query var41(src41);
 
-    Types::object map42;
+    std::map<std::string, Query> map42;
 
     std::string src43("reql_ast_obj", 12);
     Query var43(src43);
 
-    Types::object map44;
+    std::map<std::string, Query> map44;
 
     std::string src45("reql_ast_obj", 12);
     Query var45(src45);
@@ -2454,12 +2454,12 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
     std::string src47("right", 5);
     Query var47(src47);
 
-    Types::object map48;
+    std::map<std::string, Query> map48;
 
     std::string src49("reql_ast_obj", 12);
     Query var49(src49);
 
-    Types::object map50;
+    std::map<std::string, Query> map50;
 
     std::string src51("reql_ast_obj", 12);
     Query var51(src51);
@@ -2481,17 +2481,17 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var40);
 
-    Types::object map53;
+    std::map<std::string, Query> map53;
 
     std::string src54("left", 4);
     Query var54(src54);
 
-    Types::object map55;
+    std::map<std::string, Query> map55;
 
     std::string src56("reql_ast_obj", 12);
     Query var56(src56);
 
-    Types::object map57;
+    std::map<std::string, Query> map57;
 
     std::string src58("reql_ast_obj", 12);
     Query var58(src58);
@@ -2512,12 +2512,12 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
     std::string src60("right", 5);
     Query var60(src60);
 
-    Types::object map61;
+    std::map<std::string, Query> map61;
 
     std::string src62("reql_ast_obj", 12);
     Query var62(src62);
 
-    Types::object map63;
+    std::map<std::string, Query> map63;
 
     std::string src64("reql_ast_obj", 12);
     Query var64(src64);
@@ -2539,17 +2539,17 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var53);
 
-    Types::object map66;
+    std::map<std::string, Query> map66;
 
     std::string src67("left", 4);
     Query var67(src67);
 
-    Types::object map68;
+    std::map<std::string, Query> map68;
 
     std::string src69("reql_ast_obj", 12);
     Query var69(src69);
 
-    Types::object map70;
+    std::map<std::string, Query> map70;
 
     std::string src71("reql_ast_obj", 12);
     Query var71(src71);
@@ -2570,12 +2570,12 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
     std::string src73("right", 5);
     Query var73(src73);
 
-    Types::object map74;
+    std::map<std::string, Query> map74;
 
     std::string src75("reql_ast_obj", 12);
     Query var75(src75);
 
-    Types::object map76;
+    std::map<std::string, Query> map76;
 
     std::string src77("reql_ast_obj", 12);
     Query var77(src77);
@@ -2597,17 +2597,17 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var66);
 
-    Types::object map79;
+    std::map<std::string, Query> map79;
 
     std::string src80("left", 4);
     Query var80(src80);
 
-    Types::object map81;
+    std::map<std::string, Query> map81;
 
     std::string src82("reql_ast_obj", 12);
     Query var82(src82);
 
-    Types::object map83;
+    std::map<std::string, Query> map83;
 
     std::string src84("reql_ast_obj", 12);
     Query var84(src84);
@@ -2628,12 +2628,12 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
     std::string src86("right", 5);
     Query var86(src86);
 
-    Types::object map87;
+    std::map<std::string, Query> map87;
 
     std::string src88("reql_ast_obj", 12);
     Query var88(src88);
 
-    Types::object map89;
+    std::map<std::string, Query> map89;
 
     std::string src90("reql_ast_obj", 12);
     Query var90(src90);
@@ -2655,17 +2655,17 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var79);
 
-    Types::object map92;
+    std::map<std::string, Query> map92;
 
     std::string src93("left", 4);
     Query var93(src93);
 
-    Types::object map94;
+    std::map<std::string, Query> map94;
 
     std::string src95("reql_ast_obj", 12);
     Query var95(src95);
 
-    Types::object map96;
+    std::map<std::string, Query> map96;
 
     std::string src97("reql_ast_obj", 12);
     Query var97(src97);
@@ -2686,12 +2686,12 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
     std::string src99("right", 5);
     Query var99(src99);
 
-    Types::object map100;
+    std::map<std::string, Query> map100;
 
     std::string src101("reql_ast_obj", 12);
     Query var101(src101);
 
-    Types::object map102;
+    std::map<std::string, Query> map102;
 
     std::string src103("reql_ast_obj", 12);
     Query var103(src103);
@@ -2717,7 +2717,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test91") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -2731,7 +2731,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test92") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("created", 7);
     Query var1(src1);
@@ -2745,7 +2745,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test93") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("created", 7);
     Query var1(src1);
@@ -2759,7 +2759,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test94") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -2773,7 +2773,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test95") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     double num1(2);
     Query var1(num1);
@@ -2789,12 +2789,12 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test96") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test97") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("created", 7);
     Query var1(src1);
@@ -2808,7 +2808,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test98") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -2822,7 +2822,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test99") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -2836,7 +2836,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test100") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("deleted", 7);
     Query var1(src1);
@@ -2890,19 +2890,19 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test102") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("left", 4);
     Query var2(src2);
 
-    Types::object map3;
+    std::map<std::string, Query> map3;
 
     std::string src4("reql_ast_obj", 12);
     Query var4(src4);
 
-    Types::object map5;
+    std::map<std::string, Query> map5;
 
     std::string src6("reql_ast_obj", 12);
     Query var6(src6);
@@ -2923,12 +2923,12 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
     std::string src8("right", 5);
     Query var8(src8);
 
-    Types::object map9;
+    std::map<std::string, Query> map9;
 
     std::string src10("reql_ast_obj", 12);
     Query var10(src10);
 
-    Types::object map11;
+    std::map<std::string, Query> map11;
 
     std::string src12("reql_ast_obj", 12);
     Query var12(src12);
@@ -2950,17 +2950,17 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map14;
+    std::map<std::string, Query> map14;
 
     std::string src15("left", 4);
     Query var15(src15);
 
-    Types::object map16;
+    std::map<std::string, Query> map16;
 
     std::string src17("reql_ast_obj", 12);
     Query var17(src17);
 
-    Types::object map18;
+    std::map<std::string, Query> map18;
 
     std::string src19("reql_ast_obj", 12);
     Query var19(src19);
@@ -2981,12 +2981,12 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
     std::string src21("right", 5);
     Query var21(src21);
 
-    Types::object map22;
+    std::map<std::string, Query> map22;
 
     std::string src23("reql_ast_obj", 12);
     Query var23(src23);
 
-    Types::object map24;
+    std::map<std::string, Query> map24;
 
     std::string src25("reql_ast_obj", 12);
     Query var25(src25);
@@ -3008,17 +3008,17 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var14);
 
-    Types::object map27;
+    std::map<std::string, Query> map27;
 
     std::string src28("left", 4);
     Query var28(src28);
 
-    Types::object map29;
+    std::map<std::string, Query> map29;
 
     std::string src30("reql_ast_obj", 12);
     Query var30(src30);
 
-    Types::object map31;
+    std::map<std::string, Query> map31;
 
     std::string src32("reql_ast_obj", 12);
     Query var32(src32);
@@ -3039,12 +3039,12 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
     std::string src34("right", 5);
     Query var34(src34);
 
-    Types::object map35;
+    std::map<std::string, Query> map35;
 
     std::string src36("reql_ast_obj", 12);
     Query var36(src36);
 
-    Types::object map37;
+    std::map<std::string, Query> map37;
 
     std::string src38("reql_ast_obj", 12);
     Query var38(src38);
@@ -3066,17 +3066,17 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var27);
 
-    Types::object map40;
+    std::map<std::string, Query> map40;
 
     std::string src41("left", 4);
     Query var41(src41);
 
-    Types::object map42;
+    std::map<std::string, Query> map42;
 
     std::string src43("reql_ast_obj", 12);
     Query var43(src43);
 
-    Types::object map44;
+    std::map<std::string, Query> map44;
 
     std::string src45("reql_ast_obj", 12);
     Query var45(src45);
@@ -3097,12 +3097,12 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
     std::string src47("right", 5);
     Query var47(src47);
 
-    Types::object map48;
+    std::map<std::string, Query> map48;
 
     std::string src49("reql_ast_obj", 12);
     Query var49(src49);
 
-    Types::object map50;
+    std::map<std::string, Query> map50;
 
     std::string src51("reql_ast_obj", 12);
     Query var51(src51);
@@ -3124,17 +3124,17 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var40);
 
-    Types::object map53;
+    std::map<std::string, Query> map53;
 
     std::string src54("left", 4);
     Query var54(src54);
 
-    Types::object map55;
+    std::map<std::string, Query> map55;
 
     std::string src56("reql_ast_obj", 12);
     Query var56(src56);
 
-    Types::object map57;
+    std::map<std::string, Query> map57;
 
     std::string src58("reql_ast_obj", 12);
     Query var58(src58);
@@ -3155,12 +3155,12 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
     std::string src60("right", 5);
     Query var60(src60);
 
-    Types::object map61;
+    std::map<std::string, Query> map61;
 
     std::string src62("reql_ast_obj", 12);
     Query var62(src62);
 
-    Types::object map63;
+    std::map<std::string, Query> map63;
 
     std::string src64("reql_ast_obj", 12);
     Query var64(src64);
@@ -3186,19 +3186,19 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test103") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("left", 4);
     Query var2(src2);
 
-    Types::object map3;
+    std::map<std::string, Query> map3;
 
     std::string src4("reql_ast_obj", 12);
     Query var4(src4);
 
-    Types::object map5;
+    std::map<std::string, Query> map5;
 
     std::string src6("reql_ast_obj", 12);
     Query var6(src6);
@@ -3219,12 +3219,12 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
     std::string src8("right", 5);
     Query var8(src8);
 
-    Types::object map9;
+    std::map<std::string, Query> map9;
 
     std::string src10("reql_ast_obj", 12);
     Query var10(src10);
 
-    Types::object map11;
+    std::map<std::string, Query> map11;
 
     std::string src12("reql_ast_obj", 12);
     Query var12(src12);
@@ -3246,17 +3246,17 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map14;
+    std::map<std::string, Query> map14;
 
     std::string src15("left", 4);
     Query var15(src15);
 
-    Types::object map16;
+    std::map<std::string, Query> map16;
 
     std::string src17("reql_ast_obj", 12);
     Query var17(src17);
 
-    Types::object map18;
+    std::map<std::string, Query> map18;
 
     std::string src19("reql_ast_obj", 12);
     Query var19(src19);
@@ -3277,12 +3277,12 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
     std::string src21("right", 5);
     Query var21(src21);
 
-    Types::object map22;
+    std::map<std::string, Query> map22;
 
     std::string src23("reql_ast_obj", 12);
     Query var23(src23);
 
-    Types::object map24;
+    std::map<std::string, Query> map24;
 
     std::string src25("reql_ast_obj", 12);
     Query var25(src25);
@@ -3304,17 +3304,17 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var14);
 
-    Types::object map27;
+    std::map<std::string, Query> map27;
 
     std::string src28("left", 4);
     Query var28(src28);
 
-    Types::object map29;
+    std::map<std::string, Query> map29;
 
     std::string src30("reql_ast_obj", 12);
     Query var30(src30);
 
-    Types::object map31;
+    std::map<std::string, Query> map31;
 
     std::string src32("reql_ast_obj", 12);
     Query var32(src32);
@@ -3335,12 +3335,12 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
     std::string src34("right", 5);
     Query var34(src34);
 
-    Types::object map35;
+    std::map<std::string, Query> map35;
 
     std::string src36("reql_ast_obj", 12);
     Query var36(src36);
 
-    Types::object map37;
+    std::map<std::string, Query> map37;
 
     std::string src38("reql_ast_obj", 12);
     Query var38(src38);
@@ -3362,17 +3362,17 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var27);
 
-    Types::object map40;
+    std::map<std::string, Query> map40;
 
     std::string src41("left", 4);
     Query var41(src41);
 
-    Types::object map42;
+    std::map<std::string, Query> map42;
 
     std::string src43("reql_ast_obj", 12);
     Query var43(src43);
 
-    Types::object map44;
+    std::map<std::string, Query> map44;
 
     std::string src45("reql_ast_obj", 12);
     Query var45(src45);
@@ -3393,12 +3393,12 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
     std::string src47("right", 5);
     Query var47(src47);
 
-    Types::object map48;
+    std::map<std::string, Query> map48;
 
     std::string src49("reql_ast_obj", 12);
     Query var49(src49);
 
-    Types::object map50;
+    std::map<std::string, Query> map50;
 
     std::string src51("reql_ast_obj", 12);
     Query var51(src51);
@@ -3420,17 +3420,17 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var40);
 
-    Types::object map53;
+    std::map<std::string, Query> map53;
 
     std::string src54("left", 4);
     Query var54(src54);
 
-    Types::object map55;
+    std::map<std::string, Query> map55;
 
     std::string src56("reql_ast_obj", 12);
     Query var56(src56);
 
-    Types::object map57;
+    std::map<std::string, Query> map57;
 
     std::string src58("reql_ast_obj", 12);
     Query var58(src58);
@@ -3451,12 +3451,12 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
     std::string src60("right", 5);
     Query var60(src60);
 
-    Types::object map61;
+    std::map<std::string, Query> map61;
 
     std::string src62("reql_ast_obj", 12);
     Query var62(src62);
 
-    Types::object map63;
+    std::map<std::string, Query> map63;
 
     std::string src64("reql_ast_obj", 12);
     Query var64(src64);
@@ -3482,7 +3482,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test104") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -3496,7 +3496,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test105") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     double num1(0);
     Query var1(num1);
@@ -3527,7 +3527,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test106") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     double num1(0);
     Query var1(num1);
@@ -3558,7 +3558,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test107") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -3572,7 +3572,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test108") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     double num1(0);
     Query var1(num1);
@@ -3593,7 +3593,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test109") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     double num1(0);
     Query var1(num1);
@@ -3624,7 +3624,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test110") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
     double num1(0);
     Query var1(num1);
@@ -3650,7 +3650,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test111") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
     double num1(0);
     Query var1(num1);
@@ -3676,7 +3676,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test112") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     double num1(0);
     Query var1(num1);
@@ -3707,27 +3707,27 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test113") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test114") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test115") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test116") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test117") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     double num1(0);
     Query var1(num1);
@@ -3758,7 +3758,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test118") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     double num1(0);
     Query var1(num1);
@@ -3789,7 +3789,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test119") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     double num1(0);
     Query var1(num1);
@@ -3820,7 +3820,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test120") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     double num1(0);
     Query var1(num1);
@@ -3851,7 +3851,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test121") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     double num1(0);
     Query var1(num1);
@@ -3882,27 +3882,27 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test122") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test123") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test124") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test125") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test126") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     double num1(0);
     Query var1(num1);
@@ -3933,7 +3933,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test127") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     double num1(0);
     Query var1(num1);
@@ -3964,7 +3964,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test128") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
     double num1(0);
     Query var1(num1);
@@ -3990,7 +3990,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test129") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
     double num1(0);
     Query var1(num1);
@@ -4016,7 +4016,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test130") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     double num1(0);
     Query var1(num1);
@@ -4047,27 +4047,27 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test131") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test132") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test133") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test134") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test135") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     double num1(0);
     Query var1(num1);
@@ -4098,7 +4098,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test136") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     double num1(0);
     Query var1(num1);
@@ -4129,7 +4129,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test137") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     double num1(0);
     Query var1(num1);
@@ -4160,7 +4160,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test138") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     double num1(0);
     Query var1(num1);
@@ -4191,7 +4191,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test139") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     double num1(0);
     Query var1(num1);
@@ -4222,27 +4222,27 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test140") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test141") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test142") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test143") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test144") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     double num1(0);
     Query var1(num1);
@@ -4273,7 +4273,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test145") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     double num1(0);
     Query var1(num1);
@@ -4304,7 +4304,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test146") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
     double num1(0);
     Query var1(num1);
@@ -4330,7 +4330,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test147") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
     double num1(0);
     Query var1(num1);
@@ -4356,7 +4356,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test148") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     double num1(0);
     Query var1(num1);
@@ -4387,27 +4387,27 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test149") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test150") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test151") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test152") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test153") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     double num1(0);
     Query var1(num1);
@@ -4438,7 +4438,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test154") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     double num1(0);
     Query var1(num1);
@@ -4469,7 +4469,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test155") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     double num1(0);
     Query var1(num1);
@@ -4500,7 +4500,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test156") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     double num1(0);
     Query var1(num1);
@@ -4531,7 +4531,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test157") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     double num1(0);
     Query var1(num1);
@@ -4562,27 +4562,27 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test158") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test159") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test160") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test161") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test162") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     double num1(0);
     Query var1(num1);
@@ -4613,7 +4613,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test163") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     double num1(0);
     Query var1(num1);
@@ -4644,7 +4644,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test164") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
     double num1(0);
     Query var1(num1);
@@ -4670,7 +4670,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test165") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
     double num1(0);
     Query var1(num1);
@@ -4696,7 +4696,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test166") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     double num1(0);
     Query var1(num1);
@@ -4727,7 +4727,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test167") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     double num1(0);
     Query var1(num1);
@@ -4758,7 +4758,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test168") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     double num1(0);
     Query var1(num1);
@@ -4789,7 +4789,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test169") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     double num1(0);
     Query var1(num1);
@@ -4820,7 +4820,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test170") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     double num1(0);
     Query var1(num1);
@@ -4851,7 +4851,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test171") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     double num1(0);
     Query var1(num1);
@@ -4882,7 +4882,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test172") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
     double num1(0);
     Query var1(num1);
@@ -4908,7 +4908,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test173") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
     double num1(0);
     Query var1(num1);
@@ -4934,12 +4934,12 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test174") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test175") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
     double num1(0);
     Query var1(num1);
@@ -4965,7 +4965,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test176") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
     double num1(0);
     Query var1(num1);
@@ -4991,7 +4991,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test177") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
     double num1(0);
     Query var1(num1);
@@ -5017,7 +5017,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test178") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
     double num1(0);
     Query var1(num1);
@@ -5043,7 +5043,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test179") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
     double num1(0);
     Query var1(num1);
@@ -5069,12 +5069,12 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test180") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test181") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
     double num1(4);
     Query var1(num1);
@@ -5085,32 +5085,32 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test182") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test183") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test184") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test185") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test186") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test187") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
     double num1(4);
     Query var1(num1);
@@ -5121,12 +5121,12 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test188") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test189") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
     double num1(0);
     Query var1(num1);
@@ -5152,17 +5152,17 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test190") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test191") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test192") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     double num1(0);
     Query var1(num1);
@@ -5178,7 +5178,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test193") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     double num1(0);
     Query var1(num1);
@@ -5194,7 +5194,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test194") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     double num1(0);
     Query var1(num1);
@@ -5210,7 +5210,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test195") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     double num1(0);
     Query var1(num1);
@@ -5241,7 +5241,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test196") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     double num1(0);
     Query var1(num1);
@@ -5272,7 +5272,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test197") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     double num1(0);
     Query var1(num1);
@@ -5303,7 +5303,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test198") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     double num1(2);
     Query var1(num1);
@@ -5324,12 +5324,12 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test199") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test200") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
     double num1(0);
     Query var1(num1);
@@ -5355,7 +5355,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test201") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
     double num1(0);
     Query var1(num1);
@@ -5381,7 +5381,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test202") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
     double num1(0);
     Query var1(num1);
@@ -5407,7 +5407,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test203") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     double num1(0);
     Query var1(num1);
@@ -5438,7 +5438,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test204") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     double num1(0);
     Query var1(num1);
@@ -5469,7 +5469,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test205") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     double num1(0);
     Query var1(num1);
@@ -5500,7 +5500,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test206") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     double num1(2);
     Query var1(num1);
@@ -5521,7 +5521,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test207") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     double num1(2);
     Query var1(num1);
@@ -5537,7 +5537,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test208") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("created", 7);
     Query var1(src1);
@@ -5551,7 +5551,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test209") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("created", 7);
     Query var1(src1);
@@ -5565,7 +5565,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test210") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -5579,17 +5579,17 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test211") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test212") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test213") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     double num1(0);
     Query var1(num1);
@@ -5605,7 +5605,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test214") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     double num1(0);
     Query var1(num1);
@@ -5621,7 +5621,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test215") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     double num1(0);
     Query var1(num1);
@@ -5642,7 +5642,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test216") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     double num1(0);
     Query var1(num1);
@@ -5658,7 +5658,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test217") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     double num1(0);
     Query var1(num1);
@@ -5679,7 +5679,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test218") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     double num1(0);
     Query var1(num1);
@@ -5700,7 +5700,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test219") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     double num1(0);
     Query var1(num1);
@@ -5731,7 +5731,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test220") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     double num1(0);
     Query var1(num1);
@@ -5762,7 +5762,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test221") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     double num1(0);
     Query var1(num1);
@@ -5778,7 +5778,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test222") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     double num1(0);
     Query var1(num1);
@@ -5794,7 +5794,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test223") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     double num1(0);
     Query var1(num1);
@@ -5815,7 +5815,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test224") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     double num1(0);
     Query var1(num1);
@@ -5831,7 +5831,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test225") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     double num1(0);
     Query var1(num1);
@@ -5852,7 +5852,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test226") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     double num1(0);
     Query var1(num1);
@@ -5873,7 +5873,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test227") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
     double num1(0);
     Query var1(num1);
@@ -5899,7 +5899,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test228") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
     double num1(0);
     Query var1(num1);
@@ -5925,7 +5925,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test229") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     double num1(0);
     Query var1(num1);
@@ -5956,7 +5956,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test230") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     double num1(0);
     Query var1(num1);
@@ -5987,17 +5987,17 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test231") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test232") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test233") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     double num1(0);
     Query var1(num1);
@@ -6013,7 +6013,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test234") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     double num1(0);
     Query var1(num1);
@@ -6029,7 +6029,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test235") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     double num1(0);
     Query var1(num1);
@@ -6050,7 +6050,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test236") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     double num1(0);
     Query var1(num1);
@@ -6066,7 +6066,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test237") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     double num1(0);
     Query var1(num1);
@@ -6087,7 +6087,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test238") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     double num1(0);
     Query var1(num1);
@@ -6108,7 +6108,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test239") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     double num1(0);
     Query var1(num1);
@@ -6139,7 +6139,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test240") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     double num1(0);
     Query var1(num1);
@@ -6170,7 +6170,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test241") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     double num1(0);
     Query var1(num1);
@@ -6186,7 +6186,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test242") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     double num1(0);
     Query var1(num1);
@@ -6202,7 +6202,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test243") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     double num1(0);
     Query var1(num1);
@@ -6223,7 +6223,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test244") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     double num1(0);
     Query var1(num1);
@@ -6239,7 +6239,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test245") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     double num1(0);
     Query var1(num1);
@@ -6260,7 +6260,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test246") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     double num1(0);
     Query var1(num1);
@@ -6281,7 +6281,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test247") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
     double num1(0);
     Query var1(num1);
@@ -6307,7 +6307,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test248") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
     double num1(0);
     Query var1(num1);
@@ -6333,7 +6333,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test249") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     double num1(0);
     Query var1(num1);
@@ -6364,7 +6364,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test250") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     double num1(0);
     Query var1(num1);
@@ -6395,27 +6395,27 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test251") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test252") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test253") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test254") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test255") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
     double num1(2);
     Query var1(num1);
@@ -6426,12 +6426,12 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test256") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test257") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
     double num1(2);
     Query var1(num1);
@@ -6442,7 +6442,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test258") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
     double num1(2);
     Query var1(num1);
@@ -6453,7 +6453,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test259") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     double num1(2);
     Query var1(num1);
@@ -6474,7 +6474,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test260") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     double num1(2);
     Query var1(num1);
@@ -6495,17 +6495,17 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test261") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test262") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test263") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
     double num1(2);
     Query var1(num1);
@@ -6516,12 +6516,12 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test264") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test265") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
     double num1(2);
     Query var1(num1);
@@ -6532,7 +6532,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test266") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
     double num1(2);
     Query var1(num1);
@@ -6543,7 +6543,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test267") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     double num1(2);
     Query var1(num1);
@@ -6559,7 +6559,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test268") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     double num1(2);
     Query var1(num1);
@@ -6575,7 +6575,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test269") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     double num1(2);
     Query var1(num1);
@@ -6596,7 +6596,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test270") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     double num1(2);
     Query var1(num1);
@@ -6617,42 +6617,42 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test271") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test272") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test273") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test274") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test275") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test276") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test277") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test278") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
     double num1(2);
     Query var1(num1);
@@ -6663,7 +6663,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test279") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     double num1(3);
     Query var1(num1);
@@ -6679,7 +6679,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test280") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     double num1(2);
     Query var1(num1);
@@ -6700,32 +6700,32 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test281") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test282") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test283") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test284") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test285") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test286") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
     double num1(2);
     Query var1(num1);
@@ -6736,7 +6736,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test287") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
     double num1(3);
     Query var1(num1);
@@ -6747,7 +6747,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test288") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     double num1(2);
     Query var1(num1);
@@ -6763,7 +6763,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test289") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     double num1(3);
     Query var1(num1);
@@ -6779,7 +6779,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test290") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     double num1(2);
     Query var1(num1);
@@ -6800,47 +6800,47 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test291") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test292") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test293") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test294") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test295") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test296") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test297") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test298") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test299") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     double num1(3);
     Query var1(num1);
@@ -6856,7 +6856,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test300") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     double num1(3);
     Query var1(num1);
@@ -6872,37 +6872,37 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test301") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test302") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test303") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test304") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test305") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test306") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test307") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
     double num1(3);
     Query var1(num1);
@@ -6913,7 +6913,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test308") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
     double num1(3);
     Query var1(num1);
@@ -6924,7 +6924,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test309") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     double num1(3);
     Query var1(num1);
@@ -6940,7 +6940,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test310") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     double num1(3);
     Query var1(num1);
@@ -6956,7 +6956,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test311") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     double num1(0);
     Query var1(num1);
@@ -6977,7 +6977,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test312") {
-    Types::array arr0(13);
+    std::vector<Query> arr0(13);
 
     double num1(0);
     Query var1(num1);
@@ -7048,7 +7048,7 @@ TEST_CASE("cpp sindex api (#602)", "[cpp][ast]") {
   }
 
   SECTION("test313") {
-    Types::array arr0(13);
+    std::vector<Query> arr0(13);
 
     double num1(0);
     Query var1(num1);

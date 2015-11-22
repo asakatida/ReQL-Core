@@ -8,7 +8,7 @@ using namespace ReQL;
 TEST_CASE("cpp Issue", "[cpp][ast]") {
 
   SECTION("test0") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -22,7 +22,7 @@ TEST_CASE("cpp Issue", "[cpp][ast]") {
   }
 
   SECTION("test1") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
     std::string src1("46", 2);
     Query var1(src1);
@@ -33,7 +33,7 @@ TEST_CASE("cpp Issue", "[cpp][ast]") {
   }
 
   SECTION("test2") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);

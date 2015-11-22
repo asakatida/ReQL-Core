@@ -43,7 +43,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test7") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -57,7 +57,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test8") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -76,7 +76,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test10") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -90,17 +90,17 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test11") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test12") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test13") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
     std::string src1("", 0);
     Query var1(src1);
@@ -111,17 +111,17 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test14") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test15") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test16") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
     std::string src1("", 0);
     Query var1(src1);
@@ -132,12 +132,12 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test17") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test18") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     std::string src1("aaaa", 4);
     Query var1(src1);
@@ -158,7 +158,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test19") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     std::string src1("aaaa", 4);
     Query var1(src1);
@@ -179,7 +179,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test20") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     std::string src1("aaaa", 4);
     Query var1(src1);
@@ -210,7 +210,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test21") {
-    Types::array arr0(16);
+    std::vector<Query> arr0(16);
 
     std::string src1("a", 1);
     Query var1(src1);
@@ -296,7 +296,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test22") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     std::string src1("aaaa ", 5);
     Query var1(src1);
@@ -327,7 +327,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test23") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     std::string src1("aaaa ", 5);
     Query var1(src1);
@@ -348,7 +348,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test24") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     std::string src1("aaaa", 4);
     Query var1(src1);
@@ -364,7 +364,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test25") {
-    Types::array arr0(6);
+    std::vector<Query> arr0(6);
 
     std::string src1("aaaa ", 5);
     Query var1(src1);
@@ -400,7 +400,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test26") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     std::string src1("aaaa", 4);
     Query var1(src1);
@@ -416,7 +416,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test27") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     std::string src1("aaaa", 4);
     Query var1(src1);
@@ -437,7 +437,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test28") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     std::string src1("aaaa", 4);
     Query var1(src1);
@@ -458,7 +458,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test29") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     std::string src1("aaaa", 4);
     Query var1(src1);
@@ -489,7 +489,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test30") {
-    Types::array arr0(6);
+    std::vector<Query> arr0(6);
 
     std::string src1("a", 1);
     Query var1(src1);
@@ -525,7 +525,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test31") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     std::string src1("aaaa ", 5);
     Query var1(src1);
@@ -556,7 +556,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test32") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     std::string src1("aaaa ", 5);
     Query var1(src1);
@@ -577,7 +577,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test33") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     std::string src1("aaaa", 4);
     Query var1(src1);
@@ -593,7 +593,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test34") {
-    Types::array arr0(6);
+    std::vector<Query> arr0(6);
 
     std::string src1("aaaa ", 5);
     Query var1(src1);
@@ -629,7 +629,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test35") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     std::string src1("aaaa", 4);
     Query var1(src1);
@@ -645,7 +645,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test36") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     std::string src1("aaaa", 4);
     Query var1(src1);
@@ -666,7 +666,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test37") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     std::string src1("aaaa", 4);
     Query var1(src1);
@@ -687,7 +687,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test38") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     std::string src1("a", 1);
     Query var1(src1);
@@ -703,7 +703,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test39") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     std::string src1("aaaa", 4);
     Query var1(src1);
@@ -734,7 +734,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test40") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     std::string src1("a", 1);
     Query var1(src1);
@@ -765,7 +765,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test41") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     std::string src1("aaaa ", 5);
     Query var1(src1);
@@ -796,7 +796,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test42") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     std::string src1("aaaa ", 5);
     Query var1(src1);
@@ -817,7 +817,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test43") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     std::string src1("aaaa", 4);
     Query var1(src1);
@@ -833,7 +833,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test44") {
-    Types::array arr0(6);
+    std::vector<Query> arr0(6);
 
     std::string src1("aaaa ", 5);
     Query var1(src1);
@@ -869,7 +869,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test45") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     std::string src1("aaaa", 4);
     Query var1(src1);
@@ -885,7 +885,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test46") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     std::string src1("aaaa", 4);
     Query var1(src1);
@@ -906,7 +906,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test47") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     std::string src1("aaaa", 4);
     Query var1(src1);
@@ -922,7 +922,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test48") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     std::string src1("aaaa", 4);
     Query var1(src1);
@@ -943,7 +943,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test49") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     std::string src1("a", 1);
     Query var1(src1);
@@ -964,7 +964,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test50") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     std::string src1("aaaa ", 5);
     Query var1(src1);
@@ -985,7 +985,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test51") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     std::string src1("aaaa ", 5);
     Query var1(src1);
@@ -1006,7 +1006,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test52") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     std::string src1("aaaa", 4);
     Query var1(src1);
@@ -1022,7 +1022,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test53") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     std::string src1("aaaa ", 5);
     Query var1(src1);
@@ -1043,7 +1043,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test54") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     std::string src1("aaaa", 4);
     Query var1(src1);
@@ -1059,7 +1059,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test55") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     std::string src1("aaaa", 4);
     Query var1(src1);
@@ -1080,17 +1080,17 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test56") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test57") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test58") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     std::string src1("", 0);
     Query var1(src1);
@@ -1111,12 +1111,12 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test59") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test60") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     std::string src1("", 0);
     Query var1(src1);
@@ -1137,7 +1137,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test61") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     std::string src1("aaaa", 4);
     Query var1(src1);
@@ -1158,7 +1158,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test62") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     std::string src1("aaaa", 4);
     Query var1(src1);
@@ -1179,7 +1179,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test63") {
-    Types::array arr0(7);
+    std::vector<Query> arr0(7);
 
     std::string src1("", 0);
     Query var1(src1);
@@ -1220,7 +1220,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test64") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     std::string src1("  aaaa ", 7);
     Query var1(src1);
@@ -1251,7 +1251,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test65") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     std::string src1("  aaaa ", 7);
     Query var1(src1);
@@ -1272,7 +1272,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test66") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     std::string src1("  aaaa", 6);
     Query var1(src1);
@@ -1288,7 +1288,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test67") {
-    Types::array arr0(6);
+    std::vector<Query> arr0(6);
 
     std::string src1("  aaaa ", 7);
     Query var1(src1);
@@ -1324,7 +1324,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test68") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     std::string src1("  aaaa", 6);
     Query var1(src1);
@@ -1340,7 +1340,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test69") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     std::string src1("  aaaa", 6);
     Query var1(src1);
@@ -1361,7 +1361,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test70") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     std::string src1("aaaa", 4);
     Query var1(src1);
@@ -1382,7 +1382,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test71") {
-    Types::array arr0(6);
+    std::vector<Query> arr0(6);
 
     std::string src1("", 0);
     Query var1(src1);
@@ -1418,7 +1418,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test72") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     std::string src1("  aaaa ", 7);
     Query var1(src1);
@@ -1449,7 +1449,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test73") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     std::string src1("  aaaa ", 7);
     Query var1(src1);
@@ -1470,7 +1470,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test74") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     std::string src1("  aaaa", 6);
     Query var1(src1);
@@ -1486,7 +1486,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test75") {
-    Types::array arr0(6);
+    std::vector<Query> arr0(6);
 
     std::string src1("  aaaa ", 7);
     Query var1(src1);
@@ -1522,7 +1522,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test76") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     std::string src1("  aaaa", 6);
     Query var1(src1);
@@ -1538,7 +1538,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test77") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     std::string src1("  aaaa", 6);
     Query var1(src1);
@@ -1559,7 +1559,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test78") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     std::string src1("aaaa", 4);
     Query var1(src1);
@@ -1580,7 +1580,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test79") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     std::string src1("a", 1);
     Query var1(src1);
@@ -1596,7 +1596,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test80") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     std::string src1("", 0);
     Query var1(src1);
@@ -1627,7 +1627,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test81") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     std::string src1("  aaaa ", 7);
     Query var1(src1);
@@ -1658,7 +1658,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test82") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     std::string src1("  aaaa ", 7);
     Query var1(src1);
@@ -1679,7 +1679,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test83") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     std::string src1("  aaaa", 6);
     Query var1(src1);
@@ -1695,7 +1695,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test84") {
-    Types::array arr0(6);
+    std::vector<Query> arr0(6);
 
     std::string src1("  aaaa ", 7);
     Query var1(src1);
@@ -1731,7 +1731,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test85") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     std::string src1("  aaaa", 6);
     Query var1(src1);
@@ -1747,7 +1747,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test86") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     std::string src1("  aaaa", 6);
     Query var1(src1);
@@ -1768,7 +1768,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test87") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     std::string src1("aaaa", 4);
     Query var1(src1);
@@ -1784,7 +1784,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test88") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     std::string src1("", 0);
     Query var1(src1);
@@ -1805,7 +1805,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test89") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     std::string src1("  aaaa ", 7);
     Query var1(src1);
@@ -1826,7 +1826,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test90") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     std::string src1("  aaaa ", 7);
     Query var1(src1);
@@ -1847,7 +1847,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test91") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     std::string src1("  aaaa", 6);
     Query var1(src1);
@@ -1863,7 +1863,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test92") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     std::string src1("  aaaa ", 7);
     Query var1(src1);
@@ -1884,7 +1884,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test93") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     std::string src1("  aaaa", 6);
     Query var1(src1);
@@ -1900,7 +1900,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test94") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     std::string src1("  aaaa", 6);
     Query var1(src1);
@@ -1931,7 +1931,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test97") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
     std::string src1("f", 1);
     Query var1(src1);
@@ -1957,7 +1957,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test98") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
     std::string src1("f", 1);
     Query var1(src1);
@@ -1983,7 +1983,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test99") {
-    Types::array arr0(7);
+    std::vector<Query> arr0(7);
 
     std::string src1("foo", 3);
     Query var1(src1);
@@ -2024,7 +2024,7 @@ TEST_CASE("cpp Tests of converstion to and from the RQL string type", "[cpp][ast
   }
 
   SECTION("test100") {
-    Types::array arr0(7);
+    std::vector<Query> arr0(7);
 
     std::string src1("foo", 3);
     Query var1(src1);

@@ -36,9 +36,9 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
   }
 
   SECTION("test16") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("func", 4);
     Query var2(src2);
@@ -52,7 +52,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map4;
+    std::map<std::string, Query> map4;
 
     std::string src5("func", 4);
     Query var5(src5);
@@ -66,7 +66,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var4);
 
-    Types::object map7;
+    std::map<std::string, Query> map7;
 
     std::string src8("func", 4);
     Query var8(src8);
@@ -80,7 +80,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var7);
 
-    Types::object map10;
+    std::map<std::string, Query> map10;
 
     std::string src11("func", 4);
     Query var11(src11);
@@ -98,7 +98,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
   }
 
   SECTION("test17") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -112,9 +112,9 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
   }
 
   SECTION("test18") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("func", 4);
     Query var2(src2);
@@ -128,7 +128,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map4;
+    std::map<std::string, Query> map4;
 
     std::string src5("func", 4);
     Query var5(src5);
@@ -142,7 +142,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var4);
 
-    Types::object map7;
+    std::map<std::string, Query> map7;
 
     std::string src8("func", 4);
     Query var8(src8);
@@ -156,7 +156,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var7);
 
-    Types::object map10;
+    std::map<std::string, Query> map10;
 
     std::string src11("func", 4);
     Query var11(src11);
@@ -174,11 +174,11 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
   }
 
   SECTION("test19") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
-    Types::array arr1(4);
+    std::vector<Query> arr1(4);
 
-    Types::array arr2(6);
+    std::vector<Query> arr2(6);
 
     Query var3(false);
 
@@ -208,7 +208,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr1.insert(arr1.end(), var2);
 
-    Types::array arr9(6);
+    std::vector<Query> arr9(6);
 
     Query var10(true);
 
@@ -238,7 +238,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr1.insert(arr1.end(), var9);
 
-    Types::array arr16(6);
+    std::vector<Query> arr16(6);
 
     Query var17(true);
 
@@ -268,7 +268,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr1.insert(arr1.end(), var16);
 
-    Types::array arr23(6);
+    std::vector<Query> arr23(6);
 
     Query var24(true);
 
@@ -302,9 +302,9 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::array arr30(4);
+    std::vector<Query> arr30(4);
 
-    Types::array arr31(6);
+    std::vector<Query> arr31(6);
 
     Query var32(false);
 
@@ -334,7 +334,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr30.insert(arr30.end(), var31);
 
-    Types::array arr38(6);
+    std::vector<Query> arr38(6);
 
     Query var39(false);
 
@@ -364,7 +364,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr30.insert(arr30.end(), var38);
 
-    Types::array arr45(6);
+    std::vector<Query> arr45(6);
 
     Query var46(true);
 
@@ -394,7 +394,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr30.insert(arr30.end(), var45);
 
-    Types::array arr52(6);
+    std::vector<Query> arr52(6);
 
     Query var53(true);
 
@@ -428,9 +428,9 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var30);
 
-    Types::array arr59(4);
+    std::vector<Query> arr59(4);
 
-    Types::array arr60(6);
+    std::vector<Query> arr60(6);
 
     Query var61(false);
 
@@ -460,7 +460,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr59.insert(arr59.end(), var60);
 
-    Types::array arr67(6);
+    std::vector<Query> arr67(6);
 
     Query var68(false);
 
@@ -490,7 +490,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr59.insert(arr59.end(), var67);
 
-    Types::array arr74(6);
+    std::vector<Query> arr74(6);
 
     Query var75(false);
 
@@ -520,7 +520,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr59.insert(arr59.end(), var74);
 
-    Types::array arr81(6);
+    std::vector<Query> arr81(6);
 
     Query var82(true);
 
@@ -554,9 +554,9 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var59);
 
-    Types::array arr88(4);
+    std::vector<Query> arr88(4);
 
-    Types::array arr89(6);
+    std::vector<Query> arr89(6);
 
     Query var90(false);
 
@@ -586,7 +586,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr88.insert(arr88.end(), var89);
 
-    Types::array arr96(6);
+    std::vector<Query> arr96(6);
 
     Query var97(false);
 
@@ -616,7 +616,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr88.insert(arr88.end(), var96);
 
-    Types::array arr103(6);
+    std::vector<Query> arr103(6);
 
     Query var104(false);
 
@@ -646,7 +646,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr88.insert(arr88.end(), var103);
 
-    Types::array arr110(6);
+    std::vector<Query> arr110(6);
 
     Query var111(false);
 
@@ -684,11 +684,11 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
   }
 
   SECTION("test21") {
-    Types::array arr0(8);
+    std::vector<Query> arr0(8);
 
-    Types::array arr1(2);
+    std::vector<Query> arr1(2);
 
-    Types::array arr2(6);
+    std::vector<Query> arr2(6);
 
     Query var3(true);
 
@@ -718,7 +718,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr1.insert(arr1.end(), var2);
 
-    Types::array arr9(6);
+    std::vector<Query> arr9(6);
 
     Query var10(false);
 
@@ -752,9 +752,9 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::array arr16(2);
+    std::vector<Query> arr16(2);
 
-    Types::array arr17(6);
+    std::vector<Query> arr17(6);
 
     Query var18(true);
 
@@ -784,7 +784,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr16.insert(arr16.end(), var17);
 
-    Types::array arr24(6);
+    std::vector<Query> arr24(6);
 
     Query var25(false);
 
@@ -818,9 +818,9 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var16);
 
-    Types::array arr31(2);
+    std::vector<Query> arr31(2);
 
-    Types::array arr32(6);
+    std::vector<Query> arr32(6);
 
     Query var33(true);
 
@@ -850,7 +850,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr31.insert(arr31.end(), var32);
 
-    Types::array arr39(6);
+    std::vector<Query> arr39(6);
 
     Query var40(false);
 
@@ -884,9 +884,9 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var31);
 
-    Types::array arr46(2);
+    std::vector<Query> arr46(2);
 
-    Types::array arr47(6);
+    std::vector<Query> arr47(6);
 
     Query var48(true);
 
@@ -916,7 +916,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr46.insert(arr46.end(), var47);
 
-    Types::array arr54(6);
+    std::vector<Query> arr54(6);
 
     Query var55(false);
 
@@ -950,9 +950,9 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var46);
 
-    Types::array arr61(2);
+    std::vector<Query> arr61(2);
 
-    Types::array arr62(6);
+    std::vector<Query> arr62(6);
 
     Query var63(false);
 
@@ -982,7 +982,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr61.insert(arr61.end(), var62);
 
-    Types::array arr69(6);
+    std::vector<Query> arr69(6);
 
     Query var70(true);
 
@@ -1016,9 +1016,9 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var61);
 
-    Types::array arr76(2);
+    std::vector<Query> arr76(2);
 
-    Types::array arr77(6);
+    std::vector<Query> arr77(6);
 
     Query var78(true);
 
@@ -1048,7 +1048,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr76.insert(arr76.end(), var77);
 
-    Types::array arr84(6);
+    std::vector<Query> arr84(6);
 
     Query var85(false);
 
@@ -1082,9 +1082,9 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var76);
 
-    Types::array arr91(2);
+    std::vector<Query> arr91(2);
 
-    Types::array arr92(6);
+    std::vector<Query> arr92(6);
 
     Query var93(true);
 
@@ -1114,7 +1114,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr91.insert(arr91.end(), var92);
 
-    Types::array arr99(6);
+    std::vector<Query> arr99(6);
 
     Query var100(false);
 
@@ -1148,9 +1148,9 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var91);
 
-    Types::array arr106(2);
+    std::vector<Query> arr106(2);
 
-    Types::array arr107(6);
+    std::vector<Query> arr107(6);
 
     Query var108(true);
 
@@ -1180,7 +1180,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr106.insert(arr106.end(), var107);
 
-    Types::array arr114(6);
+    std::vector<Query> arr114(6);
 
     Query var115(false);
 
@@ -1218,11 +1218,11 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
   }
 
   SECTION("test22") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
-    Types::array arr1(4);
+    std::vector<Query> arr1(4);
 
-    Types::array arr2(4);
+    std::vector<Query> arr2(4);
 
     Query var3(false);
 
@@ -1244,7 +1244,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr1.insert(arr1.end(), var2);
 
-    Types::array arr7(4);
+    std::vector<Query> arr7(4);
 
     Query var8(false);
 
@@ -1266,7 +1266,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr1.insert(arr1.end(), var7);
 
-    Types::array arr12(4);
+    std::vector<Query> arr12(4);
 
     Query var13(false);
 
@@ -1288,7 +1288,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr1.insert(arr1.end(), var12);
 
-    Types::array arr17(4);
+    std::vector<Query> arr17(4);
 
     Query var18(false);
 
@@ -1314,9 +1314,9 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::array arr22(4);
+    std::vector<Query> arr22(4);
 
-    Types::array arr23(4);
+    std::vector<Query> arr23(4);
 
     Query var24(false);
 
@@ -1338,7 +1338,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr22.insert(arr22.end(), var23);
 
-    Types::array arr28(4);
+    std::vector<Query> arr28(4);
 
     Query var29(false);
 
@@ -1360,7 +1360,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr22.insert(arr22.end(), var28);
 
-    Types::array arr33(4);
+    std::vector<Query> arr33(4);
 
     Query var34(false);
 
@@ -1382,7 +1382,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr22.insert(arr22.end(), var33);
 
-    Types::array arr38(4);
+    std::vector<Query> arr38(4);
 
     Query var39(false);
 
@@ -1408,9 +1408,9 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var22);
 
-    Types::array arr43(4);
+    std::vector<Query> arr43(4);
 
-    Types::array arr44(4);
+    std::vector<Query> arr44(4);
 
     Query var45(false);
 
@@ -1432,7 +1432,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr43.insert(arr43.end(), var44);
 
-    Types::array arr49(4);
+    std::vector<Query> arr49(4);
 
     Query var50(false);
 
@@ -1454,7 +1454,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr43.insert(arr43.end(), var49);
 
-    Types::array arr54(4);
+    std::vector<Query> arr54(4);
 
     Query var55(false);
 
@@ -1476,7 +1476,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr43.insert(arr43.end(), var54);
 
-    Types::array arr59(4);
+    std::vector<Query> arr59(4);
 
     Query var60(false);
 
@@ -1502,9 +1502,9 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var43);
 
-    Types::array arr64(4);
+    std::vector<Query> arr64(4);
 
-    Types::array arr65(4);
+    std::vector<Query> arr65(4);
 
     Query var66(false);
 
@@ -1526,7 +1526,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr64.insert(arr64.end(), var65);
 
-    Types::array arr70(4);
+    std::vector<Query> arr70(4);
 
     Query var71(false);
 
@@ -1548,7 +1548,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr64.insert(arr64.end(), var70);
 
-    Types::array arr75(4);
+    std::vector<Query> arr75(4);
 
     Query var76(false);
 
@@ -1570,7 +1570,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr64.insert(arr64.end(), var75);
 
-    Types::array arr80(4);
+    std::vector<Query> arr80(4);
 
     Query var81(false);
 
@@ -1600,11 +1600,11 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
   }
 
   SECTION("test23") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
-    Types::array arr1(4);
+    std::vector<Query> arr1(4);
 
-    Types::array arr2(4);
+    std::vector<Query> arr2(4);
 
     Query var3(false);
 
@@ -1626,7 +1626,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr1.insert(arr1.end(), var2);
 
-    Types::array arr7(4);
+    std::vector<Query> arr7(4);
 
     Query var8(false);
 
@@ -1648,7 +1648,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr1.insert(arr1.end(), var7);
 
-    Types::array arr12(4);
+    std::vector<Query> arr12(4);
 
     Query var13(false);
 
@@ -1670,7 +1670,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr1.insert(arr1.end(), var12);
 
-    Types::array arr17(4);
+    std::vector<Query> arr17(4);
 
     Query var18(false);
 
@@ -1696,9 +1696,9 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::array arr22(4);
+    std::vector<Query> arr22(4);
 
-    Types::array arr23(4);
+    std::vector<Query> arr23(4);
 
     Query var24(false);
 
@@ -1720,7 +1720,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr22.insert(arr22.end(), var23);
 
-    Types::array arr28(4);
+    std::vector<Query> arr28(4);
 
     Query var29(false);
 
@@ -1742,7 +1742,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr22.insert(arr22.end(), var28);
 
-    Types::array arr33(4);
+    std::vector<Query> arr33(4);
 
     Query var34(false);
 
@@ -1764,7 +1764,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr22.insert(arr22.end(), var33);
 
-    Types::array arr38(4);
+    std::vector<Query> arr38(4);
 
     Query var39(false);
 
@@ -1790,9 +1790,9 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var22);
 
-    Types::array arr43(4);
+    std::vector<Query> arr43(4);
 
-    Types::array arr44(4);
+    std::vector<Query> arr44(4);
 
     Query var45(false);
 
@@ -1814,7 +1814,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr43.insert(arr43.end(), var44);
 
-    Types::array arr49(4);
+    std::vector<Query> arr49(4);
 
     Query var50(false);
 
@@ -1836,7 +1836,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr43.insert(arr43.end(), var49);
 
-    Types::array arr54(4);
+    std::vector<Query> arr54(4);
 
     Query var55(false);
 
@@ -1858,7 +1858,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr43.insert(arr43.end(), var54);
 
-    Types::array arr59(4);
+    std::vector<Query> arr59(4);
 
     Query var60(false);
 
@@ -1884,9 +1884,9 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var43);
 
-    Types::array arr64(4);
+    std::vector<Query> arr64(4);
 
-    Types::array arr65(4);
+    std::vector<Query> arr65(4);
 
     Query var66(false);
 
@@ -1908,7 +1908,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr64.insert(arr64.end(), var65);
 
-    Types::array arr70(4);
+    std::vector<Query> arr70(4);
 
     Query var71(false);
 
@@ -1930,7 +1930,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr64.insert(arr64.end(), var70);
 
-    Types::array arr75(4);
+    std::vector<Query> arr75(4);
 
     Query var76(false);
 
@@ -1952,7 +1952,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr64.insert(arr64.end(), var75);
 
-    Types::array arr80(4);
+    std::vector<Query> arr80(4);
 
     Query var81(false);
 
@@ -1982,11 +1982,11 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
   }
 
   SECTION("test24") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
-    Types::array arr1(4);
+    std::vector<Query> arr1(4);
 
-    Types::array arr2(4);
+    std::vector<Query> arr2(4);
 
     Query var3(true);
 
@@ -2008,7 +2008,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr1.insert(arr1.end(), var2);
 
-    Types::array arr7(4);
+    std::vector<Query> arr7(4);
 
     Query var8(false);
 
@@ -2030,7 +2030,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr1.insert(arr1.end(), var7);
 
-    Types::array arr12(4);
+    std::vector<Query> arr12(4);
 
     Query var13(false);
 
@@ -2052,7 +2052,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr1.insert(arr1.end(), var12);
 
-    Types::array arr17(4);
+    std::vector<Query> arr17(4);
 
     Query var18(false);
 
@@ -2078,9 +2078,9 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::array arr22(4);
+    std::vector<Query> arr22(4);
 
-    Types::array arr23(4);
+    std::vector<Query> arr23(4);
 
     Query var24(false);
 
@@ -2102,7 +2102,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr22.insert(arr22.end(), var23);
 
-    Types::array arr28(4);
+    std::vector<Query> arr28(4);
 
     Query var29(false);
 
@@ -2124,7 +2124,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr22.insert(arr22.end(), var28);
 
-    Types::array arr33(4);
+    std::vector<Query> arr33(4);
 
     Query var34(false);
 
@@ -2146,7 +2146,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr22.insert(arr22.end(), var33);
 
-    Types::array arr38(4);
+    std::vector<Query> arr38(4);
 
     Query var39(false);
 
@@ -2172,9 +2172,9 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var22);
 
-    Types::array arr43(4);
+    std::vector<Query> arr43(4);
 
-    Types::array arr44(4);
+    std::vector<Query> arr44(4);
 
     Query var45(false);
 
@@ -2196,7 +2196,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr43.insert(arr43.end(), var44);
 
-    Types::array arr49(4);
+    std::vector<Query> arr49(4);
 
     Query var50(false);
 
@@ -2218,7 +2218,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr43.insert(arr43.end(), var49);
 
-    Types::array arr54(4);
+    std::vector<Query> arr54(4);
 
     Query var55(false);
 
@@ -2240,7 +2240,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr43.insert(arr43.end(), var54);
 
-    Types::array arr59(4);
+    std::vector<Query> arr59(4);
 
     Query var60(false);
 
@@ -2266,9 +2266,9 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var43);
 
-    Types::array arr64(4);
+    std::vector<Query> arr64(4);
 
-    Types::array arr65(4);
+    std::vector<Query> arr65(4);
 
     Query var66(false);
 
@@ -2290,7 +2290,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr64.insert(arr64.end(), var65);
 
-    Types::array arr70(4);
+    std::vector<Query> arr70(4);
 
     Query var71(false);
 
@@ -2312,7 +2312,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr64.insert(arr64.end(), var70);
 
-    Types::array arr75(4);
+    std::vector<Query> arr75(4);
 
     Query var76(false);
 
@@ -2334,7 +2334,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr64.insert(arr64.end(), var75);
 
-    Types::array arr80(4);
+    std::vector<Query> arr80(4);
 
     Query var81(false);
 
@@ -2364,11 +2364,11 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
   }
 
   SECTION("test25") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
-    Types::array arr1(4);
+    std::vector<Query> arr1(4);
 
-    Types::array arr2(4);
+    std::vector<Query> arr2(4);
 
     Query var3(false);
 
@@ -2390,7 +2390,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr1.insert(arr1.end(), var2);
 
-    Types::array arr7(4);
+    std::vector<Query> arr7(4);
 
     Query var8(false);
 
@@ -2412,7 +2412,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr1.insert(arr1.end(), var7);
 
-    Types::array arr12(4);
+    std::vector<Query> arr12(4);
 
     Query var13(false);
 
@@ -2434,7 +2434,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr1.insert(arr1.end(), var12);
 
-    Types::array arr17(4);
+    std::vector<Query> arr17(4);
 
     Query var18(false);
 
@@ -2460,9 +2460,9 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::array arr22(4);
+    std::vector<Query> arr22(4);
 
-    Types::array arr23(4);
+    std::vector<Query> arr23(4);
 
     Query var24(false);
 
@@ -2484,7 +2484,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr22.insert(arr22.end(), var23);
 
-    Types::array arr28(4);
+    std::vector<Query> arr28(4);
 
     Query var29(false);
 
@@ -2506,7 +2506,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr22.insert(arr22.end(), var28);
 
-    Types::array arr33(4);
+    std::vector<Query> arr33(4);
 
     Query var34(false);
 
@@ -2528,7 +2528,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr22.insert(arr22.end(), var33);
 
-    Types::array arr38(4);
+    std::vector<Query> arr38(4);
 
     Query var39(false);
 
@@ -2554,9 +2554,9 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var22);
 
-    Types::array arr43(4);
+    std::vector<Query> arr43(4);
 
-    Types::array arr44(4);
+    std::vector<Query> arr44(4);
 
     Query var45(false);
 
@@ -2578,7 +2578,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr43.insert(arr43.end(), var44);
 
-    Types::array arr49(4);
+    std::vector<Query> arr49(4);
 
     Query var50(false);
 
@@ -2600,7 +2600,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr43.insert(arr43.end(), var49);
 
-    Types::array arr54(4);
+    std::vector<Query> arr54(4);
 
     Query var55(false);
 
@@ -2622,7 +2622,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr43.insert(arr43.end(), var54);
 
-    Types::array arr59(4);
+    std::vector<Query> arr59(4);
 
     Query var60(false);
 
@@ -2648,9 +2648,9 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var43);
 
-    Types::array arr64(4);
+    std::vector<Query> arr64(4);
 
-    Types::array arr65(4);
+    std::vector<Query> arr65(4);
 
     Query var66(false);
 
@@ -2672,7 +2672,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr64.insert(arr64.end(), var65);
 
-    Types::array arr70(4);
+    std::vector<Query> arr70(4);
 
     Query var71(false);
 
@@ -2694,7 +2694,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr64.insert(arr64.end(), var70);
 
-    Types::array arr75(4);
+    std::vector<Query> arr75(4);
 
     Query var76(false);
 
@@ -2716,7 +2716,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
 
     arr64.insert(arr64.end(), var75);
 
-    Types::array arr80(4);
+    std::vector<Query> arr80(4);
 
     Query var81(false);
 
@@ -2746,7 +2746,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
   }
 
   SECTION("test26") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -2760,7 +2760,7 @@ TEST_CASE("cpp Test basic time arithmetic 120", "[cpp][ast]") {
   }
 
   SECTION("test27") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);

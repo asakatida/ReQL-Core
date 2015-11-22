@@ -53,7 +53,7 @@ TEST_CASE("cpp tests for `floor`, `ceil`, and `round`, tests inspired by the Pyt
   }
 
   SECTION("test9") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -112,7 +112,7 @@ TEST_CASE("cpp tests for `floor`, `ceil`, and `round`, tests inspired by the Pyt
   }
 
   SECTION("test19") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -261,7 +261,7 @@ TEST_CASE("cpp tests for `floor`, `ceil`, and `round`, tests inspired by the Pyt
   }
 
   SECTION("test47") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);

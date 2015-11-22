@@ -8,12 +8,12 @@ using namespace ReQL;
 TEST_CASE("cpp Regression test for issue", "[cpp][ast]") {
 
   SECTION("test0") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("reql_ast_obj", 12);
     Query var1(src1);
 
-    Types::object map2;
+    std::map<std::string, Query> map2;
 
     std::string src3("reql_ast_obj", 12);
     Query var3(src3);
@@ -31,12 +31,12 @@ TEST_CASE("cpp Regression test for issue", "[cpp][ast]") {
   }
 
   SECTION("test1") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("reql_ast_obj", 12);
     Query var1(src1);
 
-    Types::object map2;
+    std::map<std::string, Query> map2;
 
     std::string src3("reql_ast_obj", 12);
     Query var3(src3);
@@ -54,12 +54,12 @@ TEST_CASE("cpp Regression test for issue", "[cpp][ast]") {
   }
 
   SECTION("test2") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("reql_ast_obj", 12);
     Query var1(src1);
 
-    Types::object map2;
+    std::map<std::string, Query> map2;
 
     std::string src3("reql_ast_obj", 12);
     Query var3(src3);
@@ -77,12 +77,12 @@ TEST_CASE("cpp Regression test for issue", "[cpp][ast]") {
   }
 
   SECTION("test3") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("reql_ast_obj", 12);
     Query var1(src1);
 
-    Types::object map2;
+    std::map<std::string, Query> map2;
 
     std::string src3("reql_ast_obj", 12);
     Query var3(src3);
@@ -100,12 +100,12 @@ TEST_CASE("cpp Regression test for issue", "[cpp][ast]") {
   }
 
   SECTION("test4") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("reql_ast_obj", 12);
     Query var1(src1);
 
-    Types::object map2;
+    std::map<std::string, Query> map2;
 
     std::string src3("reql_ast_obj", 12);
     Query var3(src3);
@@ -123,12 +123,12 @@ TEST_CASE("cpp Regression test for issue", "[cpp][ast]") {
   }
 
   SECTION("test5") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("reql_ast_obj", 12);
     Query var1(src1);
 
-    Types::object map2;
+    std::map<std::string, Query> map2;
 
     std::string src3("reql_ast_obj", 12);
     Query var3(src3);

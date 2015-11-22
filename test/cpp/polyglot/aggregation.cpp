@@ -8,7 +8,7 @@ using namespace ReQL;
 TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
   SECTION("test0") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("deleted", 7);
     Query var1(src1);
@@ -62,7 +62,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   }
 
   SECTION("test1") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("deleted", 7);
     Query var1(src1);
@@ -116,7 +116,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   }
 
   SECTION("test2") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("deleted", 7);
     Query var1(src1);
@@ -170,7 +170,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   }
 
   SECTION("test5") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("deleted", 7);
     Query var1(src1);
@@ -234,9 +234,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   }
 
   SECTION("test8") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("group", 5);
     Query var2(src2);
@@ -258,7 +258,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map6;
+    std::map<std::string, Query> map6;
 
     std::string src7("group", 5);
     Query var7(src7);
@@ -280,7 +280,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var6);
 
-    Types::object map11;
+    std::map<std::string, Query> map11;
 
     std::string src12("group", 5);
     Query var12(src12);
@@ -302,7 +302,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var11);
 
-    Types::object map16;
+    std::map<std::string, Query> map16;
 
     std::string src17("group", 5);
     Query var17(src17);
@@ -338,9 +338,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   }
 
   SECTION("test11") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("group", 5);
     Query var2(src2);
@@ -362,7 +362,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map6;
+    std::map<std::string, Query> map6;
 
     std::string src7("group", 5);
     Query var7(src7);
@@ -384,7 +384,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var6);
 
-    Types::object map11;
+    std::map<std::string, Query> map11;
 
     std::string src12("group", 5);
     Query var12(src12);
@@ -406,7 +406,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var11);
 
-    Types::object map16;
+    std::map<std::string, Query> map16;
 
     std::string src17("group", 5);
     Query var17(src17);
@@ -437,7 +437,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   }
 
   SECTION("test13") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("a", 1);
     Query var1(src1);
@@ -464,9 +464,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   }
 
   SECTION("test15") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("group", 5);
     Query var2(src2);
@@ -479,7 +479,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
     std::string src4("reduction", 9);
     Query var4(src4);
 
-    Types::object map5;
+    std::map<std::string, Query> map5;
 
     std::string src6("a", 1);
     Query var6(src6);
@@ -505,7 +505,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map10;
+    std::map<std::string, Query> map10;
 
     std::string src11("group", 5);
     Query var11(src11);
@@ -518,7 +518,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
     std::string src13("reduction", 9);
     Query var13(src13);
 
-    Types::object map14;
+    std::map<std::string, Query> map14;
 
     std::string src15("a", 1);
     Query var15(src15);
@@ -544,7 +544,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var10);
 
-    Types::object map19;
+    std::map<std::string, Query> map19;
 
     std::string src20("group", 5);
     Query var20(src20);
@@ -557,7 +557,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
     std::string src22("reduction", 9);
     Query var22(src22);
 
-    Types::object map23;
+    std::map<std::string, Query> map23;
 
     std::string src24("a", 1);
     Query var24(src24);
@@ -583,7 +583,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var19);
 
-    Types::object map28;
+    std::map<std::string, Query> map28;
 
     std::string src29("group", 5);
     Query var29(src29);
@@ -596,7 +596,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
     std::string src31("reduction", 9);
     Query var31(src31);
 
-    Types::object map32;
+    std::map<std::string, Query> map32;
 
     std::string src33("a", 1);
     Query var33(src33);
@@ -626,7 +626,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   }
 
   SECTION("test16") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("a", 1);
     Query var1(src1);
@@ -653,9 +653,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   }
 
   SECTION("test18") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("group", 5);
     Query var2(src2);
@@ -668,7 +668,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
     std::string src4("reduction", 9);
     Query var4(src4);
 
-    Types::object map5;
+    std::map<std::string, Query> map5;
 
     std::string src6("a", 1);
     Query var6(src6);
@@ -694,7 +694,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map10;
+    std::map<std::string, Query> map10;
 
     std::string src11("group", 5);
     Query var11(src11);
@@ -707,7 +707,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
     std::string src13("reduction", 9);
     Query var13(src13);
 
-    Types::object map14;
+    std::map<std::string, Query> map14;
 
     std::string src15("a", 1);
     Query var15(src15);
@@ -733,7 +733,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var10);
 
-    Types::object map19;
+    std::map<std::string, Query> map19;
 
     std::string src20("group", 5);
     Query var20(src20);
@@ -746,7 +746,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
     std::string src22("reduction", 9);
     Query var22(src22);
 
-    Types::object map23;
+    std::map<std::string, Query> map23;
 
     std::string src24("a", 1);
     Query var24(src24);
@@ -772,7 +772,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var19);
 
-    Types::object map28;
+    std::map<std::string, Query> map28;
 
     std::string src29("group", 5);
     Query var29(src29);
@@ -785,7 +785,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
     std::string src31("reduction", 9);
     Query var31(src31);
 
-    Types::object map32;
+    std::map<std::string, Query> map32;
 
     std::string src33("a", 1);
     Query var33(src33);
@@ -815,7 +815,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   }
 
   SECTION("test19") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("a", 1);
     Query var1(src1);
@@ -837,9 +837,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   }
 
   SECTION("test20") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("group", 5);
     Query var2(src2);
@@ -852,7 +852,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
     std::string src4("reduction", 9);
     Query var4(src4);
 
-    Types::object map5;
+    std::map<std::string, Query> map5;
 
     std::string src6("a", 1);
     Query var6(src6);
@@ -878,7 +878,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map10;
+    std::map<std::string, Query> map10;
 
     std::string src11("group", 5);
     Query var11(src11);
@@ -891,7 +891,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
     std::string src13("reduction", 9);
     Query var13(src13);
 
-    Types::object map14;
+    std::map<std::string, Query> map14;
 
     std::string src15("a", 1);
     Query var15(src15);
@@ -917,7 +917,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var10);
 
-    Types::object map19;
+    std::map<std::string, Query> map19;
 
     std::string src20("group", 5);
     Query var20(src20);
@@ -930,7 +930,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
     std::string src22("reduction", 9);
     Query var22(src22);
 
-    Types::object map23;
+    std::map<std::string, Query> map23;
 
     std::string src24("a", 1);
     Query var24(src24);
@@ -956,7 +956,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var19);
 
-    Types::object map28;
+    std::map<std::string, Query> map28;
 
     std::string src29("group", 5);
     Query var29(src29);
@@ -969,7 +969,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
     std::string src31("reduction", 9);
     Query var31(src31);
 
-    Types::object map32;
+    std::map<std::string, Query> map32;
 
     std::string src33("a", 1);
     Query var33(src33);
@@ -999,7 +999,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   }
 
   SECTION("test21") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("a", 1);
     Query var1(src1);
@@ -1021,9 +1021,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   }
 
   SECTION("test22") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("group", 5);
     Query var2(src2);
@@ -1036,7 +1036,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
     std::string src4("reduction", 9);
     Query var4(src4);
 
-    Types::object map5;
+    std::map<std::string, Query> map5;
 
     std::string src6("a", 1);
     Query var6(src6);
@@ -1062,7 +1062,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map10;
+    std::map<std::string, Query> map10;
 
     std::string src11("group", 5);
     Query var11(src11);
@@ -1075,7 +1075,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
     std::string src13("reduction", 9);
     Query var13(src13);
 
-    Types::object map14;
+    std::map<std::string, Query> map14;
 
     std::string src15("a", 1);
     Query var15(src15);
@@ -1101,7 +1101,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var10);
 
-    Types::object map19;
+    std::map<std::string, Query> map19;
 
     std::string src20("group", 5);
     Query var20(src20);
@@ -1114,7 +1114,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
     std::string src22("reduction", 9);
     Query var22(src22);
 
-    Types::object map23;
+    std::map<std::string, Query> map23;
 
     std::string src24("a", 1);
     Query var24(src24);
@@ -1140,7 +1140,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var19);
 
-    Types::object map28;
+    std::map<std::string, Query> map28;
 
     std::string src29("group", 5);
     Query var29(src29);
@@ -1153,7 +1153,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
     std::string src31("reduction", 9);
     Query var31(src31);
 
-    Types::object map32;
+    std::map<std::string, Query> map32;
 
     std::string src33("a", 1);
     Query var33(src33);
@@ -1193,9 +1193,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   }
 
   SECTION("test25") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("group", 5);
     Query var2(src2);
@@ -1217,7 +1217,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map6;
+    std::map<std::string, Query> map6;
 
     std::string src7("group", 5);
     Query var7(src7);
@@ -1239,7 +1239,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var6);
 
-    Types::object map11;
+    std::map<std::string, Query> map11;
 
     std::string src12("group", 5);
     Query var12(src12);
@@ -1261,7 +1261,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var11);
 
-    Types::object map16;
+    std::map<std::string, Query> map16;
 
     std::string src17("group", 5);
     Query var17(src17);
@@ -1297,9 +1297,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   }
 
   SECTION("test28") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("group", 5);
     Query var2(src2);
@@ -1321,7 +1321,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map6;
+    std::map<std::string, Query> map6;
 
     std::string src7("group", 5);
     Query var7(src7);
@@ -1343,7 +1343,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var6);
 
-    Types::object map11;
+    std::map<std::string, Query> map11;
 
     std::string src12("group", 5);
     Query var12(src12);
@@ -1365,7 +1365,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var11);
 
-    Types::object map16;
+    std::map<std::string, Query> map16;
 
     std::string src17("group", 5);
     Query var17(src17);
@@ -1391,7 +1391,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   }
 
   SECTION("test29") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("a", 1);
     Query var1(src1);
@@ -1423,9 +1423,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   }
 
   SECTION("test32") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("group", 5);
     Query var2(src2);
@@ -1447,7 +1447,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map6;
+    std::map<std::string, Query> map6;
 
     std::string src7("group", 5);
     Query var7(src7);
@@ -1469,7 +1469,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var6);
 
-    Types::object map11;
+    std::map<std::string, Query> map11;
 
     std::string src12("group", 5);
     Query var12(src12);
@@ -1491,7 +1491,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var11);
 
-    Types::object map16;
+    std::map<std::string, Query> map16;
 
     std::string src17("group", 5);
     Query var17(src17);
@@ -1527,9 +1527,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   }
 
   SECTION("test35") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("group", 5);
     Query var2(src2);
@@ -1551,7 +1551,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map6;
+    std::map<std::string, Query> map6;
 
     std::string src7("group", 5);
     Query var7(src7);
@@ -1573,7 +1573,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var6);
 
-    Types::object map11;
+    std::map<std::string, Query> map11;
 
     std::string src12("group", 5);
     Query var12(src12);
@@ -1595,7 +1595,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var11);
 
-    Types::object map16;
+    std::map<std::string, Query> map16;
 
     std::string src17("group", 5);
     Query var17(src17);
@@ -1621,9 +1621,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   }
 
   SECTION("test36") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("group", 5);
     Query var2(src2);
@@ -1645,7 +1645,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map6;
+    std::map<std::string, Query> map6;
 
     std::string src7("group", 5);
     Query var7(src7);
@@ -1667,7 +1667,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var6);
 
-    Types::object map11;
+    std::map<std::string, Query> map11;
 
     std::string src12("group", 5);
     Query var12(src12);
@@ -1689,7 +1689,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var11);
 
-    Types::object map16;
+    std::map<std::string, Query> map16;
 
     std::string src17("group", 5);
     Query var17(src17);
@@ -1715,7 +1715,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   }
 
   SECTION("test37") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("$reql_type$", 11);
     Query var1(src1);
@@ -1728,9 +1728,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
     std::string src3("data", 4);
     Query var3(src3);
 
-    Types::array arr4(4);
+    std::vector<Query> arr4(4);
 
-    Types::array arr5(2);
+    std::vector<Query> arr5(2);
 
     double num6(0);
     Query var6(num6);
@@ -1746,7 +1746,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var5);
 
-    Types::array arr8(2);
+    std::vector<Query> arr8(2);
 
     double num9(1);
     Query var9(num9);
@@ -1762,7 +1762,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var8);
 
-    Types::array arr11(2);
+    std::vector<Query> arr11(2);
 
     double num12(2);
     Query var12(num12);
@@ -1778,7 +1778,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var11);
 
-    Types::array arr14(2);
+    std::vector<Query> arr14(2);
 
     double num15(3);
     Query var15(num15);
@@ -1802,7 +1802,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   }
 
   SECTION("test38") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("$reql_type$", 11);
     Query var1(src1);
@@ -1815,18 +1815,18 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
     std::string src3("data", 4);
     Query var3(src3);
 
-    Types::array arr4(1);
+    std::vector<Query> arr4(1);
 
-    Types::array arr5(2);
+    std::vector<Query> arr5(2);
 
     double num6(1);
     Query var6(num6);
 
     arr5.insert(arr5.end(), var6);
 
-    Types::array arr7(1);
+    std::vector<Query> arr7(1);
 
-    Types::object map8;
+    std::map<std::string, Query> map8;
 
     std::string src9("a", 1);
     Query var9(src9);
@@ -1871,9 +1871,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   }
 
   SECTION("test42") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("group", 5);
     Query var2(src2);
@@ -1886,7 +1886,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
     std::string src4("reduction", 9);
     Query var4(src4);
 
-    Types::array arr5(3);
+    std::vector<Query> arr5(3);
 
     double num6(0);
     Query var6(num6);
@@ -1911,7 +1911,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map9;
+    std::map<std::string, Query> map9;
 
     std::string src10("group", 5);
     Query var10(src10);
@@ -1924,7 +1924,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
     std::string src12("reduction", 9);
     Query var12(src12);
 
-    Types::array arr13(3);
+    std::vector<Query> arr13(3);
 
     double num14(1);
     Query var14(num14);
@@ -1949,7 +1949,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var9);
 
-    Types::object map17;
+    std::map<std::string, Query> map17;
 
     std::string src18("group", 5);
     Query var18(src18);
@@ -1962,7 +1962,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
     std::string src20("reduction", 9);
     Query var20(src20);
 
-    Types::array arr21(2);
+    std::vector<Query> arr21(2);
 
     double num22(2);
     Query var22(num22);
@@ -1982,7 +1982,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var17);
 
-    Types::object map24;
+    std::map<std::string, Query> map24;
 
     std::string src25("group", 5);
     Query var25(src25);
@@ -1995,7 +1995,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
     std::string src27("reduction", 9);
     Query var27(src27);
 
-    Types::array arr28(2);
+    std::vector<Query> arr28(2);
 
     double num29(3);
     Query var29(num29);
@@ -2019,9 +2019,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   }
 
   SECTION("test43") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("group", 5);
     Query var2(src2);
@@ -2043,7 +2043,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map6;
+    std::map<std::string, Query> map6;
 
     std::string src7("group", 5);
     Query var7(src7);
@@ -2065,7 +2065,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var6);
 
-    Types::object map11;
+    std::map<std::string, Query> map11;
 
     std::string src12("group", 5);
     Query var12(src12);
@@ -2087,7 +2087,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var11);
 
-    Types::object map16;
+    std::map<std::string, Query> map16;
 
     std::string src17("group", 5);
     Query var17(src17);
@@ -2113,7 +2113,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   }
 
   SECTION("test44") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("$reql_type$", 11);
     Query var1(src1);
@@ -2126,9 +2126,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
     std::string src3("data", 4);
     Query var3(src3);
 
-    Types::array arr4(4);
+    std::vector<Query> arr4(4);
 
-    Types::array arr5(2);
+    std::vector<Query> arr5(2);
 
     double num6(0);
     Query var6(num6);
@@ -2144,7 +2144,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var5);
 
-    Types::array arr8(2);
+    std::vector<Query> arr8(2);
 
     double num9(1);
     Query var9(num9);
@@ -2160,7 +2160,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var8);
 
-    Types::array arr11(2);
+    std::vector<Query> arr11(2);
 
     double num12(2);
     Query var12(num12);
@@ -2176,7 +2176,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var11);
 
-    Types::array arr14(2);
+    std::vector<Query> arr14(2);
 
     double num15(3);
     Query var15(num15);
@@ -2200,7 +2200,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   }
 
   SECTION("test45") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("$reql_type$", 11);
     Query var1(src1);
@@ -2213,9 +2213,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
     std::string src3("data", 4);
     Query var3(src3);
 
-    Types::array arr4(4);
+    std::vector<Query> arr4(4);
 
-    Types::array arr5(2);
+    std::vector<Query> arr5(2);
 
     double num6(0);
     Query var6(num6);
@@ -2231,7 +2231,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var5);
 
-    Types::array arr8(2);
+    std::vector<Query> arr8(2);
 
     double num9(1);
     Query var9(num9);
@@ -2247,7 +2247,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var8);
 
-    Types::array arr11(2);
+    std::vector<Query> arr11(2);
 
     double num12(2);
     Query var12(num12);
@@ -2263,7 +2263,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var11);
 
-    Types::array arr14(2);
+    std::vector<Query> arr14(2);
 
     double num15(3);
     Query var15(num15);
@@ -2287,7 +2287,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   }
 
   SECTION("test46") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("$reql_type$", 11);
     Query var1(src1);
@@ -2300,9 +2300,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
     std::string src3("data", 4);
     Query var3(src3);
 
-    Types::array arr4(4);
+    std::vector<Query> arr4(4);
 
-    Types::array arr5(2);
+    std::vector<Query> arr5(2);
 
     double num6(0);
     Query var6(num6);
@@ -2318,7 +2318,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var5);
 
-    Types::array arr8(2);
+    std::vector<Query> arr8(2);
 
     double num9(1);
     Query var9(num9);
@@ -2334,7 +2334,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var8);
 
-    Types::array arr11(2);
+    std::vector<Query> arr11(2);
 
     double num12(2);
     Query var12(num12);
@@ -2350,7 +2350,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var11);
 
-    Types::array arr14(2);
+    std::vector<Query> arr14(2);
 
     double num15(3);
     Query var15(num15);
@@ -2374,7 +2374,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   }
 
   SECTION("test47") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("$reql_type$", 11);
     Query var1(src1);
@@ -2387,9 +2387,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
     std::string src3("data", 4);
     Query var3(src3);
 
-    Types::array arr4(4);
+    std::vector<Query> arr4(4);
 
-    Types::array arr5(2);
+    std::vector<Query> arr5(2);
 
     double num6(0);
     Query var6(num6);
@@ -2405,7 +2405,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var5);
 
-    Types::array arr8(2);
+    std::vector<Query> arr8(2);
 
     double num9(1);
     Query var9(num9);
@@ -2421,7 +2421,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var8);
 
-    Types::array arr11(2);
+    std::vector<Query> arr11(2);
 
     double num12(2);
     Query var12(num12);
@@ -2437,7 +2437,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var11);
 
-    Types::array arr14(2);
+    std::vector<Query> arr14(2);
 
     double num15(3);
     Query var15(num15);
@@ -2461,7 +2461,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   }
 
   SECTION("test49") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("$reql_type$", 11);
     Query var1(src1);
@@ -2474,9 +2474,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
     std::string src3("data", 4);
     Query var3(src3);
 
-    Types::array arr4(4);
+    std::vector<Query> arr4(4);
 
-    Types::array arr5(2);
+    std::vector<Query> arr5(2);
 
     double num6(0);
     Query var6(num6);
@@ -2492,7 +2492,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var5);
 
-    Types::array arr8(2);
+    std::vector<Query> arr8(2);
 
     double num9(1);
     Query var9(num9);
@@ -2508,7 +2508,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var8);
 
-    Types::array arr11(2);
+    std::vector<Query> arr11(2);
 
     double num12(2);
     Query var12(num12);
@@ -2524,7 +2524,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var11);
 
-    Types::array arr14(2);
+    std::vector<Query> arr14(2);
 
     double num15(3);
     Query var15(num15);
@@ -2548,7 +2548,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   }
 
   SECTION("test50") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("$reql_type$", 11);
     Query var1(src1);
@@ -2561,9 +2561,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
     std::string src3("data", 4);
     Query var3(src3);
 
-    Types::array arr4(4);
+    std::vector<Query> arr4(4);
 
-    Types::array arr5(2);
+    std::vector<Query> arr5(2);
 
     double num6(0);
     Query var6(num6);
@@ -2579,7 +2579,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var5);
 
-    Types::array arr8(2);
+    std::vector<Query> arr8(2);
 
     double num9(1);
     Query var9(num9);
@@ -2595,7 +2595,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var8);
 
-    Types::array arr11(2);
+    std::vector<Query> arr11(2);
 
     double num12(2);
     Query var12(num12);
@@ -2611,7 +2611,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var11);
 
-    Types::array arr14(2);
+    std::vector<Query> arr14(2);
 
     double num15(3);
     Query var15(num15);
@@ -2635,7 +2635,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   }
 
   SECTION("test51") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("$reql_type$", 11);
     Query var1(src1);
@@ -2648,9 +2648,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
     std::string src3("data", 4);
     Query var3(src3);
 
-    Types::array arr4(4);
+    std::vector<Query> arr4(4);
 
-    Types::array arr5(2);
+    std::vector<Query> arr5(2);
 
     double num6(0);
     Query var6(num6);
@@ -2666,7 +2666,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var5);
 
-    Types::array arr8(2);
+    std::vector<Query> arr8(2);
 
     double num9(1);
     Query var9(num9);
@@ -2682,7 +2682,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var8);
 
-    Types::array arr11(2);
+    std::vector<Query> arr11(2);
 
     double num12(2);
     Query var12(num12);
@@ -2698,7 +2698,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var11);
 
-    Types::array arr14(2);
+    std::vector<Query> arr14(2);
 
     double num15(3);
     Query var15(num15);
@@ -2722,7 +2722,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   }
 
   SECTION("test52") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("$reql_type$", 11);
     Query var1(src1);
@@ -2735,9 +2735,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
     std::string src3("data", 4);
     Query var3(src3);
 
-    Types::array arr4(5);
+    std::vector<Query> arr4(5);
 
-    Types::array arr5(2);
+    std::vector<Query> arr5(2);
 
     double num6(0);
     Query var6(num6);
@@ -2753,7 +2753,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var5);
 
-    Types::array arr8(2);
+    std::vector<Query> arr8(2);
 
     double num9(1);
     Query var9(num9);
@@ -2769,7 +2769,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var8);
 
-    Types::array arr11(2);
+    std::vector<Query> arr11(2);
 
     double num12(2);
     Query var12(num12);
@@ -2785,7 +2785,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var11);
 
-    Types::array arr14(2);
+    std::vector<Query> arr14(2);
 
     double num15(3);
     Query var15(num15);
@@ -2801,7 +2801,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var14);
 
-    Types::array arr17(2);
+    std::vector<Query> arr17(2);
 
     double num18(4);
     Query var18(num18);
@@ -2825,7 +2825,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   }
 
   SECTION("test53") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("$reql_type$", 11);
     Query var1(src1);
@@ -2838,11 +2838,11 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
     std::string src3("data", 4);
     Query var3(src3);
 
-    Types::array arr4(12);
+    std::vector<Query> arr4(12);
 
-    Types::array arr5(2);
+    std::vector<Query> arr5(2);
 
-    Types::array arr6(2);
+    std::vector<Query> arr6(2);
 
     double num7(0);
     Query var7(num7);
@@ -2867,9 +2867,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var5);
 
-    Types::array arr10(2);
+    std::vector<Query> arr10(2);
 
-    Types::array arr11(2);
+    std::vector<Query> arr11(2);
 
     double num12(0);
     Query var12(num12);
@@ -2894,9 +2894,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var10);
 
-    Types::array arr15(2);
+    std::vector<Query> arr15(2);
 
-    Types::array arr16(2);
+    std::vector<Query> arr16(2);
 
     double num17(0);
     Query var17(num17);
@@ -2921,9 +2921,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var15);
 
-    Types::array arr20(2);
+    std::vector<Query> arr20(2);
 
-    Types::array arr21(2);
+    std::vector<Query> arr21(2);
 
     double num22(1);
     Query var22(num22);
@@ -2948,9 +2948,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var20);
 
-    Types::array arr25(2);
+    std::vector<Query> arr25(2);
 
-    Types::array arr26(2);
+    std::vector<Query> arr26(2);
 
     double num27(1);
     Query var27(num27);
@@ -2975,9 +2975,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var25);
 
-    Types::array arr30(2);
+    std::vector<Query> arr30(2);
 
-    Types::array arr31(2);
+    std::vector<Query> arr31(2);
 
     double num32(1);
     Query var32(num32);
@@ -3002,9 +3002,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var30);
 
-    Types::array arr35(2);
+    std::vector<Query> arr35(2);
 
-    Types::array arr36(2);
+    std::vector<Query> arr36(2);
 
     double num37(2);
     Query var37(num37);
@@ -3029,9 +3029,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var35);
 
-    Types::array arr40(2);
+    std::vector<Query> arr40(2);
 
-    Types::array arr41(2);
+    std::vector<Query> arr41(2);
 
     double num42(2);
     Query var42(num42);
@@ -3056,9 +3056,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var40);
 
-    Types::array arr45(2);
+    std::vector<Query> arr45(2);
 
-    Types::array arr46(2);
+    std::vector<Query> arr46(2);
 
     double num47(2);
     Query var47(num47);
@@ -3083,9 +3083,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var45);
 
-    Types::array arr50(2);
+    std::vector<Query> arr50(2);
 
-    Types::array arr51(2);
+    std::vector<Query> arr51(2);
 
     double num52(3);
     Query var52(num52);
@@ -3110,9 +3110,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var50);
 
-    Types::array arr55(2);
+    std::vector<Query> arr55(2);
 
-    Types::array arr56(2);
+    std::vector<Query> arr56(2);
 
     double num57(3);
     Query var57(num57);
@@ -3137,9 +3137,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var55);
 
-    Types::array arr60(2);
+    std::vector<Query> arr60(2);
 
-    Types::array arr61(2);
+    std::vector<Query> arr61(2);
 
     double num62(3);
     Query var62(num62);
@@ -3172,7 +3172,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   }
 
   SECTION("test55") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -3211,7 +3211,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   }
 
   SECTION("test62") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("created", 7);
     Query var1(src1);
@@ -3225,9 +3225,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   }
 
   SECTION("test65") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("index", 5);
     Query var2(src2);
@@ -3272,7 +3272,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   }
 
   SECTION("test83") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -3286,7 +3286,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   }
 
   SECTION("test84") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("$reql_type$", 11);
     Query var1(src1);
@@ -3299,9 +3299,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
     std::string src3("data", 4);
     Query var3(src3);
 
-    Types::array arr4(100);
+    std::vector<Query> arr4(100);
 
-    Types::array arr5(2);
+    std::vector<Query> arr5(2);
 
     double num6(0);
     Query var6(num6);
@@ -3317,7 +3317,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var5);
 
-    Types::array arr8(2);
+    std::vector<Query> arr8(2);
 
     double num9(1);
     Query var9(num9);
@@ -3333,7 +3333,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var8);
 
-    Types::array arr11(2);
+    std::vector<Query> arr11(2);
 
     double num12(2);
     Query var12(num12);
@@ -3349,7 +3349,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var11);
 
-    Types::array arr14(2);
+    std::vector<Query> arr14(2);
 
     double num15(3);
     Query var15(num15);
@@ -3365,7 +3365,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var14);
 
-    Types::array arr17(2);
+    std::vector<Query> arr17(2);
 
     double num18(4);
     Query var18(num18);
@@ -3381,7 +3381,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var17);
 
-    Types::array arr20(2);
+    std::vector<Query> arr20(2);
 
     double num21(5);
     Query var21(num21);
@@ -3397,7 +3397,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var20);
 
-    Types::array arr23(2);
+    std::vector<Query> arr23(2);
 
     double num24(6);
     Query var24(num24);
@@ -3413,7 +3413,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var23);
 
-    Types::array arr26(2);
+    std::vector<Query> arr26(2);
 
     double num27(7);
     Query var27(num27);
@@ -3429,7 +3429,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var26);
 
-    Types::array arr29(2);
+    std::vector<Query> arr29(2);
 
     double num30(8);
     Query var30(num30);
@@ -3445,7 +3445,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var29);
 
-    Types::array arr32(2);
+    std::vector<Query> arr32(2);
 
     double num33(9);
     Query var33(num33);
@@ -3461,7 +3461,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var32);
 
-    Types::array arr35(2);
+    std::vector<Query> arr35(2);
 
     double num36(10);
     Query var36(num36);
@@ -3477,7 +3477,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var35);
 
-    Types::array arr38(2);
+    std::vector<Query> arr38(2);
 
     double num39(11);
     Query var39(num39);
@@ -3493,7 +3493,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var38);
 
-    Types::array arr41(2);
+    std::vector<Query> arr41(2);
 
     double num42(12);
     Query var42(num42);
@@ -3509,7 +3509,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var41);
 
-    Types::array arr44(2);
+    std::vector<Query> arr44(2);
 
     double num45(13);
     Query var45(num45);
@@ -3525,7 +3525,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var44);
 
-    Types::array arr47(2);
+    std::vector<Query> arr47(2);
 
     double num48(14);
     Query var48(num48);
@@ -3541,7 +3541,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var47);
 
-    Types::array arr50(2);
+    std::vector<Query> arr50(2);
 
     double num51(15);
     Query var51(num51);
@@ -3557,7 +3557,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var50);
 
-    Types::array arr53(2);
+    std::vector<Query> arr53(2);
 
     double num54(16);
     Query var54(num54);
@@ -3573,7 +3573,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var53);
 
-    Types::array arr56(2);
+    std::vector<Query> arr56(2);
 
     double num57(17);
     Query var57(num57);
@@ -3589,7 +3589,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var56);
 
-    Types::array arr59(2);
+    std::vector<Query> arr59(2);
 
     double num60(18);
     Query var60(num60);
@@ -3605,7 +3605,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var59);
 
-    Types::array arr62(2);
+    std::vector<Query> arr62(2);
 
     double num63(19);
     Query var63(num63);
@@ -3621,7 +3621,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var62);
 
-    Types::array arr65(2);
+    std::vector<Query> arr65(2);
 
     double num66(20);
     Query var66(num66);
@@ -3637,7 +3637,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var65);
 
-    Types::array arr68(2);
+    std::vector<Query> arr68(2);
 
     double num69(21);
     Query var69(num69);
@@ -3653,7 +3653,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var68);
 
-    Types::array arr71(2);
+    std::vector<Query> arr71(2);
 
     double num72(22);
     Query var72(num72);
@@ -3669,7 +3669,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var71);
 
-    Types::array arr74(2);
+    std::vector<Query> arr74(2);
 
     double num75(23);
     Query var75(num75);
@@ -3685,7 +3685,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var74);
 
-    Types::array arr77(2);
+    std::vector<Query> arr77(2);
 
     double num78(24);
     Query var78(num78);
@@ -3701,7 +3701,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var77);
 
-    Types::array arr80(2);
+    std::vector<Query> arr80(2);
 
     double num81(25);
     Query var81(num81);
@@ -3717,7 +3717,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var80);
 
-    Types::array arr83(2);
+    std::vector<Query> arr83(2);
 
     double num84(26);
     Query var84(num84);
@@ -3733,7 +3733,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var83);
 
-    Types::array arr86(2);
+    std::vector<Query> arr86(2);
 
     double num87(27);
     Query var87(num87);
@@ -3749,7 +3749,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var86);
 
-    Types::array arr89(2);
+    std::vector<Query> arr89(2);
 
     double num90(28);
     Query var90(num90);
@@ -3765,7 +3765,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var89);
 
-    Types::array arr92(2);
+    std::vector<Query> arr92(2);
 
     double num93(29);
     Query var93(num93);
@@ -3781,7 +3781,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var92);
 
-    Types::array arr95(2);
+    std::vector<Query> arr95(2);
 
     double num96(30);
     Query var96(num96);
@@ -3797,7 +3797,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var95);
 
-    Types::array arr98(2);
+    std::vector<Query> arr98(2);
 
     double num99(31);
     Query var99(num99);
@@ -3813,7 +3813,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var98);
 
-    Types::array arr101(2);
+    std::vector<Query> arr101(2);
 
     double num102(32);
     Query var102(num102);
@@ -3829,7 +3829,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var101);
 
-    Types::array arr104(2);
+    std::vector<Query> arr104(2);
 
     double num105(33);
     Query var105(num105);
@@ -3845,7 +3845,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var104);
 
-    Types::array arr107(2);
+    std::vector<Query> arr107(2);
 
     double num108(34);
     Query var108(num108);
@@ -3861,7 +3861,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var107);
 
-    Types::array arr110(2);
+    std::vector<Query> arr110(2);
 
     double num111(35);
     Query var111(num111);
@@ -3877,7 +3877,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var110);
 
-    Types::array arr113(2);
+    std::vector<Query> arr113(2);
 
     double num114(36);
     Query var114(num114);
@@ -3893,7 +3893,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var113);
 
-    Types::array arr116(2);
+    std::vector<Query> arr116(2);
 
     double num117(37);
     Query var117(num117);
@@ -3909,7 +3909,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var116);
 
-    Types::array arr119(2);
+    std::vector<Query> arr119(2);
 
     double num120(38);
     Query var120(num120);
@@ -3925,7 +3925,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var119);
 
-    Types::array arr122(2);
+    std::vector<Query> arr122(2);
 
     double num123(39);
     Query var123(num123);
@@ -3941,7 +3941,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var122);
 
-    Types::array arr125(2);
+    std::vector<Query> arr125(2);
 
     double num126(40);
     Query var126(num126);
@@ -3957,7 +3957,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var125);
 
-    Types::array arr128(2);
+    std::vector<Query> arr128(2);
 
     double num129(41);
     Query var129(num129);
@@ -3973,7 +3973,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var128);
 
-    Types::array arr131(2);
+    std::vector<Query> arr131(2);
 
     double num132(42);
     Query var132(num132);
@@ -3989,7 +3989,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var131);
 
-    Types::array arr134(2);
+    std::vector<Query> arr134(2);
 
     double num135(43);
     Query var135(num135);
@@ -4005,7 +4005,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var134);
 
-    Types::array arr137(2);
+    std::vector<Query> arr137(2);
 
     double num138(44);
     Query var138(num138);
@@ -4021,7 +4021,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var137);
 
-    Types::array arr140(2);
+    std::vector<Query> arr140(2);
 
     double num141(45);
     Query var141(num141);
@@ -4037,7 +4037,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var140);
 
-    Types::array arr143(2);
+    std::vector<Query> arr143(2);
 
     double num144(46);
     Query var144(num144);
@@ -4053,7 +4053,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var143);
 
-    Types::array arr146(2);
+    std::vector<Query> arr146(2);
 
     double num147(47);
     Query var147(num147);
@@ -4069,7 +4069,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var146);
 
-    Types::array arr149(2);
+    std::vector<Query> arr149(2);
 
     double num150(48);
     Query var150(num150);
@@ -4085,7 +4085,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var149);
 
-    Types::array arr152(2);
+    std::vector<Query> arr152(2);
 
     double num153(49);
     Query var153(num153);
@@ -4101,7 +4101,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var152);
 
-    Types::array arr155(2);
+    std::vector<Query> arr155(2);
 
     double num156(50);
     Query var156(num156);
@@ -4117,7 +4117,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var155);
 
-    Types::array arr158(2);
+    std::vector<Query> arr158(2);
 
     double num159(51);
     Query var159(num159);
@@ -4133,7 +4133,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var158);
 
-    Types::array arr161(2);
+    std::vector<Query> arr161(2);
 
     double num162(52);
     Query var162(num162);
@@ -4149,7 +4149,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var161);
 
-    Types::array arr164(2);
+    std::vector<Query> arr164(2);
 
     double num165(53);
     Query var165(num165);
@@ -4165,7 +4165,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var164);
 
-    Types::array arr167(2);
+    std::vector<Query> arr167(2);
 
     double num168(54);
     Query var168(num168);
@@ -4181,7 +4181,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var167);
 
-    Types::array arr170(2);
+    std::vector<Query> arr170(2);
 
     double num171(55);
     Query var171(num171);
@@ -4197,7 +4197,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var170);
 
-    Types::array arr173(2);
+    std::vector<Query> arr173(2);
 
     double num174(56);
     Query var174(num174);
@@ -4213,7 +4213,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var173);
 
-    Types::array arr176(2);
+    std::vector<Query> arr176(2);
 
     double num177(57);
     Query var177(num177);
@@ -4229,7 +4229,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var176);
 
-    Types::array arr179(2);
+    std::vector<Query> arr179(2);
 
     double num180(58);
     Query var180(num180);
@@ -4245,7 +4245,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var179);
 
-    Types::array arr182(2);
+    std::vector<Query> arr182(2);
 
     double num183(59);
     Query var183(num183);
@@ -4261,7 +4261,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var182);
 
-    Types::array arr185(2);
+    std::vector<Query> arr185(2);
 
     double num186(60);
     Query var186(num186);
@@ -4277,7 +4277,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var185);
 
-    Types::array arr188(2);
+    std::vector<Query> arr188(2);
 
     double num189(61);
     Query var189(num189);
@@ -4293,7 +4293,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var188);
 
-    Types::array arr191(2);
+    std::vector<Query> arr191(2);
 
     double num192(62);
     Query var192(num192);
@@ -4309,7 +4309,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var191);
 
-    Types::array arr194(2);
+    std::vector<Query> arr194(2);
 
     double num195(63);
     Query var195(num195);
@@ -4325,7 +4325,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var194);
 
-    Types::array arr197(2);
+    std::vector<Query> arr197(2);
 
     double num198(64);
     Query var198(num198);
@@ -4341,7 +4341,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var197);
 
-    Types::array arr200(2);
+    std::vector<Query> arr200(2);
 
     double num201(65);
     Query var201(num201);
@@ -4357,7 +4357,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var200);
 
-    Types::array arr203(2);
+    std::vector<Query> arr203(2);
 
     double num204(66);
     Query var204(num204);
@@ -4373,7 +4373,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var203);
 
-    Types::array arr206(2);
+    std::vector<Query> arr206(2);
 
     double num207(67);
     Query var207(num207);
@@ -4389,7 +4389,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var206);
 
-    Types::array arr209(2);
+    std::vector<Query> arr209(2);
 
     double num210(68);
     Query var210(num210);
@@ -4405,7 +4405,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var209);
 
-    Types::array arr212(2);
+    std::vector<Query> arr212(2);
 
     double num213(69);
     Query var213(num213);
@@ -4421,7 +4421,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var212);
 
-    Types::array arr215(2);
+    std::vector<Query> arr215(2);
 
     double num216(70);
     Query var216(num216);
@@ -4437,7 +4437,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var215);
 
-    Types::array arr218(2);
+    std::vector<Query> arr218(2);
 
     double num219(71);
     Query var219(num219);
@@ -4453,7 +4453,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var218);
 
-    Types::array arr221(2);
+    std::vector<Query> arr221(2);
 
     double num222(72);
     Query var222(num222);
@@ -4469,7 +4469,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var221);
 
-    Types::array arr224(2);
+    std::vector<Query> arr224(2);
 
     double num225(73);
     Query var225(num225);
@@ -4485,7 +4485,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var224);
 
-    Types::array arr227(2);
+    std::vector<Query> arr227(2);
 
     double num228(74);
     Query var228(num228);
@@ -4501,7 +4501,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var227);
 
-    Types::array arr230(2);
+    std::vector<Query> arr230(2);
 
     double num231(75);
     Query var231(num231);
@@ -4517,7 +4517,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var230);
 
-    Types::array arr233(2);
+    std::vector<Query> arr233(2);
 
     double num234(76);
     Query var234(num234);
@@ -4533,7 +4533,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var233);
 
-    Types::array arr236(2);
+    std::vector<Query> arr236(2);
 
     double num237(77);
     Query var237(num237);
@@ -4549,7 +4549,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var236);
 
-    Types::array arr239(2);
+    std::vector<Query> arr239(2);
 
     double num240(78);
     Query var240(num240);
@@ -4565,7 +4565,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var239);
 
-    Types::array arr242(2);
+    std::vector<Query> arr242(2);
 
     double num243(79);
     Query var243(num243);
@@ -4581,7 +4581,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var242);
 
-    Types::array arr245(2);
+    std::vector<Query> arr245(2);
 
     double num246(80);
     Query var246(num246);
@@ -4597,7 +4597,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var245);
 
-    Types::array arr248(2);
+    std::vector<Query> arr248(2);
 
     double num249(81);
     Query var249(num249);
@@ -4613,7 +4613,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var248);
 
-    Types::array arr251(2);
+    std::vector<Query> arr251(2);
 
     double num252(82);
     Query var252(num252);
@@ -4629,7 +4629,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var251);
 
-    Types::array arr254(2);
+    std::vector<Query> arr254(2);
 
     double num255(83);
     Query var255(num255);
@@ -4645,7 +4645,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var254);
 
-    Types::array arr257(2);
+    std::vector<Query> arr257(2);
 
     double num258(84);
     Query var258(num258);
@@ -4661,7 +4661,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var257);
 
-    Types::array arr260(2);
+    std::vector<Query> arr260(2);
 
     double num261(85);
     Query var261(num261);
@@ -4677,7 +4677,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var260);
 
-    Types::array arr263(2);
+    std::vector<Query> arr263(2);
 
     double num264(86);
     Query var264(num264);
@@ -4693,7 +4693,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var263);
 
-    Types::array arr266(2);
+    std::vector<Query> arr266(2);
 
     double num267(87);
     Query var267(num267);
@@ -4709,7 +4709,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var266);
 
-    Types::array arr269(2);
+    std::vector<Query> arr269(2);
 
     double num270(88);
     Query var270(num270);
@@ -4725,7 +4725,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var269);
 
-    Types::array arr272(2);
+    std::vector<Query> arr272(2);
 
     double num273(89);
     Query var273(num273);
@@ -4741,7 +4741,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var272);
 
-    Types::array arr275(2);
+    std::vector<Query> arr275(2);
 
     double num276(90);
     Query var276(num276);
@@ -4757,7 +4757,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var275);
 
-    Types::array arr278(2);
+    std::vector<Query> arr278(2);
 
     double num279(91);
     Query var279(num279);
@@ -4773,7 +4773,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var278);
 
-    Types::array arr281(2);
+    std::vector<Query> arr281(2);
 
     double num282(92);
     Query var282(num282);
@@ -4789,7 +4789,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var281);
 
-    Types::array arr284(2);
+    std::vector<Query> arr284(2);
 
     double num285(93);
     Query var285(num285);
@@ -4805,7 +4805,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var284);
 
-    Types::array arr287(2);
+    std::vector<Query> arr287(2);
 
     double num288(94);
     Query var288(num288);
@@ -4821,7 +4821,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var287);
 
-    Types::array arr290(2);
+    std::vector<Query> arr290(2);
 
     double num291(95);
     Query var291(num291);
@@ -4837,7 +4837,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var290);
 
-    Types::array arr293(2);
+    std::vector<Query> arr293(2);
 
     double num294(96);
     Query var294(num294);
@@ -4853,7 +4853,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var293);
 
-    Types::array arr296(2);
+    std::vector<Query> arr296(2);
 
     double num297(97);
     Query var297(num297);
@@ -4869,7 +4869,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var296);
 
-    Types::array arr299(2);
+    std::vector<Query> arr299(2);
 
     double num300(98);
     Query var300(num300);
@@ -4885,7 +4885,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var299);
 
-    Types::array arr302(2);
+    std::vector<Query> arr302(2);
 
     double num303(99);
     Query var303(num303);
@@ -4909,7 +4909,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   }
 
   SECTION("test85") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("$reql_type$", 11);
     Query var1(src1);
@@ -4922,9 +4922,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
     std::string src3("data", 4);
     Query var3(src3);
 
-    Types::array arr4(4);
+    std::vector<Query> arr4(4);
 
-    Types::array arr5(2);
+    std::vector<Query> arr5(2);
 
     double num6(0);
     Query var6(num6);
@@ -4940,7 +4940,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var5);
 
-    Types::array arr8(2);
+    std::vector<Query> arr8(2);
 
     double num9(1);
     Query var9(num9);
@@ -4956,7 +4956,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var8);
 
-    Types::array arr11(2);
+    std::vector<Query> arr11(2);
 
     double num12(2);
     Query var12(num12);
@@ -4972,7 +4972,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var11);
 
-    Types::array arr14(2);
+    std::vector<Query> arr14(2);
 
     double num15(3);
     Query var15(num15);
@@ -4996,7 +4996,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   }
 
   SECTION("test86") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("$reql_type$", 11);
     Query var1(src1);
@@ -5009,11 +5009,11 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
     std::string src3("data", 4);
     Query var3(src3);
 
-    Types::array arr4(100);
+    std::vector<Query> arr4(100);
 
-    Types::array arr5(2);
+    std::vector<Query> arr5(2);
 
-    Types::array arr6(2);
+    std::vector<Query> arr6(2);
 
     double num7(0);
     Query var7(num7);
@@ -5038,9 +5038,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var5);
 
-    Types::array arr10(2);
+    std::vector<Query> arr10(2);
 
-    Types::array arr11(2);
+    std::vector<Query> arr11(2);
 
     double num12(0);
     Query var12(num12);
@@ -5065,9 +5065,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var10);
 
-    Types::array arr15(2);
+    std::vector<Query> arr15(2);
 
-    Types::array arr16(2);
+    std::vector<Query> arr16(2);
 
     double num17(0);
     Query var17(num17);
@@ -5092,9 +5092,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var15);
 
-    Types::array arr20(2);
+    std::vector<Query> arr20(2);
 
-    Types::array arr21(2);
+    std::vector<Query> arr21(2);
 
     double num22(0);
     Query var22(num22);
@@ -5119,9 +5119,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var20);
 
-    Types::array arr25(2);
+    std::vector<Query> arr25(2);
 
-    Types::array arr26(2);
+    std::vector<Query> arr26(2);
 
     double num27(0);
     Query var27(num27);
@@ -5146,9 +5146,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var25);
 
-    Types::array arr30(2);
+    std::vector<Query> arr30(2);
 
-    Types::array arr31(2);
+    std::vector<Query> arr31(2);
 
     double num32(0);
     Query var32(num32);
@@ -5173,9 +5173,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var30);
 
-    Types::array arr35(2);
+    std::vector<Query> arr35(2);
 
-    Types::array arr36(2);
+    std::vector<Query> arr36(2);
 
     double num37(0);
     Query var37(num37);
@@ -5200,9 +5200,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var35);
 
-    Types::array arr40(2);
+    std::vector<Query> arr40(2);
 
-    Types::array arr41(2);
+    std::vector<Query> arr41(2);
 
     double num42(0);
     Query var42(num42);
@@ -5227,9 +5227,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var40);
 
-    Types::array arr45(2);
+    std::vector<Query> arr45(2);
 
-    Types::array arr46(2);
+    std::vector<Query> arr46(2);
 
     double num47(0);
     Query var47(num47);
@@ -5254,9 +5254,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var45);
 
-    Types::array arr50(2);
+    std::vector<Query> arr50(2);
 
-    Types::array arr51(2);
+    std::vector<Query> arr51(2);
 
     double num52(0);
     Query var52(num52);
@@ -5281,9 +5281,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var50);
 
-    Types::array arr55(2);
+    std::vector<Query> arr55(2);
 
-    Types::array arr56(2);
+    std::vector<Query> arr56(2);
 
     double num57(0);
     Query var57(num57);
@@ -5308,9 +5308,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var55);
 
-    Types::array arr60(2);
+    std::vector<Query> arr60(2);
 
-    Types::array arr61(2);
+    std::vector<Query> arr61(2);
 
     double num62(0);
     Query var62(num62);
@@ -5335,9 +5335,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var60);
 
-    Types::array arr65(2);
+    std::vector<Query> arr65(2);
 
-    Types::array arr66(2);
+    std::vector<Query> arr66(2);
 
     double num67(0);
     Query var67(num67);
@@ -5362,9 +5362,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var65);
 
-    Types::array arr70(2);
+    std::vector<Query> arr70(2);
 
-    Types::array arr71(2);
+    std::vector<Query> arr71(2);
 
     double num72(0);
     Query var72(num72);
@@ -5389,9 +5389,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var70);
 
-    Types::array arr75(2);
+    std::vector<Query> arr75(2);
 
-    Types::array arr76(2);
+    std::vector<Query> arr76(2);
 
     double num77(0);
     Query var77(num77);
@@ -5416,9 +5416,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var75);
 
-    Types::array arr80(2);
+    std::vector<Query> arr80(2);
 
-    Types::array arr81(2);
+    std::vector<Query> arr81(2);
 
     double num82(0);
     Query var82(num82);
@@ -5443,9 +5443,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var80);
 
-    Types::array arr85(2);
+    std::vector<Query> arr85(2);
 
-    Types::array arr86(2);
+    std::vector<Query> arr86(2);
 
     double num87(0);
     Query var87(num87);
@@ -5470,9 +5470,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var85);
 
-    Types::array arr90(2);
+    std::vector<Query> arr90(2);
 
-    Types::array arr91(2);
+    std::vector<Query> arr91(2);
 
     double num92(0);
     Query var92(num92);
@@ -5497,9 +5497,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var90);
 
-    Types::array arr95(2);
+    std::vector<Query> arr95(2);
 
-    Types::array arr96(2);
+    std::vector<Query> arr96(2);
 
     double num97(0);
     Query var97(num97);
@@ -5524,9 +5524,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var95);
 
-    Types::array arr100(2);
+    std::vector<Query> arr100(2);
 
-    Types::array arr101(2);
+    std::vector<Query> arr101(2);
 
     double num102(0);
     Query var102(num102);
@@ -5551,9 +5551,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var100);
 
-    Types::array arr105(2);
+    std::vector<Query> arr105(2);
 
-    Types::array arr106(2);
+    std::vector<Query> arr106(2);
 
     double num107(0);
     Query var107(num107);
@@ -5578,9 +5578,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var105);
 
-    Types::array arr110(2);
+    std::vector<Query> arr110(2);
 
-    Types::array arr111(2);
+    std::vector<Query> arr111(2);
 
     double num112(0);
     Query var112(num112);
@@ -5605,9 +5605,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var110);
 
-    Types::array arr115(2);
+    std::vector<Query> arr115(2);
 
-    Types::array arr116(2);
+    std::vector<Query> arr116(2);
 
     double num117(0);
     Query var117(num117);
@@ -5632,9 +5632,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var115);
 
-    Types::array arr120(2);
+    std::vector<Query> arr120(2);
 
-    Types::array arr121(2);
+    std::vector<Query> arr121(2);
 
     double num122(0);
     Query var122(num122);
@@ -5659,9 +5659,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var120);
 
-    Types::array arr125(2);
+    std::vector<Query> arr125(2);
 
-    Types::array arr126(2);
+    std::vector<Query> arr126(2);
 
     double num127(0);
     Query var127(num127);
@@ -5686,9 +5686,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var125);
 
-    Types::array arr130(2);
+    std::vector<Query> arr130(2);
 
-    Types::array arr131(2);
+    std::vector<Query> arr131(2);
 
     double num132(1);
     Query var132(num132);
@@ -5713,9 +5713,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var130);
 
-    Types::array arr135(2);
+    std::vector<Query> arr135(2);
 
-    Types::array arr136(2);
+    std::vector<Query> arr136(2);
 
     double num137(1);
     Query var137(num137);
@@ -5740,9 +5740,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var135);
 
-    Types::array arr140(2);
+    std::vector<Query> arr140(2);
 
-    Types::array arr141(2);
+    std::vector<Query> arr141(2);
 
     double num142(1);
     Query var142(num142);
@@ -5767,9 +5767,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var140);
 
-    Types::array arr145(2);
+    std::vector<Query> arr145(2);
 
-    Types::array arr146(2);
+    std::vector<Query> arr146(2);
 
     double num147(1);
     Query var147(num147);
@@ -5794,9 +5794,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var145);
 
-    Types::array arr150(2);
+    std::vector<Query> arr150(2);
 
-    Types::array arr151(2);
+    std::vector<Query> arr151(2);
 
     double num152(1);
     Query var152(num152);
@@ -5821,9 +5821,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var150);
 
-    Types::array arr155(2);
+    std::vector<Query> arr155(2);
 
-    Types::array arr156(2);
+    std::vector<Query> arr156(2);
 
     double num157(1);
     Query var157(num157);
@@ -5848,9 +5848,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var155);
 
-    Types::array arr160(2);
+    std::vector<Query> arr160(2);
 
-    Types::array arr161(2);
+    std::vector<Query> arr161(2);
 
     double num162(1);
     Query var162(num162);
@@ -5875,9 +5875,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var160);
 
-    Types::array arr165(2);
+    std::vector<Query> arr165(2);
 
-    Types::array arr166(2);
+    std::vector<Query> arr166(2);
 
     double num167(1);
     Query var167(num167);
@@ -5902,9 +5902,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var165);
 
-    Types::array arr170(2);
+    std::vector<Query> arr170(2);
 
-    Types::array arr171(2);
+    std::vector<Query> arr171(2);
 
     double num172(1);
     Query var172(num172);
@@ -5929,9 +5929,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var170);
 
-    Types::array arr175(2);
+    std::vector<Query> arr175(2);
 
-    Types::array arr176(2);
+    std::vector<Query> arr176(2);
 
     double num177(1);
     Query var177(num177);
@@ -5956,9 +5956,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var175);
 
-    Types::array arr180(2);
+    std::vector<Query> arr180(2);
 
-    Types::array arr181(2);
+    std::vector<Query> arr181(2);
 
     double num182(1);
     Query var182(num182);
@@ -5983,9 +5983,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var180);
 
-    Types::array arr185(2);
+    std::vector<Query> arr185(2);
 
-    Types::array arr186(2);
+    std::vector<Query> arr186(2);
 
     double num187(1);
     Query var187(num187);
@@ -6010,9 +6010,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var185);
 
-    Types::array arr190(2);
+    std::vector<Query> arr190(2);
 
-    Types::array arr191(2);
+    std::vector<Query> arr191(2);
 
     double num192(1);
     Query var192(num192);
@@ -6037,9 +6037,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var190);
 
-    Types::array arr195(2);
+    std::vector<Query> arr195(2);
 
-    Types::array arr196(2);
+    std::vector<Query> arr196(2);
 
     double num197(1);
     Query var197(num197);
@@ -6064,9 +6064,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var195);
 
-    Types::array arr200(2);
+    std::vector<Query> arr200(2);
 
-    Types::array arr201(2);
+    std::vector<Query> arr201(2);
 
     double num202(1);
     Query var202(num202);
@@ -6091,9 +6091,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var200);
 
-    Types::array arr205(2);
+    std::vector<Query> arr205(2);
 
-    Types::array arr206(2);
+    std::vector<Query> arr206(2);
 
     double num207(1);
     Query var207(num207);
@@ -6118,9 +6118,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var205);
 
-    Types::array arr210(2);
+    std::vector<Query> arr210(2);
 
-    Types::array arr211(2);
+    std::vector<Query> arr211(2);
 
     double num212(1);
     Query var212(num212);
@@ -6145,9 +6145,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var210);
 
-    Types::array arr215(2);
+    std::vector<Query> arr215(2);
 
-    Types::array arr216(2);
+    std::vector<Query> arr216(2);
 
     double num217(1);
     Query var217(num217);
@@ -6172,9 +6172,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var215);
 
-    Types::array arr220(2);
+    std::vector<Query> arr220(2);
 
-    Types::array arr221(2);
+    std::vector<Query> arr221(2);
 
     double num222(1);
     Query var222(num222);
@@ -6199,9 +6199,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var220);
 
-    Types::array arr225(2);
+    std::vector<Query> arr225(2);
 
-    Types::array arr226(2);
+    std::vector<Query> arr226(2);
 
     double num227(1);
     Query var227(num227);
@@ -6226,9 +6226,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var225);
 
-    Types::array arr230(2);
+    std::vector<Query> arr230(2);
 
-    Types::array arr231(2);
+    std::vector<Query> arr231(2);
 
     double num232(1);
     Query var232(num232);
@@ -6253,9 +6253,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var230);
 
-    Types::array arr235(2);
+    std::vector<Query> arr235(2);
 
-    Types::array arr236(2);
+    std::vector<Query> arr236(2);
 
     double num237(1);
     Query var237(num237);
@@ -6280,9 +6280,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var235);
 
-    Types::array arr240(2);
+    std::vector<Query> arr240(2);
 
-    Types::array arr241(2);
+    std::vector<Query> arr241(2);
 
     double num242(1);
     Query var242(num242);
@@ -6307,9 +6307,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var240);
 
-    Types::array arr245(2);
+    std::vector<Query> arr245(2);
 
-    Types::array arr246(2);
+    std::vector<Query> arr246(2);
 
     double num247(1);
     Query var247(num247);
@@ -6334,9 +6334,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var245);
 
-    Types::array arr250(2);
+    std::vector<Query> arr250(2);
 
-    Types::array arr251(2);
+    std::vector<Query> arr251(2);
 
     double num252(1);
     Query var252(num252);
@@ -6361,9 +6361,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var250);
 
-    Types::array arr255(2);
+    std::vector<Query> arr255(2);
 
-    Types::array arr256(2);
+    std::vector<Query> arr256(2);
 
     double num257(2);
     Query var257(num257);
@@ -6388,9 +6388,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var255);
 
-    Types::array arr260(2);
+    std::vector<Query> arr260(2);
 
-    Types::array arr261(2);
+    std::vector<Query> arr261(2);
 
     double num262(2);
     Query var262(num262);
@@ -6415,9 +6415,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var260);
 
-    Types::array arr265(2);
+    std::vector<Query> arr265(2);
 
-    Types::array arr266(2);
+    std::vector<Query> arr266(2);
 
     double num267(2);
     Query var267(num267);
@@ -6442,9 +6442,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var265);
 
-    Types::array arr270(2);
+    std::vector<Query> arr270(2);
 
-    Types::array arr271(2);
+    std::vector<Query> arr271(2);
 
     double num272(2);
     Query var272(num272);
@@ -6469,9 +6469,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var270);
 
-    Types::array arr275(2);
+    std::vector<Query> arr275(2);
 
-    Types::array arr276(2);
+    std::vector<Query> arr276(2);
 
     double num277(2);
     Query var277(num277);
@@ -6496,9 +6496,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var275);
 
-    Types::array arr280(2);
+    std::vector<Query> arr280(2);
 
-    Types::array arr281(2);
+    std::vector<Query> arr281(2);
 
     double num282(2);
     Query var282(num282);
@@ -6523,9 +6523,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var280);
 
-    Types::array arr285(2);
+    std::vector<Query> arr285(2);
 
-    Types::array arr286(2);
+    std::vector<Query> arr286(2);
 
     double num287(2);
     Query var287(num287);
@@ -6550,9 +6550,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var285);
 
-    Types::array arr290(2);
+    std::vector<Query> arr290(2);
 
-    Types::array arr291(2);
+    std::vector<Query> arr291(2);
 
     double num292(2);
     Query var292(num292);
@@ -6577,9 +6577,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var290);
 
-    Types::array arr295(2);
+    std::vector<Query> arr295(2);
 
-    Types::array arr296(2);
+    std::vector<Query> arr296(2);
 
     double num297(2);
     Query var297(num297);
@@ -6604,9 +6604,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var295);
 
-    Types::array arr300(2);
+    std::vector<Query> arr300(2);
 
-    Types::array arr301(2);
+    std::vector<Query> arr301(2);
 
     double num302(2);
     Query var302(num302);
@@ -6631,9 +6631,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var300);
 
-    Types::array arr305(2);
+    std::vector<Query> arr305(2);
 
-    Types::array arr306(2);
+    std::vector<Query> arr306(2);
 
     double num307(2);
     Query var307(num307);
@@ -6658,9 +6658,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var305);
 
-    Types::array arr310(2);
+    std::vector<Query> arr310(2);
 
-    Types::array arr311(2);
+    std::vector<Query> arr311(2);
 
     double num312(2);
     Query var312(num312);
@@ -6685,9 +6685,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var310);
 
-    Types::array arr315(2);
+    std::vector<Query> arr315(2);
 
-    Types::array arr316(2);
+    std::vector<Query> arr316(2);
 
     double num317(2);
     Query var317(num317);
@@ -6712,9 +6712,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var315);
 
-    Types::array arr320(2);
+    std::vector<Query> arr320(2);
 
-    Types::array arr321(2);
+    std::vector<Query> arr321(2);
 
     double num322(2);
     Query var322(num322);
@@ -6739,9 +6739,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var320);
 
-    Types::array arr325(2);
+    std::vector<Query> arr325(2);
 
-    Types::array arr326(2);
+    std::vector<Query> arr326(2);
 
     double num327(2);
     Query var327(num327);
@@ -6766,9 +6766,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var325);
 
-    Types::array arr330(2);
+    std::vector<Query> arr330(2);
 
-    Types::array arr331(2);
+    std::vector<Query> arr331(2);
 
     double num332(2);
     Query var332(num332);
@@ -6793,9 +6793,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var330);
 
-    Types::array arr335(2);
+    std::vector<Query> arr335(2);
 
-    Types::array arr336(2);
+    std::vector<Query> arr336(2);
 
     double num337(2);
     Query var337(num337);
@@ -6820,9 +6820,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var335);
 
-    Types::array arr340(2);
+    std::vector<Query> arr340(2);
 
-    Types::array arr341(2);
+    std::vector<Query> arr341(2);
 
     double num342(2);
     Query var342(num342);
@@ -6847,9 +6847,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var340);
 
-    Types::array arr345(2);
+    std::vector<Query> arr345(2);
 
-    Types::array arr346(2);
+    std::vector<Query> arr346(2);
 
     double num347(2);
     Query var347(num347);
@@ -6874,9 +6874,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var345);
 
-    Types::array arr350(2);
+    std::vector<Query> arr350(2);
 
-    Types::array arr351(2);
+    std::vector<Query> arr351(2);
 
     double num352(2);
     Query var352(num352);
@@ -6901,9 +6901,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var350);
 
-    Types::array arr355(2);
+    std::vector<Query> arr355(2);
 
-    Types::array arr356(2);
+    std::vector<Query> arr356(2);
 
     double num357(2);
     Query var357(num357);
@@ -6928,9 +6928,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var355);
 
-    Types::array arr360(2);
+    std::vector<Query> arr360(2);
 
-    Types::array arr361(2);
+    std::vector<Query> arr361(2);
 
     double num362(2);
     Query var362(num362);
@@ -6955,9 +6955,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var360);
 
-    Types::array arr365(2);
+    std::vector<Query> arr365(2);
 
-    Types::array arr366(2);
+    std::vector<Query> arr366(2);
 
     double num367(2);
     Query var367(num367);
@@ -6982,9 +6982,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var365);
 
-    Types::array arr370(2);
+    std::vector<Query> arr370(2);
 
-    Types::array arr371(2);
+    std::vector<Query> arr371(2);
 
     double num372(2);
     Query var372(num372);
@@ -7009,9 +7009,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var370);
 
-    Types::array arr375(2);
+    std::vector<Query> arr375(2);
 
-    Types::array arr376(2);
+    std::vector<Query> arr376(2);
 
     double num377(2);
     Query var377(num377);
@@ -7036,9 +7036,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var375);
 
-    Types::array arr380(2);
+    std::vector<Query> arr380(2);
 
-    Types::array arr381(2);
+    std::vector<Query> arr381(2);
 
     double num382(3);
     Query var382(num382);
@@ -7063,9 +7063,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var380);
 
-    Types::array arr385(2);
+    std::vector<Query> arr385(2);
 
-    Types::array arr386(2);
+    std::vector<Query> arr386(2);
 
     double num387(3);
     Query var387(num387);
@@ -7090,9 +7090,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var385);
 
-    Types::array arr390(2);
+    std::vector<Query> arr390(2);
 
-    Types::array arr391(2);
+    std::vector<Query> arr391(2);
 
     double num392(3);
     Query var392(num392);
@@ -7117,9 +7117,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var390);
 
-    Types::array arr395(2);
+    std::vector<Query> arr395(2);
 
-    Types::array arr396(2);
+    std::vector<Query> arr396(2);
 
     double num397(3);
     Query var397(num397);
@@ -7144,9 +7144,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var395);
 
-    Types::array arr400(2);
+    std::vector<Query> arr400(2);
 
-    Types::array arr401(2);
+    std::vector<Query> arr401(2);
 
     double num402(3);
     Query var402(num402);
@@ -7171,9 +7171,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var400);
 
-    Types::array arr405(2);
+    std::vector<Query> arr405(2);
 
-    Types::array arr406(2);
+    std::vector<Query> arr406(2);
 
     double num407(3);
     Query var407(num407);
@@ -7198,9 +7198,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var405);
 
-    Types::array arr410(2);
+    std::vector<Query> arr410(2);
 
-    Types::array arr411(2);
+    std::vector<Query> arr411(2);
 
     double num412(3);
     Query var412(num412);
@@ -7225,9 +7225,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var410);
 
-    Types::array arr415(2);
+    std::vector<Query> arr415(2);
 
-    Types::array arr416(2);
+    std::vector<Query> arr416(2);
 
     double num417(3);
     Query var417(num417);
@@ -7252,9 +7252,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var415);
 
-    Types::array arr420(2);
+    std::vector<Query> arr420(2);
 
-    Types::array arr421(2);
+    std::vector<Query> arr421(2);
 
     double num422(3);
     Query var422(num422);
@@ -7279,9 +7279,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var420);
 
-    Types::array arr425(2);
+    std::vector<Query> arr425(2);
 
-    Types::array arr426(2);
+    std::vector<Query> arr426(2);
 
     double num427(3);
     Query var427(num427);
@@ -7306,9 +7306,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var425);
 
-    Types::array arr430(2);
+    std::vector<Query> arr430(2);
 
-    Types::array arr431(2);
+    std::vector<Query> arr431(2);
 
     double num432(3);
     Query var432(num432);
@@ -7333,9 +7333,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var430);
 
-    Types::array arr435(2);
+    std::vector<Query> arr435(2);
 
-    Types::array arr436(2);
+    std::vector<Query> arr436(2);
 
     double num437(3);
     Query var437(num437);
@@ -7360,9 +7360,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var435);
 
-    Types::array arr440(2);
+    std::vector<Query> arr440(2);
 
-    Types::array arr441(2);
+    std::vector<Query> arr441(2);
 
     double num442(3);
     Query var442(num442);
@@ -7387,9 +7387,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var440);
 
-    Types::array arr445(2);
+    std::vector<Query> arr445(2);
 
-    Types::array arr446(2);
+    std::vector<Query> arr446(2);
 
     double num447(3);
     Query var447(num447);
@@ -7414,9 +7414,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var445);
 
-    Types::array arr450(2);
+    std::vector<Query> arr450(2);
 
-    Types::array arr451(2);
+    std::vector<Query> arr451(2);
 
     double num452(3);
     Query var452(num452);
@@ -7441,9 +7441,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var450);
 
-    Types::array arr455(2);
+    std::vector<Query> arr455(2);
 
-    Types::array arr456(2);
+    std::vector<Query> arr456(2);
 
     double num457(3);
     Query var457(num457);
@@ -7468,9 +7468,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var455);
 
-    Types::array arr460(2);
+    std::vector<Query> arr460(2);
 
-    Types::array arr461(2);
+    std::vector<Query> arr461(2);
 
     double num462(3);
     Query var462(num462);
@@ -7495,9 +7495,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var460);
 
-    Types::array arr465(2);
+    std::vector<Query> arr465(2);
 
-    Types::array arr466(2);
+    std::vector<Query> arr466(2);
 
     double num467(3);
     Query var467(num467);
@@ -7522,9 +7522,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var465);
 
-    Types::array arr470(2);
+    std::vector<Query> arr470(2);
 
-    Types::array arr471(2);
+    std::vector<Query> arr471(2);
 
     double num472(3);
     Query var472(num472);
@@ -7549,9 +7549,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var470);
 
-    Types::array arr475(2);
+    std::vector<Query> arr475(2);
 
-    Types::array arr476(2);
+    std::vector<Query> arr476(2);
 
     double num477(3);
     Query var477(num477);
@@ -7576,9 +7576,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var475);
 
-    Types::array arr480(2);
+    std::vector<Query> arr480(2);
 
-    Types::array arr481(2);
+    std::vector<Query> arr481(2);
 
     double num482(3);
     Query var482(num482);
@@ -7603,9 +7603,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var480);
 
-    Types::array arr485(2);
+    std::vector<Query> arr485(2);
 
-    Types::array arr486(2);
+    std::vector<Query> arr486(2);
 
     double num487(3);
     Query var487(num487);
@@ -7630,9 +7630,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var485);
 
-    Types::array arr490(2);
+    std::vector<Query> arr490(2);
 
-    Types::array arr491(2);
+    std::vector<Query> arr491(2);
 
     double num492(3);
     Query var492(num492);
@@ -7657,9 +7657,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var490);
 
-    Types::array arr495(2);
+    std::vector<Query> arr495(2);
 
-    Types::array arr496(2);
+    std::vector<Query> arr496(2);
 
     double num497(3);
     Query var497(num497);
@@ -7684,9 +7684,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var495);
 
-    Types::array arr500(2);
+    std::vector<Query> arr500(2);
 
-    Types::array arr501(2);
+    std::vector<Query> arr501(2);
 
     double num502(3);
     Query var502(num502);
@@ -7719,7 +7719,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   }
 
   SECTION("test87") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("$reql_type$", 11);
     Query var1(src1);
@@ -7732,11 +7732,11 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
     std::string src3("data", 4);
     Query var3(src3);
 
-    Types::array arr4(4);
+    std::vector<Query> arr4(4);
 
-    Types::array arr5(2);
+    std::vector<Query> arr5(2);
 
-    Types::array arr6(2);
+    std::vector<Query> arr6(2);
 
     double num7(0);
     Query var7(num7);
@@ -7761,9 +7761,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var5);
 
-    Types::array arr10(2);
+    std::vector<Query> arr10(2);
 
-    Types::array arr11(2);
+    std::vector<Query> arr11(2);
 
     double num12(1);
     Query var12(num12);
@@ -7788,9 +7788,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var10);
 
-    Types::array arr15(2);
+    std::vector<Query> arr15(2);
 
-    Types::array arr16(2);
+    std::vector<Query> arr16(2);
 
     double num17(2);
     Query var17(num17);
@@ -7815,9 +7815,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var15);
 
-    Types::array arr20(2);
+    std::vector<Query> arr20(2);
 
-    Types::array arr21(2);
+    std::vector<Query> arr21(2);
 
     double num22(3);
     Query var22(num22);
@@ -7850,7 +7850,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   }
 
   SECTION("test88") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("$reql_type$", 11);
     Query var1(src1);
@@ -7863,11 +7863,11 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
     std::string src3("data", 4);
     Query var3(src3);
 
-    Types::array arr4(16);
+    std::vector<Query> arr4(16);
 
-    Types::array arr5(2);
+    std::vector<Query> arr5(2);
 
-    Types::array arr6(4);
+    std::vector<Query> arr6(4);
 
     double num7(0);
     Query var7(num7);
@@ -7883,7 +7883,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr6.insert(arr6.end(), var9);
 
-    Types::array arr10(1);
+    std::vector<Query> arr10(1);
 
     double num11(0);
     Query var11(num11);
@@ -7907,9 +7907,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var5);
 
-    Types::array arr13(2);
+    std::vector<Query> arr13(2);
 
-    Types::array arr14(4);
+    std::vector<Query> arr14(4);
 
     double num15(0);
     Query var15(num15);
@@ -7942,9 +7942,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var13);
 
-    Types::array arr20(2);
+    std::vector<Query> arr20(2);
 
-    Types::array arr21(4);
+    std::vector<Query> arr21(4);
 
     double num22(0);
     Query var22(num22);
@@ -7978,9 +7978,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var20);
 
-    Types::array arr27(2);
+    std::vector<Query> arr27(2);
 
-    Types::array arr28(4);
+    std::vector<Query> arr28(4);
 
     double num29(0);
     Query var29(num29);
@@ -7996,7 +7996,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr28.insert(arr28.end(), var31);
 
-    Types::object map32;
+    std::map<std::string, Query> map32;
     Query var32(map32);
 
     arr28.insert(arr28.end(), var32);
@@ -8014,9 +8014,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var27);
 
-    Types::array arr34(2);
+    std::vector<Query> arr34(2);
 
-    Types::array arr35(4);
+    std::vector<Query> arr35(4);
 
     double num36(1);
     Query var36(num36);
@@ -8032,7 +8032,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr35.insert(arr35.end(), var38);
 
-    Types::array arr39(1);
+    std::vector<Query> arr39(1);
 
     double num40(0);
     Query var40(num40);
@@ -8056,9 +8056,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var34);
 
-    Types::array arr42(2);
+    std::vector<Query> arr42(2);
 
-    Types::array arr43(4);
+    std::vector<Query> arr43(4);
 
     double num44(1);
     Query var44(num44);
@@ -8091,9 +8091,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var42);
 
-    Types::array arr49(2);
+    std::vector<Query> arr49(2);
 
-    Types::array arr50(4);
+    std::vector<Query> arr50(4);
 
     double num51(1);
     Query var51(num51);
@@ -8127,9 +8127,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var49);
 
-    Types::array arr56(2);
+    std::vector<Query> arr56(2);
 
-    Types::array arr57(4);
+    std::vector<Query> arr57(4);
 
     double num58(1);
     Query var58(num58);
@@ -8145,7 +8145,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr57.insert(arr57.end(), var60);
 
-    Types::object map61;
+    std::map<std::string, Query> map61;
     Query var61(map61);
 
     arr57.insert(arr57.end(), var61);
@@ -8163,9 +8163,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var56);
 
-    Types::array arr63(2);
+    std::vector<Query> arr63(2);
 
-    Types::array arr64(4);
+    std::vector<Query> arr64(4);
 
     double num65(2);
     Query var65(num65);
@@ -8181,7 +8181,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr64.insert(arr64.end(), var67);
 
-    Types::array arr68(1);
+    std::vector<Query> arr68(1);
 
     double num69(0);
     Query var69(num69);
@@ -8205,9 +8205,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var63);
 
-    Types::array arr71(2);
+    std::vector<Query> arr71(2);
 
-    Types::array arr72(4);
+    std::vector<Query> arr72(4);
 
     double num73(2);
     Query var73(num73);
@@ -8240,9 +8240,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var71);
 
-    Types::array arr78(2);
+    std::vector<Query> arr78(2);
 
-    Types::array arr79(4);
+    std::vector<Query> arr79(4);
 
     double num80(2);
     Query var80(num80);
@@ -8276,9 +8276,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var78);
 
-    Types::array arr85(2);
+    std::vector<Query> arr85(2);
 
-    Types::array arr86(4);
+    std::vector<Query> arr86(4);
 
     double num87(2);
     Query var87(num87);
@@ -8294,7 +8294,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr86.insert(arr86.end(), var89);
 
-    Types::object map90;
+    std::map<std::string, Query> map90;
     Query var90(map90);
 
     arr86.insert(arr86.end(), var90);
@@ -8312,9 +8312,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var85);
 
-    Types::array arr92(2);
+    std::vector<Query> arr92(2);
 
-    Types::array arr93(4);
+    std::vector<Query> arr93(4);
 
     double num94(3);
     Query var94(num94);
@@ -8330,7 +8330,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr93.insert(arr93.end(), var96);
 
-    Types::array arr97(1);
+    std::vector<Query> arr97(1);
 
     double num98(0);
     Query var98(num98);
@@ -8354,9 +8354,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var92);
 
-    Types::array arr100(2);
+    std::vector<Query> arr100(2);
 
-    Types::array arr101(4);
+    std::vector<Query> arr101(4);
 
     double num102(3);
     Query var102(num102);
@@ -8389,9 +8389,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var100);
 
-    Types::array arr107(2);
+    std::vector<Query> arr107(2);
 
-    Types::array arr108(4);
+    std::vector<Query> arr108(4);
 
     double num109(3);
     Query var109(num109);
@@ -8425,9 +8425,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr4.insert(arr4.end(), var107);
 
-    Types::array arr114(2);
+    std::vector<Query> arr114(2);
 
-    Types::array arr115(4);
+    std::vector<Query> arr115(4);
 
     double num116(3);
     Query var116(num116);
@@ -8443,7 +8443,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr115.insert(arr115.end(), var118);
 
-    Types::object map119;
+    std::map<std::string, Query> map119;
     Query var119(map119);
 
     arr115.insert(arr115.end(), var119);
@@ -8469,9 +8469,9 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   }
 
   SECTION("test89") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("group", 5);
     Query var2(src2);
@@ -8493,7 +8493,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map6;
+    std::map<std::string, Query> map6;
 
     std::string src7("group", 5);
     Query var7(src7);
@@ -8515,7 +8515,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var6);
 
-    Types::object map11;
+    std::map<std::string, Query> map11;
 
     std::string src12("group", 5);
     Query var12(src12);
@@ -8537,7 +8537,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var11);
 
-    Types::object map16;
+    std::map<std::string, Query> map16;
 
     std::string src17("group", 5);
     Query var17(src17);
@@ -8563,7 +8563,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   }
 
   SECTION("test90") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
     double num1(0);
     Query var1(num1);
@@ -8589,14 +8589,14 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   }
 
   SECTION("test91") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("group", 5);
     Query var2(src2);
 
-    Types::array arr3(2);
+    std::vector<Query> arr3(2);
 
     double num4(0);
     Query var4(num4);
@@ -8624,12 +8624,12 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map8;
+    std::map<std::string, Query> map8;
 
     std::string src9("group", 5);
     Query var9(src9);
 
-    Types::array arr10(2);
+    std::vector<Query> arr10(2);
 
     double num11(1);
     Query var11(num11);
@@ -8657,12 +8657,12 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var8);
 
-    Types::object map15;
+    std::map<std::string, Query> map15;
 
     std::string src16("group", 5);
     Query var16(src16);
 
-    Types::array arr17(2);
+    std::vector<Query> arr17(2);
 
     double num18(2);
     Query var18(num18);
@@ -8690,12 +8690,12 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var15);
 
-    Types::object map22;
+    std::map<std::string, Query> map22;
 
     std::string src23("group", 5);
     Query var23(src23);
 
-    Types::array arr24(2);
+    std::vector<Query> arr24(2);
 
     double num25(3);
     Query var25(num25);
@@ -8727,14 +8727,14 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   }
 
   SECTION("test92") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("group", 5);
     Query var2(src2);
 
-    Types::array arr3(2);
+    std::vector<Query> arr3(2);
 
     double num4(0);
     Query var4(num4);
@@ -8761,12 +8761,12 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map8;
+    std::map<std::string, Query> map8;
 
     std::string src9("group", 5);
     Query var9(src9);
 
-    Types::array arr10(2);
+    std::vector<Query> arr10(2);
 
     double num11(1);
     Query var11(num11);
@@ -8793,12 +8793,12 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var8);
 
-    Types::object map15;
+    std::map<std::string, Query> map15;
 
     std::string src16("group", 5);
     Query var16(src16);
 
-    Types::array arr17(2);
+    std::vector<Query> arr17(2);
 
     double num18(2);
     Query var18(num18);
@@ -8825,12 +8825,12 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var15);
 
-    Types::object map22;
+    std::map<std::string, Query> map22;
 
     std::string src23("group", 5);
     Query var23(src23);
 
-    Types::array arr24(2);
+    std::vector<Query> arr24(2);
 
     double num25(3);
     Query var25(num25);
@@ -8861,14 +8861,14 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   }
 
   SECTION("test93") {
-    Types::array arr0(8);
+    std::vector<Query> arr0(8);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("group", 5);
     Query var2(src2);
 
-    Types::array arr3(2);
+    std::vector<Query> arr3(2);
 
     double num4(0);
     Query var4(num4);
@@ -8896,12 +8896,12 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map8;
+    std::map<std::string, Query> map8;
 
     std::string src9("group", 5);
     Query var9(src9);
 
-    Types::array arr10(2);
+    std::vector<Query> arr10(2);
 
     double num11(0);
     Query var11(num11);
@@ -8929,12 +8929,12 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var8);
 
-    Types::object map15;
+    std::map<std::string, Query> map15;
 
     std::string src16("group", 5);
     Query var16(src16);
 
-    Types::array arr17(2);
+    std::vector<Query> arr17(2);
 
     double num18(1);
     Query var18(num18);
@@ -8962,12 +8962,12 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var15);
 
-    Types::object map22;
+    std::map<std::string, Query> map22;
 
     std::string src23("group", 5);
     Query var23(src23);
 
-    Types::array arr24(2);
+    std::vector<Query> arr24(2);
 
     double num25(1);
     Query var25(num25);
@@ -8995,12 +8995,12 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var22);
 
-    Types::object map29;
+    std::map<std::string, Query> map29;
 
     std::string src30("group", 5);
     Query var30(src30);
 
-    Types::array arr31(2);
+    std::vector<Query> arr31(2);
 
     double num32(2);
     Query var32(num32);
@@ -9028,12 +9028,12 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var29);
 
-    Types::object map36;
+    std::map<std::string, Query> map36;
 
     std::string src37("group", 5);
     Query var37(src37);
 
-    Types::array arr38(2);
+    std::vector<Query> arr38(2);
 
     double num39(2);
     Query var39(num39);
@@ -9061,12 +9061,12 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var36);
 
-    Types::object map43;
+    std::map<std::string, Query> map43;
 
     std::string src44("group", 5);
     Query var44(src44);
 
-    Types::array arr45(2);
+    std::vector<Query> arr45(2);
 
     double num46(3);
     Query var46(num46);
@@ -9094,12 +9094,12 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var43);
 
-    Types::object map50;
+    std::map<std::string, Query> map50;
 
     std::string src51("group", 5);
     Query var51(src51);
 
-    Types::array arr52(2);
+    std::vector<Query> arr52(2);
 
     double num53(3);
     Query var53(num53);
@@ -9136,7 +9136,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   }
 
   SECTION("test102") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("a", 1);
     Query var1(src1);
@@ -9158,7 +9158,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   }
 
   SECTION("test103") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("a", 1);
     Query var1(src1);
@@ -9180,7 +9180,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   }
 
   SECTION("test104") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("a", 1);
     Query var1(src1);
@@ -9202,7 +9202,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   }
 
   SECTION("test105") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("a", 1);
     Query var1(src1);
@@ -9224,7 +9224,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   }
 
   SECTION("test106") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("a", 1);
     Query var1(src1);
@@ -9246,7 +9246,7 @@ TEST_CASE("cpp Tests that manipulation data in tables", "[cpp][ast]") {
   }
 
   SECTION("test107") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("a", 1);
     Query var1(src1);

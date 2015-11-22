@@ -8,7 +8,7 @@ using namespace ReQL;
 TEST_CASE("cpp Tests syncing tables", "[cpp][ast]") {
 
   SECTION("test0") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -22,7 +22,7 @@ TEST_CASE("cpp Tests syncing tables", "[cpp][ast]") {
   }
 
   SECTION("test1") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -36,7 +36,7 @@ TEST_CASE("cpp Tests syncing tables", "[cpp][ast]") {
   }
 
   SECTION("test2") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("deleted", 7);
     Query var1(src1);
@@ -90,7 +90,7 @@ TEST_CASE("cpp Tests syncing tables", "[cpp][ast]") {
   }
 
   SECTION("test5") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -104,9 +104,9 @@ TEST_CASE("cpp Tests syncing tables", "[cpp][ast]") {
   }
 
   SECTION("test6") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("index", 5);
     Query var2(src2);
@@ -131,7 +131,7 @@ TEST_CASE("cpp Tests syncing tables", "[cpp][ast]") {
   }
 
   SECTION("test7") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("synced", 6);
     Query var1(src1);
@@ -145,7 +145,7 @@ TEST_CASE("cpp Tests syncing tables", "[cpp][ast]") {
   }
 
   SECTION("test8") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("synced", 6);
     Query var1(src1);
@@ -159,7 +159,7 @@ TEST_CASE("cpp Tests syncing tables", "[cpp][ast]") {
   }
 
   SECTION("test9") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("synced", 6);
     Query var1(src1);
@@ -173,7 +173,7 @@ TEST_CASE("cpp Tests syncing tables", "[cpp][ast]") {
   }
 
   SECTION("test10") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("synced", 6);
     Query var1(src1);
@@ -187,7 +187,7 @@ TEST_CASE("cpp Tests syncing tables", "[cpp][ast]") {
   }
 
   SECTION("test11") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -201,7 +201,7 @@ TEST_CASE("cpp Tests syncing tables", "[cpp][ast]") {
   }
 
   SECTION("test12") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -215,7 +215,7 @@ TEST_CASE("cpp Tests syncing tables", "[cpp][ast]") {
   }
 
   SECTION("test14") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -229,7 +229,7 @@ TEST_CASE("cpp Tests syncing tables", "[cpp][ast]") {
   }
 
   SECTION("test15") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);

@@ -8,9 +8,9 @@ using namespace ReQL;
 TEST_CASE("cpp Test basic timezone manipulation", "[cpp][ast]") {
 
   SECTION("test14") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
-    Types::array arr1(2);
+    std::vector<Query> arr1(2);
 
     std::string src2("+00:00", 6);
     Query var2(src2);
@@ -26,7 +26,7 @@ TEST_CASE("cpp Test basic timezone manipulation", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::array arr4(2);
+    std::vector<Query> arr4(2);
 
     std::string src5("+00:00", 6);
     Query var5(src5);
@@ -42,7 +42,7 @@ TEST_CASE("cpp Test basic timezone manipulation", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var4);
 
-    Types::array arr7(2);
+    std::vector<Query> arr7(2);
 
     std::string src8("+00:00", 6);
     Query var8(src8);
@@ -62,9 +62,9 @@ TEST_CASE("cpp Test basic timezone manipulation", "[cpp][ast]") {
   }
 
   SECTION("test15") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
-    Types::array arr1(2);
+    std::vector<Query> arr1(2);
 
     std::string src2("-00:59", 6);
     Query var2(src2);
@@ -80,7 +80,7 @@ TEST_CASE("cpp Test basic timezone manipulation", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::array arr4(2);
+    std::vector<Query> arr4(2);
 
     std::string src5("-01:00", 6);
     Query var5(src5);
@@ -96,7 +96,7 @@ TEST_CASE("cpp Test basic timezone manipulation", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var4);
 
-    Types::array arr7(2);
+    std::vector<Query> arr7(2);
 
     std::string src8("-01:01", 6);
     Query var8(src8);
@@ -116,9 +116,9 @@ TEST_CASE("cpp Test basic timezone manipulation", "[cpp][ast]") {
   }
 
   SECTION("test16") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
-    Types::array arr1(2);
+    std::vector<Query> arr1(2);
 
     std::string src2("+00:59", 6);
     Query var2(src2);
@@ -134,7 +134,7 @@ TEST_CASE("cpp Test basic timezone manipulation", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::array arr4(2);
+    std::vector<Query> arr4(2);
 
     std::string src5("+01:00", 6);
     Query var5(src5);
@@ -150,7 +150,7 @@ TEST_CASE("cpp Test basic timezone manipulation", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var4);
 
-    Types::array arr7(2);
+    std::vector<Query> arr7(2);
 
     std::string src8("+01:01", 6);
     Query var8(src8);
@@ -170,7 +170,7 @@ TEST_CASE("cpp Test basic timezone manipulation", "[cpp][ast]") {
   }
 
   SECTION("test17") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
     double num1(0);
     Query var1(num1);
@@ -181,7 +181,7 @@ TEST_CASE("cpp Test basic timezone manipulation", "[cpp][ast]") {
   }
 
   SECTION("test18") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -195,7 +195,7 @@ TEST_CASE("cpp Test basic timezone manipulation", "[cpp][ast]") {
   }
 
   SECTION("test19") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -209,7 +209,7 @@ TEST_CASE("cpp Test basic timezone manipulation", "[cpp][ast]") {
   }
 
   SECTION("test20") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -223,7 +223,7 @@ TEST_CASE("cpp Test basic timezone manipulation", "[cpp][ast]") {
   }
 
   SECTION("test21") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -237,7 +237,7 @@ TEST_CASE("cpp Test basic timezone manipulation", "[cpp][ast]") {
   }
 
   SECTION("test22") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -251,7 +251,7 @@ TEST_CASE("cpp Test basic timezone manipulation", "[cpp][ast]") {
   }
 
   SECTION("test23") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -265,7 +265,7 @@ TEST_CASE("cpp Test basic timezone manipulation", "[cpp][ast]") {
   }
 
   SECTION("test24") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -279,7 +279,7 @@ TEST_CASE("cpp Test basic timezone manipulation", "[cpp][ast]") {
   }
 
   SECTION("test25") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -293,7 +293,7 @@ TEST_CASE("cpp Test basic timezone manipulation", "[cpp][ast]") {
   }
 
   SECTION("test26") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -307,7 +307,7 @@ TEST_CASE("cpp Test basic timezone manipulation", "[cpp][ast]") {
   }
 
   SECTION("test27") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -321,7 +321,7 @@ TEST_CASE("cpp Test basic timezone manipulation", "[cpp][ast]") {
   }
 
   SECTION("test28") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -335,7 +335,7 @@ TEST_CASE("cpp Test basic timezone manipulation", "[cpp][ast]") {
   }
 
   SECTION("test29") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);

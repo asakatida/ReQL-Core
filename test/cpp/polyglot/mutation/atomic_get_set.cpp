@@ -8,7 +8,7 @@ using namespace ReQL;
 TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
 
   SECTION("test0") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -22,19 +22,19 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
   }
 
   SECTION("test1") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("changes", 7);
     Query var1(src1);
 
-    Types::array arr2(1);
+    std::vector<Query> arr2(1);
 
-    Types::object map3;
+    std::map<std::string, Query> map3;
 
     std::string src4("new_val", 7);
     Query var4(src4);
 
-    Types::object map5;
+    std::map<std::string, Query> map5;
 
     std::string src6("id", 2);
     Query var6(src6);
@@ -67,12 +67,12 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
   }
 
   SECTION("test2") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("changes", 7);
     Query var1(src1);
 
-    Types::array arr2;
+    std::vector<Query> arr2;
     Query var2(arr2);
 
     map0.insert({src1, var2});
@@ -89,19 +89,19 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
   }
 
   SECTION("test3") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("changes", 7);
     Query var1(src1);
 
-    Types::array arr2(1);
+    std::vector<Query> arr2(1);
 
-    Types::object map3;
+    std::map<std::string, Query> map3;
 
     std::string src4("new_val", 7);
     Query var4(src4);
 
-    Types::object map5;
+    std::map<std::string, Query> map5;
 
     std::string src6("id", 2);
     Query var6(src6);
@@ -118,7 +118,7 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
     std::string src8("old_val", 7);
     Query var8(src8);
 
-    Types::object map9;
+    std::map<std::string, Query> map9;
 
     std::string src10("id", 2);
     Query var10(src10);
@@ -152,19 +152,19 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
   }
 
   SECTION("test4") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("changes", 7);
     Query var1(src1);
 
-    Types::array arr2(1);
+    std::vector<Query> arr2(1);
 
-    Types::object map3;
+    std::map<std::string, Query> map3;
 
     std::string src4("new_val", 7);
     Query var4(src4);
 
-    Types::object map5;
+    std::map<std::string, Query> map5;
 
     std::string src6("id", 2);
     Query var6(src6);
@@ -245,12 +245,12 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
   }
 
   SECTION("test5") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("changes", 7);
     Query var1(src1);
 
-    Types::array arr2;
+    std::vector<Query> arr2;
     Query var2(arr2);
 
     map0.insert({src1, var2});
@@ -267,19 +267,19 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
   }
 
   SECTION("test6") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("changes", 7);
     Query var1(src1);
 
-    Types::array arr2(1);
+    std::vector<Query> arr2(1);
 
-    Types::object map3;
+    std::map<std::string, Query> map3;
 
     std::string src4("new_val", 7);
     Query var4(src4);
 
-    Types::object map5;
+    std::map<std::string, Query> map5;
 
     std::string src6("id", 2);
     Query var6(src6);
@@ -304,7 +304,7 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
     std::string src10("old_val", 7);
     Query var10(src10);
 
-    Types::object map11;
+    std::map<std::string, Query> map11;
 
     std::string src12("id", 2);
     Query var12(src12);
@@ -330,12 +330,12 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
   }
 
   SECTION("test7") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("changes", 7);
     Query var1(src1);
 
-    Types::array arr2;
+    std::vector<Query> arr2;
     Query var2(arr2);
 
     map0.insert({src1, var2});
@@ -352,19 +352,19 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
   }
 
   SECTION("test8") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("changes", 7);
     Query var1(src1);
 
-    Types::array arr2(2);
+    std::vector<Query> arr2(2);
 
-    Types::object map3;
+    std::map<std::string, Query> map3;
 
     std::string src4("new_val", 7);
     Query var4(src4);
 
-    Types::object map5;
+    std::map<std::string, Query> map5;
 
     std::string src6("id", 2);
     Query var6(src6);
@@ -389,7 +389,7 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
     std::string src10("old_val", 7);
     Query var10(src10);
 
-    Types::object map11;
+    std::map<std::string, Query> map11;
 
     std::string src12("id", 2);
     Query var12(src12);
@@ -415,12 +415,12 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
 
     arr2.insert(arr2.end(), var3);
 
-    Types::object map16;
+    std::map<std::string, Query> map16;
 
     std::string src17("new_val", 7);
     Query var17(src17);
 
-    Types::object map18;
+    std::map<std::string, Query> map18;
 
     std::string src19("id", 2);
     Query var19(src19);
@@ -445,7 +445,7 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
     std::string src23("old_val", 7);
     Query var23(src23);
 
-    Types::object map24;
+    std::map<std::string, Query> map24;
 
     std::string src25("id", 2);
     Query var25(src25);
@@ -471,19 +471,19 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
   }
 
   SECTION("test9") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("changes", 7);
     Query var1(src1);
 
-    Types::array arr2(1);
+    std::vector<Query> arr2(1);
 
-    Types::object map3;
+    std::map<std::string, Query> map3;
 
     std::string src4("new_val", 7);
     Query var4(src4);
 
-    Types::object map5;
+    std::map<std::string, Query> map5;
 
     std::string src6("id", 2);
     Query var6(src6);
@@ -508,7 +508,7 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
     std::string src10("old_val", 7);
     Query var10(src10);
 
-    Types::object map11;
+    std::map<std::string, Query> map11;
 
     std::string src12("id", 2);
     Query var12(src12);
@@ -542,12 +542,12 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
   }
 
   SECTION("test10") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("changes", 7);
     Query var1(src1);
 
-    Types::array arr2;
+    std::vector<Query> arr2;
     Query var2(arr2);
 
     map0.insert({src1, var2});
@@ -564,19 +564,19 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
   }
 
   SECTION("test11") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("changes", 7);
     Query var1(src1);
 
-    Types::array arr2(1);
+    std::vector<Query> arr2(1);
 
-    Types::object map3;
+    std::map<std::string, Query> map3;
 
     std::string src4("new_val", 7);
     Query var4(src4);
 
-    Types::object map5;
+    std::map<std::string, Query> map5;
 
     std::string src6("id", 2);
     Query var6(src6);
@@ -601,7 +601,7 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
     std::string src10("old_val", 7);
     Query var10(src10);
 
-    Types::object map11;
+    std::map<std::string, Query> map11;
 
     std::string src12("id", 2);
     Query var12(src12);
@@ -643,19 +643,19 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
   }
 
   SECTION("test12") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("changes", 7);
     Query var1(src1);
 
-    Types::array arr2(2);
+    std::vector<Query> arr2(2);
 
-    Types::object map3;
+    std::map<std::string, Query> map3;
 
     std::string src4("new_val", 7);
     Query var4(src4);
 
-    Types::object map5;
+    std::map<std::string, Query> map5;
 
     std::string src6("id", 2);
     Query var6(src6);
@@ -672,7 +672,7 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
     std::string src8("old_val", 7);
     Query var8(src8);
 
-    Types::object map9;
+    std::map<std::string, Query> map9;
 
     std::string src10("id", 2);
     Query var10(src10);
@@ -698,12 +698,12 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
 
     arr2.insert(arr2.end(), var3);
 
-    Types::object map14;
+    std::map<std::string, Query> map14;
 
     std::string src15("new_val", 7);
     Query var15(src15);
 
-    Types::object map16;
+    std::map<std::string, Query> map16;
 
     std::string src17("id", 2);
     Query var17(src17);
@@ -720,7 +720,7 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
     std::string src19("old_val", 7);
     Query var19(src19);
 
-    Types::object map20;
+    std::map<std::string, Query> map20;
 
     std::string src21("id", 2);
     Query var21(src21);
@@ -754,19 +754,19 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
   }
 
   SECTION("test13") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("changes", 7);
     Query var1(src1);
 
-    Types::array arr2(2);
+    std::vector<Query> arr2(2);
 
-    Types::object map3;
+    std::map<std::string, Query> map3;
 
     std::string src4("new_val", 7);
     Query var4(src4);
 
-    Types::object map5;
+    std::map<std::string, Query> map5;
 
     std::string src6("id", 2);
     Query var6(src6);
@@ -783,7 +783,7 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
     std::string src8("old_val", 7);
     Query var8(src8);
 
-    Types::object map9;
+    std::map<std::string, Query> map9;
 
     std::string src10("id", 2);
     Query var10(src10);
@@ -801,12 +801,12 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
 
     arr2.insert(arr2.end(), var3);
 
-    Types::object map12;
+    std::map<std::string, Query> map12;
 
     std::string src13("new_val", 7);
     Query var13(src13);
 
-    Types::object map14;
+    std::map<std::string, Query> map14;
 
     std::string src15("id", 2);
     Query var15(src15);
@@ -823,7 +823,7 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
     std::string src17("old_val", 7);
     Query var17(src17);
 
-    Types::object map18;
+    std::map<std::string, Query> map18;
 
     std::string src19("id", 2);
     Query var19(src19);
@@ -857,14 +857,14 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
   }
 
   SECTION("test22") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("changes", 7);
     Query var1(src1);
 
-    Types::array arr2(1);
+    std::vector<Query> arr2(1);
 
-    Types::object map3;
+    std::map<std::string, Query> map3;
 
     std::string src4("new_val", 7);
     Query var4(src4);
@@ -876,7 +876,7 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
     std::string src6("old_val", 7);
     Query var6(src6);
 
-    Types::object map7;
+    std::map<std::string, Query> map7;
 
     std::string src8("id", 2);
     Query var8(src8);
@@ -902,14 +902,14 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
   }
 
   SECTION("test23") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("changes", 7);
     Query var1(src1);
 
-    Types::array arr2(1);
+    std::vector<Query> arr2(1);
 
-    Types::object map3;
+    std::map<std::string, Query> map3;
 
     std::string src4("new_val", 7);
     Query var4(src4);
@@ -921,7 +921,7 @@ TEST_CASE("cpp Tests replacement of selections", "[cpp][ast]") {
     std::string src6("old_val", 7);
     Query var6(src6);
 
-    Types::object map7;
+    std::map<std::string, Query> map7;
 
     std::string src8("id", 2);
     Query var8(src8);

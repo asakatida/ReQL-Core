@@ -8,7 +8,7 @@ using namespace ReQL;
 TEST_CASE("cpp Regression test for issue 2696, delete_at with end bounds.", "[cpp][ast]") {
 
   SECTION("test0") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
     double num1(1);
     Query var1(num1);
@@ -34,7 +34,7 @@ TEST_CASE("cpp Regression test for issue 2696, delete_at with end bounds.", "[cp
   }
 
   SECTION("test1") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 }

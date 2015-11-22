@@ -13,7 +13,7 @@ TEST_CASE("cpp Tests RQL range generation", "[cpp][ast]") {
   }
 
   SECTION("test1") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
     double num1(0);
     Query var1(num1);
@@ -39,7 +39,7 @@ TEST_CASE("cpp Tests RQL range generation", "[cpp][ast]") {
   }
 
   SECTION("test2") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
     double num1(0);
     Query var1(num1);
@@ -65,7 +65,7 @@ TEST_CASE("cpp Tests RQL range generation", "[cpp][ast]") {
   }
 
   SECTION("test3") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     double num1(2);
     Query var1(num1);
@@ -86,17 +86,17 @@ TEST_CASE("cpp Tests RQL range generation", "[cpp][ast]") {
   }
 
   SECTION("test4") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test5") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test6") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     double num1(-5);
     Query var1(num1);
@@ -117,7 +117,7 @@ TEST_CASE("cpp Tests RQL range generation", "[cpp][ast]") {
   }
 
   SECTION("test7") {
-    Types::array arr0(7);
+    std::vector<Query> arr0(7);
 
     double num1(-5);
     Query var1(num1);
@@ -158,7 +158,7 @@ TEST_CASE("cpp Tests RQL range generation", "[cpp][ast]") {
   }
 
   SECTION("test8") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -172,7 +172,7 @@ TEST_CASE("cpp Tests RQL range generation", "[cpp][ast]") {
   }
 
   SECTION("test9") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -186,7 +186,7 @@ TEST_CASE("cpp Tests RQL range generation", "[cpp][ast]") {
   }
 
   SECTION("test10") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -200,7 +200,7 @@ TEST_CASE("cpp Tests RQL range generation", "[cpp][ast]") {
   }
 
   SECTION("test11") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -214,7 +214,7 @@ TEST_CASE("cpp Tests RQL range generation", "[cpp][ast]") {
   }
 
   SECTION("test12") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -228,7 +228,7 @@ TEST_CASE("cpp Tests RQL range generation", "[cpp][ast]") {
   }
 
   SECTION("test13") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -242,7 +242,7 @@ TEST_CASE("cpp Tests RQL range generation", "[cpp][ast]") {
   }
 
   SECTION("test14") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);

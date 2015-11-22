@@ -8,7 +8,7 @@ using namespace ReQL;
 TEST_CASE("cpp Test that negative zero and positive zero refer to the same row", "[cpp][ast]") {
 
   SECTION("test0") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -22,7 +22,7 @@ TEST_CASE("cpp Test that negative zero and positive zero refer to the same row",
   }
 
   SECTION("test1") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("id", 2);
     Query var1(src1);
@@ -44,7 +44,7 @@ TEST_CASE("cpp Test that negative zero and positive zero refer to the same row",
   }
 
   SECTION("test2") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("id", 2);
     Query var1(src1);
@@ -66,12 +66,12 @@ TEST_CASE("cpp Test that negative zero and positive zero refer to the same row",
   }
 
   SECTION("test3") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("id", 2);
     Query var1(src1);
 
-    Types::array arr2(2);
+    std::vector<Query> arr2(2);
 
     double num3(1);
     Query var3(num3);
@@ -99,12 +99,12 @@ TEST_CASE("cpp Test that negative zero and positive zero refer to the same row",
   }
 
   SECTION("test4") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("id", 2);
     Query var1(src1);
 
-    Types::array arr2(2);
+    std::vector<Query> arr2(2);
 
     double num3(1);
     Query var3(num3);
@@ -152,7 +152,7 @@ TEST_CASE("cpp Test that negative zero and positive zero refer to the same row",
   }
 
   SECTION("test9") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -166,7 +166,7 @@ TEST_CASE("cpp Test that negative zero and positive zero refer to the same row",
   }
 
   SECTION("test10") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);

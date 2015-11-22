@@ -8,7 +8,7 @@ using namespace ReQL;
 TEST_CASE("cpp Tests array limit variations", "[cpp][ast]") {
 
   SECTION("test0") {
-    Types::array arr0(8);
+    std::vector<Query> arr0(8);
 
     double num1(1);
     Query var1(num1);
@@ -54,7 +54,7 @@ TEST_CASE("cpp Tests array limit variations", "[cpp][ast]") {
   }
 
   SECTION("test1") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -68,7 +68,7 @@ TEST_CASE("cpp Tests array limit variations", "[cpp][ast]") {
   }
 
   SECTION("test2") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -82,7 +82,7 @@ TEST_CASE("cpp Tests array limit variations", "[cpp][ast]") {
   }
 
   SECTION("test3") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -96,7 +96,7 @@ TEST_CASE("cpp Tests array limit variations", "[cpp][ast]") {
   }
 
   SECTION("test4") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -115,7 +115,7 @@ TEST_CASE("cpp Tests array limit variations", "[cpp][ast]") {
   }
 
   SECTION("test9") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -133,7 +133,7 @@ TEST_CASE("cpp Tests array limit variations", "[cpp][ast]") {
   }
 
   SECTION("test11") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("deleted", 7);
     Query var1(src1);
@@ -187,12 +187,12 @@ TEST_CASE("cpp Tests array limit variations", "[cpp][ast]") {
   }
 
   SECTION("test12") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("array", 5);
     Query var1(src1);
 
-    Types::array arr2(10);
+    std::vector<Query> arr2(10);
 
     double num3(1);
     Query var3(num3);
@@ -265,7 +265,7 @@ TEST_CASE("cpp Tests array limit variations", "[cpp][ast]") {
   }
 
   SECTION("test14") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -284,7 +284,7 @@ TEST_CASE("cpp Tests array limit variations", "[cpp][ast]") {
   }
 
   SECTION("test16") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -303,7 +303,7 @@ TEST_CASE("cpp Tests array limit variations", "[cpp][ast]") {
   }
 
   SECTION("test18") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -322,7 +322,7 @@ TEST_CASE("cpp Tests array limit variations", "[cpp][ast]") {
   }
 
   SECTION("test20") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -341,7 +341,7 @@ TEST_CASE("cpp Tests array limit variations", "[cpp][ast]") {
   }
 
   SECTION("test22") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -360,7 +360,7 @@ TEST_CASE("cpp Tests array limit variations", "[cpp][ast]") {
   }
 
   SECTION("test24") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);

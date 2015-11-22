@@ -8,7 +8,7 @@ using namespace ReQL;
 TEST_CASE("cpp Tests RQL json parsing", "[cpp][ast]") {
 
   SECTION("test0") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     double num1(1);
     Query var1(num1);
@@ -34,7 +34,7 @@ TEST_CASE("cpp Tests RQL json parsing", "[cpp][ast]") {
   }
 
   SECTION("test2") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
     Query var0(map0);
   }
 
@@ -44,7 +44,7 @@ TEST_CASE("cpp Tests RQL json parsing", "[cpp][ast]") {
   }
 
   SECTION("test4") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -78,7 +78,7 @@ TEST_CASE("cpp Tests RQL json parsing", "[cpp][ast]") {
   }
 
   SECTION("test11") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -94,7 +94,7 @@ TEST_CASE("cpp Tests RQL json parsing", "[cpp][ast]") {
   }
 
   SECTION("test12") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -108,7 +108,7 @@ TEST_CASE("cpp Tests RQL json parsing", "[cpp][ast]") {
   }
 
   SECTION("test13") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -122,7 +122,7 @@ TEST_CASE("cpp Tests RQL json parsing", "[cpp][ast]") {
   }
 
   SECTION("test14") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -136,7 +136,7 @@ TEST_CASE("cpp Tests RQL json parsing", "[cpp][ast]") {
   }
 
   SECTION("test15") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -150,7 +150,7 @@ TEST_CASE("cpp Tests RQL json parsing", "[cpp][ast]") {
   }
 
   SECTION("test16") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("$reql_type$", 11);
     Query var1(src1);
@@ -185,7 +185,7 @@ TEST_CASE("cpp Tests RQL json parsing", "[cpp][ast]") {
   }
 
   SECTION("test18") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("$reql_type$", 11);
     Query var1(src1);
@@ -198,7 +198,7 @@ TEST_CASE("cpp Tests RQL json parsing", "[cpp][ast]") {
     std::string src3("coordinates", 11);
     Query var3(src3);
 
-    Types::array arr4(2);
+    std::vector<Query> arr4(2);
 
     double num5(0);
     Query var5(num5);
@@ -231,7 +231,7 @@ TEST_CASE("cpp Tests RQL json parsing", "[cpp][ast]") {
   }
 
   SECTION("test21") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);

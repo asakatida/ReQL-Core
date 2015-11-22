@@ -8,7 +8,7 @@ using namespace ReQL;
 TEST_CASE("cpp 1001 (null + between + sindexes)", "[cpp][ast]") {
 
   SECTION("test0") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -22,7 +22,7 @@ TEST_CASE("cpp 1001 (null + between + sindexes)", "[cpp][ast]") {
   }
 
   SECTION("test1") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -36,7 +36,7 @@ TEST_CASE("cpp 1001 (null + between + sindexes)", "[cpp][ast]") {
   }
 
   SECTION("test2") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -50,7 +50,7 @@ TEST_CASE("cpp 1001 (null + between + sindexes)", "[cpp][ast]") {
   }
 
   SECTION("test3") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);

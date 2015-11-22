@@ -8,7 +8,7 @@ using namespace ReQL;
 TEST_CASE("cpp 2767 -- Evaulate secondary index function with pristine env.", "[cpp][ast]") {
 
   SECTION("test0") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("created", 7);
     Query var1(src1);
@@ -22,7 +22,7 @@ TEST_CASE("cpp 2767 -- Evaulate secondary index function with pristine env.", "[
   }
 
   SECTION("test1") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -36,7 +36,7 @@ TEST_CASE("cpp 2767 -- Evaulate secondary index function with pristine env.", "[
   }
 
   SECTION("test2") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("deleted", 7);
     Query var1(src1);
@@ -90,14 +90,14 @@ TEST_CASE("cpp 2767 -- Evaulate secondary index function with pristine env.", "[
   }
 
   SECTION("test3") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("a", 1);
     Query var2(src2);
 
-    Types::array arr3(5);
+    std::vector<Query> arr3(5);
 
     double num4(1);
     Query var4(num4);
@@ -144,14 +144,14 @@ TEST_CASE("cpp 2767 -- Evaulate secondary index function with pristine env.", "[
   }
 
   SECTION("test4") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("a", 1);
     Query var2(src2);
 
-    Types::array arr3(5);
+    std::vector<Query> arr3(5);
 
     double num4(1);
     Query var4(num4);
@@ -198,14 +198,14 @@ TEST_CASE("cpp 2767 -- Evaulate secondary index function with pristine env.", "[
   }
 
   SECTION("test5") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("a", 1);
     Query var2(src2);
 
-    Types::array arr3(5);
+    std::vector<Query> arr3(5);
 
     double num4(1);
     Query var4(num4);

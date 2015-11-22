@@ -8,7 +8,7 @@ using namespace ReQL;
 TEST_CASE("cpp 4582 -- non-deterministic arguments to `replace` and `update`.", "[cpp][ast]") {
 
   SECTION("test0") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -22,7 +22,7 @@ TEST_CASE("cpp 4582 -- non-deterministic arguments to `replace` and `update`.", 
   }
 
   SECTION("test1") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -36,7 +36,7 @@ TEST_CASE("cpp 4582 -- non-deterministic arguments to `replace` and `update`.", 
   }
 
   SECTION("test2") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);

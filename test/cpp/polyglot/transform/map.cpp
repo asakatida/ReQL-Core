@@ -23,7 +23,7 @@ TEST_CASE("cpp Tests the RQL `map` function", "[cpp][ast]") {
   }
 
   SECTION("test3") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     double num1(0);
     Query var1(num1);
@@ -44,7 +44,7 @@ TEST_CASE("cpp Tests the RQL `map` function", "[cpp][ast]") {
   }
 
   SECTION("test4") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     double num1(0);
     Query var1(num1);
@@ -65,9 +65,9 @@ TEST_CASE("cpp Tests the RQL `map` function", "[cpp][ast]") {
   }
 
   SECTION("test5") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::array arr1(1);
+    std::vector<Query> arr1(1);
 
     double num2(1);
     Query var2(num2);
@@ -82,9 +82,9 @@ TEST_CASE("cpp Tests the RQL `map` function", "[cpp][ast]") {
   }
 
   SECTION("test6") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::array arr1(2);
+    std::vector<Query> arr1(2);
 
     double num2(1);
     Query var2(num2);
@@ -104,9 +104,9 @@ TEST_CASE("cpp Tests the RQL `map` function", "[cpp][ast]") {
   }
 
   SECTION("test7") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::array arr1(3);
+    std::vector<Query> arr1(3);
 
     double num2(1);
     Query var2(num2);
@@ -131,7 +131,7 @@ TEST_CASE("cpp Tests the RQL `map` function", "[cpp][ast]") {
   }
 
   SECTION("test8") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -145,7 +145,7 @@ TEST_CASE("cpp Tests the RQL `map` function", "[cpp][ast]") {
   }
 
   SECTION("test9") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -159,14 +159,14 @@ TEST_CASE("cpp Tests the RQL `map` function", "[cpp][ast]") {
   }
 
   SECTION("test10") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test11") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
-    Types::array arr1(2);
+    std::vector<Query> arr1(2);
 
     double num2(1);
     Query var2(num2);
@@ -182,7 +182,7 @@ TEST_CASE("cpp Tests the RQL `map` function", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::array arr4(2);
+    std::vector<Query> arr4(2);
 
     double num5(2);
     Query var5(num5);
@@ -202,9 +202,9 @@ TEST_CASE("cpp Tests the RQL `map` function", "[cpp][ast]") {
   }
 
   SECTION("test12") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
-    Types::array arr1(2);
+    std::vector<Query> arr1(2);
 
     double num2(0);
     Query var2(num2);
@@ -220,7 +220,7 @@ TEST_CASE("cpp Tests the RQL `map` function", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::array arr4(2);
+    std::vector<Query> arr4(2);
 
     double num5(1);
     Query var5(num5);
@@ -240,9 +240,9 @@ TEST_CASE("cpp Tests the RQL `map` function", "[cpp][ast]") {
   }
 
   SECTION("test13") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
-    Types::array arr1(2);
+    std::vector<Query> arr1(2);
 
     double num2(0);
     Query var2(num2);
@@ -258,7 +258,7 @@ TEST_CASE("cpp Tests the RQL `map` function", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::array arr4(2);
+    std::vector<Query> arr4(2);
 
     double num5(1);
     Query var5(num5);
@@ -274,7 +274,7 @@ TEST_CASE("cpp Tests the RQL `map` function", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var4);
 
-    Types::array arr7(2);
+    std::vector<Query> arr7(2);
 
     double num8(2);
     Query var8(num8);
@@ -290,7 +290,7 @@ TEST_CASE("cpp Tests the RQL `map` function", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var7);
 
-    Types::array arr10(2);
+    std::vector<Query> arr10(2);
 
     double num11(3);
     Query var11(num11);
@@ -310,9 +310,9 @@ TEST_CASE("cpp Tests the RQL `map` function", "[cpp][ast]") {
   }
 
   SECTION("test14") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
-    Types::array arr1(2);
+    std::vector<Query> arr1(2);
 
     double num2(0);
     Query var2(num2);
@@ -328,7 +328,7 @@ TEST_CASE("cpp Tests the RQL `map` function", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::array arr4(2);
+    std::vector<Query> arr4(2);
 
     double num5(1);
     Query var5(num5);
@@ -344,7 +344,7 @@ TEST_CASE("cpp Tests the RQL `map` function", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var4);
 
-    Types::array arr7(2);
+    std::vector<Query> arr7(2);
 
     double num8(2);
     Query var8(num8);
@@ -364,7 +364,7 @@ TEST_CASE("cpp Tests the RQL `map` function", "[cpp][ast]") {
   }
 
   SECTION("test15") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -378,7 +378,7 @@ TEST_CASE("cpp Tests the RQL `map` function", "[cpp][ast]") {
   }
 
   SECTION("test16") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -392,9 +392,9 @@ TEST_CASE("cpp Tests the RQL `map` function", "[cpp][ast]") {
   }
 
   SECTION("test17") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
-    Types::array arr1(1);
+    std::vector<Query> arr1(1);
 
     double num2(0);
     Query var2(num2);
@@ -405,7 +405,7 @@ TEST_CASE("cpp Tests the RQL `map` function", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::array arr3(1);
+    std::vector<Query> arr3(1);
 
     double num4(1);
     Query var4(num4);
@@ -416,7 +416,7 @@ TEST_CASE("cpp Tests the RQL `map` function", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var3);
 
-    Types::array arr5(1);
+    std::vector<Query> arr5(1);
 
     double num6(2);
     Query var6(num6);
@@ -431,7 +431,7 @@ TEST_CASE("cpp Tests the RQL `map` function", "[cpp][ast]") {
   }
 
   SECTION("test18") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     double num1(1);
     Query var1(num1);
@@ -452,9 +452,9 @@ TEST_CASE("cpp Tests the RQL `map` function", "[cpp][ast]") {
   }
 
   SECTION("test19") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
-    Types::array arr1(2);
+    std::vector<Query> arr1(2);
 
     double num2(0);
     Query var2(num2);
@@ -470,7 +470,7 @@ TEST_CASE("cpp Tests the RQL `map` function", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::array arr4(2);
+    std::vector<Query> arr4(2);
 
     double num5(1);
     Query var5(num5);
@@ -486,7 +486,7 @@ TEST_CASE("cpp Tests the RQL `map` function", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var4);
 
-    Types::array arr7(2);
+    std::vector<Query> arr7(2);
 
     double num8(2);
     Query var8(num8);

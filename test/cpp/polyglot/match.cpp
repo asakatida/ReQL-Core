@@ -8,7 +8,7 @@ using namespace ReQL;
 TEST_CASE("cpp Tests for match", "[cpp][ast]") {
 
   SECTION("test0") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("end", 3);
     Query var1(src1);
@@ -21,13 +21,13 @@ TEST_CASE("cpp Tests for match", "[cpp][ast]") {
     std::string src3("groups", 6);
     Query var3(src3);
 
-    Types::array arr4(2);
+    std::vector<Query> arr4(2);
 
     Query var5;
 
     arr4.insert(arr4.end(), var5);
 
-    Types::object map6;
+    std::map<std::string, Query> map6;
 
     std::string src7("end", 3);
     Query var7(src7);
@@ -85,7 +85,7 @@ TEST_CASE("cpp Tests for match", "[cpp][ast]") {
   }
 
   SECTION("test2") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("end", 3);
     Query var1(src1);
@@ -98,13 +98,13 @@ TEST_CASE("cpp Tests for match", "[cpp][ast]") {
     std::string src3("groups", 6);
     Query var3(src3);
 
-    Types::array arr4(2);
+    std::vector<Query> arr4(2);
 
     Query var5;
 
     arr4.insert(arr4.end(), var5);
 
-    Types::object map6;
+    std::map<std::string, Query> map6;
 
     std::string src7("end", 3);
     Query var7(src7);
@@ -158,7 +158,7 @@ TEST_CASE("cpp Tests for match", "[cpp][ast]") {
   }
 
   SECTION("test3") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     std::string src1("aca", 3);
     Query var1(src1);
@@ -174,7 +174,7 @@ TEST_CASE("cpp Tests for match", "[cpp][ast]") {
   }
 
   SECTION("test4") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("deleted", 7);
     Query var1(src1);
@@ -228,9 +228,9 @@ TEST_CASE("cpp Tests for match", "[cpp][ast]") {
   }
 
   SECTION("test5") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("a", 1);
     Query var2(src2);
@@ -252,7 +252,7 @@ TEST_CASE("cpp Tests for match", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map6;
+    std::map<std::string, Query> map6;
 
     std::string src7("a", 1);
     Query var7(src7);
@@ -274,7 +274,7 @@ TEST_CASE("cpp Tests for match", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var6);
 
-    Types::object map11;
+    std::map<std::string, Query> map11;
 
     std::string src12("a", 1);
     Query var12(src12);
@@ -300,9 +300,9 @@ TEST_CASE("cpp Tests for match", "[cpp][ast]") {
   }
 
   SECTION("test6") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("a", 1);
     Query var2(src2);
@@ -324,7 +324,7 @@ TEST_CASE("cpp Tests for match", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map6;
+    std::map<std::string, Query> map6;
 
     std::string src7("a", 1);
     Query var7(src7);
@@ -350,9 +350,9 @@ TEST_CASE("cpp Tests for match", "[cpp][ast]") {
   }
 
   SECTION("test7") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("a", 1);
     Query var2(src2);
@@ -378,12 +378,12 @@ TEST_CASE("cpp Tests for match", "[cpp][ast]") {
   }
 
   SECTION("test8") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test9") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);

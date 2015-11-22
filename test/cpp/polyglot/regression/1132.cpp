@@ -8,7 +8,7 @@ using namespace ReQL;
 TEST_CASE("cpp 1132 JSON duplicate key", "[cpp][ast]") {
 
   SECTION("test0") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);

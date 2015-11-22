@@ -8,12 +8,12 @@ using namespace ReQL;
 TEST_CASE("cpp Tests conversion to and from the RQL object type", "[cpp][ast]") {
 
   SECTION("test0") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
     Query var0(map0);
   }
 
   SECTION("test1") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -27,7 +27,7 @@ TEST_CASE("cpp Tests conversion to and from the RQL object type", "[cpp][ast]") 
   }
 
   SECTION("test2") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("result", 6);
     Query var1(src1);
@@ -41,7 +41,7 @@ TEST_CASE("cpp Tests conversion to and from the RQL object type", "[cpp][ast]") 
   }
 
   SECTION("test3") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("a", 1);
     Query var1(src1);
@@ -55,19 +55,19 @@ TEST_CASE("cpp Tests conversion to and from the RQL object type", "[cpp][ast]") 
   }
 
   SECTION("test4") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("a", 1);
     Query var1(src1);
 
-    Types::object map2;
+    std::map<std::string, Query> map2;
 
     std::string src3("b", 1);
     Query var3(src3);
 
-    Types::array arr4(3);
+    std::vector<Query> arr4(3);
 
-    Types::object map5;
+    std::map<std::string, Query> map5;
 
     std::string src6("c", 1);
     Query var6(src6);
@@ -113,7 +113,7 @@ TEST_CASE("cpp Tests conversion to and from the RQL object type", "[cpp][ast]") 
   }
 
   SECTION("test7") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("a", 1);
     Query var1(src1);
@@ -127,9 +127,9 @@ TEST_CASE("cpp Tests conversion to and from the RQL object type", "[cpp][ast]") 
   }
 
   SECTION("test8") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::array arr1(2);
+    std::vector<Query> arr1(2);
 
     std::string src2("a", 1);
     Query var2(src2);
@@ -149,7 +149,7 @@ TEST_CASE("cpp Tests conversion to and from the RQL object type", "[cpp][ast]") 
   }
 
   SECTION("test9") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -163,7 +163,7 @@ TEST_CASE("cpp Tests conversion to and from the RQL object type", "[cpp][ast]") 
   }
 
   SECTION("test10") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -177,7 +177,7 @@ TEST_CASE("cpp Tests conversion to and from the RQL object type", "[cpp][ast]") 
   }
 
   SECTION("test13") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -191,12 +191,12 @@ TEST_CASE("cpp Tests conversion to and from the RQL object type", "[cpp][ast]") 
   }
 
   SECTION("test15") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
     Query var0(map0);
   }
 
   SECTION("test16") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("a", 1);
     Query var1(src1);
@@ -218,7 +218,7 @@ TEST_CASE("cpp Tests conversion to and from the RQL object type", "[cpp][ast]") 
   }
 
   SECTION("test17") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("cd", 2);
     Query var1(src1);
@@ -232,7 +232,7 @@ TEST_CASE("cpp Tests conversion to and from the RQL object type", "[cpp][ast]") 
   }
 
   SECTION("test18") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -246,7 +246,7 @@ TEST_CASE("cpp Tests conversion to and from the RQL object type", "[cpp][ast]") 
   }
 
   SECTION("test19") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -260,7 +260,7 @@ TEST_CASE("cpp Tests conversion to and from the RQL object type", "[cpp][ast]") 
   }
 
   SECTION("test20") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -274,7 +274,7 @@ TEST_CASE("cpp Tests conversion to and from the RQL object type", "[cpp][ast]") 
   }
 
   SECTION("test21") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);

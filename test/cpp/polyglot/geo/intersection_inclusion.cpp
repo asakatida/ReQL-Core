@@ -210,7 +210,7 @@ TEST_CASE("cpp Test intersects and includes semantics", "[cpp][ast]") {
   }
 
   SECTION("test50") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -224,7 +224,7 @@ TEST_CASE("cpp Test intersects and includes semantics", "[cpp][ast]") {
   }
 
   SECTION("test51") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);

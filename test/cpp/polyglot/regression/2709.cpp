@@ -8,7 +8,7 @@ using namespace ReQL;
 TEST_CASE("cpp 2709 -- Guarantee failed with [max_els >= min_els]", "[cpp][ast]") {
 
   SECTION("test0") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("inserted", 8);
     Query var1(src1);

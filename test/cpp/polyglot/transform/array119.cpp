@@ -8,7 +8,7 @@ using namespace ReQL;
 TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
 
   SECTION("test4") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
     double num1(1);
     Query var1(num1);
@@ -34,7 +34,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
   }
 
   SECTION("test5") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
     double num1(1);
     Query var1(num1);
@@ -60,7 +60,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
   }
 
   SECTION("test6") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
     double num1(0);
     Query var1(num1);
@@ -86,7 +86,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
   }
 
   SECTION("test7") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
     std::string src1("a", 1);
     Query var1(src1);
@@ -112,7 +112,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
   }
 
   SECTION("test8") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
     double num1(3);
     Query var1(num1);
@@ -123,7 +123,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
   }
 
   SECTION("test9") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     double num1(1);
     Query var1(num1);
@@ -144,7 +144,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
   }
 
   SECTION("test10") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     double num1(1);
     Query var1(num1);
@@ -165,7 +165,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
   }
 
   SECTION("test11") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     double num1(1);
     Query var1(num1);
@@ -186,7 +186,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
   }
 
   SECTION("test12") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
     double num1(1);
     Query var1(num1);
@@ -212,7 +212,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
   }
 
   SECTION("test13") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     double num1(1);
     Query var1(num1);
@@ -243,7 +243,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
   }
 
   SECTION("test14") {
-    Types::array arr0(5);
+    std::vector<Query> arr0(5);
 
     double num1(1);
     Query var1(num1);
@@ -274,7 +274,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
   }
 
   SECTION("test15") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     double num1(1);
     Query var1(num1);
@@ -290,12 +290,12 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
   }
 
   SECTION("test16") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test17") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     double num1(2);
     Query var1(num1);
@@ -311,7 +311,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
   }
 
   SECTION("test18") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     double num1(1);
     Query var1(num1);
@@ -327,7 +327,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
   }
 
   SECTION("test19") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     double num1(2);
     Query var1(num1);
@@ -343,7 +343,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
   }
 
   SECTION("test20") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     double num1(1);
     Query var1(num1);
@@ -359,7 +359,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
   }
 
   SECTION("test21") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     double num1(2);
     Query var1(num1);
@@ -375,7 +375,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
   }
 
   SECTION("test22") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
     double num1(2);
     Query var1(num1);
@@ -386,7 +386,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
   }
 
   SECTION("test23") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     double num1(2);
     Query var1(num1);
@@ -402,7 +402,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
   }
 
   SECTION("test24") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
     double num1(3);
     Query var1(num1);
@@ -413,12 +413,12 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
   }
 
   SECTION("test25") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test26") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     double num1(1);
     Query var1(num1);
@@ -434,12 +434,12 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
   }
 
   SECTION("test27") {
-    Types::array arr0;
+    std::vector<Query> arr0;
     Query var0(arr0);
   }
 
   SECTION("test28") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     double num1(1);
     Query var1(num1);
@@ -460,9 +460,9 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
   }
 
   SECTION("test29") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("a", 1);
     Query var2(src2);
@@ -484,7 +484,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map6;
+    std::map<std::string, Query> map6;
 
     std::string src7("a", 1);
     Query var7(src7);
@@ -506,7 +506,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var6);
 
-    Types::object map11;
+    std::map<std::string, Query> map11;
 
     std::string src12("a", 1);
     Query var12(src12);
@@ -532,9 +532,9 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
   }
 
   SECTION("test30") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("a", 1);
     Query var2(src2);
@@ -548,7 +548,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map4;
+    std::map<std::string, Query> map4;
 
     std::string src5("a", 1);
     Query var5(src5);
@@ -562,7 +562,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var4);
 
-    Types::object map7;
+    std::map<std::string, Query> map7;
 
     std::string src8("a", 1);
     Query var8(src8);
@@ -580,19 +580,19 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
   }
 
   SECTION("test31") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
     Query var1(map1);
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map2;
+    std::map<std::string, Query> map2;
     Query var2(map2);
 
     arr0.insert(arr0.end(), var2);
 
-    Types::object map3;
+    std::map<std::string, Query> map3;
     Query var3(map3);
 
     arr0.insert(arr0.end(), var3);
@@ -601,9 +601,9 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
   }
 
   SECTION("test33") {
-    Types::array arr0(6);
+    std::vector<Query> arr0(6);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("a", 1);
     Query var2(src2);
@@ -617,7 +617,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map4;
+    std::map<std::string, Query> map4;
 
     std::string src5("a", 1);
     Query var5(src5);
@@ -631,7 +631,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var4);
 
-    Types::object map7;
+    std::map<std::string, Query> map7;
 
     std::string src8("a", 1);
     Query var8(src8);
@@ -645,7 +645,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var7);
 
-    Types::object map10;
+    std::map<std::string, Query> map10;
 
     std::string src11("a", 1);
     Query var11(src11);
@@ -659,7 +659,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var10);
 
-    Types::object map13;
+    std::map<std::string, Query> map13;
 
     std::string src14("a", 1);
     Query var14(src14);
@@ -673,7 +673,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var13);
 
-    Types::object map16;
+    std::map<std::string, Query> map16;
 
     std::string src17("a", 1);
     Query var17(src17);
@@ -691,9 +691,9 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
   }
 
   SECTION("test34") {
-    Types::array arr0(6);
+    std::vector<Query> arr0(6);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("b", 1);
     Query var2(src2);
@@ -707,7 +707,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map4;
+    std::map<std::string, Query> map4;
 
     std::string src5("b", 1);
     Query var5(src5);
@@ -721,7 +721,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var4);
 
-    Types::object map7;
+    std::map<std::string, Query> map7;
 
     std::string src8("b", 1);
     Query var8(src8);
@@ -735,7 +735,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var7);
 
-    Types::object map10;
+    std::map<std::string, Query> map10;
 
     std::string src11("b", 1);
     Query var11(src11);
@@ -749,7 +749,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var10);
 
-    Types::object map13;
+    std::map<std::string, Query> map13;
 
     std::string src14("b", 1);
     Query var14(src14);
@@ -763,7 +763,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var13);
 
-    Types::object map16;
+    std::map<std::string, Query> map16;
 
     std::string src17("b", 1);
     Query var17(src17);
@@ -781,9 +781,9 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
   }
 
   SECTION("test35") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("a", 1);
     Query var2(src2);
@@ -805,7 +805,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map6;
+    std::map<std::string, Query> map6;
 
     std::string src7("a", 1);
     Query var7(src7);
@@ -827,7 +827,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var6);
 
-    Types::object map11;
+    std::map<std::string, Query> map11;
 
     std::string src12("a", 1);
     Query var12(src12);
@@ -853,54 +853,54 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
   }
 
   SECTION("test36") {
-    Types::array arr0(10);
+    std::vector<Query> arr0(10);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
     Query var1(map1);
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map2;
+    std::map<std::string, Query> map2;
     Query var2(map2);
 
     arr0.insert(arr0.end(), var2);
 
-    Types::object map3;
+    std::map<std::string, Query> map3;
     Query var3(map3);
 
     arr0.insert(arr0.end(), var3);
 
-    Types::object map4;
+    std::map<std::string, Query> map4;
     Query var4(map4);
 
     arr0.insert(arr0.end(), var4);
 
-    Types::object map5;
+    std::map<std::string, Query> map5;
     Query var5(map5);
 
     arr0.insert(arr0.end(), var5);
 
-    Types::object map6;
+    std::map<std::string, Query> map6;
     Query var6(map6);
 
     arr0.insert(arr0.end(), var6);
 
-    Types::object map7;
+    std::map<std::string, Query> map7;
     Query var7(map7);
 
     arr0.insert(arr0.end(), var7);
 
-    Types::object map8;
+    std::map<std::string, Query> map8;
     Query var8(map8);
 
     arr0.insert(arr0.end(), var8);
 
-    Types::object map9;
+    std::map<std::string, Query> map9;
     Query var9(map9);
 
     arr0.insert(arr0.end(), var9);
 
-    Types::object map10;
+    std::map<std::string, Query> map10;
     Query var10(map10);
 
     arr0.insert(arr0.end(), var10);
@@ -909,14 +909,14 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
   }
 
   SECTION("test38") {
-    Types::array arr0(6);
+    std::vector<Query> arr0(6);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("b", 1);
     Query var2(src2);
 
-    Types::object map3;
+    std::map<std::string, Query> map3;
 
     std::string src4("c", 1);
     Query var4(src4);
@@ -934,12 +934,12 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map6;
+    std::map<std::string, Query> map6;
 
     std::string src7("b", 1);
     Query var7(src7);
 
-    Types::object map8;
+    std::map<std::string, Query> map8;
 
     std::string src9("c", 1);
     Query var9(src9);
@@ -957,12 +957,12 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var6);
 
-    Types::object map11;
+    std::map<std::string, Query> map11;
 
     std::string src12("b", 1);
     Query var12(src12);
 
-    Types::object map13;
+    std::map<std::string, Query> map13;
 
     std::string src14("c", 1);
     Query var14(src14);
@@ -980,12 +980,12 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var11);
 
-    Types::object map16;
+    std::map<std::string, Query> map16;
 
     std::string src17("b", 1);
     Query var17(src17);
 
-    Types::object map18;
+    std::map<std::string, Query> map18;
 
     std::string src19("c", 1);
     Query var19(src19);
@@ -1003,12 +1003,12 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var16);
 
-    Types::object map21;
+    std::map<std::string, Query> map21;
 
     std::string src22("b", 1);
     Query var22(src22);
 
-    Types::object map23;
+    std::map<std::string, Query> map23;
 
     std::string src24("c", 1);
     Query var24(src24);
@@ -1026,12 +1026,12 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var21);
 
-    Types::object map26;
+    std::map<std::string, Query> map26;
 
     std::string src27("b", 1);
     Query var27(src27);
 
-    Types::object map28;
+    std::map<std::string, Query> map28;
 
     std::string src29("c", 1);
     Query var29(src29);
@@ -1053,7 +1053,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
   }
 
   SECTION("test39") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -1067,7 +1067,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
   }
 
   SECTION("test40") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
@@ -1081,19 +1081,19 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
   }
 
   SECTION("test41") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
     Query var1(map1);
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map2;
+    std::map<std::string, Query> map2;
     Query var2(map2);
 
     arr0.insert(arr0.end(), var2);
 
-    Types::object map3;
+    std::map<std::string, Query> map3;
     Query var3(map3);
 
     arr0.insert(arr0.end(), var3);
@@ -1102,9 +1102,9 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
   }
 
   SECTION("test42") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("b", 1);
     Query var2(src2);
@@ -1118,7 +1118,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map4;
+    std::map<std::string, Query> map4;
 
     std::string src5("b", 1);
     Query var5(src5);
@@ -1132,7 +1132,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var4);
 
-    Types::object map7;
+    std::map<std::string, Query> map7;
 
     std::string src8("b", 1);
     Query var8(src8);
@@ -1150,9 +1150,9 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
   }
 
   SECTION("test43") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("a", 1);
     Query var2(src2);
@@ -1174,7 +1174,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map6;
+    std::map<std::string, Query> map6;
 
     std::string src7("a", 1);
     Query var7(src7);
@@ -1196,7 +1196,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var6);
 
-    Types::object map11;
+    std::map<std::string, Query> map11;
 
     std::string src12("a", 1);
     Query var12(src12);
@@ -1222,7 +1222,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
   }
 
   SECTION("test44") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
     double num1(2);
     Query var1(num1);
@@ -1263,9 +1263,9 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
   }
 
   SECTION("test49") {
-    Types::array arr0(1);
+    std::vector<Query> arr0(1);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("a", 1);
     Query var2(src2);
@@ -1291,7 +1291,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
   }
 
   SECTION("test50") {
-    Types::array arr0(6);
+    std::vector<Query> arr0(6);
 
     double num1(1);
     Query var1(num1);
@@ -1327,9 +1327,9 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
   }
 
   SECTION("test51") {
-    Types::array arr0(6);
+    std::vector<Query> arr0(6);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("v", 1);
     Query var2(src2);
@@ -1343,7 +1343,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map4;
+    std::map<std::string, Query> map4;
 
     std::string src5("v2", 2);
     Query var5(src5);
@@ -1357,7 +1357,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var4);
 
-    Types::object map7;
+    std::map<std::string, Query> map7;
 
     std::string src8("v", 1);
     Query var8(src8);
@@ -1371,7 +1371,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var7);
 
-    Types::object map10;
+    std::map<std::string, Query> map10;
 
     std::string src11("v2", 2);
     Query var11(src11);
@@ -1385,7 +1385,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var10);
 
-    Types::object map13;
+    std::map<std::string, Query> map13;
 
     std::string src14("v", 1);
     Query var14(src14);
@@ -1399,7 +1399,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var13);
 
-    Types::object map16;
+    std::map<std::string, Query> map16;
 
     std::string src17("v2", 2);
     Query var17(src17);
@@ -1417,9 +1417,9 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
   }
 
   SECTION("test52") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("a", 1);
     Query var2(src2);
@@ -1441,7 +1441,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map6;
+    std::map<std::string, Query> map6;
 
     std::string src7("a", 1);
     Query var7(src7);
@@ -1463,7 +1463,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var6);
 
-    Types::object map11;
+    std::map<std::string, Query> map11;
 
     std::string src12("a", 1);
     Query var12(src12);
@@ -1489,9 +1489,9 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
   }
 
   SECTION("test53") {
-    Types::array arr0(3);
+    std::vector<Query> arr0(3);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("a", 1);
     Query var2(src2);
@@ -1513,7 +1513,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map6;
+    std::map<std::string, Query> map6;
 
     std::string src7("a", 1);
     Query var7(src7);
@@ -1535,7 +1535,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var6);
 
-    Types::object map11;
+    std::map<std::string, Query> map11;
 
     std::string src12("a", 1);
     Query var12(src12);
@@ -1561,9 +1561,9 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
   }
 
   SECTION("test54") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
-    Types::object map1;
+    std::map<std::string, Query> map1;
 
     std::string src2("-a", 2);
     Query var2(src2);
@@ -1577,7 +1577,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var1);
 
-    Types::object map4;
+    std::map<std::string, Query> map4;
 
     std::string src5("-a", 2);
     Query var5(src5);
@@ -1595,7 +1595,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
   }
 
   SECTION("test55") {
-    Types::array arr0(4);
+    std::vector<Query> arr0(4);
 
     double num1(1);
     Query var1(num1);
@@ -1626,7 +1626,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
   }
 
   SECTION("test57") {
-    Types::array arr0(6);
+    std::vector<Query> arr0(6);
 
     double num1(1);
     Query var1(num1);
@@ -1643,7 +1643,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var3);
 
-    Types::object map4;
+    std::map<std::string, Query> map4;
 
     std::string src5("a", 1);
     Query var5(src5);
@@ -1665,7 +1665,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var4);
 
-    Types::object map9;
+    std::map<std::string, Query> map9;
 
     std::string src10("a", 1);
     Query var10(src10);
@@ -1687,7 +1687,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
 
     arr0.insert(arr0.end(), var9);
 
-    Types::object map14;
+    std::map<std::string, Query> map14;
 
     std::string src15("a", 1);
     Query var15(src15);
@@ -1779,7 +1779,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
   }
 
   SECTION("test74") {
-    Types::array arr0(2);
+    std::vector<Query> arr0(2);
 
     double num1(1);
     Query var1(num1);
@@ -1795,7 +1795,7 @@ TEST_CASE("cpp Tests manipulation operations on arrays", "[cpp][ast]") {
   }
 
   SECTION("test75") {
-    Types::object map0;
+    std::map<std::string, Query> map0;
 
     std::string src1("func", 4);
     Query var1(src1);
