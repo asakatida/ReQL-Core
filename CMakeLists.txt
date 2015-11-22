@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 2.8)
 project(ReQL)
 
 add_subdirectory(src)
-add_subdirectory(test EXCLUDE_FROM_ALL)
+add_subdirectory(test)
 
 enable_testing()
 add_test(NAME libReQL COMMAND libReQLtest)
