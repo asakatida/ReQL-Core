@@ -122,6 +122,7 @@ public:
     return *this;
   }
 
+private:
   std::condition_variable_any p_cond;
   char p_flag;
   std::mutex p_mutex;
@@ -173,6 +174,7 @@ public:
     return p_pipe->close();
   }
 
+private:
   std::shared_ptr<Static_Pipe_t<elem_t> > p_pipe;
 };
 

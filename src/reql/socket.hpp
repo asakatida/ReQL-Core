@@ -159,6 +159,7 @@ public:
     send(p_sock.load(), out.c_str(), out.size(), 0);
   }
 
+private:
   std::atomic<int> p_sock;
 };
 

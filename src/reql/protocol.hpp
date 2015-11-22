@@ -62,10 +62,10 @@ public:
       throw std::exception();
     }
 
-    Stream<str_t> stream;
+    Stream_t<str_t> stream;
 
     ReQL_Byte token_bytes[8];
-    make_token(token_bytes, query.token);
+    make_token(token_bytes, query.token());
 
     ReQL_Byte size_bytes[4];
     make_size(size_bytes, static_cast<ReQL_Size>(size));
@@ -87,6 +87,7 @@ public:
     (*this) << Query_t<str_t>(t, REQL_CONTINUE);
   }
 
+private:
   Socket_t<str_t> p_sock;
   std::thread p_thread;
 };

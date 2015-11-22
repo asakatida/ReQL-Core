@@ -30,31 +30,31 @@ limitations under the License.
 namespace _ReQL {
 
 template <class str_t>
-class Stream {
+class Stream_t {
 public:
   typedef str_t string_type;
 
-  Stream &operator <<(const Stream &other) {
+  Stream_t &operator <<(const Stream_t &other) {
     p_stream.insert(p_stream.cend(), other.p_stream.cbegin(), other.p_stream.cend());
     return *this;
   }
 
-  Stream &operator <<(const int value) {
+  Stream_t &operator <<(const int value) {
     p_stream.push_back(std::to_string(value));
     return *this;
   }
 
-  Stream &operator <<(const typename string_type::value_type *value) {
+  Stream_t &operator <<(const typename string_type::value_type *value) {
     p_stream.push_back(string_type(value));
     return *this;
   }
 
-  Stream &operator <<(const string_type &value) {
+  Stream_t &operator <<(const string_type &value) {
     p_stream.push_back(value);
     return *this;
   }
 
-  Stream &operator <<(const double value) {
+  Stream_t &operator <<(const double value) {
     p_stream.push_back(std::to_string(value));
     return *this;
   }
@@ -71,10 +71,11 @@ public:
     return string_type(value.get(), size);
   }
 
+private:
   std::deque<string_type> p_stream;
 };
 
-typedef Stream<ImmutableString> _Stream;
+typedef Stream_t<ImmutableString> _Stream;
 
 }  // namespace _ReQL
 

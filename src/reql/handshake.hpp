@@ -42,7 +42,7 @@ public:
     make_size(magic[1], static_cast<ReQL_Size>(auth.size()));
     make_size(magic[2], PROTOCOL);
 
-    Stream<str_t> stream;
+    Stream_t<str_t> stream;
     stream << str_t(magic[0], 4)
     << str_t(magic[1], 4)
     << auth

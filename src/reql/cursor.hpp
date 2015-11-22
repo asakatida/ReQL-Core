@@ -106,6 +106,7 @@ public:
     p_pipe.close();
   }
 
+private:
   Pipe_t<result_t> p_pipe;
 };
 

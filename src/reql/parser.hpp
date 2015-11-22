@@ -95,6 +95,7 @@ public:
     --p_level;
   }
 
+private:
   std::vector<std::vector<result_t> > p_arrays;
   std::vector<std::map<ImmutableString, result_t> > p_objects;
   result_t p_result;

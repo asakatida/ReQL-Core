@@ -95,6 +95,7 @@ public:
     p_cursors->stop(token);
   }
 
+private:
   std::shared_ptr<BTree_t<result_t, str_t> > p_cursors;
 };
 

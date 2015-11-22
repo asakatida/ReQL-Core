@@ -64,11 +64,11 @@ public:
     }
 
     void push(Response_t<str_t, Protocol_t<str_t> > &&response) {
-      if (response.p_token == p_key) {
+      if (response == p_key) {
         p_val << std::move(response);
         return;
       }
-      if (response.p_token < p_key) {
+      if (response < p_key) {
         return p_left->push(std::move(response));
       }
       return p_right->push(std::move(response));
@@ -92,6 +92,7 @@ public:
       return p_right->create(key);
     }
 
+  private:
     ReQL_Token p_key;
     std::unique_ptr<BNode_t> p_left;
     std::unique_ptr<BNode_t> p_right;
@@ -124,7 +125,7 @@ public:
   void run(const query_t &query, const kwargs_t &kwargs, func_t func) {
     Query_t<str_t> q(p_next_token++, query, kwargs);
     p_protocol << q;
-    create(q.token, func);
+    create(q.token(), func);
   }
 
   template <class kwargs_t, class query_t>
@@ -144,6 +145,7 @@ public:
     p_root.close(token);
   }
 
+private:
   std::mutex p_mutex;
   std::atomic<ReQL_Token> p_next_token;
   Protocol_t<str_t> p_protocol;

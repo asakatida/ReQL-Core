@@ -223,6 +223,7 @@ public:
     stream << p_value;
   }
 
+private:
   stream_t p_value;
 };
 
@@ -249,6 +250,7 @@ public:
     stream << "]";
   }
 
+private:
   vect_t p_value;
 };
 
@@ -266,6 +268,7 @@ public:
     }
   }
 
+private:
   bool_t p_value;
 };
 
@@ -287,6 +290,7 @@ public:
     stream << p_value;
   }
 
+private:
   num_t p_value;
 };
 
@@ -305,6 +309,7 @@ public:
     p_val.toJSON(stream);
   }
 
+private:
   key_t p_key;
   value_t p_val;
 };
@@ -324,6 +329,7 @@ public:
     stream << "}";
   }
 
+private:
   map_t p_value;
 };
 
@@ -341,6 +347,7 @@ public:
     stream << "]";
   }
 
+private:
   Term_t p_tt;
   args_t p_args;
   kwargs_t p_kwargs;
@@ -358,6 +365,7 @@ public:
     stream << "]";
   }
 
+private:
   Term_t p_tt;
   args_t p_args;
 };
@@ -371,6 +379,7 @@ public:
     stream << "[" << static_cast<int>(p_tt) << "]";
   }
 
+private:
   Term_t p_tt;
 };
 
@@ -451,6 +460,7 @@ public:
     return p_value < other.p_value;
   }
 
+private:
   str_t p_value;
 };
 
@@ -464,21 +474,19 @@ enum Query_e {
 template <class str_t>
 class Query_t {
 public:
-  Query_t() {}
-
-  Query_t(const ReQL_Token t, const Query_e type) : token(t) {
+  Query_t(const ReQL_Token token, const Query_e type) : p_token(token) {
     p_stream << "[" << static_cast<int>(type) << "]";
   }
 
   template <class query_t>
-  Query_t(const ReQL_Token t, const query_t &query) : token(t) {
+  Query_t(const ReQL_Token token, const query_t &query) : p_token(token) {
     p_stream << "[" << static_cast<int>(REQL_START) << ",";
     query.toJSON(p_stream);
     p_stream << "]";
   }
 
   template <class kwargs_t, class query_t>
-  Query_t(const ReQL_Token t, const query_t &query, const kwargs_t &kwargs) : token(t) {
+  Query_t(const ReQL_Token token, const query_t &query, const kwargs_t &kwargs) : p_token(token) {
     p_stream << "[" << static_cast<int>(REQL_START) << ",";
     query.toJSON(p_stream);
     p_stream << ",";
@@ -486,12 +494,17 @@ public:
     p_stream << "]";
   }
 
+  ReQL_Token token() const {
+    return p_token;
+  }
+
   str_t str() const {
     return p_stream.str();
   }
 
-  Stream<str_t> p_stream;
-  ReQL_Token token;
+private:
+  Stream_t<str_t> p_stream;
+  const ReQL_Token p_token;
 };
 
 typedef Any_t<_Stream> Any;

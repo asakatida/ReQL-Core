@@ -28,8 +28,6 @@ namespace _ReQL {
 template <class str_t, class proto_t>
 class Response_t {
 public:
-  Response_t() {}
-
   Response_t(str_t &&json, ReQL_Token token, proto_t *proto) :
     p_json(std::move(json)), p_proto(proto), p_token(token) {}
 
@@ -57,10 +55,19 @@ public:
     return *this;
   }
 
-  void next() {
+  bool operator ==(ReQL_Token token) const {
+    return p_token == token;
+  }
+
+  bool operator <(ReQL_Token token) const {
+    return p_token < token;
+  }
+
+  void next() const {
     p_proto->cont(p_token);
   }
 
+private:
   str_t p_json;
   proto_t *p_proto;
   ReQL_Token p_token;
