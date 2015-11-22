@@ -37,37 +37,30 @@ class BTree_t {
 public:
   BTree_t() {}
 
-  class BNode {
+  class BNode_t {
   public:
-    BNode() {}
+    BNode_t() {}
 
-    BNode(const ReQL_Token &key) : p_key(key) {}
+    BNode_t(const ReQL_Token &key) : p_key(key) {}
 
-    ~BNode() {
-      if (p_left) {
-        delete p_left;
-      }
-      if (p_right) {
-        delete p_right;
-      }
-    }
-
-    auto create(const ReQL_Token &key) {
+    template <class func_t>
+    void create(const ReQL_Token &key, func_t func) {
       if (key == p_key) {
-        return Cur_t<result_t, str_t>(p_val);
+        p_val = Pipe_t<Response_t<str_t, Protocol_t<str_t> > >();
+        return;
       }
       if (key < p_key) {
-        if (p_left) {
-          return p_left->create(key);
+        if (p_left.get()) {
+          return p_left->create(key, func);
         }
-        p_left = new BNode(key);
-        return p_left->create(key);
+        p_left.reset(new BNode_t(key));
+        return p_left->create(key, func);
       }
-      if (p_right) {
-        return p_right->create(key);
+      if (p_right.get()) {
+        return p_right->create(key, func);
       }
-      p_right = new BNode(key);
-      return p_right->create(key);
+      p_right.reset(new BNode_t(key));
+      return p_right->create(key, func);
     }
 
     void push(Response_t<str_t, Protocol_t<str_t> > &&response) {
@@ -81,23 +74,28 @@ public:
       return p_right->push(std::move(response));
     }
 
-    void close(Protocol_t<str_t> &protocol) {
-      if (p_left) {
-        p_left->close(protocol);
-        delete p_left; p_left = nullptr;
+    void close(const ReQL_Token &key) {
+      if (key == p_key) {
+        return p_val.close();
       }
-      if (p_right) {
-        p_right->close(protocol);
-        delete p_right; p_right = nullptr;
+      if (key < p_key) {
+        if (p_left.get()) {
+          return p_left->create(key);
+        }
+        p_left.reset(new BNode_t(key));
+        return p_left->create(key);
       }
-      protocol.stop(p_key);
-      p_val->close();
+      if (p_right.get()) {
+        return p_right->create(key);
+      }
+      p_right.reset(new BNode_t(key));
+      return p_right->create(key);
     }
 
     ReQL_Token p_key;
-    BNode *p_left;
-    BNode *p_right;
-    Pipe_t<Response_t<str_t, Protocol_t<str_t>>> p_val;
+    std::unique_ptr<BNode_t> p_left;
+    std::unique_ptr<BNode_t> p_right;
+    Pipe_t<Response_t<str_t, Protocol_t<str_t> > > p_val;
   };
 
   BTree_t(const str_t &addr, const str_t &port, const str_t &auth) :
@@ -105,27 +103,28 @@ public:
       p_root.push(std::move(response));
     }) {}
 
-  auto create(const ReQL_Token &key) {
+  template <class func_t>
+  void create(const ReQL_Token &key, func_t func) {
     std::lock_guard<std::mutex> lock(p_mutex);
-    return p_root.create(key);
+    p_root.create(key, func);
   }
 
   bool isOpen() const {
     return p_protocol.isOpen();
   }
 
-  template <class query_t>
-  auto run(const query_t &query) {
+  template <class query_t, class func_t>
+  void run(const query_t &query, func_t func) {
     Query_t<str_t> q(p_next_token++, query);
     p_protocol << q;
-    return create(q.token);
+    create(q.token, func);
   }
 
-  template <class kwargs_t, class query_t>
-  auto run(const query_t &query, const kwargs_t &kwargs) {
+  template <class kwargs_t, class query_t, class func_t>
+  void run(const query_t &query, const kwargs_t &kwargs, func_t func) {
     Query_t<str_t> q(p_next_token++, query, kwargs);
     p_protocol << q;
-    return create(q.token);
+    create(q.token, func);
   }
 
   template <class kwargs_t, class query_t>
@@ -141,19 +140,15 @@ public:
   }
 
   void stop(ReQL_Token token) {
-    Query_t<str_t> query(token, REQL_STOP);
-    p_protocol << query;
-  }
-
-  BTree_t &push(Response_t<str_t, Protocol_t<str_t>> &&response) {
-    p_root[response.p_token].push(std::move(response));
-    return *this;
+    p_protocol.stop(token);
+    p_root.close(token);
   }
 
   std::mutex p_mutex;
   std::atomic<ReQL_Token> p_next_token;
   Protocol_t<str_t> p_protocol;
-  BNode p_root;
+  BNode_t p_root;
+  std::thread p_thread;
 };
 
 }  // namespace _ReQL

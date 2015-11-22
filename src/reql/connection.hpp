@@ -72,14 +72,14 @@ public:
     return p_cursors->isOpen();
   }
 
-  template <class query_t>
-  auto run(const query_t &query) {
-    return p_cursors->run(query);
+  template <class query_t, class func_t>
+  void run(const query_t &query, func_t func) {
+    p_cursors->run(query, func);
   }
 
-  template <class kwargs_t, class query_t>
-  auto run(const query_t &query, const kwargs_t &kwargs) {
-    return p_cursors->run(query, kwargs);
+  template <class kwargs_t, class query_t, class func_t>
+  void run(const query_t &query, const kwargs_t &kwargs, func_t func) {
+    p_cursors->run(query, kwargs, func);
   }
 
   template <class kwargs_t, class query_t>

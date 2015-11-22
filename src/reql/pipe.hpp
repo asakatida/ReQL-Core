@@ -25,6 +25,7 @@ limitations under the License.
 #include <condition_variable>
 #include <exception>
 #include <functional>
+#include <iterator>
 #include <memory>
 #include <mutex>
 #include <queue>
@@ -48,19 +49,14 @@ public:
   Static_Pipe_t(func_t func) : p_thread([func, this] {
     try {
       while (true) {
-        this->push(func());
+        elem_t res;
+        pop(res);
+        func(std::move(res));
       }
     } catch (Closed &) {
     } catch (std::exception &) {
       close();
     }
-  }) {}
-
-  template <class func_t, class input_t>
-  Static_Pipe_t(func_t func, std::shared_ptr<Static_Pipe_t<input_t>> &pipe) : Static_Pipe_t([func, pipe] {
-    input_t res;
-    pipe->pop(res);
-    return func(std::move(res));
   }) {}
 
   ~Static_Pipe_t() { close(); p_thread.join(); }
@@ -138,9 +134,6 @@ class Pipe_t {
 public:
   Pipe_t() : p_pipe(new Static_Pipe_t<elem_t>) {}
 
-  template <class func_t, class input_t>
-  Pipe_t(func_t func, Pipe_t<input_t> &other) : p_pipe(new Static_Pipe_t<elem_t>(func, other.p_pipe)) {}
-
   Pipe_t(const Pipe_t &other) : p_pipe(other.p_pipe) {}
 
   Pipe_t(Pipe_t &&other) : p_pipe(std::move(other.p_pipe)) {}
@@ -160,38 +153,6 @@ public:
       p_pipe = std::move(other.p_pipe);
     }
     return *this;
-  }
-
-  class Sink_t {
-  public:
-    Sink_t() {}
-
-    template <class func_t>
-    Sink_t(func_t func, std::shared_ptr<Static_Pipe_t<elem_t>> &pipe) : p_thread([func, pipe] {
-      while (true) {
-        elem_t res;
-        pipe->pop(res);
-        func(std::move(res));
-      }
-    }) {}
-
-    Sink_t(Sink_t &&other) : p_thread(std::move(other.p_thread)) {}
-
-    ~Sink_t() { p_thread.join(); }
-
-    Sink_t &operator =(Sink_t &&other) {
-      if (this != &other) {
-        p_thread = std::move(other.p_thread);
-      }
-      return *this;
-    }
-
-    std::thread p_thread;
-  };
-
-  template <class func_t>
-  Sink_t sink(func_t func) {
-    return Sink_t(func, p_pipe);
   }
 
   Pipe_t &operator <<(elem_t &&value) {

@@ -98,8 +98,8 @@ public:
   }
 
   template <class func_t>
-  typename Pipe_t<result_t>::Sink_t sink(func_t func) {
-    return p_pipe.sink(func);
+  Pipe_t<result_t> sink(func_t func) {
+    return Pipe_t<result_t>(func);
   }
 
   void close() {
