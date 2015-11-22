@@ -18,9 +18,9 @@ limitations under the License.
  * @copyright Apache
  */
 
-#include "./Lua/connection.h"
+#include "./Lua/connection.hpp"
 
-#include "./reql/core.h"
+#include "./reql/core.hpp"
 
 #include <lua.h>
 #include <lauxlib.h>

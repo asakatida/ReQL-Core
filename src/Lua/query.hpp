@@ -18,14 +18,10 @@ limitations under the License.
  * @copyright Apache
  */
 
-#ifndef REQL_LUA_QUERY_H_
-#define REQL_LUA_QUERY_H_
+#ifndef REQL_LUA_QUERY_HPP_
+#define REQL_LUA_QUERY_HPP_
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#include "./reql/core.h"
+#include "./reql/core.hpp"
 
 #include <lua.h>
 #include <lauxlib.h>
@@ -920,8 +916,4 @@ reql_lua_year(lua_State *L);
 extern int
 reql_lua_zip(lua_State *L);
 
-#ifdef __cplusplus
-}
-#endif
-
-#endif  // REQL_LUA_QUERY_H_
+#endif  // REQL_LUA_QUERY_HPP_

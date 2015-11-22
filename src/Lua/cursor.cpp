@@ -18,9 +18,9 @@ limitations under the License.
  * @copyright Apache
  */
 
-#include "./Lua/cursor.h"
+#include "./Lua/cursor.hpp"
 
-#include "./reql/core.h"
+#include "./reql/core.hpp"
 
 #include <lua.h>
 #include <lauxlib.h>

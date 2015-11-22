@@ -18,6 +18,9 @@ limitations under the License.
  * @copyright Apache
  */
 
+#ifndef REQL_LUA_INTERFACE_HPP_
+#define REQL_LUA_INTERFACE_HPP_
+
 #include "./reql/core.hpp"
 
 #include <lua.h>
@@ -41,3 +44,5 @@ class LuaState {
   lua_State *p_l;
   std::vector<luaL_Reg> p_lib;
 }
+
+#endif  // REQL_LUA_INTERFACE_HPP_

@@ -18,21 +18,13 @@ limitations under the License.
  * @copyright Apache
  */
 
-#ifndef REQL_LUA_CONNECTION_H_
-#define REQL_LUA_CONNECTION_H_
+#ifndef REQL_LUA_CURSOR_HPP_
+#define REQL_LUA_CURSOR_HPP_
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#include "./reql/core.h"
+#include "./reql/core.hpp"
 
 #include <lua.h>
 #include <lauxlib.h>
 #include <lualib.h>
 
-#ifdef __cplusplus
-}
-#endif
-
-#endif  // REQL_LUA_CONNECTION_H_
+#endif  // REQL_LUA_CURSOR_HPP_
