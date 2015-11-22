@@ -20,7 +20,7 @@ def write_cmake(path, cextras, hextras):
     with cmake_list_path.open() as istream:
         src = istream.read()
 
-    sources, headers = gather_c_files(path, 'c', 'cpp', 'reql')
+    sources, headers = gather_c_files(path, 'cpp', 'reql')
 
     src = re.sub(
         'set\(MOC_HEADERS.*?\)',
