@@ -1,12 +1,8 @@
 cmake_minimum_required(VERSION 2.8)
 
-project(lib)
+project(ReQL)
 
 set(SOURCES
- c/connection.c
- c/cursor.c
- c/error.c
- c/query.c
  cpp/connection.cpp
  cpp/cursor.cpp
  cpp/error.cpp
@@ -15,11 +11,6 @@ set(SOURCES
 )
 
 set(MOC_HEADERS
- c/connection.h
- c/cursor.h
- c/error.h
- c/query.h
- c/types.h
  cpp/connection.hpp
  cpp/cursor.hpp
  cpp/error.hpp
@@ -45,7 +36,6 @@ set(MOC_HEADERS
  ReQL.hpp
 )
 
-add_library(libReQL ${SOURCES} ${MOC_HEADERS})
+add_library(ReQL ${SOURCES} ${MOC_HEADERS})
 
-list(APPEND CMAKE_C_FLAGS "-Isrc ${CMAKE_C_FLAGS}")
-list(APPEND CMAKE_CXX_FLAGS "-Isrc ${CMAKE_CXX_FLAGS}")
+list(APPEND CMAKE_CXX_FLAGS "-std=c++14 -O0 -Werror -Weverything -Wno-padded -Wno-c++98-compat -I. ${CMAKE_CXX_FLAGS}")
