@@ -23,17 +23,10 @@ build = {
   modules = {
     libReQL = {
       sources = {
-        'src/Lua/connection.c',
-        'src/Lua/cursor.c',
-        'src/Lua/query.c',
-        'src/Lua/ReQL.c',
-        'src/reql/char.c',
-        'src/reql/connection.c',
-        'src/reql/cursor.c',
-        'src/reql/decode.c',
-        'src/reql/encode.c',
-        'src/reql/error.c',
-        'src/reql/query.c'
+        'src/Lua/connection.cpp',
+        'src/Lua/cursor.cpp',
+        'src/Lua/query.cpp',
+        'src/Lua/ReQL.cpp',
       },
       incdirs = {'src'}
     }
