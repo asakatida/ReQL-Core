@@ -10,12 +10,12 @@ pkg/
 tmp/
 
 # CMake
-CMakeCache.txt
-CMakeFiles
-CMakeScripts
+CMake*
+!CMakeLists.txt
 *.build
 Makefile*
-cmake_install.cmake
+*.cmake
+Testing
 install_manifest.txt
 
 
