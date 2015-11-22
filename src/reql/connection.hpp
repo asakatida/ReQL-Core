@@ -60,7 +60,7 @@ public:
     }
     return *this;
   }
-  
+
   Conn_t &operator =(Conn_t &&other) {
     if (this != &other) {
       p_cursors = std::move(other.p_cursors);
