@@ -126,6 +126,12 @@ limitations under the License.
 -(NSStream *)run:(ReQLQuery *)query kwargs:(NSDictionary *)kwargs {
   NSStream *cursor = [ReQLStream new];
   self.conn.run([query build], [[ReQLQuery newWithObject:kwargs] build], [cursor](ReQL::Result &&result) {
+    id nsarray = result.toObjC();
+    if ([nsarray isKindOfClass:[NSArray class]]) {
+      for (id elem in reinterpret_cast<NSArray *>(nsarray)) {
+      }
+    } else {
+    }
   });
   return cursor;
 }

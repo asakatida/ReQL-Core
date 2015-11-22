@@ -158,7 +158,6 @@
     <ClInclude Include="reql\cursor.hpp" />
     <ClInclude Include="reql\decode.hpp" />
     <ClInclude Include="reql\handshake.hpp" />
-    <ClInclude Include="reql\pipe.hpp" />
     <ClInclude Include="reql\protocol.hpp" />
     <ClInclude Include="reql\query.hpp" />
     <ClInclude Include="reql\response.hpp" />

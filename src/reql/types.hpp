@@ -26,9 +26,6 @@ limitations under the License.
 namespace _ReQL {
 
 template <class result_t, class str_t>
-class Cur_t;
-
-template <class result_t, class str_t>
 class Conn_t;
 
 template <class str_t>

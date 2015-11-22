@@ -22,8 +22,6 @@ limitations under the License.
 
 @interface ReQLCursor : NSObject
 
--(BOOL)isOpen;
-
 -(nonnull ReQLCursor *)observeNext:(void (^ _Nonnull)(id  _Nonnull))cb;
 
 -(nonnull ReQLCursor *)observeFailed:(void (^ _Nonnull)(NSError *  _Nonnull))cb;
@@ -31,7 +29,5 @@ limitations under the License.
 -(nonnull ReQLCursor *)observeCompleted:(void (^ _Nonnull)())cb;
 
 -(nonnull NSArray *)toArray;
-
--(void)close;
 
 @end

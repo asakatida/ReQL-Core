@@ -21,8 +21,9 @@ limitations under the License.
 #ifndef REQL_REQL_BTREE_HPP_
 #define REQL_REQL_BTREE_HPP_
 
+#include "./reql/cursor.hpp"
 #include "./reql/protocol.hpp"
-#include "./reql/pipe.hpp"
+#include "./reql/query.hpp"
 #include "./reql/response.hpp"
 #include "./reql/types.hpp"
 
@@ -37,78 +38,10 @@ class BTree_t {
 public:
   BTree_t() {}
 
-  class BNode_t {
-  public:
-    BNode_t() {}
-
-    BNode_t(const ReQL_Token &key) : p_key(key) {}
-
-    template <class func_t>
-    void create(const ReQL_Token &key, func_t func) {
-      if (key == p_key) {
-        p_val = Pipe_t<Response_t<str_t, Protocol_t<str_t> > >();
-        return;
-      }
-      if (key < p_key) {
-        if (p_left.get()) {
-          return p_left->create(key, func);
-        }
-        p_left.reset(new BNode_t(key));
-        return p_left->create(key, func);
-      }
-      if (p_right.get()) {
-        return p_right->create(key, func);
-      }
-      p_right.reset(new BNode_t(key));
-      return p_right->create(key, func);
-    }
-
-    void push(Response_t<str_t, Protocol_t<str_t> > &&response) {
-      if (response == p_key) {
-        p_val << std::move(response);
-        return;
-      }
-      if (response < p_key) {
-        return p_left->push(std::move(response));
-      }
-      return p_right->push(std::move(response));
-    }
-
-    void close(const ReQL_Token &key) {
-      if (key == p_key) {
-        return p_val.close();
-      }
-      if (key < p_key) {
-        if (p_left.get()) {
-          return p_left->create(key);
-        }
-        p_left.reset(new BNode_t(key));
-        return p_left->create(key);
-      }
-      if (p_right.get()) {
-        return p_right->create(key);
-      }
-      p_right.reset(new BNode_t(key));
-      return p_right->create(key);
-    }
-
-  private:
-    ReQL_Token p_key;
-    std::unique_ptr<BNode_t> p_left;
-    std::unique_ptr<BNode_t> p_right;
-    Pipe_t<Response_t<str_t, Protocol_t<str_t> > > p_val;
-  };
-
   BTree_t(const str_t &addr, const str_t &port, const str_t &auth) :
     p_protocol(addr, port, auth, [this](Response_t<str_t, Protocol_t<str_t> > &&response) {
-      p_root.push(std::move(response));
+      p_root->push(std::move(response));
     }) {}
-
-  template <class func_t>
-  void create(const ReQL_Token &key, func_t func) {
-    std::lock_guard<std::mutex> lock(p_mutex);
-    p_root.create(key, func);
-  }
 
   bool isOpen() const {
     return p_protocol.isOpen();
@@ -146,10 +79,68 @@ public:
   }
 
 private:
+  class BNode_t {
+  public:
+    BNode_t(const ReQL_Token &key, std::function<void(result_t &&result)> &func) : p_cur(func), p_key(key) {}
+
+    void create(const ReQL_Token &key, std::function<void(result_t &&result)> &func) {
+      if (key == p_key) {
+        return;
+      }
+      if (key < p_key) {
+        if (p_left.get()) {
+          return p_left->create(key, func);
+        }
+        p_left.reset(new BNode_t(key, func));
+        return;
+      }
+      if (p_right.get()) {
+        return p_right->create(key, func);
+      }
+      p_right.reset(new BNode_t(key, func));
+    }
+
+    void push(Response_t<str_t, Protocol_t<str_t> > &&response) {
+      if (response == p_key) {
+        p_cur << std::move(response);
+        return;
+      }
+      if (response < p_key) {
+        return p_left->push(std::move(response));
+      }
+      return p_right->push(std::move(response));
+    }
+
+    void close(const ReQL_Token &key) {
+      if (key == p_key) {
+        return p_cur.close();
+      }
+      if (key < p_key) {
+        return p_left->close(key);
+      }
+      return p_right->close(key);
+    }
+
+  private:
+    Cur_t<result_t, str_t> p_cur;
+    ReQL_Token p_key;
+    std::unique_ptr<BNode_t> p_left;
+    std::unique_ptr<BNode_t> p_right;
+  };
+  
+  void create(const ReQL_Token &key, std::function<void(result_t &&result)> func) {
+    std::lock_guard<std::mutex> lock(p_mutex);
+    if (!p_root.get()) {
+      p_root.reset(new BNode_t(key, func));
+    } else {
+      p_root->create(key, func);
+    }
+  }
+
   std::mutex p_mutex;
   std::atomic<ReQL_Token> p_next_token;
   Protocol_t<str_t> p_protocol;
-  BNode_t p_root;
+  std::unique_ptr<BNode_t> p_root;
   std::thread p_thread;
 };
 

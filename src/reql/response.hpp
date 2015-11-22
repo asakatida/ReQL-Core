@@ -37,24 +37,6 @@ public:
   Response_t(Response_t &&other) :
     p_json(std::move(other.p_json)), p_proto(std::move(other.p_proto)), p_token(std::move(other.p_token)) {}
 
-  Response_t &operator =(const Response_t &other) {
-    if (this != &other) {
-      p_json = other.p_json;
-      p_proto = other.p_proto;
-      p_token = other.p_token;
-    }
-    return *this;
-  }
-  
-  Response_t &operator =(Response_t &&other) {
-    if (this != &other) {
-      p_json = std::move(other.p_json);
-      p_proto = std::move(other.p_proto);
-      p_token = std::move(other.p_token);
-    }
-    return *this;
-  }
-
   bool operator ==(ReQL_Token token) const {
     return p_token == token;
   }
@@ -63,14 +45,18 @@ public:
     return p_token < token;
   }
 
+  const str_t json() const {
+    return p_json;
+  }
+
   void next() const {
     p_proto->cont(p_token);
   }
 
 private:
-  str_t p_json;
+  const str_t p_json;
   proto_t *p_proto;
-  ReQL_Token p_token;
+  const ReQL_Token p_token;
 };
 
 }  // namespace _ReQL

@@ -22,7 +22,6 @@ limitations under the License.
 #define REQL_REQL_CORE_HPP_
 
 #include "./reql/connection.hpp"
-#include "./reql/cursor.hpp"
 #include "./reql/query.hpp"
 
 #endif  // REQL_REQL_CORE_HPP_

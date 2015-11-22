@@ -50,6 +50,5 @@ private:
 };
 
 typedef _ReQL::Conn_t<Result, _ReQL::ImmutableString> Connection;
-typedef _ReQL::Cur_t<Result, _ReQL::ImmutableString> Cursor;
 
 }

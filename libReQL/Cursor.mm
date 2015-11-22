@@ -27,30 +27,17 @@ limitations under the License.
 
 @interface ReQLCursor ()
 
-@property(nonnull, nonatomic) ReQL::Cursor *cur;
 @property(nonnull, nonatomic) Cursor *stream;
 
 @end
 
 @implementation ReQLCursor
 
-@synthesize cur=p_cur;
 @synthesize stream=p_stream;
 
--(instancetype)initWithCursor:(nonnull ReQL::Cursor *)cur {
+-(instancetype)init {
   if ((self = [super init])) {
     p_stream = [Cursor new];
-    cur->sink([self](ReQL::Result &&result) {
-      id nsarray = result.toObjC();
-      if ([nsarray isKindOfClass:[NSArray class]]) {
-        for (id elem in reinterpret_cast<NSArray *>(nsarray)) {
-          [p_stream next:elem];
-        }
-      } else {
-        [p_stream next:nsarray];
-      }
-    });
-    p_cur = cur;
     if (p_stream == nil) {
       return nil;
     }
@@ -75,14 +62,6 @@ limitations under the License.
 
 -(nonnull NSArray *)toArray {
   return [self.stream toArray];
-}
-
--(BOOL)isOpen {
-  return self.cur->isOpen() ? NO : YES;
-}
-
--(void)close {
-  self.cur->close();
 }
 
 -(void)dealloc {

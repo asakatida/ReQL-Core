@@ -23,11 +23,11 @@ limitations under the License.
 
 #include "./reql/decode.hpp"
 #include "./reql/parser.hpp"
-#include "./reql/pipe.hpp"
+#include "./reql/protocol.hpp"
 #include "./reql/response.hpp"
 #include "./reql/types.hpp"
 
-#include <atomic>
+#include <functional>
 #include <memory>
 
 namespace _ReQL {
@@ -35,8 +35,6 @@ namespace _ReQL {
 template <class result_t, class str_t>
 class Cur_t {
 public:
-  Cur_t() {}
-
   enum Response_e {
     REQL_CLIENT_ERROR = 16,
     REQL_COMPILE_ERROR = 17,
@@ -47,67 +45,33 @@ public:
     REQL_WAIT_COMPLETE = 4
   };
 
-  Cur_t(Pipe_t<Response_t<str_t, Protocol_t<str_t> > > &pipe) :
-    p_pipe([this](Response_t<str_t, Protocol_t<str_t> > &&response) {
-      Parser_t<result_t> parser;
-      decode(response.p_json, parser);
-      switch (parser.r_type()) {
-        case REQL_SUCCESS_ATOM:
-        case REQL_SUCCESS_SEQUENCE:
-        case REQL_WAIT_COMPLETE: {
-          break;
-        }
-        case REQL_SUCCESS_PARTIAL: {
-          response.next();
-          break;
-        }
-        case REQL_CLIENT_ERROR:
-        case REQL_COMPILE_ERROR:
-        case REQL_RUNTIME_ERROR:
-        default: {
-        }
+  Cur_t(std::function<void(result_t &&result)> &func) : p_func(func) {}
+
+  Cur_t &operator <<(Response_t<str_t, Protocol_t<str_t> > &&response) {
+    Parser_t<result_t> parser;
+    decode(response.json(), parser);
+    switch (parser.r_type()) {
+      case REQL_SUCCESS_ATOM:
+      case REQL_SUCCESS_SEQUENCE:
+      case REQL_WAIT_COMPLETE: {
+        break;
       }
-      return parser.get();
-    }, pipe) {}
-
-  Cur_t(const Cur_t &other) : p_pipe(other.p_pipe) {}
-
-  Cur_t(Cur_t &&other) : p_pipe(std::move(other.p_pipe)) {}
-
-  Cur_t &operator =(const Cur_t &other) {
-    if (this != &other) {
-      p_pipe = other.p_pipe;
+      case REQL_SUCCESS_PARTIAL: {
+        response.next();
+        break;
+      }
+      case REQL_CLIENT_ERROR:
+      case REQL_COMPILE_ERROR:
+      case REQL_RUNTIME_ERROR:
+      default: {
+      }
     }
+    p_func(std::move(parser.get()));
     return *this;
-  }
-
-  Cur_t &operator =(Cur_t &&other) {
-    if (this != &other) {
-      p_pipe = std::move(other.p_pipe);
-    }
-    return *this;
-  }
-
-  bool isOpen() const {
-    return p_pipe.isOpen();
-  }
-
-  Cur_t &operator >>(result_t &value) {
-    p_pipe >> value;
-    return *this;
-  }
-
-  template <class func_t>
-  Pipe_t<result_t> sink(func_t func) {
-    return Pipe_t<result_t>(func);
-  }
-
-  void close() {
-    p_pipe.close();
   }
 
 private:
-  Pipe_t<result_t> p_pipe;
+  std::function<void(result_t &&result)> p_func;
 };
 
 }  // namespace _ReQL

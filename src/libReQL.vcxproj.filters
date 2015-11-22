@@ -27,9 +27,6 @@
     <ClInclude Include="reql\decode.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="reql\pipe.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="reql\query.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>

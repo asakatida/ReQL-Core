@@ -35,7 +35,6 @@ HEADERS += \
   reql/decode.hpp \
   reql/handshake.hpp \
   reql/parser.hpp \
-  reql/pipe.hpp \
   reql/protocol.hpp \
   reql/query.hpp \
   reql/response.hpp \
