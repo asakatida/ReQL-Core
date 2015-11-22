@@ -31,7 +31,7 @@ limitations under the License.
 
 namespace _ReQL {
 
-template <class char_t, class Traits = std::char_traits<char_t>, class Allocator = std::allocator<char_t>>
+template <class char_t, class Traits = std::char_traits<char_t>, class Allocator = std::allocator<char_t> >
 class BasicImmutableString {
 public:
   typedef Traits traits_type;

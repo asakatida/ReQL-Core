@@ -212,7 +212,7 @@ public:
     return p_pipe->close();
   }
 
-  std::shared_ptr<Static_Pipe_t<elem_t>> p_pipe;
+  std::shared_ptr<Static_Pipe_t<elem_t> > p_pipe;
 };
 
 }  // namespace _ReQL

@@ -95,7 +95,7 @@ public:
     p_cursors->stop(token);
   }
 
-  std::shared_ptr<BTree_t<result_t, str_t>> p_cursors;
+  std::shared_ptr<BTree_t<result_t, str_t> > p_cursors;
 };
 
 }  // namespace _ReQL

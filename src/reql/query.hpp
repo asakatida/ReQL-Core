@@ -317,9 +317,9 @@ public:
   template <class stream_t>
   void toJSON(stream_t &stream) const {
     stream << "{";
-    std::vector<Pair_t<Any_t<stream_t>, Any_t<stream_t>>> temp;
+    std::vector<Pair_t<Any_t<stream_t>, Any_t<stream_t> > > temp;
     temp.reserve(p_value.size());
-    std::transform(p_value.cbegin(), p_value.cend(), temp.begin(), [](auto &pair) { return Pair_t<Any_t<stream_t>, Any_t<stream_t>>(pair.first, pair.second); });
+    std::transform(p_value.cbegin(), p_value.cend(), temp.begin(), [](auto &pair) { return Pair_t<Any_t<stream_t>, Any_t<stream_t> >(pair.first, pair.second); });
     to_JSON(temp, stream);
     stream << "}";
   }
@@ -495,12 +495,12 @@ public:
 };
 
 typedef Any_t<_Stream> Any;
-typedef Array_t<std::vector<Any>> Array;
+typedef Array_t<std::vector<Any> > Array;
 typedef Bool_t<bool> Boolean;
 typedef Null_t<_Stream> Null;
 typedef Num_t<double> Number;
 typedef String_t<std::string> String;
-typedef Obj_t<std::map<String, Any>> Object;
+typedef Obj_t<std::map<String, Any> > Object;
 typedef ReQL_Kwargs_t<Array, Object> ReQL_Kwargs;
 typedef ReQL_Args_t<Array> ReQL_Args;
 typedef ReQL_t<_Stream> ReQL;

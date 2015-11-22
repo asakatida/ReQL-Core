@@ -70,7 +70,7 @@ public:
       return p_right->create(key);
     }
 
-    void push(Response_t<str_t, Protocol_t<str_t>> &&response) {
+    void push(Response_t<str_t, Protocol_t<str_t> > &&response) {
       if (response.p_token == p_key) {
         p_val << std::move(response);
         return;
@@ -101,7 +101,7 @@ public:
   };
 
   BTree_t(const str_t &addr, const str_t &port, const str_t &auth) :
-    p_protocol(addr, port, auth, [this](Response_t<str_t, Protocol_t<str_t>> &&response) {
+    p_protocol(addr, port, auth, [this](Response_t<str_t, Protocol_t<str_t> > &&response) {
       p_root.push(std::move(response));
     }) {}
 
