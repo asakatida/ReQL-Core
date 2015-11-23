@@ -41,11 +41,12 @@ public:
   Protocol_t(const str_t &addr, const str_t &port, const str_t &auth, func_t func) : p_sock(addr, port) {
     Handshake_t<str_t>(p_sock, auth);
     p_thread = std::thread([func, this] {
-      while (true) {
-        auto header = p_sock.read(12);
+      while (p_sock.isOpen()) {
+        auto header = p_sock.read();
         auto token = get_token(header.c_str());
         header = header.substr(8);
-        func(Response_t<str_t, Protocol_t>(p_sock.read(get_size(header.c_str())), token, this));
+        auto size = get_size(header.c_str());
+        func(Response_t<str_t, Protocol_t>(p_sock.read(), token, this));
       }
     });
   }
@@ -77,7 +78,12 @@ public:
     return *this;
   }
 
-  ~Protocol_t() { if (p_thread.joinable()) { p_thread.join(); } }
+  ~Protocol_t() {
+    p_sock.close();
+    if (p_thread.joinable()) {
+      p_thread.join();
+    }
+  }
 
   void stop(ReQL_Token t) {
     (*this) << Query_t<str_t>(t, REQL_STOP);

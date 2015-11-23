@@ -33,9 +33,7 @@ static const ReQL_Size PROTOCOL = 0x7e6970c7;
 template <class str_t>
 class Handshake_t {
 public:
-  Handshake_t(const Socket_t<str_t> &sock, const str_t &auth) {
-    sock.set_timeout(20, 0);
-
+  Handshake_t(Socket_t<str_t> &sock, const str_t &auth) {
     ReQL_Byte magic[3][4];
 
     make_size(magic[0], VERSION);
@@ -50,7 +48,7 @@ public:
 
     sock.write(stream.str());
 
-    auto response = sock.read();
+    auto response = sock.read(20);
 
     if (response.size() != 8) {
       throw;
@@ -59,8 +57,6 @@ public:
     if (!(response == "SUCCESS")) {
       throw;
     }
-
-    sock.set_timeout();
   }
 };
 

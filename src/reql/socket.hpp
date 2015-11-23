@@ -23,6 +23,7 @@ limitations under the License.
 
 #include <atomic>
 #include <memory>
+#include <thread>
 
 #ifdef __MINGW32__
 #include <cstdint>
@@ -94,10 +95,7 @@ public:
   Socket_t(Socket_t &&other) : Socket_t(other.p_sock.exchange(-1)) {}
 
   ~Socket_t() {
-    int sock = p_sock.exchange(-1);
-    if (sock >= 0) {
-      ::close(sock);
-    }
+    close();
   }
 
   Socket_t &operator =(Socket_t &&other) {
@@ -111,55 +109,98 @@ public:
     return p_sock.load() >= 0;
   }
 
-  void set_timeout(unsigned long s, unsigned long us) const {
-#ifdef __MINGW32__
-    const struct timeval timeout = {static_cast<long>(s), static_cast<long>(us)};
-
-    if (setsockopt(p_sock.load(), SOL_SOCKET, SO_RCVTIMEO, reinterpret_cast<const char *>(&timeout), sizeof(struct timeval))) {
-      throw;
+  void close() {
+    int sock = p_sock.exchange(-1);
+    if (sock >= 0) {
+      ::close(sock);
     }
-
-    if (setsockopt(p_sock.load(), SOL_SOCKET, SO_SNDTIMEO, reinterpret_cast<const char *>(&timeout), sizeof(struct timeval))) {
-      throw;
-    }
-#else
-    const struct timeval timeout = {static_cast<__darwin_time_t>(s), static_cast<__darwin_suseconds_t>(us)};
-
-    if (setsockopt(p_sock.load(), SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(struct timeval))) {
-      throw;
-    }
-
-    if (setsockopt(p_sock.load(), SOL_SOCKET, SO_SNDTIMEO, &timeout, sizeof(struct timeval))) {
-      throw;
-    }
-#endif
   }
 
-  void set_timeout(unsigned long s) const {
-    set_timeout(s, 0);
+  str_t read() {
+    wait_read();
+    read(0, getsockopt(p_sock.load(), SOL_SOCKET, SO_NREAD, nullptr, nullptr));
   }
 
-  void set_timeout() const {
-    set_timeout(0, 1);
+  str_t read(unsigned long s) {
+    select_read(s);
+    read(s, getsockopt(p_sock.load(), SOL_SOCKET, SO_NREAD, nullptr, nullptr));
   }
 
-  str_t read() const {
-    char buffer[200];
-    auto size = recvfrom(p_sock.load(), buffer, 200, 0, nullptr, nullptr);
-    return str_t(buffer, static_cast<size_t>(size));
+  void write(const str_t &out) {
+    wait_write();
+    send(p_sock.load(), out.c_str(), out.size(), 0);
   }
 
-  str_t read(ssize_t size) const {
+private:
+  str_t read(unsigned long s, ssize_t size) {
     std::unique_ptr<char> buffer(new char[static_cast<size_t>(size)]);
     size = recvfrom(p_sock.load(), buffer.get(), static_cast<size_t>(size), 0, nullptr, nullptr);
     return str_t(buffer.get(), static_cast<size_t>(size));
   }
 
-  void write(const str_t &out) const {
-    send(p_sock.load(), out.c_str(), out.size(), 0);
+  void select(fd_set *rset, fd_set *wset, timeval *to) {
+    auto sts = ::select(p_sock.load() + 1, rset, wset, rset ? rset : wset, to);
+    if (sts < 0) {
+      throw std::exception();
+    } else if (!sts) {
+      throw std::exception();
+    }
   }
 
-private:
+  void select_read(unsigned long s) {
+#ifdef __MINGW32__
+    timeval timeout = {static_cast<long>(s), 0};
+#else
+    timeval timeout = {static_cast<__darwin_time_t>(s), 0};
+#endif
+    fd_set set;
+    FD_ZERO(&set);
+    FD_SET(p_sock.load(), &set);
+    select(&set, nullptr, &timeout);
+  }
+
+  void select_write(unsigned long s) {
+#ifdef __MINGW32__
+    timeval timeout = {static_cast<long>(s), 0};
+#else
+    timeval timeout = {static_cast<__darwin_time_t>(s), 0};
+#endif
+    fd_set set;
+    FD_ZERO(&set);
+    FD_SET(p_sock.load(), &set);
+    select(nullptr, &set, &timeout);
+  }
+
+  bool poll_read() {
+    try {
+      select_read(0);
+    } catch (std::exception &) {
+      return false;
+    }
+    return true;
+  }
+
+  bool poll_write() {
+    try {
+      select_write(0);
+    } catch (std::exception &) {
+      return false;
+    }
+    return true;
+  }
+
+  void wait_read() {
+    while (!poll_read()) {
+      std::this_thread::yield();
+    }
+  }
+
+  void wait_write() {
+    while (!poll_write()) {
+      std::this_thread::yield();
+    }
+  }
+
   std::atomic<int> p_sock;
 };
 
