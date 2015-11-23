@@ -28,6 +28,7 @@ limitations under the License.
 #include "./reql/types.hpp"
 
 #include <atomic>
+#include <functional>
 #include <memory>
 #include <mutex>
 
@@ -47,15 +48,15 @@ public:
     return p_protocol.isOpen();
   }
 
-  template <class query_t, class func_t>
-  void run(const query_t &query, func_t func) {
+  template <class query_t>
+  void run(const query_t &query, std::function<void(result_t &&result)> func) {
     Query_t<str_t> q(p_next_token++, query);
     p_protocol << q;
-    create(q.token, func);
+    create(q.token(), func);
   }
 
-  template <class kwargs_t, class query_t, class func_t>
-  void run(const query_t &query, const kwargs_t &kwargs, func_t func) {
+  template <class kwargs_t, class query_t>
+  void run(const query_t &query, const kwargs_t &kwargs, std::function<void(result_t &&result)> func) {
     Query_t<str_t> q(p_next_token++, query, kwargs);
     p_protocol << q;
     create(q.token(), func);
@@ -70,7 +71,7 @@ public:
   void noReplyWait() {
     Query_t<str_t> query(p_next_token++, REQL_NOREPLY_WAIT);
     p_protocol << query;
-    create(query.token);
+    create(query.token());
   }
 
   void stop(ReQL_Token token) {
