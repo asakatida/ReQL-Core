@@ -26,7 +26,7 @@ ReQLError::ReQLError() {
 }
 
 const char*
-ReQLError::what() const _NOEXCEPT {
+ReQLError::what() const noexcept {
   return "ReQLError";
 }
 
@@ -34,7 +34,7 @@ ReQLQueryError::ReQLQueryError() {
 }
 
 const char*
-ReQLQueryError::what() const _NOEXCEPT {
+ReQLQueryError::what() const noexcept {
   return "ReQLQueryError";
 }
 
@@ -42,7 +42,7 @@ ReQLClientError::ReQLClientError() {
 }
 
 const char*
-ReQLClientError::what() const _NOEXCEPT {
+ReQLClientError::what() const noexcept {
   return "ReQLClientError";
 }
 
@@ -50,7 +50,7 @@ ReQLCompileError::ReQLCompileError() {
 }
 
 const char*
-ReQLCompileError::what() const _NOEXCEPT {
+ReQLCompileError::what() const noexcept {
   return "ReQLCompileError";
 }
 
@@ -58,7 +58,7 @@ ReQLRuntimeError::ReQLRuntimeError() {
 }
 
 const char*
-ReQLRuntimeError::what() const _NOEXCEPT {
+ReQLRuntimeError::what() const noexcept {
   return "ReQLRuntimeError";
 }
 
@@ -66,7 +66,7 @@ ReQLCursorEmpty::ReQLCursorEmpty() {
 }
 
 const char*
-ReQLCursorEmpty::what() const _NOEXCEPT {
+ReQLCursorEmpty::what() const noexcept {
   return "ReQLCursorEmpty";
 }
 
@@ -74,7 +74,7 @@ ReQLDriverError::ReQLDriverError() {
 }
 
 const char*
-ReQLDriverError::what() const _NOEXCEPT {
+ReQLDriverError::what() const noexcept {
   return "ReQLDriverError";
 }
 
