@@ -261,11 +261,7 @@ public:
 
   template <class stream_t>
   void toJSON(stream_t &stream) const {
-    if (p_value) {
-      stream << "true";
-    } else {
-      stream << "false";
-    }
+    stream << (p_value ? "true" : "false");
   }
 
 private:
