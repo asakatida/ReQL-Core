@@ -31,12 +31,67 @@ namespace ReQL {
 
 Cursor::Cursor() {}
 
-Cursor::Cursor(Cursor &&other) : p_mutex(std::move(other.p_mutex)) {}
+Cursor::Cursor(std::function<void()> func) {}
+
+Cursor::Cursor(Cursor &&other) {
+  std::lock_guard<std::mutex> lock(*p_mutex);
+  std::lock_guard<std::mutex> other_lock(*(other.p_mutex));
+  p_func = std::move(other.p_func);
+  p_mutex = std::move(other.p_mutex);
+  p_queue = std::move(other.p_queue);
+}
 
 Cursor &
 Cursor::operator=(Cursor &&other) {
   if (this != &other) {
+    std::lock(*p_mutex, *(other.p_mutex));
+    std::lock_guard<std::mutex> lock(*p_mutex, std::adopt_lock);
+    std::lock_guard<std::mutex> other_lock(*(other.p_mutex), std::adopt_lock);
+    p_func = std::move(other.p_func);
+    p_mutex = std::move(other.p_mutex);
+    p_queue = std::move(other.p_queue);
   }
+  return *this;
+}
+
+Cursor &
+Cursor::begin() noexcept {
+  return *this;
+}
+
+Cursor &
+Cursor::cbegin() noexcept {
+  return *this;
+}
+
+const Cursor &
+Cursor::end() const {
+  return *p_end;
+}
+
+const Cursor &
+Cursor::cend() const {
+  return *p_end;
+}
+
+void
+Cursor::swap(Cursor &other) {
+  std::swap(p_func, other.p_func);
+  std::swap(p_mutex, other.p_mutex);
+  std::swap(p_queue, other.p_queue);
+}
+
+Cursor &
+Cursor::operator >>(Result &result) {
+  std::lock_guard<std::mutex> lock(*p_mutex);
+  if (p_queue->empty()) {
+    p_cond->wait()
+    p_mutex->unlock();
+    std::this_thread::yield();
+    p_mutex->lock();
+  }
+  result = p_queue->back();
+  p_queue->pop();
   return *this;
 }
 

@@ -173,8 +173,13 @@ Query::Query(Query &&other) :
 Cursor
 Query::run(Connection &conn) const {
   Cursor cursor;
-  conn.p_conn.run(build(), [&cursor](Result &&result) {
-    cursor << std::move(result);
+  auto queue = cursor.p_queue;
+  auto mutex = cursor.p_mutex;
+  auto cond = cursor.p_cond;
+  conn.p_conn.run(build(), [cond, mutex, queue](Result &&result) {
+    std::lock_guard<std::mutex> lock(*mutex);
+    queue->push(std::move(result));
+    cond->notify_one();
   });
   return cursor;
 }
@@ -182,8 +187,13 @@ Query::run(Connection &conn) const {
 Cursor
 Query::run(Connection &conn, const std::map<std::string, Query> &kwargs) const {
   Cursor cursor;
-  conn.p_conn.run(build(), Query(kwargs).build(), [&cursor](Result &&result) {
-    cursor << std::move(result);
+  auto queue = cursor.p_queue;
+  auto mutex = cursor.p_mutex;
+  auto cond = cursor.p_cond;
+  conn.p_conn.run(build(), Query(kwargs).build(), [cond, mutex, queue](Result &&result) {
+    std::lock_guard<std::mutex> lock(*mutex);
+    cond->notify_one();
+    queue->push(std::move(result));
   });
   return cursor;
 }

@@ -25,6 +25,8 @@ limitations under the License.
 #include "./cpp/query.hpp"
 
 #include <array>
+#include <condition_variable>
+#include <functional>
 #include <iterator>
 #include <mutex>
 #include <queue>
@@ -33,8 +35,6 @@ namespace ReQL {
 
 class Cursor : public std::iterator<std::input_iterator_tag, Result> {
 public:
-  Cursor();
-
   Cursor(const Cursor &other);
 
   Cursor(Cursor &&other);
@@ -43,15 +43,13 @@ public:
 
   Cursor &operator=(Cursor &&other);
 
-  void swap(Cursor &other);
+  Cursor &begin() noexcept;
 
-  Cursor &begin();
+  Cursor &cbegin() noexcept;
 
-  Cursor &cbegin();
+  const Cursor &end() const;
 
-  Cursor &end();
-
-  Cursor &cend();
+  const Cursor &cend() const;
 
   Cursor &operator ++();
 
@@ -65,14 +63,21 @@ public:
 
 private:
   friend class Query;
+  friend void swap(Cursor &c1, Cursor &c2);
 
-  Cursor &operator <<(Result &&result);
+  Cursor();
+
+  Cursor(std::function<void()> func);
+
+  void swap(Cursor &other);
 
   Cursor &operator >>(Result &result);
 
+  Cursor *p_end;
+  std::shared_ptr<std::function<void()>> p_func;
   std::shared_ptr<std::mutex> p_mutex;
-  std::queue<Result> p_queue;
-  std::queue<Result> *p_master;
+  std::shared_ptr<std::queue<Result>> p_queue;
+  std::shared_ptr<std::condition_variable> p_cond;
 };
 
 void swap(Cursor &c1, Cursor &c2);
