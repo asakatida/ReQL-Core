@@ -26,15 +26,8 @@ limitations under the License.
 #include <thread>
 
 #ifdef __MINGW32__
-#include <cstdint>
-#include <io.h>
-
-typedef unsigned __LONG32 ULONG;
-typedef short SHORT;
-typedef unsigned char UCHAR;
-
-#include <nettypes.h>
-#include <netprov.h>
+#include <winsock2.h>
+#include <ws2tcpip.h>
 #else
 #include <netdb.h>
 #include <netinet/in.h>

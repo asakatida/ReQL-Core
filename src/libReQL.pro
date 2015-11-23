@@ -14,6 +14,8 @@ DEFINES += LIBREQL_LIBRARY
 QMAKE_CXXFLAGS += -std=c++14
 QMAKE_LFLAGS += -std=c++14
 
+LIBS += -LWs2_32 -lWs2_32
+
 SOURCES += \
   cpp/connection.cpp \
   cpp/cursor.cpp \
