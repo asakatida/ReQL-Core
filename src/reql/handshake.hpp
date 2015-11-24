@@ -48,7 +48,7 @@ public:
 
     sock.write(stream.str());
 
-    auto response = sock.read(20);
+    auto response = sock.read();
 
     if (response.size() != 8) {
       throw;
