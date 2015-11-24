@@ -51,7 +51,7 @@ int connect(const str_t &addr, const str_t &port) {
   hints.ai_protocol = IPPROTO_TCP;
 
   if (getaddrinfo(addr.c_str(), port.c_str(), &hints, &result) != 0) {
-    throw;
+    throw std::exception();
   }
 
   int sock = -1;
@@ -68,7 +68,7 @@ int connect(const str_t &addr, const str_t &port) {
 
   if (rp == nullptr) {
     freeaddrinfo(result);
-    throw;
+    throw std::exception();
   }
 
   freeaddrinfo(result);
@@ -79,23 +79,14 @@ int connect(const str_t &addr, const str_t &port) {
 template <class str_t>
 class Socket_t {
 public:
-  Socket_t() : Socket_t(-1) {}
+  Socket_t() : p_sock(-1) {}
 
-  Socket_t(const str_t &addr, const str_t &port) : Socket_t(connect(addr, port)) {}
+  Socket_t(const str_t &addr, const str_t &port) : p_sock(connect(addr, port)) {}
 
   Socket_t(const int sock) : p_sock(sock) {}
 
-  Socket_t(Socket_t &&other) : Socket_t(other.p_sock.exchange(-1)) {}
-
   ~Socket_t() {
     close();
-  }
-
-  Socket_t &operator =(Socket_t &&other) {
-    if (this != &other) {
-      p_sock.store(other.p_sock.exchange(-1));
-    }
-    return *this;
   }
 
   bool isOpen() const {
@@ -109,89 +100,60 @@ public:
     }
   }
 
-  str_t read() {
+  ImmutableString read() {
+    int sock = load();
     wait_read();
-    read(0, getsockopt(p_sock.load(), SOL_SOCKET, SO_NREAD, nullptr, nullptr));
-  }
-
-  str_t read(unsigned long s) {
-    select_read(s);
-    read(s, getsockopt(p_sock.load(), SOL_SOCKET, SO_NREAD, nullptr, nullptr));
-  }
-
-  void write(const str_t &out) {
-    wait_write();
-    send(p_sock.load(), out.c_str(), out.size(), 0);
-  }
-
-private:
-  str_t read(unsigned long s, ssize_t size) {
+    ssize_t size = getsockopt(sock, SOL_SOCKET, SO_NREAD, nullptr, nullptr);
+    if (size < 0) {
+      throw std::exception();
+    }
     std::unique_ptr<char> buffer(new char[static_cast<size_t>(size)]);
-    size = recvfrom(p_sock.load(), buffer.get(), static_cast<size_t>(size), 0, nullptr, nullptr);
+    size = recvfrom(sock, buffer.get(), static_cast<size_t>(size), 0, nullptr, nullptr);
+    if (size < 0) {
+      throw std::exception();
+    }
     return str_t(buffer.get(), static_cast<size_t>(size));
   }
 
-  void select(fd_set *rset, fd_set *wset, timeval *to) {
-    auto sts = ::select(p_sock.load() + 1, rset, wset, rset ? rset : wset, to);
-    if (sts < 0) {
-      throw std::exception();
-    } else if (!sts) {
-      throw std::exception();
-    }
+  void write(const str_t &out) {
+    int sock = load();
+    wait_write();
+    send(sock, out.c_str(), out.size(), 0);
   }
 
-  void select_read(unsigned long s) {
-#ifdef __MINGW32__
-    timeval timeout = {static_cast<long>(s), 0};
-#else
-    timeval timeout = {static_cast<__darwin_time_t>(s), 0};
-#endif
+private:
+  bool poll(bool read, bool write) {
+    int sock = load();
+    timeval to = {0, 0};
     fd_set set;
     FD_ZERO(&set);
-    FD_SET(p_sock.load(), &set);
-    select(&set, nullptr, &timeout);
-  }
-
-  void select_write(unsigned long s) {
-#ifdef __MINGW32__
-    timeval timeout = {static_cast<long>(s), 0};
-#else
-    timeval timeout = {static_cast<__darwin_time_t>(s), 0};
-#endif
-    fd_set set;
-    FD_ZERO(&set);
-    FD_SET(p_sock.load(), &set);
-    select(nullptr, &set, &timeout);
-  }
-
-  bool poll_read() {
-    try {
-      select_read(0);
-    } catch (std::exception &) {
-      return false;
-    }
-    return true;
-  }
-
-  bool poll_write() {
-    try {
-      select_write(0);
-    } catch (std::exception &) {
-      return false;
-    }
-    return true;
+    FD_SET(sock, &set);
+    auto sts = ::select(sock + 1,
+                        read ? &set : nullptr,
+                        write ? &set : nullptr,
+                        &set, &to);
+    if (sts == EAGAIN) return false;
+    if (sts >= sock) return true;
   }
 
   void wait_read() {
-    while (!poll_read()) {
+    while (!poll(true, false)) {
       std::this_thread::yield();
     }
   }
 
   void wait_write() {
-    while (!poll_write()) {
+    while (!poll(false, true)) {
       std::this_thread::yield();
     }
+  }
+
+  int load() {
+    int sock = p_sock.load();
+    if (sock < 0) {
+      throw std::exception();
+    }
+    return sock;
   }
 
   std::atomic<int> p_sock;
