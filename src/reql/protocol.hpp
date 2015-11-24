@@ -37,16 +37,50 @@ class Protocol_t {
 public:
   Protocol_t() {}
 
+  class Buffer_t {
+  public:
+    Buffer_t &operator <<(ImmutableString &&string) {
+      p_size += string.size();
+      p_deque.push_back(std::move(string));
+      return *this;
+    }
+
+    ImmutableString operator [](const size_t request) {
+      size_t current;
+      _Stream stream;
+      while (current < request) {
+        auto string = p_deque.front();
+        p_deque.pop_front();
+        current += string.size();
+        stream << std::move(string);
+      }
+      auto string = stream.str();
+      p_deque.push_front(string.substr(request));
+      return ImmutableString(string.data(), request);
+    }
+
+    size_t size() const { return p_size; }
+  private:
+
+    std::deque<ImmutableString> p_deque;
+    size_t p_size;
+  };
+
   template <class func_t>
   Protocol_t(const str_t &addr, const str_t &port, const str_t &auth, func_t func) : p_sock(addr, port) {
     Handshake_t<str_t>(p_sock, auth);
     p_thread = std::thread([func, this] {
-      while (p_sock.isOpen()) {
-        auto header = p_sock.read();
-        auto token = get_token(header.c_str());
-        header = header.substr(8);
-        auto size = get_size(header.c_str());
-        func(Response_t<str_t, Protocol_t>(p_sock.read(), token, this));
+      Buffer_t buffer;
+      while (true) {
+        while (buffer.size() < 12) {
+          buffer << std::move(p_sock.read());
+        }
+        auto token = get_token(buffer[8].c_str());
+        auto size = get_size(buffer[4].c_str());
+        while (buffer.size() < size) {
+          buffer << std::move(p_sock.read());
+        }
+        func(Response_t<str_t, Protocol_t>(buffer[size], token, this));
       }
     });
   }

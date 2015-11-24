@@ -54,6 +54,11 @@ public:
     return *this;
   }
 
+  Stream_t &operator <<(string_type &&value) {
+    p_stream.push_back(std::move(value));
+    return *this;
+  }
+
   Stream_t &operator <<(const double value) {
     p_stream.push_back(std::to_string(value));
     return *this;

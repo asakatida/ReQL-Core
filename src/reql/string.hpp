@@ -28,6 +28,7 @@ limitations under the License.
 #include <memory>
 #include <numeric>
 #include <stdexcept>
+#include <string>
 
 namespace _ReQL {
 
