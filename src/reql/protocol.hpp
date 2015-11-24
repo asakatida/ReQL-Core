@@ -41,29 +41,24 @@ public:
   public:
     Buffer_t &operator <<(ImmutableString &&string) {
       p_size += string.size();
-      p_deque.push_back(std::move(string));
+      p_stream << std::move(string);
       return *this;
     }
 
-    ImmutableString operator [](const size_t request) {
-      size_t current;
-      _Stream stream;
-      while (current < request) {
-        auto string = p_deque.front();
-        p_deque.pop_front();
-        current += string.size();
-        stream << std::move(string);
-      }
-      auto string = stream.str();
-      p_deque.push_front(string.substr(request));
-      return ImmutableString(string.data(), request);
+    bool operator <(const size_t request) {
+      return p_size < request;
     }
 
-    size_t size() const { return p_size; }
+    ImmutableString operator [](const size_t request) {
+      auto string = p_stream.str();
+      p_stream = _Stream();
+      p_stream << std::move(string.substr(request));
+      return ImmutableString(string.data(), request);
+    }
   private:
 
-    std::deque<ImmutableString> p_deque;
     size_t p_size;
+    _Stream p_stream;
   };
 
   template <class func_t>
@@ -72,12 +67,12 @@ public:
     p_thread = std::thread([func, this] {
       Buffer_t buffer;
       while (true) {
-        while (buffer.size() < 12) {
+        while (buffer < 12) {
           buffer << std::move(p_sock.read());
         }
         auto token = get_token(buffer[8].c_str());
         auto size = get_size(buffer[4].c_str());
-        while (buffer.size() < size) {
+        while (buffer < size) {
           buffer << std::move(p_sock.read());
         }
         func(Response_t<str_t, Protocol_t>(buffer[size], token, this));
