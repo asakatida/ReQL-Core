@@ -21,7 +21,8 @@ limitations under the License.
 #ifndef REQL_REQL_BTREE_HPP_
 #define REQL_REQL_BTREE_HPP_
 
-#include "./reql/cursor.hpp"
+#include "./reql/decode.hpp"
+#include "./reql/parser.hpp"
 #include "./reql/protocol.hpp"
 #include "./reql/query.hpp"
 #include "./reql/response.hpp"
@@ -82,7 +83,37 @@ public:
 private:
   class BNode_t {
   public:
-    BNode_t(const ReQL_Token &key, std::function<void(result_t &&result)> &func) : p_cur(func), p_key(key) {}
+    enum Response_e {
+      REQL_CLIENT_ERROR = 16,
+      REQL_COMPILE_ERROR = 17,
+      REQL_RUNTIME_ERROR = 18,
+      REQL_SUCCESS_ATOM = 1,
+      REQL_SUCCESS_PARTIAL = 3,
+      REQL_SUCCESS_SEQUENCE = 2,
+      REQL_WAIT_COMPLETE = 4
+    };
+
+    BNode_t(const ReQL_Token &key, std::function<void(result_t &&result)> &func) : p_cur([func](Response_t<str_t, Protocol_t<str_t> > &&response) {
+      Parser_t<result_t> parser;
+      decode(response.json(), parser);
+      switch (parser.r_type()) {
+        case REQL_SUCCESS_ATOM:
+        case REQL_SUCCESS_SEQUENCE:
+        case REQL_WAIT_COMPLETE: {
+          break;
+        }
+        case REQL_SUCCESS_PARTIAL: {
+          response.next();
+          break;
+        }
+        case REQL_CLIENT_ERROR:
+        case REQL_COMPILE_ERROR:
+        case REQL_RUNTIME_ERROR:
+        default: {
+        }
+      }
+      func(std::move(parser.get()));
+    }), p_key(key) {}
 
     void create(const ReQL_Token &key, std::function<void(result_t &&result)> &func) {
       if (key == p_key) {
@@ -103,7 +134,7 @@ private:
 
     void push(Response_t<str_t, Protocol_t<str_t> > &&response) {
       if (response == p_key) {
-        p_cur << std::move(response);
+        p_cur(std::move(response));
         return;
       }
       if (response < p_key) {
@@ -123,7 +154,7 @@ private:
     }
 
   private:
-    Cur_t<result_t, str_t> p_cur;
+    std::function<void(Response_t<str_t, Protocol_t<str_t> > &&)> p_cur;
     ReQL_Token p_key;
     std::unique_ptr<BNode_t> p_left;
     std::unique_ptr<BNode_t> p_right;

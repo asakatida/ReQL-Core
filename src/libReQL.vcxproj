@@ -155,7 +155,6 @@
     <ClInclude Include="reql\btree.hpp" />
     <ClInclude Include="reql\connection.hpp" />
     <ClInclude Include="reql\core.hpp" />
-    <ClInclude Include="reql\cursor.hpp" />
     <ClInclude Include="reql\decode.hpp" />
     <ClInclude Include="reql\handshake.hpp" />
     <ClInclude Include="reql\protocol.hpp" />

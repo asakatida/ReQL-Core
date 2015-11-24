@@ -32,48 +32,6 @@ limitations under the License.
 
 namespace _ReQL {
 
-template <class result_t, class str_t>
-class Cur_t {
-public:
-  enum Response_e {
-    REQL_CLIENT_ERROR = 16,
-    REQL_COMPILE_ERROR = 17,
-    REQL_RUNTIME_ERROR = 18,
-    REQL_SUCCESS_ATOM = 1,
-    REQL_SUCCESS_PARTIAL = 3,
-    REQL_SUCCESS_SEQUENCE = 2,
-    REQL_WAIT_COMPLETE = 4
-  };
-
-  Cur_t(std::function<void(result_t &&result)> &func) : p_func(func) {}
-
-  Cur_t &operator <<(Response_t<str_t, Protocol_t<str_t> > &&response) {
-    Parser_t<result_t> parser;
-    decode(response.json(), parser);
-    switch (parser.r_type()) {
-      case REQL_SUCCESS_ATOM:
-      case REQL_SUCCESS_SEQUENCE:
-      case REQL_WAIT_COMPLETE: {
-        break;
-      }
-      case REQL_SUCCESS_PARTIAL: {
-        response.next();
-        break;
-      }
-      case REQL_CLIENT_ERROR:
-      case REQL_COMPILE_ERROR:
-      case REQL_RUNTIME_ERROR:
-      default: {
-      }
-    }
-    p_func(std::move(parser.get()));
-    return *this;
-  }
-
-private:
-  std::function<void(result_t &&result)> p_func;
-};
-
 }  // namespace _ReQL
 
 #endif  // REQL_REQL_CURSOR_HPP_

@@ -33,7 +33,6 @@ HEADERS += \
   reql/btree.hpp \
   reql/connection.hpp \
   reql/core.hpp \
-  reql/cursor.hpp \
   reql/decode.hpp \
   reql/handshake.hpp \
   reql/parser.hpp \
