@@ -52,11 +52,16 @@ public:
   }
 
   void addValue(const double value) {
+    if (p_is_r_type) {
+      p_r_type = static_cast<int>(value);
+      p_is_r_type = false;
+    }
     p_stack.push_back(result_t(value));
   }
 
   void addValue(const ImmutableString &value) {
-    if (p_is_key && value == "r") {
+    if (p_level == 1 && p_is_key && value == "t") {
+      p_is_r_type = true;
     }
     p_stack.push_back(result_t(value));
     p_is_key = false;
@@ -102,6 +107,8 @@ private:
   std::vector<result_t> p_stack;
   size_t p_level;
   bool p_is_key;
+  bool p_is_r_type;
+  int p_r_type;
 };
 
 }  // namespace _ReQL
