@@ -29,7 +29,7 @@ limitations under the License.
 namespace _ReQL {
 
 static const char *DEFAULT_ADDR = "localhost";
-static const char *DEFAULT_PORT = "30030";
+static const char *DEFAULT_PORT = "28015";
 
 template <class result_t, class str_t>
 class Conn_t {
