@@ -28,6 +28,7 @@ limitations under the License.
 #ifdef __MINGW32__
 #include <winsock2.h>
 #include <ws2tcpip.h>
+#include <io.h>
 #else
 #include <netdb.h>
 #include <netinet/in.h>
