@@ -52,7 +52,7 @@ limitations under the License.
 
 @interface ReQLConnection ()
 
--(NSStream *)run:(ReQLQuery *)query kwargs:(NSDictionary *)kwargs;
+-(RACSequence *)run:(ReQLQuery *)query kwargs:(NSDictionary *)kwargs;
 
 -(void)noReply:(ReQLQuery *)query kwargs:(NSDictionary *)kwargs;
 
@@ -175,11 +175,11 @@ toQuery(id expr) {
   return [ReQLQuery newTerm:tt :@[self]];
 }
 
--(NSStream *)run:(nonnull ReQLConnection *)conn {
+-(RACSequence *)run:(nonnull ReQLConnection *)conn {
   return [self run:conn withOpts:@{}];
 }
 
--(NSStream *)run:(nonnull ReQLConnection *)conn withOpts:(nonnull NSDictionary *)opts {
+-(RACSequence *)run:(nonnull ReQLConnection *)conn withOpts:(nonnull NSDictionary *)opts {
   return [conn run:self kwargs:opts];
 }
 
@@ -203,6 +203,9 @@ toQuery(id expr) {
   } else if (self.null) {
     return _ReQL::Any(_ReQL::Null());
   } else if (self.number) {
+    if (self.flag) {
+      return _ReQL::Any(_ReQL::Boolean([self.number boolValue]));
+    }
     return _ReQL::Any(_ReQL::Number([self.number doubleValue]));
   } else if (self.string) {
     return _ReQL::Any(_ReQL::String(to_string(self.string)));

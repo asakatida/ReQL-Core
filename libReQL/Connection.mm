@@ -25,6 +25,8 @@ limitations under the License.
 
 #import "./reql/core.hpp"
 
+#import <ReactiveCocoa/ReactiveCocoa.h>
+
 @interface ReQLStream : NSStream <NSStreamDelegate>
 
 @property(atomic, weak) id<NSStreamDelegate> delegate;
@@ -123,17 +125,16 @@ limitations under the License.
   return self;
 }
 
--(NSStream *)run:(ReQLQuery *)query kwargs:(NSDictionary *)kwargs {
-  NSStream *cursor = [ReQLStream new];
-  self.conn.run([query build], [[ReQLQuery newWithObject:kwargs] build], [cursor](ReQL::Result &&result) {
-    id nsarray = result.toObjC();
-    if ([nsarray isKindOfClass:[NSArray class]]) {
-      for (id elem in reinterpret_cast<NSArray *>(nsarray)) {
-      }
-    } else {
-    }
-  });
-  return cursor;
+-(RACSequence *)run:(ReQLQuery *)query kwargs:(NSDictionary *)kwargs {
+  return [[RACSignal
+          startEagerlyWithScheduler:[RACScheduler scheduler]
+          block:^(id<RACSubscriber> subscriber) {
+    self.conn.run([query build],
+                  [[ReQLQuery newWithObject:kwargs] build],
+                  [subscriber](ReQL::Result &&result) {
+                    [subscriber sendNext:result.toObjC()];
+                  });
+          }] sequence];
 }
 
 -(void)noReply:(ReQLQuery *)query kwargs:(NSDictionary *)kwargs {
