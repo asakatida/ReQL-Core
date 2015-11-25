@@ -478,7 +478,7 @@ public:
   Query_t(const ReQL_Token token, const query_t &query) : p_token(token) {
     p_stream << "[" << static_cast<int>(REQL_START) << ",";
     query.toJSON(p_stream);
-    p_stream << "]";
+    p_stream << ",{}]";
   }
 
   template <class kwargs_t, class query_t>
