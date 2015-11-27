@@ -31,25 +31,17 @@ namespace _ReQL {
 template <class result_t>
 class Parser_t {
 public:
-  int r_type() {
-    return 0;
-  }
+  int r_type() { return p_r_type; }
 
-  result_t get() {
-    return result_t();
-  }
+  std::vector<result_t> get() { return p_result; }
 
   void startParse() {}
 
   void endParse() {}
 
-  void addValue() {
-    p_stack.push_back(result_t());
-  }
+  void addValue() { p_stack.push_back(result_t()); }
 
-  void addValue(const bool value) {
-    p_stack.push_back(result_t(value));
-  }
+  void addValue(const bool value) { p_stack.push_back(result_t(value)); }
 
   void addValue(const double value) {
     if (p_is_r_type) {
@@ -60,8 +52,20 @@ public:
   }
 
   void addValue(const ImmutableString &value) {
-    if (p_level == 1 && p_is_key && value == "t") {
-      p_is_r_type = true;
+    if (p_level == 1 && p_is_key) {
+      if (value == "b") {
+        p_is_backtrace = true;
+      } else if (value == "n") {
+        p_is_notes = true;
+      } else if (value == "p") {
+        p_is_profile = true;
+      } else if (value == "r") {
+        p_is_response = true;
+      } else if (value == "t") {
+        p_is_r_type = true;
+      } else {
+        throw std::exception();
+      }
     }
     p_stack.push_back(result_t(value));
     p_is_key = false;
@@ -72,11 +76,9 @@ public:
     ++p_level;
   }
 
-  void startElement() {
-  }
+  void startElement() {}
 
-  void endElement() {
-  }
+  void endElement() {}
 
   void endArray() {
     p_stack.push_back(result_t(p_arrays.back()));
@@ -90,9 +92,7 @@ public:
     ++p_level;
   }
 
-  void startKeyValue() {
-    p_is_key = true;
-  }
+  void startKeyValue() { p_is_key = true; }
 
   void endObject() {
     p_stack.push_back(result_t(p_objects.back()));
@@ -102,13 +102,19 @@ public:
 
 private:
   std::vector<std::vector<result_t> > p_arrays;
-  std::vector<std::map<ImmutableString, result_t> > p_objects;
-  result_t p_result;
-  std::vector<result_t> p_stack;
-  size_t p_level;
+  std::vector<result_t> p_backtrace;
+  bool p_is_backtrace;
   bool p_is_key;
+  bool p_is_notes;
+  bool p_is_profile;
   bool p_is_r_type;
+  bool p_is_response;
+  size_t p_level;
+  std::vector<int> p_notes;
+  std::vector<std::map<ImmutableString, result_t> > p_objects;
   int p_r_type;
+  std::vector<result_t> p_result;
+  std::vector<result_t> p_stack;
 };
 
 }  // namespace _ReQL
