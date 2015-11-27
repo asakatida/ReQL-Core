@@ -84,35 +84,45 @@ private:
   class BNode_t {
   public:
     enum Response_e {
-      REQL_CLIENT_ERROR = 16,
-      REQL_COMPILE_ERROR = 17,
-      REQL_RUNTIME_ERROR = 18,
-      REQL_SUCCESS_ATOM = 1,
-      REQL_SUCCESS_PARTIAL = 3,
-      REQL_SUCCESS_SEQUENCE = 2,
-      REQL_WAIT_COMPLETE = 4
+      CLIENT_ERROR = 16,
+      COMPILE_ERROR = 17,
+      RUNTIME_ERROR = 18,
+      SERVER_INFO = 5,
+      SUCCESS_ATOM = 1,
+      SUCCESS_PARTIAL = 3,
+      SUCCESS_SEQUENCE = 2,
+      WAIT_COMPLETE = 4
     };
 
     BNode_t(const ReQL_Token &key, std::function<void(result_t &&result)> &func) : p_cur([func](Response_t<str_t, Protocol_t<str_t> > &&response) {
       Parser_t<result_t> parser;
       decode(response.json(), parser);
       switch (parser.r_type()) {
-        case REQL_SUCCESS_ATOM:
-        case REQL_SUCCESS_SEQUENCE:
-        case REQL_WAIT_COMPLETE: {
+        case SUCCESS_ATOM:
+        case SERVER_INFO: {
+          func(std::move(parser.get()[0]));
           break;
         }
-        case REQL_SUCCESS_PARTIAL: {
-          response.next();
+        case SUCCESS_PARTIAL: response.next(); [[clang::fallthrough]];
+        case SUCCESS_SEQUENCE: {
+          for (auto &&elem : parser.get()) {
+            func(std::move(elem));
+          }
           break;
         }
-        case REQL_CLIENT_ERROR:
-        case REQL_COMPILE_ERROR:
-        case REQL_RUNTIME_ERROR:
+        case WAIT_COMPLETE: {
+          func(result_t());
+          break;
+        }
+        case CLIENT_ERROR:
+        case COMPILE_ERROR:
+        case RUNTIME_ERROR: {
+          func(result_t(parser.get()));
+          break;
+        }
         default: {
         }
       }
-      func(std::move(parser.get()));
     }), p_key(key) {}
 
     void create(const ReQL_Token &key, std::function<void(result_t &&result)> &func) {
