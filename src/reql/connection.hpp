@@ -31,23 +31,23 @@ namespace _ReQL {
 static const char *DEFAULT_ADDR = "localhost";
 static const char *DEFAULT_PORT = "28015";
 
-template <class result_t, class str_t>
+template <class auth_e, class handshake_e, class result_t, class socket_e>
 class Conn_t {
 public:
   Conn_t() {}
 
-  Conn_t(str_t &addr, str_t &port, str_t &auth) : p_cursors(addr, port, auth) {}
-
   void _connect() {
-    return _connect(str_t(DEFAULT_ADDR));
+    return _connect(ImmutableString(DEFAULT_ADDR));
   }
 
-  void _connect(const str_t &addr) {
-    return _connect(addr, str_t(DEFAULT_PORT), str_t(""));
+  template <class addr_t>
+  void _connect(const addr_t &addr) {
+    return _connect(addr, ImmutableString(DEFAULT_PORT), ImmutableString(""));
   }
 
-  void _connect(const str_t &addr, const str_t &port, const str_t &auth) {
-    p_cursors.reset(new BTree_t<result_t, str_t>(addr, port, auth));
+  template <class addr_t, class auth_t, class port_t>
+  void _connect(const addr_t &addr, const port_t &port, const auth_t &auth) {
+    p_cursors = std::make_shared<BTree_t<auth_e, handshake_e, result_t, socket_e>>(addr, port, auth);
   }
 
   Conn_t(const Conn_t &other) : p_cursors(other.p_cursors) {}
@@ -70,6 +70,10 @@ public:
 
   bool isOpen() const {
     return p_cursors->isOpen();
+  }
+
+  void close() {
+    p_cursors = std::make_shared<BTree_t<auth_e, handshake_e, result_t, socket_e>>();
   }
 
   template <class query_t, class func_t>
@@ -96,7 +100,7 @@ public:
   }
 
 private:
-  std::shared_ptr<BTree_t<result_t, str_t> > p_cursors;
+  std::shared_ptr<BTree_t<auth_e, handshake_e, result_t, socket_e> > p_cursors;
 };
 
 }  // namespace _ReQL

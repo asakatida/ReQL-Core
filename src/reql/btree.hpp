@@ -35,13 +35,14 @@ limitations under the License.
 
 namespace _ReQL {
 
-template <class result_t, class str_t>
+template <class auth_e, class handshake_e, class result_t, class socket_e>
 class BTree_t {
 public:
   BTree_t() {}
 
-  BTree_t(const str_t &addr, const str_t &port, const str_t &auth) :
-    p_protocol(addr, port, auth, [this](Response_t<str_t, Protocol_t<str_t> > &&response) {
+  template <class addr_t, class auth_t, class port_t>
+  BTree_t(const addr_t &addr, const port_t &port, const auth_t &auth) :
+    p_protocol(addr, port, auth, [this](Response_t<Protocol_t<auth_e, handshake_e, socket_e> > &&response) {
       p_root->push(std::move(response));
     }) {}
 
@@ -51,26 +52,26 @@ public:
 
   template <class query_t>
   void run(const query_t &query, std::function<void(result_t &&result)> func) {
-    Query_t<str_t> q(p_next_token++, query);
+    Query_t<ImmutableString> q(p_next_token++, query);
     p_protocol << q;
     create(q.token(), func);
   }
 
   template <class kwargs_t, class query_t>
   void run(const query_t &query, const kwargs_t &kwargs, std::function<void(result_t &&result)> func) {
-    Query_t<str_t> q(p_next_token++, query, kwargs);
+    Query_t<ImmutableString> q(p_next_token++, query, kwargs);
     p_protocol << q;
     create(q.token(), func);
   }
 
   template <class kwargs_t, class query_t>
   void noReply(const query_t &query, const kwargs_t &kwargs) {
-    Query_t<str_t> q(p_next_token++, query, kwargs);
+    Query_t<ImmutableString> q(p_next_token++, query, kwargs);
     p_protocol << q;
   }
 
   void noReplyWait() {
-    Query_t<str_t> query(p_next_token++, REQL_NOREPLY_WAIT);
+    Query_t<ImmutableString> query(p_next_token++, REQL_NOREPLY_WAIT);
     p_protocol << query;
     create(query.token());
   }
@@ -94,7 +95,7 @@ private:
       WAIT_COMPLETE = 4
     };
 
-    BNode_t(const ReQL_Token &key, std::function<void(result_t &&result)> &func) : p_cur([func](Response_t<str_t, Protocol_t<str_t> > &&response) {
+    BNode_t(const ReQL_Token &key, std::function<void(result_t &&result)> &func) : p_cur([func](Response_t<Protocol_t<auth_e, handshake_e, socket_e> > &&response) {
       Parser_t<result_t> parser;
       decode(response.json(), parser);
       switch (parser.r_type()) {
@@ -142,7 +143,7 @@ private:
       p_right.reset(new BNode_t(key, func));
     }
 
-    void push(Response_t<str_t, Protocol_t<str_t> > &&response) {
+    void push(Response_t<Protocol_t<auth_e, handshake_e, socket_e> > &&response) {
       if (response == p_key) {
         p_cur(std::move(response));
         return;
@@ -164,7 +165,7 @@ private:
     }
 
   private:
-    std::function<void(Response_t<str_t, Protocol_t<str_t> > &&)> p_cur;
+    std::function<void(Response_t<Protocol_t<auth_e, handshake_e, socket_e> > &&)> p_cur;
     ReQL_Token p_key;
     std::unique_ptr<BNode_t> p_left;
     std::unique_ptr<BNode_t> p_right;
@@ -181,7 +182,7 @@ private:
 
   std::mutex p_mutex;
   std::atomic<ReQL_Token> p_next_token;
-  Protocol_t<str_t> p_protocol;
+  Protocol_t<auth_e, handshake_e, socket_e> p_protocol;
   std::unique_ptr<BNode_t> p_root;
   std::thread p_thread;
 };
