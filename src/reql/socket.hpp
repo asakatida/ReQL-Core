@@ -22,6 +22,7 @@ limitations under the License.
 #define REQL_REQL_SOCKET_HPP_
 
 #include <atomic>
+#include <cerrno>
 #include <memory>
 #include <thread>
 
@@ -41,7 +42,7 @@ limitations under the License.
 
 namespace _ReQL {
 
-template <class str_t>
+template <class socket_e, class str_t>
 int connect(const str_t &addr, const str_t &port) {
   struct addrinfo hints;
   struct addrinfo *result, *rp;
@@ -52,7 +53,7 @@ int connect(const str_t &addr, const str_t &port) {
   hints.ai_protocol = IPPROTO_TCP;
 
   if (getaddrinfo(addr.c_str(), port.c_str(), &hints, &result) != 0) {
-    throw std::exception();
+    throw socket_e("");  // TODO
   }
 
   int sock = -1;
@@ -67,24 +68,23 @@ int connect(const str_t &addr, const str_t &port) {
     ::close(sock);
   }
 
-  if (rp == nullptr) {
-    freeaddrinfo(result);
-    throw std::exception();
-  }
-
   freeaddrinfo(result);
 
-  return sock;
+  if (rp) {
+    return sock;
+  }
+
+  throw socket_e("");  // TODO
 }
 
-template <class str_t>
+template <class socket_e>
 class Socket_t {
 public:
   Socket_t() : p_sock(-1) {}
 
-  Socket_t(const str_t &addr, const str_t &port) : p_sock(connect(addr, port)) {}
-
-  Socket_t(const int sock) : p_sock(sock) {}
+  template <class str_t>
+  Socket_t(const str_t &addr, const str_t &port) :
+    p_sock(connect<socket_e, str_t>(addr, port)) {}
 
   ~Socket_t() {
     close();
@@ -104,19 +104,35 @@ public:
   ImmutableString read() {
     int sock = load();
     wait_read();
-    ssize_t size = getsockopt(sock, SOL_SOCKET, SO_NREAD, nullptr, nullptr);
-    if (size < 0) {
+    ssize_t size = 0;
+    socklen_t opt_len = sizeof(ssize_t);
+    auto sts = getsockopt(sock, SOL_SOCKET, SO_NREAD, &size, &opt_len);
+    if (sts < 0) {
+      switch (errno) {
+        case EBADF:
+        case EFAULT:
+        case EINVAL:
+        case ENOBUFS:
+        case ENOMEM:
+        case ENOPROTOOPT:
+        case ENOTSOCK: {
+          throw socket_e("");  // TODO
+        }
+        default: {
+          throw socket_e("");  // TODO
+        }
+      }
       throw std::exception();
     }
     std::unique_ptr<char> buffer(new char[static_cast<size_t>(size)]);
     size = recvfrom(sock, buffer.get(), static_cast<size_t>(size), 0, nullptr, nullptr);
     if (size < 0) {
-      throw std::exception();
+      throw socket_e("");  // TODO
     }
-    return str_t(buffer.get(), static_cast<size_t>(size));
+    return ImmutableString(buffer.get(), static_cast<size_t>(size));
   }
 
-  void write(const str_t &out) {
+  void write(const ImmutableString &out) {
     int sock = load();
     wait_write();
     send(sock, out.c_str(), out.size(), 0);
@@ -152,7 +168,7 @@ private:
   int load() {
     int sock = p_sock.load();
     if (sock < 0) {
-      throw std::exception();
+      throw socket_e("");  // TODO
     }
     return sock;
   }
