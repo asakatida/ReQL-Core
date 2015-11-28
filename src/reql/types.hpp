@@ -25,13 +25,6 @@ limitations under the License.
 
 namespace _ReQL {
 
-template <class result_t, class str_t>
-class Conn_t;
-
-template <class str_t>
-class Query_t;
-
-typedef char ReQL_Byte;
 typedef std::uint32_t ReQL_Size;
 typedef std::uint64_t ReQL_Token;
 

@@ -179,7 +179,7 @@ bool operator ==(const BasicImmutableString<value_type> &self, const value_type 
   return false;
 }
 
-typedef BasicImmutableString<ReQL_Byte> ImmutableString;
+typedef BasicImmutableString<char> ImmutableString;
 
 }  // namespace _ReQL
 
