@@ -32,7 +32,7 @@ limitations under the License.
 
 namespace _ReQL {
 
-template <class str_t>
+template <class auth_e, class handshake_e, class socket_e>
 class Protocol_t {
 public:
   Protocol_t() {}
@@ -61,9 +61,9 @@ public:
     _Stream p_stream;
   };
 
-  template <class func_t>
-  Protocol_t(const str_t &addr, const str_t &port, const str_t &auth, func_t func) : p_sock(addr, port) {
-    Handshake_t<str_t>(p_sock, auth);
+  template <class addr_t, class auth_t, class func_t, class port_t>
+  Protocol_t(const addr_t &addr, const port_t &port, const auth_t &auth, func_t func) : p_sock(addr, port) {
+    Handshake_t<auth_e, handshake_e>(p_sock, auth);
     p_thread = std::thread([func, this] {
       Buffer_t buffer;
       while (true) {
@@ -75,7 +75,7 @@ public:
         while (buffer < size) {
           buffer << std::move(p_sock.read());
         }
-        func(Response_t<str_t, Protocol_t>(buffer[size], token, this));
+        func(Response_t<Protocol_t>(buffer[size], token, this));
       }
     });
   }
@@ -84,7 +84,7 @@ public:
     return p_sock.isOpen();
   }
 
-  Protocol_t &operator <<(Query_t<str_t> query) {
+  Protocol_t &operator <<(Query_t<ImmutableString> query) {
     auto wire_query = query.str();
     auto size = wire_query.size();
 
@@ -92,15 +92,15 @@ public:
       throw std::exception();
     }
 
-    Stream_t<str_t> stream;
+    _Stream stream;
 
-    ReQL_Byte token_bytes[8];
+    char token_bytes[8];
     make_token(token_bytes, query.token());
 
-    ReQL_Byte size_bytes[4];
+    char size_bytes[4];
     make_size(size_bytes, static_cast<ReQL_Size>(size));
 
-    stream << str_t(token_bytes, 8) << str_t(size_bytes, 4) << wire_query;
+    stream << ImmutableString(token_bytes, 8) << ImmutableString(size_bytes, 4) << wire_query;
 
     p_sock.write(stream.str());
 
@@ -115,15 +115,15 @@ public:
   }
 
   void stop(ReQL_Token t) {
-    (*this) << Query_t<str_t>(t, REQL_STOP);
+    (*this) << Query_t<ImmutableString>(t, REQL_STOP);
   }
 
   void cont(ReQL_Token t) {
-    (*this) << Query_t<str_t>(t, REQL_CONTINUE);
+    (*this) << Query_t<ImmutableString>(t, REQL_CONTINUE);
   }
 
 private:
-  Socket_t<str_t> p_sock;
+  Socket_t<socket_e> p_sock;
   std::thread p_thread;
 };
 
