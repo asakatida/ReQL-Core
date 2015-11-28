@@ -98,8 +98,8 @@ private:
       Parser_t<result_t> parser;
       decode(response.json(), parser);
       switch (parser.r_type()) {
-        case SUCCESS_ATOM:
-        case SERVER_INFO: {
+        case SERVER_INFO:
+        case SUCCESS_ATOM: {
           func(std::move(parser.get()[0]));
           break;
         }
