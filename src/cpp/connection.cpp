@@ -36,7 +36,7 @@ Connection::Connection(const std::string &host) {
 }
 
 Connection::Connection(const std::string &host, const std::uint16_t &port) {
-  p_conn._connect(host, std::to_string(port), "");
+  p_conn._connect(host, std::to_string(port), std::string(""));
 }
 
 Connection::Connection(const std::string &host, const std::uint16_t &port, const std::string &key) {
@@ -54,7 +54,7 @@ Connection &Connection::operator=(Connection &&other) {
 
 void
 Connection::close() {
-  p_conn = _Connection();
+  p_conn.close();
 }
 
 bool

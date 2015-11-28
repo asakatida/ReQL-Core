@@ -49,6 +49,4 @@ private:
   id p_value;
 };
 
-typedef _ReQL::Conn_t<Result, _ReQL::ImmutableString> Connection;
-
 }

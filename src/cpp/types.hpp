@@ -24,11 +24,4 @@ limitations under the License.
 #include "./cpp/parser.hpp"
 #include "./reql/core.hpp"
 
-namespace ReQL {
-
-typedef _ReQL::Conn_t<Result, _ReQL::ImmutableString> _Connection;
-typedef _ReQL::Cur_t<Result, _ReQL::ImmutableString> _Cursor;
-
-}  // namespace ReQL
-
 #endif  // REQL_CPP_TYPES_HPP_

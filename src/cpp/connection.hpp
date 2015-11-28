@@ -21,6 +21,7 @@ limitations under the License.
 #ifndef REQL_CPP_CONNECTION_HPP_
 #define REQL_CPP_CONNECTION_HPP_
 
+#include "./cpp/error.hpp"
 #include "./cpp/types.hpp"
 
 #include <cstdint>
@@ -48,7 +49,7 @@ public:
 private:
 
   friend class Query;
-  _Connection p_conn;
+  _ReQL::Conn_t<ReQLError, ReQLError, Result, ReQLError> p_conn;
 };
 
 }  // namespace ReQL

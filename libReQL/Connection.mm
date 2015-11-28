@@ -110,7 +110,7 @@ limitations under the License.
 
 @interface ReQLConnection ()
 
-@property(nonatomic) ReQL::Connection conn;
+@property(nonatomic) _ReQL::Conn_t<ReQL::Result, ReQL::Result, ReQL::Result, ReQL::Result> conn;
 
 @end
 
@@ -146,7 +146,7 @@ limitations under the License.
 }
 
 -(void)close {
-  self.conn = ReQL::Connection();
+  self.conn.close();
 }
 
 @end
