@@ -83,9 +83,11 @@ Cursor::swap(Cursor &other) {
 
 Cursor &
 Cursor::operator >>(Result &result) {
-  std::lock_guard<std::mutex> lock(*p_mutex);
+  std::unique_lock<std::mutex> lock(*p_mutex);
   if (p_queue->empty()) {
-    p_cond->wait()
+    p_cond->wait(lock, [this] {
+      return !p_queue->empty();
+    });
     p_mutex->unlock();
     std::this_thread::yield();
     p_mutex->lock();
