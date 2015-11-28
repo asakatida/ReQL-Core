@@ -30,32 +30,33 @@ namespace _ReQL {
 static const ReQL_Size VERSION = 0x400c2d20;
 static const ReQL_Size PROTOCOL = 0x7e6970c7;
 
-template <class str_t>
+template <class auth_e, class handshake_e>
 class Handshake_t {
 public:
-  Handshake_t(Socket_t<str_t> &sock, const str_t &auth) {
-    ReQL_Byte magic[3][4];
+  template <class socket_t, class str_t>
+  Handshake_t(socket_t &sock, const str_t &auth) {
+    char magic[3][4];
 
     make_size(magic[0], VERSION);
     make_size(magic[1], static_cast<ReQL_Size>(auth.size()));
     make_size(magic[2], PROTOCOL);
 
-    Stream_t<str_t> stream;
-    stream << str_t(magic[0], 4)
-    << str_t(magic[1], 4)
-    << auth
-    << str_t(magic[2], 4);
+    _Stream stream;
+    stream << ImmutableString(magic[0], 4)
+           << ImmutableString(magic[1], 4)
+           << auth
+           << ImmutableString(magic[2], 4);
 
     sock.write(stream.str());
 
     auto response = sock.read();
 
     if (response.size() != 8) {
-      throw;
+      throw auth_e("");  // TODO
     }
 
     if (!(response == "SUCCESS")) {
-      throw;
+      throw auth_e("");  // TODO
     }
   }
 };
