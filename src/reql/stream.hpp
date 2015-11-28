@@ -25,62 +25,73 @@ limitations under the License.
 
 #include <algorithm>
 #include <deque>
+#include <sstream>
 #include <string>
 
 namespace _ReQL {
 
-template <class str_t>
 class Stream_t {
 public:
-  typedef str_t string_type;
-
   Stream_t &operator <<(const Stream_t &other) {
     p_stream.insert(p_stream.cend(), other.p_stream.cbegin(), other.p_stream.cend());
     return *this;
   }
 
   Stream_t &operator <<(const int value) {
-    p_stream.push_back(std::to_string(value));
+    std::stringstream stream;
+    stream << value;
+    std::string str = stream.str();
+    p_stream.push_back(ImmutableString(str.c_str(), str.size()));
     return *this;
   }
 
-  Stream_t &operator <<(const typename string_type::value_type *value) {
-    p_stream.push_back(string_type(value));
+  Stream_t &operator <<(const char *value) {
+    p_stream.push_back(ImmutableString(value));
     return *this;
   }
 
-  Stream_t &operator <<(const string_type &value) {
+  Stream_t &operator <<(const ImmutableString &value) {
     p_stream.push_back(value);
     return *this;
   }
 
-  Stream_t &operator <<(string_type &&value) {
+  Stream_t &operator <<(ImmutableString &&value) {
     p_stream.push_back(std::move(value));
     return *this;
   }
 
   Stream_t &operator <<(const double value) {
-    p_stream.push_back(std::to_string(value));
+    std::stringstream stream;
+    stream << value;
+    std::string str = stream.str();
+    p_stream.push_back(ImmutableString(str.c_str(), str.size()));
     return *this;
   }
 
-  string_type str() const {
-    const size_t size = std::accumulate(p_stream.cbegin(), p_stream.cend(), static_cast<size_t>(0), [](const size_t _size, const string_type &s) {
+  ImmutableString str() const {
+    size_t size = 0;
+    size = std::accumulate(p_stream.cbegin(),
+                           p_stream.cend(),
+                           size,
+                           [](const size_t _size, const ImmutableString &s) {
       return _size + s.size();
     });
-    const std::unique_ptr<typename string_type::value_type> value(new typename string_type::value_type[size]);
-    std::accumulate(p_stream.cbegin(), p_stream.cend(), value.get(), [](typename string_type::value_type *_value, const string_type &s) {
+    const std::unique_ptr<char> value(new char[size]);
+    std::accumulate(p_stream.cbegin(),
+                    p_stream.cend(),
+                    value.get(),
+                    [](char *_value, const ImmutableString &s) {
       memcpy(_value, s.c_str(), s.size());
       return _value + s.size();
     });
-    return string_type(value.get(), size);
+    return ImmutableString(value.get(), size);
   }
 
 private:
-  std::deque<string_type> p_stream;
+  std::deque<ImmutableString> p_stream;
 };
 
-typedef Stream_t<ImmutableString> _Stream;
+typedef Stream_t _Stream;
 
 }  // namespace _ReQL
 
