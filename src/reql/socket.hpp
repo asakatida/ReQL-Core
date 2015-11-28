@@ -42,8 +42,8 @@ limitations under the License.
 
 namespace _ReQL {
 
-template <class socket_e, class str_t>
-int connect(const str_t &addr, const str_t &port) {
+template <class addr_t, class port_t, class socket_e>
+int connect(const addr_t &addr, const port_t &port) {
   struct addrinfo hints;
   struct addrinfo *result, *rp;
 
@@ -52,8 +52,10 @@ int connect(const str_t &addr, const str_t &port) {
   hints.ai_flags = 0;
   hints.ai_protocol = IPPROTO_TCP;
 
-  if (getaddrinfo(addr.c_str(), port.c_str(), &hints, &result) != 0) {
-    throw socket_e("");  // TODO
+  int sts = 0;
+
+  if ((sts = getaddrinfo(addr.c_str(), port.c_str(), &hints, &result)) != 0) {
+    throw socket_e(gai_strerror(sts));
   }
 
   int sock = -1;
@@ -82,9 +84,9 @@ class Socket_t {
 public:
   Socket_t() : p_sock(-1) {}
 
-  template <class str_t>
-  Socket_t(const str_t &addr, const str_t &port) :
-    p_sock(connect<socket_e, str_t>(addr, port)) {}
+  template <class addr_t, class port_t>
+  Socket_t(const addr_t &addr, const port_t &port) :
+    p_sock(connect<addr_t, port_t, socket_e>(addr, port)) {}
 
   ~Socket_t() {
     close();
@@ -125,9 +127,31 @@ public:
       throw std::exception();
     }
     std::unique_ptr<char> buffer(new char[static_cast<size_t>(size)]);
-    size = recvfrom(sock, buffer.get(), static_cast<size_t>(size), 0, nullptr, nullptr);
-    if (size < 0) {
+    size = recvfrom(sock, buffer.get(), static_cast<size_t>(size), MSG_WAITALL, nullptr, nullptr);
+    if (size == 0) {
       throw socket_e("");  // TODO
+    } else if (size < 0) {
+      switch (errno) {
+        case EAGAIN: {
+          return ImmutableString();
+        }
+        case EBADF:
+        case ECONNRESET:
+        case EFAULT:
+        case EINTR:
+        case EINVAL:
+        case ENOBUFS:
+        case ENOTCONN:
+        case ENOTSOCK:
+        case EOPNOTSUPP:
+        case ETIMEDOUT: {
+          throw socket_e("");  // TODO
+        }
+        default: {
+          throw socket_e("");  // TODO
+        }
+      }
+      throw std::exception();
     }
     return ImmutableString(buffer.get(), static_cast<size_t>(size));
   }
@@ -139,7 +163,7 @@ public:
   }
 
 private:
-  bool poll(bool read, bool write) {
+  bool poll(bool read = true) {
     int sock = load();
     timeval to = {0, 0};
     fd_set set;
@@ -147,20 +171,35 @@ private:
     FD_SET(sock, &set);
     auto sts = ::select(sock + 1,
                         read ? &set : nullptr,
-                        write ? &set : nullptr,
+                        read ? nullptr : &set,
                         &set, &to);
-    if (sts == EAGAIN) return false;
-    if (sts >= sock) return true;
+    if (sts == 0) {
+      return false;
+    } else if (sts < 0) {
+      switch (errno) {
+        case EAGAIN:
+        case EBADF:
+        case EINTR:
+        case EINVAL:{
+          throw socket_e("");  // TODO
+        }
+        default: {
+          throw socket_e("");  // TODO
+        }
+      }
+      throw std::exception();
+    }
+    return true;
   }
 
   void wait_read() {
-    while (!poll(true, false)) {
+    while (!poll()) {
       std::this_thread::yield();
     }
   }
 
   void wait_write() {
-    while (!poll(false, true)) {
+    while (!poll(false)) {
       std::this_thread::yield();
     }
   }
