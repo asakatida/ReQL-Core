@@ -31,7 +31,7 @@ namespace ReQL {
 
 Cursor::Cursor() {}
 
-Cursor::Cursor(std::function<void()> func) {}
+Cursor::Cursor(std::function<void()> func) : p_func(&func) {}
 
 Cursor::Cursor(Cursor &&other) {
   std::lock_guard<std::mutex> lock(*p_mutex);
