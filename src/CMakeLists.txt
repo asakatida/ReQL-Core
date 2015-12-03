@@ -21,7 +21,6 @@ set(MOC_HEADERS
  reql/core.hpp
  reql/decode.hpp
  reql/handshake.hpp
- reql/parser.hpp
  reql/protocol.hpp
  reql/query.hpp
  reql/socket.hpp

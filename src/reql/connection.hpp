@@ -22,7 +22,6 @@ limitations under the License.
 #define REQL_REQL_CONNECTION_HPP_
 
 #include "./reql/decode.hpp"
-#include "./reql/parser.hpp"
 #include "./reql/protocol.hpp"
 #include "./reql/query.hpp"
 #include "./reql/types.hpp"
@@ -104,7 +103,7 @@ public:
   void stop(ReQL_Token token) {
     p_protocol.stop(token);
   }
-  
+
 private:
   enum Response_e {
     CLIENT_ERROR = 16,
@@ -122,17 +121,17 @@ private:
     std::lock_guard<std::mutex> lock(*p_mutex);
     p_root->insert({token, [this, token, func](const std::string &json) {
       std::thread([this, token, func, json] {
-        Parser_t<result_t> parser;
-        decode(json.c_str(), json.c_str() + json.size(), parser);
-        switch (parser.r_type()) {
+        Decoder_t<result_t> decoder;
+        decoder.decode(json.c_str(), json.c_str() + json.size());
+        switch (decoder.r_type()) {
           case SERVER_INFO:
           case SUCCESS_ATOM: {
-            func(parser.get()[0]);
+            func(decoder.get()[0]);
             break;
           }
           case SUCCESS_PARTIAL: p_protocol->cont(token); [[clang::fallthrough]];
           case SUCCESS_SEQUENCE: {
-            for (auto &&elem : parser.get()) {
+            for (auto &&elem : decoder.get()) {
               func(elem);
             }
             break;
@@ -144,7 +143,7 @@ private:
           case CLIENT_ERROR:
           case COMPILE_ERROR:
           case RUNTIME_ERROR: {
-            func(result_t(parser.get()));
+            func(result_t(decoder.get()));
             break;
           }
           default: {
