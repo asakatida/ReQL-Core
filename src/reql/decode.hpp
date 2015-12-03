@@ -26,6 +26,7 @@ limitations under the License.
 #include <cstring>
 #include <locale>
 #include <map>
+#include <memory>
 #include <queue>
 #include <sstream>
 #include <string>
