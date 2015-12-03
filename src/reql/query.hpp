@@ -22,9 +22,13 @@ limitations under the License.
 #define REQL_REQL_QUERY_HPP_
 
 #include <algorithm>
+#include <iomanip>
+#include <iostream>
+#include <limits>
 #include <map>
 #include <sstream>
 #include <string>
+#include <tuple>
 #include <vector>
 
 namespace _ReQL {
@@ -208,13 +212,12 @@ enum Term_t {
   REQL_ZIP = 72
 };
 
-template <class stream_t>
 class Any_t {
 public:
   template <class wrap_t>
   Any_t(const wrap_t &value) {
     std::stringstream stream;
-    stream << value;
+    stream << std::boolalpha << std::setprecision(std::numeric_limits<double>::digits10 + 1) << value;
     p_value = stream.str();
   }
 
@@ -226,198 +229,61 @@ private:
   std::string p_value;
 };
 
+template <class func_t, class iterable_t>
+std::ostream &
+for_each(std::ostream &stream, iterable_t iterable, func_t func) {
+  auto first = true;
+  for (auto &&elem : iterable) {
+    stream << (first ? "" : ",") << func(elem);
+    first = false;
+  }
+  return stream;
+}
+
 template <class vect_t>
-class Array_t {
-public:
-  Array_t(const vect_t &value) : p_value(value) {}
-
-  friend std::ostream &operator <<(std::ostream &stream, const Array_t &value) {
-    stream << "[";
-    auto first = true;
-    for (auto &&elem : value.p_value) {
-      stream << (first ? "" : ",") << elem;
-      first = false;
-    }
-    return stream << "]";
-  }
-
-private:
-  vect_t p_value;
+struct Array_t : public vect_t {
+  Array_t() {}
+  Array_t(const vect_t &other) : vect_t(other) {}
+  Array_t(vect_t &&other) : vect_t(std::move(other)) {}
 };
 
-template <class bool_t>
-class Bool_t {
-public:
-  Bool_t(const bool_t value) : p_value(value) {}
+template <class vect_t>
+Array_t<vect_t>
+make_array(const vect_t &vect) {
+  return vect;
+}
 
-  friend std::ostream &operator <<(std::ostream &stream, const Bool_t &value) {
-    return stream << (value.p_value ? "true" : "false");
-  }
-
-private:
-  bool_t p_value;
-};
-
-template <class stream_t>
-class Null_t {
-public:
-  friend std::ostream &operator <<(std::ostream &stream, const Null_t &) {
-    return stream << "null";
-  }
-};
-
-template <class num_t>
-class Num_t {
-public:
-  Num_t(const num_t value) : p_value(value) {}
-
-  friend std::ostream &operator <<(std::ostream &stream, const Num_t &value) {
-    return stream << value.p_value;
-  }
-
-private:
-  num_t p_value;
-};
+class Null_t {};
 
 template <class map_t>
-class Obj_t {
-public:
-  Obj_t(const map_t &value) : p_value(value) {}
-
-  friend std::ostream &operator <<(std::ostream &stream, const Obj_t &value) {
-    stream << "{";
-    auto first = true;
-    for (auto &&pair : value.p_value) {
-      stream << (first ? "" : ",") << pair.first << ":" << pair.second;
-      first = false;
-    }
-    return stream << "}";
-  }
-
-private:
-  map_t p_value;
+struct Obj_t : public map_t {
+  Obj_t() {}
+  Obj_t(const map_t &value) : map_t(value) {}
+  Obj_t(map_t &&value) : map_t(std::move(value)) {}
 };
 
 template <class args_t, class kwargs_t>
-class ReQL_Kwargs_t {
-public:
-  ReQL_Kwargs_t(Term_t tt, const args_t &args, const kwargs_t &kwargs) : p_tt(tt), p_args(args), p_kwargs(kwargs) {}
-
-  friend std::ostream &operator <<(std::ostream &stream, const ReQL_Kwargs_t &value) {
-    return stream << "[" << static_cast<int>(value.p_tt) << "," << value.p_args << "," << value.p_kwargs << "]";
-  }
-
-private:
-  Term_t p_tt;
-  args_t p_args;
-  kwargs_t p_kwargs;
-};
+Array_t<std::tuple<Term_t, Array_t<args_t>, Obj_t<kwargs_t> > >
+make_reql(Term_t tt, args_t args, kwargs_t kwargs) {
+  return std::make_tuple(tt, make_array(args), Obj_t<kwargs_t>(kwargs));
+}
 
 template <class args_t>
-class ReQL_Args_t {
-public:
-  ReQL_Args_t(Term_t tt, const args_t &args) : p_tt(tt), p_args(args) {}
+Array_t<std::tuple<Term_t, Array_t<args_t> > >
+make_reql(Term_t tt, args_t args) {
+  return std::make_tuple(tt, make_array(args));
+}
 
-  friend std::ostream &operator <<(std::ostream &stream, const ReQL_Args_t &value) {
-    return stream << "[" << static_cast<int>(value.p_tt) << "," << value.p_args << "]";
-  }
-
-private:
-  Term_t p_tt;
-  args_t p_args;
-};
-
-template <class stream_t>
-class ReQL_t {
-public:
-  ReQL_t(Term_t tt) : p_tt(tt) {}
-
-  friend std::ostream &operator <<(std::ostream &stream, const ReQL_t &value) {
-    return stream << "[" << static_cast<int>(value.p_tt) << "]";
-  }
-
-private:
-  Term_t p_tt;
-};
+Array_t<std::tuple<Term_t> >
+make_reql(Term_t tt) {
+  return std::make_tuple(tt);
+}
 
 template <class str_t>
-class String_t {
-public:
-  String_t(const str_t &value) : p_value(value) {}
-
-  friend std::ostream &operator <<(std::ostream &stream, const String_t &value) {
-    const char *json_esc[] = {
-      "\\u0000",  // 0x00
-      "\\u0001",  // 0x01
-      "\\u0002",  // 0x02
-      "\\u0003",  // 0x03
-      "\\u0004",  // 0x04
-      "\\u0005",  // 0x05
-      "\\u0006",  // 0x06
-      "\\u0007",  // 0x07
-      "\\b",  // 0x08
-      "\\t",  // 0x09
-      "\\n",  // 0x0A
-      "\\u000B",  // 0x0B
-      "\\f",  // 0x0C
-      "\\r",  // 0x0D
-      "\\u000E",  // 0x0E
-      "\\u000F",  // 0x0F
-      "\\u0010",  // 0x10
-      "\\u0011",  // 0x11
-      "\\u0012",  // 0x12
-      "\\u0013",  // 0x13
-      "\\u0014",  // 0x14
-      "\\u0015",  // 0x15
-      "\\u0016",  // 0x16
-      "\\u0017",  // 0x17
-      "\\u0018",  // 0x18
-      "\\u0019",  // 0x19
-      "\\u001A",  // 0x1A
-      "\\u001B",  // 0x1B
-      "\\u001C",  // 0x1C
-      "\\u001D",  // 0x1D
-      "\\u001E",  // 0x1E
-      "\\u001F",  // 0x1F
-      "", "",  // 0x21
-      "\\\"",  // 0x22
-      "", "", "", "", "", "", "", "", "", "", "", "", "",  // 0x2F
-      "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",  // 0x3F
-      "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",  // 0x4F
-      "", "", "", "", "", "", "", "", "", "", "", "",  // 0x5B
-      "\\\\"  // 0x5C
-    };
-
-    const unsigned int json_size[] = {
-      6, 6, 6, 6, 6, 6, 6, 6, 2, 2, 2, 6, 2, 2, 6, 6,  // 0x0x
-      6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,  // 0x1x
-      0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  // 0x2x
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  // 0x3x
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  // 0x4x
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0  // 0x5x
-    };
-
-    stream << "\"";
-    for (const char chr : value.p_value) {
-      auto idx = static_cast<const unsigned int>(chr);
-      if (idx <= 0x5C) {
-        auto ext_size = json_size[idx];
-        if (ext_size) {
-          stream << std::string(json_esc[idx], ext_size);
-          continue;
-        }
-      }
-      stream << chr;
-    }
-    return stream << "\"";
-  }
-
-  bool operator<(const String_t &other) const {
-    return p_value < other.p_value;
-  }
-
-private:
-  str_t p_value;
+struct String_t : public str_t {
+  String_t() {}
+  String_t(const str_t &value) : str_t(value) {}
+  String_t(str_t &&value) : str_t(std::move(value)) {}
 };
 
 enum Query_e {
@@ -427,41 +293,118 @@ enum Query_e {
   REQL_STOP = 3
 };
 
+template <class map_t, class query_t>
+Array_t<std::tuple<Query_e, query_t, Obj_t<map_t> > >
+make_query(const query_t &query, const map_t &kwargs) {
+  return std::make_tuple(REQL_START, query, Obj_t<map_t>(kwargs));
+}
+
+template <class query_t>
+Array_t<std::tuple<Query_e, query_t, Obj_t<std::map<std::string, Any_t> > > >
+make_query(const query_t &query) {
+  return std::make_tuple(REQL_START, query, Obj_t<std::map<std::string, Any_t> >());
+}
+
+Array_t<std::tuple<Query_e> >
+make_query(const Query_e type) {
+  return std::make_tuple(type);
+}
+
+template <class vect_t>
+std::ostream &operator <<(std::ostream &stream, const Array_t<vect_t> &value) {
+  return for_each(stream << '[', value, [](auto val) { return val; }) << ']';
+}
+
+std::ostream &operator <<(std::ostream &stream, const Null_t &) {
+  return stream << "null";
+}
+
+template <class map_t>
+std::ostream &operator <<(std::ostream &stream, const Obj_t<map_t> &value) {
+  return for_each(stream << '{', value, [](auto pair) {
+    return std::make_tuple(String_t<std::string>(pair.first), ':', pair.second);
+  }) << '}';
+}
+
 template <class str_t>
-class Query_t {
-public:
-  Query_t(const Query_e type) {
-    p_stream << "[" << static_cast<int>(type) << "]";
+std::ostream &operator <<(std::ostream &stream, const String_t<str_t> &value) {
+  const char *json_esc[] = {
+    "\\u0000",  // 0x00
+    "\\u0001",  // 0x01
+    "\\u0002",  // 0x02
+    "\\u0003",  // 0x03
+    "\\u0004",  // 0x04
+    "\\u0005",  // 0x05
+    "\\u0006",  // 0x06
+    "\\u0007",  // 0x07
+    "\\b",  // 0x08
+    "\\t",  // 0x09
+    "\\n",  // 0x0A
+    "\\u000B",  // 0x0B
+    "\\f",  // 0x0C
+    "\\r",  // 0x0D
+    "\\u000E",  // 0x0E
+    "\\u000F",  // 0x0F
+    "\\u0010",  // 0x10
+    "\\u0011",  // 0x11
+    "\\u0012",  // 0x12
+    "\\u0013",  // 0x13
+    "\\u0014",  // 0x14
+    "\\u0015",  // 0x15
+    "\\u0016",  // 0x16
+    "\\u0017",  // 0x17
+    "\\u0018",  // 0x18
+    "\\u0019",  // 0x19
+    "\\u001A",  // 0x1A
+    "\\u001B",  // 0x1B
+    "\\u001C",  // 0x1C
+    "\\u001D",  // 0x1D
+    "\\u001E",  // 0x1E
+    "\\u001F",  // 0x1F
+    "", "",  // 0x21
+    "\\\"",  // 0x22
+    "", "", "", "", "", "", "", "", "", "", "", "", "",  // 0x2F
+    "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",  // 0x3F
+    "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",  // 0x4F
+    "", "", "", "", "", "", "", "", "", "", "", "",  // 0x5B
+    "\\\\"  // 0x5C
+  };
+
+  const unsigned int json_size[] = {
+    6, 6, 6, 6, 6, 6, 6, 6, 2, 2, 2, 6, 2, 2, 6, 6,  // 0x0x
+    6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,  // 0x1x
+    0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  // 0x2x
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  // 0x3x
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  // 0x4x
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0  // 0x5x
+  };
+
+  stream << '"';
+  for (const auto chr : value) {
+    auto idx = static_cast<const unsigned int>(chr);
+    if (idx <= 0x5C) {
+      auto ext_size = json_size[idx];
+      if (ext_size) {
+        stream << std::string(json_esc[idx], ext_size);
+        continue;
+      }
+    }
+    stream << chr;
   }
+  return stream << '"';
+}
 
-  template <class query_t>
-  Query_t(const query_t &query) {
-    p_stream << "[" << static_cast<int>(REQL_START) << "," << query << ",{}]";
-  }
+std::ostream &operator <<(std::ostream &stream, const Term_t tt) {
+  return stream << static_cast<int>(tt);
+}
 
-  template <class kwargs_t, class query_t>
-  Query_t(const query_t &query, const kwargs_t &kwargs) {
-    p_stream << "[" << static_cast<int>(REQL_START) << "," << query << "," << kwargs << "]";
-  }
+std::ostream &operator <<(std::ostream &stream, const Query_e qt) {
+  return stream << static_cast<int>(qt);
+}
 
-  std::string str() const {
-    return p_stream.str();
-  }
-
-private:
-  std::stringstream p_stream;
-};
-
-typedef Any_t<std::stringstream> Any;
-typedef Array_t<std::vector<Any> > Array;
-typedef Bool_t<bool> Boolean;
-typedef Null_t<std::stringstream> Null;
-typedef Num_t<double> Number;
+typedef Array_t<std::vector<Any_t> > Array;
 typedef String_t<std::string> String;
-typedef Obj_t<std::map<String, Any> > Object;
-typedef ReQL_Kwargs_t<Array, Object> ReQL_Kwargs;
-typedef ReQL_Args_t<Array> ReQL_Args;
-typedef ReQL_t<std::stringstream> ReQL;
+typedef Obj_t<std::map<std::string, Any_t> > Object;
 
 }  // namespace _ReQL
 
