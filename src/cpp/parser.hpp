@@ -21,8 +21,6 @@ limitations under the License.
 #ifndef REQL_CPP_RESULT_HPP_
 #define REQL_CPP_RESULT_HPP_
 
-#include "./reql/string.hpp"
-
 #include <map>
 #include <string>
 #include <vector>
@@ -34,9 +32,9 @@ public:
   Result();
   Result(bool value);
   Result(double value);
-  Result(_ReQL::ImmutableString value);
+  Result(std::string value);
   Result(std::vector<Result> value);
-  Result(std::map<_ReQL::ImmutableString, Result> value);
+  Result(std::map<std::string, Result> value);
 
   Result(const Result &other);
   Result(Result &&other);

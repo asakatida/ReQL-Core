@@ -28,78 +28,77 @@ limitations under the License.
 
 namespace ReQL {
 
-_ReQL::Any
+_ReQL::Any_t
 buildArray(const Query &query) {
-  std::vector<_ReQL::Any> array;
+  std::vector<_ReQL::Any_t> array;
   array.reserve(query.p_array.size());
 
   for (auto &&elem : query.p_array) {
     array.push_back(elem.build());
   }
 
-  return _ReQL::Any(_ReQL::Array(array));
+  return _ReQL::make_array(array);
 }
 
-_ReQL::Any
+_ReQL::Any_t
 buildBool(const Query &query) {
-  return _ReQL::Any(_ReQL::Boolean(query.p_bool));
+  return query.p_bool;
 }
 
-_ReQL::Any
+_ReQL::Any_t
 buildNumber(const Query &query) {
-  return _ReQL::Any(_ReQL::Number(query.p_number));
+  return query.p_number;
 }
 
-_ReQL::Any
-buildNull(const Query &query) {
-  (void)query;
-  return _ReQL::Any(_ReQL::Null());
+_ReQL::Any_t
+buildNull(const Query &) {
+  return _ReQL::Null_t();
 }
 
-_ReQL::Any
+_ReQL::Any_t
 buildObject(const Query &query) {
-  std::map<_ReQL::String, _ReQL::Any> object;
+  std::map<std::string, _ReQL::Any_t> object;
 
   for (auto &&pair : query.p_object) {
-    object.insert({_ReQL::String(pair.first), pair.second.build()});
+    object.insert({pair.first, pair.second.build()});
   }
 
-  return _ReQL::Any(_ReQL::Object(object));
+  return _ReQL::Object(object);
 }
 
-_ReQL::Any
+_ReQL::Any_t
 buildString(const Query &query) {
-  return _ReQL::Any(_ReQL::String(query.p_string));
+  return _ReQL::String(query.p_string);
 }
 
-_ReQL::Any
+_ReQL::Any_t
 buildTerm(const Query &query) {
-  std::vector<_ReQL::Any> array;
+  std::vector<_ReQL::Any_t> array;
   array.reserve(query.p_array.size());
 
   for (auto &&elem : query.p_array) {
     array.push_back(elem.build());
   }
 
-  return _ReQL::ReQL_Args(query.p_tt, _ReQL::Array(array));
+  return make_reql(query.p_tt, _ReQL::Array(array));
 }
 
-_ReQL::Any
+_ReQL::Any_t
 buildTermKwargs(const Query &query) {
-  std::vector<_ReQL::Any> array;
+  std::vector<_ReQL::Any_t> array;
   array.reserve(query.p_array.size());
 
   for (auto &&elem : query.p_array) {
     array.push_back(elem.build());
   }
 
-  std::map<_ReQL::String, _ReQL::Any> object;
+  std::map<std::string, _ReQL::Any_t> object;
 
   for (auto &&pair : query.p_object) {
-    object.insert({_ReQL::String(pair.first), pair.second.build()});
+    object.insert({pair.first, pair.second.build()});
   }
 
-  return _ReQL::ReQL_Kwargs(query.p_tt, _ReQL::Array(array), _ReQL::Object(object));
+  return make_reql(query.p_tt, _ReQL::Array(array), _ReQL::Object(object));
 }
 
 Query::Query() : p_build(buildNull) {}
@@ -176,7 +175,7 @@ Query::run(Connection &conn) const {
   auto queue = cursor.p_queue;
   auto mutex = cursor.p_mutex;
   auto cond = cursor.p_cond;
-  conn.p_conn.run(build(), [cond, mutex, queue](Result &&result) {
+  conn.p_conn.run(build(), [cond, mutex, queue](const Result &result) {
     std::lock_guard<std::mutex> lock(*mutex);
     queue->push(std::move(result));
     cond->notify_one();
@@ -190,7 +189,7 @@ Query::run(Connection &conn, const std::map<std::string, Query> &kwargs) const {
   auto queue = cursor.p_queue;
   auto mutex = cursor.p_mutex;
   auto cond = cursor.p_cond;
-  conn.p_conn.run(build(), Query(kwargs).build(), [cond, mutex, queue](Result &&result) {
+  conn.p_conn.run(build(), Query(kwargs).build(), [cond, mutex, queue](const Result &result) {
     std::lock_guard<std::mutex> lock(*mutex);
     cond->notify_one();
     queue->push(std::move(result));
@@ -200,16 +199,16 @@ Query::run(Connection &conn, const std::map<std::string, Query> &kwargs) const {
 
 void
 Query::no_reply(Connection &conn) const {
-  _ReQL::Any query = build();
+  _ReQL::Any_t query = build();
   std::map<std::string, Query> kwargs;
-  _ReQL::Any opts = Query(kwargs).build();
+  _ReQL::Any_t opts = Query(kwargs).build();
   conn.p_conn.noReply(query, opts);
 }
 
 void
 Query::no_reply(Connection &conn, const std::map<std::string, Query> &kwargs) const {
-  _ReQL::Any query = build();
-  _ReQL::Any opts = Query(kwargs).build();
+  _ReQL::Any_t query = build();
+  _ReQL::Any_t opts = Query(kwargs).build();
   conn.p_conn.noReply(query, opts);
 }
 
@@ -241,7 +240,7 @@ Query::operator=(Query &&other) {
   return *this;
 }
 
-_ReQL::Any
+_ReQL::Any_t
 Query::build() const {
   return p_build(*this);
 }

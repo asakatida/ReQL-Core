@@ -33,13 +33,13 @@ Result::Result(bool value) : p_value(value), p_type(boolean) {}
 
 Result::Result(double value) : p_value(value), p_type(number) {}
 
-Result::Result(_ReQL::ImmutableString value) :
+Result::Result(std::string value) :
   p_value(std::string(value.c_str(), value.size())), p_type(string) {}
 
 Result::Result(std::vector<Result> value) :
   p_value(value), p_type(array) {}
 
-Result::Result(std::map<_ReQL::ImmutableString, Result> value) :
+Result::Result(std::map<std::string, Result> value) :
   p_value(
     std::accumulate(
       value.cbegin(),

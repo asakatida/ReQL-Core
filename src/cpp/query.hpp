@@ -57,18 +57,18 @@ public:
   Cursor run(Connection &conn, const std::map<std::string, Query> &kwargs) const;
 
 private:
-  _ReQL::Any build() const;
+  _ReQL::Any_t build() const;
 
-  friend _ReQL::Any buildArray(const Query &query);
-  friend _ReQL::Any buildBool(const Query &query);
-  friend _ReQL::Any buildNumber(const Query &query);
-  friend _ReQL::Any buildNull(const Query &query) ;
-  friend _ReQL::Any buildObject(const Query &query);
-  friend _ReQL::Any buildString(const Query &query);
-  friend _ReQL::Any buildTerm(const Query &query);
-  friend _ReQL::Any buildTermKwargs(const Query &query);
+  friend _ReQL::Any_t buildArray(const Query &query);
+  friend _ReQL::Any_t buildBool(const Query &query);
+  friend _ReQL::Any_t buildNumber(const Query &query);
+  friend _ReQL::Any_t buildNull(const Query &query) ;
+  friend _ReQL::Any_t buildObject(const Query &query);
+  friend _ReQL::Any_t buildString(const Query &query);
+  friend _ReQL::Any_t buildTerm(const Query &query);
+  friend _ReQL::Any_t buildTermKwargs(const Query &query);
 
-  typedef _ReQL::Any (*QueryBuilder)(const Query &query);
+  typedef _ReQL::Any_t (*QueryBuilder)(const Query &query);
 
   std::vector<Query> p_array;
   bool p_bool;

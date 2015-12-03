@@ -59,14 +59,16 @@ public:
     return connect(std::string(DEFAULT_ADDR));
   }
 
-  template <class addr_t>
-  void connect(const addr_t &addr) {
+  void connect(const std::string &addr) {
     return connect(addr, std::string(DEFAULT_PORT), std::string(""));
   }
 
-  template <class addr_t, class auth_t, class port_t>
-  void connect(const addr_t &addr, const port_t &port, const auth_t &auth) {
-    p_protocol->connect(addr, port, auth, [this](const std::string &json, const ReQL_Token token) {
+  void connect(const std::string &addr, const std::string &port) {
+    return connect(addr, port, std::string(""));
+  }
+
+  void connect(const std::string &addr, const std::string &port, const std::string &auth) {
+    p_protocol->connect(addr, port, auth, [this](const std::string &json, const std::uint64_t token) {
       std::lock_guard<std::mutex> lock(*p_mutex);
       (*p_root)[token](json);
     });
@@ -82,22 +84,21 @@ public:
 
   template <class query_t, class func_t>
   void run(const query_t &query, func_t func) {
-    create((*p_protocol) << Query_t<std::string>(query), func);
+    create((*p_protocol) << make_query(query), func);
   }
 
   template <class kwargs_t, class query_t, class func_t>
   void run(const query_t &query, const kwargs_t &kwargs, func_t func) {
-    create((*p_protocol) << Query_t<std::string>(query, kwargs), func);
+    create((*p_protocol) << make_query(query, kwargs), func);
   }
 
   template <class kwargs_t, class query_t>
   void noReply(const query_t &query, const kwargs_t &kwargs) {
-    (*p_protocol) << Query_t<std::string>(query, kwargs);
+    (*p_protocol) << make_query(query, kwargs);
   }
 
   void noReplyWait() {
-    ReQL_Token token = p_protocol << Query_t<std::string>(REQL_NOREPLY_WAIT);
-    create(token, [](const result_t &) {});
+    create((*p_protocol) << make_query(REQL_NOREPLY_WAIT), [](const result_t &) {});
   }
 
   void stop(const std::uint64_t token) {
@@ -129,7 +130,7 @@ private:
             func(decoder.get()[0]);
             break;
           }
-          case SUCCESS_PARTIAL: p_protocol->cont(token); [[clang::fallthrough]];
+          case SUCCESS_PARTIAL: p_protocol->cont(token);
           case SUCCESS_SEQUENCE: {
             for (auto &&elem : decoder.get()) {
               func(elem);
