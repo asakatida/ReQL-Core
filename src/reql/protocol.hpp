@@ -24,7 +24,6 @@ limitations under the License.
 #include "./reql/handshake.hpp"
 #include "./reql/query.hpp"
 #include "./reql/socket.hpp"
-#include "./reql/types.hpp"
 
 #include <atomic>
 #include <sstream>

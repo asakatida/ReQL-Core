@@ -30,18 +30,13 @@ HEADERS += \
   cpp/parser.hpp \
   cpp/query.hpp \
   cpp/types.hpp \
-  reql/btree.hpp \
   reql/connection.hpp \
   reql/core.hpp \
   reql/decode.hpp \
   reql/handshake.hpp \
   reql/protocol.hpp \
   reql/query.hpp \
-  reql/response.hpp \
   reql/socket.hpp \
-  reql/stream.hpp \
-  reql/string.hpp \
-  reql/types.hpp \
   ReQL.hpp
 
 unix {

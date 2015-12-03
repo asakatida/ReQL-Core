@@ -21,8 +21,6 @@ limitations under the License.
 #ifndef REQL_REQL_QUERY_HPP_
 #define REQL_REQL_QUERY_HPP_
 
-#include "./reql/types.hpp"
-
 #include <algorithm>
 #include <map>
 #include <sstream>

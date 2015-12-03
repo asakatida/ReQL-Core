@@ -24,7 +24,6 @@ limitations under the License.
 #include "./reql/decode.hpp"
 #include "./reql/protocol.hpp"
 #include "./reql/query.hpp"
-#include "./reql/types.hpp"
 
 #include <functional>
 #include <map>

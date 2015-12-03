@@ -21,8 +21,6 @@ limitations under the License.
 #ifndef REQL_REQL_DECODE_HPP_
 #define REQL_REQL_DECODE_HPP_
 
-#include "./reql/types.hpp"
-
 #include <cctype>
 #include <cstdlib>
 #include <cstring>
