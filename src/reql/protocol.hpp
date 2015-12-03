@@ -26,6 +26,7 @@ limitations under the License.
 #include "./reql/socket.hpp"
 
 #include <atomic>
+#include <cstdint>
 #include <sstream>
 #include <string>
 #include <thread>
@@ -74,18 +75,20 @@ public:
     return p_sock.connected();
   }
 
-  ReQL_Token operator <<(Query_t<std::string> query) {
-    auto wire_query = query.str();
-    auto size = wire_query.size();
+  template <class query_t>
+  std::uint64_t operator <<(query_t query) {
+    std::stringstream wire_query;
+    wire_query << query;
+    auto size = wire_query.str().size();
 
     std::stringstream stream;
 
     char token_bytes[8];
-    ReQL_Token token = p_next_token++;
+    auto token = p_next_token++;
     make_token(token_bytes, token);
 
     char size_bytes[4];
-    make_size(size_bytes, static_cast<ReQL_Size>(size));
+    make_size(size_bytes, static_cast<std::uint32_t>(size));
 
     stream << std::string(token_bytes, 8) << std::string(size_bytes, 4) << wire_query;
 
@@ -94,9 +97,10 @@ public:
     return token;
   }
 
-  void stop(ReQL_Token token) {
-    auto wire_query = Query_t<std::string>(REQL_STOP).str();
-    auto size = wire_query.size();
+  void stop(std::uint64_t token) {
+    std::stringstream wire_query;
+    wire_query << make_query(REQL_STOP);
+    auto size = wire_query.str().size();
 
     std::stringstream stream;
 
@@ -104,16 +108,17 @@ public:
     make_token(token_bytes, token);
 
     char size_bytes[4];
-    make_size(size_bytes, static_cast<ReQL_Size>(size));
+    make_size(size_bytes, static_cast<std::uint32_t>(size));
 
     stream << std::string(token_bytes, 8) << std::string(size_bytes, 4) << wire_query;
 
     p_sock.write(stream.str());
   }
 
-  void cont(ReQL_Token token) {
-    auto wire_query = Query_t<std::string>(REQL_CONTINUE).str();
-    auto size = wire_query.size();
+  void cont(std::uint64_t token) {
+    std::stringstream wire_query;
+    wire_query << make_query(REQL_CONTINUE);
+    auto size = wire_query.str().size();
 
     std::stringstream stream;
 
@@ -121,7 +126,7 @@ public:
     make_token(token_bytes, token);
 
     char size_bytes[4];
-    make_size(size_bytes, static_cast<ReQL_Size>(size));
+    make_size(size_bytes, static_cast<std::uint32_t>(size));
 
     stream << std::string(token_bytes, 8) << std::string(size_bytes, 4) << wire_query;
 
@@ -129,32 +134,32 @@ public:
   }
 
 private:
-  static ReQL_Size get_size(const char *buf) {
-    return (static_cast<ReQL_Size>(buf[0]) << 0) |
-    (static_cast<ReQL_Size>(buf[1]) << 8) |
-    (static_cast<ReQL_Size>(buf[2]) << 16) |
-    (static_cast<ReQL_Size>(buf[3]) << 24);
+  static std::uint32_t get_size(const char *buf) {
+    return (static_cast<std::uint32_t>(buf[0]) << 0) |
+    (static_cast<std::uint32_t>(buf[1]) << 8) |
+    (static_cast<std::uint32_t>(buf[2]) << 16) |
+    (static_cast<std::uint32_t>(buf[3]) << 24);
   }
 
-  static void make_size(char *buf, const ReQL_Size magic) {
+  static void make_size(char *buf, const std::uint32_t magic) {
     buf[0] = static_cast<char>((magic >> 0) & 0xFF);
     buf[1] = static_cast<char>((magic >> 8) & 0xFF);
     buf[2] = static_cast<char>((magic >> 16) & 0xFF);
     buf[3] = static_cast<char>((magic >> 24) & 0xFF);
   }
 
-  static ReQL_Token get_token(const char *buf) {
-    return (static_cast<ReQL_Token>(buf[0]) << 0) |
-    (static_cast<ReQL_Token>(buf[1]) << 8) |
-    (static_cast<ReQL_Token>(buf[2]) << 16) |
-    (static_cast<ReQL_Token>(buf[3]) << 24) |
-    (static_cast<ReQL_Token>(buf[4]) << 32) |
-    (static_cast<ReQL_Token>(buf[5]) << 40) |
-    (static_cast<ReQL_Token>(buf[6]) << 48) |
-    (static_cast<ReQL_Token>(buf[7]) << 56);
+  static std::uint64_t get_token(const char *buf) {
+    return (static_cast<std::uint64_t>(buf[0]) << 0) |
+    (static_cast<std::uint64_t>(buf[1]) << 8) |
+    (static_cast<std::uint64_t>(buf[2]) << 16) |
+    (static_cast<std::uint64_t>(buf[3]) << 24) |
+    (static_cast<std::uint64_t>(buf[4]) << 32) |
+    (static_cast<std::uint64_t>(buf[5]) << 40) |
+    (static_cast<std::uint64_t>(buf[6]) << 48) |
+    (static_cast<std::uint64_t>(buf[7]) << 56);
   }
 
-  static void make_token(char *buf, const ReQL_Token magic) {
+  static void make_token(char *buf, const std::uint64_t magic) {
     buf[0] = static_cast<char>((magic >> 0) & 0xFF);
     buf[1] = static_cast<char>((magic >> 8) & 0xFF);
     buf[2] = static_cast<char>((magic >> 16) & 0xFF);
@@ -165,7 +170,7 @@ private:
     buf[7] = static_cast<char>((magic >> 56) & 0xFF);
   }
 
-  std::atomic<ReQL_Token> p_next_token;
+  std::atomic<std::uint64_t> p_next_token;
   Socket_t<socket_e> p_sock;
 };
 

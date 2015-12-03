@@ -21,13 +21,14 @@ limitations under the License.
 #ifndef REQL_REQL_HANDSHAKE_HPP_
 #define REQL_REQL_HANDSHAKE_HPP_
 
+#include <cstdint>
 #include <sstream>
 #include <string>
 
 namespace _ReQL {
 
-static const ReQL_Size VERSION = 0x400c2d20;
-static const ReQL_Size PROTOCOL = 0x7e6970c7;
+static const std::uint32_t VERSION = 0x400c2d20;
+static const std::uint32_t PROTOCOL = 0x7e6970c7;
 
 template <class auth_e, class handshake_e>
 class Handshake_t {
@@ -37,7 +38,7 @@ public:
     char magic[3][4];
 
     make_size(magic[0], VERSION);
-    make_size(magic[1], static_cast<ReQL_Size>(auth.size()));
+    make_size(magic[1], static_cast<std::uint32_t>(auth.size()));
     make_size(magic[2], PROTOCOL);
 
     std::stringstream stream;
@@ -60,7 +61,7 @@ public:
   }
 
 private:
-  static void make_size(char *buf, const ReQL_Size magic) {
+  static void make_size(char *buf, const std::uint32_t magic) {
     buf[0] = static_cast<char>((magic >> 0) & 0xFF);
     buf[1] = static_cast<char>((magic >> 8) & 0xFF);
     buf[2] = static_cast<char>((magic >> 16) & 0xFF);

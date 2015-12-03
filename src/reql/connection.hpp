@@ -25,6 +25,7 @@ limitations under the License.
 #include "./reql/protocol.hpp"
 #include "./reql/query.hpp"
 
+#include <cstdint>
 #include <functional>
 #include <map>
 #include <memory>
@@ -42,7 +43,7 @@ public:
   Conn_t() :
     p_mutex(std::make_shared<std::mutex>()),
     p_protocol(std::make_shared<Protocol_t<auth_e, handshake_e, socket_e> >()),
-    p_root(std::make_shared<std::map<ReQL_Token, std::function<void(const std::string &)> > >()) {}
+    p_root(std::make_shared<std::map<std::uint64_t, std::function<void(const std::string &)> > >()) {}
 
   Conn_t(const Conn_t &other) = default;
 
@@ -99,7 +100,7 @@ public:
     create(token, [](const result_t &) {});
   }
 
-  void stop(ReQL_Token token) {
+  void stop(const std::uint64_t token) {
     p_protocol.stop(token);
   }
 
@@ -116,7 +117,7 @@ private:
   };
 
   template <class func_t>
-  void create(const ReQL_Token &token, func_t func) {
+  void create(const std::uint64_t token, func_t func) {
     std::lock_guard<std::mutex> lock(*p_mutex);
     p_root->insert({token, [this, token, func](const std::string &json) {
       std::thread([this, token, func, json] {
@@ -154,7 +155,7 @@ private:
 
   std::shared_ptr<std::mutex> p_mutex;
   std::shared_ptr<Protocol_t<auth_e, handshake_e, socket_e> > p_protocol;
-  std::shared_ptr<std::map<ReQL_Token, std::function<void(const std::string &)> > > p_root;
+  std::shared_ptr<std::map<std::uint64_t, std::function<void(const std::string &)> > > p_root;
 };
 
 }  // namespace _ReQL
