@@ -21,12 +21,11 @@ limitations under the License.
 #ifndef REQL_REQL_QUERY_HPP_
 #define REQL_REQL_QUERY_HPP_
 
-#include "./reql/stream.hpp"
-#include "./reql/string.hpp"
 #include "./reql/types.hpp"
 
 #include <algorithm>
 #include <map>
+#include <sstream>
 #include <string>
 #include <vector>
 
@@ -216,38 +215,32 @@ class Any_t {
 public:
   template <class wrap_t>
   Any_t(const wrap_t &value) {
-    value.toJSON(p_value);
+    std::stringstream stream;
+    stream << value;
+    p_value = stream.str();
   }
 
-  void toJSON(stream_t &stream) const {
-    stream << p_value;
+  friend std::ostream &operator <<(std::ostream &stream, const Any_t &value) {
+    return stream << value.p_value;
   }
 
 private:
-  stream_t p_value;
+  std::string p_value;
 };
-
-template <class stream_t, class vect_t>
-void
-to_JSON(const vect_t &vect, stream_t &stream) {
-  auto first = true;
-  for (auto &&elem : vect) {
-    if (!first) stream << ",";
-    elem.toJSON(stream);
-    first = false;
-  }
-}
 
 template <class vect_t>
 class Array_t {
 public:
   Array_t(const vect_t &value) : p_value(value) {}
 
-  template <class stream_t>
-  void toJSON(stream_t &stream) const {
+  friend std::ostream &operator <<(std::ostream &stream, const Array_t &value) {
     stream << "[";
-    to_JSON(p_value, stream);
-    stream << "]";
+    auto first = true;
+    for (auto &&elem : value.p_value) {
+      stream << (first ? "" : ",") << elem;
+      first = false;
+    }
+    return stream << "]";
   }
 
 private:
@@ -259,9 +252,8 @@ class Bool_t {
 public:
   Bool_t(const bool_t value) : p_value(value) {}
 
-  template <class stream_t>
-  void toJSON(stream_t &stream) const {
-    stream << (p_value ? "true" : "false");
+  friend std::ostream &operator <<(std::ostream &stream, const Bool_t &value) {
+    return stream << (value.p_value ? "true" : "false");
   }
 
 private:
@@ -271,8 +263,8 @@ private:
 template <class stream_t>
 class Null_t {
 public:
-  void toJSON(stream_t &stream) const {
-    stream << "null";
+  friend std::ostream &operator <<(std::ostream &stream, const Null_t &) {
+    return stream << "null";
   }
 };
 
@@ -281,33 +273,12 @@ class Num_t {
 public:
   Num_t(const num_t value) : p_value(value) {}
 
-  template <class stream_t>
-  void toJSON(stream_t &stream) const {
-    stream << p_value;
+  friend std::ostream &operator <<(std::ostream &stream, const Num_t &value) {
+    return stream << value.p_value;
   }
 
 private:
   num_t p_value;
-};
-
-/**
- * @brief A single key and associated value for objects.
- */
-template <class key_t, class value_t>
-class Pair_t {
-public:
-  Pair_t(const key_t &key, const value_t &val) : p_key(key), p_val(val) {}
-
-  template <class stream_t>
-  void toJSON(stream_t &stream) const {
-    p_key.toJSON(stream);
-    stream << ":";
-    p_val.toJSON(stream);
-  }
-
-private:
-  key_t p_key;
-  value_t p_val;
 };
 
 template <class map_t>
@@ -315,14 +286,14 @@ class Obj_t {
 public:
   Obj_t(const map_t &value) : p_value(value) {}
 
-  template <class stream_t>
-  void toJSON(stream_t &stream) const {
+  friend std::ostream &operator <<(std::ostream &stream, const Obj_t &value) {
     stream << "{";
-    std::vector<Pair_t<Any_t<stream_t>, Any_t<stream_t> > > temp;
-    temp.reserve(p_value.size());
-    std::transform(p_value.cbegin(), p_value.cend(), temp.begin(), [](auto &pair) { return Pair_t<Any_t<stream_t>, Any_t<stream_t> >(pair.first, pair.second); });
-    to_JSON(temp, stream);
-    stream << "}";
+    auto first = true;
+    for (auto &&pair : value.p_value) {
+      stream << (first ? "" : ",") << pair.first << ":" << pair.second;
+      first = false;
+    }
+    return stream << "}";
   }
 
 private:
@@ -334,13 +305,8 @@ class ReQL_Kwargs_t {
 public:
   ReQL_Kwargs_t(Term_t tt, const args_t &args, const kwargs_t &kwargs) : p_tt(tt), p_args(args), p_kwargs(kwargs) {}
 
-  template <class stream_t>
-  void toJSON(stream_t &stream) const {
-    stream << "[" << static_cast<int>(p_tt) << ",";
-    p_args.toJSON(stream);
-    stream << ",";
-    p_kwargs.toJSON(stream);
-    stream << "]";
+  friend std::ostream &operator <<(std::ostream &stream, const ReQL_Kwargs_t &value) {
+    return stream << "[" << static_cast<int>(value.p_tt) << "," << value.p_args << "," << value.p_kwargs << "]";
   }
 
 private:
@@ -354,11 +320,8 @@ class ReQL_Args_t {
 public:
   ReQL_Args_t(Term_t tt, const args_t &args) : p_tt(tt), p_args(args) {}
 
-  template <class stream_t>
-  void toJSON(stream_t &stream) const {
-    stream << "[" << static_cast<int>(p_tt) << ",";
-    p_args.toJSON(stream);
-    stream << "]";
+  friend std::ostream &operator <<(std::ostream &stream, const ReQL_Args_t &value) {
+    return stream << "[" << static_cast<int>(value.p_tt) << "," << value.p_args << "]";
   }
 
 private:
@@ -371,8 +334,8 @@ class ReQL_t {
 public:
   ReQL_t(Term_t tt) : p_tt(tt) {}
 
-  void toJSON(stream_t &stream) const {
-    stream << "[" << static_cast<int>(p_tt) << "]";
+  friend std::ostream &operator <<(std::ostream &stream, const ReQL_t &value) {
+    return stream << "[" << static_cast<int>(value.p_tt) << "]";
   }
 
 private:
@@ -384,8 +347,7 @@ class String_t {
 public:
   String_t(const str_t &value) : p_value(value) {}
 
-  template <class stream_t>
-  void toJSON(stream_t &stream) const {
+  friend std::ostream &operator <<(std::ostream &stream, const String_t &value) {
     const char *json_esc[] = {
       "\\u0000",  // 0x00
       "\\u0001",  // 0x01
@@ -438,18 +400,18 @@ public:
     };
 
     stream << "\"";
-    for (const auto chr : p_value) {
+    for (const char chr : value.p_value) {
       auto idx = static_cast<const unsigned int>(chr);
       if (idx <= 0x5C) {
         auto ext_size = json_size[idx];
         if (ext_size) {
-          stream << ImmutableString(json_esc[idx], ext_size);
+          stream << std::string(json_esc[idx], ext_size);
           continue;
         }
       }
       stream << chr;
     }
-    stream << "\"";
+    return stream << "\"";
   }
 
   bool operator<(const String_t &other) const {
@@ -470,49 +432,38 @@ enum Query_e {
 template <class str_t>
 class Query_t {
 public:
-  Query_t(const ReQL_Token token, const Query_e type) : p_token(token) {
+  Query_t(const Query_e type) {
     p_stream << "[" << static_cast<int>(type) << "]";
   }
 
   template <class query_t>
-  Query_t(const ReQL_Token token, const query_t &query) : p_token(token) {
-    p_stream << "[" << static_cast<int>(REQL_START) << ",";
-    query.toJSON(p_stream);
-    p_stream << ",{}]";
+  Query_t(const query_t &query) {
+    p_stream << "[" << static_cast<int>(REQL_START) << "," << query << ",{}]";
   }
 
   template <class kwargs_t, class query_t>
-  Query_t(const ReQL_Token token, const query_t &query, const kwargs_t &kwargs) : p_token(token) {
-    p_stream << "[" << static_cast<int>(REQL_START) << ",";
-    query.toJSON(p_stream);
-    p_stream << ",";
-    kwargs.toJSON(p_stream);
-    p_stream << "]";
+  Query_t(const query_t &query, const kwargs_t &kwargs) {
+    p_stream << "[" << static_cast<int>(REQL_START) << "," << query << "," << kwargs << "]";
   }
 
-  ReQL_Token token() const {
-    return p_token;
-  }
-
-  ImmutableString str() const {
+  std::string str() const {
     return p_stream.str();
   }
 
 private:
-  _Stream p_stream;
-  const ReQL_Token p_token;
+  std::stringstream p_stream;
 };
 
-typedef Any_t<_Stream> Any;
+typedef Any_t<std::stringstream> Any;
 typedef Array_t<std::vector<Any> > Array;
 typedef Bool_t<bool> Boolean;
-typedef Null_t<_Stream> Null;
+typedef Null_t<std::stringstream> Null;
 typedef Num_t<double> Number;
 typedef String_t<std::string> String;
 typedef Obj_t<std::map<String, Any> > Object;
 typedef ReQL_Kwargs_t<Array, Object> ReQL_Kwargs;
 typedef ReQL_Args_t<Array> ReQL_Args;
-typedef ReQL_t<_Stream> ReQL;
+typedef ReQL_t<std::stringstream> ReQL;
 
 }  // namespace _ReQL
 

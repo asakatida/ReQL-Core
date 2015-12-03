@@ -25,7 +25,7 @@ limitations under the License.
 namespace ReQL {
 
 static NSString *
-to_string(const _ReQL::ImmutableString &string) {
+to_string(const std::string &string) {
   return [[NSString alloc]
           initWithBytes:string.c_str()
           length:string.size()
@@ -38,7 +38,10 @@ Result::Result(const bool value) : p_value([NSNumber numberWithBool:value]) {}
 
 Result::Result(const double value) : p_value([NSNumber numberWithDouble:value]) {}
 
-Result::Result(const _ReQL::ImmutableString &value) : p_value(to_string(value)) {}
+Result::Result(const char *value, const size_t size) : p_value([[NSString alloc]
+                                                                 initWithBytes:value
+                                                                 length:size
+                                                                 encoding:NSUTF8StringEncoding]) {}
 
 Result::Result(const std::vector<Result> &value) {
   NSMutableArray *array = [NSMutableArray arrayWithCapacity:value.size()];
@@ -48,7 +51,7 @@ Result::Result(const std::vector<Result> &value) {
   p_value = [NSArray arrayWithArray:array];
 }
 
-Result::Result(const std::map<_ReQL::ImmutableString, Result> &value) {
+Result::Result(const std::map<std::string, Result> &value) {
   NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:value.size()];
   for (auto &&pair : value) {
     dict[to_string(pair.first)] = pair.second.toObjC();

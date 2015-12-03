@@ -21,9 +21,10 @@ limitations under the License.
 #ifndef REQL_REQL_HANDSHAKE_HPP_
 #define REQL_REQL_HANDSHAKE_HPP_
 
-#include "./reql/socket.hpp"
-#include "./reql/stream.hpp"
 #include "./reql/types.hpp"
+
+#include <sstream>
+#include <string>
 
 namespace _ReQL {
 
@@ -33,19 +34,19 @@ static const ReQL_Size PROTOCOL = 0x7e6970c7;
 template <class auth_e, class handshake_e>
 class Handshake_t {
 public:
-  template <class socket_t, class str_t>
-  Handshake_t(socket_t &sock, const str_t &auth) {
+  template <class socket_t>
+  Handshake_t(socket_t &sock, const std::string &auth) {
     char magic[3][4];
 
     make_size(magic[0], VERSION);
     make_size(magic[1], static_cast<ReQL_Size>(auth.size()));
     make_size(magic[2], PROTOCOL);
 
-    _Stream stream;
-    stream << ImmutableString(magic[0], 4)
-           << ImmutableString(magic[1], 4)
+    std::stringstream stream;
+    stream << std::string(magic[0], 4)
+           << std::string(magic[1], 4)
            << auth
-           << ImmutableString(magic[2], 4);
+           << std::string(magic[2], 4);
 
     sock.write(stream.str());
 
@@ -58,6 +59,14 @@ public:
     if (!(response == "SUCCESS")) {
       throw auth_e("");  // TODO
     }
+  }
+
+private:
+  static void make_size(char *buf, const ReQL_Size magic) {
+    buf[0] = static_cast<char>((magic >> 0) & 0xFF);
+    buf[1] = static_cast<char>((magic >> 8) & 0xFF);
+    buf[2] = static_cast<char>((magic >> 16) & 0xFF);
+    buf[3] = static_cast<char>((magic >> 24) & 0xFF);
   }
 };
 

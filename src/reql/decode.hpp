@@ -21,31 +21,31 @@ limitations under the License.
 #ifndef REQL_REQL_DECODE_HPP_
 #define REQL_REQL_DECODE_HPP_
 
+#include "./reql/parser.hpp"
 #include "./reql/types.hpp"
 
 #include <cctype>
 #include <cstdlib>
 #include <cstring>
 #include <locale>
+#include <sstream>
 #include <string>
 
 namespace _ReQL {
 
-template <class str_t>
 static void
-isspace(typename str_t::const_iterator it, typename str_t::const_iterator &end) {
-  while (std::isspace(static_cast<char>(*it), std::locale("en_US.UTF8"))) {
-    if (it == end) {
+isspace(const char *it, const char *end) {
+  while (std::isspace(*it, std::locale("en_US.UTF8"))) {
+    if (it >= end) {
       throw std::exception();
     }
     ++it;
   }
 }
 
-template <class str_t>
 static bool
-isnext(typename str_t::const_iterator it, typename str_t::const_iterator &end, const typename str_t::value_type &expect) {
-  isspace<str_t>(it, end);
+isnext(const char *it, const char *end, const char expect) {
+  isspace(it, end);
   if (*it == expect) {
     ++it;
     return true;
@@ -53,16 +53,15 @@ isnext(typename str_t::const_iterator it, typename str_t::const_iterator &end, c
   return false;
 }
 
-template <class str_t>
-static typename str_t::value_type
-strtoh(typename str_t::const_iterator it, typename str_t::const_iterator &end) {
+static char
+strtoh(const char *it, const char *end) {
   if (it + 4 >= end) {
     throw std::exception();
   }
   if (!(*(it) == '0' && *(++it) == '0')) {
     throw std::exception();
   }
-  typename str_t::value_type hex = *(++it);
+  char hex = *(++it);
   if (hex >= '0' && hex <= '9') {
     hex -= '0';
   } else if (hex >= 'a' && hex <= 'f') {
@@ -72,7 +71,7 @@ strtoh(typename str_t::const_iterator it, typename str_t::const_iterator &end) {
   } else {
     throw std::exception();
   }
-  typename str_t::value_type res = hex * 16;
+  char res = hex << 8;
   hex = *(++it);
   if (hex >= '0' && hex <= '9') {
     hex -= '0';
@@ -83,47 +82,47 @@ strtoh(typename str_t::const_iterator it, typename str_t::const_iterator &end) {
   } else {
     throw std::exception();
   }
-  res += hex;
-  return res;
+  return res | hex;
 }
 
-template <class parser_t, class str_t>
+template <class result_t>
 static void
-decode(const str_t &json, typename str_t::const_iterator it, typename str_t::const_iterator end, parser_t &p) {
-  isspace<str_t>(it, end);
+decode(const char *it, const char *end, Parser_t<result_t> &p) {
+  isspace(it, end);
   switch (*it) {
     case '"': {
       ++it;
+      std::stringstream stream;
       auto esc = false;
-      auto start = it;
-      auto track = it;
-      while (it != end) {
-        auto res = *it;
+      while (it < end) {
         if (esc) {
-          switch (res) {
+          switch (*it) {
             case 'b': {
-              res = '\b';
+              stream << '\b';
               break;
             }
             case 'f': {
-              res = '\f';
+              stream << '\f';
               break;
             }
             case 'n': {
-              res = '\n';
+              stream << '\n';
               break;
             }
             case 'r': {
-              res = '\r';
+              stream << '\r';
               break;
             }
             case 't': {
-              res = '\t';
+              stream << '\t';
               break;
             }
             case 'u': {
-              res = strtoh<str_t>(++it, end);
+              stream << strtoh(++it, end);
               break;
+            }
+            default: {
+              stream << *it;
             }
           }
           esc = false;
@@ -131,9 +130,11 @@ decode(const str_t &json, typename str_t::const_iterator it, typename str_t::con
           esc = true;
         } else if (*it == '"') {
           ++it;
-          return p.addValue(str_t(start, static_cast<size_t>(track - start)));
+          auto string = stream.str();
+          return p.addValue(string.c_str(), string.size());
+        } else {
+          stream << *it;
         }
-        ++track;
         ++it;
       }
       throw std::exception();
@@ -141,15 +142,13 @@ decode(const str_t &json, typename str_t::const_iterator it, typename str_t::con
     case '[': {
       p.startArray();
       ++it;
-      while (it != end) {
-        if (isnext<str_t>(it, end, ']')) {
+      while (it < end) {
+        if (isnext(it, end, ']')) {
           return p.endArray();
         }
-        p.startElement();
-        decode(json, it, end, p);
-        p.endElement();
-        if (!isnext<str_t>(it, end, ',')) {
-          if (isnext<str_t>(it, end, ']')) {
+        decode(it, end, p);
+        if (!isnext(it, end, ',')) {
+          if (isnext(it, end, ']')) {
             return p.endArray();
           } else {
             throw std::exception();
@@ -161,22 +160,22 @@ decode(const str_t &json, typename str_t::const_iterator it, typename str_t::con
     case '{': {
       p.startObject();
       ++it;
-      if (isnext<str_t>(it, end, '}')) {
+      if (isnext(it, end, '}')) {
         return p.endObject();
       }
-      while (it != end) {
-        isspace<str_t>(it, end);
+      while (it < end) {
+        isspace(it, end);
         if (!(*it == '"')) {
           throw std::exception();
         }
         p.startKeyValue();
-        decode(json, it, end, p);
-        if (!isnext<str_t>(it, end, ':')) {
+        decode(it, end, p);
+        if (!isnext(it, end, ':')) {
           throw std::exception();
         }
-        decode(json, it, end, p);
-        if (!isnext<str_t>(it, end, ',')) {
-          if (isnext<str_t>(it, end, '}')) {
+        decode(it, end, p);
+        if (!isnext(it, end, ',')) {
+          if (isnext(it, end, '}')) {
             return p.endObject();
           } else {
             throw std::exception();
@@ -225,7 +224,7 @@ decode(const str_t &json, typename str_t::const_iterator it, typename str_t::con
     case '8':
     case '9': {
       char *end_ptr = nullptr;
-      double num = std::strtod(reinterpret_cast<const char *>(&*it), &end_ptr);
+      double num = std::strtod(it, &end_ptr);
       if (end_ptr == nullptr) {
         throw std::exception();
       }
@@ -233,14 +232,6 @@ decode(const str_t &json, typename str_t::const_iterator it, typename str_t::con
     }
   }
   throw std::exception();
-}
-
-template <class parser_t, class str_t>
-void
-decode(str_t &json, parser_t &p) {
-  p.startParse();
-  decode(json, json.cbegin(), json.cend(), p);
-  p.endParse();
 }
 
 }  // namespace _ReQL

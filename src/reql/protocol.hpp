@@ -23,11 +23,12 @@ limitations under the License.
 
 #include "./reql/handshake.hpp"
 #include "./reql/query.hpp"
-#include "./reql/response.hpp"
 #include "./reql/socket.hpp"
-#include "./reql/stream.hpp"
 #include "./reql/types.hpp"
 
+#include <atomic>
+#include <sstream>
+#include <string>
 #include <thread>
 
 namespace _ReQL {
@@ -35,96 +36,138 @@ namespace _ReQL {
 template <class auth_e, class handshake_e, class socket_e>
 class Protocol_t {
 public:
-  Protocol_t() {}
-
-  class Buffer_t {
-  public:
-    Buffer_t &operator <<(ImmutableString &&string) {
-      p_size += string.size();
-      p_stream << std::move(string);
-      return *this;
-    }
-
-    bool operator <(const size_t request) {
-      return p_size < request;
-    }
-
-    ImmutableString operator [](const size_t request) {
-      auto string = p_stream.str();
-      p_stream = _Stream();
-      p_stream << std::move(string.substr(request));
-      return ImmutableString(string.data(), request);
-    }
-  private:
-
-    size_t p_size;
-    _Stream p_stream;
-  };
-
   template <class addr_t, class auth_t, class func_t, class port_t>
-  Protocol_t(const addr_t &addr, const port_t &port, const auth_t &auth, func_t func) : p_sock(addr, port) {
+  void connect(const addr_t &addr, const port_t &port, const auth_t &auth, func_t func) {
+    p_sock.connect(addr, port);
     Handshake_t<auth_e, handshake_e>(p_sock, auth);
-    p_thread = std::thread([func, this] {
-      Buffer_t buffer;
+    std::thread([func, this] {
+      size_t buff_size;
+      std::stringstream buffer;
       while (true) {
-        while (buffer < 12) {
-          buffer << std::move(p_sock.read());
+        while (buff_size < 12) {
+          auto string = p_sock.read();
+          buff_size += string.size();
+          buffer << string;
         }
-        auto token = get_token(buffer[8].c_str());
-        auto size = get_size(buffer[4].c_str());
-        while (buffer < size) {
-          buffer << std::move(p_sock.read());
+        auto string = buffer.str();
+        buffer.clear();
+        buffer << string.substr(12);
+        auto token = get_token(string.c_str());
+        auto size = get_size(string.c_str() + 8);
+        while (buff_size < size) {
+          auto string = p_sock.read();
+          buff_size += string.size();
+          buffer << string;
         }
-        func(Response_t<Protocol_t>(buffer[size], token, this));
+        string = buffer.str();
+        buffer.clear();
+        buffer << string.substr(size);
+        func(string.substr(0, size), token);
       }
-    });
+    }).detach();
   }
 
-  bool isOpen() const {
-    return p_sock.isOpen();
+  void disconnect() {
+    p_sock.disconnect();
   }
 
-  Protocol_t &operator <<(Query_t<ImmutableString> query) {
+  bool connected() const {
+    return p_sock.connected();
+  }
+
+  ReQL_Token operator <<(Query_t<std::string> query) {
     auto wire_query = query.str();
     auto size = wire_query.size();
 
-    if (size > UINT32_MAX) {
-      throw std::exception();
-    }
-
-    _Stream stream;
+    std::stringstream stream;
 
     char token_bytes[8];
-    make_token(token_bytes, query.token());
+    ReQL_Token token = p_next_token++;
+    make_token(token_bytes, token);
 
     char size_bytes[4];
     make_size(size_bytes, static_cast<ReQL_Size>(size));
 
-    stream << ImmutableString(token_bytes, 8) << ImmutableString(size_bytes, 4) << wire_query;
+    stream << std::string(token_bytes, 8) << std::string(size_bytes, 4) << wire_query;
 
     p_sock.write(stream.str());
 
-    return *this;
+    return token;
   }
 
-  ~Protocol_t() {
-    p_sock.close();
-    if (p_thread.joinable()) {
-      p_thread.join();
-    }
+  void stop(ReQL_Token token) {
+    auto wire_query = Query_t<std::string>(REQL_STOP).str();
+    auto size = wire_query.size();
+
+    std::stringstream stream;
+
+    char token_bytes[8];
+    make_token(token_bytes, token);
+
+    char size_bytes[4];
+    make_size(size_bytes, static_cast<ReQL_Size>(size));
+
+    stream << std::string(token_bytes, 8) << std::string(size_bytes, 4) << wire_query;
+
+    p_sock.write(stream.str());
   }
 
-  void stop(ReQL_Token t) {
-    (*this) << Query_t<ImmutableString>(t, REQL_STOP);
-  }
+  void cont(ReQL_Token token) {
+    auto wire_query = Query_t<std::string>(REQL_CONTINUE).str();
+    auto size = wire_query.size();
 
-  void cont(ReQL_Token t) {
-    (*this) << Query_t<ImmutableString>(t, REQL_CONTINUE);
+    std::stringstream stream;
+
+    char token_bytes[8];
+    make_token(token_bytes, token);
+
+    char size_bytes[4];
+    make_size(size_bytes, static_cast<ReQL_Size>(size));
+
+    stream << std::string(token_bytes, 8) << std::string(size_bytes, 4) << wire_query;
+
+    p_sock.write(stream.str());
   }
 
 private:
+  static ReQL_Size get_size(const char *buf) {
+    return (static_cast<ReQL_Size>(buf[0]) << 0) |
+    (static_cast<ReQL_Size>(buf[1]) << 8) |
+    (static_cast<ReQL_Size>(buf[2]) << 16) |
+    (static_cast<ReQL_Size>(buf[3]) << 24);
+  }
+
+  static void make_size(char *buf, const ReQL_Size magic) {
+    buf[0] = static_cast<char>((magic >> 0) & 0xFF);
+    buf[1] = static_cast<char>((magic >> 8) & 0xFF);
+    buf[2] = static_cast<char>((magic >> 16) & 0xFF);
+    buf[3] = static_cast<char>((magic >> 24) & 0xFF);
+  }
+
+  static ReQL_Token get_token(const char *buf) {
+    return (static_cast<ReQL_Token>(buf[0]) << 0) |
+    (static_cast<ReQL_Token>(buf[1]) << 8) |
+    (static_cast<ReQL_Token>(buf[2]) << 16) |
+    (static_cast<ReQL_Token>(buf[3]) << 24) |
+    (static_cast<ReQL_Token>(buf[4]) << 32) |
+    (static_cast<ReQL_Token>(buf[5]) << 40) |
+    (static_cast<ReQL_Token>(buf[6]) << 48) |
+    (static_cast<ReQL_Token>(buf[7]) << 56);
+  }
+
+  static void make_token(char *buf, const ReQL_Token magic) {
+    buf[0] = static_cast<char>((magic >> 0) & 0xFF);
+    buf[1] = static_cast<char>((magic >> 8) & 0xFF);
+    buf[2] = static_cast<char>((magic >> 16) & 0xFF);
+    buf[3] = static_cast<char>((magic >> 24) & 0xFF);
+    buf[4] = static_cast<char>((magic >> 32) & 0xFF);
+    buf[5] = static_cast<char>((magic >> 40) & 0xFF);
+    buf[6] = static_cast<char>((magic >> 48) & 0xFF);
+    buf[7] = static_cast<char>((magic >> 56) & 0xFF);
+  }
+
+  std::atomic<ReQL_Token> p_next_token;
   Socket_t<socket_e> p_sock;
-  std::thread p_thread;
 };
 
 }  // namespace _ReQL

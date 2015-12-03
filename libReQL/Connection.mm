@@ -120,7 +120,7 @@ limitations under the License.
 
 -(nonnull instancetype)init {
   if ((self = [super init])) {
-    p_conn._connect();
+    p_conn.connect();
   }
   return self;
 }
@@ -131,7 +131,7 @@ limitations under the License.
           block:^(id<RACSubscriber> subscriber) {
     self.conn.run([query build],
                   [[ReQLQuery newWithObject:kwargs] build],
-                  [subscriber](ReQL::Result &&result) {
+                  [subscriber](const ReQL::Result &result) {
                     [subscriber sendNext:result.toObjC()];
                   });
           }] sequence];

@@ -21,10 +21,9 @@ limitations under the License.
 #ifndef REQL_REQL_PARSER_HPP_
 #define REQL_REQL_PARSER_HPP_
 
-#include "./reql/string.hpp"
-
 #include <map>
 #include <vector>
+#include <string>
 
 namespace _ReQL {
 
@@ -34,10 +33,6 @@ public:
   int r_type() { return p_r_type; }
 
   std::vector<result_t> get() { return p_result; }
-
-  void startParse() {}
-
-  void endParse() {}
 
   void addValue() { p_stack.push_back(result_t()); }
 
@@ -51,23 +46,36 @@ public:
     p_stack.push_back(result_t(value));
   }
 
-  void addValue(const ImmutableString &value) {
-    if (p_level == 1 && p_is_key) {
-      if (value == "b") {
-        p_is_backtrace = true;
-      } else if (value == "n") {
-        p_is_notes = true;
-      } else if (value == "p") {
-        p_is_profile = true;
-      } else if (value == "r") {
-        p_is_response = true;
-      } else if (value == "t") {
-        p_is_r_type = true;
-      } else {
-        throw std::exception();
+  void addValue(const char *value, size_t size) {
+    if (p_level == 1 && p_is_key && size == 1) {
+      switch (value[0]) {
+        case 'b': {
+          p_is_backtrace = true;
+          break;
+        }
+        case 'n': {
+          p_is_notes = true;
+          break;
+        }
+        case 'p': {
+          p_is_profile = true;
+          break;
+        }
+        case 'r': {
+          p_is_response = true;
+          break;
+        }
+        case 't': {
+          p_is_r_type = true;
+          break;
+        }
+        default: {
+          throw std::exception();
+          break;
+        }
       }
     }
-    p_stack.push_back(result_t(value));
+    p_stack.push_back(result_t(value, size));
     p_is_key = false;
   }
 
@@ -76,10 +84,6 @@ public:
     ++p_level;
   }
 
-  void startElement() {}
-
-  void endElement() {}
-
   void endArray() {
     p_stack.push_back(result_t(p_arrays.back()));
     p_arrays.pop_back();
@@ -87,7 +91,7 @@ public:
   }
 
   void startObject() {
-    p_objects.push_back(std::map<ImmutableString, result_t>());
+    p_objects.push_back(std::map<std::string, result_t>());
     p_is_key = false;
     ++p_level;
   }
@@ -111,7 +115,7 @@ private:
   bool p_is_response;
   size_t p_level;
   std::vector<int> p_notes;
-  std::vector<std::map<ImmutableString, result_t> > p_objects;
+  std::vector<std::map<std::string, result_t> > p_objects;
   int p_r_type;
   std::vector<result_t> p_result;
   std::vector<result_t> p_stack;

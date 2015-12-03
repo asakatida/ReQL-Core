@@ -21,7 +21,6 @@ limitations under the License.
 #ifndef REQL_REQL_SOCKET_HPP_
 #define REQL_REQL_SOCKET_HPP_
 
-#include <atomic>
 #include <cerrno>
 #include <memory>
 #include <thread>
@@ -42,68 +41,62 @@ limitations under the License.
 
 namespace _ReQL {
 
-template <class addr_t, class port_t, class socket_e>
-int connect(const addr_t &addr, const port_t &port) {
-  struct addrinfo hints;
-  struct addrinfo *result, *rp;
-
-  hints.ai_family = AF_UNSPEC;
-  hints.ai_socktype = SOCK_STREAM;
-  hints.ai_flags = 0;
-  hints.ai_protocol = IPPROTO_TCP;
-
-  int sts = 0;
-
-  if ((sts = getaddrinfo(addr.c_str(), port.c_str(), &hints, &result)) != 0) {
-    throw socket_e(gai_strerror(sts));
-  }
-
-  int sock = -1;
-
-  for (rp = result; rp != nullptr; rp = rp->ai_next) {
-    sock = socket(rp->ai_family, rp->ai_socktype, rp->ai_protocol);
-
-    if (sock == -1) continue;
-
-    if (connect(sock, rp->ai_addr, rp->ai_addrlen) != -1) break;
-
-    ::close(sock);
-  }
-
-  freeaddrinfo(result);
-
-  if (rp) {
-    return sock;
-  }
-
-  throw socket_e("");  // TODO
-}
-
 template <class socket_e>
 class Socket_t {
 public:
-  Socket_t() : p_sock(-1) {}
-
   template <class addr_t, class port_t>
-  Socket_t(const addr_t &addr, const port_t &port) :
-    p_sock(connect<addr_t, port_t, socket_e>(addr, port)) {}
+  static int _connect(const addr_t &addr, const port_t &port) {
+    struct addrinfo hints;
+    struct addrinfo *result, *rp;
 
-  ~Socket_t() {
-    close();
-  }
+    hints.ai_family = AF_UNSPEC;
+    hints.ai_socktype = SOCK_STREAM;
+    hints.ai_flags = 0;
+    hints.ai_protocol = IPPROTO_TCP;
 
-  bool isOpen() const {
-    return p_sock.load() >= 0;
-  }
+    int sts = 0;
 
-  void close() {
-    int sock = p_sock.exchange(-1);
-    if (sock >= 0) {
+    std::chrono::seconds(0);
+
+    if ((sts = getaddrinfo(addr.c_str(), port.c_str(), &hints, &result)) != 0) {
+      throw socket_e(gai_strerror(sts));
+    }
+
+    int sock = -1;
+
+    for (rp = result; rp != nullptr; rp = rp->ai_next) {
+      sock = socket(rp->ai_family, rp->ai_socktype, rp->ai_protocol);
+
+      if (sock == -1) continue;
+
+      if (::connect(sock, rp->ai_addr, rp->ai_addrlen) != -1) break;
+
       ::close(sock);
     }
+
+    freeaddrinfo(result);
+
+    if (rp) {
+      return sock;
+    }
+
+    throw socket_e("");  // TODO
+  }
+  
+  template <class addr_t, class port_t>
+  void connect(const addr_t &addr, const port_t &port) {
+    p_sock = std::make_shared<int>(_connect(addr, port));
   }
 
-  ImmutableString read() {
+  void disconnect() {
+    p_sock.reset();
+  }
+  
+  bool connected() const {
+    return p_sock ? true : false;
+  }
+
+  std::string read() {
     int sock = load();
     wait_read();
     ssize_t size = 0;
@@ -133,7 +126,7 @@ public:
     } else if (size < 0) {
       switch (errno) {
         case EAGAIN: {
-          return ImmutableString();
+          return std::string();
         }
         case EBADF:
         case ECONNRESET:
@@ -153,10 +146,10 @@ public:
       }
       throw std::exception();
     }
-    return ImmutableString(buffer.get(), static_cast<size_t>(size));
+    return std::string(buffer.get(), static_cast<size_t>(size));
   }
 
-  void write(const ImmutableString &out) {
+  void write(const std::string &out) {
     int sock = load();
     wait_write();
     send(sock, out.c_str(), out.size(), 0);
@@ -205,14 +198,19 @@ private:
   }
 
   int load() {
-    int sock = p_sock.load();
-    if (sock < 0) {
-      throw socket_e("");  // TODO
+    int sock = *p_sock;
+    if (sock) {
+      return sock;
     }
-    return sock;
+    throw socket_e("");  // TODO
   }
 
-  std::atomic<int> p_sock;
+  static void deleter(int *sock) {
+    ::close(*sock);
+    delete sock;
+  }
+
+  std::shared_ptr<int> p_sock;
 };
 
 }  // namespace _ReQL
