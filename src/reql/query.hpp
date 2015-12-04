@@ -230,12 +230,6 @@ struct Array_t : public vect_t {
   Array_t(vect_t &&other) : vect_t(std::move(other)) {}
 };
 
-template <class vect_t>
-Array_t<vect_t>
-make_array(const vect_t &vect) {
-  return vect;
-}
-
 static const char *Null_t = "null";
 
 template <class map_t>
@@ -243,30 +237,6 @@ struct Obj_t : public map_t {
   Obj_t(const map_t &value) : map_t(value) {}
   Obj_t(map_t &&value) : map_t(std::move(value)) {}
 };
-
-template <class map_t>
-Obj_t<map_t>
-make_object(const map_t &map) {
-  return map;
-}
-
-template <class args_t, class kwargs_t>
-Array_t<std::tuple<Term_t, Array_t<args_t>, Obj_t<kwargs_t> > >
-make_reql(Term_t tt, args_t args, kwargs_t kwargs) {
-  return std::make_tuple(tt, make_array(args), Obj_t<kwargs_t>(kwargs));
-}
-
-template <class args_t>
-Array_t<std::tuple<Term_t, Array_t<args_t> > >
-make_reql(Term_t tt, args_t args) {
-  return std::make_tuple(tt, make_array(args));
-}
-
-template <class term_t>
-Array_t<std::tuple<term_t> >
-make_reql(term_t tt) {
-  return std::make_tuple(tt);
-}
 
 template <class str_t>
 struct String_t : public str_t {
@@ -280,12 +250,42 @@ make_string(const str_t &str) {
   return str;
 }
 
-enum Query_e {
+enum Query_t {
   REQL_CONTINUE = 2,
   REQL_NOREPLY_WAIT = 4,
   REQL_START = 1,
   REQL_STOP = 3
 };
+
+template <class vect_t>
+Array_t<vect_t>
+make_array(const vect_t &vect) {
+  return vect;
+}
+
+template <class map_t>
+Obj_t<map_t>
+make_object(const map_t &map) {
+  return map;
+}
+
+template <class args_t, class kwargs_t>
+auto
+make_reql(Term_t tt, args_t args, kwargs_t kwargs) {
+  return make_array(std::make_tuple(tt, make_array(args), Obj_t<kwargs_t>(kwargs)));
+}
+
+template <class args_t>
+auto
+make_reql(Term_t tt, args_t args) {
+  return make_array(std::make_tuple(tt, make_array(args)));
+}
+
+template <class term_t>
+auto
+make_reql(term_t tt) {
+  return make_array(std::make_tuple(tt));
+}
 
 template <class map_t, class query_t>
 auto
@@ -293,9 +293,9 @@ make_query(const query_t &query, const map_t &kwargs = std::map<std::string, Any
   return make_array(std::make_tuple(REQL_START, query, make_object(kwargs)));
 }
 
-template <class query_e>
+template <class query_t>
 auto
-make_query(const query_e type) {
+make_query(const query_t type) {
   return make_array(std::make_tuple(type));
 }
 
