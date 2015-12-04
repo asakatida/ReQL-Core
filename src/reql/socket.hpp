@@ -82,7 +82,7 @@ public:
 
     throw socket_e("");  // TODO
   }
-  
+
   template <class addr_t, class port_t>
   void connect(const addr_t &addr, const port_t &port) {
     p_sock = std::make_shared<int>(_connect(addr, port));
@@ -91,7 +91,7 @@ public:
   void disconnect() {
     p_sock.reset();
   }
-  
+
   bool connected() const {
     return p_sock ? true : false;
   }

@@ -24,7 +24,6 @@ set(MOC_HEADERS
  reql/protocol.hpp
  reql/query.hpp
  reql/socket.hpp
- reql/types.hpp
  ReQL.h
  ReQL.hpp
 )

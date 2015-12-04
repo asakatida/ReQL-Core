@@ -212,37 +212,20 @@ enum Term_t {
   REQL_ZIP = 72
 };
 
-class Any_t {
-public:
+template <class str_t>
+struct Any_t : public str_t {
   template <class wrap_t>
   Any_t(const wrap_t &value) {
-    std::stringstream stream;
+    std::ostringstream stream;
+    stream.str(*this);
     stream << std::boolalpha << std::setprecision(std::numeric_limits<double>::digits10 + 1) << value;
-    p_value = stream.str();
   }
-
-  friend std::ostream &operator <<(std::ostream &stream, const Any_t &value) {
-    return stream << value.p_value;
-  }
-
-private:
-  std::string p_value;
 };
 
-template <class func_t, class iterable_t>
-std::ostream &
-for_each(std::ostream &stream, iterable_t iterable, func_t func) {
-  auto first = true;
-  for (auto &&elem : iterable) {
-    stream << (first ? "" : ",") << func(elem);
-    first = false;
-  }
-  return stream;
-}
+typedef Any_t<std::string> Any;
 
 template <class vect_t>
 struct Array_t : public vect_t {
-  Array_t() {}
   Array_t(const vect_t &other) : vect_t(other) {}
   Array_t(vect_t &&other) : vect_t(std::move(other)) {}
 };
@@ -253,14 +236,19 @@ make_array(const vect_t &vect) {
   return vect;
 }
 
-class Null_t {};
+static const char *Null_t = "null";
 
 template <class map_t>
 struct Obj_t : public map_t {
-  Obj_t() {}
   Obj_t(const map_t &value) : map_t(value) {}
   Obj_t(map_t &&value) : map_t(std::move(value)) {}
 };
+
+template <class map_t>
+Obj_t<map_t>
+make_object(const map_t &map) {
+  return map;
+}
 
 template <class args_t, class kwargs_t>
 Array_t<std::tuple<Term_t, Array_t<args_t>, Obj_t<kwargs_t> > >
@@ -274,17 +262,23 @@ make_reql(Term_t tt, args_t args) {
   return std::make_tuple(tt, make_array(args));
 }
 
-Array_t<std::tuple<Term_t> >
-make_reql(Term_t tt) {
+template <class term_t>
+Array_t<std::tuple<term_t> >
+make_reql(term_t tt) {
   return std::make_tuple(tt);
 }
 
 template <class str_t>
 struct String_t : public str_t {
-  String_t() {}
   String_t(const str_t &value) : str_t(value) {}
   String_t(str_t &&value) : str_t(std::move(value)) {}
 };
+
+template <class str_t>
+String_t<str_t>
+make_string(const str_t &str) {
+  return str;
+}
 
 enum Query_e {
   REQL_CONTINUE = 2,
@@ -294,36 +288,64 @@ enum Query_e {
 };
 
 template <class map_t, class query_t>
-Array_t<std::tuple<Query_e, query_t, Obj_t<map_t> > >
-make_query(const query_t &query, const map_t &kwargs) {
-  return std::make_tuple(REQL_START, query, Obj_t<map_t>(kwargs));
+auto
+make_query(const query_t &query, const map_t &kwargs = std::map<std::string, Any>()) {
+  return make_array(std::make_tuple(REQL_START, query, make_object(kwargs)));
 }
 
-template <class query_t>
-Array_t<std::tuple<Query_e, query_t, Obj_t<std::map<std::string, Any_t> > > >
-make_query(const query_t &query) {
-  return std::make_tuple(REQL_START, query, Obj_t<std::map<std::string, Any_t> >());
-}
-
-Array_t<std::tuple<Query_e> >
-make_query(const Query_e type) {
-  return std::make_tuple(type);
+template <class query_e>
+auto
+make_query(const query_e type) {
+  return make_array(std::make_tuple(type));
 }
 
 template <class vect_t>
 std::ostream &operator <<(std::ostream &stream, const Array_t<vect_t> &value) {
-  return for_each(stream << '[', value, [](auto val) { return val; }) << ']';
+  stream << '[';
+  auto first = true;
+  for (auto &&elem : value) {
+    if (!first) stream << ',';
+    stream << elem;
+    first = false;
+  }
+  return stream << ']';
 }
 
-std::ostream &operator <<(std::ostream &stream, const Null_t &) {
-  return stream << "null";
+template<std::size_t s, typename..._ts>
+typename std::enable_if<s == 0, std::ostream &>::type
+unpack(std::ostream &stream, const std::tuple<_ts...> &) {
+  return stream;
+}
+
+template<std::size_t s, typename..._ts>
+typename std::enable_if<s == 1, std::ostream &>::type
+unpack(std::ostream &stream, const std::tuple<_ts...> &iterable) {
+  return stream << std::get<0>(iterable);
+}
+
+template<std::size_t s, typename..._ts>
+typename std::enable_if<s >= 2, std::ostream &>::type
+unpack(std::ostream &stream, const std::tuple<_ts...> &iterable) {
+  return unpack<s-1, _ts...>(stream, iterable) << ',' << std::get<s-1>(iterable);
+}
+
+template <typename..._ts>
+std::ostream &
+operator <<(std::ostream &stream, const Array_t<std::tuple<_ts...>> &value) {
+  return unpack<sizeof...(_ts), _ts...>(stream << '[', value) << ']';
 }
 
 template <class map_t>
-std::ostream &operator <<(std::ostream &stream, const Obj_t<map_t> &value) {
-  return for_each(stream << '{', value, [](auto pair) {
-    return std::make_tuple(String_t<std::string>(pair.first), ':', pair.second);
-  }) << '}';
+std::ostream &
+operator <<(std::ostream &stream, const Obj_t<map_t> &value) {
+  stream << '{';
+  auto first = true;
+  for (auto &&pair : value) {
+    if (!first) stream << ',';
+    stream << String_t<std::string>(pair.first) << ':' << pair.second;
+    first = false;
+  }
+  return stream << '}';
 }
 
 template <class str_t>
@@ -393,18 +415,6 @@ std::ostream &operator <<(std::ostream &stream, const String_t<str_t> &value) {
   }
   return stream << '"';
 }
-
-std::ostream &operator <<(std::ostream &stream, const Term_t tt) {
-  return stream << static_cast<int>(tt);
-}
-
-std::ostream &operator <<(std::ostream &stream, const Query_e qt) {
-  return stream << static_cast<int>(qt);
-}
-
-typedef Array_t<std::vector<Any_t> > Array;
-typedef String_t<std::string> String;
-typedef Obj_t<std::map<std::string, Any_t> > Object;
 
 }  // namespace _ReQL
 

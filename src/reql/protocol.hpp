@@ -42,7 +42,7 @@ public:
     Handshake_t<auth_e, handshake_e>(p_sock, auth);
     std::thread([func, this] {
       size_t buff_size;
-      std::stringstream buffer;
+      std::ostringstream buffer;
       while (true) {
         while (buff_size < 12) {
           auto string = p_sock.read();
@@ -77,11 +77,11 @@ public:
 
   template <class query_t>
   std::uint64_t operator <<(query_t query) {
-    std::stringstream wire_query;
+    std::ostringstream wire_query;
     wire_query << query;
     auto size = wire_query.str().size();
 
-    std::stringstream stream;
+    std::ostringstream stream;
 
     char token_bytes[8];
     auto token = p_next_token++;
@@ -90,7 +90,7 @@ public:
     char size_bytes[4];
     make_size(size_bytes, static_cast<std::uint32_t>(size));
 
-    stream << std::string(token_bytes, 8) << std::string(size_bytes, 4) << wire_query;
+    stream << std::string(token_bytes, 8) << std::string(size_bytes, 4) << wire_query.str();
 
     p_sock.write(stream.str());
 
@@ -98,11 +98,11 @@ public:
   }
 
   void stop(std::uint64_t token) {
-    std::stringstream wire_query;
+    std::ostringstream wire_query;
     wire_query << make_query(REQL_STOP);
     auto size = wire_query.str().size();
 
-    std::stringstream stream;
+    std::ostringstream stream;
 
     char token_bytes[8];
     make_token(token_bytes, token);
@@ -110,17 +110,17 @@ public:
     char size_bytes[4];
     make_size(size_bytes, static_cast<std::uint32_t>(size));
 
-    stream << std::string(token_bytes, 8) << std::string(size_bytes, 4) << wire_query;
+    stream << std::string(token_bytes, 8) << std::string(size_bytes, 4) << wire_query.str();
 
     p_sock.write(stream.str());
   }
 
   void cont(std::uint64_t token) {
-    std::stringstream wire_query;
+    std::ostringstream wire_query;
     wire_query << make_query(REQL_CONTINUE);
     auto size = wire_query.str().size();
 
-    std::stringstream stream;
+    std::ostringstream stream;
 
     char token_bytes[8];
     make_token(token_bytes, token);
@@ -128,7 +128,7 @@ public:
     char size_bytes[4];
     make_size(size_bytes, static_cast<std::uint32_t>(size));
 
-    stream << std::string(token_bytes, 8) << std::string(size_bytes, 4) << wire_query;
+    stream << std::string(token_bytes, 8) << std::string(size_bytes, 4) << wire_query.str();
 
     p_sock.write(stream.str());
   }

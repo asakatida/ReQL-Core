@@ -41,7 +41,7 @@ public:
     make_size(magic[1], static_cast<std::uint32_t>(auth.size()));
     make_size(magic[2], PROTOCOL);
 
-    std::stringstream stream;
+    std::ostringstream stream;
     stream << std::string(magic[0], 4)
            << std::string(magic[1], 4)
            << auth

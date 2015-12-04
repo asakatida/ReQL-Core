@@ -114,6 +114,30 @@ limitations under the License.
 
 @end
 
+static std::string
+to_string(const NSString *string) {
+  return std::string([string cStringUsingEncoding:NSUTF8StringEncoding],
+                     [string lengthOfBytesUsingEncoding:NSUTF8StringEncoding]);
+}
+
+static ReQLQuery *
+toQuery(id expr) {
+  if ([expr isKindOfClass:[ReQLQuery class]]) {
+    return expr;
+  } else if ([expr isKindOfClass:[NSArray class]]) {
+    return [ReQLQuery newWithArray:expr];
+  } else if ([expr isKindOfClass:[NSNull class]]) {
+    return [ReQLQuery new];
+  } else if ([expr isKindOfClass:[NSNumber class]]) {
+    return [ReQLQuery newWithNumber:expr];
+  } else if ([expr isKindOfClass:[NSString class]]) {
+    return [ReQLQuery newWithString:expr];
+  } else if ([expr isKindOfClass:[NSDictionary class]]) {
+    return [ReQLQuery newWithObject:expr];
+  }
+  return nil;
+}
+
 @implementation ReQLConnection
 
 @synthesize conn=p_conn;
@@ -129,8 +153,12 @@ limitations under the License.
   return [[RACSignal
           startEagerlyWithScheduler:[RACScheduler scheduler]
           block:^(id<RACSubscriber> subscriber) {
+    std::map<std::string, _ReQL::Any> object;
+    for (NSString *key in kwargs) {
+      object.insert({to_string(key), [toQuery(kwargs[key]) build]});
+    }
     self.conn.run([query build],
-                  [[ReQLQuery newWithObject:kwargs] build],
+                  object,
                   [subscriber](const ReQL::Result &result) {
                     [subscriber sendNext:result.toObjC()];
                   });
@@ -138,7 +166,11 @@ limitations under the License.
 }
 
 -(void)noReply:(ReQLQuery *)query kwargs:(NSDictionary *)kwargs {
-  self.conn.noReply([query build], [[ReQLQuery newWithObject:kwargs] build]);
+  std::map<std::string, _ReQL::Any> object;
+  for (NSString *key in kwargs) {
+    object.insert({to_string(key), [toQuery(kwargs[key]) build]});
+  }
+  self.conn.noReply([query build], object);
 }
 
 -(BOOL)isOpen {

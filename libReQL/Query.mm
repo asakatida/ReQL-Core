@@ -199,40 +199,40 @@ toQuery(id expr) {
     for (id elem in self.array) {
       array.push_back([toQuery(elem) build]);
     }
-    return _ReQL::Any(_ReQL::Array(array));
+    return _ReQL::make_array(array);
   } else if (self.null) {
-    return _ReQL::Any(_ReQL::Null());
+    return _ReQL::Null_t;
   } else if (self.number) {
     if (self.flag) {
-      return _ReQL::Any(_ReQL::Boolean([self.number boolValue]));
+      return [self.number boolValue] ? true : false;
     }
-    return _ReQL::Any(_ReQL::Number([self.number doubleValue]));
+    return [self.number doubleValue];
   } else if (self.string) {
-    return _ReQL::Any(_ReQL::String(to_string(self.string)));
+    return _ReQL::make_string(to_string(self.string));
   } else if (self.object) {
-    std::map<_ReQL::String, _ReQL::Any> object;
+    std::map<std::string, _ReQL::Any> object;
     for (NSString *key in self.object) {
-      object.insert({_ReQL::String(to_string(key)), [toQuery(self.object[key]) build]});
+      object.insert({to_string(key), [toQuery(self.object[key]) build]});
     }
-    return _ReQL::Any(_ReQL::Object(object));
+    return _ReQL::make_object(object);
   } else if (self.kwargs) {
     std::vector<_ReQL::Any> array;
     for (id elem in self.args) {
       array.push_back([toQuery(elem) build]);
     }
-    std::map<_ReQL::String, _ReQL::Any> object;
+    std::map<std::string, _ReQL::Any> object;
     for (NSString *key in self.kwargs) {
-      object.insert({_ReQL::String(to_string(key)), [toQuery(self.object[key]) build]});
+      object.insert({to_string(key), [toQuery(self.object[key]) build]});
     }
-    return _ReQL::Any(_ReQL::ReQL_Kwargs(self.tt, _ReQL::Array(array), _ReQL::Object(object)));
+    return make_reql(self.tt, array, object);
   } else if (self.args) {
     std::vector<_ReQL::Any> array;
     for (id elem in self.args) {
       array.push_back([toQuery(elem) build]);
     }
-    return _ReQL::Any(_ReQL::ReQL_Args(self.tt, _ReQL::Array(array)));
+    return make_reql(self.tt, array);
   }
-  return _ReQL::Any(_ReQL::ReQL(self.tt));
+  return make_reql(self.tt);
 }
 
 +(instancetype)
