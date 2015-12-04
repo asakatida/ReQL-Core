@@ -77,6 +77,22 @@ public:
 
   template <class query_t>
   std::uint64_t operator <<(query_t query) {
+    auto token = p_next_token++;
+    run(token, query);
+    return token;
+  }
+
+  void stop(std::uint64_t token) {
+    run(token, make_query(REQL_STOP));
+  }
+
+  void cont(std::uint64_t token) {
+    run(token, make_query(REQL_CONTINUE));
+  }
+
+private:
+  template <class query_t>
+  void run(std::uint64_t token, query_t query) {
     std::ostringstream wire_query;
     wire_query << query;
     auto size = wire_query.str().size();
@@ -84,27 +100,6 @@ public:
     std::ostringstream stream;
 
     char token_bytes[8];
-    auto token = p_next_token++;
-    make_token(token_bytes, token);
-
-    char size_bytes[4];
-    make_size(size_bytes, static_cast<std::uint32_t>(size));
-
-    stream << std::string(token_bytes, 8) << std::string(size_bytes, 4) << wire_query.str();
-
-    p_sock.write(stream.str());
-
-    return token;
-  }
-
-  void stop(std::uint64_t token) {
-    std::ostringstream wire_query;
-    wire_query << make_query(REQL_STOP);
-    auto size = wire_query.str().size();
-
-    std::ostringstream stream;
-
-    char token_bytes[8];
     make_token(token_bytes, token);
 
     char size_bytes[4];
@@ -115,25 +110,6 @@ public:
     p_sock.write(stream.str());
   }
 
-  void cont(std::uint64_t token) {
-    std::ostringstream wire_query;
-    wire_query << make_query(REQL_CONTINUE);
-    auto size = wire_query.str().size();
-
-    std::ostringstream stream;
-
-    char token_bytes[8];
-    make_token(token_bytes, token);
-
-    char size_bytes[4];
-    make_size(size_bytes, static_cast<std::uint32_t>(size));
-
-    stream << std::string(token_bytes, 8) << std::string(size_bytes, 4) << wire_query.str();
-
-    p_sock.write(stream.str());
-  }
-
-private:
   static std::uint32_t get_size(const char *buf) {
     return (static_cast<std::uint32_t>(buf[0]) << 0) |
     (static_cast<std::uint32_t>(buf[1]) << 8) |
