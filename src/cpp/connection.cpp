@@ -27,20 +27,20 @@ limitations under the License.
 
 namespace ReQL {
 
-Connection::Connection() {
-  p_conn.connect();
+Connection::Connection() : p_conn() {
+  p_conn->connect();
 }
 
 Connection::Connection(const std::string &host) {
-  p_conn.connect(host);
+  p_conn->connect(host);
 }
 
 Connection::Connection(const std::string &host, const std::uint16_t &port) {
-  p_conn.connect(host, std::to_string(port));
+  p_conn->connect(host, std::to_string(port));
 }
 
 Connection::Connection(const std::string &host, const std::uint16_t &port, const std::string &key) {
-  p_conn.connect(host, std::to_string(port), key);
+  p_conn->connect(host, std::to_string(port), key);
 }
 
 Connection::Connection(Connection &&other) : p_conn(std::move(other.p_conn)) {}
@@ -54,12 +54,12 @@ Connection &Connection::operator=(Connection &&other) {
 
 void
 Connection::close() {
-  p_conn.close();
+  p_conn->close();
 }
 
 bool
 Connection::isOpen() const {
-  return p_conn.isOpen();
+  return p_conn->isOpen();
 }
 
 }  // namespace ReQL

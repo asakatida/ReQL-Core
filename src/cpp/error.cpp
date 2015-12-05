@@ -22,60 +22,9 @@ limitations under the License.
 
 namespace ReQL {
 
-ReQLError::ReQLError() {
-}
+ReQLError::ReQLError(const char *errstr) : _what(errstr) {}
 
 const char*
-ReQLError::what() const noexcept {
-  return "ReQLError";
-}
-
-ReQLQueryError::ReQLQueryError() {
-}
-
-const char*
-ReQLQueryError::what() const noexcept {
-  return "ReQLQueryError";
-}
-
-ReQLClientError::ReQLClientError() {
-}
-
-const char*
-ReQLClientError::what() const noexcept {
-  return "ReQLClientError";
-}
-
-ReQLCompileError::ReQLCompileError() {
-}
-
-const char*
-ReQLCompileError::what() const noexcept {
-  return "ReQLCompileError";
-}
-
-ReQLRuntimeError::ReQLRuntimeError() {
-}
-
-const char*
-ReQLRuntimeError::what() const noexcept {
-  return "ReQLRuntimeError";
-}
-
-ReQLCursorEmpty::ReQLCursorEmpty() {
-}
-
-const char*
-ReQLCursorEmpty::what() const noexcept {
-  return "ReQLCursorEmpty";
-}
-
-ReQLDriverError::ReQLDriverError() {
-}
-
-const char*
-ReQLDriverError::what() const noexcept {
-  return "ReQLDriverError";
-}
+ReQLError::what() const noexcept { return _what; }
 
 }

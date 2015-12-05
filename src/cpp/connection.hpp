@@ -49,7 +49,7 @@ public:
 private:
 
   friend class Query;
-  _ReQL::Conn_t<ReQLError, ReQLError, Result, ReQLError> p_conn;
+  std::shared_ptr<_ReQL::Conn_t<ReQLError, ReQLError, Result, ReQLError>> p_conn;
 };
 
 }  // namespace ReQL

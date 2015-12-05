@@ -25,14 +25,71 @@ limitations under the License.
 #include "./reql/protocol.hpp"
 #include "./reql/query.hpp"
 
+#include <condition_variable>
 #include <cstdint>
 #include <functional>
+#include <forward_list>
+#include <iterator>
 #include <map>
 #include <memory>
 #include <mutex>
+#include <queue>
 #include <thread>
 
 namespace _ReQL {
+
+template <class result_t>
+class Cursor_t : public std::iterator<std::input_iterator_tag, result_t> {
+public:
+  Cursor_t &begin() noexcept {
+    return *this;
+  }
+
+  Cursor_t &cbegin() noexcept {
+    return *this;
+  }
+
+  const Cursor_t &end() const {
+    return *p_end;
+  }
+
+  const Cursor_t &cend() const {
+    return *p_end;
+  }
+
+  Cursor_t &operator ++() {
+    std::unique_lock<std::mutex> lock(p_mutex);
+    if (p_queue.empty()) {
+      p_cond.wait(lock, [this] {
+        return !p_queue->empty();
+      });
+    }
+    p_result = p_queue.back();
+    p_queue.pop();
+    return *this;
+  }
+
+  const result_t &operator *() const;
+
+  const result_t &operator ->() const;
+
+  bool operator ==(const Cursor_t &other) const;
+
+  bool operator !=(const Cursor_t &other) const;
+
+  Cursor_t() : p_token(-1) {}
+
+  Cursor_t(std::uint64_t token) : p_token(token), p_end(new Cursor_t) {}
+
+  void operator ()(const std::string &json) {}
+
+  std::condition_variable p_cond;
+  const Cursor_t *p_end;
+  std::mutex p_mutex;
+  std::queue<result_t> p_queue;
+  result_t p_result;
+  const std::uint64_t p_token;
+};
 
 static const char *DEFAULT_ADDR = "localhost";
 static const char *DEFAULT_PORT = "28015";
@@ -40,21 +97,6 @@ static const char *DEFAULT_PORT = "28015";
 template <class auth_e, class handshake_e, class result_t, class socket_e>
 class Conn_t {
 public:
-  Conn_t() :
-    p_mutex(std::make_shared<std::mutex>()),
-    p_protocol(std::make_shared<Protocol_t<auth_e, handshake_e, socket_e> >()),
-    p_root(std::make_shared<std::map<std::uint64_t, std::function<void(const std::string &)> > >()) {}
-
-  Conn_t(const Conn_t &other) = default;
-
-  Conn_t(Conn_t &&other) = default;
-
-  ~Conn_t() {}
-
-  Conn_t &operator =(const Conn_t &other) = default;
-
-  Conn_t &operator =(Conn_t &&other) = default;
-
   void connect() {
     return connect(std::string(DEFAULT_ADDR));
   }
@@ -68,37 +110,37 @@ public:
   }
 
   void connect(const std::string &addr, const std::string &port, const std::string &auth) {
-    p_protocol->connect(addr, port, auth, [this](const std::string &json, const std::uint64_t token) {
-      std::lock_guard<std::mutex> lock(*p_mutex);
-      (*p_root)[token](json);
+    p_protocol.connect(addr, port, auth, [this](const std::string &json, const std::uint64_t token) {
+      std::lock_guard<std::mutex> lock(p_mutex);
+      p_root[token](json);
     });
   }
 
   bool isOpen() const {
-    return p_protocol->connected();
+    return p_protocol.connected();
   }
 
   void close() {
-    p_protocol->disconnect();
+    p_protocol.disconnect();
   }
 
-  template <class query_t, class func_t>
-  void run(const query_t &query, func_t func) {
-    create((*p_protocol) << make_query(query), func);
-  }
-
-  template <class kwargs_t, class query_t, class func_t>
-  void run(const query_t &query, const kwargs_t &kwargs, func_t func) {
-    create((*p_protocol) << make_query(query, kwargs), func);
+  template <class query_t>
+  auto run(const query_t &query) {
+    return create(p_protocol << make_query(query));
   }
 
   template <class kwargs_t, class query_t>
+  auto run(const query_t &query, const kwargs_t &kwargs) {
+    return create(p_protocol << make_query(query, kwargs));
+  }
+
+  template <typename kwargs_t, typename query_t>
   void noReply(const query_t &query, const kwargs_t &kwargs) {
-    (*p_protocol) << make_query(query, kwargs);
+    p_protocol << make_query(query, kwargs);
   }
 
   void noReplyWait() {
-    create((*p_protocol) << make_query(REQL_NOREPLY_WAIT), [](const result_t &) {});
+    (p_protocol << make_query((REQL_NOREPLY_WAIT)))([](const result_t &) {});
   }
 
   void stop(const std::uint64_t token) {
@@ -117,10 +159,11 @@ private:
     WAIT_COMPLETE = 4
   };
 
-  template <class func_t>
-  void create(const std::uint64_t token, func_t func) {
-    std::lock_guard<std::mutex> lock(*p_mutex);
-    p_root->insert({token, [this, token, func](const std::string &json) {
+  auto create(const std::uint64_t token) {
+    Cursor_t<result_t> cursor(token);
+    std::lock_guard<std::mutex> lock(p_mutex);
+    p_root.insert({token, cursor});
+    auto _ = [this, cursor](const std::string &json) {/*
       std::thread([this, token, func, json] {
         Decoder_t<result_t> decoder;
         decoder.decode(json.c_str(), json.c_str() + json.size());
@@ -130,7 +173,7 @@ private:
             func(decoder.get()[0]);
             break;
           }
-          case SUCCESS_PARTIAL: p_protocol->cont(token);
+          case SUCCESS_PARTIAL: p_protocol.cont(token);
           case SUCCESS_SEQUENCE: {
             for (auto &&elem : decoder.get()) {
               func(elem);
@@ -150,13 +193,14 @@ private:
           default: {
           }
         }
-      }).detach();
-    }});
+      }).detach();*/
+    };
+    return cursor;
   }
 
-  std::shared_ptr<std::mutex> p_mutex;
-  std::shared_ptr<Protocol_t<auth_e, handshake_e, socket_e> > p_protocol;
-  std::shared_ptr<std::map<std::uint64_t, std::function<void(const std::string &)> > > p_root;
+  std::mutex p_mutex;
+  Protocol_t<auth_e, handshake_e, socket_e> p_protocol;
+  std::map<std::uint64_t, Cursor_t<result_t> > p_root;
 };
 
 }  // namespace _ReQL

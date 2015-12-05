@@ -33,8 +33,8 @@ Result::Result(bool value) : p_value(value), p_type(boolean) {}
 
 Result::Result(double value) : p_value(value), p_type(number) {}
 
-Result::Result(std::string value) :
-  p_value(std::string(value.c_str(), value.size())), p_type(string) {}
+Result::Result(const char *value, const size_t size) :
+  p_value(std::string(value, size)), p_type(string) {}
 
 Result::Result(std::vector<Result> value) :
   p_value(value), p_type(array) {}

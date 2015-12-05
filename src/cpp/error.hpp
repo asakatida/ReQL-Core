@@ -27,45 +27,39 @@ namespace ReQL {
 
 class ReQLError : public std::exception {
 public:
-  ReQLError();
   ReQLError(const char *errstr);
   virtual const char* what() const noexcept;
+  const char *_what = "";
 };
 
 class ReQLQueryError : public ReQLError {
 public:
-  ReQLQueryError();
-  virtual const char* what() const noexcept;
+  using ReQLError::ReQLError;
 };
 
 class ReQLClientError : public ReQLQueryError {
 public:
-  ReQLClientError();
-  virtual const char* what() const noexcept;
+  using ReQLError::ReQLError;
 };
 
 class ReQLCompileError : public ReQLQueryError {
 public:
-  ReQLCompileError();
-  virtual const char* what() const noexcept;
+  using ReQLError::ReQLError;
 };
 
 class ReQLRuntimeError : public ReQLQueryError {
 public:
-  ReQLRuntimeError();
-  virtual const char* what() const noexcept;
+  using ReQLError::ReQLError;
 };
 
 class ReQLCursorEmpty : public ReQLQueryError {
 public:
-  ReQLCursorEmpty();
-  virtual const char* what() const noexcept;
+  using ReQLError::ReQLError;
 };
 
 class ReQLDriverError : public ReQLError {
 public:
-  ReQLDriverError();
-  virtual const char* what() const noexcept;
+  using ReQLError::ReQLError;
 };
 
 }  // namespace ReQL

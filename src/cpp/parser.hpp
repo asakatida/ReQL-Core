@@ -32,7 +32,7 @@ public:
   Result();
   Result(bool value);
   Result(double value);
-  Result(std::string value);
+  Result(const char *value, const size_t size);
   Result(std::vector<Result> value);
   Result(std::map<std::string, Result> value);
 
