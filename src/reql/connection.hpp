@@ -73,21 +73,74 @@ public:
 
   const result_t &operator ->() const;
 
-  bool operator ==(const Cursor_t &other) const;
+  bool operator ==(const Cursor_t &other) const { return p_token == other.p_token; }
 
-  bool operator !=(const Cursor_t &other) const;
+  bool operator !=(const Cursor_t &other) const { return p_token != other.p_token; }
 
-  Cursor_t() : p_token(-1) {}
+  Cursor_t(std::uint64_t token) : p_token(token) {
+    std::promise<result_t> first;
+    p_future = first.get_future();
+    first.set_value(result_t());
+  }
 
-  Cursor_t(std::uint64_t token) : p_token(token), p_end(new Cursor_t) {}
+  enum Response_e {
+    CLIENT_ERROR = 16,
+    COMPILE_ERROR = 17,
+    RUNTIME_ERROR = 18,
+    SERVER_INFO = 5,
+    SUCCESS_ATOM = 1,
+    SUCCESS_PARTIAL = 3,
+    SUCCESS_SEQUENCE = 2,
+    WAIT_COMPLETE = 4
+  };
 
-  void operator ()(const std::string &json) {}
+  void set_value(const std::string &json) {
+    std::thread([this, json] {
+      Decoder_t<result_t> decoder;
+      decoder.decode(json.c_str(), json.c_str() + json.size());
+      switch (decoder.r_type()) {
+        case SERVER_INFO:
+        case SUCCESS_ATOM: {
+          set_value(decoder.get()[0]);
+          break;
+        }
+        case SUCCESS_PARTIAL:
+        case SUCCESS_SEQUENCE: {
+          for (auto &&elem : decoder.get()) {
+            set_value(elem);
+          }
+          break;
+        }
+        case WAIT_COMPLETE: {
+          set_value(result_t());
+          break;
+        }
+        case CLIENT_ERROR:
+        case COMPILE_ERROR:
+        case RUNTIME_ERROR: {
+          set_value(result_t(decoder.get()));
+          break;
+        }
+        default: {
+        }
+      }
+    }).detach();
+  }
+
+  void set_value(result_t result) {
+    p_future.wait();
+    std::promise<result_t> next;
+    std::future<result_t> future = next.get_future();
+    std::swap(next, p_next);
+    std::swap(future, p_future);
+    next.set_value(result);
+  }
 
   std::condition_variable p_cond;
-  const Cursor_t *p_end;
+  //const Cursor_t p_end;
+  std::future<result_t> p_future;
   std::mutex p_mutex;
-  std::queue<result_t> p_queue;
-  result_t p_result;
+  std::promise<result_t> p_next;
   const std::uint64_t p_token;
 };
 
@@ -112,7 +165,7 @@ public:
   void connect(const std::string &addr, const std::string &port, const std::string &auth) {
     p_protocol.connect(addr, port, auth, [this](const std::string &json, const std::uint64_t token) {
       std::lock_guard<std::mutex> lock(p_mutex);
-      p_root[token](json);
+      p_root[token]->set_value(json);
     });
   }
 
@@ -148,59 +201,17 @@ public:
   }
 
 private:
-  enum Response_e {
-    CLIENT_ERROR = 16,
-    COMPILE_ERROR = 17,
-    RUNTIME_ERROR = 18,
-    SERVER_INFO = 5,
-    SUCCESS_ATOM = 1,
-    SUCCESS_PARTIAL = 3,
-    SUCCESS_SEQUENCE = 2,
-    WAIT_COMPLETE = 4
-  };
-
   auto create(const std::uint64_t token) {
     Cursor_t<result_t> cursor(token);
     std::lock_guard<std::mutex> lock(p_mutex);
-    p_root.insert({token, cursor});
-    auto _ = [this, cursor](const std::string &json) {/*
-      std::thread([this, token, func, json] {
-        Decoder_t<result_t> decoder;
-        decoder.decode(json.c_str(), json.c_str() + json.size());
-        switch (decoder.r_type()) {
-          case SERVER_INFO:
-          case SUCCESS_ATOM: {
-            func(decoder.get()[0]);
-            break;
-          }
-          case SUCCESS_PARTIAL: p_protocol.cont(token);
-          case SUCCESS_SEQUENCE: {
-            for (auto &&elem : decoder.get()) {
-              func(elem);
-            }
-            break;
-          }
-          case WAIT_COMPLETE: {
-            func(result_t());
-            break;
-          }
-          case CLIENT_ERROR:
-          case COMPILE_ERROR:
-          case RUNTIME_ERROR: {
-            func(result_t(decoder.get()));
-            break;
-          }
-          default: {
-          }
-        }
-      }).detach();*/
-    };
-    return cursor;
+    std::make_shared<Cursor_t<result_t> >(token);
+    p_root.insert({token, Cursor_t<result_t>(token)});
+    return p_root[token];
   }
 
   std::mutex p_mutex;
   Protocol_t<auth_e, handshake_e, socket_e> p_protocol;
-  std::map<std::uint64_t, Cursor_t<result_t> > p_root;
+  std::map<std::uint64_t, std::shared_ptr<Cursor_t<result_t> > > p_root;
 };
 
 }  // namespace _ReQL
