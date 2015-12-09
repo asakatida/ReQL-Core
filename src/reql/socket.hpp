@@ -22,6 +22,8 @@ limitations under the License.
 #define REQL_REQL_SOCKET_HPP_
 
 #include <cerrno>
+#include <iterator>
+#include <list>
 #include <memory>
 #include <thread>
 
@@ -41,6 +43,23 @@ limitations under the License.
 
 namespace _ReQL {
 
+template <class elem_t>
+class Pipe_t : std::iterator<std::input_iterator_tag, elem_t> {
+  bool operator ==(const Pipe_t &other) const {
+    return this == &other || p_begin == other.p_begin;
+  }
+
+  Pipe_t &operator ++() {
+    ++p_begin;
+    return *this;
+  }
+
+private:
+  std::list<elem_t> p_list;
+  typename std::list<elem_t>::iterator p_begin;
+  typename std::list<elem_t>::iterator p_end;
+};
+
 template <class socket_e>
 class Socket_t {
 public:
@@ -55,8 +74,6 @@ public:
     hints.ai_protocol = IPPROTO_TCP;
 
     int sts = 0;
-
-    std::chrono::seconds(0);
 
     if ((sts = getaddrinfo(addr.c_str(), port.c_str(), &hints, &result)) != 0) {
       throw socket_e(gai_strerror(sts));
