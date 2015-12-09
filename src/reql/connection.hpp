@@ -60,13 +60,6 @@ public:
 
   Cursor_t &operator ++() {
     std::unique_lock<std::mutex> lock(p_mutex);
-    if (p_queue.empty()) {
-      p_cond.wait(lock, [this] {
-        return !p_queue->empty();
-      });
-    }
-    p_result = p_queue.back();
-    p_queue.pop();
     return *this;
   }
 
