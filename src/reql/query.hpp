@@ -212,17 +212,15 @@ enum Term_t {
   REQL_ZIP = 72
 };
 
-template <class str_t>
-struct Any_t : public str_t {
-  template <class wrap_t>
-  Any_t(const wrap_t &value) {
-    std::ostringstream stream;
-    stream.str(*this);
-    stream << std::boolalpha << std::setprecision(std::numeric_limits<double>::digits10 + 1) << value;
-  }
-};
-
-typedef Any_t<std::string> Any;
+template <class wrap_t>
+std::string
+expr(const wrap_t &value) {
+  std::ostringstream stream;
+  stream << std::boolalpha
+         << std::setprecision(std::numeric_limits<double>::digits10 + 1)
+         << value;
+  return stream.str();
+}
 
 template <class vect_t>
 struct Array_t : public vect_t {
@@ -230,7 +228,7 @@ struct Array_t : public vect_t {
   Array_t(vect_t &&other) : vect_t(std::move(other)) {}
 };
 
-static const char *Null_t = "null";
+struct Null_t {};
 
 template <class map_t>
 struct Obj_t : public map_t {
@@ -243,12 +241,6 @@ struct String_t : public str_t {
   String_t(const str_t &value) : str_t(value) {}
   String_t(str_t &&value) : str_t(std::move(value)) {}
 };
-
-template <class str_t>
-String_t<str_t>
-make_string(const str_t &str) {
-  return str;
-}
 
 enum Query_t {
   REQL_CONTINUE = 2,
@@ -263,44 +255,61 @@ make_array(const vect_t &vect) {
   return vect;
 }
 
+template <class..._ts>
+typename std::enable_if<sizeof...(_ts) >= 2, Array_t<std::tuple<_ts...> > >::type
+make_array(_ts...Ts) {
+  return std::make_tuple(Ts...);
+}
+
 template <class map_t>
 Obj_t<map_t>
 make_object(const map_t &map) {
   return map;
 }
 
+template <class map_t, class query_t>
+auto
+make_query(const query_t &query, const map_t &kwargs) {
+  return make_array(REQL_START, query, make_object(kwargs));
+}
+
+template <class query_t>
+auto
+make_query(const query_t &query) {
+  return make_array(REQL_START, query, make_object(std::map<std::string, int>()));
+}
+
+static auto
+make_query(const Query_t type) {
+  return make_array(std::make_tuple(type));
+}
+
 template <class args_t, class kwargs_t>
 auto
 make_reql(Term_t tt, args_t args, kwargs_t kwargs) {
-  return make_array(std::make_tuple(tt, make_array(args), Obj_t<kwargs_t>(kwargs)));
+  return make_array(tt, make_array(args), make_object(kwargs));
 }
 
 template <class args_t>
 auto
 make_reql(Term_t tt, args_t args) {
-  return make_array(std::make_tuple(tt, make_array(args)));
+  return make_array(tt, make_array(args));
 }
 
-template <class term_t>
-auto
-make_reql(term_t tt) {
+static auto
+make_reql(Term_t tt) {
   return make_array(std::make_tuple(tt));
 }
 
-template <class map_t, class query_t>
-auto
-make_query(const query_t &query, const map_t &kwargs = std::map<std::string, Any>()) {
-  return make_array(std::make_tuple(REQL_START, query, make_object(kwargs)));
-}
-
-template <class query_t>
-auto
-make_query(const query_t type) {
-  return make_array(std::make_tuple(type));
+template <class str_t>
+String_t<str_t>
+make_string(const str_t &str) {
+  return str;
 }
 
 template <class vect_t>
-std::ostream &operator <<(std::ostream &stream, const Array_t<vect_t> &value) {
+std::ostream &
+operator <<(std::ostream &stream, const Array_t<vect_t> &value) {
   stream << '[';
   auto first = true;
   for (auto &&elem : value) {
@@ -311,28 +320,33 @@ std::ostream &operator <<(std::ostream &stream, const Array_t<vect_t> &value) {
   return stream << ']';
 }
 
-template<std::size_t s, typename..._ts>
+template<std::size_t s, class..._ts>
 typename std::enable_if<s == 0, std::ostream &>::type
 unpack(std::ostream &stream, const std::tuple<_ts...> &) {
   return stream;
 }
 
-template<std::size_t s, typename..._ts>
+template<std::size_t s, class..._ts>
 typename std::enable_if<s == 1, std::ostream &>::type
 unpack(std::ostream &stream, const std::tuple<_ts...> &iterable) {
   return stream << std::get<0>(iterable);
 }
 
-template<std::size_t s, typename..._ts>
+template<std::size_t s, class..._ts>
 typename std::enable_if<s >= 2, std::ostream &>::type
 unpack(std::ostream &stream, const std::tuple<_ts...> &iterable) {
   return unpack<s-1, _ts...>(stream, iterable) << ',' << std::get<s-1>(iterable);
 }
 
-template <typename..._ts>
+template <class..._ts>
 std::ostream &
 operator <<(std::ostream &stream, const Array_t<std::tuple<_ts...>> &value) {
   return unpack<sizeof...(_ts), _ts...>(stream << '[', value) << ']';
+}
+
+static std::ostream &
+operator <<(std::ostream &stream, const Null_t &) {
+  return stream << "null";
 }
 
 template <class map_t>
@@ -342,14 +356,15 @@ operator <<(std::ostream &stream, const Obj_t<map_t> &value) {
   auto first = true;
   for (auto &&pair : value) {
     if (!first) stream << ',';
-    stream << String_t<std::string>(pair.first) << ':' << pair.second;
+    stream << make_string(pair.first) << ':' << pair.second;
     first = false;
   }
   return stream << '}';
 }
 
 template <class str_t>
-std::ostream &operator <<(std::ostream &stream, const String_t<str_t> &value) {
+static std::ostream &
+operator <<(std::ostream &stream, const String_t<str_t> &value) {
   const char *json_esc[] = {
     "\\u0000",  // 0x00
     "\\u0001",  // 0x01
@@ -392,26 +407,22 @@ std::ostream &operator <<(std::ostream &stream, const String_t<str_t> &value) {
     "\\\\"  // 0x5C
   };
 
-  const unsigned int json_size[] = {
-    6, 6, 6, 6, 6, 6, 6, 6, 2, 2, 2, 6, 2, 2, 6, 6,  // 0x0x
-    6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,  // 0x1x
-    0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  // 0x2x
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  // 0x3x
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  // 0x4x
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0  // 0x5x
-  };
+  const char *hex = "0123456789ABCDEF";
 
   stream << '"';
   for (const auto chr : value) {
     auto idx = static_cast<const unsigned int>(chr);
-    if (idx <= 0x5C) {
-      auto ext_size = json_size[idx];
-      if (ext_size) {
-        stream << std::string(json_esc[idx], ext_size);
-        continue;
-      }
+    if (idx > 0xFF) {
+      stream << "\\u"
+             << hex[(idx >> 24) & 0xF]
+             << hex[(idx >> 16) & 0xF]
+             << hex[(idx >> 8) & 0xF]
+             << hex[(idx >> 0) & 0xF];
+    } else if ((idx > 0x5C) || (idx < 0x5C && idx > 0x22) || (idx == 0x21)) {
+      stream << static_cast<const char>(idx);
+    } else {
+      stream << json_esc[idx];
     }
-    stream << chr;
   }
   return stream << '"';
 }
