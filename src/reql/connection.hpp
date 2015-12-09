@@ -196,10 +196,8 @@ public:
 
 private:
   auto create(const std::uint64_t token) {
-    Cursor_t<result_t> cursor(token);
     std::lock_guard<std::mutex> lock(p_mutex);
-    std::make_shared<Cursor_t<result_t> >(token);
-    p_root.insert({token, Cursor_t<result_t>(token)});
+    p_root.insert({token, std::make_shared<Cursor_t<result_t> >(token)});
     return p_root[token];
   }
 
