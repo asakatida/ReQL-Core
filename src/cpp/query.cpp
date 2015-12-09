@@ -25,85 +25,86 @@ limitations under the License.
 #include "./cpp/error.hpp"
 
 #include <algorithm>
+#include <array>
 
 namespace ReQL {
 
-_ReQL::Any
+std::string
 buildArray(const Query &query) {
-  std::vector<_ReQL::Any> array;
+  std::vector<std::string> array;
   array.reserve(query.p_array.size());
 
   for (auto &&elem : query.p_array) {
     array.push_back(elem.build());
   }
 
-  return _ReQL::make_array(array);
+  return _ReQL::expr(_ReQL::make_array(array));
 }
 
-_ReQL::Any
+std::string
 buildBool(const Query &query) {
-  return query.p_bool;
+  return _ReQL::expr(query.p_bool);
 }
 
-_ReQL::Any
+std::string
 buildNumber(const Query &query) {
-  return query.p_number;
+  return _ReQL::expr(query.p_number);
 }
 
-_ReQL::Any
+std::string
 buildNull(const Query &) {
-  return _ReQL::Null_t;
+  return _ReQL::expr(_ReQL::Null_t());
 }
 
-_ReQL::Any
+std::string
 buildObject(const Query &query) {
-  std::map<std::string, _ReQL::Any> object;
+  std::map<std::wstring, std::string> object;
 
   for (auto &&pair : query.p_object) {
     object.insert({pair.first, pair.second.build()});
   }
 
-  return _ReQL::make_object(object);
+  return _ReQL::expr(_ReQL::make_object(object));
 }
 
-_ReQL::Any
+std::string
 buildString(const Query &query) {
-  return _ReQL::make_string(query.p_string);
+  return _ReQL::expr(_ReQL::make_string(query.p_string));
 }
 
-_ReQL::Any
+std::string
 buildTerm(const Query &query) {
-  std::vector<_ReQL::Any> array;
+  std::vector<std::string> array;
   array.reserve(query.p_array.size());
 
   for (auto &&elem : query.p_array) {
     array.push_back(elem.build());
   }
 
-  return make_reql(query.p_tt, array);
+  return _ReQL::expr(make_reql(query.p_tt, array));
 }
 
-_ReQL::Any
+std::string
 buildTermKwargs(const Query &query) {
-  std::vector<_ReQL::Any> array;
+  std::vector<std::string> array;
   array.reserve(query.p_array.size());
 
   for (auto &&elem : query.p_array) {
     array.push_back(elem.build());
   }
 
-  std::map<std::string, _ReQL::Any> object;
+  std::map<std::wstring, std::string> object;
 
   for (auto &&pair : query.p_object) {
     object.insert({pair.first, pair.second.build()});
   }
 
-  return make_reql(query.p_tt, array, object);
+  return _ReQL::expr(make_reql(query.p_tt, array, object));
 }
 
 Query::Query() : p_build(buildNull) {}
 
-Query::Query(const _ReQL::Term_t tt, const Query *other, const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) :
+Query::Query(const _ReQL::Term_t tt, const Query *other, const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) :
   p_build(buildTermKwargs),
   p_object(kwargs),
   p_tt(tt) {
@@ -112,7 +113,7 @@ Query::Query(const _ReQL::Term_t tt, const Query *other, const std::vector<Query
   p_array.insert(p_array.end(), args.cbegin(), args.cend());
 }
 
-Query::Query(const _ReQL::Term_t tt, const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) :
+Query::Query(const _ReQL::Term_t tt, const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) :
   p_array(args),
   p_build(buildTermKwargs),
   p_object(kwargs),
@@ -131,15 +132,15 @@ Query::Query(const _ReQL::Term_t tt, const std::vector<Query> &args) :
   p_build(buildTerm),
   p_tt(tt) {}
 
-Query::Query(const std::string &val) :
+Query::Query(const std::wstring &val) :
   p_build(buildString),
   p_string(val) {}
 
-Query::Query(const double &val) :
+Query::Query(const double val) :
   p_build(buildNumber),
   p_number(val) {}
 
-Query::Query(const bool &val) :
+Query::Query(const bool val) :
   p_bool(val),
   p_build(buildBool) {}
 
@@ -147,7 +148,7 @@ Query::Query(const std::vector<Query> &val) :
   p_array(val),
   p_build(buildArray) {}
 
-Query::Query(const std::map<std::string, Query> &val) :
+Query::Query(const std::map<std::wstring, Query> &val) :
   p_build(buildObject),
   p_object(val) {}
 
@@ -171,21 +172,12 @@ Query::Query(Query &&other) :
 
 Cursor
 Query::run(Connection &conn) const {
-  Cursor cursor;
-  auto queue = cursor.p_queue;
-  auto mutex = cursor.p_mutex;
-  auto cond = cursor.p_cond;
-  conn.p_conn->run(build(), [cond, mutex, queue](const Result &result) {
-    std::lock_guard<std::mutex> lock(*mutex);
-    queue->push(std::move(result));
-    cond->notify_one();
-  });
-  return cursor;
+  return conn.p_conn->run(build());
 }
 
 static auto
-to_object(const std::map<std::string, Query> &kwargs) {
-  std::map<std::string, _ReQL::Any> _kwargs;
+to_object(const std::map<std::wstring, Query> &kwargs) {
+  std::map<std::wstring, std::string> _kwargs;
   std::accumulate(
         kwargs.cbegin(),
         kwargs.cend(),
@@ -197,29 +189,20 @@ to_object(const std::map<std::string, Query> &kwargs) {
 }
 
 Cursor
-Query::run(Connection &conn, const std::map<std::string, Query> &kwargs) const {
-  Cursor cursor;
-  auto queue = cursor.p_queue;
-  auto mutex = cursor.p_mutex;
-  auto cond = cursor.p_cond;
-  conn.p_conn->run(build(), to_object(kwargs), [cond, mutex, queue](const Result &result) {
-    std::lock_guard<std::mutex> lock(*mutex);
-    cond->notify_one();
-    queue->push(std::move(result));
-  });
-  return cursor;
+Query::run(Connection &conn, const std::map<std::wstring, Query> &kwargs) const {
+  return conn.p_conn->run(build(), to_object(kwargs));
 }
 
 void
 Query::no_reply(Connection &conn) const {
   auto query = build();
-  std::map<std::string, Query> kwargs;
+  std::map<std::wstring, Query> kwargs;
   auto opts = to_object(kwargs);
   conn.p_conn->noReply(query, opts);
 }
 
 void
-Query::no_reply(Connection &conn, const std::map<std::string, Query> &kwargs) const {
+Query::no_reply(Connection &conn, const std::map<std::wstring, Query> &kwargs) const {
   conn.p_conn->noReply(build(), to_object(kwargs));
 }
 
@@ -251,7 +234,7 @@ Query::operator=(Query &&other) {
   return *this;
 }
 
-_ReQL::Any
+std::string
 Query::build() const {
   return p_build(*this);
 }
@@ -401,11 +384,11 @@ change_at(const std::vector<Query> &args) {
 }
 
 Query
-Query::circle(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
+Query::circle(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) const {
   return Query(_ReQL::REQL_ADD, this, args, kwargs);
 }
 Query
-circle(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
+circle(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) {
   return Query(_ReQL::REQL_ADD, args, kwargs);
 }
 Query
@@ -562,11 +545,11 @@ default_(const std::vector<Query> &args) {
 }
 
 Query
-Query::delete_(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
+Query::delete_(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) const {
   return Query(_ReQL::REQL_ADD, this, args, kwargs);
 }
 Query
-delete_(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
+delete_(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) {
   return Query(_ReQL::REQL_ADD, args, kwargs);
 }
 Query
@@ -615,11 +598,11 @@ distance(const std::vector<Query> &args) {
 }
 
 Query
-Query::distinct(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
+Query::distinct(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) const {
   return Query(_ReQL::REQL_ADD, this, args, kwargs);
 }
 Query
-distinct(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
+distinct(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) {
   return Query(_ReQL::REQL_ADD, args, kwargs);
 }
 Query
@@ -677,11 +660,11 @@ eq(const std::vector<Query> &args) {
 }
 
 Query
-Query::eq_join(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
+Query::eq_join(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) const {
   return Query(_ReQL::REQL_ADD, this, args, kwargs);
 }
 Query
-eq_join(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
+eq_join(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) {
   return Query(_ReQL::REQL_ADD, args, kwargs);
 }
 Query
@@ -721,11 +704,11 @@ fill(const std::vector<Query> &args) {
 }
 
 Query
-Query::filter(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
+Query::filter(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) const {
   return Query(_ReQL::REQL_ADD, this, args, kwargs);
 }
 Query
-filter(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
+filter(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) {
   return Query(_ReQL::REQL_ADD, args, kwargs);
 }
 Query
@@ -810,11 +793,11 @@ get(const std::vector<Query> &args) {
 }
 
 Query
-Query::get_all(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
+Query::get_all(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) const {
   return Query(_ReQL::REQL_ADD, this, args, kwargs);
 }
 Query
-get_all(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
+get_all(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) {
   return Query(_ReQL::REQL_ADD, args, kwargs);
 }
 Query
@@ -836,11 +819,11 @@ get_field(const std::vector<Query> &args) {
 }
 
 Query
-Query::get_intersecting(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
+Query::get_intersecting(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) const {
   return Query(_ReQL::REQL_ADD, this, args, kwargs);
 }
 Query
-get_intersecting(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
+get_intersecting(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) {
   return Query(_ReQL::REQL_ADD, args, kwargs);
 }
 Query
@@ -853,11 +836,11 @@ get_intersecting(const std::vector<Query> &args) {
 }
 
 Query
-Query::get_nearest(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
+Query::get_nearest(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) const {
   return Query(_ReQL::REQL_ADD, this, args, kwargs);
 }
 Query
-get_nearest(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
+get_nearest(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) {
   return Query(_ReQL::REQL_ADD, args, kwargs);
 }
 Query
@@ -870,11 +853,11 @@ get_nearest(const std::vector<Query> &args) {
 }
 
 Query
-Query::group(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
+Query::group(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) const {
   return Query(_ReQL::REQL_ADD, this, args, kwargs);
 }
 Query
-group(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
+group(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) {
   return Query(_ReQL::REQL_ADD, args, kwargs);
 }
 Query
@@ -914,11 +897,11 @@ hours(const std::vector<Query> &args) {
 }
 
 Query
-Query::http(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
+Query::http(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) const {
   return Query(_ReQL::REQL_ADD, this, args, kwargs);
 }
 Query
-http(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
+http(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) {
   return Query(_ReQL::REQL_ADD, args, kwargs);
 }
 Query
@@ -949,11 +932,11 @@ includes(const std::vector<Query> &args) {
 }
 
 Query
-Query::index_create(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
+Query::index_create(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) const {
   return Query(_ReQL::REQL_ADD, this, args, kwargs);
 }
 Query
-index_create(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
+index_create(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) {
   return Query(_ReQL::REQL_ADD, args, kwargs);
 }
 Query
@@ -984,11 +967,11 @@ index_list(const std::vector<Query> &args) {
 }
 
 Query
-Query::index_rename(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
+Query::index_rename(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) const {
   return Query(_ReQL::REQL_ADD, this, args, kwargs);
 }
 Query
-index_rename(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
+index_rename(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) {
   return Query(_ReQL::REQL_ADD, args, kwargs);
 }
 Query
@@ -1073,11 +1056,11 @@ in_timezone(const std::vector<Query> &args) {
 }
 
 Query
-Query::iso8601(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
+Query::iso8601(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) const {
   return Query(_ReQL::REQL_ADD, this, args, kwargs);
 }
 Query
-iso8601(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
+iso8601(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) {
   return Query(_ReQL::REQL_ADD, args, kwargs);
 }
 Query
@@ -1108,11 +1091,11 @@ january(const std::vector<Query> &args) {
 }
 
 Query
-Query::javascript(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
+Query::javascript(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) const {
   return Query(_ReQL::REQL_ADD, this, args, kwargs);
 }
 Query
-javascript(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
+javascript(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) {
   return Query(_ReQL::REQL_ADD, args, kwargs);
 }
 Query
@@ -1431,11 +1414,11 @@ or_(const std::vector<Query> &args) {
 }
 
 Query
-Query::order_by(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
+Query::order_by(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) const {
   return Query(_ReQL::REQL_ADD, this, args, kwargs);
 }
 Query
-order_by(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
+order_by(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) {
   return Query(_ReQL::REQL_ADD, args, kwargs);
 }
 Query
@@ -1502,11 +1485,11 @@ prepend(const std::vector<Query> &args) {
 }
 
 Query
-Query::random(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
+Query::random(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) const {
   return Query(_ReQL::REQL_ADD, this, args, kwargs);
 }
 Query
-random(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
+random(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) {
   return Query(_ReQL::REQL_ADD, args, kwargs);
 }
 Query
@@ -1555,11 +1538,11 @@ reduce(const std::vector<Query> &args) {
 }
 
 Query
-Query::replace(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
+Query::replace(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) const {
   return Query(_ReQL::REQL_ADD, this, args, kwargs);
 }
 Query
-replace(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
+replace(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) {
   return Query(_ReQL::REQL_ADD, args, kwargs);
 }
 Query
@@ -1662,11 +1645,11 @@ skip(const std::vector<Query> &args) {
 }
 
 Query
-Query::slice(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
+Query::slice(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) const {
   return Query(_ReQL::REQL_ADD, this, args, kwargs);
 }
 Query
-slice(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
+slice(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) {
   return Query(_ReQL::REQL_ADD, args, kwargs);
 }
 Query
@@ -1742,11 +1725,11 @@ sync(const std::vector<Query> &args) {
 }
 
 Query
-Query::table(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
+Query::table(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) const {
   return Query(_ReQL::REQL_ADD, this, args, kwargs);
 }
 Query
-table(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
+table(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) {
   return Query(_ReQL::REQL_ADD, args, kwargs);
 }
 Query
@@ -1759,11 +1742,11 @@ table(const std::vector<Query> &args) {
 }
 
 Query
-Query::table_create(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
+Query::table_create(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) const {
   return Query(_ReQL::REQL_ADD, this, args, kwargs);
 }
 Query
-table_create(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
+table_create(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) {
   return Query(_ReQL::REQL_ADD, args, kwargs);
 }
 Query
@@ -1911,11 +1894,11 @@ upcase(const std::vector<Query> &args) {
 }
 
 Query
-Query::update(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {
+Query::update(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) const {
   return Query(_ReQL::REQL_ADD, this, args, kwargs);
 }
 Query
-update(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {
+update(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) {
   return Query(_ReQL::REQL_ADD, args, kwargs);
 }
 Query

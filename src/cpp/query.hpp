@@ -37,13 +37,13 @@ public:
   Query();
   Query(const _ReQL::Term_t tt, const std::vector<Query> &args);
   Query(const _ReQL::Term_t tt, const Query *other, const std::vector<Query> &args);
-  Query(const _ReQL::Term_t tt, const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);
-  Query(const _ReQL::Term_t tt, const Query *other, const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);
-  Query(const std::string &val);
-  Query(const double &val);
-  Query(const bool &val);
+  Query(const _ReQL::Term_t tt, const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs);
+  Query(const _ReQL::Term_t tt, const Query *other, const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs);
+  Query(const std::wstring &val);
+  Query(const double val);
+  Query(const bool val);
   Query(const std::vector<Query> &val);
-  Query(const std::map<std::string, Query> &val);
+  Query(const std::map<std::wstring, Query> &val);
 
   Query(const Query &other);
   Query(Query &&other);
@@ -52,29 +52,29 @@ public:
   Query &operator=(Query &&other);
 
   void no_reply(Connection &conn) const;
-  void no_reply(Connection &conn, const std::map<std::string, Query> &kwargs) const;
+  void no_reply(Connection &conn, const std::map<std::wstring, Query> &kwargs) const;
   Cursor run(Connection &conn) const;
-  Cursor run(Connection &conn, const std::map<std::string, Query> &kwargs) const;
+  Cursor run(Connection &conn, const std::map<std::wstring, Query> &kwargs) const;
 
-  _ReQL::Any build() const;
+  std::string build() const;
 
-  friend _ReQL::Any buildArray(const Query &query);
-  friend _ReQL::Any buildBool(const Query &query);
-  friend _ReQL::Any buildNumber(const Query &query);
-  friend _ReQL::Any buildNull(const Query &query) ;
-  friend _ReQL::Any buildObject(const Query &query);
-  friend _ReQL::Any buildString(const Query &query);
-  friend _ReQL::Any buildTerm(const Query &query);
-  friend _ReQL::Any buildTermKwargs(const Query &query);
+  friend std::string buildArray(const Query &query);
+  friend std::string buildBool(const Query &query);
+  friend std::string buildNumber(const Query &query);
+  friend std::string buildNull(const Query &query) ;
+  friend std::string buildObject(const Query &query);
+  friend std::string buildString(const Query &query);
+  friend std::string buildTerm(const Query &query);
+  friend std::string buildTermKwargs(const Query &query);
 
-  typedef _ReQL::Any (*QueryBuilder)(const Query &query);
+  typedef std::string (*QueryBuilder)(const Query &query);
 
   std::vector<Query> p_array;
   bool p_bool;
   QueryBuilder p_build;
   double p_number;
-  std::map<std::string, Query> p_object;
-  std::string p_string;
+  std::map<std::wstring, Query> p_object;
+  std::wstring p_string;
   _ReQL::Term_t p_tt;
 
 public:
@@ -161,7 +161,7 @@ public:
   /**
    */
   Query
-  circle(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const;
+  circle(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) const;
 
   Query
   circle(const std::vector<Query> &args) const;
@@ -249,7 +249,7 @@ public:
   /**
    */
   Query
-  delete_(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const;
+  delete_(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) const;
 
   Query
   delete_(const std::vector<Query> &args) const;
@@ -277,7 +277,7 @@ public:
   /**
    */
   Query
-  distinct(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const;
+  distinct(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) const;
 
   Query
   distinct(const std::vector<Query> &args) const;
@@ -310,7 +310,7 @@ public:
   /**
    */
   Query
-  eq_join(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const;
+  eq_join(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) const;
 
   Query
   eq_join(const std::vector<Query> &args) const;
@@ -333,7 +333,7 @@ public:
   /**
    */
   Query
-  filter(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const;
+  filter(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) const;
 
   Query
   filter(const std::vector<Query> &args) const;
@@ -381,7 +381,7 @@ public:
   /**
    */
   Query
-  get_all(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const;
+  get_all(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) const;
 
   Query
   get_all(const std::vector<Query> &args) const;
@@ -394,7 +394,7 @@ public:
   /**
    */
   Query
-  get_intersecting(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const;
+  get_intersecting(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) const;
 
   Query
   get_intersecting(const std::vector<Query> &args) const;
@@ -402,7 +402,7 @@ public:
   /**
    */
   Query
-  get_nearest(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const;
+  get_nearest(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) const;
 
   Query
   get_nearest(const std::vector<Query> &args) const;
@@ -410,7 +410,7 @@ public:
   /**
    */
   Query
-  group(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const;
+  group(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) const;
 
   Query
   group(const std::vector<Query> &args) const;
@@ -433,7 +433,7 @@ public:
   /**
    */
   Query
-  http(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const;
+  http(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) const;
 
   Query
   http(const std::vector<Query> &args) const;
@@ -451,7 +451,7 @@ public:
   /**
    */
   Query
-  index_create(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const;
+  index_create(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) const;
 
   Query
   index_create(const std::vector<Query> &args) const;
@@ -469,7 +469,7 @@ public:
   /**
    */
   Query
-  index_rename(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const;
+  index_rename(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) const;
 
   Query
   index_rename(const std::vector<Query> &args) const;
@@ -517,7 +517,7 @@ public:
   /**
    */
   Query
-  iso8601(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const;
+  iso8601(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) const;
 
   Query
   iso8601(const std::vector<Query> &args) const;
@@ -535,7 +535,7 @@ public:
   /**
    */
   Query
-  javascript(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const;
+  javascript(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) const;
 
   Query
   javascript(const std::vector<Query> &args) const;
@@ -713,7 +713,7 @@ public:
   /**
    */
   Query
-  order_by(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const;
+  order_by(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) const;
 
   Query
   order_by(const std::vector<Query> &args) const;
@@ -751,7 +751,7 @@ public:
   /**
    */
   Query
-  random(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const;
+  random(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) const;
 
   Query
   random(const std::vector<Query> &args) const;
@@ -779,7 +779,7 @@ public:
   /**
    */
   Query
-  replace(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const;
+  replace(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) const;
 
   Query
   replace(const std::vector<Query> &args) const;
@@ -837,7 +837,7 @@ public:
   /**
    */
   Query
-  slice(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const;
+  slice(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) const;
 
   Query
   slice(const std::vector<Query> &args) const;
@@ -880,7 +880,7 @@ public:
   /**
    */
   Query
-  table(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const;
+  table(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) const;
 
   Query
   table(const std::vector<Query> &args) const;
@@ -888,7 +888,7 @@ public:
   /**
    */
   Query
-  table_create(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const;
+  table_create(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) const;
 
   Query
   table_create(const std::vector<Query> &args) const;
@@ -971,7 +971,7 @@ public:
   /**
    */
   Query
-  update(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const;
+  update(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) const;
 
   Query
   update(const std::vector<Query> &args) const;
@@ -1105,7 +1105,7 @@ change_at(const std::vector<Query> &args);
 /**
  */
 Query
-circle(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);
+circle(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs);
 Query
 circle(const std::vector<Query> &args);
 
@@ -1192,7 +1192,7 @@ default_(const std::vector<Query> &args);
 /**
  */
 Query
-delete_(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);
+delete_(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs);
 Query
 delete_(const std::vector<Query> &args);
 
@@ -1219,7 +1219,7 @@ distance(const std::vector<Query> &args);
 /**
  */
 Query
-distinct(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);
+distinct(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs);
 Query
 distinct(const std::vector<Query> &args);
 
@@ -1251,7 +1251,7 @@ eq(const std::vector<Query> &args);
 /**
  */
 Query
-eq_join(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);
+eq_join(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs);
 Query
 eq_join(const std::vector<Query> &args);
 
@@ -1273,7 +1273,7 @@ fill(const std::vector<Query> &args);
 /**
  */
 Query
-filter(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);
+filter(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs);
 Query
 filter(const std::vector<Query> &args);
 
@@ -1320,7 +1320,7 @@ get(const std::vector<Query> &args);
 /**
  */
 Query
-get_all(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);
+get_all(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs);
 Query
 get_all(const std::vector<Query> &args);
 
@@ -1332,21 +1332,21 @@ get_field(const std::vector<Query> &args);
 /**
  */
 Query
-get_intersecting(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);
+get_intersecting(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs);
 Query
 get_intersecting(const std::vector<Query> &args);
 
 /**
  */
 Query
-get_nearest(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);
+get_nearest(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs);
 Query
 get_nearest(const std::vector<Query> &args);
 
 /**
  */
 Query
-group(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);
+group(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs);
 Query
 group(const std::vector<Query> &args);
 
@@ -1368,7 +1368,7 @@ hours(const std::vector<Query> &args);
 /**
  */
 Query
-http(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);
+http(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs);
 Query
 http(const std::vector<Query> &args);
 
@@ -1385,7 +1385,7 @@ includes(const std::vector<Query> &args);
 /**
  */
 Query
-index_create(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);
+index_create(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs);
 Query
 index_create(const std::vector<Query> &args);
 
@@ -1402,7 +1402,7 @@ index_list(const std::vector<Query> &args);
 /**
  */
 Query
-index_rename(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);
+index_rename(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs);
 Query
 index_rename(const std::vector<Query> &args);
 
@@ -1449,7 +1449,7 @@ in_timezone(const std::vector<Query> &args);
 /**
  */
 Query
-iso8601(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);
+iso8601(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs);
 Query
 iso8601(const std::vector<Query> &args);
 
@@ -1466,7 +1466,7 @@ january(const std::vector<Query> &args);
 /**
  */
 Query
-javascript(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);
+javascript(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs);
 Query
 javascript(const std::vector<Query> &args);
 
@@ -1643,7 +1643,7 @@ or_(const std::vector<Query> &args);
 /**
  */
 Query
-order_by(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);
+order_by(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs);
 Query
 order_by(const std::vector<Query> &args);
 
@@ -1680,7 +1680,7 @@ prepend(const std::vector<Query> &args);
 /**
  */
 Query
-random(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);
+random(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs);
 Query
 random(const std::vector<Query> &args);
 
@@ -1707,7 +1707,7 @@ reduce(const std::vector<Query> &args);
 /**
  */
 Query
-replace(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);
+replace(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs);
 Query
 replace(const std::vector<Query> &args);
 
@@ -1764,7 +1764,7 @@ skip(const std::vector<Query> &args);
 /**
  */
 Query
-slice(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);
+slice(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs);
 Query
 slice(const std::vector<Query> &args);
 
@@ -1806,14 +1806,14 @@ sync(const std::vector<Query> &args);
 /**
  */
 Query
-table(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);
+table(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs);
 Query
 table(const std::vector<Query> &args);
 
 /**
  */
 Query
-table_create(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);
+table_create(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs);
 Query
 table_create(const std::vector<Query> &args);
 
@@ -1895,7 +1895,7 @@ upcase(const std::vector<Query> &args);
 /**
  */
 Query
-update(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);
+update(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs);
 Query
 update(const std::vector<Query> &args);
 
