@@ -67,17 +67,11 @@ private:
 
   Cursor();
 
-  Cursor(std::function<void()> func);
+  Cursor(const std::shared_ptr<_ReQL::Cursor_t<Result> > &cur);
 
   void swap(Cursor &other);
 
-  Cursor &operator >>(Result &result);
-
-  Cursor *p_end;
-  std::shared_ptr<std::function<void()>> p_func;
-  std::shared_ptr<std::mutex> p_mutex;
-  std::shared_ptr<std::queue<Result>> p_queue;
-  std::shared_ptr<std::condition_variable> p_cond;
+  std::shared_ptr<_ReQL::Cursor_t<Result> > p_cur;
 };
 
 void swap(Cursor &c1, Cursor &c2);
