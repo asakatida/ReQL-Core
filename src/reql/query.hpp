@@ -414,9 +414,9 @@ operator <<(std::ostream &stream, const String_t<str_t> &value) {
     auto idx = static_cast<const unsigned int>(chr);
     if (idx > 0xFF) {
       stream << "\\u"
-             << hex[(idx >> 24) & 0xF]
-             << hex[(idx >> 16) & 0xF]
+             << hex[(idx >> 12) & 0xF]
              << hex[(idx >> 8) & 0xF]
+             << hex[(idx >> 4) & 0xF]
              << hex[(idx >> 0) & 0xF];
     } else if ((idx > 0x5C) || (idx < 0x5C && idx > 0x22) || (idx == 0x21)) {
       stream << static_cast<const char>(idx);
