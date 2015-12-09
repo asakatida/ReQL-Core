@@ -110,7 +110,7 @@ limitations under the License.
 
 @interface ReQLConnection ()
 
-@property(nonatomic) _ReQL::Conn_t<ReQL::Result, ReQL::Result, ReQL::Result, ReQL::Result> conn;
+@property(nonatomic) _ReQL::Conn_t<ReQL::Result, ReQL::Result, ReQL::Result, ReQL::Result> *conn;
 
 @end
 
@@ -144,7 +144,8 @@ toQuery(id expr) {
 
 -(nonnull instancetype)init {
   if ((self = [super init])) {
-    p_conn.connect();
+    p_conn = new _ReQL::Conn_t<ReQL::Result, ReQL::Result, ReQL::Result, ReQL::Result>;
+    p_conn->connect();
   }
   return self;
 }
@@ -156,13 +157,12 @@ toQuery(id expr) {
     std::map<std::string, _ReQL::Any> object;
     for (NSString *key in kwargs) {
       object.insert({to_string(key), [toQuery(kwargs[key]) build]});
-    }
-    self.conn.run([query build],
-                  object,
-                  [subscriber](const ReQL::Result &result) {
-                    [subscriber sendNext:result.toObjC()];
-                  });
-          }] sequence];
+    }/*
+    auto cursor = self.conn->run([query build], object);
+    for (; (*cursor) != cursor->end(); ++(*cursor)) {
+      //[subscriber sendNext:(*cursor).toObjC()];
+    }*/
+  }] sequence];
 }
 
 -(void)noReply:(ReQLQuery *)query kwargs:(NSDictionary *)kwargs {
@@ -170,15 +170,19 @@ toQuery(id expr) {
   for (NSString *key in kwargs) {
     object.insert({to_string(key), [toQuery(kwargs[key]) build]});
   }
-  self.conn.noReply([query build], object);
+  self.conn->noReply([query build], object);
 }
 
 -(BOOL)isOpen {
-  return self.conn.isOpen() ? YES : NO;
+  return self.conn->isOpen() ? YES : NO;
 }
 
 -(void)close {
-  self.conn.close();
+  self.conn->close();
+}
+
+-(void)dealloc {
+  delete p_conn;
 }
 
 @end
