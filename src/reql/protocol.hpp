@@ -90,11 +90,12 @@ public:
 private:
   template <class query_t>
   void run(std::uint64_t token, query_t query) {
-    std::ostringstream wire_query;
-    wire_query << query;
-    auto size = wire_query.str().size();
+    std::ostringstream stream("\0\0\0\0\0\0\0\0\0\0\0\0", std::ios_base::ate);
+    stream << std::boolalpha
+           << std::setprecision(std::numeric_limits<double>::digits10 + 1)
+           << query;
 
-    std::ostringstream stream;
+    auto size = stream.str().size() - 12;
 
     char token_bytes[8];
     make_token(token_bytes, token);
@@ -102,7 +103,9 @@ private:
     char size_bytes[4];
     make_size(size_bytes, static_cast<std::uint32_t>(size));
 
-    stream << std::string(token_bytes, 8) << std::string(size_bytes, 4) << wire_query.str();
+    stream.seekp(0);
+    stream << std::string(token_bytes, 8)
+           << std::string(size_bytes, 4);
 
     p_sock.write(stream.str());
   }
