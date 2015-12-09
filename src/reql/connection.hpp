@@ -28,6 +28,7 @@ limitations under the License.
 #include <condition_variable>
 #include <cstdint>
 #include <functional>
+#include <future>
 #include <forward_list>
 #include <iterator>
 #include <map>
