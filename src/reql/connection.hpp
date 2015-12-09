@@ -181,7 +181,7 @@ public:
     return create(p_protocol << make_query(query, kwargs));
   }
 
-  template <typename kwargs_t, typename query_t>
+  template <class kwargs_t, class query_t>
   void noReply(const query_t &query, const kwargs_t &kwargs) {
     p_protocol << make_query(query, kwargs);
   }
