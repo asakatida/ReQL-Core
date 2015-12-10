@@ -24,6 +24,7 @@ limitations under the License.
 #include "./cpp/error.hpp"
 
 #include <cstdint>
+#include <memory>
 #include <string>
 
 namespace ReQL {
