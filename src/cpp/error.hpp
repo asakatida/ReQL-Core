@@ -27,7 +27,7 @@ namespace ReQL {
 
 class ReQLError : public std::exception {
 public:
-  ReQLError(const char *errstr);
+  ReQLError(const char *errstr) noexcept;
   virtual const char* what() const noexcept;
   const char *_what;
 };
