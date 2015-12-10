@@ -104,7 +104,7 @@ limitations under the License.
 
 @interface ReQLQuery ()
 
--(_ReQL::Any)build;
+-(std::string)build;
 
 @end
 
@@ -114,10 +114,10 @@ limitations under the License.
 
 @end
 
-static std::string
+static std::wstring
 to_string(const NSString *string) {
-  return std::string([string cStringUsingEncoding:NSUTF8StringEncoding],
-                     [string lengthOfBytesUsingEncoding:NSUTF8StringEncoding]);
+  auto data = [string dataUsingEncoding:NSUTF16StringEncoding];
+  return std::wstring(reinterpret_cast<const wchar_t *>([data bytes]), [data length]);
 }
 
 static ReQLQuery *
@@ -154,7 +154,7 @@ toQuery(id expr) {
   return [[RACSignal
           startEagerlyWithScheduler:[RACScheduler scheduler]
           block:^(id<RACSubscriber> subscriber) {
-    std::map<std::string, _ReQL::Any> object;
+    std::map<std::wstring, std::string> object;
     for (NSString *key in kwargs) {
       object.insert({to_string(key), [toQuery(kwargs[key]) build]});
     }/*
@@ -166,7 +166,7 @@ toQuery(id expr) {
 }
 
 -(void)noReply:(ReQLQuery *)query kwargs:(NSDictionary *)kwargs {
-  std::map<std::string, _ReQL::Any> object;
+  std::map<std::wstring, std::string> object;
   for (NSString *key in kwargs) {
     object.insert({to_string(key), [toQuery(kwargs[key]) build]});
   }

@@ -58,10 +58,10 @@ limitations under the License.
 
 @end
 
-static std::string
+static std::wstring
 to_string(const NSString *string) {
-  return std::string([string cStringUsingEncoding:NSUTF8StringEncoding],
-                     [string lengthOfBytesUsingEncoding:NSUTF8StringEncoding]);
+  auto data = [string dataUsingEncoding:NSUTF16StringEncoding];
+  return std::wstring(reinterpret_cast<const wchar_t *>([data bytes]), [data length]);
 }
 
 static ReQLQuery *
@@ -193,46 +193,46 @@ toQuery(id expr) {
   return [conn noReply:self kwargs:[NSDictionary dictionaryWithDictionary:temp]];
 }
 
--(_ReQL::Any)build {
+-(std::string)build {
   if (self.array) {
-    std::vector<_ReQL::Any> array;
+    std::vector<std::string> array;
     for (id elem in self.array) {
       array.push_back([toQuery(elem) build]);
     }
-    return _ReQL::make_array(array);
+    return _ReQL::expr(_ReQL::make_array(array));
   } else if (self.null) {
-    return _ReQL::Null_t;
+    return _ReQL::expr(_ReQL::Null_t());
   } else if (self.number) {
     if (self.flag) {
-      return [self.number boolValue] ? true : false;
+      return _ReQL::expr([self.number boolValue] ? true : false);
     }
-    return [self.number doubleValue];
+    return _ReQL::expr([self.number doubleValue]);
   } else if (self.string) {
-    return _ReQL::make_string(to_string(self.string));
+    return _ReQL::expr(_ReQL::make_string(to_string(self.string)));
   } else if (self.object) {
-    std::map<std::string, _ReQL::Any> object;
+    std::map<std::wstring, std::string> object;
     for (NSString *key in self.object) {
       object.insert({to_string(key), [toQuery(self.object[key]) build]});
     }
-    return _ReQL::make_object(object);
+    return _ReQL::expr(_ReQL::make_object(object));
   } else if (self.kwargs) {
-    std::vector<_ReQL::Any> array;
+    std::vector<std::string> array;
     for (id elem in self.args) {
       array.push_back([toQuery(elem) build]);
     }
-    std::map<std::string, _ReQL::Any> object;
+    std::map<std::wstring, std::string> object;
     for (NSString *key in self.kwargs) {
       object.insert({to_string(key), [toQuery(self.object[key]) build]});
     }
-    return make_reql(self.tt, array, object);
+    return _ReQL::expr(make_reql(self.tt, array, object));
   } else if (self.args) {
-    std::vector<_ReQL::Any> array;
+    std::vector<std::string> array;
     for (id elem in self.args) {
       array.push_back([toQuery(elem) build]);
     }
-    return make_reql(self.tt, array);
+    return _ReQL::expr(make_reql(self.tt, array));
   }
-  return make_reql(self.tt);
+  return _ReQL::expr(make_reql(self.tt));
 }
 
 +(instancetype)
