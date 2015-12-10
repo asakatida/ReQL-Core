@@ -29,7 +29,7 @@ class ReQLError : public std::exception {
 public:
   ReQLError(const char *errstr);
   virtual const char* what() const noexcept;
-  const char *_what = "";
+  const char *_what;
 };
 
 class ReQLQueryError : public ReQLError {
