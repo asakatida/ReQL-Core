@@ -22,6 +22,7 @@ limitations under the License.
 #define REQL_REQL_SOCKET_HPP_
 
 #include <cerrno>
+#include <condition_variable>
 #include <iterator>
 #include <list>
 #include <memory>
@@ -45,19 +46,51 @@ namespace _ReQL {
 
 template <class elem_t>
 class Pipe_t : std::iterator<std::input_iterator_tag, elem_t> {
+  Pipe_t() : p_closed(false), p_pos(p_list.begin()) {}
+
   bool operator ==(const Pipe_t &other) const {
-    return this == &other || p_begin == other.p_begin;
+    return this == &other;
   }
 
   Pipe_t &operator ++() {
-    ++p_begin;
+    std::unique_lock<std::mutex> lock(p_mutex);
+    p_pos = p_list.erase(p_pos);
+    p_cond.wait(lock, [this] { return p_closed || p_pos != p_list.cend(); });
     return *this;
   }
 
+  elem_t &operator *() {
+    std::unique_lock<std::mutex> lock(p_mutex);
+    p_cond.wait(lock, [this] { return p_closed || p_pos != p_list.cend(); });
+    return *p_pos;
+  }
+
+  void push(elem_t &&elem) {
+    std::unique_lock<std::mutex> lock(p_mutex);
+    p_cond.notify_all();
+    if (p_closed) {
+    } else {
+      p_list.push_back(elem);
+    }
+  }
+
+  void close() {
+    std::unique_lock<std::mutex> lock(p_mutex);
+    p_cond.notify_all();
+    p_closed = true;
+  }
+
+  bool closed() {
+    std::unique_lock<std::mutex> lock(p_mutex);
+    return p_closed;
+  }
+
 private:
+  bool p_closed;
+  std::condition_variable p_cond;
   std::list<elem_t> p_list;
-  typename std::list<elem_t>::iterator p_begin;
-  typename std::list<elem_t>::iterator p_end;
+  std::mutex p_mutex;
+  typename std::list<elem_t>::iterator p_pos;
 };
 
 template <class socket_e>
