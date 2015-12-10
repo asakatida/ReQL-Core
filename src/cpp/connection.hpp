@@ -22,7 +22,6 @@ limitations under the License.
 #define REQL_CPP_CONNECTION_HPP_
 
 #include "./cpp/error.hpp"
-#include "./cpp/types.hpp"
 
 #include <cstdint>
 #include <string>

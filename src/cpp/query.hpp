@@ -21,8 +21,6 @@ limitations under the License.
 #ifndef REQL_CPP_QUERY_HPP_
 #define REQL_CPP_QUERY_HPP_
 
-#include "./cpp/types.hpp"
-
 #include <map>
 #include <string>
 #include <vector>
