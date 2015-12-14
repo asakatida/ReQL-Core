@@ -276,7 +276,7 @@ make_query(const query_t &query, const map_t &kwargs) {
 template <class query_t>
 auto
 make_query(const query_t &query) {
-  return make_array(REQL_START, query, make_object(std::map<std::string, int>()));
+  return make_array(REQL_START, query, "{}");
 }
 
 static auto
