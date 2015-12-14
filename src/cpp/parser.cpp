@@ -33,24 +33,14 @@ Result::Result(bool value) : p_value(value), p_type(boolean) {}
 
 Result::Result(double value) : p_value(value), p_type(number) {}
 
-Result::Result(const char *value, const size_t size) :
-  p_value(std::string(value, size)), p_type(string) {}
+Result::Result(const wchar_t *value, const size_t size) :
+  p_value(std::wstring(value, size)), p_type(string) {}
 
 Result::Result(std::vector<Result> value) :
   p_value(value), p_type(array) {}
 
-Result::Result(std::map<std::string, Result> value) :
-  p_value(
-    std::accumulate(
-      value.cbegin(),
-      value.cend(),
-      std::map<std::string, Result>(),
-      [](auto object, auto next) {
-        object.insert({std::string(next.first.c_str(), next.first.size()), next.second});
-        return object;
-      }
-    )
-  ),
+Result::Result(std::map<std::wstring, Result> value) :
+  p_value(value),
   p_type(object) {}
 
 Result::Result(const Result &other) :
@@ -81,11 +71,11 @@ Result::JSON::JSON(bool value) : boolean(value) {}
 
 Result::JSON::JSON(double value) : number(value) {}
 
-Result::JSON::JSON(std::string value) : string(value) {}
+Result::JSON::JSON(std::wstring value) : string(value) {}
 
 Result::JSON::JSON(std::vector<Result> value) : array(value) {}
 
-Result::JSON::JSON(std::map<std::string, Result> value) : object(value) {}
+Result::JSON::JSON(std::map<std::wstring, Result> value) : object(value) {}
 
 Result::JSON::JSON(const JSON &other, JSONtype type) { copy(other, type); }
 

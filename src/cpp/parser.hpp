@@ -32,9 +32,9 @@ public:
   Result();
   Result(bool value);
   Result(double value);
-  Result(const char *value, const size_t size);
+  Result(const wchar_t *value, const size_t size);
   Result(std::vector<Result> value);
-  Result(std::map<std::string, Result> value);
+  Result(std::map<std::wstring, Result> value);
 
   Result(const Result &other);
   Result(Result &&other);
@@ -64,9 +64,9 @@ private:
     JSON();
     JSON(bool value);
     JSON(double value);
-    JSON(std::string value);
+    JSON(std::wstring value);
     JSON(std::vector<Result> value);
-    JSON(std::map<std::string, Result> value);
+    JSON(std::map<std::wstring, Result> value);
 
     JSON(const JSON &other, JSONtype type);
     JSON(JSON &&other, JSONtype type);
@@ -79,8 +79,8 @@ private:
     std::vector<Result> array;
     bool boolean;
     double number;
-    std::map<std::string, Result> object;
-    std::string string;
+    std::map<std::wstring, Result> object;
+    std::wstring string;
   } p_value;
 
   JSONtype p_type;
