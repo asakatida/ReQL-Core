@@ -22,6 +22,9 @@ limitations under the License.
 #define REQL_CPP_CONNECTION_HPP_
 
 #include "./cpp/error.hpp"
+#include "./cpp/parser.hpp"
+
+#include "./reql/connection.hpp"
 
 #include <cstdint>
 #include <memory>

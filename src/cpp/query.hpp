@@ -21,14 +21,16 @@ limitations under the License.
 #ifndef REQL_CPP_QUERY_HPP_
 #define REQL_CPP_QUERY_HPP_
 
+#include "./cpp/connection.hpp"
+#include "./cpp/cursor.hpp"
+
+#include "./reql/query.hpp"
+
 #include <map>
 #include <string>
 #include <vector>
 
 namespace ReQL {
-
-class Connection;
-class Cursor;
 
 class Query {
 public:

@@ -22,14 +22,10 @@ limitations under the License.
 #define REQL_CPP_CURSOR_HPP_
 
 #include "./cpp/parser.hpp"
-#include "./cpp/query.hpp"
 
-#include <array>
-#include <condition_variable>
-#include <functional>
+#include "./reql/connection.hpp"
+
 #include <iterator>
-#include <mutex>
-#include <queue>
 
 namespace ReQL {
 
