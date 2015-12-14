@@ -25,11 +25,11 @@ limitations under the License.
 namespace ReQL {
 
 static NSString *
-to_string(const std::string &string) {
+to_string(const std::wstring &string) {
   return [[NSString alloc]
           initWithBytes:string.c_str()
           length:string.size()
-          encoding:NSUTF8StringEncoding];
+          encoding:NSUTF16StringEncoding];
 }
 
 Result::Result() : p_value([NSNull null]) {}
@@ -38,10 +38,8 @@ Result::Result(const bool value) : p_value([NSNumber numberWithBool:value]) {}
 
 Result::Result(const double value) : p_value([NSNumber numberWithDouble:value]) {}
 
-Result::Result(const char *value, const size_t size) : p_value([[NSString alloc]
-                                                                 initWithBytes:value
-                                                                 length:size
-                                                                 encoding:NSUTF8StringEncoding]) {}
+Result::Result(const wchar_t *value, const size_t size) :
+  p_value([[NSString alloc] initWithBytes:value length:size encoding:NSUTF16StringEncoding]) {}
 
 Result::Result(const std::vector<Result> &value) {
   NSMutableArray *array = [NSMutableArray arrayWithCapacity:value.size()];
@@ -51,7 +49,7 @@ Result::Result(const std::vector<Result> &value) {
   p_value = [NSArray arrayWithArray:array];
 }
 
-Result::Result(const std::map<std::string, Result> &value) {
+Result::Result(const std::map<std::wstring, Result> &value) {
   NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:value.size()];
   for (auto &&pair : value) {
     dict[to_string(pair.first)] = pair.second.toObjC();

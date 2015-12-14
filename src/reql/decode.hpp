@@ -43,7 +43,7 @@ public:
     switch (*it) {
       case '"': {
         ++it;
-        std::stringstream stream;
+        std::wostringstream stream;
         auto esc = false;
         while (it < end) {
           if (esc) {
@@ -69,7 +69,11 @@ public:
                 break;
               }
               case 'u': {
-                stream << strtoh(++it, end);
+                if (it + 4 >= end) {
+                  throw std::exception();
+                }
+                stream << strtoh(++it);
+                it += 4;
                 break;
               }
               default: {
@@ -201,7 +205,7 @@ public:
     p_stack.push_back(result_t(value));
   }
 
-  void addValue(const char *value, size_t size) {
+  void addValue(const wchar_t *value, size_t size) {
     if (p_level == 1 && p_is_key && size == 1) {
       switch (value[0]) {
         case 'b': {
@@ -246,7 +250,7 @@ public:
   }
 
   void startObject() {
-    p_objects.push_back(std::map<std::string, result_t>());
+    p_objects.push_back(std::map<std::wstring, result_t>());
     p_is_key = false;
     ++p_level;
   }
@@ -282,35 +286,24 @@ private:
   }
 
   static char
-  strtoh(const char *it, const char *end) {
-    if (it + 4 >= end) {
-      throw std::exception();
-    }
-    if (!(*(it) == '0' && *(++it) == '0')) {
-      throw std::exception();
-    }
-    char hex = *(++it);
+  strtoh(const char hex) {
     if (hex >= '0' && hex <= '9') {
-      hex -= '0';
+      return hex - '0';
     } else if (hex >= 'a' && hex <= 'f') {
-      hex -= 'a' - 10;
-    } else if (hex >= 'a' && hex <= 'f') {
-      hex -= 'A' - 10;
+      return hex - ('a' - 10);
+    } else if (hex >= 'A' && hex <= 'F') {
+      return hex - ('A' - 10);
     } else {
       throw std::exception();
     }
-    char res = hex << 8;
-    hex = *(++it);
-    if (hex >= '0' && hex <= '9') {
-      hex -= '0';
-    } else if (hex >= 'a' && hex <= 'f') {
-      hex -= 'a' - 10;
-    } else if (hex >= 'a' && hex <= 'f') {
-      hex -= 'A' - 10;
-    } else {
-      throw std::exception();
-    }
-    return res | hex;
+  }
+
+  static wchar_t
+  strtoh(const char *it) {
+    return (static_cast<wchar_t>(strtoh(*it)) << 12) |
+    (static_cast<wchar_t>(strtoh(*(it + 1))) << 8) |
+    (static_cast<wchar_t>(strtoh(*(it + 2))) << 4) |
+    strtoh(*(it + 3));
   }
 
   std::vector<std::vector<result_t> > p_arrays;
@@ -323,7 +316,7 @@ private:
   bool p_is_response;
   size_t p_level;
   std::vector<int> p_notes;
-  std::vector<std::map<std::string, result_t> > p_objects;
+  std::vector<std::map<std::wstring, result_t> > p_objects;
   int p_r_type;
   std::vector<result_t> p_result;
   std::vector<result_t> p_stack;

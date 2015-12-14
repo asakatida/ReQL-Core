@@ -33,9 +33,9 @@ public:
   Result();
   Result(const bool value);
   Result(const double value);
-  Result(const char *value, const size_t size);
+  Result(const wchar_t *value, const size_t size);
   Result(const std::vector<Result> &value);
-  Result(const std::map<std::string, Result> &value);
+  Result(const std::map<std::wstring, Result> &value);
 
   Result(const Result &other);
   Result(Result &&other);
