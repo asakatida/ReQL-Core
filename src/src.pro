@@ -4,12 +4,13 @@
 #
 #-------------------------------------------------
 
-QT       -= core gui
+include(../defaults.pri)
+CONFIG -= qt
 
-TARGET = libReQL
+QT -= core gui
+
+TARGET = ReQL
 TEMPLATE = lib
-
-DEFINES += LIBREQL_LIBRARY
 
 QMAKE_CXXFLAGS += -std=c++14
 QMAKE_LFLAGS += -std=c++14
