@@ -35,7 +35,7 @@ namespace ReQL {
 class Connection {
 public:
   Connection();
-  explicit Connection(const std::string &host);
+  Connection(const std::string &host);
   Connection(const std::string &host, const std::uint16_t &port);
   Connection(const std::string &host, const std::uint16_t &port, const std::string &key);
 

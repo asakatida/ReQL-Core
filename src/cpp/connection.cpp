@@ -27,7 +27,7 @@ limitations under the License.
 
 namespace ReQL {
 
-Connection::Connection() : p_conn() {
+Connection::Connection() {
   p_conn->connect();
 }
 
