@@ -22,7 +22,11 @@ limitations under the License.
 
 namespace ReQL {
 
-ReQLError::ReQLError(const char *errstr) noexcept : _what(errstr) {}
+ReQLError::ReQLError(const char *errstr) noexcept :
+  _what(errstr) {}
+
+ReQLError::ReQLError(const wchar_t *errstr) :
+  _what(reinterpret_cast<const char *>(errstr)) {}
 
 const char*
 ReQLError::what() const noexcept { return _what; }
