@@ -21,6 +21,7 @@ limitations under the License.
 #ifndef REQL_REQL_SOCKET_HPP_
 #define REQL_REQL_SOCKET_HPP_
 
+#include <atomic>
 #include <cerrno>
 #include <condition_variable>
 #include <iterator>
@@ -45,52 +46,75 @@ limitations under the License.
 namespace _ReQL {
 
 template <class elem_t>
-class Pipe_t : std::iterator<std::input_iterator_tag, elem_t> {
-  Pipe_t() : p_closed(false), p_pos(p_list.begin()) {}
+class Pipe_t;
 
-  bool operator ==(const Pipe_t &other) const {
+template <class elem_t>
+class Observer_t : std::iterator<std::input_iterator_tag, elem_t> {
+public:
+  bool operator ==(const Observer_t &other) const {
     return this == &other;
   }
 
-  Pipe_t &operator ++() {
+  bool operator !=(const Observer_t &other) const {
+    return this != &other;
+  }
+
+  Observer_t &operator ++() {
     std::unique_lock<std::mutex> lock(p_mutex);
-    p_pos = p_list.erase(p_pos);
-    p_cond.wait(lock, [this] { return p_closed || p_pos != p_list.cend(); });
+    wait(lock);
+    if (p_pipe) {
+      p_pos = p_pipe->p_list.erase(p_pos);
+    } else {
+    }
     return *this;
   }
 
   elem_t &operator *() {
     std::unique_lock<std::mutex> lock(p_mutex);
-    p_cond.wait(lock, [this] { return p_closed || p_pos != p_list.cend(); });
+    wait(lock);
     return *p_pos;
+  }
+
+private:
+  friend class Pipe_t<elem_t>;
+
+  Observer_t(Pipe_t<elem_t> *pipe) : p_pipe(pipe) {}
+
+  void wait(std::unique_lock<std::mutex> &lock) {
+    p_cond.wait(lock, [this] { return (!p_pipe) || p_pos != p_list.cend(); });
+  }
+
+  std::condition_variable p_cond;
+  std::mutex p_mutex;
+  typename std::list<elem_t>::iterator p_pos;
+  Pipe_t<elem_t> *p_pipe;
+};
+
+template <class elem_t>
+class Pipe_t {
+  bool operator ==(const Pipe_t &other) const {
+    return this == &other;
+  }
+
+  bool operator !=(const Pipe_t &other) const {
+    return this != &other;
   }
 
   void push(elem_t &&elem) {
     std::unique_lock<std::mutex> lock(p_mutex);
     p_cond.notify_all();
-    if (p_closed) {
-    } else {
-      p_list.push_back(elem);
-    }
+    p_list.push_back(elem);
   }
 
   void close() {
     std::unique_lock<std::mutex> lock(p_mutex);
-    p_cond.notify_all();
-    p_closed = true;
-  }
-
-  bool closed() {
-    std::unique_lock<std::mutex> lock(p_mutex);
-    return p_closed;
+    p_observer->p_pipe = nullptr;
+    p_observer->p_cond.notify_all();
   }
 
 private:
-  bool p_closed;
-  std::condition_variable p_cond;
   std::list<elem_t> p_list;
-  std::mutex p_mutex;
-  typename std::list<elem_t>::iterator p_pos;
+  Observer_t<elem_t> *p_observer;
 };
 
 template <class socket_e>
