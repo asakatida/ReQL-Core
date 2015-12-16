@@ -300,10 +300,10 @@ private:
 
   static wchar_t
   strtoh(const char *it) {
-    return (static_cast<wchar_t>(strtoh(*it)) << 12) |
-    (static_cast<wchar_t>(strtoh(*(it + 1))) << 8) |
-    (static_cast<wchar_t>(strtoh(*(it + 2))) << 4) |
-    strtoh(*(it + 3));
+    return (static_cast<wchar_t>(strtoh(*(it + 0))) << 12) |
+           (static_cast<wchar_t>(strtoh(*(it + 1))) << 8) |
+           (static_cast<wchar_t>(strtoh(*(it + 2))) << 4) |
+           (static_cast<wchar_t>(strtoh(*(it + 3))) << 0);
   }
 
   std::vector<std::vector<result_t> > p_arrays;

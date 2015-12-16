@@ -107,9 +107,9 @@ private:
 
   static std::uint32_t get_size(const char *buf) {
     return (static_cast<std::uint32_t>(buf[0]) << 0) |
-    (static_cast<std::uint32_t>(buf[1]) << 8) |
-    (static_cast<std::uint32_t>(buf[2]) << 16) |
-    (static_cast<std::uint32_t>(buf[3]) << 24);
+           (static_cast<std::uint32_t>(buf[1]) << 8) |
+           (static_cast<std::uint32_t>(buf[2]) << 16) |
+           (static_cast<std::uint32_t>(buf[3]) << 24);
   }
 
   static void make_size(char *buf, const std::uint32_t magic) {
@@ -121,13 +121,13 @@ private:
 
   static std::uint64_t get_token(const char *buf) {
     return (static_cast<std::uint64_t>(buf[0]) << 0) |
-    (static_cast<std::uint64_t>(buf[1]) << 8) |
-    (static_cast<std::uint64_t>(buf[2]) << 16) |
-    (static_cast<std::uint64_t>(buf[3]) << 24) |
-    (static_cast<std::uint64_t>(buf[4]) << 32) |
-    (static_cast<std::uint64_t>(buf[5]) << 40) |
-    (static_cast<std::uint64_t>(buf[6]) << 48) |
-    (static_cast<std::uint64_t>(buf[7]) << 56);
+           (static_cast<std::uint64_t>(buf[1]) << 8) |
+           (static_cast<std::uint64_t>(buf[2]) << 16) |
+           (static_cast<std::uint64_t>(buf[3]) << 24) |
+           (static_cast<std::uint64_t>(buf[4]) << 32) |
+           (static_cast<std::uint64_t>(buf[5]) << 40) |
+           (static_cast<std::uint64_t>(buf[6]) << 48) |
+           (static_cast<std::uint64_t>(buf[7]) << 56);
   }
 
   static void make_token(char *buf, const std::uint64_t magic) {
