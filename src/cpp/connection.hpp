@@ -39,8 +39,10 @@ public:
   Connection(const std::string &host, const std::uint16_t &port);
   Connection(const std::string &host, const std::uint16_t &port, const std::string &key);
 
+  Connection(const Connection &other);
   Connection(Connection &&other);
 
+  Connection &operator=(const Connection &other);
   Connection &operator=(Connection &&other);
 
   bool isOpen() const;

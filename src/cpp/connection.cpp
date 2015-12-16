@@ -43,7 +43,16 @@ Connection::Connection(const std::string &host, const std::uint16_t &port, const
   p_conn->connect(host, std::to_string(port), key);
 }
 
+Connection::Connection(const Connection &other) : p_conn(other.p_conn) {}
+
 Connection::Connection(Connection &&other) : p_conn(std::move(other.p_conn)) {}
+
+Connection &Connection::operator=(const Connection &other) {
+  if (this != &other) {
+    p_conn = other.p_conn;
+  }
+  return *this;
+}
 
 Connection &Connection::operator=(Connection &&other) {
   if (this != &other) {
