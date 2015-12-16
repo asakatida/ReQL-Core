@@ -97,7 +97,7 @@ private:
 
     auto wire_query = stream.str();
     auto size = wire_query.size();
-    auto data = wire_query.data();
+    auto data = const_cast<char *>(wire_query.data());
 
     make_token(data, token);
     make_size(data + 8, static_cast<std::uint32_t>(size - 12));
