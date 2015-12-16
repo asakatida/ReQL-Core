@@ -173,7 +173,7 @@ public:
 
   template <class query_t>
   auto run(const query_t &query) {
-    return create(p_protocol << make_query(query));
+    return create(p_protocol.run(make_query(query)));
   }
 
   template <class kwargs_t, class query_t>
