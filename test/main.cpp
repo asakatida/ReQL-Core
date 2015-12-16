@@ -18,7 +18,7 @@ main(int argc, char **argv) {
         ReQL::Query(std::vector<ReQL::Query>({ReQL::Query(1.0)})),
         ReQL::var(std::vector<ReQL::Query>({ReQL::Query(1.0)}))
         .ne(std::vector<ReQL::Query>({
-          ReQL::Query(std::string("rethinkdb"))
+          ReQL::Query(std::wstring(L"rethinkdb"))
         }))
       }))
     }))

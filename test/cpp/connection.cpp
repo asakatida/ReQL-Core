@@ -12,7 +12,7 @@ TEST_CASE("cpp connection", "[c++][connect]") {
 
   REQUIRE(conn.isOpen());
 
-  std::vector<Query> args({std::string("libReQL")});
+  std::vector<Query> args({std::wstring(L"libReQL")});
 
   Cursor cur = db_create(args).run(conn);
 
