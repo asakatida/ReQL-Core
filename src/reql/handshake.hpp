@@ -47,7 +47,9 @@ public:
            << auth
            << std::string(magic[2], 4);
 
-    sock.write(stream.str());
+    auto wire = stream.str();
+
+    sock.write(wire.data(), wire.size());
 
     auto response = sock.read();
 
