@@ -77,7 +77,7 @@ public:
   }
 
   template <class query_t>
-  std::uint64_t operator <<(query_t query) {
+  auto run(query_t query) {
     auto token = p_next_token++;
     run(token, query);
     return token;
@@ -95,19 +95,14 @@ private:
            << std::setprecision(std::numeric_limits<double>::digits10 + 1)
            << query;
 
-    auto size = stream.str().size() - 12;
+    auto wire_query = stream.str();
+    auto size = wire_query.size();
+    auto data = wire_query.data();
 
-    char token_bytes[8];
-    make_token(token_bytes, token);
+    make_token(data, token);
+    make_size(data + 8, static_cast<std::uint32_t>(size - 12));
 
-    char size_bytes[4];
-    make_size(size_bytes, static_cast<std::uint32_t>(size));
-
-    stream.seekp(0);
-    stream << std::string(token_bytes, 8)
-           << std::string(size_bytes, 4);
-
-    p_sock.write(stream.str());
+    p_sock.write(data, size);
   }
 
   static std::uint32_t get_size(const char *buf) {

@@ -199,10 +199,10 @@ public:
     return std::string(buffer.get(), static_cast<size_t>(size));
   }
 
-  void write(const std::string &out) {
+  void write(const char *out, const size_t size) {
     int sock = load();
     wait_write();
-    send(sock, out.c_str(), out.size(), 0);
+    send(sock, out, size, 0);
   }
 
 private:
