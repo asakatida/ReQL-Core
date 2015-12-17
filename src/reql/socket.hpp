@@ -49,6 +49,81 @@ template <class elem_t>
 class Pipe_t;
 
 template <class elem_t>
+class Producer_t {
+public:
+  bool operator ==(const Producer_t &other) const {
+    return this == &other;
+  }
+
+  bool operator !=(const Producer_t &other) const {
+    return this != &other;
+  }
+
+  void push(elem_t &&elem) {
+    auto pipe = p_pipe;
+    if (!pipe) {
+      return;
+    }
+    std::unique_lock<std::mutex> lock(pipe->p_mutex);
+    if (p_pipe != pipe) {
+      return;
+    }
+    pipe->p_cond.notify_all();
+    pipe->p_list.push_back(elem);
+  }
+
+  void close() {
+    auto pipe = p_pipe;
+    if (!pipe) {
+      return;
+    }
+    std::unique_lock<std::mutex> lock(pipe->p_mutex);
+    if (p_pipe != pipe) {
+      return;
+    }
+    pipe->p_cond.notify_all();
+    pipe->close();
+    p_pipe = nullptr;
+  }
+
+private:
+  friend class Pipe_t<elem_t>;
+
+  Producer_t(Pipe_t<elem_t> *pipe) : p_pipe(pipe) {}
+
+  Pipe_t<elem_t> *p_pipe;
+};
+
+template <class elem_t>
+class Observer_t;
+  
+template <class elem_t>
+class Pipe_t {
+public:
+  bool operator ==(const Pipe_t &other) const {
+    return this == &other;
+  }
+
+  bool operator !=(const Pipe_t &other) const {
+    return this != &other;
+  }
+
+private:
+  friend class Observer_t<elem_t>;
+  friend class Producer_t<elem_t>;
+
+  Pipe_t(Observer_t<elem_t> *observer) : p_observer(observer) {}
+
+  void close() {}
+
+  std::condition_variable p_cond;
+  std::list<elem_t> p_list;
+  std::mutex p_mutex;
+  Observer_t<elem_t> *p_observer;
+  Producer_t<elem_t> p_producer;
+};
+
+template <class elem_t>
 class Observer_t : std::iterator<std::input_iterator_tag, elem_t> {
 public:
   bool operator ==(const Observer_t &other) const {
@@ -60,12 +135,9 @@ public:
   }
 
   Observer_t &operator ++() {
-    std::unique_lock<std::mutex> lock(p_mutex);
+    std::unique_lock<std::mutex> lock(p_pipe.p_mutex);
     wait(lock);
-    if (p_pipe) {
-      p_pos = p_pipe->p_list.erase(p_pos);
-    } else {
-    }
+    p_pipe.p_list.erase();
     return *this;
   }
 
@@ -78,43 +150,11 @@ public:
 private:
   friend class Pipe_t<elem_t>;
 
-  Observer_t(Pipe_t<elem_t> *pipe) : p_pipe(pipe) {}
-
   void wait(std::unique_lock<std::mutex> &lock) {
     p_cond.wait(lock, [this] { return (!p_pipe) || p_pos != p_list.cend(); });
   }
 
-  std::condition_variable p_cond;
-  std::mutex p_mutex;
-  typename std::list<elem_t>::iterator p_pos;
-  Pipe_t<elem_t> *p_pipe;
-};
-
-template <class elem_t>
-class Pipe_t {
-  bool operator ==(const Pipe_t &other) const {
-    return this == &other;
-  }
-
-  bool operator !=(const Pipe_t &other) const {
-    return this != &other;
-  }
-
-  void push(elem_t &&elem) {
-    std::unique_lock<std::mutex> lock(p_mutex);
-    p_cond.notify_all();
-    p_list.push_back(elem);
-  }
-
-  void close() {
-    std::unique_lock<std::mutex> lock(p_mutex);
-    p_observer->p_pipe = nullptr;
-    p_observer->p_cond.notify_all();
-  }
-
-private:
-  std::list<elem_t> p_list;
-  Observer_t<elem_t> *p_observer;
+  Pipe_t<elem_t> p_pipe;
 };
 
 template <class socket_e>
