@@ -41,7 +41,7 @@ public:
     p_sock.connect(addr, port);
     Handshake_t<auth_e, handshake_e>(p_sock, auth);
     std::thread([func, this] {
-      size_t buff_size;
+      size_t buff_size = 0;
       std::ostringstream buffer;
       while (true) {
         while (buff_size < 12) {
