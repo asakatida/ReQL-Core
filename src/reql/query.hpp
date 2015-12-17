@@ -282,11 +282,6 @@ make_query(const query_t &query) {
   return make_array(REQL_START, query, "{}");
 }
 
-static auto
-make_query(const Query_t type) {
-  return make_array(std::make_tuple(type));
-}
-
 template <class args_t, class kwargs_t>
 auto
 make_reql(Term_t tt, args_t args, kwargs_t kwargs) {
@@ -297,11 +292,6 @@ template <class args_t>
 auto
 make_reql(Term_t tt, args_t args) {
   return make_array(tt, make_array(args));
-}
-
-static auto
-make_reql(Term_t tt) {
-  return make_array(std::make_tuple(tt));
 }
 
 template <class str_t>

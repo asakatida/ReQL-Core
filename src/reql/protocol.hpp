@@ -62,7 +62,7 @@ public:
         string = buffer.str();
         buffer.clear();
         buffer << string.substr(size);
-        run(token, make_query(REQL_CONTINUE));
+        run(token, make_array(std::make_tuple(REQL_CONTINUE)));
         func(string.substr(0, size), token);
       }
     }).detach();
@@ -84,7 +84,7 @@ public:
   }
 
   void stop(std::uint64_t token) {
-    run(token, make_query(REQL_STOP));
+    run(token, make_array(std::make_tuple(REQL_STOP)));
   }
 
 private:
