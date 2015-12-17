@@ -228,7 +228,10 @@ struct Array_t : public vect_t {
   Array_t(vect_t &&other) : vect_t(std::move(other)) {}
 };
 
-struct Null_t {};
+template <class blank>
+struct Null_Impl_t {};
+
+typedef Null_Impl_t<void> Null_t;
 
 template <class map_t>
 struct Obj_t : public map_t {
@@ -344,8 +347,9 @@ operator <<(std::ostream &stream, const Array_t<std::tuple<_ts...>> &value) {
   return unpack<sizeof...(_ts), _ts...>(stream << '[', value) << ']';
 }
 
+template <class blank>
 static std::ostream &
-operator <<(std::ostream &stream, const Null_t &) {
+operator <<(std::ostream &stream, const Null_Impl_t<blank> &) {
   return stream << "null";
 }
 
