@@ -1,3 +1,5 @@
+#include <winsock2.h>
+
 #define CATCH_CONFIG_RUNNER
 #include "./catch.hpp"
 #include "./ReQL.hpp"
