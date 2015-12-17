@@ -46,11 +46,20 @@ limitations under the License.
 namespace _ReQL {
 
 template <class elem_t>
-class Pipe_t;
+class Observer_t;
 
 template <class elem_t>
 class Producer_t {
 public:
+  Producer_t() :
+    p_cond(std::make_shared<std::condition_variable>()),
+    p_list(std::make_shared<std::list<elem_t> >()),
+    p_mutex(std::make_shared<std::mutex>()) {}
+
+  ~Producer_t() {
+    p_cond->notify_all();
+  }
+
   bool operator ==(const Producer_t &other) const {
     return this == &other;
   }
@@ -60,72 +69,29 @@ public:
   }
 
   void push(elem_t &&elem) {
-    auto pipe = p_pipe;
-    if (!pipe) {
-      return;
-    }
-    std::unique_lock<std::mutex> lock(pipe->p_mutex);
-    if (p_pipe != pipe) {
-      return;
-    }
-    pipe->p_cond.notify_all();
-    pipe->p_list.push_back(elem);
+    std::lock_guard<std::mutex> lock(*p_mutex);
+    p_cond->notify_all();
+    p_list->push_back(elem);
   }
 
-  void close() {
-    auto pipe = p_pipe;
-    if (!pipe) {
-      return;
-    }
-    std::unique_lock<std::mutex> lock(pipe->p_mutex);
-    if (p_pipe != pipe) {
-      return;
-    }
-    pipe->p_cond.notify_all();
-    pipe->close();
-    p_pipe = nullptr;
-  }
-
-private:
-  friend class Pipe_t<elem_t>;
-
-  Producer_t(Pipe_t<elem_t> *pipe) : p_pipe(pipe) {}
-
-  Pipe_t<elem_t> *p_pipe;
-};
-
-template <class elem_t>
-class Observer_t;
-  
-template <class elem_t>
-class Pipe_t {
-public:
-  bool operator ==(const Pipe_t &other) const {
-    return this == &other;
-  }
-
-  bool operator !=(const Pipe_t &other) const {
-    return this != &other;
-  }
-
-private:
   friend class Observer_t<elem_t>;
-  friend class Producer_t<elem_t>;
 
-  Pipe_t(Observer_t<elem_t> *observer) : p_observer(observer) {}
-
-  void close() {}
-
-  std::condition_variable p_cond;
-  std::list<elem_t> p_list;
-  std::mutex p_mutex;
-  Observer_t<elem_t> *p_observer;
-  Producer_t<elem_t> p_producer;
+private:
+  std::atomic<std::atomic_flag*> p_active;
+  std::shared_ptr<std::condition_variable> p_cond;
+  std::shared_ptr<std::list<elem_t> > p_list;
+  std::shared_ptr<std::mutex> p_mutex;
 };
 
 template <class elem_t>
-class Observer_t : std::iterator<std::input_iterator_tag, elem_t> {
+class Observer_t {
 public:
+  Observer_t(Producer_t<elem_t> &producer) :
+    p_cond(producer.p_cond), p_list(producer.p_list), p_mutex(producer.p_mutex) {
+    auto active = producer.p_active.exchange(&p_active);
+    if (active) active->clear();
+  }
+
   bool operator ==(const Observer_t &other) const {
     return this == &other;
   }
@@ -134,27 +100,23 @@ public:
     return this != &other;
   }
 
-  Observer_t &operator ++() {
-    std::unique_lock<std::mutex> lock(p_pipe.p_mutex);
-    wait(lock);
-    p_pipe.p_list.erase();
-    return *this;
+  const elem_t &pop() {
+    std::unique_lock<std::mutex> lock(*p_mutex);
+    if (!p_active.test_and_set()) {
+      p_cond->wait(lock, [this] { return !(p_active.test_and_set() && !p_list->empty()); });
+    }
+    p_cond->wait(lock, [this] { return !(p_active.test_and_set() && !p_list->empty()); });
+    return *p_list->cbegin();
   }
 
-  elem_t &operator *() {
-    std::unique_lock<std::mutex> lock(p_mutex);
-    wait(lock);
-    return *p_pos;
-  }
+  friend class Producer_t<elem_t>;
 
 private:
-  friend class Pipe_t<elem_t>;
-
-  void wait(std::unique_lock<std::mutex> &lock) {
-    p_cond.wait(lock, [this] { return (!p_pipe) || p_pos != p_list.cend(); });
-  }
-
-  Pipe_t<elem_t> p_pipe;
+  std::atomic_flag p_active = ATOMIC_FLAG_INIT;
+  std::shared_ptr<std::condition_variable> p_cond;
+  elem_t p_head;
+  std::shared_ptr<std::list<elem_t> > p_list;
+  std::shared_ptr<std::mutex> p_mutex;
 };
 
 template <class socket_e>

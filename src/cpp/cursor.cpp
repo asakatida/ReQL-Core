@@ -33,8 +33,16 @@ Cursor::Cursor() {}
 
 Cursor::Cursor(const std::shared_ptr<_ReQL::Cursor_t<Result> > &cur) : p_cur(cur) {}
 
-Cursor::Cursor(Cursor &&other) {
-  p_cur = std::move(other.p_cur);
+Cursor::Cursor(const Cursor &other) : p_cur(other.p_cur) {}
+
+Cursor::Cursor(Cursor &&other) : p_cur(std::move(other.p_cur)) {}
+
+Cursor &
+Cursor::operator=(const Cursor &other) {
+  if (this != &other) {
+    p_cur = other.p_cur;
+  }
+  return *this;
 }
 
 Cursor &
@@ -54,17 +62,43 @@ Cursor &
 Cursor::cbegin() noexcept {
   return *this;
 }
-/*
+
 const Cursor &
 Cursor::end() const {
-  return *p_end;
+  return *this;
 }
 
 const Cursor &
 Cursor::cend() const {
-  return *p_end;
+  return *this;
 }
-*/
+
+Cursor &
+Cursor::operator ++() {
+  ++(*p_cur);
+  return *this;
+}
+
+const Result &
+Cursor::operator *() const {
+  return *(*p_cur);
+}
+
+const Result &
+Cursor::operator ->() const {
+  return *(*p_cur);
+}
+
+bool
+Cursor::operator ==(const Cursor &other) const {
+  return p_cur == other.p_cur;
+}
+
+bool
+Cursor::operator !=(const Cursor &other) const {
+  return p_cur != other.p_cur;
+}
+
 void
 Cursor::swap(Cursor &other) {
   std::swap(p_cur, other.p_cur);

@@ -50,32 +50,32 @@ public:
     return *this;
   }
 
-  const Cursor_t &end() const {
-    return *p_end;
+  Cursor_t end() const {
+    return -1;
   }
 
-  const Cursor_t &cend() const {
-    return *p_end;
+  const Cursor_t cend() const {
+    return -1;
   }
 
   Cursor_t &operator ++() {
-    std::unique_lock<std::mutex> lock(p_mutex);
+    p_head = p_observer.pop();
     return *this;
   }
 
-  const result_t &operator *() const;
+  const result_t &operator *() const {
+    return p_head;
+  }
 
-  const result_t &operator ->() const;
+  const result_t &operator ->() const {
+    return p_head;
+  }
 
   bool operator ==(const Cursor_t &other) const { return p_token == other.p_token; }
 
   bool operator !=(const Cursor_t &other) const { return p_token != other.p_token; }
 
-  Cursor_t(std::uint64_t token) : p_token(token) {
-    std::promise<result_t> first;
-    p_future = first.get_future();
-    first.set_value(result_t());
-  }
+  Cursor_t(std::uint64_t token) : p_observer(p_producer), p_token(token) {}
 
   enum Response_e {
     CLIENT_ERROR = 16,
@@ -95,24 +95,24 @@ public:
       switch (decoder.r_type()) {
         case SERVER_INFO:
         case SUCCESS_ATOM: {
-          set_value(decoder.get()[0]);
+          p_producer.push(std::move(decoder.get()[0]));
           break;
         }
         case SUCCESS_PARTIAL:
         case SUCCESS_SEQUENCE: {
           for (auto &&elem : decoder.get()) {
-            set_value(elem);
+            p_producer.push(std::move(elem));
           }
           break;
         }
         case WAIT_COMPLETE: {
-          set_value(result_t());
+          p_producer.push(result_t());
           break;
         }
         case CLIENT_ERROR:
         case COMPILE_ERROR:
         case RUNTIME_ERROR: {
-          set_value(result_t(decoder.get()));
+          p_producer.push(result_t(decoder.get()));
           break;
         }
         default: {
@@ -121,20 +121,9 @@ public:
     }).detach();
   }
 
-  void set_value(result_t result) {
-    p_future.wait();
-    std::promise<result_t> next;
-    std::future<result_t> future = next.get_future();
-    std::swap(next, p_next);
-    std::swap(future, p_future);
-    next.set_value(result);
-  }
-
-  std::condition_variable p_cond;
-  //const Cursor_t p_end;
-  std::future<result_t> p_future;
-  std::mutex p_mutex;
-  std::promise<result_t> p_next;
+  result_t p_head;
+  Observer_t<result_t> p_observer;
+  Producer_t<result_t> p_producer;
   const std::uint64_t p_token;
 };
 
