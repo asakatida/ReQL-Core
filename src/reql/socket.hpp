@@ -21,13 +21,12 @@ limitations under the License.
 #ifndef REQL_REQL_SOCKET_HPP_
 #define REQL_REQL_SOCKET_HPP_
 
+#include <algorithm>
 #include <atomic>
 #include <cerrno>
 #include <condition_variable>
-#include <iterator>
 #include <list>
 #include <memory>
-#include <thread>
 
 #ifdef __MINGW32__
 #include <winsock2.h>
@@ -52,32 +51,35 @@ template <class elem_t>
 class Producer_t {
 public:
   Producer_t() :
+    p_active(std::make_shared<std::atomic_flag>(true)),
     p_cond(std::make_shared<std::condition_variable>()),
     p_list(std::make_shared<std::list<elem_t> >()),
     p_mutex(std::make_shared<std::mutex>()) {}
 
+  Producer_t(const Producer_t &) = delete;
+
+  Producer_t(Producer_t &&other) :
+    p_active(std::move(other.p_active)),
+    p_cond(std::move(other.p_cond)),
+    p_list(std::move(other.p_list)),
+    p_mutex(std::move(other.p_mutex)) {}
+
   ~Producer_t() {
-    p_cond->notify_all();
-  }
-
-  bool operator ==(const Producer_t &other) const {
-    return this == &other;
-  }
-
-  bool operator !=(const Producer_t &other) const {
-    return this != &other;
+    if (p_active) p_active->clear();
+    if (p_cond) p_cond->notify_all();
   }
 
   void push(elem_t &&elem) {
     std::lock_guard<std::mutex> lock(*p_mutex);
     p_cond->notify_all();
-    p_list->push_back(elem);
+    p_list->push_back(std::move(elem));
   }
 
   friend class Observer_t<elem_t>;
 
 private:
-  std::atomic<std::atomic_flag*> p_active;
+
+  std::shared_ptr<std::atomic_flag> p_active;
   std::shared_ptr<std::condition_variable> p_cond;
   std::shared_ptr<std::list<elem_t> > p_list;
   std::shared_ptr<std::mutex> p_mutex;
@@ -87,36 +89,56 @@ template <class elem_t>
 class Observer_t {
 public:
   Observer_t(Producer_t<elem_t> &producer) :
-    p_cond(producer.p_cond), p_list(producer.p_list), p_mutex(producer.p_mutex) {
-    auto active = producer.p_active.exchange(&p_active);
-    if (active) active->clear();
-  }
+    p_active(producer.p_active),
+    p_cond(producer.p_cond),
+    p_list(producer.p_list),
+    p_mutex(producer.p_mutex) {}
 
-  bool operator ==(const Observer_t &other) const {
-    return this == &other;
-  }
+  Observer_t(const Observer_t &other) :
+    p_active(other.p_active),
+    p_cond(other.p_cond),
+    p_list(other.p_list),
+    p_mutex(other.p_mutex) {}
 
-  bool operator !=(const Observer_t &other) const {
-    return this != &other;
-  }
+  Observer_t(Observer_t &&other) :
+    p_active(std::move(other.p_active)),
+    p_cond(std::move(other.p_cond)),
+    p_list(std::move(other.p_list)),
+    p_mutex(std::move(other.p_mutex)) {}
 
-  const elem_t &pop() {
+  elem_t pop() {
     std::unique_lock<std::mutex> lock(*p_mutex);
-    if (!p_active.test_and_set()) {
-      p_cond->wait(lock, [this] { return !(p_active.test_and_set() && !p_list->empty()); });
-    }
-    p_cond->wait(lock, [this] { return !(p_active.test_and_set() && !p_list->empty()); });
-    return *p_list->cbegin();
+    p_cond->wait(lock, [this] {
+      auto active = p_active->test_and_set();
+      if (active) {
+        return !p_list->empty();
+      }
+      p_active->clear();
+      return true;
+    });
+    return _pop();
   }
 
-  friend class Producer_t<elem_t>;
+  std::unique_ptr<elem_t> pop_no_wait() {
+    std::unique_lock<std::mutex> lock(*p_mutex);
+    if (!p_list->empty()) {
+      return std::make_unique<elem_t>(_pop());
+    }
+    return std::unique_ptr<elem_t>();
+  }
 
 private:
-  std::atomic_flag p_active = ATOMIC_FLAG_INIT;
-  std::shared_ptr<std::condition_variable> p_cond;
-  elem_t p_head;
-  std::shared_ptr<std::list<elem_t> > p_list;
-  std::shared_ptr<std::mutex> p_mutex;
+
+  elem_t _pop() {
+    auto last = p_list->back();
+    p_list->pop_back();
+    return last;
+  }
+
+  const std::shared_ptr<std::atomic_flag> p_active;
+  const std::shared_ptr<std::condition_variable> p_cond;
+  const std::shared_ptr<std::list<elem_t> > p_list;
+  const std::shared_ptr<std::mutex> p_mutex;
 };
 
 template <class socket_e>
