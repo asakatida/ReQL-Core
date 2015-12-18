@@ -146,10 +146,7 @@ public:
   }
 
   void connect(const std::string &addr, const std::string &port, const std::string &auth) {
-    p_protocol.connect(addr, port, auth, [this](const std::string &json, const std::uint64_t token) {
-      std::lock_guard<std::mutex> lock(p_mutex);
-      p_root[token]->set_value(json);
-    });
+    p_protocol.connect(addr, port, auth);
   }
 
   bool isOpen() const {

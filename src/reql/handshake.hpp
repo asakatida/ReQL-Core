@@ -34,7 +34,7 @@ template <class auth_e, class handshake_e>
 class Handshake_t {
 public:
   template <class socket_t>
-  Handshake_t(socket_t &sock, const std::string &auth) {
+  Handshake_t(socket_t &sock, int _sock, const std::string &auth) {
     char magic[3][4];
 
     make_size(magic[0], VERSION);
@@ -49,9 +49,9 @@ public:
 
     auto wire = stream.str();
 
-    sock.write(wire.data(), wire.size());
+    sock.write(_sock, wire);
 
-    auto response = sock.read();
+    auto response = sock.read(_sock);
 
     if (response.size() != 8) {
       throw auth_e("");  // TODO

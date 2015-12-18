@@ -44,6 +44,9 @@ limitations under the License.
 
 namespace _ReQL {
 
+static const size_t READ_BUFFER_SIZE = 4048;
+static const size_t MAX_POOL_SIZE = 16;
+
 template <class elem_t>
 class Observer_t;
 
@@ -144,6 +147,12 @@ private:
 template <class socket_e>
 class Socket_t {
 public:
+  Socket_t(Producer_t<std::string> &write_queue) : p_write_queue(write_queue) {
+    for (int i=0; i<MAX_POOL_SIZE; ++i) {
+      p_socks[i].store(-1);
+    }
+  }
+
   template <class addr_t, class port_t>
   static int _connect(const addr_t &addr, const port_t &port) {
     struct addrinfo hints;
@@ -182,49 +191,103 @@ public:
   }
 
   template <class addr_t, class port_t>
-  void connect(const addr_t &addr, const port_t &port) {
-    p_sock = std::make_shared<int>(_connect(addr, port));
+  int connect(const addr_t &addr, const port_t &port) {
+    int sock = _connect(addr, port);
+    int closed_sock;
+    for (auto &&__s : p_socks) {
+      closed_sock = -1;
+      if (__s.compare_exchange_strong(closed_sock, sock)) {
+        return sock;
+      }
+    }
+    ::close(sock);
+    return -1;
   }
 
   void disconnect() {
-    p_sock.reset();
+    for (auto &&__s : p_socks) {
+      int sock = __s.exchange(-1);
+      if (sock >= 0) ::close(sock);
+    }
   }
 
   bool connected() const {
-    return p_sock ? true : false;
+    return p_socks[0] >= 0;
   }
 
-  std::string read() {
-    int sock = load();
-    wait_read();
-    ssize_t size = 0;
-    socklen_t opt_len = sizeof(ssize_t);
-    auto sts = getsockopt(sock, SOL_SOCKET, SO_NREAD, &size, &opt_len);
-    if (sts < 0) {
+  void loop() {
+    int max_sock = -1;
+    timeval to = {0, 0};
+    fd_set _read, _write, _error;
+    FD_ZERO(&_read);
+    FD_ZERO(&_write);
+    FD_ZERO(&_error);
+    for (auto &&__s : p_socks) {
+      int sock = __s.load();
+      if (sock < 0) continue;
+      FD_SET(sock, &_read);
+      FD_SET(sock, &_write);
+      FD_SET(sock, &_error);
+      max_sock = std::max(max_sock, sock);
+    }
+    ++max_sock;
+    auto sts = ::select(max_sock, &_read, &_write, &_error, &to);
+    if (sts == 0) {
+      return;
+    } else if (sts < 0) {
       switch (errno) {
+        case EAGAIN: {
+          return;
+        }
         case EBADF:
-        case EFAULT:
-        case EINVAL:
-        case ENOBUFS:
-        case ENOMEM:
-        case ENOPROTOOPT:
-        case ENOTSOCK: {
+        case EINTR:
+        case EINVAL:{
           throw socket_e("");  // TODO
         }
         default: {
           throw socket_e("");  // TODO
         }
       }
-      throw std::exception();
+      throw std::exception();  // TODO
     }
-    std::unique_ptr<char> buffer(new char[static_cast<size_t>(size)]);
-    size = recvfrom(sock, buffer.get(), static_cast<size_t>(size), MSG_WAITALL, nullptr, nullptr);
+    for (size_t i=0; i<max_sock; ++i) {
+      if (FD_ISSET(i, &_read)) {
+        try {
+          p_read_queue.push(read(i));
+        } catch (socket_e &) {
+          FD_SET(i, &_error);
+        }
+      }
+      if (FD_ISSET(i, &_write)) {
+        auto out = p_write_queue.pop_no_wait();
+        if (out) {
+          try {
+            write(i, out.get());
+          } catch (socket_e &) {
+            FD_SET(i, &_error);
+          }
+        }
+      }
+      if (FD_ISSET(i, &_error)) {
+        int closed_sock;
+        for (auto &&__s : p_socks) {
+          closed_sock = i;
+          __s.compare_exchange_strong(closed_sock, -1);
+        }
+        ::close(i);
+      }
+    }
+  }
+
+  std::string read(int &sock) {
+    char buffer[READ_BUFFER_SIZE];
+    const ssize_t size = recvfrom(sock, buffer, READ_BUFFER_SIZE, MSG_WAITALL, nullptr, nullptr);
     if (size == 0) {
       throw socket_e("");  // TODO
     } else if (size < 0) {
       switch (errno) {
         case EAGAIN: {
-          return std::string();
+          return read(sock);
         }
         case EBADF:
         case ECONNRESET:
@@ -244,71 +307,28 @@ public:
       }
       throw std::exception();
     }
-    return std::string(buffer.get(), static_cast<size_t>(size));
+    return std::string(buffer, static_cast<size_t>(size));
   }
 
-  void write(const char *out, const size_t size) {
-    int sock = load();
-    wait_write();
-    send(sock, out, size, 0);
+  void write(int &sock, const std::string &out) {
+    const ssize_t size = send(sock, out.c_str(), out.size(), 0);
+    if (size == 0) {
+      throw socket_e("");  // TODO
+    } else if (size < 0) {
+      switch (errno) {
+      }
+      throw std::exception();
+    } else if (static_cast<size_t>(size) < out.size()) {
+      return write(sock, out.substr(size));
+    }
   }
 
 private:
-  bool poll(bool read = true) {
-    int sock = load();
-    timeval to = {0, 0};
-    fd_set set;
-    FD_ZERO(&set);
-    FD_SET(sock, &set);
-    auto sts = ::select(sock + 1,
-                        read ? &set : nullptr,
-                        read ? nullptr : &set,
-                        &set, &to);
-    if (sts == 0) {
-      return false;
-    } else if (sts < 0) {
-      switch (errno) {
-        case EAGAIN:
-        case EBADF:
-        case EINTR:
-        case EINVAL:{
-          throw socket_e("");  // TODO
-        }
-        default: {
-          throw socket_e("");  // TODO
-        }
-      }
-      throw std::exception();
-    }
-    return true;
-  }
+  std::atomic_int p_socks[MAX_POOL_SIZE];
+  Observer_t<std::string> p_write_queue;
 
-  void wait_read() {
-    while (!poll()) {
-      std::this_thread::yield();
-    }
-  }
-
-  void wait_write() {
-    while (!poll(false)) {
-      std::this_thread::yield();
-    }
-  }
-
-  int load() {
-    int sock = *p_sock;
-    if (sock) {
-      return sock;
-    }
-    throw socket_e("");  // TODO
-  }
-
-  static void deleter(int *sock) {
-    ::close(*sock);
-    delete sock;
-  }
-
-  std::shared_ptr<int> p_sock;
+public:
+  Producer_t<std::string> p_read_queue;
 };
 
 }  // namespace _ReQL

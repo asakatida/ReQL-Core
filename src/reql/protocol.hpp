@@ -36,11 +36,24 @@ namespace _ReQL {
 template <class auth_e, class handshake_e, class socket_e>
 class Protocol_t {
 public:
-  template <class addr_t, class auth_t, class func_t, class port_t>
-  void connect(const addr_t &addr, const port_t &port, const auth_t &auth, func_t func) {
-    p_sock.connect(addr, port);
-    Handshake_t<auth_e, handshake_e>(p_sock, auth);
-    std::thread([func, this] {
+  Protocol_t() : p_sock(p_write_queue) {}
+
+  template <class addr_t, class auth_t, class port_t>
+  void connect(const addr_t &addr, const port_t &port, const auth_t &auth) {
+    int sock = p_sock.connect(addr, port);
+    Handshake_t<auth_e, handshake_e>(p_sock, sock, auth);
+  }
+
+  void disconnect() {
+    p_sock.disconnect();
+  }
+
+  bool connected() const {
+    return p_sock.connected();
+  }
+
+  void loop() {
+    std::thread([this] {
       size_t buff_size = 0;
       std::ostringstream buffer;
       while (true) {
@@ -63,17 +76,9 @@ public:
         buffer.clear();
         buffer << string.substr(size);
         run(token, make_array(std::make_tuple(REQL_CONTINUE)));
-        func(string.substr(0, size), token);
+        //func(string.substr(0, size), token);
       }
     }).detach();
-  }
-
-  void disconnect() {
-    p_sock.disconnect();
-  }
-
-  bool connected() const {
-    return p_sock.connected();
   }
 
   template <class query_t>
@@ -102,7 +107,7 @@ private:
     make_token(data, token);
     make_size(data + 8, static_cast<std::uint32_t>(size - 12));
 
-    p_sock.write(data, size);
+    p_write_queue.push(std::move(wire_query));
   }
 
   static std::uint32_t get_size(const char *buf) {
@@ -142,6 +147,7 @@ private:
   }
 
   std::atomic<std::uint64_t> p_next_token;
+  Producer_t<std::string> p_write_queue;
   Socket_t<socket_e> p_sock;
 };
 
