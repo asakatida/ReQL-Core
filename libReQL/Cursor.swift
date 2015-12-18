@@ -36,16 +36,16 @@ public class Cursor: NSObject {
     sink.sendNext(value)
   }
   public func fail (error: NSError) {
-    sink.sendFailed(ReQLError(error: error))
+    sink.sendError(ReQLError(error: error))
   }
   public func complete () {
-    sink.sendCompleted();
+    sink.sendCompleted()
   }
   public func observeNext (next: (AnyObject -> ())) {
     signal.observeNext { next($0) }
   }
   public func observeFailed (error: (NSError -> ())) {
-    signal.observeFailed { error($0.nsError) }
+    signal.observeError { error($0.nsError) }
   }
   public func observeCompleted (completed: (() -> ())) {
     signal.observeCompleted { completed() }
