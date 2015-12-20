@@ -53,11 +53,15 @@ public class Cursor: NSObject {
   public func toArray () -> Array<AnyObject> {
     var array: Array<AnyObject> = []
     let cond = NSCondition()
+    cond.lock()
     signal.collect().observe({
       $0.map({ array = $0 })
+      cond.lock()
       cond.broadcast()
+      cond.unlock()
     })
     cond.wait()
+    cond.unlock()
     return array
   }
 }
