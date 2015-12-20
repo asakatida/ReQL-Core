@@ -52,7 +52,12 @@ public class Cursor: NSObject {
   }
   public func toArray () -> Array<AnyObject> {
     var array: Array<AnyObject> = []
-    signal.collect().observeNext({ array = $0 })
+    let cond = NSCondition()
+    signal.collect().observe({
+      $0.map({ array = $0 })
+      cond.broadcast()
+    })
+    cond.wait()
     return array
   }
   public func close () {
