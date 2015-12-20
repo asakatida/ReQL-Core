@@ -36,7 +36,7 @@ public class Cursor: NSObject {
     sink.sendNext(value)
   }
   public func fail (error: NSError) {
-    sink.sendError(ReQLError(error: error))
+    sink.sendFailed(ReQLError(error: error))
   }
   public func complete () {
     sink.sendCompleted()
@@ -45,7 +45,7 @@ public class Cursor: NSObject {
     signal.observeNext { next($0) }
   }
   public func observeFailed (error: (NSError -> ())) {
-    signal.observeError { error($0.nsError) }
+    signal.observeFailed { error($0.nsError) }
   }
   public func observeCompleted (completed: (() -> ())) {
     signal.observeCompleted { completed() }
@@ -59,8 +59,5 @@ public class Cursor: NSObject {
     })
     cond.wait()
     return array
-  }
-  public func close () {
-    sink.sendCompleted()
   }
 }

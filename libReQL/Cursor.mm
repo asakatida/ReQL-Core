@@ -65,7 +65,7 @@ limitations under the License.
 }
 
 -(void)dealloc {
-  [p_stream close];
+  [p_stream complete];
 }
 
 @end
