@@ -59,8 +59,6 @@ public:
     p_list(std::make_shared<std::list<elem_t> >()),
     p_mutex(std::make_shared<std::mutex>()) {}
 
-  Producer_t(const Producer_t &) = delete;
-
   Producer_t(Producer_t &&other) :
     p_active(std::move(other.p_active)),
     p_cond(std::move(other.p_cond)),
@@ -145,14 +143,80 @@ private:
 };
 
 template <class elem_t>
-class Lazy_Queue_t {
-  elem_t head() {
-    return elem_t();
+struct Lazy_Queue_t {
+  virtual bool complete() const { return false; }
+
+  virtual elem_t head() {
+    return head_impl();
   }
 
-  Lazy_Queue_t &tail() {
+  virtual elem_t head_impl() = 0;
+
+  virtual Lazy_Queue_t &tail() {
+    return tail_impl();
+  }
+
+  virtual Lazy_Queue_t &tail_impl() = 0;
+};
+
+template <class elem_t>
+struct Never_Queue_t : Lazy_Queue_t<elem_t> {
+  virtual bool complete() const { return true; }
+
+  virtual elem_t head() {
+    throw std::exception();  // TODO
+  }
+
+  virtual elem_t head_impl() {
+    throw std::exception();  // TODO
+  }
+
+  virtual Lazy_Queue_t<elem_t> &tail() {
+    throw std::exception();  // TODO
+  }
+
+  virtual Lazy_Queue_t<elem_t> &tail_impl() {
+    throw std::exception();  // TODO
+  }
+};
+
+template <class elem_t>
+struct Infinite_Queue_t : Lazy_Queue_t<elem_t> {
+  Infinite_Queue_t(const elem_t &value) : p_value(value) {}
+
+  virtual elem_t head() {
+    return p_value;
+  }
+
+  virtual Lazy_Queue_t<elem_t> &tail() {
     return *this;
   }
+
+  elem_t p_value;
+};
+
+template <class elem_t>
+struct Once_Queue_t : Lazy_Queue_t<elem_t> {
+  Once_Queue_t(const elem_t &value) : p_value(value) {}
+
+  virtual bool complete() {
+    return p_complete;
+  }
+
+  virtual elem_t head() {
+    if (p_complete) throw std::exception();  // TODO
+    p_complete = true;
+    return head_impl();
+  }
+
+  virtual elem_t head_impl() = 0;
+
+  virtual Lazy_Queue_t<elem_t> &tail() {
+    throw std::exception();  // TODO
+  }
+
+  bool p_complete = false;
+  elem_t p_value;
 };
 
 template <class socket_e>
@@ -328,7 +392,7 @@ public:
     if (size == 0) {
       throw socket_e("");  // TODO
     } else if (size < 0) {
-      switch (errno) {
+      switch (errno) {  // TODO
       }
       throw std::exception();
     } else if (static_cast<size_t>(size) < out.size()) {
