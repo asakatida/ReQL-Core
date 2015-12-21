@@ -285,25 +285,62 @@ private:
     return false;
   }
 
-  static char
-  strtoh(const char hex) {
-    if (hex >= '0' && hex <= '9') {
-      return hex - '0';
-    } else if (hex >= 'a' && hex <= 'f') {
-      return hex - ('a' - 10);
-    } else if (hex >= 'A' && hex <= 'F') {
-      return hex - ('A' - 10);
-    } else {
-      throw std::exception();
-    }
+  static wchar_t
+  strtoh(const char chr) {
+    constexpr bool valid[] = {
+      false, false, false, false, false, false, false, false,  // 0x07
+      false, false, false, false, false, false, false, false,  // 0x0F
+      false, false, false, false, false, false, false, false,  // 0x17
+      false, false, false, false, false, false, false, false,  // 0x1F
+      false, false, false, false, false, false, false, false,  // 0x27
+      false, false, false, false, false, false, false, false,  // 0x2F
+      true, true, true, true, true, true, true, true,  // 0x37
+      true, true, false, false, false, false, false, false,  // 0x3F
+      false, true, true, true, true, true, true, false,  // 0x47
+      false, false, false, false, false, false, false, false,  // 0x4F
+      false, false, false, false, false, false, false, false,  // 0x57
+      false, false, false, false, false, false, false, false,  // 0x5F
+      false, true, true, true, true, true, true, false,  // 0x57
+      false, false, false, false, false, false, false, false,  // 0x6F
+      false, false, false, false, false, false, false, false,  // 0x77
+      false, false, false, false, false, false, false, false,  // 0x7F
+      false, false, false, false, false, false, false, false,  // 0x87
+      false, false, false, false, false, false, false, false,  // 0x8F
+      false, false, false, false, false, false, false, false,  // 0x97
+      false, false, false, false, false, false, false, false,  // 0x9F
+      false, false, false, false, false, false, false, false,  // 0xA7
+      false, false, false, false, false, false, false, false,  // 0xAF
+      false, false, false, false, false, false, false, false,  // 0xB7
+      false, false, false, false, false, false, false, false,  // 0xBF
+      false, false, false, false, false, false, false, false,  // 0xC7
+      false, false, false, false, false, false, false, false,  // 0xCF
+      false, false, false, false, false, false, false, false,  // 0xD7
+      false, false, false, false, false, false, false, false,  // 0xDF
+      false, false, false, false, false, false, false, false,  // 0xE7
+      false, false, false, false, false, false, false, false,  // 0xEF
+      false, false, false, false, false, false, false, false,  // 0xF7
+      false, false, false, false, false, false, false, false,  // 0xFF
+    };
+    constexpr wchar_t hex[] = {
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  // 0x0F
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  // 0x1F
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  // 0x2F
+      0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 0, 0, 0, 0, 0,  // 0x3F
+      0, 0xA, 0xB, 0xC, 0xD, 0xE, 0xF, 0, 0, 0, 0, 0, 0, 0, 0, 0,  // 0x4F
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  // 0x5F
+      0, 0xA, 0xB, 0xC, 0xD, 0xE, 0xF, 0, 0, 0, 0, 0, 0, 0, 0, 0,  // 0x6F
+    };
+    auto idx = static_cast<const unsigned int>(chr);
+    if (valid[idx]) { return hex[idx]; }
+    throw std::exception();
   }
 
   static wchar_t
   strtoh(const char *it) {
-    return (static_cast<wchar_t>(strtoh(*(it + 0))) << 12) |
-           (static_cast<wchar_t>(strtoh(*(it + 1))) << 8) |
-           (static_cast<wchar_t>(strtoh(*(it + 2))) << 4) |
-           (static_cast<wchar_t>(strtoh(*(it + 3))) << 0);
+    return (strtoh(*(it + 0)) << 12) |
+           (strtoh(*(it + 1)) << 8) |
+           (strtoh(*(it + 2)) << 4) |
+           (strtoh(*(it + 3)) << 0);
   }
 
   std::vector<std::vector<result_t> > p_arrays;
