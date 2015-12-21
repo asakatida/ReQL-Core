@@ -3,7 +3,9 @@
 #ifndef TEST_HPP_
 #define TEST_HPP_
 
-#include <string>
-#include <vector>
+#include "./ReQL.hpp"
+
+void
+consume(ReQL::Cursor cursor);
 
 #endif  // TEST_HPP_

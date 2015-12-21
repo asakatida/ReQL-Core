@@ -2,6 +2,7 @@
 
 #include "./catch.hpp"
 #include "./ReQL.hpp"
+#include "./test.hpp"
 
 #include <vector>
 
@@ -14,13 +15,9 @@ TEST_CASE("cpp connection", "[c++][connect]") {
 
   std::vector<Query> args({std::wstring(L"libReQL")});
 
-  Cursor cur = db_create(args).run(conn);
+  consume(db_create(args).run(conn));
 
-  std::vector<Result> results1(cur.begin(), cur.end());
-
-  cur = db_drop(args).run(conn);
-
-  std::vector<Result> results2(cur.begin(), cur.end());
+  consume(db_drop(args).run(conn));
 
   conn.close();
 
