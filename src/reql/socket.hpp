@@ -144,6 +144,17 @@ private:
   const std::shared_ptr<std::mutex> p_mutex;
 };
 
+template <class elem_t>
+class Lazy_Queue_t {
+  elem_t head() {
+    return elem_t();
+  }
+
+  Lazy_Queue_t &tail() {
+    return *this;
+  }
+};
+
 template <class socket_e>
 class Socket_t {
 public:
