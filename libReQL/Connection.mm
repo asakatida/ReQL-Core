@@ -23,7 +23,7 @@ limitations under the License.
 #import "Parser.h"
 #import "Query.h"
 
-#import "./reql/core.hpp"
+#import "./reql/connection.hpp"
 
 #import <ReactiveCocoa/ReactiveCocoa.h>
 

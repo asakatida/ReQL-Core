@@ -18,7 +18,6 @@ set(MOC_HEADERS
  cpp/query.hpp
  cpp/types.hpp
  reql/connection.hpp
- reql/core.hpp
  reql/decode.hpp
  reql/handshake.hpp
  reql/protocol.hpp

@@ -20,10 +20,7 @@ limitations under the License.
 
 #import <Cocoa/Cocoa.h>
 
-#import "./reql/core.hpp"
-
 #import <map>
-#import <string>
 #import <vector>
 
 namespace ReQL {

@@ -20,7 +20,7 @@ limitations under the License.
 
 #import "Query.h"
 
-#import "./reql/core.hpp"
+#import "./reql/query.hpp"
 
 #import <map>
 #import <string>
