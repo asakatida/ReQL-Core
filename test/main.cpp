@@ -4,12 +4,20 @@
 #include "./catch.hpp"
 #include "./ReQL.hpp"
 
+#include <exception>
 #include <string>
 #include <vector>
 
 int
 main(int argc, char **argv) {
-  int result = Catch::Session().run(argc, argv);
+  int result = -1;
+  std::exception_ptr exc;
+
+  try {
+    result = Catch::Session().run(argc, argv);
+  } catch (std::exception &) {
+    exc = std::current_exception();
+  }
 
   try {
     ReQL::Connection conn;
@@ -44,9 +52,11 @@ main(int argc, char **argv) {
     .no_reply(conn);
 
     conn.close();
-  } catch (ReQL::ReQLError &e) {
-    (void)e;
+  } catch (ReQL::ReQLError &) {
+    if (!exc) exc = std::current_exception();
   }
+
+  if (exc) std::rethrow_exception(exc);
 
   return result;
 }
