@@ -159,8 +159,8 @@ template <class socket_e>
 class Socket_t {
 public:
   Socket_t(Producer_t<std::string> &write_queue) : p_write_queue(write_queue) {
-    for (int i=0; i<MAX_POOL_SIZE; ++i) {
-      p_socks[i].store(-1);
+    for (auto &&__s : p_socks) {
+      __s.store(-1);
     }
   }
 
@@ -223,7 +223,9 @@ public:
   }
 
   bool connected() const {
-    return p_socks[0] >= 0;
+    return std::any_of(std::begin(p_socks), std::end(p_socks), [](const std::atomic_int &sock) {
+      return sock >= 0;
+    });
   }
 
   void loop() {
@@ -261,7 +263,7 @@ public:
       }
       throw std::exception();  // TODO
     }
-    for (size_t i=0; i<max_sock; ++i) {
+    for (int i=0; i<max_sock; ++i) {
       if (FD_ISSET(i, &_read)) {
         try {
           p_read_queue.push(read(i));
