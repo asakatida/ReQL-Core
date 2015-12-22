@@ -144,78 +144,68 @@ private:
 
 template <class elem_t>
 struct Lazy_Queue_t {
-  virtual bool complete() const { return false; }
+  virtual bool complete()  = 0;
 
-  virtual elem_t head() {
-    return head_impl();
-  }
+  virtual elem_t head() = 0;
 
-  virtual elem_t head_impl() = 0;
-
-  virtual Lazy_Queue_t &tail() {
-    return tail_impl();
-  }
-
-  virtual Lazy_Queue_t &tail_impl() = 0;
+  virtual Lazy_Queue_t &tail() = 0;
 };
 
 template <class elem_t>
-struct Never_Queue_t : Lazy_Queue_t<elem_t> {
-  virtual bool complete() const { return true; }
+struct Never_Queue_t final : Lazy_Queue_t<elem_t> {
+  virtual bool complete() const override { return true; }
 
-  virtual elem_t head() {
+  virtual elem_t head() override {
     throw std::exception();  // TODO
   }
 
-  virtual elem_t head_impl() {
-    throw std::exception();  // TODO
-  }
-
-  virtual Lazy_Queue_t<elem_t> &tail() {
-    throw std::exception();  // TODO
-  }
-
-  virtual Lazy_Queue_t<elem_t> &tail_impl() {
+  virtual Lazy_Queue_t<elem_t> &tail() override {
     throw std::exception();  // TODO
   }
 };
 
 template <class elem_t>
 struct Infinite_Queue_t : Lazy_Queue_t<elem_t> {
-  Infinite_Queue_t(const elem_t &value) : p_value(value) {}
+  virtual bool complete() const override final { return true; }
 
-  virtual elem_t head() {
+  virtual elem_t head() override final {
+    std::call_once(p_flag, [this] {
+      p_value = head_impl();
+    });
     return p_value;
   }
 
-  virtual Lazy_Queue_t<elem_t> &tail() {
+  virtual elem_t head_impl() = 0;
+
+  virtual Lazy_Queue_t<elem_t> &tail() override final {
     return *this;
   }
 
+  std::once_flag p_flag;
   elem_t p_value;
 };
 
 template <class elem_t>
 struct Once_Queue_t : Lazy_Queue_t<elem_t> {
-  Once_Queue_t(const elem_t &value) : p_value(value) {}
+  Once_Queue_t() : p_flag(false) {}
 
-  virtual bool complete() {
-    return p_complete;
-  }
+  virtual bool complete() const override final { return p_complete; }
 
-  virtual elem_t head() {
-    if (p_complete) throw std::exception();  // TODO
+  virtual elem_t head() override final {
+    if (p_flag.test_and_set()) throw std::exception();  // TODO
+    p_value = head_impl();
     p_complete = true;
-    return head_impl();
+    return p_value;
   }
 
   virtual elem_t head_impl() = 0;
 
-  virtual Lazy_Queue_t<elem_t> &tail() {
+  virtual Lazy_Queue_t<elem_t> &tail() override final {
     throw std::exception();  // TODO
   }
 
   bool p_complete = false;
+  std::atomic_flag p_flag;
   elem_t p_value;
 };
 
