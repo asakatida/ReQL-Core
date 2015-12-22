@@ -25,8 +25,7 @@ limitations under the License.
 
 namespace ReQL {
 
-class Result {
-public:
+struct Result {
   Result();
   Result(const bool value);
   Result(const double value);
@@ -35,14 +34,8 @@ public:
   Result(const std::map<std::wstring, Result> &value);
 
   Result(const Result &other);
-  Result(Result &&other);
-
   Result &operator =(const Result &other);
-  Result &operator =(Result &&other);
 
-  id toObjC() const;
-
-private:
   id p_value;
 };
 

@@ -232,7 +232,7 @@ toQuery(id expr) {
     }
     return _ReQL::expr(make_reql(self.tt, array));
   }
-  return _ReQL::expr(make_reql(self.tt));
+  return _ReQL::expr(_ReQL::make_array(std::make_tuple(self.tt)));
 }
 
 +(instancetype)

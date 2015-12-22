@@ -22,6 +22,8 @@ limitations under the License.
 
 #import <Foundation/Foundation.h>
 
+#import <string>
+
 namespace ReQL {
 
 static NSString *
@@ -41,32 +43,21 @@ Result::Result(const double value) : p_value([NSNumber numberWithDouble:value]) 
 Result::Result(const wchar_t *value, const size_t size) :
   p_value([[NSString alloc] initWithBytes:value length:size encoding:NSUTF16StringEncoding]) {}
 
-Result::Result(const std::vector<Result> &value) {
-  NSMutableArray *array = [NSMutableArray arrayWithCapacity:value.size()];
+Result::Result(const std::vector<Result> &value) :
+  p_value([NSMutableArray arrayWithCapacity:value.size()]) {
   for (auto &&elem : value) {
-    [array addObject:elem.toObjC()];
+    [p_value addObject:elem.p_value];
   }
-  p_value = [NSArray arrayWithArray:array];
 }
 
-Result::Result(const std::map<std::wstring, Result> &value) {
-  NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:value.size()];
+Result::Result(const std::map<std::wstring, Result> &value) :
+  p_value([NSMutableDictionary dictionaryWithCapacity:value.size()]) {
   for (auto &&pair : value) {
-    dict[to_string(pair.first)] = pair.second.toObjC();
+    p_value[to_string(pair.first)] = pair.second.p_value;
   }
-  p_value = [NSDictionary dictionaryWithDictionary:dict];
 }
-
-Result::Result(Result &&other) : p_value(other.p_value) {}
 
 Result::Result(const Result &other) : p_value([other.p_value copy]) {}
-
-Result &Result::operator =(Result &&other) {
-  if (this != &other) {
-    p_value = other.p_value;
-  }
-  return *this;
-}
 
 Result &Result::operator =(const Result &other) {
   if (this != &other) {
@@ -74,7 +65,5 @@ Result &Result::operator =(const Result &other) {
   }
   return *this;
 }
-
-id Result::toObjC() const { return p_value; }
 
 }
