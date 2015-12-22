@@ -29,48 +29,75 @@ limitations under the License.
 
 namespace ReQL {
 
-class Cursor : public std::iterator<std::input_iterator_tag, Result> {
-public:
-  Cursor(const Cursor &other);
+template <class result_t>
+struct Cursor : public std::iterator<std::input_iterator_tag, result_t> {
+  Cursor(const Cursor &other) : p_cur(other.p_cur) {}
 
-  Cursor(Cursor &&other);
+  Cursor(Cursor &&other) : p_cur(std::move(other.p_cur)) {}
 
-  Cursor &operator=(const Cursor &other);
+  Cursor &operator=(const Cursor &other) {
+    if (this != &other) {
+      p_cur = other.p_cur;
+    }
+    return *this;
+  }
 
-  Cursor &operator=(Cursor &&other);
+  Cursor &operator=(Cursor &&other) {
+    if (this != &other) {
+      p_cur = std::move(other.p_cur);
+    }
+    return *this;
+  }
 
-  Cursor &begin() noexcept;
+  Cursor &begin() noexcept {
+    return *this;
+  }
 
-  Cursor &cbegin() noexcept;
+  Cursor &cbegin() noexcept {
+    return *this;
+  }
 
-  const Cursor &end() const;
+  const Cursor &end() const {
+    return *this;
+  }
 
-  const Cursor &cend() const;
+  const Cursor &cend() const {
+    return *this;
+  }
 
-  Cursor &operator ++();
+  Cursor &operator ++() {
+    ++(*p_cur);
+    return *this;
+  }
 
-  const Result &operator *() const;
+  const result_t &operator *() const {
+    return *(*p_cur);
+  }
 
-  const Result &operator ->() const;
+  const result_t &operator ->() const {
+    return *(*p_cur);
+  }
 
-  bool operator ==(const Cursor &other) const;
+  bool operator ==(const Cursor &other) const {
+    return p_cur == other.p_cur;
+  }
 
-  bool operator !=(const Cursor &other) const;
+  bool operator !=(const Cursor &other) const {
+    return p_cur != other.p_cur;
+  }
 
-private:
-  friend class Query;
-  friend void swap(Cursor &c1, Cursor &c2);
+  friend void swap(Cursor &c1, Cursor &c2) {
+    c1.swap(c2);
+  }
 
-  Cursor();
+  Cursor(const std::shared_ptr<_ReQL::Cursor_t<result_t> > &cur) : p_cur(cur) {}
 
-  Cursor(const std::shared_ptr<_ReQL::Cursor_t<Result> > &cur);
+  void swap(Cursor &other) {
+    std::swap(p_cur, other.p_cur);
+  }
 
-  void swap(Cursor &other);
-
-  std::shared_ptr<_ReQL::Cursor_t<Result> > p_cur;
+  std::shared_ptr<_ReQL::Cursor_t<result_t> > p_cur;
 };
-
-void swap(Cursor &c1, Cursor &c2);
 
 }  // namespace ReQL
 

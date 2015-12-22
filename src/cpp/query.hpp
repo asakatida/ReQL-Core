@@ -51,10 +51,10 @@ public:
   Query &operator=(const Query &other);
   Query &operator=(Query &&other);
 
-  void no_reply(Connection &conn) const;
-  void no_reply(Connection &conn, const std::map<std::wstring, Query> &kwargs) const;
-  Cursor run(Connection &conn) const;
-  Cursor run(Connection &conn, const std::map<std::wstring, Query> &kwargs) const;
+  void no_reply(Connection<Result> &conn) const;
+  void no_reply(Connection<Result> &conn, const std::map<std::wstring, Query> &kwargs) const;
+  Cursor<Result> run(Connection<Result> &conn) const;
+  Cursor<Result> run(Connection<Result> &conn, const std::map<std::wstring, Query> &kwargs) const;
 
   std::string build() const;
 

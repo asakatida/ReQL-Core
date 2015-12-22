@@ -18,10 +18,6 @@ QMAKE_LFLAGS += -std=c++14
 LIBS += -LWs2_32 -lWs2_32
 
 SOURCES += \
-  cpp/connection.cpp \
-  cpp/cursor.cpp \
-  cpp/error.cpp \
-  cpp/parser.cpp \
   cpp/query.cpp \
 
 HEADERS += \

@@ -27,20 +27,44 @@ limitations under the License.
 
 namespace ReQL {
 
-class Result {
-public:
-  Result();
-  Result(bool value);
-  Result(double value);
-  Result(const wchar_t *value, const size_t size);
-  Result(std::vector<Result> value);
-  Result(std::map<std::wstring, Result> value);
+struct Result {
+  Result() : p_value(), p_type(null) {}
 
-  Result(const Result &other);
-  Result(Result &&other);
+  Result(bool value) : p_value(value), p_type(boolean) {}
 
-  Result &operator =(const Result &other);
-  Result &operator =(Result &&other);
+  Result(double value) : p_value(value), p_type(number) {}
+
+  Result(const wchar_t *value, const size_t size) :
+    p_value(std::wstring(value, size)), p_type(string) {}
+
+  Result(std::vector<Result> value) :
+    p_value(value), p_type(array) {}
+
+  Result(std::map<std::wstring, Result> value) :
+    p_value(value),
+    p_type(object) {}
+
+  Result(const Result &other) :
+    p_value(other.p_value, other.p_type), p_type(other.p_type) {}
+
+  Result(Result &&other) :
+    p_value(std::move(other.p_value), other.p_type), p_type(std::move(other.p_type)) {}
+
+  Result &operator =(const Result &other) {
+    if (this != &other) {
+      p_value.copy(other.p_value, other.p_type);
+      p_type = other.p_type;
+    }
+    return *this;
+  }
+
+  Result &operator =(Result &&other) {
+    if (this != &other) {
+      p_value.move(std::move(other.p_value), other.p_type);
+      p_type = std::move(other.p_type);
+    }
+    return *this;
+  }
 
   enum JSONtype {
     array,
@@ -59,22 +83,80 @@ public:
   std::map<std::string, Result> getObject() const;
   std::string getString() const;
 
-private:
   union JSON {
-    JSON();
-    JSON(bool value);
-    JSON(double value);
-    JSON(std::wstring value);
-    JSON(std::vector<Result> value);
-    JSON(std::map<std::wstring, Result> value);
+    JSON() {}
+    JSON(bool value) : boolean(value) {}
+    JSON(double value) : number(value) {}
+    JSON(std::wstring value) : string(value) {}
+    JSON(std::vector<Result> value) : array(value) {}
+    JSON(std::map<std::wstring, Result> value) : object(value) {}
 
-    JSON(const JSON &other, JSONtype type);
-    JSON(JSON &&other, JSONtype type);
+    JSON(const JSON &other, JSONtype type) { copy(other, type); }
+    JSON(JSON &&other, JSONtype type) { move(std::move(other), type); }
 
-    JSON &copy(const JSON &other, JSONtype type);
-    JSON &move(JSON &&other, JSONtype type);
+    JSON &copy(const JSON &other, JSONtype type) {
+      if (this != &other) {
+        switch (type) {
+          case JSONtype::array: {
+            array = other.array;
+            break;
+          }
+          case JSONtype::boolean: {
+            boolean = other.boolean;
+            break;
+          }
+          case JSONtype::number: {
+            number = other.number;
+            break;
+          }
+          case JSONtype::null: {
+            break;
+          }
+          case JSONtype::object: {
+            object = other.object;
+            break;
+          }
+          case JSONtype::string: {
+            string = other.string;
+            break;
+          }
+        }
+      }
+      return *this;
+    }
 
-    ~JSON();
+    JSON &move(JSON &&other, JSONtype type) {
+      if (this != &other) {
+        switch (type) {
+          case JSONtype::array: {
+            array = std::move(other.array);
+            break;
+          }
+          case JSONtype::boolean: {
+            boolean = std::move(other.boolean);
+            break;
+          }
+          case JSONtype::number: {
+            number = std::move(other.number);
+            break;
+          }
+          case JSONtype::null: {
+            break;
+          }
+          case JSONtype::object: {
+            object = std::move(other.object);
+            break;
+          }
+          case JSONtype::string: {
+            string = std::move(other.string);
+            break;
+          }
+        }
+      }
+      return *this;
+    }
+
+    ~JSON() {}
 
     std::vector<Result> array;
     bool boolean;

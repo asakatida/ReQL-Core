@@ -32,29 +32,52 @@ limitations under the License.
 
 namespace ReQL {
 
-class Connection {
-public:
-  Connection();
-  Connection(const std::string &host);
-  Connection(const std::string &host, const std::uint16_t &port);
-  Connection(const std::string &host, const std::uint16_t &port, const std::string &key);
+template <class result_t>
+struct Connection {
+  Connection() { p_conn->connect(); }
 
-  Connection(const Connection &other);
-  Connection(Connection &&other);
+  Connection(const std::string &host) { p_conn->connect(host); }
 
-  Connection &operator=(const Connection &other);
-  Connection &operator=(Connection &&other);
+  Connection(const std::string &host, const std::uint16_t &port) {
+    p_conn->connect(host, std::to_string(port));
+  }
 
-  bool isOpen() const;
+  Connection(const std::string &host, const std::uint16_t &port, const std::string &key) {
+    p_conn->connect(host, std::to_string(port), key);
+  }
 
-  void close();
+  Connection(const Connection &other) : p_conn(other.p_conn) {}
 
-  void reconnect();
+  Connection(Connection &&other) : p_conn(std::move(other.p_conn)) {}
 
-private:
+  Connection &operator=(const Connection &other) {
+    if (this != &other) {
+      p_conn = other.p_conn;
+    }
+    return *this;
+  }
 
-  friend class Query;
-  std::shared_ptr<_ReQL::Conn_t<ReQLError, ReQLError, Result, ReQLError>> p_conn;
+  Connection &operator=(Connection &&other) {
+    if (this != &other) {
+      p_conn = std::move(other.p_conn);
+    }
+    return *this;
+  }
+
+  bool isOpen() const {
+    return p_conn->isOpen();
+  }
+
+  void close() {
+    p_conn->close();
+  }
+
+  void reconnect() {
+    p_conn->close();
+    p_conn->connect();
+  }
+
+  std::shared_ptr<_ReQL::Conn_t<ReQLError, ReQLError, result_t, ReQLError>> p_conn;
 };
 
 }  // namespace ReQL

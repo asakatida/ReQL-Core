@@ -20,7 +20,7 @@ main(int argc, char **argv) {
   }
 
   try {
-    ReQL::Connection conn;
+    ReQL::Connection<ReQL::Result> conn;
 
     ReQL::db_list(std::vector<ReQL::Query>())
     .filter(std::vector<ReQL::Query>({

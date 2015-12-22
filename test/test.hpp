@@ -6,6 +6,6 @@
 #include "./ReQL.hpp"
 
 void
-consume(ReQL::Cursor cursor);
+consume(ReQL::Cursor<ReQL::Result> cursor);
 
 #endif  // TEST_HPP_

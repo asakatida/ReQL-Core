@@ -170,8 +170,8 @@ Query::Query(Query &&other) :
   p_string(std::move(other.p_string)),
   p_tt(std::move(other.p_tt)) {}
 
-Cursor
-Query::run(Connection &conn) const {
+Cursor<Result>
+Query::run(Connection<Result> &conn) const {
   return conn.p_conn->run(build());
 }
 
@@ -188,13 +188,13 @@ to_object(const std::map<std::wstring, Query> &kwargs) {
   return _kwargs;
 }
 
-Cursor
-Query::run(Connection &conn, const std::map<std::wstring, Query> &kwargs) const {
+Cursor<Result>
+Query::run(Connection<Result> &conn, const std::map<std::wstring, Query> &kwargs) const {
   return conn.p_conn->run(build(), to_object(kwargs));
 }
 
 void
-Query::no_reply(Connection &conn) const {
+Query::no_reply(Connection<Result> &conn) const {
   auto query = build();
   std::map<std::wstring, Query> kwargs;
   auto opts = to_object(kwargs);
@@ -202,7 +202,7 @@ Query::no_reply(Connection &conn) const {
 }
 
 void
-Query::no_reply(Connection &conn, const std::map<std::wstring, Query> &kwargs) const {
+Query::no_reply(Connection<Result> &conn, const std::map<std::wstring, Query> &kwargs) const {
   conn.p_conn->noReply(build(), to_object(kwargs));
 }
 

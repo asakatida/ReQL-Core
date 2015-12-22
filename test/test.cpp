@@ -3,7 +3,7 @@
 #include "./test.hpp"
 
 void
-consume(ReQL::Cursor cursor) {
+consume(ReQL::Cursor<ReQL::Result> cursor) {
   std::vector<ReQL::Result>(cursor.begin(), cursor.end());
 }
 

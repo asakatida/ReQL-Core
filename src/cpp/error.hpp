@@ -25,41 +25,38 @@ limitations under the License.
 
 namespace ReQL {
 
-class ReQLError : public std::exception {
-public:
-  ReQLError(const char *errstr) noexcept;
-  ReQLError(const wchar_t *errstr);
-  virtual const char* what() const noexcept;
+struct ReQLError : public std::exception {
+  ReQLError(const char *errstr) noexcept :
+    _what(errstr) {}
+
+  ReQLError(const wchar_t *errstr) :
+    _what(reinterpret_cast<const char *>(errstr)) {}
+
+  virtual const char* what() const noexcept override { return _what; }
   const char *_what;
 };
 
-class ReQLQueryError : public ReQLError {
-public:
+struct ReQLQueryError : public ReQLError {
   using ReQLError::ReQLError;
 };
 
-class ReQLClientError : public ReQLQueryError {
-public:
+struct ReQLClientError : public ReQLQueryError {
   using ReQLError::ReQLError;
 };
 
-class ReQLCompileError : public ReQLQueryError {
-public:
+struct ReQLCompileError : public ReQLQueryError {
   using ReQLError::ReQLError;
 };
 
-class ReQLRuntimeError : public ReQLQueryError {
-public:
+struct ReQLRuntimeError : public ReQLQueryError {
   using ReQLError::ReQLError;
 };
 
-class ReQLCursorEmpty : public ReQLQueryError {
-public:
+struct ReQLCursorEmpty : public ReQLQueryError {
   using ReQLError::ReQLError;
 };
 
-class ReQLDriverError : public ReQLError {
-public:
+struct ReQLDriverError : public ReQLError {
   using ReQLError::ReQLError;
 };
 
