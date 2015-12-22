@@ -24,7 +24,6 @@
 		87DAA6471B13CBBE005626BF /* Query.h in Headers */ = {isa = PBXBuildFile; fileRef = 87DAA6451B13CBBE005626BF /* Query.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		87DAA6481B13CBBE005626BF /* Query.mm in Sources */ = {isa = PBXBuildFile; fileRef = 87DAA6461B13CBBE005626BF /* Query.mm */; };
 		87DAA64E1B13CE01005626BF /* connection.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7DB1B138A43004798D7 /* connection.hpp */; };
-		87DAA64F1B13CE01005626BF /* core.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7DC1B138A43004798D7 /* core.hpp */; };
 		87DAA6531B13CE01005626BF /* decode.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8791C7E01B138A43004798D7 /* decode.hpp */; };
 		87DBB89A1BE6D01900F3E36B /* aggregation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DBB8131BE6D01900F3E36B /* aggregation.swift */; };
 		87DBB89B1BE6D01900F3E36B /* arity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DBB8141BE6D01900F3E36B /* arity.swift */; };
@@ -172,7 +171,6 @@
 		8761696B1C022D59004401A0 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/Mac/Quick.framework; sourceTree = "<group>"; };
 		8787D3E11B2E35F50095C616 /* Cursor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cursor.swift; sourceTree = "<group>"; };
 		8791C7DB1B138A43004798D7 /* connection.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = connection.hpp; sourceTree = "<group>"; };
-		8791C7DC1B138A43004798D7 /* core.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = core.hpp; sourceTree = "<group>"; };
 		8791C7E01B138A43004798D7 /* decode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = decode.hpp; sourceTree = "<group>"; };
 		8791C8451B13968C004798D7 /* libReQL.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = libReQL.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8791C8481B13968C004798D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -372,7 +370,6 @@
 			isa = PBXGroup;
 			children = (
 				8791C7DB1B138A43004798D7 /* connection.hpp */,
-				8791C7DC1B138A43004798D7 /* core.hpp */,
 				8791C7E01B138A43004798D7 /* decode.hpp */,
 				87C683BC1BFCB2C8007FEF44 /* handshake.hpp */,
 				87C683A31BFCAFF2007FEF44 /* protocol.hpp */,
@@ -652,7 +649,6 @@
 				87DAA63B1B13CB69005626BF /* Connection.h in Headers */,
 				87DAA6531B13CE01005626BF /* decode.hpp in Headers */,
 				87E132C71BF598420062422B /* Parser.h in Headers */,
-				87DAA64F1B13CE01005626BF /* core.hpp in Headers */,
 				87C683BD1BFCB2C8007FEF44 /* handshake.hpp in Headers */,
 				87DAA6471B13CBBE005626BF /* Query.h in Headers */,
 				87C683BB1BFCB07C007FEF44 /* socket.hpp in Headers */,
