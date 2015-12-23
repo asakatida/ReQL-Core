@@ -3,27 +3,23 @@ cmake_minimum_required(VERSION 2.8)
 project(ReQL)
 
 set(SOURCES
- cpp/connection.cpp
- cpp/cursor.cpp
- cpp/error.cpp
- cpp/parser.cpp
- cpp/query.cpp
 )
 
 set(MOC_HEADERS
- cpp/connection.hpp
- cpp/cursor.hpp
- cpp/error.hpp
- cpp/parser.hpp
- cpp/query.hpp
- cpp/types.hpp
  reql/connection.hpp
- reql/decode.hpp
- reql/handshake.hpp
- reql/protocol.hpp
+ reql/cursor.hpp
+ reql/error.hpp
  reql/query.hpp
- reql/socket.hpp
- ReQL.h
+ reql/result.hpp
+ reql/core/array.hpp
+ reql/core/connection.hpp
+ reql/core/decode.hpp
+ reql/core/handshake.hpp
+ reql/core/null.hpp
+ reql/core/object.hpp
+ reql/core/protocol.hpp
+ reql/core/query.hpp
+ reql/core/socket.hpp
  ReQL.hpp
 )
 

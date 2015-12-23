@@ -2,8 +2,10 @@
 
 #include "./test.hpp"
 
+#include "./ReQL.hpp"
+
 void
 consume(ReQL::Cursor<ReQL::Result> cursor) {
-  std::vector<ReQL::Result>(cursor.begin(), cursor.end());
+  for (auto && : cursor) {}
 }
 

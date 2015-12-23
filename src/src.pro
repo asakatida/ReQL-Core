@@ -1,41 +1,28 @@
-#-------------------------------------------------
-#
-# Project created by QtCreator 2015-11-16T10:03:00
-#
-#-------------------------------------------------
-
 include(../defaults.pri)
-CONFIG -= qt
-
-QT -= core gui
 
 TARGET = ReQL
 TEMPLATE = lib
 
-QMAKE_CXXFLAGS += -std=c++14
-QMAKE_LFLAGS += -std=c++14
-
-LIBS += -LWs2_32 -lWs2_32
-
-SOURCES += \
-  cpp/query.cpp \
-
 HEADERS += \
-  cpp/connection.hpp \
-  cpp/cursor.hpp \
-  cpp/error.hpp \
-  cpp/parser.hpp \
-  cpp/query.hpp \
-  cpp/types.hpp \
   reql/connection.hpp \
-  reql/decode.hpp \
-  reql/handshake.hpp \
-  reql/protocol.hpp \
+  reql/cursor.hpp \
+  reql/error.hpp \
   reql/query.hpp \
-  reql/socket.hpp \
+  reql/result.hpp \
+  reql/core/array.hpp \
+  reql/core/connection.hpp \
+  reql/core/decode.hpp \
+  reql/core/handshake.hpp \
+  reql/core/null.hpp \
+  reql/core/object.hpp \
+  reql/core/protocol.hpp \
+  reql/core/query.hpp \
+  reql/core/socket.hpp \
+  reql/core/string.hpp \
+  reql/core/term.hpp \
   ReQL.hpp
 
 unix {
-    target.path = /usr/lib
-    INSTALLS += target
+  target.path = /usr/lib
+  INSTALLS += target
 }
