@@ -230,7 +230,6 @@ struct Query {
   friend Query add(const std::vector<Query> &args) {
     return Query(_ReQL::REQL_ADD, args);
   }
-
   Query add(const std::vector<Query> &args) const {
     return Query(_ReQL::REQL_ADD, this, args);
   }
@@ -240,7 +239,6 @@ struct Query {
   friend Query zip(const std::vector<Query> &args) {
     return Query(_ReQL::REQL_ZIP, args);
   }
-
   Query zip(const std::vector<Query> &args) const {
     return Query(_ReQL::REQL_ZIP, this, args);
   }

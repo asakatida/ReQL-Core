@@ -243,50 +243,26 @@ def build(f_name, regex, join_str = "\n"):
         build_output(f_name, m, join_str, regex)
 
 def cpp_term_imp(name):
-    return """{2}
-Query
-Query::{0}(const std::vector<Query> &args) const {{
-  return Query(_ReQL::REQL_{1}, this, args);
-}}
-Query
-{0}(const std::vector<Query> &args) {{
-  return Query(_ReQL::REQL_{1}, args);
+    return """
+  /**
+   */{2}
+  friend Query {0}(const std::vector<Query> &args) {{
+    return Query(_ReQL::REQL_{1}, args);
+  }}
+  Query {0}(const std::vector<Query> &args) const {{
+    return Query(_ReQL::REQL_{1}, this, args);
+  }}
 }}""".format(
         mangle_cpp_const(name), name,
         """
-Query
-Query::{0}(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const {{
-  return Query(_ReQL::REQL_{1}, this, args, kwargs);
-}}
-Query
-{0}(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) {{
-  return Query(_ReQL::REQL_{1}, args, kwargs);
-}}""".format(
+  friend Query {0}(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) {{
+    return Query(_ReQL::REQL_{1}, args, kwargs);
+  }}
+  Query {0}(const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) const {{
+    return Query(_ReQL::REQL_{1}, this, args, kwargs);
+  }}""".format(
         mangle_cpp_const(name), name
     ) if has_opts(name) else '')
-
-def cpp_term_class(name):
-    return """
-  /**
-   */{}
-  Query
-  {}(const std::vector<Query> &args) const;""".format("""
-  Query
-  {}(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs) const;
-""".format(
-        mangle_cpp_const(name)) if has_opts(name) else '',
-        mangle_cpp_const(name))
-
-def cpp_term_def(name):
-    return """
-/**
- */{}
-Query
-{}(const std::vector<Query> &args);""".format("""
-Query
-{}(const std::vector<Query> &args, const std::map<std::string, Query> &kwargs);""".format(
-    mangle_cpp_const(name)) if has_opts(name) else '',
-    mangle_cpp_const(name))
 
 def lua_term_imp(name):
     return """

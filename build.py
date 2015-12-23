@@ -71,11 +71,9 @@ def main():
 
     scripting.build(objc_src_path / 'Query.h', scripting.objc_term_def)
     scripting.build(objc_src_path / 'Query.mm', scripting.objc_term_imp)
-    scripting.build(libreql_src_path / 'c' / 'query.c', scripting.c_term_imp)
-    scripting.build(libreql_src_path / 'c' / 'query.h', scripting.c_term_def)
-    scripting.build(libreql_src_path / 'cpp' / 'query.cpp', scripting.cpp_term_imp)
-    scripting.build(libreql_src_path / 'cpp' / 'query.hpp', scripting.cpp_term_def)
-    scripting.build(libreql_src_path / 'cpp' / 'query.hpp', scripting.cpp_term_class)
+    scripting.build(libreql_src_path / 'reql' / 'query.c', scripting.c_term_imp)
+    scripting.build(libreql_src_path / 'reql' / 'query.h', scripting.c_term_def)
+    scripting.build(libreql_src_path / 'reql' / 'query.hpp', scripting.cpp_term_imp)
     scripting.build(libreql_src_path / 'Lua' / 'query.cpp', scripting.lua_term_imp)
     scripting.build(libreql_src_path / 'Lua' / 'query.hpp', scripting.lua_term_def)
     scripting.build(libreql_src_path / 'Lua' / 'ReQL.cpp', scripting.lua_lib, "\n  ")
@@ -85,7 +83,7 @@ def main():
     scripting.build(libreql_src_path / 'Python' / 'types.c', scripting.py_term_method_imp)
     scripting.build(libreql_src_path / 'Python' / 'query.h', scripting.py_term_def)
     scripting.build(libreql_src_path / 'Python' / 'ReQL.c', scripting.py_lib, "\n  ")
-    scripting.build(libreql_src_path / 'reql' / 'query.hpp', scripting.enum_def, ",\n  ")
+    scripting.build(libreql_src_path / 'reql' / 'core' / 'query.hpp', scripting.enum_def, ",\n  ")
     scripting.build(libreql_src_path / 'Ruby' / 'ast.c', scripting.rb_term_imp)
     scripting.build(libreql_src_path / 'Ruby' / 'ast.h', scripting.rb_term_def)
 
