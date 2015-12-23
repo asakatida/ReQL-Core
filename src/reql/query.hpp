@@ -37,61 +37,102 @@ limitations under the License.
 
 namespace ReQL {
 
-template <>
-struct Query {
-  virtual std::string build() const {}
+template <class elem_t>
+std::vector<elem_t>
+prepend(const elem_t &first, const std::vector<elem_t> &array) {
+  std::vector<elem_t> new_array(array.size() + 1);
+  new_array.push_back(first);
+  new_array.insert(new_array.end(), array.cbegin(), array.cend());
+  return new_array;
 }
 
-template <>
 struct Query {
-  Query() : p_build(buildNull) {}
+  Query() : p_build([](auto &) {
+    return _ReQL::expr(_ReQL::Null_t());
+  }) {}
 
   Query(const _ReQL::Term_t tt, const std::vector<Query> &args) :
     p_array(args),
-    p_build(buildTerm),
+    p_build([](auto &query) {
+      std::vector<std::string> array;
+      array.reserve(query.p_array.size());
+
+      for (auto &&elem : query.p_array) {
+        array.push_back(elem.build());
+      }
+
+      return _ReQL::expr(make_reql(query.p_tt, array));
+    }),
     p_tt(tt) {}
 
   Query(const _ReQL::Term_t tt, const Query *other, const std::vector<Query> &args) :
-    p_build(buildTerm),
-    p_tt(tt) {
-    p_array.reserve(args.size() + 1);
-    p_array.push_back(*other);
-    p_array.insert(p_array.end(), args.cbegin(), args.cend());
-  }
+    Query(tt, prepend(*other, args)) {}
 
   Query(const _ReQL::Term_t tt, const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) :
     p_array(args),
-    p_build(buildTermKwargs),
+    p_build([](auto &query) {
+      std::vector<std::string> array;
+      array.reserve(query.p_array.size());
+
+      for (auto &&elem : query.p_array) {
+        array.push_back(elem.build());
+      }
+
+      std::map<std::wstring, std::string> object;
+
+      for (auto &&pair : query.p_object) {
+        object.insert({pair.first, pair.second.build()});
+      }
+
+      return _ReQL::expr(make_reql(query.p_tt, array, object));
+    }),
     p_object(kwargs),
     p_tt(tt) {}
 
   Query(const _ReQL::Term_t tt, const Query *other, const std::vector<Query> &args, const std::map<std::wstring, Query> &kwargs) :
-    p_build(buildTermKwargs),
-    p_object(kwargs),
-    p_tt(tt) {
-    p_array.reserve(args.size() + 1);
-    p_array.push_back(*other);
-    p_array.insert(p_array.end(), args.cbegin(), args.cend());
-  }
+    Query(tt, prepend(*other, args), kwargs) {}
 
   Query(const std::wstring &val) :
-    p_build(buildString),
+    p_build([](auto &query) {
+      return _ReQL::expr(_ReQL::make_string(query.p_string));
+    }),
     p_string(val) {}
 
   Query(const double val) :
-    p_build(buildNumber),
+    p_build([](auto &query) {
+      return _ReQL::expr(query.p_number);
+    }),
     p_number(val) {}
 
   Query(const bool val) :
     p_bool(val),
-    p_build(buildBool) {}
+    p_build([](auto &query) {
+      return _ReQL::expr(query.p_bool);
+    }) {}
 
   Query(const std::vector<Query> &val) :
     p_array(val),
-    p_build(buildArray) {}
+    p_build([](auto &query) {
+      std::vector<std::string> array;
+      array.reserve(query.p_array.size());
+
+      for (auto &&elem : query.p_array) {
+        array.push_back(elem.build());
+      }
+
+      return _ReQL::expr(_ReQL::make_array(array));
+    }) {}
 
   Query(const std::map<std::wstring, Query> &val) :
-    p_build(buildObject),
+    p_build([](auto &query) {
+      std::map<std::wstring, std::string> object;
+
+      for (auto &&pair : query.p_object) {
+        object.insert({pair.first, pair.second.build()});
+      }
+
+      return _ReQL::expr(_ReQL::make_object(object));
+    }),
     p_object(val) {}
 
   Query(const Query &other) :
@@ -172,71 +213,6 @@ struct Query {
 
   std::string build() const {
     return p_build(*this);
-  }
-
-  friend std::string buildArray(const Query &query) {
-    std::vector<std::string> array;
-    array.reserve(query.p_array.size());
-
-    for (auto &&elem : query.p_array) {
-      array.push_back(elem.build());
-    }
-
-    return _ReQL::expr(_ReQL::make_array(array));
-  }
-
-  friend std::string buildBool(const Query &query) {
-    return _ReQL::expr(query.p_bool);
-  }
-
-  friend std::string buildNumber(const Query &query) {
-    return _ReQL::expr(query.p_number);
-  }
-
-  friend std::string buildNull(const Query &query) {
-    return _ReQL::expr(_ReQL::Null_t());
-  }
-
-  friend std::string buildObject(const Query &query) {
-    std::map<std::wstring, std::string> object;
-
-    for (auto &&pair : query.p_object) {
-      object.insert({pair.first, pair.second.build()});
-    }
-
-    return _ReQL::expr(_ReQL::make_object(object));
-  }
-
-  friend std::string buildString(const Query &query) {
-    return _ReQL::expr(_ReQL::make_string(query.p_string));
-  }
-
-  friend std::string buildTerm(const Query &query) {
-    std::vector<std::string> array;
-    array.reserve(query.p_array.size());
-
-    for (auto &&elem : query.p_array) {
-      array.push_back(elem.build());
-    }
-
-    return _ReQL::expr(make_reql(query.p_tt, array));
-  }
-
-  friend std::string buildTermKwargs(const Query &query) {
-    std::vector<std::string> array;
-    array.reserve(query.p_array.size());
-
-    for (auto &&elem : query.p_array) {
-      array.push_back(elem.build());
-    }
-
-    std::map<std::wstring, std::string> object;
-
-    for (auto &&pair : query.p_object) {
-      object.insert({pair.first, pair.second.build()});
-    }
-
-    return _ReQL::expr(make_reql(query.p_tt, array, object));
   }
 
   typedef std::string (*QueryBuilder)(const Query &query);
