@@ -6,6 +6,6 @@
 
 void
 consume(ReQL::Cursor<ReQL::Result> cursor) {
-  for (auto && : cursor) {}
+  for (auto &&_ : cursor) {}
 }
 
