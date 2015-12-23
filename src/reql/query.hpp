@@ -21,10 +21,15 @@ limitations under the License.
 #ifndef REQL_CPP_QUERY_HPP_
 #define REQL_CPP_QUERY_HPP_
 
-#include "./cpp/connection.hpp"
-#include "./cpp/cursor.hpp"
+#include "./reql/connection.hpp"
+#include "./reql/cursor.hpp"
 
-#include "./reql/query.hpp"
+#include "./reql/core/array.hpp"
+#include "./reql/core/null.hpp"
+#include "./reql/core/object.hpp"
+#include "./reql/core/query.hpp"
+#include "./reql/core/string.hpp"
+#include "./reql/core/term.hpp"
 
 #include <map>
 #include <string>

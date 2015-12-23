@@ -21,9 +21,9 @@ limitations under the License.
 #ifndef REQL_CPP_CURSOR_HPP_
 #define REQL_CPP_CURSOR_HPP_
 
-#include "./cpp/parser.hpp"
+#include "./reql/result.hpp"
 
-#include "./reql/connection.hpp"
+#include "./reql/core/connection.hpp"
 
 #include <iterator>
 

@@ -21,9 +21,9 @@ limitations under the License.
 #ifndef REQL_REQL_CONNECTION_HPP_
 #define REQL_REQL_CONNECTION_HPP_
 
-#include "./reql/decode.hpp"
-#include "./reql/protocol.hpp"
-#include "./reql/query.hpp"
+#include "./reql/core/decode.hpp"
+#include "./reql/core/protocol.hpp"
+#include "./reql/core/query.hpp"
 
 #include <condition_variable>
 #include <cstdint>

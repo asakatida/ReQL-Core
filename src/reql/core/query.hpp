@@ -21,7 +21,7 @@ limitations under the License.
 #ifndef REQL_REQL_QUERY_HPP_
 #define REQL_REQL_QUERY_HPP_
 
-#include "./reql/object.hpp"
+#include "./reql/core/object.hpp"
 
 #include <iomanip>
 #include <iostream>
