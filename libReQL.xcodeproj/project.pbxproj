@@ -14,6 +14,11 @@
 		8787D3E21B2E35F50095C616 /* Cursor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8787D3E11B2E35F50095C616 /* Cursor.swift */; };
 		8791C84A1B13968C004798D7 /* libReQL.h in Headers */ = {isa = PBXBuildFile; fileRef = 8791C8491B13968C004798D7 /* libReQL.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8791C8501B13968C004798D7 /* libReQL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8791C8451B13968C004798D7 /* libReQL.framework */; };
+		87ABBF761C2AD47100DBA6FE /* array.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 87ABBF751C2AD47100DBA6FE /* array.hpp */; };
+		87ABBF791C2AD59600DBA6FE /* string.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 87ABBF781C2AD59600DBA6FE /* string.hpp */; };
+		87ABBF7A1C2AD59900DBA6FE /* null.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 87ABBF771C2AD4F300DBA6FE /* null.hpp */; };
+		87ABBF7C1C2AD62A00DBA6FE /* object.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 87ABBF7B1C2AD62A00DBA6FE /* object.hpp */; };
+		87ABBF7E1C2AD71400DBA6FE /* term.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 87ABBF7D1C2AD71400DBA6FE /* term.hpp */; };
 		87C683A41BFCAFF2007FEF44 /* protocol.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 87C683A31BFCAFF2007FEF44 /* protocol.hpp */; };
 		87C683BB1BFCB07C007FEF44 /* socket.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 87C683BA1BFCB07C007FEF44 /* socket.hpp */; };
 		87C683BD1BFCB2C8007FEF44 /* handshake.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 87C683BC1BFCB2C8007FEF44 /* handshake.hpp */; };
@@ -177,6 +182,11 @@
 		8791C8491B13968C004798D7 /* libReQL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = libReQL.h; sourceTree = "<group>"; };
 		8791C84F1B13968C004798D7 /* libReQLTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = libReQLTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8791C8551B13968C004798D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		87ABBF751C2AD47100DBA6FE /* array.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = array.hpp; sourceTree = "<group>"; };
+		87ABBF771C2AD4F300DBA6FE /* null.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = null.hpp; sourceTree = "<group>"; };
+		87ABBF781C2AD59600DBA6FE /* string.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = string.hpp; sourceTree = "<group>"; };
+		87ABBF7B1C2AD62A00DBA6FE /* object.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = object.hpp; sourceTree = "<group>"; };
+		87ABBF7D1C2AD71400DBA6FE /* term.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = term.hpp; sourceTree = "<group>"; };
 		87C683A31BFCAFF2007FEF44 /* protocol.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = protocol.hpp; sourceTree = "<group>"; };
 		87C683BA1BFCB07C007FEF44 /* socket.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = socket.hpp; sourceTree = "<group>"; };
 		87C683BC1BFCB2C8007FEF44 /* handshake.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = handshake.hpp; sourceTree = "<group>"; };
@@ -369,12 +379,17 @@
 		8791C7D51B138A43004798D7 /* reql */ = {
 			isa = PBXGroup;
 			children = (
+				87ABBF751C2AD47100DBA6FE /* array.hpp */,
 				8791C7DB1B138A43004798D7 /* connection.hpp */,
 				8791C7E01B138A43004798D7 /* decode.hpp */,
 				87C683BC1BFCB2C8007FEF44 /* handshake.hpp */,
+				87ABBF771C2AD4F300DBA6FE /* null.hpp */,
+				87ABBF7B1C2AD62A00DBA6FE /* object.hpp */,
 				87C683A31BFCAFF2007FEF44 /* protocol.hpp */,
 				87CD586D1B2CADA300EA800F /* query.hpp */,
 				87C683BA1BFCB07C007FEF44 /* socket.hpp */,
+				87ABBF781C2AD59600DBA6FE /* string.hpp */,
+				87ABBF7D1C2AD71400DBA6FE /* term.hpp */,
 			);
 			name = reql;
 			path = src/reql;
@@ -644,14 +659,19 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				87ABBF7A1C2AD59900DBA6FE /* null.hpp in Headers */,
+				87ABBF761C2AD47100DBA6FE /* array.hpp in Headers */,
 				87DAA6431B13CB96005626BF /* Cursor.h in Headers */,
+				87ABBF7E1C2AD71400DBA6FE /* term.hpp in Headers */,
 				87DAA64E1B13CE01005626BF /* connection.hpp in Headers */,
 				87DAA63B1B13CB69005626BF /* Connection.h in Headers */,
 				87DAA6531B13CE01005626BF /* decode.hpp in Headers */,
 				87E132C71BF598420062422B /* Parser.h in Headers */,
 				87C683BD1BFCB2C8007FEF44 /* handshake.hpp in Headers */,
+				87ABBF791C2AD59600DBA6FE /* string.hpp in Headers */,
 				87DAA6471B13CBBE005626BF /* Query.h in Headers */,
 				87C683BB1BFCB07C007FEF44 /* socket.hpp in Headers */,
+				87ABBF7C1C2AD62A00DBA6FE /* object.hpp in Headers */,
 				87C683A41BFCAFF2007FEF44 /* protocol.hpp in Headers */,
 				8791C84A1B13968C004798D7 /* libReQL.h in Headers */,
 			);

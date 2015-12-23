@@ -21,12 +21,15 @@ limitations under the License.
 #ifndef REQL_REQL_PROTOCOL_HPP_
 #define REQL_REQL_PROTOCOL_HPP_
 
+#include "./reql/array.hpp"
 #include "./reql/handshake.hpp"
 #include "./reql/query.hpp"
 #include "./reql/socket.hpp"
 
 #include <atomic>
 #include <cstdint>
+#include <iomanip>
+#include <iostream>
 #include <sstream>
 #include <string>
 #include <thread>
