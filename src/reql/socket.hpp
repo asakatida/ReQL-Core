@@ -166,12 +166,13 @@ struct Never_Queue_t final : Lazy_Queue_t<elem_t> {
 
 template <class elem_t>
 struct Infinite_Queue_t : Lazy_Queue_t<elem_t> {
-  virtual bool complete() const override final { return true; }
+  virtual bool complete() const override final { return false; }
 
   virtual elem_t head() override final {
-    std::call_once(p_flag, [this] {
+    if (p_first) {
       p_value = head_impl();
-    });
+      p_first = false;
+    }
     return p_value;
   }
 
@@ -181,18 +182,16 @@ struct Infinite_Queue_t : Lazy_Queue_t<elem_t> {
     return *this;
   }
 
-  std::once_flag p_flag;
+  bool p_first = true;
   elem_t p_value;
 };
 
 template <class elem_t>
 struct Once_Queue_t : Lazy_Queue_t<elem_t> {
-  Once_Queue_t() : p_flag(false) {}
-
   virtual bool complete() const override final { return p_complete; }
 
   virtual elem_t head() override final {
-    if (p_flag.test_and_set()) throw std::exception();  // TODO
+    if (p_complete) throw std::exception();  // TODO
     p_value = head_impl();
     p_complete = true;
     return p_value;
@@ -205,8 +204,31 @@ struct Once_Queue_t : Lazy_Queue_t<elem_t> {
   }
 
   bool p_complete = false;
-  std::atomic_flag p_flag;
   elem_t p_value;
+};
+
+template <class elem_t>
+struct Merge_Queue_t : Lazy_Queue_t<elem_t> {
+  virtual bool complete() const override final {
+    return left.complete() && right.complete();
+  }
+
+  virtual elem_t head() override final {
+    if (left.complete()) return right.head();
+    return left.head();
+  }
+
+  virtual Lazy_Queue_t<elem_t> &tail() override final {
+    if (left.complete()) {
+      right = right.tail();
+    } else {
+      left = left.tail();
+    }
+    return *this;
+  }
+
+  Lazy_Queue_t<elem_t> left;
+  Lazy_Queue_t<elem_t> right;
 };
 
 template <class socket_e>
