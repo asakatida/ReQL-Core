@@ -76,7 +76,7 @@ struct Connection {
     p_conn->connect();
   }
 
-  std::shared_ptr<_ReQL::Conn_t<ReQLError, ReQLError, result_t, ReQLError>> p_conn;
+  std::shared_ptr<_ReQL::Conn_t<result_t> > p_conn;
 };
 
 }  // namespace ReQL

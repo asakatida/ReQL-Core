@@ -21,6 +21,8 @@ limitations under the License.
 #ifndef REQL_REQL_HANDSHAKE_HPP_
 #define REQL_REQL_HANDSHAKE_HPP_
 
+#include "./reql/core/error.hpp"
+
 #include <cstdint>
 #include <sstream>
 #include <string>
@@ -30,7 +32,7 @@ namespace _ReQL {
 static const std::uint32_t VERSION = 0x400c2d20;
 static const std::uint32_t PROTOCOL = 0x7e6970c7;
 
-template <class auth_e, class handshake_e>
+template <class result_t>
 class Handshake_t {
 public:
   template <class socket_t>
@@ -54,11 +56,11 @@ public:
     auto response = sock.read(_sock);
 
     if (response.size() != 8) {
-      throw auth_e("");  // TODO
+      throw Error_t(DriverError, "");  // TODO
     }
 
     if (!(response == "SUCCESS")) {
-      throw auth_e("");  // TODO
+      throw Error_t(DriverError, "");  // TODO
     }
   }
 

@@ -21,6 +21,8 @@ limitations under the License.
 #ifndef REQL_REQL_SOCKET_HPP_
 #define REQL_REQL_SOCKET_HPP_
 
+#include "./reql/core/error.hpp"
+
 #include <algorithm>
 #include <atomic>
 #include <cerrno>
@@ -156,11 +158,11 @@ struct Never_Queue_t final : Lazy_Queue_t<elem_t> {
   virtual bool complete() const override { return true; }
 
   virtual elem_t head() override {
-    throw std::exception();  // TODO
+    throw Error_t(DriverError, "");  // TODO
   }
 
   virtual Lazy_Queue_t<elem_t> &tail() override {
-    throw std::exception();  // TODO
+    throw Error_t(DriverError, "");  // TODO
   }
 };
 
@@ -191,7 +193,7 @@ struct Once_Queue_t : Lazy_Queue_t<elem_t> {
   virtual bool complete() const override final { return p_complete; }
 
   virtual elem_t head() override final {
-    if (p_complete) throw std::exception();  // TODO
+    if (p_complete) throw Error_t(DriverError, "");  // TODO
     p_value = head_impl();
     p_complete = true;
     return p_value;
@@ -200,7 +202,7 @@ struct Once_Queue_t : Lazy_Queue_t<elem_t> {
   virtual elem_t head_impl() = 0;
 
   virtual Lazy_Queue_t<elem_t> &tail() override final {
-    throw std::exception();  // TODO
+    throw Error_t(DriverError, "");  // TODO
   }
 
   bool p_complete = false;
@@ -274,7 +276,7 @@ public:
       return sock;
     }
 
-    throw socket_e("");  // TODO
+    throw Error_t(DriverError, "");  // TODO
   }
 
   template <class addr_t, class port_t>
@@ -331,10 +333,10 @@ public:
         case EBADF:
         case EINTR:
         case EINVAL:{
-          throw socket_e("");  // TODO
+          throw Error_t(DriverError, "");  // TODO
         }
         default: {
-          throw socket_e("");  // TODO
+          throw Error_t(DriverError, "");  // TODO
         }
       }
       throw std::exception();  // TODO
@@ -388,10 +390,10 @@ public:
         case ENOTSOCK:
         case EOPNOTSUPP:
         case ETIMEDOUT: {
-          throw socket_e("");  // TODO
+          throw Error_t(DriverError, "");  // TODO
         }
         default: {
-          throw socket_e("");  // TODO
+          throw Error_t(DriverError, "");  // TODO
         }
       }
       throw std::exception();
@@ -402,7 +404,7 @@ public:
   void write(int &sock, const std::string &out) {
     const ssize_t size = send(sock, out.c_str(), out.size(), 0);
     if (size == 0) {
-      throw socket_e("");  // TODO
+      throw Error_t(DriverError, "");  // TODO
     } else if (size < 0) {
       switch (errno) {  // TODO
       }

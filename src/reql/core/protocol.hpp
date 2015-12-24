@@ -22,6 +22,7 @@ limitations under the License.
 #define REQL_REQL_PROTOCOL_HPP_
 
 #include "./reql/core/array.hpp"
+#include "./reql/core/error.hpp"
 #include "./reql/core/handshake.hpp"
 #include "./reql/core/query.hpp"
 #include "./reql/core/socket.hpp"
@@ -36,7 +37,7 @@ limitations under the License.
 
 namespace _ReQL {
 
-template <class auth_e, class handshake_e, class socket_e>
+template <class result_t>
 class Protocol_t {
 public:
   Protocol_t() : p_sock(p_write_queue) {}
@@ -44,7 +45,7 @@ public:
   template <class addr_t, class auth_t, class port_t>
   void connect(const addr_t &addr, const port_t &port, const auth_t &auth) {
     int sock = p_sock.connect(addr, port);
-    Handshake_t<auth_e, handshake_e>(p_sock, sock, auth);
+    Handshake_t<result_t>(p_sock, sock, auth);
   }
 
   void disconnect() {
@@ -151,7 +152,7 @@ private:
 
   std::atomic<std::uint64_t> p_next_token;
   Producer_t<std::string> p_write_queue;
-  Socket_t<socket_e> p_sock;
+  Socket_t<result_t> p_sock;
 };
 
 }  // namespace _ReQL

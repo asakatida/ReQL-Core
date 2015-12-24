@@ -52,7 +52,7 @@ main(int argc, char **argv) {
     .no_reply(conn);
 */
     conn.close();
-  } catch (ReQL::ReQLError &) {
+  } catch (_ReQL::Error_t &) {
     if (!exc) exc = std::current_exception();
   }
 

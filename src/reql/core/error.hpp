@@ -23,43 +23,29 @@ limitations under the License.
 
 #include <exception>
 
-namespace ReQL {
+namespace _ReQL {
 
-struct ReQLError : public std::exception {
-  ReQLError(const char *errstr) noexcept :
+enum Error_e {
+  CompileError,
+  DriverError,
+  RuntimeError,
+};
+
+struct Error_t : public std::exception {
+  Error_t(const Error_e code, const char *errstr) noexcept :
+    _code(code),
     _what(errstr) {}
 
-  ReQLError(const wchar_t *errstr) :
+  Error_t(const Error_e code, const wchar_t *errstr) noexcept :
+    _code(code),
     _what(reinterpret_cast<const char *>(errstr)) {}
 
   virtual const char* what() const noexcept override { return _what; }
+
+  const Error_e _code;
   const char *_what;
 };
 
-struct ReQLQueryError : public ReQLError {
-  using ReQLError::ReQLError;
-};
-
-struct ReQLClientError : public ReQLQueryError {
-  using ReQLError::ReQLError;
-};
-
-struct ReQLCompileError : public ReQLQueryError {
-  using ReQLError::ReQLError;
-};
-
-struct ReQLRuntimeError : public ReQLQueryError {
-  using ReQLError::ReQLError;
-};
-
-struct ReQLCursorEmpty : public ReQLQueryError {
-  using ReQLError::ReQLError;
-};
-
-struct ReQLDriverError : public ReQLError {
-  using ReQLError::ReQLError;
-};
-
-}  // namespace ReQL
+}  // namespace _ReQL
 
 #endif  // REQL_CPP_ERROR_HPP_

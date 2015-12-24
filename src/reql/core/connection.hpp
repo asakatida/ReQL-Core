@@ -22,6 +22,7 @@ limitations under the License.
 #define REQL_REQL_CONNECTION_HPP_
 
 #include "./reql/core/decode.hpp"
+#include "./reql/core/error.hpp"
 #include "./reql/core/protocol.hpp"
 #include "./reql/core/query.hpp"
 
@@ -130,7 +131,7 @@ public:
 static const char *DEFAULT_ADDR = "localhost";
 static const char *DEFAULT_PORT = "28015";
 
-template <class auth_e, class handshake_e, class result_t, class socket_e>
+template <class result_t>
 class Conn_t {
 public:
   void connect() {
@@ -188,7 +189,7 @@ private:
   }
 
   std::mutex p_mutex;
-  Protocol_t<auth_e, handshake_e, socket_e> p_protocol;
+  Protocol_t<result_t> p_protocol;
   std::map<std::uint64_t, std::shared_ptr<Cursor_t<result_t> > > p_root;
 };
 
