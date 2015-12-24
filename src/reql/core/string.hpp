@@ -67,10 +67,10 @@ operator <<(std::ostream &stream, const String_t<str_t> &value) {
     if (idx > 0xFFFF) {
     } else if (idx > 0xFF) {
       stream << "\\u"
-      << hex[(idx >> 12) & 0xF]
-      << hex[(idx >> 8) & 0xF]
-      << hex[(idx >> 4) & 0xF]
-      << hex[(idx >> 0) & 0xF];
+             << hex[(idx >> 12) & 0xF]
+             << hex[(idx >> 8) & 0xF]
+             << hex[(idx >> 4) & 0xF]
+             << hex[(idx >> 0) & 0xF];
     } else if (idx > 0x5C) {
       stream << static_cast<const char>(idx);
     } else {
