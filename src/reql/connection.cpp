@@ -18,13 +18,28 @@ limitations under the License.
  * @copyright Apache
  */
 
-#include "./c/error.h"
+#include "./reql/connection.h"
 
-#include "./c/types.h"
+#include "./reql/types.h"
 
-#include <stdlib.h>
+#include "./reql/core/connection.hpp"
 
-extern int
-reql_error_code(ReQL_Error_t *error) {
-  return error->code;
+extern ReQL_Connection_t *
+reql_connect(const unsigned long timeout, char *address, char *port, char *key, const unsigned long key_size) {
+  (void)timeout;
+  (void)address;
+  (void)port;
+  (void)key;
+  (void)key_size;
+  return nullptr;
+}
+
+extern void
+reql_noreply_wait(ReQL_Connection_t *conn) {
+  (void)conn;
+}
+
+extern void
+reql_connection_close(ReQL_Connection_t *conn) {
+  (void)conn;
 }

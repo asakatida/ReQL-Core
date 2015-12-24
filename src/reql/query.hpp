@@ -179,6 +179,19 @@ struct Query {
     return *this;
   }
 
+  static auto
+  to_object(const std::map<std::wstring, Query> &kwargs) {
+    std::map<std::wstring, std::string> _kwargs;
+    std::accumulate(
+          kwargs.cbegin(),
+          kwargs.cend(),
+          _kwargs,
+          [](auto &val, auto &pair) {
+      val.insert({pair.first, pair.second.build()}); return val;
+    });
+    return _kwargs;
+  }
+
   void no_reply(Connection<Result> &conn) const {
     auto query = build();
     std::map<std::wstring, Query> kwargs;
@@ -188,19 +201,6 @@ struct Query {
 
   void no_reply(Connection<Result> &conn, const std::map<std::wstring, Query> &kwargs) const {
     conn.p_conn->noReply(build(), to_object(kwargs));
-  }
-
-  static auto
-  to_object(const std::map<std::wstring, Query> &kwargs) {
-    std::map<std::wstring, std::string> _kwargs;
-    std::accumulate(
-          kwargs.cbegin(),
-          kwargs.cend(),
-          _kwargs,
-          [](auto val, auto pair) {
-      val.insert({pair.first, pair.second.build()}); return val;
-    });
-    return _kwargs;
   }
 
   Cursor<Result> run(Connection<Result> &conn) const {

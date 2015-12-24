@@ -25,7 +25,11 @@ limitations under the License.
 extern "C" {
 #endif
 
+#include "./reql/connection.h"
+#include "./reql/cursor.h"
+
 typedef struct ReQL_s ReQL_t;
+
 typedef ReQL_t *(*ReQL_Function)(ReQL_t **args, const unsigned int nargs);
 
 extern ReQL_t *
@@ -38,12 +42,12 @@ extern ReQL_t *
 reql_c_string(const char *val);
 
 extern int
-_reql_decrement(ReQL_t *reql);
+_reql_release(ReQL_t *reql);
 
-#define reql_decrement(val) if (_reql_decrement(val) != 0) { (val) = NULL; }
+#define reql_release(val) if (_reql_release(val) != 0) { (val) = NULL; }
 
 extern void
-reql_increment(ReQL_t *reql);
+reql_retain(ReQL_t *reql);
 
 extern ReQL_t *
 reql_function(ReQL_Function val, const unsigned int nargs);
@@ -59,6 +63,12 @@ reql_number(const double val);
 
 extern ReQL_t *
 reql_string(const char *val, const unsigned long size);
+
+extern ReQL_Cursor_t *
+reql_run(ReQL_t *query, ReQL_t *kwargs, ReQL_Connection_t *conn);
+
+extern int
+reql_noreply(ReQL_t *query, ReQL_t *kwargs, ReQL_Connection_t *conn);
 
 /**
  */

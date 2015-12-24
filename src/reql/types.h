@@ -25,58 +25,10 @@ limitations under the License.
 extern "C" {
 #endif
 
-#include "./reql/core.h"
-
-#include "./c/query.h"
-
-#include <pthread.h>
-
-#define REQL_BUILD(val) (((val) == NULL) ? NULL : (((val)->cb == NULL) ? NULL : ((val)->cb(val))))
-
-struct ReQL_s {
-  ReQL_Obj_t *(*cb)(struct ReQL_s *obj);
-  void (*free)(struct ReQL_s *obj);
-  void *data;
-  size_t size;
-  size_t refc;
-  pthread_mutex_t *mutex;
-};
-
-struct ReQL_Func_Data_s {
-  ReQL_Function func;
-};
-typedef struct ReQL_Func_Data_s ReQL_Func_Data_t;
-
-struct ReQL_Args_s {
-  struct ReQL_s *args;
-  ReQL_AST_Function func;
-};
-typedef struct ReQL_Args_s ReQL_Args_t;
-
-struct ReQL_Kwargs_s {
-  struct ReQL_s *args;
-  struct ReQL_s *kwargs;
-  ReQL_AST_Function_Kwargs func;
-};
-typedef struct ReQL_Kwargs_s ReQL_Kwargs_t;
-
-struct ReQL_Connection_s {
-  ReQL_Conn_t *connection;
-};
-
-struct ReQL_Result_s {
-  ReQL_Obj_t *object;
-};
-
-struct ReQL_Cursor_s {
-  ReQL_Cur_t *cursor;
-  int (*cb)(struct ReQL_Result_s *res, void *data);
-  void *data;
-};
-
 struct ReQL_Error_s {
   int code;
 };
+typedef struct ReQL_Error_s ReQL_Error_t;
 
 #ifdef __cplusplus
 }

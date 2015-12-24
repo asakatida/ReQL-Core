@@ -21,7 +21,7 @@ main(int argc, char **argv) {
 
   try {
     ReQL::Connection<ReQL::Result> conn;
-
+/*
     ReQL::db_list(std::vector<ReQL::Query>())
     .filter(std::vector<ReQL::Query>({
       ReQL::func(std::vector<ReQL::Query>({
@@ -50,7 +50,7 @@ main(int argc, char **argv) {
       }))
     }))
     .no_reply(conn);
-
+*/
     conn.close();
   } catch (ReQL::ReQLError &) {
     if (!exc) exc = std::current_exception();
