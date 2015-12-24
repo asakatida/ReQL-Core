@@ -21,7 +21,6 @@ limitations under the License.
 #import <Cocoa/Cocoa.h>
 
 #import <libReQL/Connection.h>
-#import <ReactiveCocoa/ReactiveCocoa.h>
 
 @interface ReQLBool : NSObject
 
@@ -37,8 +36,6 @@ limitations under the License.
 +(nullable instancetype)newWithObject:(nonnull NSDictionary *)val;
 +(nullable instancetype)newWithString:(nonnull NSString *)val;
 
--(nullable RACSequence *)run:(nonnull ReQLConnection *)conn;
--(nullable RACSequence *)run:(nonnull ReQLConnection *)conn withOpts:(nonnull NSDictionary *)opts;
 -(void)noReply:(nonnull ReQLConnection *)conn;
 -(void)noReply:(nonnull ReQLConnection *)conn withOpts:(nonnull NSDictionary *)opts;
 

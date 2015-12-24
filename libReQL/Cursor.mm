@@ -20,52 +20,21 @@ limitations under the License.
 
 #import "Cursor.h"
 
-#import "Parser.h"
 #import "Query.h"
+#import "Result.h"
 
 #import <libReQL/libReQL-Swift.h>
 
 @interface ReQLCursor ()
 
-@property(nonnull, nonatomic) Cursor *stream;
-
 @end
 
 @implementation ReQLCursor
 
-@synthesize stream=p_stream;
-
--(instancetype)init {
-  if ((self = [super init])) {
-    p_stream = [Cursor new];
-    if (p_stream == nil) {
-      return nil;
-    }
-  }
-  return self;
-}
-
--(ReQLCursor *)observeCompleted:(void (^)())cb {
-  [self.stream observeCompleted:cb];
-  return self;
-}
-
--(ReQLCursor *)observeFailed:(void (^)(NSError * _Nonnull))cb {
-  [self.stream observeFailed:cb];
-  return self;
-}
-
--(ReQLCursor *)observeNext:(void (^)(id _Nonnull))cb {
-  [self.stream observeNext:cb];
-  return self;
-}
-
--(nonnull NSArray *)toArray {
-  return [self.stream toArray];
-}
-
--(void)dealloc {
-  [p_stream complete];
+-(void)dispatch:(void(^)(id))func {
+  dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+  dispatch_async(queue, ^(){
+  });
 }
 
 @end

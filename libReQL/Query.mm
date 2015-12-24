@@ -20,12 +20,12 @@ limitations under the License.
 
 #import "Query.h"
 
-#import "./reql/array.hpp"
-#import "./reql/null.hpp"
-#import "./reql/object.hpp"
-#import "./reql/query.hpp"
-#import "./reql/string.hpp"
-#import "./reql/term.hpp"
+#import "./reql/core/array.hpp"
+#import "./reql/core/null.hpp"
+#import "./reql/core/object.hpp"
+#import "./reql/core/query.hpp"
+#import "./reql/core/string.hpp"
+#import "./reql/core/term.hpp"
 
 #import <map>
 #import <string>
@@ -56,8 +56,6 @@ limitations under the License.
 @end
 
 @interface ReQLConnection ()
-
--(RACSequence *)run:(ReQLQuery *)query kwargs:(NSDictionary *)kwargs;
 
 -(void)noReply:(ReQLQuery *)query kwargs:(NSDictionary *)kwargs;
 
@@ -178,14 +176,6 @@ toQuery(id expr) {
 
 -(instancetype)newTerm:(_ReQL::Term_t)tt {
   return [ReQLQuery newTerm:tt :@[self]];
-}
-
--(RACSequence *)run:(nonnull ReQLConnection *)conn {
-  return [self run:conn withOpts:@{}];
-}
-
--(RACSequence *)run:(nonnull ReQLConnection *)conn withOpts:(nonnull NSDictionary *)opts {
-  return [conn run:self kwargs:opts];
 }
 
 -(void)noReply:(ReQLConnection *)conn {

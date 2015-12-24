@@ -18,7 +18,7 @@ limitations under the License.
  * @copyright Apache
  */
 
-#import "Parser.h"
+#import "Result.h"
 
 #import <Foundation/Foundation.h>
 

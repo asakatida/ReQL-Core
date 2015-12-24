@@ -20,14 +20,6 @@ limitations under the License.
 
 #import <Cocoa/Cocoa.h>
 
-@interface ReQLCursor : NSObject
-
--(nonnull ReQLCursor *)observeNext:(void (^ _Nonnull)(id  _Nonnull))cb;
-
--(nonnull ReQLCursor *)observeFailed:(void (^ _Nonnull)(NSError *  _Nonnull))cb;
-
--(nonnull ReQLCursor *)observeCompleted:(void (^ _Nonnull)())cb;
-
--(nonnull NSArray *)toArray;
+@interface ReQLCursor : NSObject 
 
 @end
