@@ -25,7 +25,6 @@ limitations under the License.
 extern "C" {
 #endif
 
-struct ReQL_Connection_s {};
 typedef struct ReQL_Connection_s ReQL_Connection_t;
 
 extern ReQL_Connection_t *
