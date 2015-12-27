@@ -66,21 +66,21 @@ public:
           buff_size += string.size();
           buffer << string;
         }
-        auto string = buffer.str();
+        auto header = buffer.str();
         buffer.clear();
-        buffer << string.substr(12);
-        auto token = get_token(string.c_str());
-        auto size = get_size(string.c_str() + 8);
+        buffer << header.substr(12);
+        auto token = get_token(header.c_str());
+        auto size = get_size(header.c_str() + 8);
         while (buff_size < size) {
           auto string = p_sock.read();
           buff_size += string.size();
           buffer << string;
         }
-        string = buffer.str();
+        auto response = buffer.str();
         buffer.clear();
-        buffer << string.substr(size);
+        buffer << response.substr(size);
         run(token, make_array(std::make_tuple(REQL_CONTINUE)));
-        //func(string.substr(0, size), token);
+        //func(response.substr(0, size), token);
       }
     }).detach();
   }
