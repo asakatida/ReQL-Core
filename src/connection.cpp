@@ -18,11 +18,11 @@ limitations under the License.
  * @copyright Apache
  */
 
-#include "./reql/connection.h"
+#include "./connection.h"
 
-#include "./reql/types.h"
+#include "./types.h"
 
-#include "./reql/core/connection.hpp"
+#include "./core/connection.hpp"
 
 extern ReQL_Connection_t *
 reql_connect(const unsigned long timeout, char *address, char *port, char *key, const unsigned long key_size) {

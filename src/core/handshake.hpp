@@ -21,7 +21,7 @@ limitations under the License.
 #ifndef REQL_REQL_HANDSHAKE_HPP_
 #define REQL_REQL_HANDSHAKE_HPP_
 
-#include "./reql/core/error.hpp"
+#include "./core/error.hpp"
 
 #include <cstdint>
 #include <sstream>

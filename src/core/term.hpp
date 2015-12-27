@@ -21,7 +21,7 @@ limitations under the License.
 #ifndef REQL_REQL_TERM_HPP_
 #define REQL_REQL_TERM_HPP_
 
-#include "./reql/core/array.hpp"
+#include "./core/array.hpp"
 
 namespace _ReQL {
 

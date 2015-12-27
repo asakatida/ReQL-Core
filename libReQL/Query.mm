@@ -20,12 +20,12 @@ limitations under the License.
 
 #import "Query.h"
 
-#import "./reql/core/array.hpp"
-#import "./reql/core/null.hpp"
-#import "./reql/core/object.hpp"
-#import "./reql/core/query.hpp"
-#import "./reql/core/string.hpp"
-#import "./reql/core/term.hpp"
+#import "./core/array.hpp"
+#import "./core/null.hpp"
+#import "./core/object.hpp"
+#import "./core/query.hpp"
+#import "./core/string.hpp"
+#import "./core/term.hpp"
 
 #import <map>
 #import <string>

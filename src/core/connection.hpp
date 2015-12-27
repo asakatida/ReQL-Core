@@ -21,10 +21,10 @@ limitations under the License.
 #ifndef REQL_REQL_CONNECTION_HPP_
 #define REQL_REQL_CONNECTION_HPP_
 
-#include "./reql/core/decode.hpp"
-#include "./reql/core/error.hpp"
-#include "./reql/core/protocol.hpp"
-#include "./reql/core/query.hpp"
+#include "./core/decode.hpp"
+#include "./core/error.hpp"
+#include "./core/protocol.hpp"
+#include "./core/query.hpp"
 
 #include <condition_variable>
 #include <cstdint>

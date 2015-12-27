@@ -21,9 +21,9 @@ limitations under the License.
 #ifndef REQL_CPP_CONNECTION_HPP_
 #define REQL_CPP_CONNECTION_HPP_
 
-#include "./reql/result.hpp"
+#include "./result.hpp"
 
-#include "./reql/core/connection.hpp"
+#include "./core/connection.hpp"
 
 #include <cstdint>
 #include <memory>

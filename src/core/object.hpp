@@ -21,7 +21,7 @@ limitations under the License.
 #ifndef REQL_REQL_OBJECT_HPP_
 #define REQL_REQL_OBJECT_HPP_
 
-#include "./reql/core/string.hpp"
+#include "./core/string.hpp"
 
 #include <iostream>
 

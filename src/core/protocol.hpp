@@ -21,11 +21,11 @@ limitations under the License.
 #ifndef REQL_REQL_PROTOCOL_HPP_
 #define REQL_REQL_PROTOCOL_HPP_
 
-#include "./reql/core/array.hpp"
-#include "./reql/core/error.hpp"
-#include "./reql/core/handshake.hpp"
-#include "./reql/core/query.hpp"
-#include "./reql/core/socket.hpp"
+#include "./core/array.hpp"
+#include "./core/error.hpp"
+#include "./core/handshake.hpp"
+#include "./core/query.hpp"
+#include "./core/socket.hpp"
 
 #include <atomic>
 #include <cstdint>

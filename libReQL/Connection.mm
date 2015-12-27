@@ -23,7 +23,7 @@ limitations under the License.
 #import "Query.h"
 #import "Result.h"
 
-#import "./reql/core/connection.hpp"
+#import "./core/connection.hpp"
 
 @interface ReQLQuery ()
 
@@ -33,7 +33,7 @@ limitations under the License.
 
 @interface ReQLConnection ()
 
-@property(nonatomic) _ReQL::Conn_t<ReQL::Result, ReQL::Result, ReQL::Result, ReQL::Result> *conn;
+@property(nonatomic) _ReQL::Conn_t<ReQL::Result> *conn;
 
 @end
 
@@ -67,7 +67,7 @@ toQuery(id expr) {
 
 -(nonnull instancetype)init {
   if ((self = [super init])) {
-    p_conn = new _ReQL::Conn_t<ReQL::Result, ReQL::Result, ReQL::Result, ReQL::Result>;
+    p_conn = new _ReQL::Conn_t<ReQL::Result>;
     p_conn->connect();
   }
   return self;
