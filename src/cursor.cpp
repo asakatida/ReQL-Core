@@ -18,11 +18,11 @@ limitations under the License.
  * @copyright Apache
  */
 
-#include "./reql/cursor.h"
+#include "./cursor.h"
 
-#include "./reql/types.h"
+#include "./types.h"
 
-#include "./reql/core/connection.hpp"
+#include "./core/connection.hpp"
 
 struct ReQL_Cursor_s {};
 
