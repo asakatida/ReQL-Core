@@ -30,6 +30,7 @@ limitations under the License.
 
 @interface ReQLQuery : NSObject
 
++(nullable instancetype)newWith:(nonnull id)val;
 +(nullable instancetype)newWithArray:(nonnull NSArray *)val;
 +(nullable instancetype)newWithBool:(BOOL)val;
 +(nullable instancetype)newWithNumber:(nonnull NSNumber *)val;

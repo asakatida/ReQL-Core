@@ -67,27 +67,6 @@ to_string(const NSString *string) {
   return std::wstring(reinterpret_cast<const wchar_t *>([data bytes]), [data length]);
 }
 
-static ReQLQuery *
-toQuery(id expr);
-
-static ReQLQuery *
-toQuery(id expr) {
-  if ([expr isKindOfClass:[ReQLQuery class]]) {
-    return expr;
-  } else if ([expr isKindOfClass:[NSArray class]]) {
-    return [ReQLQuery newWithArray:expr];
-  } else if ([expr isKindOfClass:[NSNull class]]) {
-    return [ReQLQuery new];
-  } else if ([expr isKindOfClass:[NSNumber class]]) {
-    return [ReQLQuery newWithNumber:expr];
-  } else if ([expr isKindOfClass:[NSString class]]) {
-    return [ReQLQuery newWithString:expr];
-  } else if ([expr isKindOfClass:[NSDictionary class]]) {
-    return [ReQLQuery newWithObject:expr];
-  }
-  return nil;
-}
-
 @interface ReQLQuery ()
 
 @property NSArray *array;
@@ -113,6 +92,23 @@ toQuery(id expr) {
 @synthesize args=p_args;
 @synthesize tt=p_tt;
 @synthesize flag=p_flag;
+
++(instancetype)newWith:(id)val {
+  if ([val isKindOfClass:[ReQLQuery class]]) {
+    return val;
+  } else if ([val isKindOfClass:[NSArray class]]) {
+    return [ReQLQuery newWithArray:val];
+  } else if ([val isKindOfClass:[NSNull class]]) {
+    return [ReQLQuery new];
+  } else if ([val isKindOfClass:[NSNumber class]]) {
+    return [ReQLQuery newWithNumber:val];
+  } else if ([val isKindOfClass:[NSString class]]) {
+    return [ReQLQuery newWithString:val];
+  } else if ([val isKindOfClass:[NSDictionary class]]) {
+    return [ReQLQuery newWithObject:val];
+  }
+  return nil;
+}
 
 +(instancetype)newWithArray:(NSArray *)val {
   ReQLQuery *inst = [self new];
@@ -192,7 +188,7 @@ toQuery(id expr) {
   if (self.array) {
     std::vector<std::string> array;
     for (id elem in self.array) {
-      array.push_back([toQuery(elem) build]);
+      array.push_back([[ReQLQuery newWith:elem] build]);
     }
     return _ReQL::expr(_ReQL::make_array(array));
   } else if (self.null) {
@@ -207,23 +203,23 @@ toQuery(id expr) {
   } else if (self.object) {
     std::map<std::wstring, std::string> object;
     for (NSString *key in self.object) {
-      object.insert({to_string(key), [toQuery(self.object[key]) build]});
+      object.insert({to_string(key), [[ReQLQuery newWith:self.object[key]] build]});
     }
     return _ReQL::expr(_ReQL::make_object(object));
   } else if (self.kwargs) {
     std::vector<std::string> array;
     for (id elem in self.args) {
-      array.push_back([toQuery(elem) build]);
+      array.push_back([[ReQLQuery newWith:elem] build]);
     }
     std::map<std::wstring, std::string> object;
     for (NSString *key in self.kwargs) {
-      object.insert({to_string(key), [toQuery(self.object[key]) build]});
+      object.insert({to_string(key), [[ReQLQuery newWith:self.object[key]] build]});
     }
     return _ReQL::expr(make_reql(self.tt, array, object));
   } else if (self.args) {
     std::vector<std::string> array;
     for (id elem in self.args) {
-      array.push_back([toQuery(elem) build]);
+      array.push_back([[ReQLQuery newWith:elem] build]);
     }
     return _ReQL::expr(make_reql(self.tt, array));
   }
