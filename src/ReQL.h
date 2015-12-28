@@ -25,9 +25,9 @@ limitations under the License.
 extern "C" {
 #endif
 
-#include "./reql/connection.h"
-#include "./reql/cursor.h"
-#include "./reql/query.h"
+#include "./connection.h"
+#include "./cursor.h"
+#include "./query.h"
 
 #ifdef __cplusplus
 }

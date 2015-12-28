@@ -21,10 +21,10 @@ limitations under the License.
 #ifndef REQL_HPP_
 #define REQL_HPP_
 
-#include "./reql/connection.hpp"
-#include "./reql/cursor.hpp"
-#include "./reql/query.hpp"
+#include "./connection.hpp"
+#include "./cursor.hpp"
+#include "./query.hpp"
 
-#include "./reql/core/error.hpp"
+#include "./core/error.hpp"
 
 #endif  // REQL_HPP_

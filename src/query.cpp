@@ -18,11 +18,11 @@ limitations under the License.
  * @copyright Apache
  */
 
-#include "./reql/query.h"
+#include "./query.h"
 
-#include "./reql/types.h"
+#include "./types.h"
 
-#include "./reql/core/query.hpp"
+#include "./core/query.hpp"
 
 struct ReQL_s {};
 

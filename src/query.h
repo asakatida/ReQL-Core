@@ -25,8 +25,8 @@ limitations under the License.
 extern "C" {
 #endif
 
-#include "./reql/connection.h"
-#include "./reql/cursor.h"
+#include "./connection.h"
+#include "./cursor.h"
 
 typedef struct ReQL_s ReQL_t;
 
