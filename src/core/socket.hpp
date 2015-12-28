@@ -158,11 +158,11 @@ struct Never_Queue_t final : Lazy_Queue_t<elem_t> {
   virtual bool complete() const override { return true; }
 
   virtual elem_t head() override {
-    throw Error_t(DriverError, "");  // TODO
+    throw_error("");  // TODO
   }
 
   virtual Lazy_Queue_t<elem_t> &tail() override {
-    throw Error_t(DriverError, "");  // TODO
+    throw_error("");  // TODO
   }
 };
 
@@ -193,7 +193,7 @@ struct Once_Queue_t : Lazy_Queue_t<elem_t> {
   virtual bool complete() const override final { return p_complete; }
 
   virtual elem_t head() override final {
-    if (p_complete) throw Error_t(DriverError, "");  // TODO
+    if (p_complete) throw_error("");  // TODO
     p_value = head_impl();
     p_complete = true;
     return p_value;
@@ -202,7 +202,7 @@ struct Once_Queue_t : Lazy_Queue_t<elem_t> {
   virtual elem_t head_impl() = 0;
 
   virtual Lazy_Queue_t<elem_t> &tail() override final {
-    throw Error_t(DriverError, "");  // TODO
+    throw_error("");  // TODO
   }
 
   bool p_complete = false;
@@ -233,7 +233,7 @@ struct Merge_Queue_t : Lazy_Queue_t<elem_t> {
   Lazy_Queue_t<elem_t> right;
 };
 
-template <class socket_e>
+template <class result_t>
 class Socket_t {
 public:
   Socket_t(Producer_t<std::string> &write_queue) : p_write_queue(write_queue) {
@@ -255,7 +255,7 @@ public:
     int sts = 0;
 
     if ((sts = getaddrinfo(addr.c_str(), port.c_str(), &hints, &result)) != 0) {
-      throw socket_e(gai_strerror(sts));
+      throw_error(gai_strerror(sts));
     }
 
     int sock = -1;
@@ -276,7 +276,7 @@ public:
       return sock;
     }
 
-    throw Error_t(DriverError, "");  // TODO
+    throw_error("");  // TODO
   }
 
   template <class addr_t, class port_t>
@@ -333,10 +333,10 @@ public:
         case EBADF:
         case EINTR:
         case EINVAL:{
-          throw Error_t(DriverError, "");  // TODO
+          throw_error("");  // TODO
         }
         default: {
-          throw Error_t(DriverError, "");  // TODO
+          throw_error("");  // TODO
         }
       }
       throw std::exception();  // TODO
@@ -345,7 +345,7 @@ public:
       if (FD_ISSET(i, &_read)) {
         try {
           p_read_queue.push(read(i));
-        } catch (socket_e &) {
+        } catch (std::exception &) {
           FD_SET(i, &_error);
         }
       }
@@ -354,15 +354,14 @@ public:
         if (out) {
           try {
             write(i, out.get());
-          } catch (socket_e &) {
+          } catch (std::exception &) {
             FD_SET(i, &_error);
           }
         }
       }
       if (FD_ISSET(i, &_error)) {
-        int closed_sock;
         for (auto &&__s : p_socks) {
-          closed_sock = i;
+          int closed_sock = i;
           __s.compare_exchange_strong(closed_sock, -1);
         }
         ::close(i);
@@ -374,7 +373,7 @@ public:
     char buffer[READ_BUFFER_SIZE];
     const ssize_t size = recvfrom(sock, buffer, READ_BUFFER_SIZE, MSG_WAITALL, nullptr, nullptr);
     if (size == 0) {
-      throw socket_e("");  // TODO
+      throw_error("");  // TODO
     } else if (size < 0) {
       switch (errno) {
         case EAGAIN: {
@@ -390,10 +389,10 @@ public:
         case ENOTSOCK:
         case EOPNOTSUPP:
         case ETIMEDOUT: {
-          throw Error_t(DriverError, "");  // TODO
+          throw_error("");  // TODO
         }
         default: {
-          throw Error_t(DriverError, "");  // TODO
+          throw_error("");  // TODO
         }
       }
       throw std::exception();
@@ -404,7 +403,7 @@ public:
   void write(int &sock, const std::string &out) {
     const ssize_t size = send(sock, out.c_str(), out.size(), 0);
     if (size == 0) {
-      throw Error_t(DriverError, "");  // TODO
+      throw_error("");  // TODO
     } else if (size < 0) {
       switch (errno) {  // TODO
       }

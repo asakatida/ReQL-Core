@@ -22,6 +22,7 @@ limitations under the License.
 #define REQL_CPP_ERROR_HPP_
 
 #include <exception>
+#include <type_traits>
 
 namespace _ReQL {
 
@@ -31,14 +32,11 @@ enum Error_e {
   RuntimeError
 };
 
+template <class char_t>
 struct Error_t : public std::exception {
-  Error_t(const char *errstr) noexcept;
+  Error_t(const char_t *errstr) noexcept;
 
-  Error_t(const Error_e code, const char *errstr) noexcept;
-
-  Error_t(const wchar_t *errstr) noexcept;
-  
-  Error_t(const Error_e code, const wchar_t *errstr) noexcept;
+  Error_t(const Error_e code, const char_t *errstr) noexcept;
 
   virtual const char* what() const noexcept override;
 
@@ -46,47 +44,57 @@ struct Error_t : public std::exception {
 
   Error_e code() const noexcept;
 
-  bool wide() const noexcept;
+  constexpr static bool wide() noexcept {
+    return std::integral_constant<bool, sizeof(char) < sizeof(char_t)>();
+  }
 
   const Error_e _code = DriverError;
-  const char *_what;
-  const bool _wide = false;
+  const char_t *_what;
 };
 
-Error_t::Error_t(const char *errstr) noexcept :
+template <class char_t>
+Error_t<char_t>::Error_t(const char_t *errstr) noexcept :
   _what(errstr) {}
-
-Error_t::Error_t(const Error_e code, const char *errstr) noexcept :
-  _code(code),
-  _what(errstr) {}
-
-Error_t::Error_t(const wchar_t *errstr) noexcept :
-  _what(reinterpret_cast<const char *>(errstr)),
-  _wide(true) {}
   
-Error_t::Error_t(const Error_e code, const wchar_t *errstr) noexcept :
+template <class char_t>
+Error_t<char_t>::Error_t(const Error_e code, const char_t *errstr) noexcept :
   _code(code),
-  _what(reinterpret_cast<const char *>(errstr)),
-  _wide(true) {}
+  _what(errstr) {}
 
-const char *
-Error_t::what() const noexcept {
-  return _wide ? "unhandled wide error" : _what;
+template <class char_t>
+typename std::enable_if<sizeof(char) == sizeof(char_t), const char *>::value
+Error_t<char_t>::what() const noexcept {
+  return _what;
 }
 
+template <class char_t>
+typename std::enable_if<sizeof(char) < sizeof(char_t), const char *>::value
+Error_t<char_t>::what() const noexcept {
+  return "unhandled wide error";
+}
+
+template <class char_t>
 const wchar_t *
-Error_t::wwhat() const noexcept {
-  return _wide ? reinterpret_cast<const wchar_t *>(_what) : L"bad wide error";
+Error_t<char_t>::wwhat() const noexcept {
+  return wide() ? _what : L"bad wide error";
 }
 
+template <class char_t>
 Error_e
-Error_t::code() const noexcept {
+Error_t<char_t>::code() const noexcept {
   return _code;
 }
-  
-bool
-Error_t::wide() const noexcept {
-  return _wide;
+
+template <class char_t>
+void
+throw_error(const char_t *errstr) {
+  throw Error_t<char_t>(errstr);
+}
+
+template <class char_t>
+void
+throw_error(const Error_e code, const char_t *errstr) {
+  throw Error_t<char_t>(code, errstr);
 }
 
 }  // namespace _ReQL

@@ -56,11 +56,11 @@ public:
     auto response = sock.read(_sock);
 
     if (response.size() != 8) {
-      throw Error_t(DriverError, "");  // TODO
+      throw_error("");  // TODO
     }
 
     if (!(response == "SUCCESS")) {
-      throw Error_t(DriverError, "");  // TODO
+      throw_error("");  // TODO
     }
   }
 
