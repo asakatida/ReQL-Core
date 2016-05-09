@@ -32,6 +32,7 @@ limitations under the License.
 #include "./core/term.hpp"
 
 #include <map>
+#include <numeric>
 #include <string>
 #include <vector>
 

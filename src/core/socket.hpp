@@ -30,7 +30,11 @@ limitations under the License.
 #include <list>
 #include <memory>
 
-#ifdef __MINGW32__
+#if defined(__MINGW32__)
+#include <winsock2.h>
+#include <ws2tcpip.h>
+#include <io.h>
+#elif defined(_WIN32)
 #include <winsock2.h>
 #include <ws2tcpip.h>
 #include <io.h>
