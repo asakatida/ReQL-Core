@@ -26,7 +26,12 @@ extern "C" {
 #endif
 
 typedef struct ReQL_Cursor_s ReQL_Cursor_t;
+
+struct ReQL_Cursor_s {};
+
 typedef struct ReQL_Result_s ReQL_Result_t;
+
+struct ReQL_Result_s {};
 
 typedef enum {
   ReQL_Error,
@@ -63,7 +68,7 @@ extern void
 reql_result_parse(ReQL_Result_t *result, ReQL_Parse cb, void *obj);
 
 extern ReQL_Result_t *
-reql_result_get(ReQL_Result_t *result, char *key, unsigned long key_size);
+reql_result_get(ReQL_Result_t *result, const char *key, size_t key_size);
 
 extern ReQL_Result_t **
 reql_result_keys(ReQL_Result_t *result);
@@ -80,7 +85,7 @@ reql_result_to_bool(ReQL_Result_t *result);
 extern double
 reql_result_to_number(ReQL_Result_t *result);
 
-extern char *
+extern const char *
 reql_result_to_string(ReQL_Result_t *result);
 
 #ifdef __cplusplus

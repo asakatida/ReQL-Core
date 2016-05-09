@@ -25,47 +25,93 @@ limitations under the License.
 extern "C" {
 #endif
 
+#include <stdint.h>
+
 #include "./connection.h"
 #include "./cursor.h"
 
 typedef struct ReQL_s ReQL_t;
 
-typedef ReQL_t *(*ReQL_Function)(ReQL_t **args, const unsigned int nargs);
+struct ReQL_s {
+  union {
+    struct {
+      size_t size;
+      ReQL_t **utf8;
+    } array;
+    int boolean;
+    double number;
+    struct {
+      size_t size;
+      ReQL_t **utf8;
+    } object;
+    struct {
+      size_t size;
+      const uint8_t *utf8;
+    } string;
+  } data;
+};
+
+typedef ReQL_t *(*ReQL_Function)(const size_t nargs, ReQL_t **args);
+
+extern void
+reql_array(ReQL_t *term, ReQL_t **val);
 
 extern ReQL_t *
-reql_array(ReQL_t **val);
+reql_array_new(ReQL_t **val);
+
+extern void
+reql_bool(ReQL_t *term, const int val);
 
 extern ReQL_t *
-reql_bool(const int val);
+reql_bool_new(const int val);
+
+extern void
+reql_c_string(ReQL_t *term, const char *val);
 
 extern ReQL_t *
-reql_c_string(const char *val);
+reql_c_string_new(const char *val);
 
-extern int
-_reql_release(ReQL_t *reql);
-
-#define reql_release(val) if (_reql_release(val) != 0) { (val) = NULL; }
+extern void
+reql_release(ReQL_t *reql);
 
 extern void
 reql_retain(ReQL_t *reql);
 
-extern ReQL_t *
-reql_function(ReQL_Function val, const unsigned int nargs);
+extern void
+reql_function(ReQL_t *term, ReQL_Function val, const unsigned int nargs);
 
 extern ReQL_t *
-reql_json_object(ReQL_t **val);
+reql_function_new(ReQL_Function val, const unsigned int nargs);
+
+extern void
+reql_json_object(ReQL_t *term, ReQL_t **val);
 
 extern ReQL_t *
-reql_null(void);
+reql_json_object_new(ReQL_t **val);
+
+extern void
+reql_null(ReQL_t *term);
 
 extern ReQL_t *
-reql_number(const double val);
+reql_null_new(void);
+
+extern void
+reql_number(ReQL_t *term, const double val);
 
 extern ReQL_t *
-reql_string(const char *val, const unsigned long size);
+reql_number_new(const double val);
+
+extern void
+reql_string(ReQL_t *term, const char *val, const size_t size);
+
+extern ReQL_t *
+reql_string_new(const char *val, const size_t size);
+
+extern void
+reql_run(ReQL_Cursor_t *cursor, ReQL_t *query, ReQL_t *kwargs, ReQL_Connection_t *conn);
 
 extern ReQL_Cursor_t *
-reql_run(ReQL_t *query, ReQL_t *kwargs, ReQL_Connection_t *conn);
+reql_run_new(ReQL_t *query, ReQL_t *kwargs, ReQL_Connection_t *conn);
 
 extern int
 reql_noreply(ReQL_t *query, ReQL_t *kwargs, ReQL_Connection_t *conn);

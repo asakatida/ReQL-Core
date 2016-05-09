@@ -24,8 +24,6 @@ limitations under the License.
 
 #include "./core/query.hpp"
 
-struct ReQL_s {};
-
 extern ReQL_t *
 reql_array(ReQL_t **val) {
   (void)val;
@@ -44,10 +42,9 @@ reql_c_string(const wchar_t *val) {
   return nullptr;
 }
 
-extern int
-_reql_release(ReQL_t *reql) {
+extern void
+reql_release(ReQL_t *reql) {
   (void)reql;
-  return -1;
 }
 
 extern void

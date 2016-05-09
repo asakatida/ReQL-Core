@@ -24,10 +24,6 @@ limitations under the License.
 
 #include "./core/connection.hpp"
 
-struct ReQL_Cursor_s {};
-
-struct ReQL_Result_s {};
-
 extern void
 reql_cursor_close(ReQL_Cursor_t *cur) {
   (void)cur;
@@ -85,7 +81,7 @@ reql_result_to_number(ReQL_Result_t *result) {
   return 0;
 }
 
-extern char *
+extern const char *
 reql_result_to_string(ReQL_Result_t *result) {
   (void)result;
   return nullptr;

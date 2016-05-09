@@ -27,6 +27,8 @@ extern "C" {
 
 typedef struct ReQL_Connection_s ReQL_Connection_t;
 
+struct ReQL_Connection_s {};
+
 extern ReQL_Connection_t *
 reql_connect(const unsigned long timeout, char *address, char *port, char *key, const unsigned long key_size);
 
