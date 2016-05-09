@@ -32,70 +32,25 @@ enum Error_e {
   RuntimeError
 };
 
-template <class char_t>
 struct Error_t : public std::exception {
-  Error_t(const char_t *errstr) noexcept;
+  Error_t(const char *errstr) noexcept :
+  _what(errstr) {}
 
-  Error_t(const Error_e code, const char_t *errstr) noexcept;
+  Error_t(const Error_e code, const char *errstr) noexcept :
+    _code(code),
+    _what(errstr) {}
 
-  virtual const char* what() const noexcept override;
+  virtual const char* what() const noexcept override {
+    return _what;
+  }
 
-  const wchar_t* wwhat() const noexcept;
-
-  Error_e code() const noexcept;
-
-  constexpr static bool wide() noexcept {
-    return std::integral_constant<bool, sizeof(char) < sizeof(char_t)>();
+  Error_e code() const noexcept {
+    return _code;
   }
 
   const Error_e _code = DriverError;
-  const char_t *_what;
+  const char *_what;
 };
-
-template <class char_t>
-Error_t<char_t>::Error_t(const char_t *errstr) noexcept :
-  _what(errstr) {}
-  
-template <class char_t>
-Error_t<char_t>::Error_t(const Error_e code, const char_t *errstr) noexcept :
-  _code(code),
-  _what(errstr) {}
-
-template <class char_t>
-typename std::enable_if<sizeof(char) == sizeof(char_t), const char *>::value
-Error_t<char_t>::what() const noexcept {
-  return _what;
-}
-
-template <class char_t>
-typename std::enable_if<sizeof(char) < sizeof(char_t), const char *>::value
-Error_t<char_t>::what() const noexcept {
-  return "unhandled wide error";
-}
-
-template <class char_t>
-const wchar_t *
-Error_t<char_t>::wwhat() const noexcept {
-  return wide() ? _what : L"bad wide error";
-}
-
-template <class char_t>
-Error_e
-Error_t<char_t>::code() const noexcept {
-  return _code;
-}
-
-template <class char_t>
-void
-throw_error(const char_t *errstr) {
-  throw Error_t<char_t>(errstr);
-}
-
-template <class char_t>
-void
-throw_error(const Error_e code, const char_t *errstr) {
-  throw Error_t<char_t>(code, errstr);
-}
 
 }  // namespace _ReQL
 
