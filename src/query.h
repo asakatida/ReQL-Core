@@ -34,16 +34,10 @@ typedef struct ReQL_s ReQL_t;
 
 struct ReQL_s {
   union {
-    struct {
-      size_t size;
-      ReQL_t **utf8;
-    } array;
+    ReQL_t **array;
     int boolean;
     double number;
-    struct {
-      size_t size;
-      ReQL_t **utf8;
-    } object;
+    ReQL_t **object;
     struct {
       size_t size;
       const uint8_t *utf8;
@@ -78,10 +72,10 @@ extern void
 reql_retain(ReQL_t *reql);
 
 extern void
-reql_function(ReQL_t *term, ReQL_Function val, const unsigned int nargs);
+reql_function(ReQL_t *term, ReQL_Function val, const size_t nargs);
 
 extern ReQL_t *
-reql_function_new(ReQL_Function val, const unsigned int nargs);
+reql_function_new(ReQL_Function val, const size_t nargs);
 
 extern void
 reql_json_object(ReQL_t *term, ReQL_t **val);
