@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 2.8.8)
 
 project(test)
 
@@ -137,5 +137,7 @@ set(MOC_HEADERS
 )
 
 add_executable(libReQLtest ${SOURCES} ${MOC_HEADERS})
+
+add_custom_target(spec COMMAND ./libReQLtest DEPENDS libReQLtest)
 
 list(APPEND CMAKE_CXX_FLAGS "-std=c++14 -O0 -Werror -Weverything -Wno-padded -Wno-c++98-compat -I../src -I. -Wno-exit-time-destructors ${CMAKE_CXX_FLAGS}")
